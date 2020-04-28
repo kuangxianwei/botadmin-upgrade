@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>{dede:global.cfg_webname/}</title>
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<meta name="Author" content="{dede:global.cfg_basehost/}"/>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+<LINK href="{dede:global.cfg_templets_skin/}/style/css/style.css" rel=stylesheet>
+<LINK href="{dede:global.cfg_templets_skin/}/style/css/jbox.css" rel=stylesheet>
+<meta http-equiv="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}">
+<script type="text/javascript">if(window.location.toString().indexOf('pref=padindex') != -1){}else{if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){if(window.location.href.indexOf("?mobile")<0){try{if(/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){window.location.href="{dede:global.cfg_waphost/}";}else if(/iPad/i.test(navigator.userAgent)){}else{}}catch(e){}}}}</script>
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jquery.js"></script>
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jquery.jBox-2.3.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/menu.js"></script>
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/banner.js"></script>
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jquery.lazyload.js"></script>
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jquery.jslides.js"></script>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/PIE.js"></script>
+<![endif]-->
+<script>
+$(function() {
+    if (window.PIE) {
+        $('.more a,.case li,.ipro li').each(function() {
+            PIE.attach(this);
+        });
+    }
+});
+</script>
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="clear"></div>
+<div class="indexbg">
+  <div class="notice">
+    <div class="noticebg">
+      <div></div>
+    </div>
+    <div class="main">
+      <marquee scrollamount="2" scrolldelay="5" onMouseOut="this.start()" onMouseOver="this.stop()">
+      公告：{dede:global.cfg_about/}
+      </marquee>
+      <div class="tel">
+        <p>服务热线</p>
+        <font>13922352985</font> </div>
+    </div>
+  </div>
+  <div class="main service">
+    <div class="ititle">
+    <p>{dede:type typeid='1'}[field:typename/]{/dede:type}</p>
+      <font>Service</font> </div>
+    <div class="slider"> <span id="left" class="end"><img src="{dede:global.cfg_templets_skin/}/style/images/left.gif"/></span><span id="right"><img src="{dede:global.cfg_templets_skin/}/style/images/right.gif"/></span> </div>
+    <div class="ipro" id="ipro2">
+      <div class="main">
+        <ul class="">
+          {dede:arclist row='8' titlelen='36' typeid='1'}
+          <li> <a href="[field:arcurl/]" title="[field:title/]"><img src="[field:litpic/]" width="160" height="120"/>
+            <p class="iproname">[field:title/]</p>
+            </a> </li>
+         {/dede:arclist}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="case">
+    <div class="casetop"> </div>
+    <div class="ititle">
+      <p>{dede:type typeid='2'}[field:typename/]{/dede:type}</p>
+      <font>case</font> </div>
+    <ul class="main">
+      {dede:arclist row='6' titlelen='36' typeid='2'}
+      <li> <a href="[field:arcurl/]"><img src="[field:litpic/]" width="318" height="239"/></a> <a href="[field:arcurl/]" class="protxt">[field:title/]</a> </li>
+      {/dede:arclist}
+    </ul>
+    <p class="more">{dede:type typeid='2'}<a href="[field:typelink /]"> 查看更多 +</a>{/dede:type}</p>
+  </div>
+  <div class="main newsul">
+    <div class="ititle">
+      <p>{dede:type typeid='3'}[field:typename/]{/dede:type}</p>
+      <font>NEWS</font> </div>
+    <ul id="new-li">
+      {dede:arclist row='5' titlelen='80' typeid='3'}
+      <li><a href="[field:arcurl/]">
+        <p class="news_t">[field:title/]</p>
+        <p>[field:description function='cn_substr(@me,100)'/]...</p>
+        </a></li>
+        {/dede:arclist}
+    </ul>
+    <p class="more">{dede:type typeid='3'}<a href="[field:typelink /]"> 查看更多 +</a>{/dede:type}</p>
+  </div>
+  <div class="qlink">
+    <div class="ititle">
+      <p>友情链接</p>
+      <font>我们服务过的客户，我们维系到今天的朋友...</font> </div>
+    <ul class="main qlinkul">
+        {dede:flink row='50'/}
+    </ul>
+  </div>
+</div>
+<div class="clear"></div>
+{dede:include filename="foot.htm"/}
+<script type="text/javascript">
+    var Aul = document.getElementById('new-li');
+    var Ali = Aul.getElementsByTagName('li');
+    for(var i=0; i<Ali.length; i++){
+            if(i%2==0){
+                Ali[i].className='newseven';
+
+                }
+            else{
+                Ali[i].className='newsodd';
+                }
+        }
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<link href="{dede:global.cfg_templets_skin/}/css/css.css" rel="stylesheet" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/css/common.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/DD_belatedPNG.js" ></script>
+<script type="text/javascript">
+DD_belatedPNG.fix('img,.logo,a:hover,li.tab a,.curr a,div,p,#cont1 a');
+</script>
+<![endif]-->
+</head>
+<body>
+<div id="head">
+	<div class="head">
+		<div class="top">
+			<div class="logo"><a href="/" title="{dede:global.cfg_titlelast/}"><img src="{dede:global.cfg_templets_skin/}/images/logo.gif" width="440" height="67" alt="{dede:global.cfg_titlelast/}" /></a></div>
+			<div class="shoucang"><a href="#" title="中文">中文</a> | <a href="#" title="ENGLISH">ENGLISH</a></div>
+			<div class="dianhua"><img src="{dede:global.cfg_templets_skin/}/images/tel.gif" width="300" height="35" alt="客服热线" /></div>
+		</div>
+		</div></div>
+		<div class="memutop">
+		<div class="menu">
+			<ul>
+				<li><a href="/" title="首页">首页/Home</a></li>
+				{dede:channel type='top' row='8' currentstyle="<li><a href='~typelink~' class='hover' title='~typename~' ~rel~>~typename~</a></li>"}
+				<li><a href='[field:typeurl/]' title='[field:typename/]' [field:rel/]>[field:typename/]</a></li>
+				{/dede:channel}
+			</ul>
+		</div></div>

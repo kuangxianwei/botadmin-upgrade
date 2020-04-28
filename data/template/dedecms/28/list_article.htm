@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/style/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/style.css" rel="stylesheet" media="screen" type="text/css" />
+<body>
+<div class="container">
+ {dede:include filename="header.htm"/}
+   <div class="all">
+   {dede:include filename="side.htm"/}
+	<div class="right">
+	<div class="about">
+		<div class="aboutbt over">
+		<h4 class="fl">{dede:field.typename/}</h4>
+		<span class="more">当前位置：{dede:field name='position'/}>>  列表</span></div>
+		<div class="sub_aboutcon">
+		<div class="list_news">
+		<ul>
+	{dede:list pagesize='20'}
+					<li><span>[field:pubdate function="MyDate('y-m-d',@me)"/]</span><a href="[field:arcurl/]">[field:title/]</a></li>
+					{/dede:list}
+	</ul>
+	</div>
+					<div class="pageNavi">
+						<ul>
+							{dede:pagelist listitem="index,end,pre,next,pageno" listsize="5"/}
+						</ul>
+					</div>
+		</div>
+		<div class="aboutbot"></div>
+	</div>
+	<div class="clear"></div>
+	</div>
+{dede:include filename="footer.htm"/}
+</div>
+</body>
+</html>

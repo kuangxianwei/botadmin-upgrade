@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}"/>
+<meta name="description" content="{dede:global.cfg_description function='Html2Text(@me)'/}"/>
+{dede:include filename="ys.htm"/}
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<code class="wrap"><code class="bigamy">
+    <code class="container">
+        <h3 class="text-center">
+        {dede:type typeid='1'}
+        [field:typename/]
+        {/dede:type}
+        </h3>
+        <code class="about-grids">
+        {dede:arclist typeid='1' titlelen='100' row='3'}
+            <code class="col-md-4 about-grid">
+                <img src="[field:litpic/]" alt="[field:title/]" class="img-responsive" style='width:100%'>
+                <h4>[field:title/]</h4>
+                <kbd style='height:50px;overflow:hidden'>[field:description/]</kbd>
+            </code>
+{/dede:arclist}
+            <code class="clearfix"></code>
+        </code>
+    </code>
+</code>
+<code class="carlet">
+    <code class="container">
+        <h3>
+        {dede:type typeid='2'}
+        [field:typename/]
+        {/dede:type}</h3>
+        <code class="team-info">
+        {dede:arclist typeid='2' titlelen='100' row='4'}
+            <code class="col-md-3 team-grids">
+                <a href="[field:arcurl/]" title="[field:title/]">
+                    <img src="[field:litpic/]" alt="[field:title/]" class="img-responsive">
+                    <code class="captn">
+                        <h4>[field:title/]</h4>
+                        <kbd>[field:description/]</kbd>
+                    </code>
+                </a>
+            </code>
+{/dede:arclist}
+            <code class="clearfix"> </code>
+        </code>
+    </code>
+</code><code class="demur">
+    <code class="container">
+        <code class="content-welcome">
+            <code class="col-md-4 red">
+            {dede:type typeid='3'}
+                <a href="[field:typeurl/]">
+                    <img src="[field:global.cfg_templets_skin/]/images/ad-a-01.jpg" class="img-responsive" alt="[field:global.daiyun_seo1/][field:typename/]">
+                </a>
+            {/dede:type}
+            </code>
+            <code class="col-md-8 come">
+                <code class=" welcome">
+                {dede:type typeid='3'}
+                    <h2>[field:typename/]</h2>
+                {/dede:type}
+                    <kbd>
+  {dede:sql sql='Select content from dede_arctype where id=4'}
+                       [field:content  function='( strlen(Html2text("@me"))>600 ?  cn_substr(Html2text("@me"),600)."……" : "@me" ) '/]
+                    {/dede:sql}
+                    </kbd>
+                </code>
+            </code>
+            <code class="clearfix"></code>
+        </code>
+    </code>
+</code><code class="grain">
+    <code class="container">
+    {dede:type typeid='4'}
+        <h3>[field:typename/]</h3>
+        {/dede:type}
+        <code class="blog-grids">
+        {dede:arclist typeid='4' titlelen='100' row='4'}
+                        <code class="blog-grid" style='float:left;margin-bottom:50px;text-align:left'>
+                <img src="[field:litpic/]" alt="[field:title/]" class="img-responsive zoom-img" style='float:left;width:30%;margin-right:10px'>
+                <h4 style='float:left;width:65%'><a href="[field:arcurl/]" title="[field:title/]">[field:title/]</a></h4>
+                <bdo class="date" style='float:left'>[field:pubdate  function="MyDate('m-d',@me)"/] by <a >[field:writer/]</a> [field:click/]点击</bdo>
+                <bdo style='float:left;width:65%'>[field:description/]</bdo>
+            </code>
+        {/dede:arclist}
+            <code class="clearfix"></code>
+        </code>
+    </code>
+</code><code class="orpine" style='padding:0px'>
+    <code class="container">
+    {dede:type typeid='5'}
+        <h6>[field:typename/]</h6>
+    {/dede:type}
+        <code class="gallery-bottom">
+            {dede:arclist typeid='5' titlelen='100' row='6'}
+            <code class="view view-ninth" style='padding-top:0px'>
+                <a href="[field:arcurl/]" class="b-link-stripe b-animate-go  swipebox" title="[field:title/]">
+                    <img src="[field:litpic/]" alt="[field:title/]" class="img-responsive" style='width:330px;height:215px'>
+                    <code class="mask mask-1"> </code>
+                    <code class="mask mask-2"> </code>
+                </a><code class="content"><a href="[field:arcurl/]" class="b-link-stripe b-animate-go  swipebox" title="[field:title/]">
+                <h2>[field:title/]</h2>
+                <bdo>[field:description/]</bdo>
+            </a>
+                <a href="[field:arcurl/]" class="info" alt="[field:title/]">Read More</a>
+            </code>
+            </code>
+            {/dede:arclist}
+            <code class="clearfix"> </code>
+        </code>
+    </code>
+</code></code>
+<code class="footer-1">
+    <code class="ghilgai">
+    {dede:channel type='top'}
+        <a href="[field:typeurl/]" title="[field:typename/]">[field:typename/]</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        {/dede:channel}
+    </code>
+    <code class="ghilgai">
+    <b>友情链接：</b>{dede:flink row='24'}[field:link/] {/dede:flink}
+    </code>
+    <code class="elegant">
+        <a href="{dede:global.cfg_cmsurl/}/"><b>{dede:global.cfg_indexname/}</b></a>提供的内容均由 {dede:global.cfg_basehost/}所创，如要转载，请标明出处。
+    <br />备案信息{dede:global.cfg_beian/}
+    </code>
+</code>
+</body>
+</html>

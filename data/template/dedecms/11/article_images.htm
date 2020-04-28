@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta name="applicable-device" content="pc">
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<title>{dede:field name='title'/}_{dede:global.cfg_titlelast/}</title>
+<meta name="description" content="{dede:global.cfg_description/}">
+<meta name="keywords" content="{dede:global.cfg_keywords/}">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/reset.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/layout.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/zerogrid.css">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/responsive.css">
+  <!--[if lt IE 9]>
+  	<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/html5.js"></script>
+	<style type="text/css">
+		.bg{ behavior: url({dede:global.cfg_templets_skin/}/js/PIE.htc); }
+	</style>
+  <![endif]-->
+</head>
+<body id="page3">
+	<div class="body1">
+	<div class="body2">
+	<div class="body5">
+		<div class="main zerogrid">
+<!-- header -->
+			<header>
+				{dede:include filename="head.htm"/}
+			</header>
+<!-- header end-->
+		</div>
+	</div>
+	</div>
+	</div>
+	<div class="body3">
+		<div class="main zerogrid">
+<!-- content -->
+			<article id="content">
+				<div class="neirong">
+<div class="neirongzuo">
+<h2 class="under3">{dede:field.title/}</h2>
+{dede:field.body/}
+</div>
+<div class="neirongyou">
+<div class="title">本类热销</div>
+<ul>
+{dede:arclist row=5 titlelen='20' imgwidth='220' imgheight='146' type='image'}
+<li><A href="[field:arcurl/]" title="[field:fulltitle/]">[field:image/]</A>
+<a href="[field:arcurl/]" title="[field:fulltitle/]">[field:title/]</a></li>
+{/dede:arclist}
+	</ul>
+ <span>{dede:type}<a href="[field:typeurl/]">返回[field:typename/]</a>{/dede:type}</span>
+</div>
+<div class="sxwenz">
+<b>{dede:prenext get='pre'/} {dede:prenext get='next'/}</div></b>
+</div>
+			</article>
+		</div>
+	</div>
+	<div class="body4">
+		{dede:include filename="foot.htm"/}
+</body>
+</html>

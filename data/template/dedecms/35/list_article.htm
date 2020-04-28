@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> {dede:field.typename/} - {dede:global.cfg_titlelast/} </title>
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<link href="/template/j007/lib/cms.css?4.1.0_0" rel="stylesheet" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/style/style.css" rel="stylesheet" type="text/css" />
+<!--[if lt IE 7]>
+		<script type="text/javascript" src="/template/j007/lib/unitpngfix.js"></script>
+<![endif]-->
+<style type="text/css">
+#memoryticker{
+  width:184px;
+  height:218px;
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+<div id="header" style="background:url({dede:global.cfg_templets_skin/}/images/bgimg0101.jpg) no-repeat left top; position:relative;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="top">
+  <tr>
+	<td class="logo"><img src="{dede:global.cfg_templets_skin/}/images/20141013040104.png" alt="东光县盛强机电设备有限公司"/></td>
+	<td class="topnav">
+	<a href="/data/sitemap.html" title="网站地图">网站地图</a>|
+	<a href="/data/rss.xml" title="RSS订阅">RSS订阅</a>
+	<br />
+	</td>
+  </tr>
+</table>
+<div style="padding-top:81px;">
+<div class="menu">
+<a href="/"><span>首  页</span></a>
+{dede:channel type ='top'}
+<a href="[field:typelink/]"><span>[field:typename/]</span></a>
+{/dede:channel}
+<h6 class="clear"></h6>
+</div>
+</div>
+</div>
+<div id="imain">
+<div id="left">
+<div class="con2">
+<div class="title1"><div class="place">您现在的位置:{dede:field name='position'/}
+</div><h2>{dede:field name='typename'/}<span>News</span></h2></div>
+<div class="container">
+<div class="news_list">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  {dede:list pagesize ='15'}
+  <tr>
+	<td width="76%" ><a href="[field:arcurl/]" target="">[field:title/]</a></td>
+	<td width="24%">[field:pubdate function="MyDate('Y-m-d',@me)"/]</td>
+  </tr>
+{/dede:list}
+  <tr>
+  	<td colspan="2"><div class="pages"><ul class=pagelist>{dede:pagelist listitem="info,index,end,pre,next,pageno,option"listsize="3"/}</ul></div>  </td>
+  </tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="right">
+<div class="con1">
+<div class="title"><h2>产品列表<span>Products</span></h2></div>
+<div class="submenu">
+<dl>
+ {dede:channel		typeid='2'		type ='son'		}
+		<dt><a href="[field:typelink/]" target="">[field:typename/]</a></dt>
+{/dede:channel}
+</dl>
+</div>
+</div>
+<div class="con4" style="background:#ffffff url(/template/j007/images/contact.gif) no-repeat 25px bottom;">
+<div class="title"><h2>联系我们<span>Contact Us</span></h2></div>
+<div class="icontact"><p>联系人:穆经理</p>
+	<p>手机: 13833981717<br>
+	&#160; &#160; &#160; &#160; 15231767418<br>
+	&#160; &#160; &#160; &#160; 13833976920</p>
+	<p>电话: 0317-7819686</p>
+	<p>传真: 0317-7819686</p>
+	<p>网址：{dede:global.cfg_basehost/}</p>
+	<p>地址: {dede:global.cfg_webname/}</p>
+</div>
+</div>
+</div>
+<h6 class="clear"></h6>
+</div>
+<div id="footer">
+<div class="footnav">
+<div class="copyright"><div> Copyright&#160; 东光县盛强机电设备有限公司专业生产<a href="/" target="_blank">{dede:global.cfg_webname/}</a>等产品，欢迎来到订购.
+	<br>
+	</div></div>
+</div>
+</body>
+</html>

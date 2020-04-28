@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wb="http://open.weibo.com/wb">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<link rel="stylesheet" type="text/css" media="all" href="{dede:global.cfg_templets_skin/}/style/1.css"/>
+<style type="text/css">
+@media screen and (min-width:1366px){.c-con{height:140px;}}
+</style>
+<style type="text/css">body{max-width:1100px; _width:1100px; margin:auto;}
+.post_box {width:95%; height:auto;}.calendar td{padding:5px 7px;}@media screen and (max-width:960px){body{width:100%; margin:auto;}.post_box {width:100%; height:auto;}.main {width:100% !important;}.side {width:25%;} .page_php {width:72% !important;} #content {width: 75%;}}
+</style>
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+{dede:include filename="head.htm"/}
+<div class="cls"></div>
+</div>
+<div id="container">
+<div id="content" role="main" style="width:96%">
+    {dede:arclist   pagesize='15'  row='15' imgwidth="196" imgheight="140"  titlelen='50' }
+    <article class="post_box">
+    <div class="c-top" id="post">
+        <div class="datetime">
+            [field:pubdate function="MyDate('Y',@me)"/]
+            <br>
+            [field:pubdate function="MyDate('m-d',@me)"/]
+        </div>
+        <header class="tit">
+            <h2 class="h1">
+                <a href="[field:arcurl/]" title="[field:title/]" rel="bookmark" target="_blank">[field:title/]</a>
+            </h2>
+            <aside class="iititle"></aside>
+        </header>
+    </div>
+    <div class="c-con">
+        <a href="[field:arcurl/]" class="disp_a" rel="bookmark" title="[field:title/]" target="_blank">
+<li>[field:image/]</li>
+</a>
+[field:description/]...
+        <a href="[field:arcurl/]" class="more-link" target="_blank">阅 读 全 部 &gt;</a>
+    </div>
+    </article>
+    {/dede:arclist}
+                <div class="dede_pages"><ul class=pagelist>{dede:pagelist listitem="info,index,end,pre,next,pageno,option"listsize="1"/}</ul></div>
+</div>
+</div>
+{dede:include filename="right.htm"/}
+    <script type="text/javascript">loading('78%',350)</script><div class="cls"></div></section><!--无觅插件-->
+<!--结束 无觅插件-->
+{dede:include filename="footer.htm"/}
+</body>
+</html>

@@ -1,0 +1,27 @@
+织梦DEDECMS仿站模板第三期-蓝色大气企业站模板，适合工业技术产品类的企业。
+
+需要改进和不完善的地方，联系拽拽免费帮你搞定。老规矩：不要删掉友链里面的链接，算是对拽拽的支持了。
+拽拽将免费提供技术支持，解决一切问题。百度“威海SEO”第一个就是拽拽的。
+
+本套模板截图演示：http://www.weihaiseo.com/seo-449.html
+
+本模板基于DEDE Cms 5.7 utf-8设计，5.5以上的版本应该都能使用。建议直接下载官方v5.7 utf-8版，如果是GBK请自行转换编码。
+使用介绍：
+1.把文件夹lanse放到DEDE程序templets目录
+2.文章列表模板list_article.htm
+文章内容模板article_article.htm 以上两个属于默认，重点是下面，看好。
+3.产品列表模板list_product.htm
+产品内容模板同文章内容模板 即article_article.htm
+4.建好栏目，系统设置里设置default为lanse，然后生成首页那里同样设置default为lanse，更新缓存，全站生成即可使用！
+
+本模板对SEO的考虑一如既往的很到位，相信用这套模板，收录和用户体验是肯定不错的！有问题需要帮助，欢迎大家到威海SEO拽拽博客交流。
+
+往期回顾：
+每周推出一款免费DEDE模板： http://www.weihaiseo.com/seo-348.html
+第一期仿卢松松博客模板预告+介绍： http://www.weihaiseo.com/seo-355.html
+仿卢松松博客模板下载 地址：http://www.weihaiseo.com/moban/lusongsong.rar
+A5站长网分流下载：http://down.admin5.com/moban/76009.html
+
+第二期：大气绿色企业站模板下载：http://www.weihaiseo.com/seo-401.html
+
+A5下载地址：http://down.admin5.com/moban/76074.html

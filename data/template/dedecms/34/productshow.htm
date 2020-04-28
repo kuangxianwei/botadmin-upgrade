@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{dede:field.typename/} - {dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/images/Content.css" media="all" />
+<!--[if IE 6]>
+<script src="{dede:global.cfg_templets_skin/}/images/iepng.js" type="text/javascript" charset="gb2312"></script>
+<script type="text/javascript">EvPNG.fix('div,ul,img,li,input,form,a,h1,h3,h2,h4,h5,h6,span');</script>
+<![endif]-->
+<script type="text/javascript">
+function killerrors(){return true;}
+window.onerror=killerrors;
+</script>
+</head>
+
+<body>
+<!-- 头部内容开始 -->
+{dede:include filename='head1.htm'/}
+<div id="about_nav" class="clearfix">
+  <div class="tit">
+    <h1>产品与服务</h1>
+  </div>
+  <ul class="clearfix">
+   {dede:channel  type='son' row='8' currentstyle="<li class='NoBg'><a href='~typelink~' title='~typename~' class='currclass'><span>~typename~</span></a> </li>"}
+<li><a href="[field:typeurl/]" title="[field:typename/]" target="_blank"><span>[field:typename/]</span></a></li>
+{/dede:channel}
+  </ul>
+</div>
+<div id="content">
+  <div class="box clearfix">
+    <div class="left">
+      <div class="tit clearfix">
+        <div class="dingzhi"></div>
+        <h1>{dede:field.title/}</h1>
+        <div class="info clearfix">作者：{dede:field.writer/}  来自：{dede:field.source/} 发布时间：{dede:field name='pubdate' function='strftime("%Y-%m-%d","@me")' /} 浏览：({dede:field.click/}) <a href="javascript:window.print()">打印此文</a></div>
+        <!--div class="key">标签：<a href="/Search/?wd=政府网站">政府网站</a>&nbsp;<a href="/Search/?wd=模板">模板</a>&nbsp;</div-->
+      </div>
+      <div class="intro">测试</div>
+      <div class="content clearfix">
+        <div id="MyContent">
+          {dede:field.body/}
+        </div>
+        <div class="about clearfix">{dede:field.description/}</div>
+      </div>
+      <div class="newsRel clearfix"> {dede:prenext get='pre'/}<br />
+        {dede:prenext get='next'/}</div>
+    </div>
+    {dede:include filename='right.htm'/}
+  </div>
+</div>
+<div class="clear20"></div>
+<!-- 主体内容结束 -->
+<!-- 尾部内容开始 -->
+{dede:include filename='foot.htm'/}
+<!-- 尾部内容结束 -->
+<div style="display: none;">
+  <script src="http://s19.cnzz.com/z_stat.php?id=1000476702&web_id=1000476702" language="JavaScript"></script>
+</div>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/images/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/images/common.js"></script>
+<script type="text/javascript">jQuery(".menu ul li").eq(1).addClass("current");</script>
+</body>
+</html>
+<!-- 在线客服开始 -->
+{dede:include filename='kefu.htm'/}
+<!-- 在线客服结束 -->
