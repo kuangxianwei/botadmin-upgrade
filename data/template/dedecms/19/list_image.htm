@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<TITLE>{dede:field.seotitle/}_{dede:global.cfg_titlelast/}</TITLE>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/css/style.css" />
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jQuery1.7.2.js" ></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/dropdown.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/hd2.js"></script>
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="mn">
+  <div class="indexmn"> {dede:include filename="left.htm"/}
+    <div class="in5">
+      <div class="neir"><span>当前位置：{dede:field name='position'/}</span><strong>{dede:field name='typename'/}</strong></div>
+      <div class="list03d">
+        <ul>
+          {dede:list pagesize='12' titlelen='25'}
+          <li><a href="[field:arcurl/]"><img src="[field:litpic/]" border="0" /></a>
+            <p><a href="[field:arcurl/]">[field:title /]</a></p>
+          </li>
+          {/dede:list}
+          <div style="clear:both"></div>
+        </ul>
+        <div style="clear:both"></div>
+      </div>
+      <div class="pag">{dede:pagelist listsize='4' listitem='index pre pageno next end '/}</div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+</div>
+{dede:include filename="foot.htm"/}
+</body>
+</html>

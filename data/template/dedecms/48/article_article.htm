@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{dede:field.title/}-{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/css/style.css" rel="stylesheet" media="screen" type="text/css" />
+</head>
+<body>
+<div id="wrap">
+{dede:include filename="head.htm"/}
+<div class="banner"><img src="{dede:global.cfg_templets_skin/}/images/banner_news.jpg" alt="{dede:type}[field:typename /]{/dede:type}" /></div>
+<div id="mainbody">
+	<div id="left">
+		<div class="cat">
+			<div class="t">栏目导航</div>
+			<div class="c">
+				<ul>
+					{dede:channel type='top'}
+					<li><a class="" title="[field:typename /]" href="[field:typeurl /]">[field:typename /]</a></li>
+					{/dede:channel}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="right">
+		<div class="place">当前位置: <a href="{dede:global.cfg_basehost/}/">首页</a> > {dede:type}<a href="[field:typeurl /]">[field:typename /]</a>{/dede:type}  > {dede:field.title/}</div>
+		<div id="content">
+			<h1>{dede:field.title/}</h1>
+			<div class="info"><small>发布时间:</small>{dede:field.pubdate function="MyDate('Y年m月d日',@me)"/} <small>来源:</small>{dede:field.source/} 点击:</small><script src="{dede:field name='phpurl'/}/count.php?view=yes&aid={dede:field name='id'/}&mid={dede:field name='mid'/}" type='text/javascript' language="javascript"></script>次</div>
+			<div class="content">{dede:field.body/}</div>
+文章《{dede:field.title/}》原创来自：<a href="{dede:global.cfg_basehost/}">{dede:global.cfg_indexname/}</a>
+<p></p><p>与《{dede:field.title/}》相关文章：</p>{dede:likearticle row='5' titlelen='70'}<p>➟<a href="[field:arcurl/]">[field:title/]></p>{/dede:likearticle}
+			<div class="context">
+				<ul>
+					<li>{dede:prenext get='pre'/} </li>
+					<li>{dede:prenext get='next'/} </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+</div>
+<div class="cb"></div>
+{dede:include filename="footer.htm"/}
+</body>
+</html>

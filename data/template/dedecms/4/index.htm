@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<TITLE>{dede:global.cfg_webname/}</TITLE>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}">
+<meta name="keywords" content="{dede:global.cfg_keywords/}">
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/images/css/metinfo.css">
+<link href="{dede:global.cfg_templets_skin/}/images/css/reset.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body {
+}
+-->
+</style>
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+<div id="metinfo">
+{dede:include filename="header.htm"/}
+  <div id="flash">
+    <div class="left floatl">
+        <div class="flash">
+<script type="text/javascript">
+var swf_width=650;
+var swf_height=260;
+var files='{dede:global.cfg_templets_skin/}/images/banner.gif';
+var links='./|./';
+var texts='';
+var swfpath = '{dede:global.cfg_templets_skin/}/images/flash02.swf';
+var AutoPlayTime=6; //间隔时间：单位是秒
+document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="../fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0/#version=6,0,0,0/default.htm/#version=6,0,0,0/#version=6,0,0,0/default.htm/default.htm" width="'+ swf_width +'" height="'+ swf_height +'">');
+document.write('<param name="movie" value='+swfpath+'><param name="quality" value="high">');
+document.write('<param name="menu" value="false"><param name=wmode value="opaque">');
+document.write('<param name="FlashVars" value="bcastr_file='+files+'&bcastr_link='+links+'&bcastr_title='+texts+'&AutoPlayTime='+AutoPlayTime+'">');
+document.write('<embed src='+swfpath+' wmode="opaque" FlashVars="bcastr_file='+files+'&bcastr_link='+links+'&bcastr_title='+texts+'&AutoPlayTime='+AutoPlayTime+'" menu="false" quality="high" width="'+ swf_width +'" height="'+ swf_height +'" type="application/x-shockwave-flash" pluginspage="../www.macromedia.com/go/getflashplayer" />');
+document.write('</object>');
+</script>
+        </div>
+    </div>
+    <div class="right floatr">
+        <div class="top">
+        <ul class="list list-style">
+            <li class="hover">产品导航</li>
+        </ul>
+        <div class="text clear">
+            <div class="box editor">
+            <ul class="newslist">
+{dede:channel type='top' row='10'}
+<li><a href='[field:typeurl/]'>[field:typename/]</a></li>
+{/dede:channel}
+                <li>{dede:global.cfg_indexname/}</li>
+            </ul>
+            </div>
+        </div>
+        </div>
+        <div class="download">
+        <a href="/" target="_blank" title="#" alt="#"><img src="{dede:global.cfg_templets_skin/}/images/1299780016.jpg" width="" height="" alt="#" title="#" /></a>
+        </div>
+    </div>
+    <div class="clear"></div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var list = $("#flash ul.list li");
+    var text = $("#flash .box");
+            list.each(function(i){
+                var my = $(this);
+                    my.hover(
+                        function () {
+                text.each(function(d){
+                    var o = $(this);
+                    if(i==d){ o.css("display","block"); }else{ o.css('display','none'); }
+                });
+                list.each(function(t){
+                    var o = $(this);
+                    if(i==t){ o.addClass("hover"); }else{ $(this).removeClass("hover"); }
+                });
+                        },
+                        function () {}
+                    );
+            });
+  });
+</script>
+    </div>
+<!--首页列表内容-->
+<div id="main">
+  <div class="left floatl column">
+    <h3 class="title">{dede:type typeid='1'}<a href="[field:typelink/]" title="更多" class="more floatr">更多</a><div class="line"><span>[field:typename/]</span></div>{/dede:type}</h3>
+    <ul class="newsx list-style">
+    {dede:arclist row='9' titlelen='' orderby=''}
+    <li><span>[[field:pubdate function="MyDate('Y/m/d',@me)"/]]</span><a href="[field:arcurl/]" target="_blank" title="[field:title/]">[field:title/]</a></li>
+    {/dede:arclist}
+    </ul>
+  </div>
+  <div class="center floatl column">
+<h3 class="title">{dede:type typeid='2'}<a href="[field:typelink/]" title="更多" class="more floatr">更多</a><div class="line"><span>[field:typename/]</span></div>{/dede:type}</h3>
+    <ul class="newsx list-style">
+    {dede:arclist  flag='' typeid='' row='9' titlelen='' orderby='rand'}
+    <li><span>[[field:pubdate function="MyDate('Y/m/d',@me)"/]]</span><a href="[field:arcurl/]" target="_blank" title="[field:title/]">[field:title/]</a></li>
+    {/dede:arclist}
+    </ul>
+  </div>
+  <div class="right floatr column">
+<h3 class="title">{dede:type typeid='3'}<a href="[field:typelink/]" title="更多" class="more floatr">更多</a><div class="line"><span>[field:typename/]</span></div>{/dede:type}</h3>
+    <p class="knowledge">{dede:global.cfg_about/}</p>
+  </div>
+  <div class="clear"></div>
+<script src="{dede:global.cfg_templets_skin/}/images/js/switchable.js" language="javascript" type="text/javascript"></script>
+<script type="text/javascript">
+function equalHeight(group) {
+    tallest = 0;
+    group.each(function() {
+        thisHeight = $(this).height();
+        if(thisHeight > tallest) {
+            tallest = thisHeight;
+        }
+    });
+    group.height(tallest);
+}
+$(function() {
+    equalHeight($(".column"));
+    equalHeight($(".columnde"));
+    $("#trigger4").switchable("#panel4 > ul > li", {
+        triggerType: "click",
+        effect: "scroll",
+        steps: 1,
+        visible: 4
+    }).autoplay().carousel().mousewheel();
+    var api4 = $("#trigger4").switchable();
+    $("#next4").click(function(){
+        api4.next();
+    });
+    $("#prev4").click(function(){
+        api4.prev();
+    });
+});
+</script>
+  <div class="product floatl columnde">
+    <h3 class="title">
+    <div class="flip floatr">
+        <a class="next" id="next4" href="javascript:void(0);"></a>
+        <a class="prev" id="prev4" href="javascript:void(0);"></a>
+        <p id="trigger4"></p>
+    </div>
+    <div class="line"><span>产品展示</span></div>
+    </h3>
+    <div class="imglist" id="panel4" style="height:180px;">
+    <ul class="list-style" style="height:180px;">
+        {dede:arclist type='image.' row='8' imgwidth='' imgheight='' orderby=''}
+        <li style="width:155px; height:180px;">
+        <a href="[field:arcurl/]" target="_blank" title="[field:title/]" class="img"><img src="[field:picname/]" title="[field:title/]" width="149" height="149" /></a>
+        <h4><a href="[field:arcurl/]" target="_blank" title="[field:title/]">[field:title/]</a></h4>
+        </li>
+        {/dede:arclist}
+    </ul>
+    </div>
+  </div>
+  <div class="case floatr columnde">
+    <h3 class="title"><div class="line"><span>联系我们</span></div></h3>
+    <ul class="newsx list-style">
+    <li>地址：郑州东大街59号</li>
+    <li>客服：{dede:global.cfg_indexname/}</li>
+    <li>电话：0371-69118011</li>
+    <li>手机：15937107526</li>
+    <li>网址：{dede:global.cfg_basehost/}</li>
+    <li>邮箱：jiubo6@126.com</li>
+    <li>邮编：450000 </li>
+    </ul>
+    </div>
+    <div class="clear"></div>
+    <div class="links">
+    <h4 class="title">友情链接</h4>
+        <div class="text">
+        <div class="list">
+        <div class="img"><ul><!--图片友情链接88*31--></ul></div>
+        <div class="clear"></div>
+        <ul>
+{dede:flink row='24'}<li>[field:link/]</li>{/dede:flink}
+<!--links_start-->
+<!--links_end-->
+        </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+    </div>
+  </div>
+{dede:include filename="footer.htm"/}
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/style/style.css" rel="stylesheet" media="screen" type="text/css" />
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="comom">
+<div class="comom_left">
+<div class="title_top"></div>
+<div class="title_li">
+<div class="productlist_title">
+ {dede:arclist row='10' titlelen='24' orderby='pubdate' typeid='2' idlist=''}
+	<div class="title">
+	<a href="[field:arcurl/]" target="_self" class="title"   >[field:title/]</a>
+	</div>
+	{/dede:arclist}
+</div>
+</div>
+<div class="title_bottom"></div>
+<!--联系我们 -->
+<div class="lianxi_top"><h3>联系我们 </h3></div>
+<div class="lianxi_li">
+<div class="dizhi">
+<p>{dede:field.title/}</p>
+<p>邮编：325802</p>
+<p>电话：0577-64208592</p>
+<p>24小时业务经理：郑先生 13958777625</p>
+<p>网址：{dede:global.cfg_basehost/}</p>
+</div>
+</div>
+<div class="lianxi_bottom"></div>
+<!--联系我们 -->
+</div>
+<div class="comom_right">
+<!--公司简介 -->
+<div class="shop"><h3>{dede:field.typename/}</h3></div>
+		<div class="listbox">
+			<ul class="e2">
+	{dede:list pagesize='12'}
+				<li>
+					<a href="[field:arcurl/]" class="title">[field:title/]</a>
+				</li>
+		{/dede:list}
+			</ul>
+		</div>
+<div class="dede_pages">
+			<ul class="pagelist">
+				{dede:pagelist listitem="info,index,end,pre,next,pageno" listsize="5"/}
+			</ul>
+		</div>
+</div>
+<div class="clear-float"></div>
+</div>
+{dede:include filename="footer.htm"/}
+<!-- /footer -->
+</body>
+</html>

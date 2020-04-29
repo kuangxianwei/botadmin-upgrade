@@ -1,0 +1,178 @@
+<div class="layui-card">
+    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">用户名:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="username" placeholder="请输入数据库用户名" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">数据库名:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" placeholder="请输入数据库名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="submit-search">
+                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card-body">
+        <table id="table-list" lay-filter="table-list"></table>
+    </div>
+</div>
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-group">
+        <button class="layui-btn selecting layui-btn-sm" lay-event="add">
+            <i class="layui-icon layui-icon-add-1"></i>创建数据库
+        </button>
+        <button class="layui-btn selecting layui-btn-sm" lay-event="modifyroot">
+            <i class="layui-icon layui-icon-edit"></i>修改root密码
+        </button>
+        <button class="layui-btn selecting layui-btn-sm" lay-event="resetroot">
+            <i class="layui-icon layui-icon-refresh"></i>重置root密码
+        </button>
+        <button class="layui-btn selecting layui-btn-sm" lay-event="sync">
+            <i class="layui-icon layui-icon-refresh-3"></i>同步数据
+        </button>
+    </div>
+</script>
+<script type="text/html" id="table-toolbar">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs" lay-event="modify">
+            <i class="layui-icon layui-icon-edit"></i>
+        </button>
+        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
+            <i class="layui-icon layui-icon-delete"></i>
+        </button>
+    </div>
+</script>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/static/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index', //主入口模块
+        main: 'main',
+    }).use(['index', 'form', 'table', 'main'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            table = layui.table,
+            main = layui.main,
+            url = {{.current_uri}};
+
+        //日志管理
+        table.render({
+            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            method: 'post',
+            elem: '#table-list',
+            url: url,
+            toolbar: '#toolbar',
+            cols: [[
+                {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},
+                {field: 'username', title: '用户名', align: 'center'},
+                {field: 'password', title: '密码', align: 'center'},
+                {field: 'name', title: '数据库名', align: 'center'},
+                {field: 'charset', title: '编码', align: 'center', width: 66},
+                {field: 'host', title: '访问地址', align: 'center', width: 90},
+                {field: 'site_id', title: '绑定站点', align: 'center'},
+                {field: 'updated', title: '时间', align: 'center', sort: true},
+                {field: 'note', title: '备注', align: 'center', hide: true},
+                {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+            ]],
+            page: true,
+
+            limit: 10,
+            limits: [10, 15, 20, 25, 30],
+            text: '对不起，加载出现异常！'
+        });
+
+        //监听工具条
+        table.on('tool(table-list)', function (obj) {
+            var data = obj.data;
+            switch (obj.event) {
+                case 'del':
+                    layer.confirm('删除后不可恢复，确定删除？', function (index) {
+                        main.req({
+                            url: url + '/del',
+                            data: data,
+                            index: index,
+                            ending: obj.del
+                        });
+                    });
+                    break;
+                case 'modify':
+                    $.get(url + '/modify', data, function (html) {
+                        main.popup({
+                            title: '修改MySQL',
+                            content: html,
+                            url: url + '/modify',
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+            }
+        });
+
+        //监听工具栏
+        table.on('toolbar(table-list)', function (obj) {
+            switch (obj.event) {
+                case 'add':
+                    $.get(url + '/add', {}, function (html) {
+                        main.popup({
+                            title: '创建数据库',
+                            content: html,
+                            url: url + '/add',
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'modifyroot':
+                    $.get(url + '/modifyroot', {}, function (html) {
+                        main.popup({
+                            title: '修改root密码',
+                            content: html,
+                            url: url + '/modifyroot',
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'resetroot':
+                    $.get(url + '/resetroot', {}, function (html) {
+                        main.popup({
+                            title: '重置root密码',
+                            content: html,
+                            url: url + '/resetroot',
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'sync':
+                    layer.confirm('如无错误且无需同步，确定同步？', function (index) {
+                        main.req({
+                            url: url + '/sync',
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+            }
+        });
+        //监听搜索
+        form.on('submit(submit-search)', function (data) {
+            var field = data.field;
+            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
+            //执行重载
+            field.act = "show";
+            table.reload('table-list', {
+                where: field,
+                page: {curr: 1}
+            });
+            return false;
+        });
+    });
+</script>

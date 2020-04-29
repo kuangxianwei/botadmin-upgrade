@@ -1,0 +1,23 @@
+<DIV class=sidebar>
+<UL>
+<LI>
+<H3>产品大全</H3>
+	<UL class=sub>
+	{dede:channelartlist type='top' row='10'}
+	<li><a href='{dede:field name='typeurl'/}'>{dede:field name='typename'/}</a></li>
+	{/dede:channelartlist}
+	</UL>
+</LI>
+<LI>
+	<H3>新闻动态</H3>
+	<UL>
+		{dede:arclist titlelen='25' row='10'}
+		<LI><a href="[field:arcurl/]" title="[field:title /]">[field:title /]</A></LI>
+		{/dede:arclist}
+	</UL>
+</LI>
+<LI class="widget widget_text">
+	<DIV class=textwidget><A href="#"><img src="{dede:global.cfg_templets_skin/}/images/contact-us_sidebar.jpg" /></A></DIV>
+</LI>
+</UL>
+</DIV>

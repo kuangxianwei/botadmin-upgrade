@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta name="applicable-device" content="pc">
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="{dede:global.cfg_templets_skin/}/style/css.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="banner_bj">
+  <div class="ny_banner"><img src="{dede:global.cfg_templets_skin/}/images/bb.jpg" height="200" width="1024"></div>
+</div>
+<div class="main" style="margin-top:15px;">
+  {dede:include filename="left.htm"/}
+  <div class="main_right">
+    <div class="ny_nav">您当前位置：{dede:field name='position'/} </div>
+    <div class="ny_main">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td width="2%" height="200" valign="top">&nbsp;</td>
+            <td width="96%" valign="top"><TABLE WIDTH="95%" BORDER="0" ALIGN="center" CELLPADDING="0" CELLSPACING="2">
+        <TR>
+            <TD HEIGHT="40" align="center"><STRONG><font style="font-size:14px; color:#d95518">{dede:field.title/}</span></STRONG></TD>
+        </TR>
+        <TR>
+            <TD align="center">日期：[{dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/}]&nbsp;&nbsp;&nbsp;共阅[<script src="{dede:field name='phpurl'/}/count.php?view=yes&aid={dede:field name='id'/}&mid={dede:field name='mid'/}" type='text/javascript' language="javascript"></script>]次</TD>
+        </TR>
+        <TR>
+            <TD HEIGHT="1" background="{dede:global.cfg_templets_skin/}/images/dian.jpg"></TD>
+        </TR>
+        <TR>
+            <TD><table id=detail width="100%" border="0" cellspacing="1" cellpadding="4">
+                <tr>
+                <td valign="top"><div id=fontzoom>
+                    {dede:field.body/}
+文章《{dede:field.title/}》原创来自：<a href="{dede:global.cfg_basehost/}">{dede:global.cfg_indexname/}</a>
+                    <p>与《{dede:field.title/}》相关文章：</p>
+{dede:likearticle row='5' titlelen='70'}
+<p>➟<a href="[field:arcurl/]">[field:title/]></p>
+{/dede:likearticle}
+<ul>
+<li>{dede:prenext get='pre'/}</li>
+<li>{dede:prenext get='next'/}</li>
+</ul>
+                </div></td>
+                </tr>
+            </table></TD>
+        </TR>
+<TR>
+            <TD HEIGHT="1" background="{dede:global.cfg_templets_skin/}/images/dian.jpg"></TD>
+        </TR>
+        <TR>
+        </TR>
+        </TABLE></td>
+            <td width="2%" valign="top">&nbsp;</td>
+        </tr>
+        </table>
+    </div>
+  </div>
+</div>
+{dede:include filename="footer.htm"/}
+</body>
+</html>

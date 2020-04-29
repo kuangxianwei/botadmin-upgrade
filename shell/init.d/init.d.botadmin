@@ -1,0 +1,87 @@
+#!/bin/sh
+#
+# botadmin - this script starts and stops the botadmin daemon
+#
+# chkconfig:   - 85 15
+# description: botadmin system
+# processname: botadmin
+# Url http://www.botadmin.cn
+# Last Updated 2010.06.01
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+
+botadmin=/data/botadmin/botadmin
+prog=botadmin
+
+lockfile=/var/lock/subsys/botadmin
+
+start() {
+  echo -n $"Starting $prog: "
+  $botadmin start &
+  echo_success
+  retval=$?
+  echo
+  [ $retval -eq 0 ] && touch $lockfile
+  return $retval
+}
+stop() {
+  echo -n $"Stopping $prog: "
+  killproc botadmin >/dev/null 2>&1
+  echo_success
+  retval=$?
+  echo
+  [ $retval -eq 0 ] && rm -f $lockfile
+  return $retval
+}
+
+restart() {
+  stop
+  start
+}
+
+uninstall() {
+  stop
+  rm -fr /data/botadmin
+  rm -f /etc/rc.d/init.d/botadmin
+  systemctl stop botadmin.service
+  rm -f /usr/lib/systemd/system/botadmin.service
+}
+
+rh_status() {
+  status $prog
+}
+
+rh_status_q() {
+  rh_status >/dev/null 2>&1
+}
+
+case "$1" in
+start)
+  rh_status_q && exit 0
+  start
+  ;;
+stop)
+  rh_status_q || exit 0
+  stop
+  ;;
+restart)
+  restart
+  ;;
+status)
+  rh_status
+  ;;
+uninstall)
+  uninstall
+  ;;
+*)
+  echo $"Usage: $0 {start|stop|status|restart}"
+  exit 2
+  ;;
+esac

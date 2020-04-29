@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/style/style.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="style/style.css" rel="stylesheet" type="text/css" />
+</head>
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="fwmain">
+		<div class="fwmain_nleft edit_putHere" id="edit_putHere_area1" saveTitle="area1">
+			<div class="label clear fwtop_nav6" id="597" rel="597" titles="竖形分类菜单">
+	<div class="label_head">
+		<div class="label_title">{dede:field.typename/}</div>
+	</div>
+	<div class="label_content">
+{dede:channel type='son' currentstyle=""}
+<h1 ><a href='[field:typeurl/]'>[field:typename/]</a></h1>
+{/dede:channel}	</div>
+	<div class="label_foot"></div>
+</div>
+<div class="label clear" id="599" rel="599" titles="自定义内容">
+	<div class="label_head">
+		<div class="label_title">联系我们</div>
+	</div>
+	<div class="label_content">
+		<div class="about_con clearfix">
+			{dede:global.cfg_lxfs/}
+		</div>
+	</div>
+	<div class="label_foot"></div>
+</div>
+
+		</div>
+		<div class="fwmain_nright edit_putHere" id="edit_putHere_area2" savetitle="area2">
+			<div class="label clear" id="603" rel="603" titles="产品列表">
+	<div class="label_head">
+	<div class="label_title"><span>{dede:field name='position'/}</span>{dede:field.typename/}</div>
+	</div>
+	<div class="label_content">
+		<div class="pic_list1 pic_list_roll" id="pic_list603">
+			<ul class="clearfix" id="prolist603">
+			{dede:list pagesize='10'}
+				<li>
+					<a title="[field:title/]" href="[field:arcurl/]"><img src="[field:litpic/]"/>
+					<p class="title">[field:title/]</p></a>	</li>
+
+{/dede:list}
+
+			<div class="clear"></div>
+			</ul>
+			<div class="dai">{dede:pagelist listitem="info,index,end,pre,next,pageno,option" listsize="5"/}</div>
+		</div>
+
+	</div>
+	<div class="label_foot"></div>
+</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+{dede:include filename="footer.htm"/}
+</body>
+</html>
