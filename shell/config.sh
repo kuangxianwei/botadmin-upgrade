@@ -1,0 +1,11 @@
+AD_PATH=/usr/local/nginx/conf/ad
+VHOST_PATH=/usr/local/nginx/conf/vhost
+UPSTREAM_PATH=/usr/local/nginx/conf/upstream
+NGINX_CONF_PATH=/usr/local/nginx/conf
+ARTICLE_PATH=data/article
+REWRITE_PATH=/usr/local/nginx/conf/rewrite
+PROXY_PATH=/usr/local/nginx/conf/proxy
+SSL_PATH=/usr/local/nginx/conf/ssl
+NGINX_PATH=/usr/local/nginx
+PHP_INI=/usr/local/php/etc/php.ini
+MYSQL_INI=/etc/my.cnf

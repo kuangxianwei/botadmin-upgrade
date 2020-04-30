@@ -1,0 +1,19 @@
+@charset "utf-8";
+.ulTools {width:640px;height:171px;padding:20px 0;margin:30px auto;background:#f7f7f7;border:2px solid #ddd;font-size:14px;-webkit-border-radius:10px;}
+.ulTools li {float:left;width:450px;height:37px;padding:10px 0 10px 40px;line-height:37px;}
+.ulTools .liBut {float:right;width:90px;height:90px;padding:40px 40px 0 0;}
+.ulTools .liBut input {width:84px;height:84px;background:#498FB8;border:3px solid #C6E3F1;color:#fff;font-size:14px;cursor:pointer;-webkit-border-radius:5px;}
+.inpTxt {width:80px;height:35px;background:#fff;border:1px solid #ccc;line-height:35px;text-align:center;-webkit-border-radius:5px;}
+.inpTxt_ {width:40px;}
+#toolsr_1 {display:none;width:640px;padding:20px 0 10px;margin:30px auto;background:#EDF9FF;border:2px solid #C6E3F1;font-size:14px;color:#498FB8;-webkit-border-radius:10px;}
+.srHead {text-align:center;font-size:14px;font-weight:800;}
+.srBody {width:640px;height:280px;margin:0 auto;}
+.srBody table {width:80%;margin:12px auto 0;background:#EDF9FF;border-collapse:collapse;}
+.srBody table td{border:1px #C6E3F1 solid;vertical-align:middle;text-align:center;height:28px;}
+.srtextl {float:left;width:320px;}
+.srtextb {padding:10px 0 0;text-align:center;}
+.dtitle1 td,.dtitle2 td {background:#71abcd;color:#EDF9FF}
+.col1 {background:#093}
+.col2 {background:#F30}
+.col3 {background:#F90}
+.dTxt {width:550px;margin:0 auto;font-size:14px;line-height:24px;}

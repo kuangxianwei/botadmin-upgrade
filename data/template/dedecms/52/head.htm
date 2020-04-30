@@ -1,0 +1,32 @@
+﻿<body class="home blog custom-background">
+<div class="loading"></div>
+<div id="Layer1" style="display: none; position: absolute; z-index: 100;"></div>
+<div class="web_bod">
+	<header class="header marauto">
+	<span class="logo"><a href="{dede:global.cfg_basehost/}" title="{dede:global.cfg_webname/}" rel="home"><b class="bclass">{dede:global.cfg_indexname/}</b></a></span>
+		<form role="search" method="get" id="searchform" action="{dede:global.cfg_cmsurl/}/plus/search.php"><span class="search"><input name="keyword" id="s" type="text" class="input" value="输入您要搜索的关键词" onclick="this.value = '';" style="color:#999" onkeypress="javascript:if(event.keyCode == 13){query(this.value);}" x-webkit-speech/><button id="searchsubmit" class="btn">搜索</button></span>
+	</form>
+	<div class="cls">
+	</div>
+	</header>
+	<div class="nav marauto">
+<nav class="navcon marauto">
+<div id="mobile_nav_btn">网站导航</div>
+<div class="menu-header">
+<ul id="menu-wplook-main-menu" class="menu">
+	<li  class="menu-item-type-post_type current-menu-item">
+		<a href="{dede:global.cfg_basehost/}" >首页</a>
+	</li>
+	{dede:channel type ='top' row='10'}
+		<li  class="menu-item-type-post_type current-menu-item">
+			<a href="[field:typelink/]" >[field:typename/]</a>
+		</li>
+	{/dede:channel}
+</ul>
+	</div>
+	</nav>
+	<section class="conter marauto">
+	<script type="text/javascript">loading('33%',350)</script>
+<div class="main">
+<div class="top_box">
+</div>

@@ -1,0 +1,37 @@
+<div class="topbarbox"></div>
+<div class="header">
+  <div class="head">
+	<div class="top rte">
+	<div class="logo ale"><a title="" href="/"><img src="{dede:global.cfg_templets_skin/}/images/logo.png" alt=""></a></div>
+	<div class="tel ale">全国咨询服务热线：<span class="red">13922352985</span></div>
+	<div class="tel1 ale">
+		<p>{dede:global.cfg_webname/}</p>
+	</div>
+	</div>
+  </div>
+</div>
+<div class="navBar">
+  <ul class="nav clearfix">
+	<li class="n" style="background:none;"><a href="/">首　页</a></li>
+	{dede:channelartlist typeid='top'}
+	<li class="n n2 "> <a href="{dede:field name='typeurl'/}">{dede:field name='typename'/}</a>
+	<ul class="sub">
+		{dede:channel type='son' noself='yes'}
+		<li><a href="[field:typelink/]">[field:typename/]</a> </li>
+		{/dede:channel}
+	</ul>
+	</li>
+	{/dede:channelartlist}
+  </ul>
+</div>
+<script type="text/javascript">
+		jQuery(".nav").slide({
+				type:"menu", //效果类型
+				titCell:".n", // 鼠标触发对象
+				targetCell:".sub", // 效果对象，必须被titCell包含
+				effect:"slideDown",//下拉效果
+				delayTime:300, // 效果时间
+				triggerTime:0, //鼠标延迟触发时间
+				returnDefault:true  //返回默认状态
+			});
+	</script>

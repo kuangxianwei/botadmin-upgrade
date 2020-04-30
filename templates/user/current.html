@@ -1,0 +1,23 @@
+{{template "user/modify.html" .}}
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/static/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index', //主入口模块
+        main: 'main'
+    }).use(['index', 'main', 'table', 'form'], function () {
+        var form = layui.form,
+            main = layui.main,
+            url = {{.current_uri}};
+
+        form.render();
+        form.on('submit(submit)', function (obj) {
+            main.req({
+                url: url,
+                data: obj.field
+            });
+            return false;
+        });
+    });
+</script>

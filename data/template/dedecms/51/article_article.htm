@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/css/child_cart.css" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/css/child_atm.css" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/css/master.css" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/css/subpage.css" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/css/animate.css" />
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jquery.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/banner.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/child_atm.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/Marquee.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jQselect.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/zx.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/lihe.js"></script>
+<!--[if IE 6]>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/png.js"></script>
+<script>DD_belatedPNG.fix('div,img,span,li,a,a:hover,dd,p,input,select')</script>
+<![endif]-->
+<script type="text/javascript">
+	$(function(){
+		//一次纵向滚动一个
+		$('#marquee2').kxbdSuperMarquee({
+			distance:30,
+			time:3,
+			btnGo:{up:'#goU',down:'#goD'},
+			direction:'up'
+		});
+	});
+</script>
+<script type="text/javascript">
+	window.onload = function(){
+		imgZoomRun("product3","p","prod-zoom","li"); // 图片放大
+		imgZoomRun("product7","p","prod-zoom","li");
+		imgZoomRun("product8","p","prod-zoom","li");
+		newsFontMove("fontjump"); // 鼠标放上，字体上下挪
+		newsFontMove("fontjumpcolor"); // 鼠标放上，字体上下挪
+		colorChange("fontjumpcolor"); // 隔行换色
+		colorChange("news5"); // 隔行换色
+		listImgZoom("product3","205"); // 图片缩放，需要给定宽度
+		enterAnimation("news_fadein");
+		if(typeof(data) != "undefined"){
+			var lefttype = new LeftType(data,"left-type",0); // 多级分类
+		}
+		afx.conHeightAuto();
+	};
+	window.addEventListener("resize",function(){
+		afx.conHeightAuto();
+	},false);
+	/*window.onresize = function(){
+		afx.conHeightAuto();
+		console.log("跑le？");
+	};   */
+</script>
+</head>
+{dede:include filename="head.htm"/}
+<div class="main_c">
+  <div class="main" id="content"> {dede:include filename="left.htm"/}
+	<div class="sp_content" id="contentRight">
+	<div class="content_com_title">
+		<h2>{dede:field.typename/}</h2>
+		<div class="bread"> 当前位置：{dede:field.position/}</div>
+	</div>
+	<div class="content">
+		<div class="view">
+		<h1 class="view-title">{dede:field.title/}</h1>
+		<div class="view-date"> <span>发布时间：{dede:field.pubdate function='strftime("%Y-%m-%d",@me)'/}</span> <span>点击量：<span id="clicksArea"><script src="/plus/count.php?view=yes&aid={dede:field.id/}&mid={dede:field.mid/}" type='text/javascript' language="javascript"></script></span></span> </div>
+		<div class="bdsharebuttonbox view-share"> <a href="#" class="bds_more" data-cmd="more"></a> <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a> <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a> <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a> <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a> <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a> </div>
+		<div class="boxcen"> {dede:field.body/} </div>
+文章《{dede:field.title/}》原创来自：<a href="{dede:global.cfg_basehost/}">{dede:global.cfg_indexname/}</a>
+<p></p><p>与《{dede:field.title/}》相关文章：</p>{dede:likearticle row='5' titlelen='70'}<p>➟<a href="[field:arcurl/]">[field:title/]></p>{/dede:likearticle}
+		<div class="page">
+			<p>{dede:prenext get='pre'/}</p>
+			<p>{dede:prenext get='next'/}</p>
+			<a href="javascript:void(0);" title="返回" class="back" onClick="javascript:history.back(-1);">返回</a> </div>
+		</div>
+	</div>
+	</div>
+	<!-- 内容部分 end-->
+  </div>
+</div>
+<script>
+	window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+{dede:include filename="foot.htm"/}
+</body></html>

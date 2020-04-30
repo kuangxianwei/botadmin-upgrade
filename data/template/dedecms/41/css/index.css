@@ -1,0 +1,142 @@
+@charset "utf-8";
+/* CSS Document */
+.color-red{color:#ff0000;}
+.topadcs{width:960px;margin-bottom:10px;margin-top:10px;margin-right: auto;margin-left: auto;}
+.ad img{display:block;}
+.index_list{width:726px;margin: 0px;padding: 0px;float: left;}
+.sTitle a,.sTitle a:hover,.sTitle a:visited{font:normal 18px/20px Times New Roman,"宋体";color:#CE0303;text-decoration:none;display:block;height:27px;line-height:30px;font-weight:bold;}
+.sTitle .more{font-size:12px;}
+.sTitle img{vertical-align:middle;margin-right:5px;}
+.section .sTitle a span{color:#848383;text-transform:uppercase;font-weight:normal;margin-left:3px;}
+.banner{background:url(../images/nmn_adbg.jpg)/*tpa=http://www.honxajade.com/skins/default/images/nmn_adbg.jpg*/ repeat-x;height:491px;overflow:hidden;}
+.ad{border:1px solid #c0a98e;}
+
+.lPicRText{position:relative;height:86px;overflow:hidden;}
+.lPicRText .picBar{position:absolute;}
+.lPicRText .picBar img{border:1px solid #bab9b9;padding:1px;}
+.lPicRText .textBar{padding:0 0 0 96px;line-height:20px;text-align:justify;color:#666666;}
+.lPicRText .textBar h3 a{color:#e70202;font-size:14px;line-height:22px;height:22px;overflow:hidden;display:block;}
+
+.textOnly{margin-top:5px;}
+.textOnly li{line-height:22px;height:18px;overflow:hidden;padding-bottom:5px;}
+.textOnly li a{display:block;background:url(../images/jczb_60.jpg)/*tpa=http://www.honxajade.com/skins/default/images/jczb_60.jpg*/ no-repeat left 10px;padding-left:8px;color:#434342;}
+.textOnly span{float:right;font-size:10px;color:#a3a3a3;margin-left:5px;}
+
+.banner{background:url(../images/jczb_08.jpg)/*tpa=http://www.honxajade.com/skins/default/images/jczb_08.jpg*/ no-repeat top center;height:430px;overflow:hidden;_zoom:1;padding-top:12px;}
+.flash{width:960px;height:417px;overflow:hidden;}
+
+.categroy{width:201px;height:417px;background:#fff;overflow:hidden;}
+.categroy a,.categroy a:visited{color:#7A3D1E;}
+.categroy .sTitle_s1 a,.categroy .sTitle_s1 a:visited{background:url(../images/nav_bg.gif)/*tpa=http://www.honxajade.com/skins/default/images/nav_bg.gif*/ repeat-x;height:32px;line-height:32px;font-size:16px;text-align:center;color:#bd0102;display:block;}
+.categroy .clist_s1{background:#ca0205;padding:5px}
+.categroy .clist_s1 li{width:33.3%;float:left;line-height:38px;height:38px;overflow:hidden;}
+.categroy .clist_s1 li a,.categroy .clist_s1 li a:visited{color:#fff;}
+.categroy .clist_s2{margin:5px 10px 5px 18px;}
+.categroy .clist_s2 li{width:33.2%;float:left;line-height:20px;height:20px;overflow:hidden;}
+.categroy .sTitle_s2 a,.categroy .sTitle_s2 a:visited{height:30px;line-height:30px;font-size:14px;padding-left:10px;color:#7a3d1e;display:block;}
+.categroy h5{height:24px;line-height:22px;border-radius:3px;padding-left:8px;font-size:14px;background:#eee1d1;margin:0 10px;}
+
+.intro{width:240px;height:417px;overflow:hidden;background:#fff;}
+.intro .sTitle,.intro .sContent{margin:0 10px;}
+.intro .sTitle a,.intro .sTitle a:visited{height:30px;line-height:30px;font-size:14px;color:#7a3d1e;display:block;overflow:hidden;}
+.pic{position:relative;width:241px;height:211px;overflow:hidden;margin:0 0 8px 0;}
+
+.intro .pic{width:220px;}
+.iText,.iText:visited{display:block;background:url(../images/jczb_07.png)/*tpa=http://www.honxajade.com/skins/default/images/jczb_07.png*/ repeat-x;height:25px;line-height:25px;overflow:hidden;position:absolute;bottom:-1px;left:1px;text-align:center;width:100%;color:#c0935a;}
+.intro .iText,.intro .iText:visited{left:0; }
+.intro .text p{line-height:22px;color:#7a3d1e;}
+
+.rSection {border-style:solid;border-width:1px 1px 1px 0;border-color:#d1d1d1;}
+.rSection .sTitle a,.rSection .sTitle a:visited{height:30px;line-height:30px;background:#f0efef;padding-left:10px;color:#bc9156;border-bottom:1px solid #d1d1d1;}
+.rSection .sTitle a span,.rSection .sTitle a:visited span{color:#8f8e8e; text-transform:uppercase;padding-left:5px;}
+.fame .iText,.fame .iText:visited{color:#fff;}
+.fame .pic{width:241px;height:235px;margin:0 0 5px 0;}
+.fame p{margin:0 10px;line-height:22px;height:171px;overflow:hidden;width:231px;}
+.btn_enter{display:block;background:#ffda94 url(../images/jczb_17.jpg)/*tpa=http://www.honxajade.com/skins/default/images/jczb_17.jpg*/ no-repeat;height:87px;}
+
+.lSection{width:717px;height:565px;overflow:hidden;}
+.rSection{width:242px;height:529px;overflow:hidden;margin-top:36px;}
+.newPro,.rAd{width:242px;height:236px;overflow:hidden;}
+.companyIntro{width:100%;height:280px;overflow:hidden;}
+.honor{width:242px;height:280px;overflow:hidden;}
+.newPro{width:717px;height:236px;overflow:hidden;}
+
+.personalized .sTitle,.exclusive .sTitle,.wholesale .sTitle,.newPro .sTitle{padding-bottom:3px;border-bottom:3px solid #bc9156;}
+.jade .sTitle{border-bottom:3px solid #1a800a;}
+
+.plist{border-style:solid;border-width:0 0 0 1px;border-color:#d1d1d1;margin-right:-20px;line-height:18px;}
+.plist li{float:left;border-style:solid;border-width:0 1px 1px 0;border-color:#d1d1d1;width:178px;height:263px;overflow:hidden;position:relative;}
+.plist h3{font-size:12px;font-weight:normal;padding:0 10px;height:18px;overflow:hidden;}
+.plist .pPrice,.plist .sPrice{padding:0 10px;height:18px;overflow:hidden;font-family:"宋体";}
+.plist .sPrice span{text-decoration:line-through;}
+.plist .pPrice span{color:#e70202;font-weight:bold;}
+.pHot,.pNew{display:block;top:0;right:0;position:absolute;width:67px;height:81px;}
+.pHot{background:url(../images/jczb_03.png)/*tpa=http://www.honxajade.com/skins/default/images/jczb_03.png*/ no-repeat;}
+.pNew{background:url(../images/jczb_04.png)/*tpa=http://www.honxajade.com/skins/default/images/jczb_04.png*/ no-repeat;}
+
+.partner ul{margin-right:-15px;overflow:hidden;*zoom:1;}
+.partner li{float:left;width:121px;border-right:1px solid #d1d1d1;border-bottom:1px solid #d1d1d1;height:59px;overflow:hidden;}
+.rSection img{margin:1px 0 0 1px;}
+.knowledge .sTitle{border-top:1px solid #d1d1d1;}
+.knowledge .sTitle img{margin-top:5px;}
+.knowledge ul{margin:5px 10px 0 10px;}
+.knowledge ul li{height:24px;line-height:24px;overflow:hidden;}
+.zhuanjia{float:left;width:241px;overflow:hidden;height:411px;}
+
+.wholesale .sTitle{overflow:hidden;height:19px;}
+.wholesale a.t1,.wholesale a.t1:hover,.wholesale a.t1:visited,.wholesale a.t2,.wholesale a.t2:hover,.wholesale a.t2:visited{height:18px;line-height:23px;display:inline-block;*display:inline;*zoom:1;padding:0 0 3px 15px;}
+.wholesale a.t1,.wholesale a.t1:hover,.wholesale a.t1:visited{background:url(../images/jczb_63.png)/*tpa=http://www.honxajade.com/skins/default/images/jczb_63.png*/ no-repeat left center;color:#bc9156;margin-right:10px;}
+.wholesale a.t2,.wholesale a.t2:hover,.wholesale a.t2:visited{background:url(../images/jczb_65.jpg)/*tpa=http://www.honxajade.com/skins/default/images/jczb_65.jpg*/ no-repeat left center;color:#666666;}
+
+.picShow .tab_t ul{height:30px;line-height:30px;overflow:hidden;*zoom:1;margin:0 -10px 1px 0;}
+.picShow .tab_t li{width:32.0%;float:left;text-align:center;border-right:1px solid #dfdfdf;}
+.picShow .tab_t a,.picShow .tab_t a:visited{background:#f0efef;display:block;border-bottom:1px solid #dfdfdf;height:29px;}
+.picShow .tab_t a.current{background:#fff;color:#bc9156;font-weight:bold;text-decoration:none;border:1px solid #fff;}
+.picShow .pic{height:233px;margin:0;}
+.picShow .iText,.picShow .iText:visited{color:#fff;}
+
+.newPro{height:295px;}
+.rAd{height:265px;}
+.companyIntro{border:1px solid #d1d1d1;}
+.companyIntro .sTitle{height:30px;line-height:30px;padding-left:10px;border-bottom:1px solid #d1d1d1;margin-bottom:10px;}
+.companyIntro .sTitle a,.companyIntro .sTitle a:visited{_margin-top:8px;line-height:30px;display:block;}
+.companyIntro img{vertical-align:middle;}
+.companyIntro .picBar{float:left;margin:0 10px 0 10px;}
+.companyIntro .picBar img{border:1px solid #d1d1d1;padding:1px;}
+.companyIntro h3 a,.companyIntro h3 a:visited{color:#e70202;font-size:14px;display:block;}
+.companyIntro p{line-height:22px;margin-right:15px;}
+.companyIntro .more,.companyIntro .more:hover{color:#de5757;}
+
+.honor,.businessSchool{border:1px solid #d1d1d1;width:230px;margin-top:10px;}
+.honor .sTitle a,.honor .sTitle a:visited,.businessSchool .sTitle a,.businessSchool .sTitle a:visited{background:#f0efef;height:30px;line-height:30px;border-bottom:1px solid #d1d1d1;display:block;padding-left:10px;color:#bc9156;font-size:14px;font-weight:bold;}
+.honor .sTitle span,.businessSchool .sTitle span{font-weight:normal;color:#8f8e8e;font-family:Arial;margin-left:5px;}
+.honor ul{width:131px;margin:20px auto 0 auto;overflow:hidden;}
+.honor li{float:left;width:215px;margin-bottom:40px;}
+.honor .title{display:block;margin-top:5px;text-align:center;}
+
+.newsBar .sTitle{margin-bottom:8px;}
+.newsBar .sTitle a,.newsBar .sTitle a:visited{height:30px;line-height:30px;border-bottom:1px solid #d1d1d1;padding-left:10px;color:#bc9156;font-size:14px;font-weight:bold;}
+.newsBar .sTitle a span{font-weight:normal;color:#8f8e8e;font-family:Arial;margin-left:5px;}
+.News_1,.News_3,.News_5,.News_7,.News_2,.News_4,.News_6,.News_8,.businessSchool{border:1px solid #d1d1d1;height:278px;overflow:hidden;}
+.News_1 .sContent,.News_3 .sContent,.News_5 .sContent,.News_7 .sContent,.News_2 .sContent,.News_4 .sContent,.News_6 .sContent,.News_8 .sContent{padding:0 10px 5px 10px;}
+.News_1,.News_3,.News_5,.News_7{width:353px;margin-top: 10px;}
+.News_2,.News_4,.News_6,.News_8{width:353px;margin-top: 10px;margin-left:10px;}
+.businessSchool ul{margin:0 5px;}
+.businessSchool .sContent{padding:0 5px;}
+.businessSchool .sTitle{margin-bottom:2px;}
+.businessSchool li{height:22px;line-height:22px;overflow:hidden;}
+.aaa{background-color: #FF6600;}
+.pictorial{height:243px;overflow:hidden;background:#f0efef;border:1px solid #dfdfdf;position:relative;}
+.pictorial .sTitle{height:30px;line-height:30px;padding-left:10px;border-bottom:1px solid #d1d1d1;margin-bottom:10px;font-weight:normal;}
+.pictorial .sTitle a,.pictorial .sTitle a:visited{_margin-top:8px;color:#666666;line-height:30px;display:block;}
+.pictorial img{vertical-align:middle;}
+.pictorial ul{margin:15px -40px 0 20px;overflow:hidden;*zoom:1;}
+.pictorial li{float:left;width:212px;overflow:hidden;margin-right:23px;}
+.pictorial li img{border:1px solid #d1d1d1;padding:1px;}
+.pictorial li .text{display:block;padding-top:8px;text-align:center;}
+
+.links {height:83px;position:relative;background:url(../images/jczb_53.jpg)/*tpa=http://www.honxajade.com/skins/default/images/jczb_53.jpg*/ repeat-x;border:1px solid #d0d8e2;margin-bottom:20px;}
+.links .sTitle a{position:absolute;left:15px;top:10px;width:62px;height:66px;background:url(../images/jczb_51.jpg)/*tpa=http://www.honxajade.com/skins/default/images/jczb_51.jpg*/ no-repeat left center;border-right:1px solid #d0d8e2;padding-right:10px;display:block;border-bottom:none;}
+.links .sContent{margin:5px 20px 10px 100px;height:68px;overflow:hidden;}
+.links .sContent a,.links .sContent a:visited,.links .sContent a:hover{line-height:24px;margin:0 5px;color:#666;}
+.more{font-weight:normal;}/* CSS Document */

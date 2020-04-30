@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+    <link href="{dede:global.cfg_templets_skin/}/style/images/style.css" rel="stylesheet" type="text/css">
+    <link href="{dede:global.cfg_templets_skin/}/style/images/index.css" rel="stylesheet" type="text/css">
+    <link href="{dede:global.cfg_templets_skin/}/style/images/linr.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    {dede:include filename="head.htm"/}
+<div id="wap">
+    <div class="he_4">
+        <span><b>当前位置：</b>{dede:field name='position'/} </span>
+    </div>
+    <div id="w_left2">
+        <div class="lb">
+        {dede:list pagesize ='10'}
+    <div class="list_a">
+                    <div class="pa">
+                        <strong><a href="[field:arcurl/]" class="title">[field:title/]</a></strong>
+                        <span>[field:pubdate function="MyDate('Y-m-d',@me)"/]</span>
+                    </div>
+                    <p class="p_css">[field:description function="cn_substr(@me,260)"/]...</p>
+    </div>
+        {/dede:list}
+ <p class="clr"></p>
+            <style>
+                .page_navi{width:100%;height:36px;line-height:36px;text-align:center;overflow:hidden;padding-top:1em;}
+                .page_navi li{float:left}
+                .page_navi a{padding:3px 8px;margin:2px;text-decoration:none;color:#888;border:1pxsolid #ccf;}
+                .page_navi a:hover,.page_navi a.current{border:1px solid #356aa0;color:#356aa0;font-weight:bolder;}
+            </style>
+            <div class="page_navi">
+            {dede:pagelist listitem="info,index,end,pre,next,pageno" listsize="5"/}
+            </div>
+        </div>
+    </div>
+    <div id="w_right1">
+    <div class="m10 hzqt kfal"></div>
+    <div class="jcwd">
+        <div class="zjwd_a">
+            <strong>导航菜单</strong>
+        </div>
+        <div class="border jcwd_b">
+            <div class="css_p"></div>
+            <ul class="list">
+                {dede:channel type ='top'}
+                <li><a href="[field:typeurl/]">[field:typename/]</a></li>
+                {/dede:channel}
+            </ul>
+        </div>
+    </div>
+</div>    <p class="clr"></p>
+    <div class="m10 hjry"></div>
+</div>
+{dede:include filename="footer.htm"/}
+</body>
+</html>

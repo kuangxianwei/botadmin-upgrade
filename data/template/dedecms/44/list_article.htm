@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{dede:field.title/}_{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/css/css.1.1.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+.w .left.l .left1.mt15 .c_con table {
+	font-size: 14px;
+}
+</style>
+</head>
+<body>
+ {dede:include filename="head.htm"/}
+<div class="bannerbg" style="background:url({dede:global.cfg_templets_skin/}/style/201601291618343251.jpg) no-repeat center;"> </div>
+<div class="bgb"></div>
+<div class="h0"></div>
+<div class="w">
+  <div class="left l"> <div class="left1">
+  <div class="cntxt">
+	<h2>技术中心</h2>
+	<p>Technical</p>
+	</div>
+  <div class="h0"></div>
+  <ul class="left_menu ">
+	{dede:channel type='top' noself='yes'}
+	<li>
+	<a title="[field:typename/]" href="[field:typelink/]">[field:typename/]</a>
+	</li>
+	{/dede:channel}
+  </ul>
+</div>
+<!-- left1 end-->
+<div class="left1 mt15">
+  <div class="c_tit">联系我们 Contact</div>
+  <div class="c_con">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tbody><tr>
+		<th colspan="2" align="left">客服服务热线：</th>
+	</tr>
+	<tr>
+		<td>联系电话：</td>
+		<td>{dede:field.title/}</td>
+	</tr>
+	<tr>
+		<td colspan="2">地址：{dede:global.cfg_indexname/}</td>
+	</tr>
+	</tbody></table>
+  </div>
+</div>
+</div>
+  <!-- left end -->
+  <div class="right r">
+	<div class="column"> 当前位置：{dede:field name='position'/}  </div>
+	<div class="zcont">
+	<ul class="newslist">
+		{dede:list pagesize='9'  titlelen='26'}
+		<li><span class="date">[field:pubdate function=strftime('%Y年%m月%d日',@me)/]</span><a href="[field:arcurl/]" title="[field:title/]" style=" color:#">[field:title/]</a></li>
+	{/dede:list}
+	</ul>
+	<div style="height:20px; clear:both;"></div>
+	<div class="pagess">
+	<ul>
+	{dede:pagelist listitem="index,end,pre,next,pageno" listsize="5"/}
+	</ul>
+	</div>
+	<div style="height:20px; clear:both;"></div>
+	</div>
+  </div>
+</div>
+{dede:include filename="foot.htm"/}
+</body></html>
