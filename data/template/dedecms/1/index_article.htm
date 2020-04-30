@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{dede:field.title/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+<link href="{dede:global.cfg_templets_skin/}/reezee/lib/style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/reezee/lib/png.js"></script>
+</head>
+<body>
+<div id="wrapper">
+	{dede:include filename="head.htm"/}
+	<div id="main">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td id="left" cms:type="image" style="background:url({dede:global.cfg_templets_skin/}/reezee/images/left_botbj.jpg) no-repeat left bottom;">
+				<div id="left_top">
+					<div class="submenu">
+							<div class="submenu_title"><h2>{dede:field.title/}</h2></div>
+						<div class="submenu_list">
+							<dl>
+					{dede:channel type='son' row='8'}
+						<dt><a href='[field:typelink/]'>[field:typename/]</a> </dt>
+					{/dede:channel}
+							</dl>
+						</div>
+					</div>
+					<div class="search">
+	<Form action="{dede:field name='phpurl'/}/search.php" name="searchForm" METHOD="post" target="_blank">
+	<div class="search_title">站内搜索<span>Search</span></div>
+	<input type="text" name="keyword" id="search-keyword" class="input"/>
+	<br /><input type="submit" class="but" value="立即搜索"/>
+	</Form>
+</div>
+				</div>
+			</td>
+			<td id="right">
+				<div cms:id="te_knowledge,0">
+				<div class="title2">{dede:field.title/}<span>List</span></div>
+<div class="place">您现在的位置：{dede:field name='position'/}
+</div>
+		{dede:channelartlist}
+				<div class="title3"><h2>{dede:field name='typename'/}<span><a href="{dede:field name='typeurl'/}">More >></a></span></h2></div>
+				<div class="news_list">
+					<ul>
+				{dede:arclist titlelen='160' row='8'}
+						<li><a href="[field:arcurl/]"><span>[[field:stime/]]</span>[field:title/]</a></li>
+				{/dede:arclist}
+					</ul>
+				</div>
+			{/dede:channelartlist}
+				</div>
+			</td>
+		</tr>
+		</table>
+	</div>
+	{dede:include filename="footer.htm"/}
+</div>
+</body>
+</html>

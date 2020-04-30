@@ -1,0 +1,15 @@
+<div id="header">
+<div class="logo left"><a href="{dede:global.cfg_cmsurl/}/"><h1><img src="{dede:global.cfg_templets_skin/}/images/logo.jpg" width="390" height="49" alt="{dede:global.cfg_indexname/}"/></h1></a></div>
+<div class="sc right">
+<p><a  style="CURSOR: pointer" onclick="SetHome(this,window.location)">设为首页</a> | <a  style="CURSOR: pointer" onclick="AddFavorite(window.location,document.title)">加入收藏</a></p></div>
+<div class="clear"></div>
+</div>
+<div id="nav">
+<ul>
+<li><a href="{dede:global.cfg_cmsurl/}/" target="_blank">首页</a></li>
+{dede:channel type='top' row='10'}
+<li><a href="[field:typeurl/]" [field:rel/]>[field:typename/]</a></li>
+{/dede:channel}
+</ul>
+</div>
+<div id="banner" class="auto"><img src="{dede:global.cfg_templets_skin/}/images/banner.jpg" width=960 height="360" alt="{dede:global.cfg_titlelast/}"/></div>

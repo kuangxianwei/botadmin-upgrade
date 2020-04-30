@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<link href="{dede:global.cfg_templets_skin/}/css/base.css" rel="stylesheet">
+<link href="{dede:global.cfg_templets_skin/}/css/index.css" rel="stylesheet">
+<link href="{dede:global.cfg_templets_skin/}/css/media.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<!--[if lt IE 9]>
+<script src="{dede:global.cfg_templets_skin/}/js/modernizr.js"></script>
+<![endif]-->
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+<div class="ibody">
+{dede:include filename="head.htm"/}
+  <article>
+	<div class="banner">
+	<ul class="texts">
+		<p>The best life is use of willing attitude, a happy-go-lucky life. </p>
+		<p>最好的生活是用心甘情愿的态度，过随遇而安的生活。</p>
+	</ul>
+	</div>
+   <div class="bloglist">
+	<h2>
+		<p><span>最新</span>分享</p>
+	</h2>
+{dede:arclist orderby='pubdate'  titlelen=50 row=20}
+	<div class="blogs">
+		<h3><a href="[field:arcurl/]">[field:title/]</a></h3>
+		<figure>[field:array runphp='yes']@me = (strpos(@me['litpic'],'defaultpic') ? "" : "<a href='{@me['arcurl']}' class='preview'><img src='{@me['litpic']}'/></a>"); [/field:array]</figure>
+		<ul>
+		<p>[field:description function="cn_substr(@me,1000)"/]......</p>
+		<a href="[field:arcurl/]" target="_blank" class="readmore">阅读全文&gt;&gt;</a>
+		</ul>
+		<p class="autor"><span>作者：[field:writer/]</span><span>浏览（<a href="[field:arcurl/]">[field:click/]</a>）</span></p>
+		<div class="dateview">[field:pubdate function="GetDateMK(@me)"/]</div>
+	</div>
+ {/dede:arclist}
+  </article>
+  <aside>
+	<div class="avatar"><a href="{dede:global.cfg_basehost/}"><span>关于我</span></a></div>
+	<div class="topspaceinfo">
+	<h1>{dede:global.cfg_indexname/}</h1>
+	<p>一年 二年 三年 六十年 你若还在......</p>
+	</div>
+	<div class="about_c">
+	<p>网名：你听时光在说谎</p>
+	<p>职业：学生</p>
+	<p>籍贯：{dede:global.cfg_webname/}</p>
+	<p>电话：15337****63</p>
+	<p>邮箱：genbanorg@qq.com</p>
+	</div>
+	<div class="bdsharebuttonbox"><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_more" data-cmd="more"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+	<div class="tj_news">
+	<h2>
+		<p class="tj_t1">最热分享</p>
+	</h2>
+	<ul>{dede:arclist row="10" titlelen="38" orderby="click"}
+		<li><a href="[field:arcurl/]">[field:title/]</a></li>
+		{/dede:arclist}
+	</ul>
+	<h2>
+		<p class="tj_t2">推荐分享</p>
+	</h2>
+	<ul>
+	{dede:arclist row=10 flag ='c' titlelen='60'}
+		<li><a href="[field:arcurl/]">[field:title/]</a></li>
+		{/dede:arclist}
+	</ul>
+	</div>
+	<div class="links">
+	<h2>
+		<p>友情链接</p>
+	</h2>
+	<ul>
+{dede:flink row='24'}<li>[field:link/]</li>{/dede:flink}
+	<!--links_start-->
+	<!--links_end-->
+	</ul>
+	</div>
+	<div class="copyright">
+	{dede:include filename="footer.htm"/}
+	</div>
+  </aside>
+  <script src="{dede:global.cfg_templets_skin/}/js/silder.js"></script>
+  <div class="clear"></div>
+  <!-- 清除浮动 -->
+</div>
+</div>
+</body>
+</html>

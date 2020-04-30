@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+{dede:include filename="head.htm"/}
+<!--轮播图样式-->
+        <div class="banner">
+            <div class="focus">
+                <ul class="rslides f970x280">
+                    <li><img src="{dede:global.cfg_templets_skin/}/images/01.jpg" /></li>
+                    <li><img src="{dede:global.cfg_templets_skin/}/images/02.jpg" /></li>
+                </ul>
+            </div>
+        </div>
+<div class="con">
+  <div class="floor1">
+    <div class="left">
+    <h2><span>公司简介</span><em>ABOUT US</em><a>MORE>></a></h2>
+    <div class="gsjj">{dede:global.cfg_about/}</div>
+    </div>
+    <div class="left" style="width:360px;">
+    <h2><span>新闻中心</span><em>NEWS</em><a>MORE>></a></h2>
+    <div class="xwzx">
+        <ul>
+        {dede:arclist row='5' titlelen='50' typeid='2'}
+        <li><a href="[field:arcurl/]" target="_blank" title="[field:fulltitle/]">[field:title/]</a><span>[field:pubdate function="GetDateMK(@me)"/]</span></li>
+        {/dede:arclist}
+        </ul>
+    </div>
+    </div>
+    <div class="right">
+    <h2><span>联系我们</span><em>CONTACT US</em><a>MORE>></a></h2>
+    <div class="lxwm"> {dede:global.dede_left/}</div>
+    </div>
+  </div>
+  <div class="floortwo">
+    <h2><span>服务项目</span><em>PROJECT</em><a href="#" target="_blank">MORE>></a></h2>
+    <div id="leftMarquee" class="leftLoop">
+    <div class="bd">
+        <ul class="picList">
+        {dede:arclist row='6' typeid='3' titlelen='50'}
+        <li>
+            <div class="pic"><a href="[field:arcurl/]" target="_blank" title="[field:fulltitle/]"><img src="[field:picname/]" alt="[field:fulltitle/]" width="180" height="166" /></a></div>
+            <div class="title"><a href="[field:arcurl/]" target="_blank" title="[field:fulltitle/]">[field:title/]</a></div>
+        </li>
+        {/dede:arclist}
+        </ul>
+    </div>
+    </div>
+  </div>
+</div>
+<div id="footer">
+  <div class="footer">
+    <div class="footernav">
+    <b>友情连接：</b>
+    {dede:flink row='24'}[field:link/] {/dede:flink}
+    </div>
+    <br/>
+    <p>{dede:global.cfg_webname/}</p>
+    <p>地址：{dede:global.cfg_city/}市嘉定区丰年路682弄1-8号仓库  电话：021-59106163 </p>
+  </div>
+</div>
+</body></html>

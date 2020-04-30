@@ -1,0 +1,479 @@
+/*素材58（sucai58.com）找建站素材就上素材58*/
+/***** 全局样式 Global-Style *****/
+*						{margin: 0; padding: 0;}
+html,body				{margin: 0; font: 12px/160%,"宋体"; background:#ffffff url(../img/bg.jpg) top left repeat-x; }
+form,ul,li,dl,dt,dd		{margin: 0; padding: 0; list-style: none;}
+img						{border:none;}
+
+/***** 全局链接 Global-Link-Style *****/
+a			{color: #606163; font-size:12px; text-decoration: none;}
+a:hover		{color: #ff0000;}
+
+/***** 水平居中 *****/
+.cen{ margin:0 auto; }
+
+/***** 清除浮动 *****/
+.clear{ clear:both; }
+
+
+
+/***** 公用头部 *****/
+  /***** 顶部标志\一级导航 *****/
+  #top01{ width:100%; height:116px; background:url(../img/bg_top.jpg) top center no-repeat; margin-bottom:12px; }
+  #top02{ width:1004px; height:116px; }
+  #top02 .left{ width:385px; text-align:center; padding-top:33px; float:left; }
+  #top02 .left dt{ width:385px; height:32px; font:12px/32px "宋体"; color:#6B6B6B; text-align:center; }
+  #top02 .left dd{ width:385px; height:24px; padding-top:15px; float:left; }
+  #top02 .left ul{ width:365px; height:24px; padding-left:20px; float:left; }
+  #top02 .left li{ width:84px; height:24px; float:left; font:14px/24px "宋体"; color:#2F8600; text-align:center; }
+  #top02 .left li a{ width:84px; height:24px; font:14px/24px "宋体"; color:#2F8600; text-align:center; display:block; }
+  #top02 .left li a:hover{ font:bold 14px/24px "宋体"; color:#00943D; }
+  #top02 .center{ width:232px; height:116px; text-align:center; float:left; }
+  #top02 .right{ width:385px; text-align:center; padding-top:40px; float:left; }
+  #top02 .right dt{ width:385px; height:25px; font:12px/25px "宋体"; color:#6B6B6B; text-align:center; }
+  #top02 .right dd{ width:385px; height:24px; padding-top:15px; float:left;}
+  #top02 .right ul{ width:360px; height:24px; padding-left:25px; float:left; }
+  #top02 .right li{ width:84px; height:24px; float:left; font:14px/24px "宋体"; color:#2F8600; text-align:center; }
+  #top02 .right li a{ width:84px; height:24px; font:14px/24px "宋体"; color:#2F8600; text-align:center; display:block; }
+  #top02 .right li a:hover{ font:bold 14px/24px "宋体"; color:#00943D; }
+
+  /***** banner动画 *****/
+  #banner { width:100%; height:330px; margin-bottom:4px; }
+
+  .day  { float:center; position:relative; margin-top:-84px; z-index:2; width:930px; height:46px; font:12px "宋体"; color:#448800; text-align:right; }
+
+
+/***** 活动专区 *****/
+#ac_show { width:1004px; height:183px; text-align:left; margin-bottom:12px; }
+#ac_show .left{ width:33px; height:50px; padding-top:60px; text-align:center; float:left; }
+#ac_show .center { width:936px; height:183px; text-align:center; float:left; }
+#ac_show .center ul{ width:936px; height:183px; text-align:center; }
+#ac_show .center ul li{ float:left; width:200px; height:159px; background:url(../img/bg_ac.jpg) top left no-repeat; padding:12px; margin:0px 5px; }
+#ac_show .center ul li h1{ font:bold 12px/18px "宋体"; color:#397500; text-align:center; }
+#ac_show .center ul li h2{ font:12px/18px "宋体"; color:#A7A7A7; text-align:center; }
+#ac_show .center ul li img{ width:200px; height:90px; padding:0px 0px 6px 0px; }
+#ac_show .right{ width:34px; height:50px; padding-top:60px; text-align:center; float:left; }
+
+
+
+/***** 导航下广告条 *****/
+#gg { width:1004px; height:78px; text-align:center; margin-bottom:8px; }
+#gg ul{ text-align:center; }
+#gg ul li { width:1004px; height:78px; }
+
+
+
+/***** 更多 *****/
+.more1 { font:12px "宋体"; color:#96C861; text-align:right; padding-right:8px; }
+.more1 a{ font:12px "宋体"; color:#96C861; text-align:right; padding-right:8px; }
+.more1 a:hover{ color:#ff0000; }
+
+
+
+/***** 首页正文 *****/
+#index_top01{ width:1004px; }
+#index_top01_colL{ width:758px; float:left; clear:left; }
+#index_top01_colR{ width:236px; float:right; clear:right; }
+
+/***** 左边 *****/
+  /***** 旅游资讯 *****/
+  #toplyzx { width:758px; height:44px; background:url(../img/top_bg_lyzx.jpg) no-repeat top left; text-align:right; margin-bottom:10px; }
+  #toplyzx a{ font:12px/44px "宋体"; color:#ffffff; text-align:right; padding-right:12px; }
+  #toplyzx a:hover{ color:#ff0000; }
+
+  #lyzxtext { width:758px; height:202px; }
+  #photonews { float:left; width:310px; height:202px; text-align:center; }
+  #newstext { float:right; padding-right:10px; width:430px; height:202px; }
+  #newstext01 { width:430px; height:92px; padding-top:6px; background:url(../img/bg200.gif) left bottom repeat-x; }
+  #newstext01 .left { float:left; width:41px; padding-top:4px; text-align:left; }
+  #newstext01 .right { float:left; width:388px; height:92px; }
+  #newstext01 .right ul { width:388px; height:92px; }
+  #newstext01 .right ul li{ font:12px/20px "宋体"; color:#444444; text-align:left; }
+  #newstext01 .right ul li a{ font:12px/20px "宋体"; color:#444444; }
+  #newstext01 .right ul li a:hover { color:#ff0000; }
+  #newstext01 .right ul li span{ font:11px/20px "Helvetica"; color:#BFBFBF; padding-left:10px; }
+  #newstext02 { width:430px; height:92px; padding-top:6px; background:url(../img/bg200.gif) left bottom repeat-x; }
+  #newstext02 .left { float:left; width:41px; padding-top:4px; text-align:left; }
+  #newstext02 .right { float:left; width:388px; height:92px; }
+  #newstext02 .right ul { width:388px; height:92px; }
+  #newstext02 .right ul li{ font:12px/20px "宋体"; color:#444444; text-align:left; }
+  #newstext02 .right ul li a{ font:12px/20px "宋体"; color:#444444; }
+  #newstext02 .right ul li a:hover { color:#ff0000; }
+  #newstext02 .right ul li span{ font:11px/20px "Helvetica"; color:#BFBFBF; padding-left:10px; }
+
+
+
+  /***** 旅游宝典 *****/
+  #toplybd { width:758px; height:44px; background:url(../img/top_bg_lybd.jpg) no-repeat top left; text-align:right; margin-bottom:10px; }
+  #toplybd a{ font:12px/44px "宋体"; color:#ffffff; text-align:right; padding-right:12px; }
+  #toplybd a:hover{ color:#ff0000; }
+
+
+  #lybdtext1 { width:751px; height:348px; margin-top:12px; margin-bottom:12px;}
+  #lybdtext1 li a{ text-align:left; }
+  #lybdtext2 ul{ float:left; width:72px; height:348px; }
+  /*#lybdtext1 .left{ float:left; width:72px; height:348px; }
+  #lybdtext1 .left li{ width:72px; height:57px; margin-bottom:1px; text-align:left; }
+  #lybdtext1 .left li a{ text-align:left; }
+  #lybdtext1 .left li.on a{ display:block; width:72px; height:57px; }*/
+
+  .lybd01_1 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_1_1.gif) no-repeat top left;  }
+  .lybd02_1 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_1_2.gif) no-repeat top left;  }
+
+  .lybd01_2 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_2_1.gif) no-repeat top left;  }
+  .lybd02_2 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_2_2.gif) no-repeat top left;  }
+
+  .lybd01_3 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_3_1.gif) no-repeat top left;  }
+  .lybd02_3 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_3_2.gif) no-repeat top left;  }
+
+  .lybd01_4 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_4_1.gif) no-repeat top left;  }
+  .lybd02_4 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_4_2.gif) no-repeat top left;  }
+
+  .lybd01_5 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_5_1.gif) no-repeat top left;  }
+  .lybd02_5 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_5_2.gif) no-repeat top left;  }
+
+  .lybd01_6 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_6_1.gif) no-repeat top left;  }
+  .lybd02_6 {width:72px; height:57px; margin-bottom:1px; text-align:left; background:url(../img/s_6_2.gif) no-repeat top left;  }
+
+    /***** 吃 *****/
+    .eat { float:left; width:678px; height:348px; background:#E21746; }
+	.eat li{ float:left; width:220px; height:168px; background:#000000; margin-top:4px; margin-left:5px; }
+	.eat li a{ font:14px/30px "宋体"; color:#ffffff; text-align:left; padding-left:15px; }
+	.eat li a:hover{ color:#ffffff; text-decoration:underline; }
+	.eat li img{ width:220px; height:138px; padding:0px; }
+
+	/***** 住 *****/
+    .live { float:left; width:678px; height:348px; background:#F98B02; }
+	.live li{ float:left; width:220px; height:168px; background:#000000; margin-top:4px; margin-left:5px; }
+	.live li a{ font:14px/30px "宋体"; color:#ffffff; text-align:left; padding-left:15px; }
+	.live li a:hover{ color:#ffffff; text-decoration:underline; }
+	.live li img{ width:220px; height:138px; padding:0px; }
+
+	/***** 行 *****/
+    .line { float:left; width:678px; height:348px; background:#7EC60B; }
+	.line li{ float:left; width:220px; height:168px; background:#000000; margin-top:4px; margin-left:5px; }
+	.line li a{ font:14px/30px "宋体"; color:#ffffff; text-align:left; padding-left:15px; }
+	.line li a:hover{ color:#ffffff; text-decoration:underline; }
+	.line li img{ width:220px; height:138px; padding:0px; }
+
+	/***** 购 *****/
+    .buy { float:left; width:678px; height:348px; background:#0679DB; }
+	.buy li{ float:left; width:220px; height:168px; background:#000000; margin-top:4px; margin-left:5px; }
+	.buy li a{ font:14px/30px "宋体"; color:#ffffff; text-align:left; padding-left:15px; }
+	.buy li a:hover{ color:#ffffff; text-decoration:underline; }
+	.buy li img{ width:220px; height:138px; padding:0px; }
+
+	/***** 娱 *****/
+    .joy { float:left; width:678px; height:348px; background:#DC0898; }
+	.joy li{ float:left; width:220px; height:168px; background:#000000; margin-top:4px; margin-left:5px; }
+	.joy li a{ font:14px/30px "宋体"; color:#ffffff; text-align:left; padding-left:15px; }
+	.joy li a:hover{ color:#ffffff; text-decoration:underline; }
+	.joy li img{ width:220px; height:138px; padding:0px; }
+
+	/***** 游 *****/
+    .visit { float:left; width:678px; height:348px; background:#11B7E7; }
+	.visitl{ float:left; width:194px; height:348px; }
+	.visitl li{ width:190px; height:168px; background:#000000; margin-top:4px; margin-left:5px; }
+	.visitl li a{ font:14px/30px "宋体"; color:#ffffff; text-align:left; padding-left:15px; }
+	.visitl li a:hover{ color:#ffffff; text-decoration:underline; }
+	.visitl li img{ width:190px; height:138px; padding:0px; }
+	.visitc{ float:left; width:242px; height:348px; }
+	.visitc li{ width:238px; height:340px; background:#000000; margin-top:4px; margin-left:5px; }
+	.visitc li a{ font:14px/30px "宋体"; color:#ffffff; text-align:left; padding-left:15px; }
+	.visitc li a:hover{ color:#ffffff; text-decoration:underline; }
+	.visitc li img{ width:238px; height:310px; padding:0px; }
+	.visitr{ float:left; width:237px; height:348px; }
+	.visitr li{ width:233px; height:168px; background:#000000; margin-top:4px; margin-left:5px; }
+	.visitr li a{ font:14px/30px "宋体"; color:#ffffff; text-align:left; padding-left:15px; }
+	.visitr li a:hover{ color:#ffffff; text-decoration:underline; }
+	.visitr li img{ width:233px; height:138px; padding:0px; }
+
+
+
+
+  /***** 旅游视频 *****/
+  #video { width:758px; height:57px; margin:25px 0px; }
+  #video .left { float:left; width:68px; height:57px; text-align:left; }
+  #video .right { float:left; width:690px; height:57px; }
+  #video .right ul { width:690px; height:57px; }
+  #video .right li{ float:left; width:222px; height:57px; font:12px/20px "宋体"; color:#444444; padding:0px 3px; }
+  #video .right li img{ float:left; width:80px; height:57px; padding:0px 8px 0px 0px; }
+  #video .right li a{ font:12px/20px "宋体"; color:#444444; padding-top:10px; }
+  #video .right li a:hover{ color:#ff0000; }
+
+
+
+  /***** 旅游指南 *****/
+  #lyzn { width:758px; height:92px; }
+  #lyzn .left { float:left; width:163px; height:92px; }
+  #lyzn .center { float:left; width:535px; height:90px; border-top:1px #DBDBDB solid; border-bottom:1px #DBDBDB solid; background:#ffffff; }
+  #lyzn .center ul { width:500px; padding-top:10px; }
+  #lyzn .center li{ float:left; width:239px; height:22px; font:12px/22px "宋体"; color:#444444; background:url(../img/ico02.jpg) center left no-repeat; padding-left:9px; }
+  #lyzn .center li a{ font:12px/22px "宋体"; color:#444444; }
+  #lyzn .center li a:hover{ color:#ff0000; }
+  #lyzn .right { float:left; width:60px; height:92px; }
+
+
+
+  /***** 政务公开 旅游招商 政策法规 *****/
+  #newsx1 { width:758px; height:232px; margin-top:14px; }
+  .news0001 { float:left; width:244px; height:230px; border:1px #DBDBDB solid; }
+  .news0001 dt{ width:224px; height:44px; font:bold 14px/44px "宋体"; color:#ffffff; background:url(../img/top_news001.jpg) center no-repeat; padding-left:20px; }
+  .news0001 dd{ width:242px; }
+  .news0001 ul { width:222px; height:150px; padding-top:10px; }
+  .news0001 li{ font:12px/24px "宋体"; color:#444444; background:url(../img/ico02.jpg) center left no-repeat; padding-left:9px; }
+  .news0001 li a{ font:12px/24px "宋体"; color:#444444; }
+  .news0001 li a:hover{ color:#ff0000; }
+
+  .second { margin-left:9px; }
+
+  .third { float:right; }
+
+
+
+
+/***** 右边 *****/
+  /***** 通知公告 *****/
+  .tzgg { width:236px; height:350px; }
+  .tzgg dt { width:236px; height:42px; background:url(../img/top_bg_tzgg.jpg) top left no-repeat; font:bold 14px/42px "宋体"; color:#318902; text-align:center; }
+  .tzgg dd { width:216px; height:292px; border-right:10px #F4F4F4 solid; border-bottom:10px #F4F4F4 solid; border-left:10px #F4F4F4 solid; background:#ffffff; }
+  .tzgg dd ul { width:190px; height:260px; padding-top:8px; }
+  .tzgg dd ul li{ font:12px/20px "宋体"; color:#444444; background:url(../img/ico01.gif) top left no-repeat; padding-left:9px; margin-bottom:4px; }
+  .tzgg dd ul li a{ font:12px/20px "宋体"; color:#444444; }
+  .tzgg dd ul li a:hover{ color:#ff0000; }
+
+
+
+  /***** 右边图片链接 *****/
+  .r_prlinks { width:236px; height:118px; }
+  .r_prlinks li{  width:236px; height:118px; }
+
+
+
+  /***** 快捷服务 *****/
+  .bmfw2 { width:236px; height:97px; margin:12px 0px; }
+  .bmfw2 ul { width:226px; height:97px; background:url(../img/bg_bmfw.jpg) top left no-repeat; }
+  .bmfw2 ul li { float:left; width:78px; height:17px; padding:8px 15px; }
+
+
+
+  /***** 有问必答 *****/
+  .message1 { width:236px; height:272px; background:#F4F4F4 url(../img/bg_ywbd.jpg) top center no-repeat; }
+  .message1 dt { width:216px; height:42px; font:bold 14px/42px "宋体"; color:#ffffff; text-align:left; padding-left:20px; }
+  .message1 dd { width:236px; }
+  .message1 dd ul { width:214px; height:195px; padding-top:10px; }
+  .message1 dd ul li{ font:12px/24px "宋体"; color:#444444; background:url(../img/ico05.jpg) left center no-repeat; padding-left:14px; }
+  .message1 dd ul li a{ font:12px/24px "宋体"; color:#444444; }
+  .message1 dd ul li a:hover{ color:#ff0000; }
+
+
+  .more2 { font:12px "宋体"; color:#727272; text-align:right; padding-right:8px; }
+  .more2 a{ font:12px "宋体"; color:#727272; text-align:right; padding-right:8px; }
+  .more2 a:hover{ color:#ff0000; }
+
+
+
+  /***** 在线调查 *****/
+  .survey1 { width:236px; height:232px; background:#F4F4F4 url(../img/bg_survey.jpg) top center no-repeat; margin-top:12px; }
+  .survey1 dt { width:216px; height:42px; font:bold 14px/42px "宋体"; color:#ffffff; text-align:left; padding-left:20px; }
+  .survey1 dd { width:236px; }
+  .survey1 dd ul { width:214px; height:82px; padding-top:10px; }
+  .survey1 dd ul li{ font:12px/24px "宋体"; color:#444444; background:url(../img/ico06.jpg) left center no-repeat; padding-left:14px; }
+  .survey1 dd ul li a{ font:12px/24px "宋体"; color:#444444; }
+  .survey1 dd ul li a:hover{ color:#ff0000; }
+
+
+  .sur_top { width:222px; height:33px; background:url(../img/bg_sur_top.jpg) top center no-repeat; font:12px/24px "宋体"; color:#318902; text-align:center; padding-top:22px; margin-top:15px; }
+  .sur_top a{ font:12px/24px "宋体"; color:#318902; text-align:center; }
+  .sur_top a:hover{ color:#ff0000; }
+
+
+
+/***** 梁平美景 *****/
+#pic_show { width:1002px; height:186px; border:1px #DBDBDB solid; text-align:left; margin-bottom:15px; }
+#pic_show1 { float:left; width:154px; height:186px; text-align:center; }
+#pic_show2 { float:left; width:846px; height:186px; text-align:center; }
+#pic_show2 .left{ width:28px; height:186px; text-align:left; float:left; }
+#pic_show2 .center { width:760px; height:186px; text-align:center; float:left; padding-top:15px;}
+#pic_show2 .center ul{ width:760px; height:154px; padding-top:15px; text-align:center; }
+#pic_show2 .center ul li{ float:left; width:174px; height:154px; background:url(../img/bg_pr.jpg) top left no-repeat; margin:0px 8px; }
+#pic_show2 .center ul li a{ font:12px/22px "宋体"; color:#515151; }
+#pic_show2 .center ul li img{ width:156px; height:114px; padding:8px 4px 0px 4px; }
+#pic_show2 .right{ width:40px; height:186px; text-align:center; float:left; }
+
+
+
+/***** 友情链接 *****/
+#links{ width:100%; background:#EEFAE1; border-top:1px #A8CE80 solid; margin-top:15px; padding:10px 0px; }
+#links1{ width:960px; }
+#links1 dt{ height:40px; font:bold 14px/40px "宋体"; color:#318902; text-align:left; }
+#links1 dd{ width:960px; }
+#links1 dd ul{ width:960px; }
+#links1 dd ul li{ float:left; width:128px; font:12px/18px "宋体"; color:#737373; text-align:left; padding-right:6px; }
+#links1 dd ul li a{ font:12px/18px "宋体"; color:#737373; text-align:left; }
+#links1 dd ul li a:hover{ color:#ff0000; }
+
+
+
+/***** 底部链接版权 *****/
+#bottom { width:988px; text-align:center; background:url(../img/bg_bottom.gif) top left repeat-x; margin-top:18px; padding:10px 0px; }
+#help { width:1004px; height:20px; font:12px/20px "宋体"; color:#6F975A; text-align:center; }
+#help a{ font:12px/20px "宋体"; color:#6F975A; }
+#help a:visited{ color:#6F975A; }
+#help a:hover{ color:#ff0000; }
+#copyright { width:1004px; font:12px/18px "宋体"; color:#6F975A; text-align:center; }
+#copyright a{ font:12px/18px "宋体"; color:#6F975A; }
+#copyright a:hover{ color:#ff0000; }
+#copyright span{ font:11px/20px "Arial"; color:#8E8E8E; }
+
+
+
+
+/***** 内页 *****/
+#container{ width:1004px; background:#ffffff; }
+
+/***** 一级栏目标题\当前位置 *****/
+#coltop1{ width:1004px; height:48px; border-bottom:1px #DFDFDF solid; }
+#toptitle{ float:left; width:180px; height:48px; background:url(../img/ico_2_1.gif) left center no-repeat; font:bold 18px/48px "Microsoft YaHei","宋体"; color:#318902; text-align:left; padding-left:40px; }
+#toppos { float:left; width:584px; height:48px; padding-left:18px; background:url(../img/ico_home.gif) center left no-repeat; font:12px/48px "宋体"; color:#7D7D7D; }
+#toppos a{ font:12px/48px "宋体"; color:#7D7D7D; text-decoration:none; }
+#toppos a:hover{ color:#ff0000; }
+
+
+/***** 二级栏目导航 *****/
+#nav02   { width:1004px; height:51px; background:url(../img/bg_nav2.jpg) left top repeat-x; }
+#nav02 li  { float:left; text-align:center; font:12px/51px "宋体"; color:#444444; }
+#nav02 li a{ width:100px; height:51px; font:12px/51px "宋体"; color:#444444; display:block; }
+#nav02 li a:hover{ font:bold 12px/51px "宋体"; color:#ffffff; background:url(../img/b2.gif) center center no-repeat; display:block; }
+#nav02 li.line01   { width:21px; height:51px; }
+#nav02 li.line02 { width:1px; height:51px; background:url(../img/bmhs_dh02.gif) center center no-repeat; }
+
+
+/***** 新闻列表区域划分 *****/
+#listall{ width:988px; margin-top:15px; }
+#listL{ width:754px; float:left; clear:left; }
+#listR{ width:222px; float:right; clear:right; }
+
+     /***** 热门信息 最新信息 *****/
+    .lastlist	   { margin-top:8px; background:#F4F4F4; }
+    .lastlist dt { height:32px; padding-left:28px; background:#96C861; font:bold 14px/32px "宋体"; color:#ffffff; }
+    .lastlist dd { padding:10px 0; }
+    .lastlist ul { width:206px; margin: 0 auto; }
+    .lastlist ul li{ font:12px/24px "宋体"; color:#4D4D4D; overflow:hidden; text-overflow:ellipsis; word-break:keep-all; white-space:nowrap; }
+    .lastlist ul li a{ font:12px/24px "宋体"; color:#4D4D4D; }
+    .lastlist ul li a:hover{ color:#ff0000; }
+
+    /***** 内页列表 *****/
+	.sortlist{ margin:0px auto 5px auto; width:96%; }
+	.sortlist dl{ margin-bottom:8px; text-align:left; clear:both; }
+	.sortlist dl dt{ height:40px; padding-left:10px; color:#009900; border-bottom:1px #a4e07a solid; font:bold 16px/40px "Microsoft YaHei","宋体"; color:#318902; }
+	.sortlist dl dt a{ float:right; color:#009900; padding-right:10px; font:12px/40px "宋体"; text-decoration:none; }
+
+	.sortlist  { width:96%; margin:10px 0px; }
+	.sortlist ul { text-align:left; }
+	.sortlist ul li { font:12px/24px "宋体"; color:#3E6C03; text-decoration:none; padding:15px 10px; text-align:left; border-bottom:1px #D8D8D8 dashed; }
+	.sortlist ul li a{ font:bold 14px/24px "宋体"; color:#3E6C03; text-decoration:none; }
+    .sortlist ul li a:visited{ color:#3E6C03; }
+	.sortlist ul li a:hover  { color:#ff0000; text-decoration:underline; }
+    .sortlist ul li h1{ font:bold 14px/24px "宋体"; color:#A3A3A3; float:left; padding:0; margin:0px; }
+    .sortlist ul li span{ font:11px/24px "Helvetica"; color:#BFBFBF; padding-left:10px;  float: inherit;}
+    .sortlist ul p{ font:12px/20px "宋体"; color:#6A6A6A; }
+
+
+
+	/***** 图片新闻列表 *****/
+	.sortlist ul.picture li{ width:170px; height:158px; float:left; margin:15px 5px 6px 5px; padding:0px; border:none; text-align:center; overflow:hidden; }
+	.sortlist ul.picture li img			{ width:156px; height:114px; padding:6px; border:1px solid #DBDBDB; }
+	.sortlist ul.picture li a           { display:block; font:12px/24px "宋体"; color:#525151; }
+	.sortlist ul.picture li a:hover     { color:#ff0000; }
+
+
+
+
+
+  /***** 内页列表分页 *****/
+	.page { margin:30px 3px 30px 3px; padding:3px; text-align:center; clear:both;}
+	.page a { font:11px/30px "Helvetica"; margin:2px; padding:5px 8px; border:1px solid #81B748; color:#81B748; text-decoration:none; }
+	.page a:hover { border:1px solid #ff0000; color:#ff0000; }
+	.page a:active { border:1px solid #009900; color:#6A6A6A; }
+	.page span { margin:2px; padding:5px 8px; border:1px solid #CFCFCF; color:#CFCFCF; font-size:12px; }
+	.page span.strong { margin:2px; padding:5px 8px; border:1px solid #CFCFCF; font-weight:bold; color:#fff; background-color:#CFCFCF; }
+
+ /***** 内页内容 *****/
+    #text             { width:94%; font:14px/28px "宋体"; text-align:center; color:#515151; margin-top:15px; }
+    #text a           { font:14px/28px "宋体"; color:#515151; border-bottom:1px #515151 solid; }
+    #text a:visited   { color:#515151; }
+    #text a:hover     { color:#ff0000; }
+    #text h1		  { font:bold 20px/30px "Microsoft YaHei","宋体"; color:#2E8500; margin-top:30px; }
+    #text h2          { font:bold 14px/40px "Microsoft YaHei","宋体"; color:#2E8500; }
+	#text h3          { font:12px/22px "宋体"; background:#DDEFCB; color:#000000; margin-top:10px; }
+
+	#showcontent 	  { margin-top:20px; margin-bottom:20px; font:14px/28px "宋体","Microsoft YaHei"; text-align:left; }
+	#showcontent p    { text-indent:28px; }
+
+  /***** 内页收藏，关闭等 *****/
+	#tools			 { width:96%; margin:8px auto; font:12px/30px "宋体"; text-align:right; color:#656565; }
+	#tools a		 { color:#656565; }
+	#tools a:hover   { font:12px/22px "宋体"; color:#f70000; }
+
+  /***** 内页上，下一篇 *****/
+	#prenext { width:96%; margin:12px auto; background:#F4F4F4; border:1px solid #E3E3E3; }
+	#prenext ul li { font:12px/20px "宋体"; color:#525151; height:20px; text-align:left; text-indent:30px; margin:10px auto; }
+	#prenext ul li a{ color:#525151; }
+	#prenext ul li a:hover{ color:#ff0000; }
+
+
+
+
+
+/***** 旅游政务频道页 *****/
+#topnews { width:1002px; height:86px; border:1px #DBDBDB solid; background:#ffffff; margin-bottom:12px; }
+#topnews .left{ float:left; width:100px; padding-top:17px; text-align:center; }
+#topnews .right{ float:left; width:900px; text-align:left; padding-top:10px; }
+#topnews .right h1 a{ font:bold 30px/40px "Microsoft YaHei","宋体"; color:#DC0000; }
+#topnews .right p   { font:12px/24px "宋体"; color:#444444; }
+#topnews .right p a{ color:#444444; text-decoration:underline; }
+
+#zwtext { width:758px; height:226px; margin-bottom:8px; }
+.newszw1{ float:left; width:372px; height:226px; border:1px #DBDBDB solid; }
+.newszw1 dt{ width:352px; height:44px; font:bold 14px/44px "宋体"; color:#ffffff; background:url(../img/top_news002.jpg) center no-repeat; padding-left:20px; }
+.newszw1 dd{ width:372px; }
+.newszw1 ul { width:346px; height:150px; padding-top:10px; }
+.newszw1 li{ font:12px/24px "宋体"; color:#444444; background:url(../img/ico02.jpg) center left no-repeat; padding-left:9px; }
+.newszw1 li a{ font:12px/24px "宋体"; color:#444444; }
+.newszw1 li a:hover{ color:#ff0000; }
+.newszw1 li span{ float:right; font:11px/24px "Helvetica"; color:#BFBFBF; }
+
+.newsright { float:right; }
+
+
+#gg2 { width:758px; height:74px; text-align:center; margin-bottom:8px; }
+#gg2 ul{ text-align:center; }
+#gg2 ul li { width:758px; height:74px; }
+
+
+.btx1 { width:236px; height:66px; text-align:center; margin-top:8px; }
+.btx1 li { float:left; width:76px; height:66px; padding:0px 1px; }
+
+
+.mail { width:236px; height:56px; text-align:center; margin-top:8px; }
+.mail li { width:236px; height:56px; }
+
+
+.ztzl2 { width:236px; height:302px; background:#F4F4F4; margin-top:8px; }
+.ztzl2 dt { width:216px; height:38px; background:#96C861;  font:bold 14px/38px "宋体"; color:#ffffff; text-align:left; padding-left:20px; }
+.ztzl2 dd { width:236px; }
+.ztzl2 dd ul { width:200px; padding-top:15px; }
+.ztzl2 dd ul li{ width:200px; height:50px; padding-bottom:15px; }
+
+
+
+
+
+
+/***** 活动专区频道页 *****/
+#ac_list { width:980px; text-align:left; margin-top:15px; margin-bottom:20px; }
+#ac_list li{ float:left; width:200px; height:159px; background:url(../img/bg_ac.jpg) top left no-repeat; padding:12px; margin:8px 10px; }
+#ac_list li h1{ font:bold 12px/18px "宋体"; color:#397500; text-align:center; }
+#ac_list li h2{ font:12px/18px "宋体"; color:#A7A7A7; text-align:center; }
+#ac_list li img{ width:200px; height:90px; padding:0px 0px 6px 0px; }

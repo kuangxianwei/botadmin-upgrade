@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/skin/css/metinfo_ui.css" id="metuimodule" data-module ="10001" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/skin/css/metinfo.css" />
+<script src="{dede:global.cfg_templets_skin/}/skin/js/jquery1.7.2.js" type="text/javascript"></script>
+<script src="{dede:global.cfg_templets_skin/}/skin/js/metinfo_ui.js" type="text/javascript"></script>
+<!--[if IE]>
+<script src="{dede:global.cfg_templets_skin/}/skin/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+<header>
+  <div>
+    <div class="inner clear">
+    <div class="logo"> <a href="/" title="{dede:global.cfg_indexname/}" id="web_logo"> <img src="{dede:global.cfg_templets_skin/}/skin/images/logo1.png" alt="{dede:global.cfg_titlelast/}" title="{dede:global.cfg_titlelast/}" style="margin:15px 0px 0px 20px;" /> </a> </div>
+    <div class="otr-nav">
+        <div class="top-nav"><a href='#' onclick='SetHome(this,window.location,"非IE浏览器不支持此功能，请手动设置！");' style='cursor:pointer;' title='设为首页'  >设为首页</a><span>-</span><a href='#' onclick='addFavorite("非IE浏览器不支持此功能，请手动设置！");' style='cursor:pointer;' title='收藏本站'  >收藏本站</a></div>
+        <nav>
+        <ul class="list-none">
+            <li id="nav_10001"  class='navdown'><a href='/' title='公司首页' class='nav'><span>公司首页</span></a></li>
+            {dede:channel type='top' row='10' currentstyle="
+            <li class='navdown'><a href='~typelink~' ~rel~><span>~typename~</span></a>"</li>
+            }
+            <li class="line"></li>
+            <li id='nav_[field:global name=autoindex runphp="yes"]@me=@me+1;[/field:global]'  ><a href='[field:typeurl/]' 0 title='[field:typename/]' class='hover-none nav'><span>[field:typename/]</span></a></li>
+            {/dede:channel}
+        </ul>
+        </nav>
+    </div>
+    </div>
+  </div>
+</header>
+<div class="headerbg"></div>
+<div class="inner met_flash">
+  <link rel='stylesheet' href='{dede:global.cfg_templets_skin/}/skin/css/flexslider.css' type='text/css'>
+  <script src='{dede:global.cfg_templets_skin/}/skin/js/jquery.flexslider-min.js'></script>
+  <div class='flash'>
+    <div class='flexslider flexslider_flash flashfld'>
+    <ul class='slides list-none'>
+        <li><a href='' target='_blank' title='tea'> <img src='{dede:global.cfg_templets_skin/}/skin/images/1403666520.jpg' alt='tea' width='972' height='387'></a></li>
+        <li><a href='' target='_blank' title=''> <img src='{dede:global.cfg_templets_skin/}/skin/images/1403666308.jpg' alt='' width='972' height='387'></a></li>
+        <li><a href='' target='_blank' title=''> <img src='{dede:global.cfg_templets_skin/}/skin/images/1403666579.jpg' alt='' width='972' height='387'></a></li>
+        <li><a href='' target='_blank' title=''> <img src='{dede:global.cfg_templets_skin/}/skin/images/1403666749.jpg' alt='' width='972' height='387'></a></li>
+    </ul>
+    </div>
+  </div>
+  <script type='text/javascript'>$(document).ready(function(){ $('.flashfld').flexslider({ animation: 'slide',controlNav:false});});</script></div>
+<div class="indx-pro">
+  <div class="con" >
+    <div class="left dg dg2 fl" style="width:295px; ">
+    <h3 class="title"><a class="index_tit" href="#" title="About Us">About Us</a><a href="#" title="About Us"><span>{dede:global.cfg_indexname/}简介</span></a></h3>
+    <div class="editor" style="color:#666666"><img alt="" src="{dede:global.cfg_templets_skin/}/skin/images/20131217_154703.jpg" style="height: 110px; float: left; margin-left: 10px; width: 131px; margin-right: 10px" />&nbsp;&nbsp;&nbsp;&nbsp{dede:global.cfg_about/}<br />
+        &nbsp;</div>
+    <div class="clear"></div>
+    </div>
+    <div class="mid dg dg2 fl" style="width:250px; border-right:1px solid #ededed; border-left:1px solid #ededed; padding-right:30px; padding-left:30px; margin:0 20px 0 30px;">
+    <div class="indexborder">
+        <h3 class="title"><a class="index_tit" title="News">News</a><a title="News"><span>公司新闻</span></a></h3>
+        <dl class="index_list 3">
+        {dede:arclist row=3 infolen='100' titlelen=32}
+        <dd class="list"> <a href="[field:arcurl/]" title="[field:title/]"> <span class="memoaaa">[[field:title/]...]</span>
+            <p class="memopp">[field:info/]...</p>
+            </a> </dd>
+        {/dede:arclist}
+        </dl>
+    </div>
+    <div class="clear"></div>
+    </div>
+    <div class="right dg fl" style="width:306px;">
+    <h3 class="title"><a class="index_tit" title="Tea gift">Tea gift</a><a title="Tea gift"><span>产品介绍</span></a></h3>
+    <dl class="product">
+        {dede:arclist row=3 infolen='120' titlelen=32}
+        <dd class="product_list"> <a href="[field:arcurl/]" class="imgWidth" taget="_blank" title="[field:title/]"><img src="[field:picname/]" width="90" height="60" alt="[field:title/]" title="[field:title/]"></img></a> <a href="[field:arcurl/]" class="aWidth" title="[field:title/]">[field:info/]...</a> </dd>
+        {/dede:arclist}
+    </dl>
+    <div class="clear"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="inner">
+    <div class="index-links">
+    <h3 class="title"> 友情链接： <a href="" title="链接关键词" class="more"></a> </h3>
+    <div class="active index-box">
+        <div class="img">
+        <ul class='list-none'>
+        </ul>
+        </div>
+        <div class="txt">
+        <ul class='list-none'>
+        {dede:flink row='24'}<li>[field:link/]</li>{/dede:flink}
+        </ul>
+        <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    </div>
+    <div class="foot-nav"> {dede:channel type='top' row='10' currentstyle="<a href='~typelink~' ~rel~><span>~typename~</span></a>"} <a href='[field:typeurl/]'  title='[field:typename/]'>[field:typename/]</a><span> | </span> {/dede:channel} </div>
+    <div class="foot-text">
+    <p>{dede:global.cfg_webname/}</p>
+    <p>地址:{dede:global.cfg_province/}省{dede:global.cfg_city/}市国贸玉沙路 电话:0898-66889888 E-mail:dedecms@163.com</p>
+    </div>
+    <div class="clear"></div>
+  </div>
+</footer>
+<script src="{dede:global.cfg_templets_skin/}/skin/js/fun.inc.js" type="text/javascript"></script>
+<script src="{dede:global.cfg_templets_skin/}/skin/js/indeximg.js" type="text/javascript"></script>
+<script src='{dede:global.cfg_templets_skin/}/skin/js/online.js' type='text/javascript' id='metonlie_js'></script>
+<script language="javascript" type="text/javascript" src="http://js.users.51.la/17468116.js"></script>
+
+</body>
+</html>
