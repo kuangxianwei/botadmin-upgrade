@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/skin/css/style.css">
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/skin/Scripts/myJq.js"></script>
+<script language="javascript" src="{dede:global.cfg_templets_skin/}/skin/Scripts/common.js"></script>
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+<div id="wrap">
+  {dede:include filename="head.htm"/}
+  <div id="main">
+    <div class="show">
+    <div class="cont">
+        <script src="{dede:global.cfg_templets_skin/}/skin/js/jcarousellite.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+   $(document).ready(function(){
+    $("#box").jCarouselLite({
+        btnPrev: "#prev",
+        btnNext: "#next",
+        auto: 3000,//图片停留时间
+        scroll: 2,//每次滚动覆盖的图片个数
+        speed: 800, //设置速度，0是不动。其次就是数字越大 ，移动越慢。
+        vertical: false,//横向（true），竖向（false）
+        visible: 5, //显示的数量
+        circular: true //是否循环
+    });
+    });
+    </script>
+        <span id="next">下一张</span><span id="prev">上一张</span>
+        <div id="box">
+        <ul>
+        {dede:arclist row=10  type='image.' imgwidth='130' imgheight='94' titlelen=12}
+        <li><a href="[field:arcurl/]">[field:image/]<p>[field:title/]</p></a></li>
+        {/dede:arclist}
+        </ul>
+        </div>
+    </div>
+    </div>
+    <div class="clear"></div>
+    <div class="leftframe">
+    <div class="company">
+        <div class="title"><img src="{dede:global.cfg_templets_skin/}/skin/images/index_10.jpg" alt="公司概况" /></div>
+        <div class="cont">
+        <div class="contxt">{dede:global.cfg_about/}
+        </div>
+        <div class="more"><a href="#"><img src="{dede:global.cfg_templets_skin/}/skin/images/more.jpg" /></a></div>
+        </div>
+    </div>
+    <div class="news">
+        <div class="title"><img src="{dede:global.cfg_templets_skin/}/skin/images/index_12.jpg" alt="新闻中心" /></div>
+        <div class="cont">
+        <ul>
+    {dede:arclist titlelen='30' row='5'}
+    <li><span>[field:pubdate function=strftime('%y-%m-%d',@me)/]</span>·<a href="[field:arcurl /]">[field:title /]</a></li>
+    {/dede:arclist}
+        </ul>
+        <div class="more"><a href="#"><img src="{dede:global.cfg_templets_skin/}/skin/images/more.jpg" /></a></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="engin">
+        <div class="title"><img src="{dede:global.cfg_templets_skin/}/skin/images/index_17.jpg" alt="工程中心" /></div>
+        <div class="cont">
+        <div class="cont1"><img src="{dede:global.cfg_templets_skin/}/skin/images/index_24.jpg" width="130" height="84" />
+            <p>{dede:global.cfg_description/} </p>
+        </div>
+        <div class="cont2">
+            <ul>
+                {dede:arclist titlelen='30' row='4'}
+    <li>·<a href="[field:arcurl /]">[field:title /]</a></li>
+    {/dede:arclist}
+            </ul>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="sidebar"><div class="contact">
+  <div class="cont">
+    <p>热线电话：<span class="tel">027-85577717</span><br />
+    通讯地址：{dede:global.cfg_province/}省{dede:global.cfg_city/}市新华下路17号新华豪庭A栋1单元11楼<br />
+    网址：{dede:global.cfg_basehost/}<br />
+    传真：027-85577759</p>
+  </div>
+</div>
+<div class="navi">
+  <div><a href="#"><img src="{dede:global.cfg_templets_skin/}/skin/images/index_34.jpg" alt="技术问答" /></a></div>
+  <div><a href="#"><img src="{dede:global.cfg_templets_skin/}/skin/images/index_31.jpg" alt="资料下载" /></a></div>
+  <div><a href="#"><img src="{dede:global.cfg_templets_skin/}/skin/images/index_36.jpg" alt="招贤纳士" /></a></div>
+</div>
+</div>
+    <div class="clear"></div>
+  </div>
+    <div id="footer">
+    <div class="footerbg">
+    <p>Copyright &copy; {dede:global.cfg_webname/}  电话：027-85577717</p>
+<p><b>友情链接：</b>{dede:flink row='24'}[field:link/] {/dede:flink}</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

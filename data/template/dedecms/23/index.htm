@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templets_skin/}/css/slideshow.css" rel="stylesheet" media="screen" type="text/css" />
+<link href="{dede:global.cfg_templets_skin/}/css/main.css" rel="stylesheet" media="screen" type="text/css" />
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div id="maintop">
+  <div id="show">
+    <!-- 代码 开始 -->
+    <script language='javascript'>
+linkarr = new Array();
+picarr = new Array();
+textarr = new Array();
+var swf_width=260;
+var swf_height=188;
+//文字颜色|文字位置|文字背景颜色|文字背景透明度|按键文字颜色|按键默认颜色|按键当前颜色|自动播放时间|图片过渡效果|是否显示按钮|打开方式
+var configtg='0xffffff|999999|0x3FA61F|5|0xffffff|0xC5DDBC|0x000033|3|2|1|_blank';
+var files = "";
+var links = "";
+var texts = "";
+//这里设置调用标记
+{dede:arclist  row='5'}
+linkarr[[field:global.autoindex/]] = "";
+picarr[[field:global.autoindex/]]  = "[field:litpic/]";
+textarr[[field:global.autoindex/]] = "[field:title function='html2text(@me)'/]";
+{/dede:arclist}
+for(i=1;i<picarr.length;i++){
+if(files=="") files = picarr[i];
+else files += "|"+picarr[i];
+}
+for(i=1;i<linkarr.length;i++){
+if(links=="") links = linkarr[i];
+else links += "|"+linkarr[i];
+}
+for(i=1;i<textarr.length;i++){
+if(texts=="") texts = textarr[i];
+else texts += "|"+textarr[i];
+}
+document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="'+ swf_width +'" height="'+ swf_height +'">');
+document.write('<param name="movie" value="{dede:global.cfg_templeturl /}/default/images/bcastr3.swf"><param name="quality" value="high">');
+document.write('<param name="menu" value="false"><param name=wmode value="opaque">');
+document.write('<param name="FlashVars" value="bcastr_file='+files+'&bcastr_link='+links+'&bcastr_title='+texts+'&bcastr_config='+configtg+'">');
+document.write('<embed src="{dede:global.cfg_templeturl /}/default/images/bcastr3.swf" wmode="opaque" FlashVars="bcastr_file='+files+'&bcastr_link='+links+'&bcastr_title='+texts+'&bcastr_config='+configtg+'&menu="false" quality="high" width="'+ swf_width +'" height="'+ swf_height +'" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />'); document.write('</object>');
+</script>
+  </div>
+  <div class="clear"></div>
+  <div id="news">
+    <div id="i_row3">
+    <div id="i_promise_title">
+        <ul>
+        <li><a class="current" num="0">公司新闻</a></li>
+        </ul>
+        <div class="more">{dede:type typeid='1'} <a href="[field:typelink/]"><img src="[field:global.cfg_templets_skin/]/images/more.png" alt=""/></a>{/dede:type} </div>
+    </div>
+    <div id="i_promise_outer">
+        <div class="i_promise" style="display:block;">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+            <td><div class="i_promise_r">
+                <div class="newshow"> {dede:arclist row=1 orderby=pubdate typeid='2'}
+                    <table  border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="135"><a href="[field:arcurl/]"> [field:image/]</a></td>
+                        <td> [field:description function="cn_substr(@me,120)"/]...</td>
+                    </tr>
+                    </table>
+                    {/dede:arclist} </div>
+                <div class="newli">
+                    <ul>
+                    {dede:arclist titlelen='50' typeid='3' row='3' orderby=pubdate }
+                    <li>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="10"><img src="{dede:global.cfg_templets_skin/}/images/p.png" alt=""/></td>
+                            <td align="left"><a href="[field:arcurl/]">[field:title/]</a></td>
+                            <td width="75">[field:pubdate function=strftime('%Y-%m-%d',@me)/]</td>
+                        </tr>
+                        </table>
+                    </li>
+                    {/dede:arclist}
+                    </ul>
+                </div>
+                </div></td>
+            </tr>
+        </table>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div id="wh">
+    <div id="wht">
+    <div class="more"><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/more.png" alt=""/></a> </div>
+    </div>
+    <div id="xhr" style="text-align:left">{dede:global.cfg_description/} </div>
+  </div>
+</div>
+<div id="pro">
+  <div id="demo">
+    <div id="indemo">
+    <div id="demo1"> {dede:arclist typeid='3' orderby='click'} <a href="[field:arcurl/]">[field:image/]
+        <p>[field:title/]</p>
+        </a> {/dede:arclist} </div>
+    <div id="demo2"></div>
+    </div>
+  </div>
+</div>
+<div id="mainbottom">
+  <div id="ys">
+    <div id="yst">
+    <div class="more"><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/more.png" alt=""/></a> </div>
+    </div>
+    <div id="ysm"> {dede:global.cfg_about/}... </div>
+  </div>
+  <div class="clear"></div>
+  <div id="fc">
+    <div id="fct">
+    <div class="more"><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/more.png" alt=""/></a> </div>
+    </div>
+    <div class="i_promisefc"  style="display:block;">
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+        <td><div class="i_promise_rfc">
+            <div class="newshowfc"> {dede:arclist row=1 orderby=pubdate typeid='10'}
+                <table  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="135"><a href="[field:arcurl/]"> [field:image/]</a></td>
+                    <td> [field:description function="cn_substr(@me,120)"/]...</td>
+                </tr>
+                </table>
+                {/dede:arclist} </div>
+            <div class="newlifc">
+                <ul>
+                {dede:arclist titlelen='50' typeid='10' row='3' orderby=pubdate }
+                <li>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td width="10"><img src="[field:global.cfg_templets_skin/]/images/p.png" alt=""/></td>
+                        <td width="200" align="left"><a href="[field:arcurl/]">[field:title/]...</a></td>
+                        <td width="75">[field:pubdate function=strftime('%Y-%m-%d',@me)/]</td>
+                    </tr>
+                    </table>
+                </li>
+                {/dede:arclist}
+                </ul>
+            </div>
+            </div></td>
+        </tr>
+    </table>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div id="wh">
+    <div id="wht">
+    <div class="more"><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/more.png" alt=""/></a> </div>
+    </div>
+    <div id="xhr" style="text-align:left; line-height:24px; padding-top:15px; padding-left:10px;"> {dede:global.cfg_titlelast/}</br>
+    营销中心：{dede:global.cfg_province/}省{dede:global.cfg_city/}市临淄区齐鲁国际塑化城中齐大厦991/799室</br>
+    生产基地：{dede:global.cfg_province/}省{dede:global.cfg_city/}市临淄区齐鲁化学工业园纬六路东首</br>
+    电话：0533-7186973</br>
+    15853336508/13708326296</br>
+    网站：{dede:global.cfg_basehost/} </div>
+  </div>
+</div>
+ {dede:channelartlist typeid='top' cacheid='channelsonlist'}
+<ul id="dropmenu{dede:field.typeid/}" class="dropMenu">
+  {dede:channel type='son' noself='yes'}
+  <li><a href="[field:typelink/]">[field:typename/]</a></li>
+  {/dede:channel}
+</ul>
+{/dede:channelartlist}
+<script type="text/javascript">cssdropdown.startchrome("navMenu")</script>
+<div class="clear"></div>
+<div id="bottom" style="font-color:white;">备案号：&nbsp;&nbsp;{dede:global.cfg_webname/}  友情链接：{dede:flink row='24'}[field:link/] {/dede:flink}<br />
+  <a><img src="{dede:global.cfg_templets_skin/}/images/gongshang.bmp" border="0" /></a> </div>
+</body>
+</html>

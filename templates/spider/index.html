@@ -1,0 +1,298 @@
+<div class="layui-fluid" id="spider-tabs">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">规则列表</div>
+                <div class="layui-card-body">
+                    <table id="table-list" lay-filter="table-list"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-container">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="addrule">
+                <i class="layui-icon layui-icon-add-circle"></i>添加
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="status">
+                <i class="layui-icon layui-icon-star"></i>状态
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="exec">
+                <i class="layui-icon iconfont icon-spider"></i>采集
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchdel" lay-tips="删除选中">
+                <i class="layui-icon layui-icon-delete"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="recordReset" lay-tips="清空全部已经采集过的记录">
+                <i class="layui-icon layui-icon-fonts-clear"></i>记录
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="syncCron" lay-tips="同步定时任务">
+                <i class="layui-icon layui-icon-refresh"></i>Cron
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="jobs" lay-tips="查看运行中的任务">任务
+            </button>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="table-toolbar">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs" lay-event="exec" lay-tips="开始采集">
+            <i class="layui-icon iconfont icon-spider"></i>
+        </button>
+        <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="modify" lay-tips="修改规则">
+            <i class="layui-icon layui-icon-edit"></i>
+        </button>
+        <button class="layui-btn layui-btn-xs" lay-event="copy" lay-tips="复制规则">
+            <i class="layui-icon layui-icon-file-b"></i>
+        </button>
+        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
+            <i class="layui-icon layui-icon-delete"></i>
+        </button>
+        <button class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i></button>
+        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="recordReset" lay-tips="清空当前这条规则的记录">
+            <i class="layui-icon layui-icon-fonts-clear"></i>
+        </button>
+    </div>
+</script>
+<script type="text/html" id="table-status">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                    <select name="status">
+                        <option value="0">采集前</option>
+                        <option value="1">采集中</option>
+                        <option value="2">采集后</option>
+                    </select>
+                </div>
+                <button class="layui-hide" lay-submit lay-filter="subStatus"></button>
+            </div>
+        </div>
+    </div>
+</script>
+<script src="/static/layui/layui.js"></script>
+<script>
+    var url = {{.current_uri}};
+    layui.config({
+        base: '/static/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index', //主入口模块
+        main: 'main',
+        step: 'step',
+    }).use(['index', 'form', 'table', 'main'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            table = layui.table,
+            main = layui.main;
+        table.render({
+            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            method: 'post',
+            elem: '#table-list',
+            toolbar: '#toolbar',
+            url: url,
+            cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                {field: 'id', width: 80, title: 'ID', sort: true},
+                {field: 'name', title: '规则名称', minWidth: 100},
+                {field: 'seeds', title: '种子', hide: true},
+                {
+                    field: 'status', title: '状态', width: 100, align: 'center',
+                    event: 'status', style: 'cursor:pointer;color:#01aaed;',
+                    templet: function (d) {
+                        var text = '采集前';
+                        if (d.status === 1) {
+                            text = "采集中";
+                        } else if (d.status === 2) {
+                            text = "采集后";
+                        }
+                        return text;
+                    }
+                },
+                {field: 'updated', title: '时间', minWidth: 100, sort: true},
+                {title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+            ],],
+            page: true,
+            limit: 10,
+            limits: [10, 15, 20, 25, 30],
+            text: '对不起，加载出现异常！',
+        });
+        table.on('tool(table-list)', function (obj) {
+            var data = obj.data;
+            switch (obj.event) {
+                case 'del':
+                    layer.confirm('确定删除此条日志？', function (index) {
+                        main.req({
+                            url: '/spider/del',
+                            data: {id: data.id},
+                            index: index,
+                            ending: obj.del,
+                        });
+                    });
+                    break;
+                case 'modify':
+                    $.get(url + '/modify', {id: data.id}, function (html) {
+                        main.popup({
+                            title: '修改规则',
+                            content: html,
+                            url: url + '/modify',
+                            submit: 'stepSubmit',
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'copy':
+                    layer.confirm('确定复制:' + data.name + '?', function (index) {
+                        main.req({
+                            url: '/spider/copy',
+                            data: {id: data.id},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'exec':
+                    layer.confirm('开始采集入库？', function (index) {
+                        main.req({
+                            url: '/spider/exec',
+                            data: {id: data.id},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'status':
+                    var othis = $($('#table-status').html());
+                    othis.find('div.layui-form:first').prepend('<input type="hidden" name="id" value="' + data.id + '">');
+                    othis.find('select[name=status]:first>option[value=' + data.status + ']').attr("selected", true);
+                    main.popup({
+                        title: '修改状态',
+                        content: othis.html(),
+                        area: ['240px', '300px'],
+                        url: url + '/status',
+                        ending: function (res) {
+                            obj.update({status: res.status});
+                        },
+                    });
+                    break;
+                case 'log':
+                    $.get('/log/single', {token: 'spider.' + data.id}, function (html) {
+                        main.popup({
+                            title: '发布日志',
+                            content: html,
+                            url: '/log/single',
+                        });
+                    });
+                    break;
+                case "recordReset":
+                    layer.confirm('确定清空这条规则的日志？可能导致重复采集', function (index) {
+                        main.req({
+                            url: '/spider/record/reset/one',
+                            data: {seeds: data.seeds.join()},
+                            index: index,
+                        });
+                    });
+                    break;
+            }
+        });
+        table.on('toolbar(table-list)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id),
+                data = checkStatus.data,
+                ids = new Array();
+            layui.each(data, function (i, item) {
+                ids[i] = item.id;
+            });
+            switch (obj.event) {
+                case 'batchdel':
+                    if (ids.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
+                        main.req({
+                            url: url + '/del',
+                            data: {ids: ids.join()},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'addrule':
+                    $.get(url + '/add', {}, function (html) {
+                        main.popup({
+                            title: '添加规则',
+                            content: html,
+                            url: url + '/add',
+                            submit: 'stepSubmit',
+                            ending: 'table-list'
+                        });
+                    });
+                    break;
+                case 'status':
+                    if (ids.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    var othis = $($('#table-status').html());
+                    othis.find('div.layui-form:first').prepend('<input type="hidden" name="ids" value="' + ids.join() + '">');
+                    main.popup({
+                        title: '修改状态',
+                        content: othis.html(),
+                        area: ['240px', '300px'],
+                        url: url + '/status',
+                        ending: 'table-list',
+                    });
+                    break;
+                case 'exec':
+                    if (ids.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.prompt({
+                        formType: 0,
+                        value: ids.length,
+                        title: '采集入库:输入线程数,太多会卡死'
+                    }, function (value, index, elem) {
+                        main.req({
+                            url: '/spider/exec',
+                            data: {ids: ids.join(), thread: value},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'recordReset':
+                    layer.confirm('确定清空采集记录?清空后可导致重复采集', function (index) {
+                        main.req({
+                            url: '/spider/record/reset',
+                            index: index
+                        });
+                    });
+                    break;
+                case 'syncCron':
+                    main.req({
+                        url: '/spider/sync/cron',
+                        ending: 'table-list',
+                    });
+                    break;
+                case 'jobs':
+                    main.req({
+                        url: url + '/jobs',
+                        tips: {},
+                        ending: '-',
+                    });
+                    break;
+            }
+        });
+        form.on('submit(submit-search)', function (data) {
+            table.reload('table-list', {
+                where: data.field,
+                page: {curr: 1}
+            });
+            return false;
+        });
+    });
+</script>

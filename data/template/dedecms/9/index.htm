@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templets_skin/}/images/index.css" rel="stylesheet" type="text/css" />
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+
+<body>
+<div id="top">
+  <div class="wrapper">
+    <h5 style="float:left;margin-top:8px;font-size:14px;color:#284766;">欢迎光临{dede:global.cfg_titlelast/}！喜欢本站您可以点击分享：</h5>
+    <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> <a class="bds_bdhome"></a> <a class="bds_sqq"></a> <a class="bds_qzone"></a> <a class="bds_tqq"></a> <a class="bds_taobao"></a> <a class="bds_mogujie"></a> <a class="bds_meilishuo"></a> </div>
+    <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=0" ></script>
+    <script type="text/javascript" id="bdshell_js"></script>
+    <script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+    <!-- Baidu Button END -->
+
+  </div>
+</div>
+<div class="wrapper">
+  <div id="head">
+    <div class="htitle">
+      <h1> <a href="{dede:global.cfg_indexurl/}">{dede:global.cfg_indexname/}</a> </h1>
+    </div>
+    <div style="padding-top: 10px; padding-right: 17px;">咨询热线：<a style="color:red;font-size:16px;font-weight:bold;">13922352985</a></div>
+    <div style="padding-top: 25px; padding-right: 18px;font-size:14px;"><a href="/data/sitemap.html" target="_blank">网站地图</a> | <a href="/data/rssmap.html" target="_blank">rss</a></div>
+  </div>
+  <div id="navo">
+    <div id="navi">
+      <div id="menu">
+        <ul id="nav">
+          <li><a class='nav_on' href="/" ><span>首 页</span></a></li>
+          {dede:channel type='top' row='10' currentstyle="<li class='menu_line'></li><li><a class='nav_on' href='~typelink~' ><span>~typename~</span></a></li>"}
+          <li class="menu_line"></li>
+          <li><a href='[field:typeurl/]' ><span>[field:typename/]</span></a></li>
+          {/dede:channel}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="wrapper">
+  <div style="margin: 0pt auto; width: 100%; height: auto;">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td><div style="width: 960px; height: 350px;">
+              <!-- size: 960px * 350px -->
+              <img src="{dede:global.cfg_templets_skin/}/images/banner.jpg" alt="{dede:global.cfg_indexname/}"> </div></td>
+          <td><div class="title_top">
+              <div class="title_top_i"></div>
+            </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="wrapper mT5">
+  <div id="dedenews">
+    <div id="newtitle" class="fLeft">{dede:global.cfg_indexname/}推荐：</div>
+    <div id="news" class="fLeft">
+      <ul>
+        <marquee onmouseout="this.start()" onmouseover="this.stop()">
+        {dede:arclist flag='s' titlelen=42 row=5} <a href="[field:arcurl/]">[field:title/]([field:stime/])</a> {/dede:arclist}
+        </marquee>
+      </ul>
+    </div>
+    <div id="newright" class="fRight"></div>
+  </div>
+</div>
+
+<!--产品展示开始 -->
+<div class="wrapper mT5">
+<div id="feature" class="fLeft">
+  <div class="utitle">
+    <div class="utitlei">
+      <div class="title"><span class="title_t fLeft"><span class="title_t_i fLeft">
+        <h2><a href="#" style="color:#FFF">产品展示</a></h2>
+        </span></span> </div>
+    </div>
+  </div>
+  <div class="ucontent1">
+    <ul>
+      {dede:arclist row=8 titlelen=29 orderby='rand' type='image.' imgwidth='160' imgheight='120'}
+      <li><a href="[field:arcurl/]">[field:image/]</a><span><a href="[field:arcurl/]" class="title">[field:title/]</a></span></li>
+      {/dede:arclist}
+    </ul>
+  </div>
+  <div class="title_buttom">
+    <div class="title_buttom_i"></div>
+  </div>
+</div>
+
+<!--产品展示结束 -->
+
+<div id="commend" class="fRight">
+  <div class="utitle">
+    <div class="utitlei">
+      <div class="title"><span class="title_t fLeft"><span class="title_t_i fLeft">
+        <h2><a href="#" style="color:#FFF">{dede:global.cfg_indexname/}简介</a></h2>
+        </span></span>
+        <div class="iterm fRight"><ul><li class="thisiterm"><span>更多...</span></a></li></ul></div>
+      </div>
+    </div>
+  </div>
+  <div class="ucontent">
+    <div class="list-main clear" style="padding-bottom:8px">{dede:global.cfg_about/}</div>
+  </div>
+  <div id="commend" class="fRight">
+    <div class="utitle">
+      <div class="utitlei">
+        <div class="title"><span class="title_t fLeft"><span class="title_t_i fLeft">
+          <h2><a href="#" style="color:#FFF">联系方式</a></h2>
+          </span></span> </div>
+      </div>
+    </div>
+    <div class="ucontent">
+      <div class="list-main clear" style="padding-bottom:8px">
+        <P><FONT size=2>咨询热线：13922352985</FONT></P>
+        <P><FONT size=2>联系QQ：770799177</FONT></P>
+		<P><FONT size=2>公司名称：{dede:global.cfg_webname}</FONT></P>
+        <P><FONT size=2>公司网址：{dede:global.cfg_basehost/}</FONT></P>
+      </div>
+    </div>
+    <div class="title_buttom">
+      <div class="title_buttom_i"></div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="clear"></div>
+<div class="wrapper mT5">
+  <div id="hotdown" class="fLeft">
+    <div class="utitle">
+      <div class="utitlei">
+        <div class="title"><span class="title_t fLeft"><span class="title_t_i fLeft">
+          <h2>{dede:type typeid='1'}<a style="color:#FFF" href="[field:typeurl/]">[field:typename/]</a>{/dede:type}</h2>
+          </span></span>
+          <div class="iterm fRight"> </div>
+        </div>
+      </div>
+    </div>
+    <div class="ucontent">
+      <div class="list-main clear" id="tab_1">
+        <div class="showimg clear"> {dede:arclist titlelen=70 infolen=120 row=1 typeid='1'  limit='0,1'} <a href="[field:arcurl/]"><img src="[field:litpic/]" width="128" height="116" /></a><span class="iterm-name"><a href='[field:arcurl/]'>[field:title/]</a></span> <span class="iterm-oth"> 浏览数：[field:click/]  更新时间：[field:stime/]</span> <span class="iterm-oth">[field:info/]...</span> {/dede:arclist}
+          <div class="clear"> </div>
+        </div>
+        <ul style="padding-bottom: 3px;">
+          {dede:arclist titlelen=48 row=4 typeid='1'  limit='1,5'}
+          <li><a href='[field:arcurl/]'>[field:title/]</a> </li>
+          {/dede:arclist}
+        </ul>
+      </div>
+      <div class="list-main clear" id="tab_2" style="display: none;"> </div>
+    </div>
+    <div class="title_buttom">
+      <div class="title_buttom_i"></div>
+    </div>
+  </div>
+  <div id="hothelp" class="fLeft">
+    <div class="utitle">
+      <div class="utitlei">
+        <div class="title"><span class="title_t fLeft"><span class="title_t_i fLeft">
+          <h2>{dede:type typeid='2'}<a style="color:#FFF" href="[field:typeurl/]">[field:typename/]</a>{/dede:type}</h2>
+          </span></span>
+          <div class="iterm fRight">
+            <ul>
+              <li>{dede:type typeid='2'}<a href="[field:typeurl/]"><span>更多...</span></a>{/dede:type}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ucontent">
+      <div class="list-main clear" style="padding-bottom:8px">
+        <ul>
+          {dede:arclist titlelen=36 row=10 typeid='2'}
+          <li><a href='[field:arcurl/]'>[field:title/]</a> </li>
+          {/dede:arclist}
+        </ul>
+      </div>
+    </div>
+    <div class="title_buttom">
+      <div class="title_buttom_i"></div>
+    </div>
+  </div>
+  <div id="comfaq" class="fRight">
+    <div class="utitle">
+      <div class="utitlei">
+        <div class="title"><span class="title_t fLeft"><span class="title_t_i fLeft">
+          <h2>{dede:type typeid='3'}<a style="color:#FFF" href="[field:typeurl/]">[field:typename/]</a>{/dede:type}</h2>
+          </span></span>
+          <div class="iterm fRight">
+            <ul>
+              <li>{dede:type typeid='3'}<a href="[field:typeurl/]"><span>更多...</span></a>{/dede:type}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ucontent">
+      <div class="list-main clear" style="padding-bottom:8px">
+        <ul>
+          {dede:arclist titlelen=20 row=10 typeid='3'}
+          <li><span class="date">[field:stime/]</span><a href='[field:arcurl/]'>[field:title/]</a> </li>
+          {/dede:arclist}
+        </ul>
+      </div>
+    </div>
+    <div class="title_buttom">
+      <div class="title_buttom_i"></div>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+<div class="wrapper mT5">
+  <div id="partner">
+    <div class="utitle">
+      <div class="utitlei">
+        <div class="title"><span class="title_t fLeft"><span class="title_t_i fLeft">
+          <h2 style="color:#FFF">合作伙伴</h2>
+          </span></span>
+          <div class="title_text fLeft mL10 mT13"><img src="{dede:global.cfg_templets_skin/}/images/partner_text.gif" width="53" height="12" /></div>
+        </div>
+      </div>
+    </div>
+    <div class="ucontent">
+      <div class="partneri clear" style="margin-top: 0px; padding-top: 10px; padding-bottom: 10px;">
+        <style>
+
+.f5{/*友情链接(文字)专用*/
+
+	width:100%;
+
+	overflow:hidden;
+
+	clear:both;
+
+	padding-bottom:10px;
+
+}
+
+.f5 li{
+
+	float:left;
+
+	line-height:14px;
+
+	padding:8px 10px 0px;
+
+	white-space:nowrap;
+
+}
+
+.f5 li a{
+
+	color:#666666;
+
+	float:left;
+
+}
+
+</style>
+        <ul class="f5">
+{dede:flink row='24'}<li>[field:link/]</li>{/dede:flink}
+<!--links_start-->
+<!--links_end-->
+        </ul>
+      </div>
+    </div>
+    <div class="title_buttom">
+      <div class="title_buttom_i"></div>
+    </div>
+  </div>
+</div>
+{dede:include filename="footer.htm"/}
+</body>
+</html>

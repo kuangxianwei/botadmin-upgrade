@@ -1,0 +1,78 @@
+#right{ background:url(../images/productbottom.png) no-repeat 0 bottom; padding-bottom:5px;}
+#right h2{ height:37px; line-height:37px; background:url(../images/right.png) no-repeat 0 0; position:relative; font-size:14px; font-weight:bold; color:#FFF; text-indent:42px; text-align:left; letter-spacing:1px;}
+.position{ position:absolute; right:20px; top:14px;}
+
+.rCont{ min-height:641px; height:auto!important; height:641px; padding:10px 20px; background:url(../images/productbg.png) repeat-y 0 0;}
+#btn_ok, #btn_reset{width:100px; height:31px; cursor:pointer; background:url(../images/btn.png) no-repeat 0 0; font-size:14px; font-weight:bold; line-height:31px; color:#FFF;}
+#btn_ok:hover, #btn_reset:hover{background:url(../images/btn.png) no-repeat 0 -31px; color:#F00;}
+
+/*----Abhoutus----*/
+.aboutus p{ text-indent:23px; margin-bottom:10px; text-align:left; font-size:14px; line-height:25px;}
+.aboutus p img{ float:right; margin:7px; border:1px solid #CCC;}
+.aboutus td{ text-align:center;}
+.aboutus td img{ border:1px solid #CCC; padding:2px;}
+.lianxiwomen{ padding-top:30px; background:url(../images/lianxiwomen.jpg) no-repeat 230px 20px; height:305px;}
+
+/*----Conews----*/
+.newsList ul{ text-align:left;}
+.newsList li{ height:27px; line-height:27px; border-bottom:1px dashed #DCDDDD; position:relative; margin-bottom:3px; background:url(../images/newsli.jpg) no-repeat left center; text-indent:10px;}
+.newsList li span{display:block; height:24px; position:absolute; top:0; right:5px;}
+.newsList p{ height:30px; line-height:30px; text-align:right; padding-right:15px;}
+
+/* shownews */
+.shownews{padding:15px;}
+h1{font-size:16px; height:30px; line-height:30px;}
+.author{margin:5px auto;color:#999;}
+#news_cont{ line-height:23px;text-align:left;}
+#news_cont p{ text-indent:25px; padding-bottom:8px;}
+.news_prev{text-align:left;color:#F66;margin:10px auto;line-height:20px;padding-top:10px;padding-left:40px;border-top:1px solid #CCC;}
+
+/* feedback */
+.feedback_input{width:640px; margin-left:5px; text-align:left; background:url(../images/zxly.jpg) right 0 no-repeat;}
+.feedback_input span{padding:2px; display:block; margin-bottom:5px;}
+.feedback_input span input{border:1px solid #CCC; height:20px; line-height:20px;}
+.feedback_input span textarea{ border:1px solid #CCC;}
+#btn{margin-top:10px;}
+
+#liuyan_result{width:640px; margin:10px auto; height:100px;}
+#liuyan_result table{width:640px; margin-bottom:10px; border:1px solid #CCC; border-collapse:collapse; color:#333;}
+#liuyan_result th{border:1px solid #CCC; padding:5px; text-align:right; font-weight:bold;}
+#liuyan_result td{border:1px solid #CCC; padding:5px; text-align:left;}
+.table_tile{background-color:#CCC;}
+.admin_reply{color:#CCC;}
+
+/*----hr----*/
+.hrdemand{width:640px; margin:10px auto;}
+.hr_bold{font-size:14px; font-weight:bold; color:#000;}
+.hrdemand table {border: 1px solid #CCC;border-collapse:collapse;width: 600px;margin:0 auto 10px auto;}
+.hrdemand th{border:1px solid #CCC; padding:5px; background-color: #CCC; font-weight:bold;}
+.hrdemand td{border:1px solid #CCC; padding:5px;}
+.hrdemand_page{text-align:right; height:20px; line-height:20px; margin-right:40px;}
+/* HrDemanAccept */
+.HrDemandAccept table{border:1px solid #CCC; border-collapse:collapse; width:650px; margin:0 auto; color:#06C;}
+.HrDemandAccept td {border: 1px solid #CCC;padding: 3px; text-align:left;}
+.HrDemandAccept th {border: 1px solid #CCC;padding: 3px; font-weight:bold; color:#06C;}
+.HrDemandAccept td input{border:1px solid #CCC; width:200px; height:20px; line-height:20px;}
+.HrDemandAccept span{display:block; margin-bottom:5px; padding:2px; color:#06C;}
+.hrdemand_btn{margin:5px; text-align:left; padding-left:100px;}
+.hrdemand_btn input{margin-left:10px;}
+
+/* product1 */
+.productTotal{width:680px; text-align:right; height:20px; line-height:20px; margin:5px auto; padding-right:20px;}
+.productCont{width:700px;}
+.productCont li{float:left; display:block; margin-left:10px; margin-bottom:10px; _display:inline;}
+.productCont li span{display:block; padding-top:5px;}
+.productCont img{ background:url(../Img/beijingt.gif) 0 0 no-repeat; padding:9px 9px;}
+.productNav{ height:30px; padding-top:7px;}
+
+/* product_show */
+.product_detail{width:640px; margin:0 auto; padding-top:10px;}
+.product_detail img{border:2px solid #CCC;}
+.detail_word table {border: 1px solid #CCC;border-collapse:collapse;width:620px;margin:0 auto;}
+.detail_word th {border: 1px solid #CCC;padding: 5px; font-weight:bold; height:30px;}
+.detail_word td {border: 1px solid #CCC;padding: 3px; height:30px;}
+.detail_word .t1{background-color:#CCC; text-align:left; text-indent:20px; color:#F00; font-weight:bold;}
+.detail_word .t2{text-align:left; text-indent:20px; line-height:23px;}	
+.product_pro{margin:5px 20px; text-align:left; line-height:25px; border-top:1px dotted #CCC;}
+.product_pro span{color:#F00;}
+.close_page{text-align:right; margin:5px 20px;}

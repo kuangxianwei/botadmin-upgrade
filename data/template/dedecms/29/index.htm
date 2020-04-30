@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templets_skin/}/style/style.css" rel="stylesheet" media="screen" type="text/css" />
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="comom">
+<div class="comom_left">
+<div class="title_top"></div>
+<div class="title_li">
+<div class="productlist_title">
+ {dede:arclist row='10' titlelen='24' orderby='pubdate' typeid='2' idlist=''}
+    <div class="title">
+    <a href="[field:arcurl/]" target="_self" class="title"   >[field:title/]</a>
+    </div>
+    {/dede:arclist}
+</div>
+</div>
+<div class="title_bottom"></div>
+<!--联系我们 -->
+<div class="lianxi_top"><h3>联系我们 </h3></div>
+<div class="lianxi_li">
+<div class="dizhi">
+<p>地址：{dede:global.cfg_webname/}</p>
+<p>邮编：325802</p>
+<p>电话：0577-64208592</p>
+<p>24小时业务经理：{dede:global.cfg_indexname/}</p>
+<p>网址：{dede:global.cfg_basehost/}</p>
+</div>
+</div>
+<div class="lianxi_bottom"></div>
+<!--联系我们 -->
+</div>
+<div class="comom_right">
+<!--公司简介 -->
+<div class="shop"><h3>{dede:global.cfg_indexname/}简介</h3></div>
+<div class="pdv_border" style="border:0px;padding:10;">
+{dede:global.cfg_about/}
+</div>
+<!--公司简介 -->
+<div class="shop"><h3>产品展示</h3></div>
+        <div class="listbox">
+            <ul class="e8">
+        {dede:arclist row='10' titlelen='24' orderby='pubdate' idlist=''}
+                <li>
+                    <a href="[field:arcurl/]" class="pic"><img src="[field:litpic/]" alt="[field:title function='html2text(@me)'/]"/></a>
+                    <a href="[field:arcurl/]" class="title">[field:title/]</a>
+                </li>
+        {/dede:arclist}
+            </ul>
+        </div>
+</div>
+<div class="clear-float"></div>
+</div>
+ <div class="clear-float"></div>
+ <div class="foody">
+ <div class="col-1">
+ <div class="foot_a"><a href="/">网站首页</a>
+ {dede:arclist row='5' titlelen='24' orderby='pubdate' typeid='2' idlist=''}
+ | <a href="[field:arcurl/]" title="[field:title/]">[field:title/]</a> {/dede:arclist}</div>
+<div class="foot_b">{dede:global.cfg_webname/}</div>
+<div class="foot_c"><img src="{dede:global.cfg_templets_skin/}/images/foot_c.gif" border="0" /></div></div>
+ <div class="col-2"><div class="foot_right"><a href="/"><img src="{dede:global.cfg_templets_skin/}/images/goodprint_logo_footer.png" border="0" /></a></div></div>
+ <div class="clear-float"></div>
+ <b>友情链接：</b>{dede:flink row='24'}[field:link/] {/dede:flink}
+</div>
+</body>
+</html>
