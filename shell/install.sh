@@ -28,6 +28,7 @@ password=botadmin.cn
 port=3306
 socket=/tmp/mysql.sock
 EOF
+yum -y install make zlib-devel gcc-c++ libtool openssl openssl-devel || exit 1
 pushd /data/botadmin/shell/lnmp/src || exit 1
 test -d ./ngx_http_substitutions_filter_module && rm -rf ./ngx_http_substitutions_filter_module
 tar -xjf ngx_http_substitutions_filter_module.tar.bz2 || exit 1
