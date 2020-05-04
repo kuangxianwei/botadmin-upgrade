@@ -174,11 +174,10 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <div class="layui-inline" lay-tips="一般栏目数量设置不超过10个">
-                                <label class="layui-form-label">栏目数量:</label>
+                            <div class="layui-inline" lay-tips="网站后台登录认证码 15个字母或数字组成">
+                                <label class="layui-form-label">认证码:</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="class_num" class="layui-input"
-                                           value="{{.obj.ClassNum}}"{{if .disabled}} disabled{{end}}>
+                                    <input type="text" name="auth_code" class="layui-input" value="{{.obj.AuthCode}}">
                                 </div>
                             </div>
                             <div class="layui-inline" lay-tips="网站后台登录目录名称">
@@ -189,14 +188,23 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">城市:</label>
-                            <div class="layui-input-inline" lay-tips="选择城市必须是实际存在的">
-                                <select name="city" lay-search>
-                                    <option value="">直接选择或搜索选择</option>
-                                    {{range .citys -}}
-                                        <option value="{{.}}"{{if eq $.obj.City .}} selected{{end}}>{{.}}</option>
-                                    {{end -}}
-                                </select>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" lay-tips="一般栏目数量设置不超过10个">栏目数量:</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="class_num" class="layui-input" value="{{.obj.ClassNum}}">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" lay-tips="选择城市必须是实际存在的">城市:</label>
+                                <div class="layui-input-inline">
+                                    <select name="city" lay-search>
+                                        <option value="">直接选择或搜索选择</option>
+                                        {{range .citys -}}
+                                            <option value="{{.}}">{{.}}</option>
+                                        {{end -}}
+                                        <option value="random"{{if .obj.CityEnabled}} selected{{end}}>随机城市</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">

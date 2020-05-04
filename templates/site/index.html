@@ -95,6 +95,7 @@
     </div>
 </script>
 <script src="/static/layui/layui.js"></script>
+<script src="/static/modules/clipboard.min.js"></script>
 <script>
     layui.config({
         base: '/static/' //静态资源所在路径
@@ -122,7 +123,12 @@
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', sort: true, width: 60, align: 'center'},
-                {field: 'vhost', title: '主域名', width: 120},
+                {
+                    field: 'vhost', title: '主域名',
+                    style: 'cursor:pointer;color:#01aaed;font-weight:bold', templet: function (d) {
+                        return '<a lay-href="/file?path=' + d.vhost_dir + '" style="color:#01aaed">' + d.vhost + '</a>';
+                    }
+                },
                 {field: 'status', title: '状态', sort: true, width: 100},
                 {
                     field: 'ftp_id', width: 74, title: 'FtpId', align: 'center', event: 'ftp',
@@ -137,18 +143,29 @@
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold'
                 },
                 {field: 'admin_dir', title: '后台目录', hide: true},
-                {field: 'web_user', title: '用户名'},
-                {field: 'web_pwd', title: '密码'},
-                {field: 'vhost_dir', title: '网站路径', hide: true},
-                {field: 'updated', title: '时间', width: 170, sort: true},
                 {
-                    field: 'pic_dir', width: 46, title: '图', align: 'center',
+                    field: 'web_user', title: 'User', align: 'center', event: 'clipboard',
+                    style: 'cursor:pointer;color:#01aaed;',
+                    templet: function (d) {
+                        return '<a href="javscript:;" lay-tips="点击复制用户名到粘贴板" data-clipboard-text="' + d.web_user + '"><i class="layui-icon layui-icon-file-b"></i></a>';
+                    }, width: 60
+                },
+                {
+                    field: 'web_pwd', title: 'Pwd', align: 'center', event: 'clipboard',
+                    style: 'cursor:pointer;color:#01aaed;',
+                    templet: function (d) {
+                        return '<a href="javscript:;" lay-tips="点击复制登录密码到粘贴板" data-clipboard-text="' + d.web_pwd + '"><i class="layui-icon layui-icon-file-b"></i></a>';
+                    }, width: 60
+                },
+                {field: 'vhost_dir', title: '网站路径', hide: true},
+                {
+                    field: 'pic_dir', width: 46, title: '图', align: 'center', event: 'pic',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold',
                     templet: function (d) {
-                        var url = '/file?path=data/pic/' + d.pic_dir;
-                        return '<a lay-href="' + url + '" lay-text="' + d.vhost + ' 图库" lay-tips="添加图片"><i class="layui-icon layui-icon-picture"></i></a>';
+                        return '<i class="layui-icon layui-icon-picture" lay-tips="添加图片"></i>';
                     }
                 },
+                {field: 'updated', title: '时间', sort: true},
                 {title: '操作', width: 140, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
@@ -194,13 +211,11 @@
                     });
                     break;
                 case 'pic':
-                    window.location.open()
-                    $.get(url + '/link', data, function (html) {
+                    $.get(url + '/image', data, function (html) {
                         main.popup({
-                            url: url + '/link',
-                            title: '修改网站内链',
+                            url: url + '/image',
+                            title: '添加图片',
                             content: html,
-                            ending: 'table-list',
                         });
                         form.render();
                     });
@@ -252,6 +267,14 @@
                             content: html,
                             url: '/log/single',
                         });
+                    });
+                    break;
+                case 'clipboard':
+                    var clipboard = new ClipboardJS('a[data-clipboard-text]');
+                    clipboard.on('success', function (e) {
+                        layer.alert('复制成功');
+                        clipboard.destroy();  //解决多次弹窗
+                        e.clearSelection();
                     });
                     break;
             }
