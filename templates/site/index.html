@@ -131,15 +131,15 @@
                 },
                 {field: 'status', title: '状态', sort: true, width: 100},
                 {
-                    field: 'ftp_id', width: 74, title: 'FtpId', align: 'center', event: 'ftp',
+                    field: 'ftp_id', width: 80, title: 'FtpId', align: 'center', event: 'ftp',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold'
                 },
                 {
-                    field: 'sql_id', width: 74, title: 'SqlId', align: 'center', event: 'sql',
+                    field: 'sql_id', width: 80, title: 'SqlId', align: 'center', event: 'sql',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold'
                 },
                 {
-                    field: 'push_id', width: 74, title: 'PushId', align: 'center', event: 'push',
+                    field: 'push_id', width: 80, title: 'PushId', align: 'center', event: 'push',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold'
                 },
                 {field: 'admin_dir', title: '后台目录', hide: true},
@@ -148,24 +148,31 @@
                     style: 'cursor:pointer;color:#01aaed;',
                     templet: function (d) {
                         return '<a href="javscript:;" lay-tips="点击复制用户名到粘贴板" data-clipboard-text="' + d.web_user + '"><i class="layui-icon layui-icon-file-b"></i></a>';
-                    }, width: 60
+                    }, width: 80
                 },
                 {
                     field: 'web_pwd', title: 'Pwd', align: 'center', event: 'clipboard',
                     style: 'cursor:pointer;color:#01aaed;',
                     templet: function (d) {
                         return '<a href="javscript:;" lay-tips="点击复制登录密码到粘贴板" data-clipboard-text="' + d.web_pwd + '"><i class="layui-icon layui-icon-file-b"></i></a>';
-                    }, width: 60
+                    }, width: 80
                 },
-                {field: 'vhost_dir', title: '网站路径', hide: true},
                 {
-                    field: 'pic_dir', width: 46, title: '图', align: 'center', event: 'pic',
+                    field: 'auth_code', title: 'Auth', align: 'center', event: 'clipboard',
+                    style: 'cursor:pointer;color:#01aaed;',
+                    templet: function (d) {
+                        return '<a href="javscript:;" lay-tips="点击复制认证码到粘贴板" data-clipboard-text="' + d.auth_code + '"><i class="layui-icon layui-icon-file-b"></i></a>';
+                    }, width: 80
+                },
+                {
+                    field: 'pic_dir', width: 80, title: '图', align: 'center', event: 'pic',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold',
                     templet: function (d) {
                         return '<i class="layui-icon layui-icon-picture" lay-tips="添加图片"></i>';
                     }
                 },
-                {field: 'updated', title: '时间', sort: true},
+                {field: 'vhost_dir', title: '网站路径', hide: true},
+                {field: 'updated', title: '时间', sort: true, hide: true},
                 {title: '操作', width: 140, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
