@@ -157,6 +157,7 @@
                 if (this.where) {
                     delete this.where.search_name;
                     delete this.where.search_type;
+                    delete this.where.goto;
                 }
                 upload.render({
                     headers: {'X-CSRF-Token':{{.csrf_token}}},
@@ -333,13 +334,6 @@
             table.reload('table-list', {
                 url: url,
                 where: obj.field,
-                done: function (res) {
-                    if (res.path) {
-                        current_path = res.path;
-                    }
-                    $('#currentpath').text(current_path = res.path);
-                    delete this.where.goto;
-                }
             });
             return false;
         });

@@ -279,7 +279,7 @@
                 case 'clipboard':
                     var clipboard = new ClipboardJS('a[data-clipboard-text]');
                     clipboard.on('success', function (e) {
-                        layer.alert('复制成功');
+                        layer.msg('复制成功');
                         clipboard.destroy();  //解决多次弹窗
                         e.clearSelection();
                     });

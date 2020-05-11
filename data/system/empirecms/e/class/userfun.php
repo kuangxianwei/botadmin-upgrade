@@ -1,17 +1,18 @@
 <?php
 /*
-get_tel_r() 返回电话号码数组
+get_contactus_r() 返回电话号码数组
 abs_url($url) 返回绝对url
 parse_host() 获取网站 url数组 返回 scheme、host 和 host_uri
  */
-if (!function_exists('get_tel_r')) {
-    function get_tel_r()
+
+if (!function_exists('get_contactus_r')) {
+    function get_contactus_r()
     {
         /*返回电话号码数组*/
         global $public_r;
         $tel_r = array();
-        if (isset($public_r) && isset($public_r['add_tel'])) {
-            foreach (preg_split("/\\r\\n|\\n|\\r/", $public_r['add_tel']) as $k => $v) {
+        if (isset($public_r) && isset($public_r['add_contactus'])) {
+            foreach (preg_split("/\\r\\n|\\n|\\r/", $public_r['add_contactus']) as $k => $v) {
                 preg_match('/([0-9]{11})/', str_replace(array('-', '_', ' '), '', str_replace(array('-', '_', ' '), '', $v)), $matches);
                 if (isset($matches[1])) {
                     $tel_r[$matches[1]] = $v;
@@ -24,6 +25,8 @@ if (!function_exists('get_tel_r')) {
 
 /*解析host 返回数组*/
 if (!function_exists('parse_host')) {
+
+    /*解析host 返回数组*/
     function parse_host()
     {
         global $public_r;
@@ -57,16 +60,47 @@ if (!function_exists('abs_url')) {
         if (preg_match('/^https?:\/\//i', $url)) {
             return $url;
         }
-        $host_r = parse_host();
-        if (isset($host_r['host'])) {
-            if (strpos($url, '//') === 0) {
-                return $host_r['scheme'] . $url;
-            }
-            if (strpos($url, '/') === 0) {
-                return $host_r['host_uri'] . $url;
-            }
-            return $host_r['host_uri'] . '/' . $url;
+        global $HOST_R;
+        if (isset($HOST_R['host'])) {
+            $HOST_R = parse_host();
         }
-        return $url;
+        if (strpos($url, '//') === 0) {
+            return $HOST_R['scheme'] . $url;
+        }
+        if (strpos($url, '/') === 0) {
+            return $HOST_R['host_uri'] . $url;
+        }
+        return $HOST_R['host_uri'] . '/' . $url;
     }
 }
+
+/*返回网站 信息*/
+if (!function_exists('get_site_r')) {
+
+    /*获取网站的 标题 关键词 和描述*/
+    function get_site_r()
+    {
+        global $public_r;
+        if (isset($public_r['site_r'])) {
+            return $public_r['site_r'];
+        }
+        global $empire, $dbtbpre;
+        if (isset($empire)) {
+            $site_r = $empire->fetch1("select newsurl,sitename,sitekey,siteintro,indexpagedt from {$dbtbpre}enewspublic limit 1");
+            return array(
+                'host'        => abs_url(isset($site_r['newsurl']) ? $site_r['newsurl'] : '/'),
+                'title'       => isset($site_r['sitename']) ? $site_r['sitename'] : '',
+                'keywords'    => explode(",", isset($site_r['sitekey']) ? $site_r['sitekey'] : ''),
+                'description' => isset($site_r['siteintro']) ? $site_r['siteintro'] : '',
+            );
+        }
+        return array(
+            'host'        => abs_url('/'),
+            'title'       => '',
+            'keywords'    => array(),
+            'description' => '',
+        );
+    }
+}
+/*全局变量*/
+$HOST_R = parse_host();

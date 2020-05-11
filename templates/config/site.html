@@ -432,11 +432,17 @@
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">栏目列表</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="class_names" class="layui-input"
-                                   value="{{join .obj.ClassNames ","}}">
+                        <div class="layui-inline" style="width: 40%">
+                            <textarea name="classes" class="layui-textarea" rows="7">{{json .obj.Classes -}}</textarea>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">栏目1,栏目2,栏目3</div>
+                        <div class="layui-inline"><pre>[
+    {"name": "栏目1"},
+    {"name": "栏目2", "classes": [
+        {"name": "子栏目1"},
+        {"name": "子栏目2"}
+    ]}
+]</pre>
+                        </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">广告代码</label>

@@ -4,7 +4,6 @@
             <ul class="layui-tab-title">
                 <li class="layui-this">基本设置</li>
                 <li>环境设置</li>
-                <li>缓存设置</li>
                 <li>采集设置</li>
                 <li>翻译设置</li>
             </ul>
@@ -39,18 +38,6 @@
                             </button>
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="app"
                                     data-tip="抹去本程序所有数据?包括所建的网站等...">重置App
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-tab-item layui-form">
-                    {{.cacheHtml}}
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"></label>
-                        <div class="layui-btn-group">
-                            <button class="layui-btn" lay-submit lay-filter="submit-cache">立即提交
-                            </button>
-                            <button class="layui-btn" data-event="reset" data-name="cache" data-tip="恢复默认缓存设置?">恢复默认
                             </button>
                         </div>
                     </div>

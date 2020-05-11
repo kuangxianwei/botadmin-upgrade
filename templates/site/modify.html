@@ -167,10 +167,20 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">栏目名称:</label>
-                            <div class="layui-input-inline" lay-tips="多个栏目用英文逗号,隔开" style="width: 80%">
-                                <input type="text" name="class_names" class="layui-input"
-                                       value="{{join .obj.ClassNames ","}}"{{if .disabled}} disabled{{end}}>
+                            <label class="layui-form-label"
+                                   lay-tips="[{&quot;name&quot;:&quot;栏目1&quot;,&quot;&quot;:[{&quot;name&quot;:&quot;子栏目1&quot;},{&quot;name&quot;:&quot;子栏目2&quot;}]},{&quot;name&quot;:&quot;栏目2&quot;}]">栏目名称:</label>
+                            <div class="layui-input-inline" style="width: 50%">
+                                <textarea name="classes" class="layui-textarea"
+                                          rows="7">{{json .obj.Classes}}</textarea>
+                            </div>
+                            <div class="layui-input-inline" style="width: 30%">
+<textarea class="layui-textarea" rows="7">[
+    {"name": "栏目1", "": [
+        {"name": "子栏目1"},
+        {"name":"子栏目2"}
+    ]},
+    {"name": "栏目2"}
+]</textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">

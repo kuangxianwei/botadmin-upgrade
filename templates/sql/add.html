@@ -31,11 +31,11 @@
         <div class="layui-form-item">
             <label class="layui-form-label">数据库名:</label>
             <div class="layui-input-inline">
-                {{if .obj.Name -}}
-                    <input type="text" name="name" required lay-verify="required" class="layui-input"
-                           value="{{.obj.Name}}">
+                {{if .obj.Dbname -}}
+                    <input type="text" name="dbname" required lay-verify="required" class="layui-input"
+                           value="{{.obj.Dbname}}">
                 {{else -}}
-                    <input type="text" name="name" placeholder="留空为用户名" autocomplete="off" class="layui-input">
+                    <input type="text" name="dbname" placeholder="留空为用户名" autocomplete="off" class="layui-input">
                 {{end -}}
             </div>
             <div class="layui-form-mid layui-word-aux">不能全数字</div>
