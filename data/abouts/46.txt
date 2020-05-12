@@ -1,3 +1,0 @@
-<p>{{title_suffix}} 成立于 2008 年。公司地址位于{{province}}省{{city}}市白云区{{city}}大道北 南方医院旁，我们始终致力于为{{province}} 地区客户，提供生育医疗咨询服务。</p>
-<p>{{title_suffix}} 作为美国医疗旅行协会 (The Medical Tourism Association) 及美国辅助生育医疗协会(American Society of Reproductive Medicine) 的中国官方成员，{{title_suffix}} 多年来帮助上千对夫妇孕育健康的下一代。高素质的{{province}} 医疗团队、医疗顾问部、医疗协调部、客户服务部，互相紧密协作，竭诚为您提供高品质的 7*24 小时跨国无缝对接。</p>
-<p>衷心祝愿您在{{title_suffix}} ，开启一场幸孕之旅。公司郑重承诺:凡在本站IVF的客户包生男孩,IVF100%成功，性别可选。</p>
