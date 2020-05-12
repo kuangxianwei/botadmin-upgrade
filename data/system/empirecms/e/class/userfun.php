@@ -1,18 +1,18 @@
 <?php
 /*
-get_contactus_r() 返回电话号码数组
+get_contact_r() 返回电话号码数组
 abs_url($url) 返回绝对url
 parse_host() 获取网站 url数组 返回 scheme、host 和 host_uri
  */
 
-if (!function_exists('get_contactus_r')) {
-    function get_contactus_r()
+if (!function_exists('get_contact_r')) {
+    function get_contact_r()
     {
         /*返回电话号码数组*/
         global $public_r;
         $tel_r = array();
-        if (isset($public_r) && isset($public_r['add_contactus'])) {
-            foreach (preg_split("/\\r\\n|\\n|\\r/", $public_r['add_contactus']) as $k => $v) {
+        if (isset($public_r) && isset($public_r['add_contact'])) {
+            foreach (preg_split("/\\r\\n|\\n|\\r/", $public_r['add_contact']) as $k => $v) {
                 preg_match('/([0-9]{11})/', str_replace(array('-', '_', ' '), '', str_replace(array('-', '_', ' '), '', $v)), $matches);
                 if (isset($matches[1])) {
                     $tel_r[$matches[1]] = $v;

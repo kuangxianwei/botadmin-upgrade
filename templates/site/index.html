@@ -68,6 +68,9 @@
             <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="website_cron" lay-tips="同步定时任务">
                 <i class="layui-icon layui-icon-refresh"></i>Cron
             </button>
+            <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="pull_config" lay-tips="远程网站配置覆盖本地">
+                <i class="layui-icon layui-icon-download-circle"></i>Config
+            </button>
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" lay-event="publish" lay-tips="选中的网站发布文章">
@@ -486,6 +489,29 @@
                         url: url + '/update/cron',
                         ending: 'table-list',
                     });
+                    break;
+                case 'pull_config':
+                    if (data.length < 1) {
+                        layer.msg("未选择");
+                        return false;
+                    }
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '远程网站配置覆盖本地，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index, elem) {
+                            var ids = new Array();
+                            for (var i = 0; i < data.length; i++) {
+                                ids[i] = data[i].id;
+                            }
+                            main.req({
+                                url: url + '/pull/config',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                tips: {},
+                            });
+                        });
                     break;
                 case 'jobs':
                     main.req({

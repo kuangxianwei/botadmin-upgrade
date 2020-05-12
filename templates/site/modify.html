@@ -115,15 +115,13 @@
                             <div class="layui-inline" lay-tips="由3-15个字母或数字组成">
                                 <label class="layui-form-label">用户名:</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="web_user" value="{{.obj.WebUser}}"
-                                           class="layui-input"{{if .disabled}} disabled{{end}}>
+                                    <input type="text" name="web_user" value="{{.obj.WebUser}}" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline" lay-tips="由6-15个字符组成">
                                 <label class="layui-form-label">密码:</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="web_pwd" value="{{.obj.WebPwd}}"
-                                           class="layui-input"{{if .disabled}} disabled{{end}}>
+                                    <input type="text" name="web_pwd" value="{{.obj.WebPwd}}" class="layui-input">
                                 </div>
                             </div>
                         </div>
@@ -210,9 +208,9 @@
                                     <select name="city" lay-search>
                                         <option value="">直接选择或搜索选择</option>
                                         {{range .citys -}}
-                                            <option value="{{.}}">{{.}}</option>
+                                            <option value="{{.}}"{{if eq . $.obj.City}} selected{{end}}>{{.}}</option>
                                         {{end -}}
-                                        <option value="random"{{if .obj.CityEnabled}} selected{{end}}>随机城市</option>
+                                        <option value="random">随机城市</option>
                                     </select>
                                 </div>
                             </div>
@@ -227,8 +225,8 @@
                             <div class="layui-inline" lay-tips="李谊:139-2235-2985 一行一条">
                                 <label class="layui-form-label">联系方式:</label>
                                 <div class="layui-input-inline">
-                                <textarea name="contact_us"
-                                          class="layui-textarea">{{join .obj.ContactUs "\n"}}</textarea>
+                                <textarea name="contact"
+                                          class="layui-textarea">{{join .obj.Contact "\n"}}</textarea>
                                 </div>
                             </div>
                         </div>
