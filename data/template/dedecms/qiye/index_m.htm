@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta name="Author" content="adminbuy.cn"/>
+<title>{dede:global.cfg_webname/}移动版</title>
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/m/css/master.css"/>
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/m/css/subpage.css"/>
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/m/css/child_vip.css"/>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/m/js/jquery.js"></script>
+<style>
+.head {
+    background: #000
+}
+.foot {
+    background: #000
+}
+.nav {
+    background: #000
+}
+.nav_color {
+    background: #000
+}
+</style>
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/m/css/swiper.css"/>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/m/js/nav.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/m/js/swiper.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/m/js/lihe.js"></script>
+</head>
+<body>
+{dede:include filename="nav.htm"/}
+<div class="allpage">
+  <div class="black-fixed iconfont">&#xe60f;</div>
+  <div class="header">
+    <div class="head">
+      <div class="search_hl iconfont"></div>
+      <a href="/" title="" class="logo">{dede:global.cfg_webname/}</a>
+      <div class="nav-btn iconfont">&#xe605;</div>
+
+    </div>
+  </div>
+  <div class="content">
+    <div class="banner">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="{dede:global.cfg_templets_skin/}/style/m/images/banner1.jpg"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+    <div class="nav_new">
+      {dede:type typeid='1'}<a href="list.php?tid=[field:id/]" class="son"><p class="imgFont"><span class="iconfont_s">&#xe600;</span>[field:typename /]</p></a>{/dede:type}
+      {dede:type typeid='2'}<a href="list.php?tid=[field:id/]" class="son"><p class="imgFont"><span class="iconfont_s">&#xe637;</span>[field:typename /]</p></a>{/dede:type}
+      {dede:type typeid='3'}<a href="list.php?tid=[field:id/]" class="son"><p class="imgFont"><span class="iconfont_s">&#xe604;</span>[field:typename /]</p></a>{/dede:type}
+      {dede:type typeid='4'}<a href="list.php?tid=[field:id/]" class="son"><p class="imgFont"><span class="iconfont_s">&#xe818;</span>[field:typename /]</p></a>{/dede:type}
+      <div class="c"></div>
+    </div>
+    <div class="common_title">
+      <h2>服务项目<br/>
+        <i>Service</i></h2>
+      <div class="clear"></div>
+    </div>
+    <div class="index_product">
+      <ul>
+        {dede:arclist row='4' titlelen='36' typeid='1'}
+        <li> <a href="view.php?aid=[field:id/]" title="[field:title/]"><img src="[field:litpic/]" alt="[field:title/]"> <span>[field:title/]</span></a> </li>
+        {/dede:arclist}
+        <div class="clear"></div>
+      </ul>
+    </div>
+    <div class="more_i">{dede:type typeid='1'}<a href="list.php?tid=[field:id/]" title="查看更多">查看更多+</a>{/dede:type}</div>
+    <div class="common_title">
+      <h2>新闻资讯<br/>
+        <i>news</i></h2>
+      <div class="clear"></div>
+    </div>
+    <div class="new_i">
+      <ul>
+        {dede:arclist row='4' titlelen='36' typeid='2'}
+        <li> <span></span> <a href="view.php?aid=[field:id/]" title="">
+          <h3>[field:title/]</h3>
+          <p>[field:description function='cn_substr(@me,50)'/]...</p>
+          </a> </li>
+          {/dede:arclist}
+      </ul>
+      <div class="clear"></div>
+    </div>
+    <div class="more_i more_i2">{dede:type typeid='2'}<a href="list.php?tid=[field:id/]" title="查看更多">查看更多+</a>{/dede:type}</div>
+    <div class="common_title">
+      <h2>成功案例<br/>
+        <i>case</i></h2>
+      <div class="clear"></div>
+    </div>
+    <div class="index_product">
+      <ul>
+        {dede:arclist row='4' titlelen='36' typeid='3'}
+        <li> <a href="view.php?aid=[field:id/]" title="[field:title/]"><img src="[field:litpic/]" alt="[field:title/]"> <span>[field:title/]</span></a> </li>
+        {/dede:arclist}
+        <div class="clear"></div>
+      </ul>
+    </div>
+    <div class="more_i">{dede:type typeid='3'}<a href="list.php?tid=[field:id/]" title="查看更多">查看更多+</a>{/dede:type}</div>
+    <div class="common_title">
+      <h2>关于我们<br/>
+        <i>ABOUT US</i></h2>
+      <div class="clear"></div>
+    </div>{dede:sql sql="select content from nf_arctype where id=1"}[field:content function=cn_substr(Html2Text(@me),350)/]{/dede:sql}...</div>
+    <div class="more_i">{dede:type typeid='4'}<a href="list.php?tid=[field:id/]" title="查看更多">查看更多+</a>{/dede:type}</div>
+    <div class="blank_f2"></div>
+    <div class="cbtn-top" style="display: block;"><a href="javascript:;"><img src="{dede:global.cfg_templets_skin/}/style/m/images/goTop.png"></a></div>
+    <div class="beian"> 技术支持：<a href="{dede:global.cfg_waphost/}">{dede:global.cfg_indexname/}</a> </div>
+  </div>
+  <div class="blank_f"></div>
+  {dede:include filename="foot_m.htm"/}
+</div>
+<script type="text/javascript">/* <![CDATA[ */(function(d,s,a,i,j,r,l,m,t){try{l=d.getElementsByTagName('a');t=d.createElement('textarea');for(i=0;l.length-i;i++){try{a=l[i].href;s=a.indexOf('/cdn-cgi/l/email-protection');m=a.length;if(a&&s>-1&&m>28){j=28+s;s='';if(j<m){r='0x'+a.substr(j,2)|0;for(j+=2;j<m&&a.charAt(j)!='X';j+=2)s+='%'+('0'+('0x'+a.substr(j,2)^r).toString(16)).slice(-2);j++;s=decodeURIComponent(s)+a.substr(j,m-j)}t.innerHTML=s.replace(/</g,'&lt;').replace(/>/g,'&gt;');l[i].href='mailto:'+t.value}}catch(e){}}}catch(e){}})(document);/* ]]> */</script>
+</body>
+</html>

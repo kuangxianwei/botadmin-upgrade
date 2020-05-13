@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<link href="{dede:global.cfg_templets_skin/}/images/index.css" rel="stylesheet" type="text/css" />
+<link rel="canonical" href="{dede:field name='arcurl'/}">
+</head>
+<body>
+<div id="top">
+  <div class="wrapper">
+    <h5 style="float:left;margin-top:8px;font-size:14px;color:#284766;">欢迎光临{dede:global.cfg_titlelast/}！喜欢本站您可以点击分享：</h5>
+    <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare"> <a class="bds_bdhome"></a> <a class="bds_sqq"></a> <a class="bds_qzone"></a> <a class="bds_tqq"></a> <a class="bds_taobao"></a> <a class="bds_mogujie"></a> <a class="bds_meilishuo"></a> </div>
+    <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=0" ></script>
+    <script type="text/javascript" id="bdshell_js"></script>
+    <script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+    <!-- Baidu Button END -->
+
+  </div>
+</div>
+<div class="wrapper">
+  <div id="head">
+    <div class="htitle">
+      <h1> <a href="{dede:global.cfg_indexurl/}" >{dede:global.cfg_webname/}</a> </h1>
+    </div>
+    <div style="padding-top: 10px; padding-right: 17px;">咨询热线：<a style="color:red;font-size:16px;font-weight:bold;">13922352985</a></div>
+    <div style="padding-top: 25px; padding-right: 18px;font-size:14px;"><a href="/data/sitemap.html" target="_blank">网站地图</a> | <a href="/data/rssmap.html" target="_blank">rss</a></div>
+  </div>
+  <div id="navo">
+    <div id="navi">
+      <div id="menu">
+        <ul id="nav">
+          <li><a href="/" ><span>首 页 </span></a></li>
+          {dede:channel type='top' row='10' currentstyle="
+          <li class='menu_line'></li>
+          <li><a class='nav_on' href='~typelink~' ><span>~typename~</span></a></li>
+          "}
+          <li class="menu_line"></li>
+          <li><a class='' href='[field:typeurl/]' ><span>[field:typename/]</span></a></li>
+          {/dede:channel}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+
+<div class="wrapper mT5">
+  <div id="position"><strong>当前位置:</strong> {dede:field name='position'/}{dede:field.title/}</div>
+</div>
+<div class="wrapper mT5">
+<div class="l_left">
+  <div id="product">
+    <div class="otitle"> 产品分类 </div>
+    <div class="ocontent">
+      <div class="oliterm">
+        <ul>
+          {dede:channel type='top' row='20'}
+          <li><a href='[field:typelink/]' target=_blank>[field:typename/]</a></li>
+          {/dede:channel}
+        </ul>
+      </div>
+    </div>
+    <div class="otitle_buttom"> </div>
+  </div>
+  <div id="buyguide" class="mT5">
+    <div class="utitle">
+      <div class="utitlei">
+        <div class="title"><span class="title_t fLeft"><span class="title_t_i fLeft">
+          <h2><a href="/guanyuwomen/2.html" style="color:#FFF">联系我们</a></h2>
+          </span></span></div>
+      </div>
+    </div>
+    <div class="ucontent"> <br>
+      <li>咨询热线：13922352985</li>
+      <li>联系QQ：1366162030</li>
+      <li>公司名称：{dede:global.cfg_webname}</li>
+      <li>公司网址：{dede:global.cfg_basehost/}</li>
+    </div>
+    <div class="title_buttom">
+      <div class="title_buttom_i"></div>
+    </div>
+  </div>
+</div>
+<div class="l_right">
+  <div class="utitle">
+    <div class="utitlei">
+      <div class="title"></div>
+    </div>
+  </div>
+  <div class="ucontent">
+    <div class="arcbody">
+      <div id="baseinfo">
+        <div class="litimg fLeft"><a href="#" target="_blank" class="tooltip"><img src="{dede:field.picname/}" width="172" height="162" /></a></div>
+        <div class="basetext fLeft mL10">
+          <h1>{dede:field.title/}</h1>
+          更新时间:{dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/}<br />
+          浏览次数： <span class="aRed"><script src="{dede:field name='phpurl'/}/count.php?view=yes&aid={dede:field name='id'/}&mid={dede:field name='mid'/}" type='text/javascript' language="javascript"></script>
+          次</span><br />
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="sbar">详细介绍</div>
+      <div class="destext">{dede:field.body/} </div>
+文章《{dede:field.title/}》原创来自：<a href="{dede:global.cfg_basehost/}">{dede:global.cfg_indexname/}</a>
+<p></p><p>与《{dede:field.title/}》相关文章：</p>{dede:likearticle row='5' titlelen='70'}<p>➟<a href="[field:arcurl/]">[field:title/]></p>{/dede:likearticle}
+      <div class="clear"></div>
+      <div class="sbar">相关推荐</div>
+      <div class="destext">
+        <div id="tech" class="clear"> {dede:arclist row=10 orderby=click}
+          <ul class="addlist">
+            <div class="techdes">
+              <div class="addinfo">加入时间：[field:pubdate function="GetDateTimeMK(@me)"/]</div>
+              <ul>
+                <li class="dtitle"><a href="[field:arcurl/]">[field:title/]</a></li>
+              </ul>
+            </div>
+            <div class="clear"></div>
+          </ul>
+          {/dede:arclist} </div>
+      </div>
+      <div class="contact"></div>
+    </div>
+  </div>
+  <div class="title_buttom">
+    <div class="title_buttom_i"></div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+{dede:include filename="footer.htm"/}
+
+</body>
+</html>

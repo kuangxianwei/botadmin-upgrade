@@ -1,0 +1,29 @@
+<div class="layui-card">
+    <div class="layui-card-body layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">网站:</label>
+            <label class="layui-form-label">{{.obj.Vhost}}</label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">推送:</label>
+            <div class="layui-input-inline">
+                <select name="push_id" lay-search>
+                    <option value="0">直接选择或搜索选择</option>
+                    {{if .pushid -}}{{ .pushid}}{{end -}}
+                    {{range $k,$v := .maps -}}
+                        <option value="{{$v.id}}">{{$v.bd_username}}</option>
+                    {{end -}}
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux"><a lay-href="/push" lay-text="推送列表">查看或者添加推送账号</a>
+            </div>
+        </div>
+        <div class="layui-form-item layui-hide">
+            <input name="id" value="{{.obj.Id}}">
+            <input name="vhost" value="{{.obj.Vhost}}">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
+            </div>
+        </div>
+    </div>
+</div>

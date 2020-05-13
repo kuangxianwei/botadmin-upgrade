@@ -1,0 +1,928 @@
+BODY {
+	FONT-FAMILY: "微软雅黑", Arial, Tahoma,"微软雅黑","宋体"; BACKGROUND: #ffffff; COLOR: #000; FONT-SIZE: 12px
+}
+A {
+	TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #fe5b22
+}
+A:visited {
+	COLOR: #fe5b22
+}
+A:hover {
+	COLOR: #fe5b22
+}
+A:active {
+	COLOR: #fe5b22
+}
+HTML {
+	_overflow-y: scroll
+}
+* {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 1.8em; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+H1 {
+	FONT-SIZE: 12px
+}
+H2 {
+	FONT-SIZE: 12px
+}
+H3 {
+	FONT-SIZE: 12px
+}
+H4 {
+	FONT-SIZE: 12px
+}
+H5 {
+	FONT-SIZE: 12px
+}
+H6 {
+	FONT-SIZE: 12px
+}
+IMG {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+.rfloat {
+	FLOAT: right
+}
+.clear {
+	CLEAR: both
+}
+.clear:after {
+	DISPLAY: block; HEIGHT: 0px; VISIBILITY: hidden; CLEAR: both; CONTENT: "."
+}
+.checkbox {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+.button {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+#wrapper {
+	MARGIN: 0px auto; WIDTH: 1002px
+}
+#container {
+
+}
+#imain {
+	PADDING-BOTTOM: 16px; PADDING-LEFT: 16px; PADDING-RIGHT: 16px; BACKGROUND: url(../images/main_bj.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/main_bj.jpg*/ left top; PADDING-TOP: 16px
+}
+#iheader {
+	HEIGHT: 340px; BORDER-TOP: #000000 6px solid
+}
+#header {
+	HEIGHT: 260px; BORDER-TOP: #000000 6px solid
+}
+#ileft {
+	WIDTH: 203px; FLOAT: left
+}
+#left {
+	WIDTH: 725px; FLOAT: left
+}
+#icenter {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 16px; WIDTH: 506px; PADDING-RIGHT: 16px; FLOAT: left; PADDING-TOP: 0px
+}
+#iright {
+	WIDTH: 229px; FLOAT: right
+}
+#right {
+	PADDING-LEFT: 16px; WIDTH: 229px; FLOAT: right
+}
+#footer {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 10px; BACKGROUND: #d4d4d4
+}
+.top {
+	HEIGHT: 100px; VERTICAL-ALIGN: middle
+}
+.logo {
+	PADDING-LEFT: 10px; WIDTH: 400px
+}
+.topnav {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 6px; HEIGHT: 25px; COLOR: #ffffff; VERTICAL-ALIGN: top; PADDING-TOP: 5px
+}
+.topnav A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 25px; PADDING-LEFT: 6px; PADDING-RIGHT: 6px; COLOR: #ffffff; PADDING-TOP: 0px
+}
+.topnav A:visited {
+	COLOR: #ffffff
+}
+.topnav A:hover {
+	COLOR: #ffffff; TEXT-DECORATION: underline
+}
+.menu {
+	PADDING-BOTTOM: 7px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/menu_bj.png)/*tpa=http://dgshengqiang.com/templets/default/images/menu_bj.png*/ repeat-x left top; HEIGHT: 32px !important; OVERFLOW: hidden; PADDING-TOP: 7px;COLOR: #ffffff;
+}
+
+.menu A {
+	LINE-HEIGHT: 32px; PADDING-LEFT: 10px; DISPLAY: block; BACKGROUND: url(../images/cion01.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/cion01.jpg*/ no-repeat right top; FLOAT: left; COLOR: #ffffff; FONT-WEIGHT: bold; MARGIN-RIGHT: 15px;padding-right:5px;
+}
+.menu A SPAN {
+	PADDING-BOTTOM: 8px; LINE-HEIGHT: 14px; PADDING-LEFT: 0px; PADDING-RIGHT: 19px; DISPLAY: block; PADDING-TOP: 10px
+}
+.menu A:visited {
+	COLOR: #ffffff
+}
+.menu A:hover {
+	BACKGROUND: url(../images/a_l.gif)/*tpa=http://dgshengqiang.com/templets/default/images/a_l.gif*/ no-repeat left top; COLOR: #000000
+}
+.menu A:hover SPAN {
+	DISPLAY: block; BACKGROUND: url(../images/a_r.gif)/*tpa=http://dgshengqiang.com/templets/default/images/a_r.gif*/ no-repeat right top
+}
+.menu .current {
+	BACKGROUND: url(../images/a_l.gif)/*tpa=http://dgshengqiang.com/templets/default/images/a_l.gif*/ no-repeat left top; COLOR: #000000
+}
+.menu .current SPAN {
+	DISPLAY: block; BACKGROUND: url(../images/a_r.gif)/*tpa=http://dgshengqiang.com/templets/default/images/a_r.gif*/ no-repeat right top; COLOR: #000000
+}
+.nav {
+	BORDER-BOTTOM: #c1c1c1 1px solid; BACKGROUND: #dcdcdc; HEIGHT: 27px
+}
+.nav A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 27px; PADDING-LEFT: 12px; PADDING-RIGHT: 6px; COLOR: #000000; PADDING-TOP: 0px
+}
+.nav A:visited {
+	COLOR: #000000
+}
+.nav A:hover {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+.submenu {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 12px; PADDING-RIGHT: 12px; PADDING-TOP: 0px
+}
+.submenu DL {
+	LIST-STYLE-TYPE: none
+}
+.submenu DT {
+	PADDING-BOTTOM: 1px; LINE-HEIGHT: 30px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/cion08.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion08.gif*/ repeat-x left bottom; PADDING-TOP: 0px
+}
+.submenu DT A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 30px; PADDING-LEFT: 35px; PADDING-RIGHT: 0px; DISPLAY: block; BACKGROUND: url(../images/cion07.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion07.gif*/ no-repeat 13px 11px; COLOR: #000000; FONT-SIZE: 14px; PADDING-TOP: 0px
+}
+.submenu DT A:visited {
+	COLOR: #000000
+}
+.submenu DT A:hover {
+	BACKGROUND: url(../images/leftnav.gif)/*tpa=http://dgshengqiang.com/templets/default/images/leftnav.gif*/ no-repeat left top; COLOR: #000; FONT-WEIGHT: bold
+}
+.submenu DT #current {
+	BACKGROUND: url(../images/leftnav.gif)/*tpa=http://dgshengqiang.com/templets/default/images/leftnav.gif*/ no-repeat left top; COLOR: #000; FONT-WEIGHT: bold
+}
+.submenu DD {
+	PADDING-BOTTOM: 3px; LINE-HEIGHT: 18px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 3px
+}
+.submenu DD A {
+	LINE-HEIGHT: 18px; PADDING-LEFT: 35px; DISPLAY: block; BACKGROUND: url(../images/cion10.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion10.gif*/ no-repeat 20px 3px; COLOR: #616161
+}
+.submenu DD A:visited {
+	COLOR: #616161
+}
+.submenu DD A:hover {
+	COLOR: #000000
+}
+.banner {
+
+}
+.footnav {
+	LINE-HEIGHT: 35px; BACKGROUND: url(../images/foot_nav.gif)/*tpa=http://dgshengqiang.com/templets/default/images/foot_nav.gif*/ repeat-x left top; COLOR: #fe5b22
+}
+.footnav A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 35px; PADDING-LEFT: 9px; PADDING-RIGHT: 3px; COLOR: #fe5b22; PADDING-TOP: 0px
+}
+.footnav A:visited {
+	COLOR: #fe5b22
+}
+.footnav A:hover {
+	COLOR: #fe5b22; TEXT-DECORATION: underline
+}
+.copyright {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 24px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; COLOR: #3b3b3b; PADDING-TOP: 8px
+}
+.copyright A {
+	COLOR: #3b3b3b
+}
+.copyright A:visited {
+	COLOR: #3b3b3b
+}
+.copyright A:hover {
+	COLOR: #3b3b3b;text-decoration:underline;
+}
+.ihotpro {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.ihotpro H1 {
+	MARGIN: 0px auto; WIDTH: 109px; HEIGHT: 109px
+}
+.ihotpro H1 A {
+	BORDER-BOTTOM: #2d72b5 3px solid; TEXT-ALIGN: center; BORDER-LEFT: #2d72b5 3px solid; WIDTH: 103px; DISPLAY: block; FONT-FAMILY: Arial; BACKGROUND: #fff; HEIGHT: 103px; FONT-SIZE: 90px; VERTICAL-ALIGN: middle; BORDER-TOP: #2d72b5 3px solid; BORDER-RIGHT: #2d72b5 3px solid
+}
+.ihotpro H1 IMG {
+	VERTICAL-ALIGN: middle
+}
+.ihotpro SPAN {
+	TEXT-ALIGN: center; DISPLAY: block; COLOR: #fff
+}
+.ihotpro SPAN A {
+	COLOR: #fff
+}
+.ihotpro SPAN A:visited {
+	COLOR: #fff
+}
+.icompany {
+	BORDER-BOTTOM: #d7cfaf 1px solid; BORDER-LEFT: #d7cfaf 1px solid; MARGIN-BOTTOM: 16px; BACKGROUND: #f7f6ee; BORDER-TOP: #d7cfaf 1px solid; BORDER-RIGHT: #d7cfaf 1px solid
+}
+.icompany_title {
+	BORDER-BOTTOM: #d7cfaf 1px solid; MARGIN-BOTTOM: 15px; BACKGROUND: #f2f0e3
+}
+.icompany_title H2 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 35px; PADDING-LEFT: 38px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/cion06.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion06.gif*/ no-repeat 17px 14px; COLOR: #000000; FONT-SIZE: 14px; PADDING-TOP: 3px
+}
+.icompany_title SPAN {
+	LINE-HEIGHT: 35px; PADDING-LEFT: 20px; BACKGROUND: url(../images/cion03.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion03.gif*/ no-repeat 8px 4px; FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+.icompany_title B {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 12px; FLOAT: right; PADDING-TOP: 9px
+}
+.icompany_detail {
+	PADDING-BOTTOM: 15px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 0px
+}
+.icompany_detail IMG {
+	BORDER-BOTTOM: #dadadc 1px solid; BORDER-LEFT: #dadadc 1px solid; PADDING-BOTTOM: 3px; MARGIN: 3px 15px 0px 0px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; BACKGROUND: #ffffff; FLOAT: left; BORDER-TOP: #dadadc 1px solid; BORDER-RIGHT: #dadadc 1px solid; PADDING-TOP: 3px
+}
+.icompany_detail P {
+	TEXT-INDENT: 2em
+}
+.inews {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 0px
+}
+.inews TABLE {
+
+}
+.inews TD {
+	PADDING-BOTTOM: 5px; LINE-HEIGHT: 18px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/cion08.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion08.gif*/ repeat-x left bottom; PADDING-TOP: 5px
+}
+.inews TD A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; PADDING-LEFT: 16px; PADDING-RIGHT: 0px; DISPLAY: block; BACKGROUND: url(../images/cion07.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion07.gif*/ no-repeat left 6px; COLOR: #000000; PADDING-TOP: 0px
+}
+.inews TD A:visited {
+	COLOR: #000000
+}
+.inews TD A:hover {
+	COLOR: #fe5b22
+}
+.inews TD STRONG {
+	LINE-HEIGHT: 18px
+}
+.inews H2 {
+	TEXT-ALIGN: right; MARGIN-TOP: 10px; PADDING-RIGHT: 8px
+}
+.iproduct {
+	MARGIN: 0px 0px 1px 14px; BACKGROUND: url(../images/a.gif)/*tpa=http://dgshengqiang.com/templets/default/images/a.gif*/ no-repeat 5px 6px;padding-bottom:30px;
+}
+.iproduct DL {
+	LIST-STYLE-TYPE: none
+}
+.iproduct DT {
+	LINE-HEIGHT: 26px; PADDING-LEFT: 31px; BACKGROUND: url(../images/cion02.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/cion02.jpg*/ no-repeat left 6px; COLOR: #fe5b22; FONT-WEIGHT: bold
+}
+.iproduct DT A {
+	COLOR: #fe5b22
+}
+.iproduct DT A:visited {
+	COLOR: #fe5b22
+}
+.iproduct DT A:hover {
+	COLOR: #fe5b22
+}
+.iproduct DD {
+	LINE-HEIGHT: 20px; PADDING-LEFT: 31px; BACKGROUND: url(../images/cion05.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion05.gif*/ no-repeat 6px 8px
+}
+.iproduct DD A {
+	LINE-HEIGHT: 20px; COLOR: #000
+}
+.iproduct DD A:visited {
+	COLOR: #000
+}
+.iproduct DD A:hover {
+	COLOR: #333333
+}
+.ipro {
+	BORDER-BOTTOM: #d7cfaf 1px solid; BORDER-LEFT: #d7cfaf 1px solid; BACKGROUND: #f7f6ee; BORDER-TOP: #d7cfaf 1px solid; BORDER-RIGHT: #d7cfaf 1px solid
+}
+.ipro .cn1 {
+	TEXT-ALIGN: center; MARGIN: 0px 0px 4px; WIDTH: 33%; FLOAT: left
+}
+.ipro .cn1 H2 {
+	BORDER-BOTTOM: #d7cfaf 1px solid; BORDER-LEFT: #d7cfaf 1px solid; MARGIN: 0px auto; WIDTH: 120px; BACKGROUND: #fff; HEIGHT: 120px; BORDER-TOP: #d7cfaf 1px solid; BORDER-RIGHT: #d7cfaf 1px solid
+}
+.ipro .cn1 H2 A {
+	TEXT-ALIGN: center; WIDTH: 120px; DISPLAY: block; FONT-FAMILY: Arial; HEIGHT: 120px; FONT-SIZE: 103px; VERTICAL-ALIGN: middle
+}
+.ipro .cn1 H2 IMG {
+	VERTICAL-ALIGN: middle;
+	width: 120px;
+    height: 120px;
+}
+.ipro .cn1 SPAN {
+	DISPLAY: block; COLOR: #000000;height:35px;
+}
+.ipro .cn1 SPAN A {
+	COLOR: #000000
+}
+.ipro SPAN A:visited {
+	COLOR: #000000
+}
+.ipro SPAN A:hover {
+	COLOR: #000000
+}
+.ilink {
+
+}
+.ilink IMG {
+	MARGIN-BOTTOM: 10px
+}
+.icontact {
+	PADDING-BOTTOM: 25px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; PADDING-TOP: 0px
+}
+.icontact P {
+	LINE-HEIGHT: 24px
+}
+.icontact a{color:#444;font-size:12px;}
+.icontact a:hover{color:#fe5b22;}
+.icontact STRONG {COLOR: #e60000}
+.icontact p ul {  margin-left:30px; padding-top:8px;list-style-type:none }
+.icontact p ul li {  margin-left:36px; float:left; border:1px solid #ccc;list-style-type:none;}
+.icontact p a img {  border:none;}
+.con1 {
+	BORDER-BOTTOM: #cfcfcf 1px solid; BORDER-LEFT: #cfcfcf 1px solid; PADDING-BOTTOM: 10px; MARGIN-BOTTOM: 16px; BACKGROUND: #ffffff; BORDER-TOP: #cfcfcf 1px solid; BORDER-RIGHT: #cfcfcf 1px solid
+}
+.con2 {
+	BORDER-BOTTOM: #d7cfaf 1px solid; BORDER-LEFT: #d7cfaf 1px solid; BACKGROUND: #f7f6ee; BORDER-TOP: #d7cfaf 1px solid; BORDER-RIGHT: #d7cfaf 1px solid
+}
+.con3 {
+	BORDER-BOTTOM: #cfcfcf 1px solid; BORDER-LEFT: #cfcfcf 1px solid; PADDING-BOTTOM: 10px; BACKGROUND: #ffffff; BORDER-TOP: #cfcfcf 1px solid; BORDER-RIGHT: #cfcfcf 1px solid;margin-bottom:15px;
+}
+.con4 {
+	BORDER-BOTTOM: #cfcfcf 1px solid; BORDER-LEFT: #cfcfcf 1px solid; PADDING-BOTTOM: 10px; BACKGROUND: #ffffff; BORDER-TOP: #cfcfcf 1px solid; BORDER-RIGHT: #cfcfcf 1px solid;margin-bottom:16px;
+}
+.title1 {
+	BORDER-BOTTOM: #d7cfaf 1px solid; MARGIN-BOTTOM: 15px; BACKGROUND: #f2f0e3
+}
+.title1 H2 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 35px; PADDING-LEFT: 38px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/cion06.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion06.gif*/ no-repeat 17px 14px; COLOR: #000000; FONT-SIZE: 14px; PADDING-TOP: 3px
+}
+.title1 SPAN {
+	LINE-HEIGHT: 35px; PADDING-LEFT: 20px; BACKGROUND: url(../images/cion03.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion03.gif*/ no-repeat 8px 4px; FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+.title1 B {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 12px; FLOAT: right; PADDING-TOP: 9px
+}
+.place {
+	PADDING-RIGHT: 10px; FLOAT: right; COLOR: #000000; FONT-SIZE: 12px; FONT-WEIGHT: normal
+}
+.place A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 35px; PADDING-LEFT: 9px; PADDING-RIGHT: 3px; COLOR: #000000; PADDING-TOP: 0px
+}
+.place A:visited {
+	COLOR: #000000
+}
+.place A:hover {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+.title {
+	MARGIN-BOTTOM: 10px; BACKGROUND: url(../images/cion01.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion01.gif*/ repeat-x left top; HEIGHT: 40px
+}
+.title H2 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 37px; PADDING-LEFT: 47px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/cion02.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion02.gif*/ no-repeat 12px 8px; COLOR: #000000; FONT-SIZE: 14px; PADDING-TOP: 3px
+}
+.title SPAN {
+	LINE-HEIGHT: 37px; PADDING-LEFT: 20px; BACKGROUND: url(../images/cion03.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion03.gif*/ no-repeat 8px 4px; FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+.title2 {
+	MARGIN-BOTTOM: 12px; BACKGROUND: url(../images/title_r.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/title_r.jpg*/ no-repeat right top
+}
+.title2 H2 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 25px; PADDING-LEFT: 38px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/title_l.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/title_l.jpg*/ no-repeat left top; COLOR: #000000; FONT-SIZE: 14px; PADDING-TOP: 2px
+}
+.title2 H2 SPAN {
+	LINE-HEIGHT: 25px; PADDING-LEFT: 20px; BACKGROUND: url(../images/cion09.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion09.gif*/ no-repeat 8px 4px; COLOR: #767676; FONT-SIZE: 10px; FONT-WEIGHT: normal
+}
+.title2 H2 B {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 25px; PADDING-LEFT: 0px; PADDING-RIGHT: 12px; FLOAT: right; COLOR: #000000; FONT-SIZE: 12px; FONT-WEIGHT: normal; PADDING-TOP: 0px
+}
+.title2 H2 B A {
+	LINE-HEIGHT: 25px; COLOR: #000000
+}
+.title2 H2 B A:visited {
+	LINE-HEIGHT: 25px; COLOR: #000000
+}
+.title2 H2 B A:hover {
+	LINE-HEIGHT: 25px; COLOR: #000000
+}
+#nesttitle{PADDING-BOTTOM: 0px; LINE-HEIGHT: 20px; PADDING-RIGHT: 0px;  COLOR: #000000; FONT-SIZE: 14px; PADDING-TOP: 2px}
+.title3 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 23px; PADDING-LEFT: 30px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 10px; BACKGROUND: url(../images/title.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/title.jpg*/ no-repeat left top; COLOR: #ffffff; PADDING-TOP: 2px
+}
+
+.brief {
+	MARGIN-BOTTOM: 15px; BACKGROUND: url(../images/brief_m.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/brief_m.jpg*/ repeat-y left top
+}
+.brief_b {
+	PADDING-BOTTOM: 15px; BACKGROUND: url(../images/brief_b.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/brief_b.jpg*/ no-repeat left bottom
+}
+.brief_t {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; BACKGROUND: url(../images/brief_t.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/brief_t.jpg*/ no-repeat left top; COLOR: #fe5b22; PADDING-TOP: 12px
+}
+.brief A {
+	COLOR: #000000
+}
+.brief A:visited {
+	COLOR: #000000
+}
+.brief A:hover {
+	COLOR: #000000
+}
+.container {
+	PADDING-BOTTOM: 15px; PADDING-LEFT: 15px; WIDTH: 692px; PADDING-RIGHT: 15px; BACKGROUND: #f7f5ec; OVERFLOW: hidden; PADDING-TOP: 0px
+}
+.detail {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 20px; WIDTH: 652px; PADDING-RIGHT: 20px; OVERFLOW: hidden; PADDING-TOP: 3px
+}
+.content {
+	TEXT-ALIGN: left; FONT-SIZE: 14px
+}
+.content H1 {
+	LINE-HEIGHT: 24px; PADDING-LEFT: 20px; BACKGROUND: url(../images/cion06.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion06.gif*/ no-repeat 3px 6px
+}
+.content H2 {
+	LINE-HEIGHT: 27px; TEXT-INDENT: 3.2em; MARGIN-BOTTOM: 2px; BACKGROUND: url(../images/title_r.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/title_r.jpg*/ no-repeat right top
+}
+.content H2 SPAN {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 25px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: block; BACKGROUND: url(../images/title_l.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/title_l.jpg*/ no-repeat left top; COLOR: #000000; FONT-SIZE: 14px; PADDING-TOP: 2px
+}
+.content H3 {
+	TEXT-ALIGN: center; COLOR: #fe5b22; FONT-SIZE: 26px
+}
+.content H4 {
+	LINE-HEIGHT: 24px; PADDING-LEFT: 20px; BACKGROUND: url(../images/cion10.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion10.gif*/ no-repeat 3px 7px; COLOR: #fe5b22
+}
+.content H5 {
+	TEXT-ALIGN: center; BACKGROUND: url(../images/cion08.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion08.gif*/ repeat-x left bottom
+}
+.content H6 {
+	TEXT-ALIGN: center; LINE-HEIGHT: 24px; COLOR: #000102; FONT-WEIGHT: normal
+}
+.content P {
+	MARGIN: 8px auto
+}
+.content LI {
+	MARGIN-LEFT: 3.5em
+}
+.content STRONG {
+	COLOR: #003399
+}
+.content A {
+
+}
+.content TABLE {
+	FONT-SIZE: 12px
+}
+.content TABLE TD {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 0px
+}
+.tableboder TABLE {
+	BORDER-COLLAPSE: collapse
+}
+
+.tools {
+	TEXT-ALIGN: center; LINE-HEIGHT: 24px; MARGIN: 10px 0px; BACKGROUND: url(../images/page_bj.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/page_bj.jpg*/ repeat-y center top; COLOR: #fe5b22
+}
+.tools A {
+	COLOR: #fe5b22
+}
+.page A:visited {
+	COLOR: #fe5b22
+}
+.tools A:hover {
+	COLOR: #fe5b22; TEXT-DECORATION: underline
+}
+.page {
+.page li {float:left;margin:2px;}
+	TEXT-ALIGN: center; LINE-HEIGHT: 24px; MARGIN: 15px 0px; BACKGROUND: url(../images/page_bj.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/page_bj.jpg*/ repeat-y center top; COLOR: #fe5b22
+}
+.page A {
+	COLOR: #fe5b22
+}
+.page A:visited {
+	COLOR: #fe5b22
+}
+.page A:hover {
+	COLOR: #fe5b22; TEXT-DECORATION: underline
+}
+.hotpro {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 0px; PADDING-LEFT: 20px; PADDING-RIGHT: 20px; PADDING-TOP: 0px
+}
+.hotpro H2 {
+	MARGIN: 0px auto 8px
+}
+.hotpro H2 A {
+	BORDER-BOTTOM: #c0c0c0 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #c0c0c0 1px solid; PADDING-BOTTOM: 1px; PADDING-LEFT: 1px; WIDTH: 180px; PADDING-RIGHT: 1px; DISPLAY: block; FONT-FAMILY: Arial; HEIGHT: 180px; FONT-SIZE: 157px; VERTICAL-ALIGN: middle; BORDER-TOP: #c0c0c0 1px solid; BORDER-RIGHT: #c0c0c0 1px solid; PADDING-TOP: 1px
+}
+.hotpro H2 IMG {
+	VERTICAL-ALIGN: middle
+}
+.hotpro SPAN {
+	COLOR: #fe5b22
+}
+.hotpro SPAN A {
+	LINE-HEIGHT: 18px; COLOR: #fe5b22
+}
+.ihotpro .cn SPAN A:visited {
+	LINE-HEIGHT: 18px; COLOR: #fe5b22
+}
+.ihotpro .cn SPAN A:hover {
+	LINE-HEIGHT: 18px; COLOR: #fe5b22
+}
+.news_list {
+
+}
+.news_list TABLE {
+
+}
+.news_list TD {
+	PADDING-BOTTOM: 7px; LINE-HEIGHT: 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/cion08.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion08.gif*/ repeat-x left bottom; COLOR: #000102; FONT-SIZE: 14px; PADDING-TOP: 7px
+}
+.news_list TD A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 20px; PADDING-LEFT: 28px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/cion07.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion07.gif*/ no-repeat 11px 5px; COLOR: #000102; PADDING-TOP: 0px
+}
+.news_list TD A:visited {
+	COLOR: #000102
+}
+.news_list TD A:hover {
+	COLOR: #fe5b22
+}
+.news_list TD STRONG {
+	LINE-HEIGHT: 20px
+}
+.comment_list {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 0px
+}
+.comment_list TABLE {
+
+}
+.comment_list TD {
+	LINE-HEIGHT: 28px; BACKGROUND: url(../images/cion08.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion08.gif*/ repeat-x left bottom; COLOR: #000102; FONT-SIZE: 14px
+}
+.comment_list TD A {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 28px; PADDING-LEFT: 28px; PADDING-RIGHT: 0px; DISPLAY: block; BACKGROUND: url(../images/cion07.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion07.gif*/ no-repeat 11px 9px; COLOR: #000102; PADDING-TOP: 0px
+}
+.comment_list TD A:visited {
+	COLOR: #000102
+}
+.comment_list TD A:hover {
+	COLOR: #fe5b22
+}
+.comment_list TD STRONG {
+	LINE-HEIGHT: 28px
+}
+.comment {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 12px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.comment TABLE {
+
+}
+.comment TABLE TD {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; COLOR: #000000; PADDING-TOP: 5px
+}
+.comment TABLE INPUT {
+	BORDER:0px
+}
+.comment TABLE TEXTAREA {
+	BORDER:0px
+}
+.comment TABLE .but {
+	BORDER-BOTTOM-STYLE: none; TEXT-ALIGN: center; LINE-HEIGHT: 22px; BORDER-RIGHT-STYLE: none; WIDTH: 70px; BORDER-TOP-STYLE: none; BACKGROUND: url(../images/but_bj.gif)/*tpa=http://dgshengqiang.com/templets/default/images/but_bj.gif*/ no-repeat left top; HEIGHT: 22px; COLOR: #000000; BORDER-LEFT-STYLE: none; MARGIN-RIGHT: 10px
+}
+.choice {
+	WIDTH: 630px; MARGIN-BOTTOM: 5px
+}
+.choice A {
+	PADDING-BOTTOM: 2px; LINE-HEIGHT: 23px; PADDING-LEFT: 30px; WIDTH: 97px; PADDING-RIGHT: 0px; DISPLAY: block; BACKGROUND: url(../images/choice.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/choice.jpg*/ no-repeat left top; FLOAT: left; HEIGHT: 23px; COLOR: #4b4b4b; MARGIN-RIGHT: 12px; PADDING-TOP: 2px
+}
+.choice A:visited {
+	COLOR: #4b4b4b
+}
+.choice A:hover {
+	BACKGROUND: url(../images/choicehover.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/choicehover.jpg*/ no-repeat left top; COLOR: #ffffff
+}
+.choice #current {
+	BACKGROUND: url(../images/choicehover.jpg)/*tpa=http://dgshengqiang.com/templets/default/images/choicehover.jpg*/ no-repeat left top; COLOR: #ffffff
+}
+.pro {
+	PADDING-TOP: 5px
+}
+.pro_c {
+	BORDER-BOTTOM: #e1e1e1 1px solid; BORDER-LEFT: #e1e1e1 1px solid; MARGIN-BOTTOM: 18px; BACKGROUND: #f9f9f9; BORDER-TOP: #e1e1e1 1px solid; BORDER-RIGHT: #e1e1e1 1px solid
+}
+.pro_c TABLE {
+	BORDER-COLLAPSE: collapse
+}
+.pro_c TD {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 9px; PADDING-RIGHT: 9px; COLOR: #606060; VERTICAL-ALIGN: top; PADDING-TOP: 0px
+}
+.pro_c TD IMG {
+	BORDER-BOTTOM: #d7cfaf 1px solid; BORDER-LEFT: #d7cfaf 1px solid; VERTICAL-ALIGN: middle; BORDER-TOP: #d7cfaf 1px solid; BORDER-RIGHT: #d7cfaf 1px solid
+}
+.pro_c TH {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 0px; PADDING-LEFT: 18px; PADDING-RIGHT: 0px; COLOR: #000000; VERTICAL-ALIGN: top; FONT-WEIGHT: normal; PADDING-TOP: 0px
+}
+.pro_c H2 {
+	LINE-HEIGHT: 20px; MARGIN: 10px 0px 5px; PADDING-LEFT: 13px; DISPLAY: block; COLOR: #000000
+}
+.pro_c H2 A {
+	LINE-HEIGHT: 20px; COLOR: #000000
+}
+.pro_c H2 A:visited {
+	LINE-HEIGHT: 20px; COLOR: #000000
+}
+.pro_c H2 A:hover {
+	LINE-HEIGHT: 20px; COLOR: #000000
+}
+.pro_c SPAN {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; DISPLAY: block; COLOR: #000000; PADDING-TOP: 2px
+}
+.pro_c SPAN A {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+.pro_c SPAN A:visited {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+.pro_c SPAN A:hover {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+.prob_list {
+	PADDING-BOTTOM: 10px
+}
+.prob_list .cn2 {
+	TEXT-ALIGN: center; MARGIN: 5px 8px 5px 18px; WIDTH: 140px; FLOAT: left
+}
+.prob_list .cn2 H2 {
+	MARGIN: 0px auto 5px; WIDTH: 134px; HEIGHT: 134px
+}
+.prob_list .cn2 H2 A {
+	BORDER-BOTTOM: #d7cfaf 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #d7cfaf 1px solid; PADDING-BOTTOM: 1px; PADDING-LEFT: 1px; WIDTH: 130px; PADDING-RIGHT: 1px; DISPLAY: block; FONT-FAMILY: Arial; BACKGROUND: #ffffff; HEIGHT: 130px; FONT-SIZE: 87px; VERTICAL-ALIGN: middle; BORDER-TOP: #d7cfaf 1px solid; BORDER-RIGHT: #d7cfaf 1px solid; PADDING-TOP: 1px
+}
+.prob_list .cn2 H2 IMG {
+	VERTICAL-ALIGN: middle
+}
+.prob_list .cn2 SPAN {
+	LINE-HEIGHT: 18px; DISPLAY: block; COLOR: #000000;height:40px;
+}
+.prob_list .cn2 SPAN A {
+	LINE-HEIGHT: 18px; COLOR: #000000
+}
+.ipro .cn P A:visited {
+	LINE-HEIGHT: 18px; COLOR: #000000
+}
+.ipro .cn P A:hover {
+	LINE-HEIGHT: 18px; COLOR: #000000
+}
+.prob_list .cn2 SPAN STRONG {
+	LINE-HEIGHT: 18px
+}
+.detail_brief {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.detail_brief .b {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 7px; PADDING-TOP: 0px
+}
+.detail_brief DL {
+	MARGIN: 5px 0px 0px 5px
+}
+.detail_brief DT {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 30px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/cion07.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion07.gif*/ no-repeat 15px 8px; PADDING-TOP: 0px
+}
+.detail_brief DT A {
+	COLOR: #606060
+}
+.detail_brief DT A:visited {
+	COLOR: #606060
+}
+.detail_brief DT A:hover {
+	COLOR: #606060; TEXT-DECORATION: underline
+}
+.proct_bg1 {
+	MARGIN: 10px; COLOR: #606060
+}
+.proct_bg1 TABLE {
+
+}
+.proct_bg1 TD {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; COLOR: #606060; PADDING-TOP: 2px
+}
+.proct_bg1 TH {
+	COLOR: #000000; FONT-WEIGHT: normal
+}
+.case {
+	MARGIN: 0px 0px 9px; FONT-SIZE: 14px
+}
+.case UL {
+	LIST-STYLE-TYPE: none; MARGIN: 0px 17px 0px 18px
+}
+.case LI {
+	LINE-HEIGHT: 24px; PADDING-LEFT: 20px; WIDTH: 30% !important; MARGIN-BOTTOM: 5px; BACKGROUND: url(../images/cion10.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion10.gif*/ no-repeat left 6px; FLOAT: left; COLOR: #000000
+}
+.agent {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 5px; MARGIN: 0px 0px 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.agent TABLE {
+	BORDER-BOTTOM: #b7b7b7 1px solid; BORDER-LEFT: #b7b7b7 1px solid; BORDER-COLLAPSE: collapse; BACKGROUND: #fff; BORDER-TOP: #b7b7b7 1px solid; BORDER-RIGHT: #b7b7b7 1px solid
+}
+.agent TABLE TH {
+	BORDER-BOTTOM: #b7b7b7 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #b7b7b7 1px solid; LINE-HEIGHT: 27px; BORDER-COLLAPSE: collapse; BACKGROUND: url(../images/th_bj.gif)/*tpa=http://dgshengqiang.com/templets/default/images/th_bj.gif*/ repeat-x left top; COLOR: #fe5b22; BORDER-TOP: #b7b7b7 1px solid; BORDER-RIGHT: #b7b7b7 1px solid
+}
+.agent TABLE TD {
+	BORDER-BOTTOM: #b7b7b7 1px solid; BORDER-LEFT: #b7b7b7 1px solid; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BORDER-COLLAPSE: collapse; COLOR: #000000; BORDER-TOP: #b7b7b7 1px solid; BORDER-RIGHT: #b7b7b7 1px solid; PADDING-TOP: 5px
+}
+.public_list {
+
+}
+.public_list TABLE {
+	MARGIN-TOP: 10px; BACKGROUND: url(../images/cion08.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion08.gif*/ repeat-x left bottom
+}
+.public_list TH {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 0px; LINE-HEIGHT: 30px; PADDING-LEFT: 44px; PADDING-RIGHT: 0px; BACKGROUND: url(../images/cion10.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion10.gif*/ no-repeat 20px 11px; FONT-WEIGHT: normal; PADDING-TOP: 0px
+}
+.public_list TD A {
+	LINE-HEIGHT: 30px; COLOR: #000000
+}
+.public_list TD A:visited {
+	COLOR: #000000
+}
+.public_list TD A:hover {
+	COLOR: #fe5b22
+}
+.sitemap {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 5px
+}
+.sitemap DL {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 7px; PADDING-RIGHT: 20px; PADDING-TOP: 5px
+}
+.sitemap DL FONT {
+	TEXT-ALIGN: left; PADDING-LEFT: 4px; DISPLAY: block; COLOR: #fe5b22; FONT-SIZE: 12px; FONT-WEIGHT: normal
+}
+.sitemap DL FONT A {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; COLOR: #fe5b22; PADDING-TOP: 0px
+}
+.sitemap DL FONT A:visited {
+	COLOR: #fe5b22
+}
+.sitemap DL FONT A:hover {
+	COLOR: #fe5b22; FONT-WEIGHT: bold; TEXT-DECORATION: underline
+}
+.contactus P {
+	MARGIN: 0px
+}
+.contactus .list1 {
+	MARGIN: 5px 0px 0px; WIDTH: 340px; FLOAT: left
+}
+.contactus .list1 DIV {
+	PADDING-BOTTOM: 15px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; DISPLAY: block; FONT-WEIGHT: normal; PADDING-TOP: 5px
+}
+.contactus .list2 {
+	MARGIN: 5px 0px 0px 12px; WIDTH: 340px; FLOAT: left
+}
+.contactus .list2 DIV {
+	PADDING-BOTTOM: 15px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; DISPLAY: block; FONT-WEIGHT: normal; PADDING-TOP: 5px
+}
+.board {
+	MARGIN: 0px
+}
+.board_h3 {
+	BORDER-BOTTOM: #e3e3e3 1px solid; BORDER-LEFT: #e3e3e3 3px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; BORDER-TOP: #e3e3e3 1px solid; FONT-WEIGHT: bold; BORDER-RIGHT: #e3e3e3 1px solid; PADDING-TOP: 0px
+}
+.board_h4 {
+	TEXT-ALIGN: center; COLOR: #fe5b22; FONT-SIZE: 14px; FONT-WEIGHT: bold
+}
+.board_h4 A {
+	COLOR: #fe5b22
+}
+.board_h4 A:visited {
+	COLOR: #fe5b22
+}
+.board_h4 A:hover {
+	COLOR: #fe5b22
+}
+.board_h5 {
+	BORDER-BOTTOM: #eaeaea 1px dotted; TEXT-ALIGN: center; MARGIN: 0px 0px 10px; FONT-WEIGHT: normal
+}
+.btn {
+	BORDER-BOTTOM-STYLE: none; TEXT-ALIGN: center; LINE-HEIGHT: 22px; BORDER-RIGHT-STYLE: none; WIDTH: 70px; BORDER-TOP-STYLE: none; BACKGROUND: url(../images/but_bj.gif)/*tpa=http://dgshengqiang.com/templets/default/images/but_bj.gif*/ no-repeat left top; HEIGHT: 22px; COLOR: #000000; BORDER-LEFT-STYLE: none; MARGIN-RIGHT: 10px
+}
+.board_border2 TEXTAREA {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid
+}
+.board_border {
+	PADDING-BOTTOM: 12px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 0px
+}
+.board_border UL {
+	MARGIN: 10px 0px 0px
+}
+.board_border LI {
+	COLOR: #000000; MARGIN-LEFT: 2em
+}
+.board_border2 {
+	PADDING-BOTTOM: 12px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 0px
+}
+.board_border2 TD {
+	BORDER-BOTTOM-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-TOP-STYLE: none; BORDER-LEFT-STYLE: none
+}
+.board_border2 .select {
+	LINE-HEIGHT: 24px; WIDTH: 90px
+}
+.board_border2 .border {
+	WIDTH: 120px
+}
+.board_border2 .border_input {
+	BORDER-BOTTOM: #ccc 1px solid; BORDER-LEFT: #ccc 1px solid; LINE-HEIGHT: 18px; WIDTH: 120px; HEIGHT: 18px; COLOR: #000000; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid
+}
+.board_border2 TEXTAREA {
+	WIDTH: 160px; HEIGHT: 80px; COLOR: #fe5b22; MARGIN-LEFT: 15px
+}
+.form TD {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 5px; PADDING-RIGHT: 0px; COLOR: #000000; PADDING-TOP: 4px
+}
+.form SPAN {
+	COLOR: #000000
+}
+.sitemsg {
+	MARGIN: 0px
+}
+.sitemsg TD {
+	BORDER-BOTTOM: #ccc 1px dotted; PADDING-BOTTOM: 2px; PADDING-LEFT: 8px; PADDING-RIGHT: 0px; PADDING-TOP: 3px
+}
+.sitemsg .msgtitle {
+	COLOR: #000000
+}
+.sitemsg B {
+	COLOR: #fe5b22
+}
+
+.pages { clear:both; padding:20px 45px 0 0; color:#00c; }
+.pages a { color:#00c; }
+.pages a:hover { color:#f60; text-decoration:none; }
+.pages ul { float:right; list-style:none }
+.pages li { float:left; margin-left:8px; }
+
+.c_product_b{margin:0 10px;}
+.c_product_b div{float:left;width:135px; height:130px;_width:165px;margin:5px 3px;text-align:center;}
+.c_product_b h2{width:130px;height:130px;float:left;}
+.c_product_b h2 a{width:130px;height:130px;border:#d3d3d3 solid 1px;padding:1px;display: table-cell;vertical-align:middle;text-align:center;*display:block;*font-size: 87px;*font-family:Arial;}
+.c_product_b h2 img{vertical-align:middle;width:130px;height:130px;}
+.c_product_b h3 a{color:#444;font-weight:normal; line-height:30px;}
+.c_product_b h3{width:160px;float:left;}
+
+
+
+	.downlist { width:626px; margin:auto; margin-top:20px; }
+	.downlist_l { float:left; }
+	.downlist_l a { color:#000; }
+	.downlist_l ul { list-style:none; line-height:30px; }
+	.downlist_l ul li { background:url(images/triangle.gif)/*tpa=http://dgshengqiang.com/templets/default/style/images/triangle.gif*/ no-repeat scroll 0 12px; padding-left:15px;}
+	.downlist_m { float:right; margin-right:105px;}
+	.downlist_m a { color:#00f; }
+	.downlist_m ul { list-style:none; line-height:30px; }
+	.downlist_r { float:right; }
+	.downlist_r ul { list-style:none; line-height:30px; }
+
+
+	.product_list_b{margin-top:15px; margin:auto;}
+	.product_list_b div{float:left;width:110px; height:150px;_width:105px;margin:10px 10px 5px 10px!important;margin:10px 12px 5px 32px;text-align:center;}
+	.product_list_b h2{width:100px;height:100px;margin:0 auto 5px;}
+	.product_list_b h2 a{width:100px;height:100px;border:#d3d3d3 solid 1px;padding:1px;display: table-cell;vertical-align:middle;text-align:center;*display:block;*font-size: 87px;*font-family:Arial;}
+	.product_list_b h2 img{vertical-align:middle;}
+	.product_list_b h3 a{color:#000;font-weight:normal; line-height:30px;}
+	.product_list_b h3 a:hover{text-decoration:underline;}
+	.tag a{margin:0 3px;}
+	.tag a:hover{text-decoration:underline}
+	#linkweb{ float:right;width:180px;line-height:35px;}
+#cnzz_stat_icon_1253332020{display:inline}
+
+
+.iproduct2{padding:1px 1px;}
+.ihotp2{ width:140px;text-align:center;}
+.ihotp2 span{white-space: normal!important;}
+.iproduct2 h2{width:120px;height:120px; }
+.iproduct2 h2 a{width:120px;height:120px; display:table-cell;vertical-align:middle;text-align:center;*display:block;*font-size:104px;*font-family:Arial; border:#5c5c5c 1px solid; }
+.iproduct2 h2 a img{vertical-align:middle;}
+.iproduct2 p{ line-height:24px; color:#5c5c5c; text-align:center; padding-top:5px;}
+.iproduct2 p a:visited{color:#5f5f5f;}
+.iproduct2 p a:hover{color:#289fe0;}
+.iproduct2 a{color:#5f5f5f; }
+.iproduct2 a:visited{color:#5f5f5f; }
+.iproduct2 a:hover{color:#289fe0; }
+.iproduct_list{text-align:center;padding:14px 10px;}
+.iproduct_list a{ color:#474747;display:block;line-height:28px; margin:2px 0;}
+.iproduct_list a:visited{color:#474747;}
+.iproduct_list a:hover{ color:#ffffff; background:url(../images/cion06.gif)/*tpa=http://dgshengqiang.com/templets/default/images/cion06.gif*/ repeat-x left top;}
+#cnzz_stat_icon_1253310264{display:inline;}
+.footnav img{ vertical-align:middle;display:inline}

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<TITLE>{dede:global.cfg_webname/}</TITLE>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}">
+<meta name="description" content="{dede:global.cfg_description/}">
+<LINK media=screen href="{dede:global.cfg_templets_skin/}/css/style.css" type=text/css rel=stylesheet>
+</HEAD>
+<BODY>
+<DIV class=wrapper>
+	{dede:include filename="head.htm"/}
+	<DIV class=slideshow id=slideshow>
+	<img src="{dede:global.cfg_templets_skin/}/images/banner1.png">
+	</DIV>
+	<DIV class=clear></DIV>
+	<DIV class=featured>
+		<DIV class=containerTop></DIV>
+		<DIV class="containerContent homeContent">
+			<DIV class=news>
+			{dede:type typeid ='1'}
+			<H2><SPAN><A title="[field:typename/]" href="[field:typelink/]">更多&gt;&gt;</A></SPAN><A title="[field:typename/]" href="[field:typelink/]">[field:typename/]</A></H2>
+			{/dede:type}
+				<UL>
+				{dede:arclist titlelen='25' row='11'}
+					<LI><a href="[field:arcurl/]" title="[field:title /]"><font>[field:title /]</font></A><SPAN>[field:pubdate function='strftime("%m-%d",@me)'/]</SPAN></LI>
+				{/dede:arclist}
+				</UL>
+			</DIV>
+			<DIV class=products>
+			{dede:type typeid ='2'}
+				<H2><SPAN><A title="[field:typename/]" href="[field:arcurl/]">更多&gt;&gt;</A></SPAN><a href="[field:arcurl/]">[field:typename/]</a></H2>
+				{/dede:type}
+				<UL>
+				{dede:arclist titlelen='25' row='4' typeid='3'}
+				<LI><a href="[field:arcurl/]" title="[field:title /]"><IMG class="attachment-small" title="[field:title /]" alt="[field:title /]" src="[field:litpic/]" /></A> <A class="product_name" href="[field:arcurl/]" title="[field:title /]">[field:title /]</A></LI>
+				{/dede:arclist}
+				</UL>
+			</DIV>
+			<DIV class=profile>
+				<H2>关于{dede:global.cfg_indexname/}</H2>
+				<DIV class=about-us>
+					<DIV>
+				{dede:global.cfg_about/}
+						<DIV class=clear></DIV>
+					</DIV>
+					<DIV class=clear></DIV>
+				</DIV>
+				<DIV class=clear></DIV>
+			</DIV>
+		</DIV>
+	</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<DIV class=friendlink >
+	<H3>友情链接</H3>
+	<UL>
+	<LI>
+{dede:flink row='24'}<li>[field:link/]</li>{/dede:flink}
+	<!--links_start-->
+	<!--links_end-->
+	</LI>
+	</UL>
+</DIV>
+{dede:include filename="foot.htm"/}
+</BODY>
+</HTML>
