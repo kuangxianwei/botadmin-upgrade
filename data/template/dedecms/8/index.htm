@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<link href="{dede:global.cfg_templets_skin/}/style/css.css" rel="stylesheet" type="text/css">
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="banner_bj">
+  <div class="banner">
+    <div class="banner_left"><img src="{dede:global.cfg_templets_skin/}/images/2.jpg" height="229" width="802"></div>
+    <div class="cont right">
+    <div class="cont_bj"> 联系人:马经理<br>
+        服务热线:<strong style="color:#c9131c">0371-55617968</strong><br>
+        <br>
+        <strong style="color:#c9131c">总部</strong>地址:{dede:global.cfg_city/}金水区<br>
+        总部电话:<strong style="color:#c9131c">18937659698</strong><br>
+        <br>
+    </div>
+    <p><img src="{dede:global.cfg_templets_skin/}/images/24.jpg" height="27" width="222"></p>
+    </div>
+  </div>
+</div>
+<div class="main clear">
+  <div class="main clear" style="margin-top:10px;">
+    <div class="about">
+    <p><img src="{dede:global.cfg_templets_skin/}/images/about_top.jpg" width="323" height="26" border="0"></p>
+    <div class="about_bj">
+        <font style="font-size:12px; color:#8b0029; font-weight:bold">{dede:global.cfg_about/}
+    </div>
+    </div>
+    <div class="gd left"><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/gdd.jpg" height="272" width="288"></a></div>
+    <div class="newscenter right">
+    <p><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/news_top.jpg" width="360" height="26" border="0"></a></p>
+    <div class="new_tu">
+        {dede:arclist flag='h' limit='0,1' infolen='100'}
+        <div class="left" style="height:112px; width:116px;"><img src="[field:litpic/]" height="112" width="116"></div>
+        <div class="tu"><strong style="color:#8b0029"><a href="[field:arcurl/]">[field:title/]</a></strong><br>
+        [field:info/]...</div>
+    {/dede:arclist}
+    </div>
+    <div class="new_bj">
+        <table width="98%" border="0" align="right" cellpadding="0" cellspacing="0" background="{dede:global.cfg_templets_skin/}/images/news_bj.jpg" >
+        {dede:arclist row='4' titlelen='30'}
+        <tr>
+            <td width="77%" height="28" ><font color="#8b0029">></font> <a href="[field:arcurl/]" target="_blank">[field:title/]</a></td>
+            <td width="23%"><font color="#858585">[field:pubdate function="MyDate('Y-m-d',@me)"/]</font></td>
+        </tr>
+        {/dede:arclist}
+        </table>
+    </div>
+    </div>
+  </div>
+  <div class="zuo clear">
+    <ul>
+    <li style="height:103px; width:164px; display:block; padding:0"><img src="{dede:global.cfg_templets_skin/}/images/zzz.jpg" width="164" height="103"></li>
+    {dede:arclist row='5' titlelen='16' infolen='30'}
+    <li><strong><a href="[field:arcurl/]" style="color:#8b0029">[field:title/]</a></strong><br>
+        [field:info/]……</li>
+    {/dede:arclist}
+    </ul>
+  </div>
+  <div class="link clear">
+  {dede:flink row='24'}[field:link/] {/dede:flink}
+  </div>
+</div>
+{dede:include filename="footer.htm"/}
+</body>
+</html>

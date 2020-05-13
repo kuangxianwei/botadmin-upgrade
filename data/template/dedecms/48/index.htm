@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<link href="{dede:global.cfg_templets_skin/}/css/style.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/images/jquery.pack.js"></script>
+<script language="JavaScript" type="text/javascript">var $j = jQuery.noConflict();</script>
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+<div id="wrap">
+{dede:include filename="head.htm"/}
+<div id="banner" class="banner"></div>
+<div id="mainbody">
+	<div class="cat">
+		<div class="t">产品分类</div>
+		<div class="c">
+			<ul>
+				{dede:channelartlist type="top"}
+				<li><a href="{dede:field name='typeurl'/}">{dede:field name='typename'/}</a>
+				</li>
+				{/dede:channelartlist}
+			</ul>
+		</div>
+	</div>
+	<div class="about">
+		<div class="t">公司简介</div>
+		<div class="c">
+				<p><img src="{dede:global.cfg_templets_skin/}/images/about.jpg" alt="公司简介" />
+{dede:global.cfg_about/}
+				</p>
+		</div>
+	</div>
+	<div class="news">
+		<div class="t">最新动态</div>
+		<div class="c">
+			<ul>
+				{dede:arclist row=10 orderby=pubdate}
+				<li><a href="[field:arcurl/]" title="[field:title/]">[field:title/]</a></li>
+				{/dede:arclist}
+			</ul>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div id="left">
+		<div class="newl">
+			<div class="t">产品知识</div>
+			<div class="c">
+				<ul>
+				{dede:arclist row='4' orderby='rand'}
+				<li><a href="[field:arcurl/]" title="[field:title/]">[field:title/]</a></li>
+				{/dede:arclist}
+				</ul>
+			</div>
+		</div>
+		<div class="case">
+			<div class="t">联系我们</div>
+			<div class="c">
+				<ul>{dede:global.cfg_webname/}	</ul>
+			</div>
+		</div>
+	</div>
+	<div id="right">
+		<div class="newp">
+			<div class="t">产品推荐</div>
+			<div class="c">
+				<ul>
+					{dede:arclist row=8  orderby=pubdate flag='p'}
+					<li><a href="[field:arcurl/]" class="lp"><img src="[field:litpic/]" alt="[field:title/]" /></a><a href="[field:arcurl/]"><span>[field:title/]</a></span></li>
+					{/dede:arclist}
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+</div>
+<div class="cb"></div>
+{dede:include filename="footer.htm"/}
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/images/jquery.jcarousel.js"></script>
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/images/jcarousel.css">
+<script>
+$j(function(){
+banner_src=[{'url':'{dede:global.cfg_templets_skin/}/images/1.jpg',"href":'JavaScript:void(0)',"title":''},{"url":'{dede:global.cfg_templets_skin/}/images/2.jpg',"href":'JavaScript:void(0)',"title":''},{'url':'{dede:global.cfg_templets_skin/}/images/3.jpg',"href":'JavaScript:void(0)',"title":''},{'url':'{dede:global.cfg_templets_skin/}/images/4.jpg',"href":'JavaScript:void(0)',"title":''},{'url':'{dede:global.cfg_basehost/}/templets/szzr/images/5.jpg',"href":'JavaScript:void(0)',"title":''}];
+$j(".banner").jcarousel({'speed':400,'timeout':3000,'width':960,'height':300,'photo':banner_src});
+});
+</script>
+</body>
+</html>
