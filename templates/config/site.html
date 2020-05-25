@@ -318,6 +318,16 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
+                        <label class="layui-form-label">标题格式:</label>
+                        <div class="layui-input-inline">
+                            <textarea name="title_formats" rows="3"
+                                      class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            可用标签为&#123;&#123;tag&#125;&#125; &#123;&#123;title&#125;&#125; 标签为必须 一行一条
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label">图片路径:</label>
                         <div class="layui-input-inline">
                             <input type="text" name="pic_dir" value="{{.obj.PicDir}}" class="layui-input"/>

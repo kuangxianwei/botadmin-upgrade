@@ -31,6 +31,7 @@ EOF
 yum -y install make zlib-devel gcc-c++ libtool openssl openssl-devel || exit 1
 pushd /data/botadmin/shell/lnmp/src || exit 1
 test -d ./ngx_http_substitutions_filter_module && rm -rf ./ngx_http_substitutions_filter_module
+yum -y install bzip2 || exit 1
 tar -xjf ngx_http_substitutions_filter_module.tar.bz2 || exit 1
 pushd /data/botadmin/shell/lnmp || exit 1
 LNMP_Auto="y" DBSelect="4" DB_Root_Password="botadmin.cn" InstallInnodb="y" PHPSelect="5" SelectMalloc="2" CheckMirror="n" ./install.sh lnmp

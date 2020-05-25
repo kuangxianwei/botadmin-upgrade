@@ -2,7 +2,19 @@
     <div class="layui-row">
         <div class="layui-col-md12">
             <div class="layui-card">
-                <div class="layui-card-header">规则列表</div>
+                <div class="layui-card-header layuiadmin-card-header-auto layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">范围:</label>
+                        <div class="layui-input-inline">
+                            <select name="site_id" lay-filter="site_id" lay-search>
+                                <option value="">搜索...</option>
+                                {{range .sites -}}
+                                    <option value="{{.Id}}">{{.Vhost}}</option>
+                                {{end -}}
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="layui-card-body">
                     <table id="table-list" lay-filter="table-list"></table>
                 </div>
@@ -45,17 +57,16 @@
         <button class="layui-btn layui-btn-xs" lay-event="exec" lay-tips="开始采集">
             <i class="layui-icon iconfont icon-spider"></i>
         </button>
-        <button class="layui-btn layui-btn-xs layui-btn-normal" lay-event="modify" lay-tips="修改规则">
-            <i class="layui-icon layui-icon-edit"></i>
-        </button>
+        <button class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i></button>
+    </div>
+    <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs" lay-event="copy" lay-tips="复制规则">
             <i class="layui-icon layui-icon-file-b"></i>
         </button>
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
-        <button class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
-            <i class="layui-icon layui-icon-log"></i></button>
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="recordReset" lay-tips="清空当前这条规则的记录">
             <i class="layui-icon layui-icon-fonts-clear"></i>
         </button>
@@ -99,9 +110,12 @@
             url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'name', title: '规则名称', minWidth: 100},
+                {field: 'id', width: 80, title: 'ID', hide: true},
                 {field: 'seeds', title: '种子', hide: true},
+                {
+                    field: 'name', title: '规则名称', width: 200,
+                    event: 'modify', style: 'cursor:pointer;color:#01aaed;',
+                },
                 {
                     field: 'status', title: '状态', width: 100, align: 'center',
                     event: 'status', style: 'cursor:pointer;color:#01aaed;',
@@ -115,7 +129,12 @@
                         return text;
                     }
                 },
-                {field: 'updated', title: '时间', minWidth: 100, sort: true},
+                {
+                    field: 'site_id', title: "绑定", width: 80, sort: true,
+                    event: 'site_id', style: 'cursor:pointer;color:#01aaed;', align: 'center',
+                },
+                {field: 'note', title: '备注', minWidth: 100},
+                {field: 'updated', title: '时间', minWidth: 100, hide: true, sort: true},
                 {title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
@@ -179,6 +198,11 @@
                         ending: function (res) {
                             obj.update({status: res.status});
                         },
+                    });
+                    break;
+                case 'site_id':
+                    $.get('/site/byid', {'id': data.site_id}, function (html) {
+                        layer.msg(html);
                     });
                     break;
                 case 'log':
@@ -287,9 +311,10 @@
                     break;
             }
         });
-        form.on('submit(submit-search)', function (data) {
+        //改变模板目录列表
+        form.on('select(site_id)', function (obj) {
             table.reload('table-list', {
-                where: data.field,
+                where: {site_id: obj.value},
                 page: {curr: 1}
             });
             return false;

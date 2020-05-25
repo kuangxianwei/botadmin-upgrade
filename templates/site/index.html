@@ -83,6 +83,9 @@
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
+        <a class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
+            <i class="layui-icon layui-icon-export"></i>
+        </a>
         <a class="layui-btn layui-btn-xs" lay-event="link" lay-tips="外链">
             <i class="layui-icon layui-icon-link"></i>
         </a>
@@ -95,6 +98,29 @@
         <a class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
         </a>
+    </div>
+</script>
+<script type="text/html" id="push">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">数量:</label>
+                <div class="layui-input-inline">
+                    <input name="count" value="0">
+                    <div class="layui-form-mid layui-word-aux">推送最后发布的N篇文章</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" lay-tips="本网站的完整URL一行一条">Urls:</label>
+                <div class="layui-input-block">
+                    <textarea name="urls" class="layui-textarea" rows="6"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <input type="hidden" name="id" value="">
+                <button class="layui-hide" lay-filter="submit-push" lay-submit>提交</button>
+            </div>
+        </div>
     </div>
 </script>
 <script src="/static/layui/layui.js"></script>
@@ -142,7 +168,7 @@
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold'
                 },
                 {
-                    field: 'push_id', width: 80, title: 'PushId', align: 'center', event: 'push',
+                    field: 'push_id', width: 80, title: 'PushId', align: 'center', event: 'push_id',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold'
                 },
                 {field: 'admin_dir', title: '后台目录', hide: true},
@@ -176,7 +202,7 @@
                 },
                 {field: 'vhost_dir', title: '网站路径', hide: true},
                 {field: 'updated', title: '时间', sort: true, hide: true},
-                {title: '操作', width: 140, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
             limit: 10,
@@ -230,7 +256,7 @@
                         form.render();
                     });
                     break;
-                case "push":
+                case "push_id":
                     $.get(push_url + '/relationship',
                         {'id': data.push_id, 'site_id': data.id},
                         function (html) {
@@ -242,6 +268,16 @@
                                 ending: 'table-list',
                             });
                         });
+                    break;
+                case "push":
+                    var pushHtml = $('#push').html(),
+                        othis = $(pushHtml);
+                    othis.find('input[name=id]').val(data.id);
+                    main.popup({
+                        url: '/site/push',
+                        title: "推送",
+                        content: othis.html()
+                    });
                     break;
                 case "ftp":
                     $.get(ftp_url + '/relationship',
@@ -427,7 +463,7 @@
                 case 'update_nginx':
                     layer.prompt({
                             formType: 0,
-                            value: '{{.cpu_num}}',
+                            value: data.length,
                             title: '更新选中网站的NGINX配置，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
@@ -447,7 +483,7 @@
                 case 'update_website_setup':
                     layer.prompt({
                             formType: 0,
-                            value: '{{.cpu_num}}',
+                            value: data.length,
                             title: '更新选中网站的网站后台配置，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
@@ -467,7 +503,7 @@
                 case 'update_website':
                     layer.prompt({
                             formType: 0,
-                            value: '{{.cpu_num}}',
+                            value: data.length,
                             title: '更新选中网站的文章和目录，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {

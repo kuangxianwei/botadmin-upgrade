@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-inline" style="width: 48%">
-                                    <label class="layui-form-label" lay-tips="允许的域名一行一条">allowDomains:</label>
+                                    <label class="layui-form-label" lay-tips="允许的域名一行一条">允许域名:</label>
                                     <div class="layui-input-block">
                                     <textarea name="allow_domains" class="layui-textarea"
                                               placeholder="www.nfivf.com"></textarea>
@@ -57,14 +57,21 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <div class="layui-inline" style="width: 31%">
+                                <div class="layui-inline" style="width: 23%">
+                                    <label class="layui-form-label" lay-tips="原创度0-100 小于这个原创度的网站将丢弃">原创度:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="original_deg" value="{{.obj.OriginalDeg}}"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-inline" style="width: 23%">
                                     <label class="layui-form-label"
-                                           lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
+                                           lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">延时:</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="delay" class="layui-input" value="{{.obj.Delay}}">
                                     </div>
                                 </div>
-                                <div class="layui-inline" style="width: 31%">
+                                <div class="layui-inline" style="width: 23%">
                                     <label class="layui-form-label" lay-tips="指定字符集">字符集:</label>
                                     <div class="layui-input-block">
                                         <select name="charset">
@@ -74,7 +81,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="layui-inline" style="width: 31%">
+                                <div class="layui-inline" style="width: 23%">
                                     <label class="layui-form-label" lay-tips="内容解码">解码:</label>
                                     <div class="layui-input-block">
                                         <select name="decode">
@@ -146,14 +153,14 @@
                 </div>
             </div>
             <fieldset class="layui-elem-field">
-                <legend>定时发布</legend>
+                <legend>定时采集</legend>
                 <div class="layui-form-item">
                     <label class="layui-form-label">启用</label>
                     <div class="layui-input-inline">
                         <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否"
                                 {{if .obj.CronEnabled}} checked{{end}}>
                     </div>
-                    <div class="layui-form-mid layui-word-aux">是否启用定时发布</div>
+                    <div class="layui-form-mid layui-word-aux">是否启用定时采集</div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">分:</label>
