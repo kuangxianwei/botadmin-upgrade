@@ -162,10 +162,6 @@ Add_Botadmin_Startup() {
   firewall-cmd --zone=public --add-service=http --permanent
   firewall-cmd --zone=public --add-service=mysql --permanent
   systemctl restart firewalld.service
-  \cp -f /data/botadmin/shell/init.d/init.d.botadmin /etc/rc.d/init.d/botadmin || exit 1
-  chmod +x /etc/rc.d/init.d/botadmin || exit 1
-  \cp -f /data/botadmin/shell/init.d/botadmin.service /usr/lib/systemd/system/botadmin.service || exit 1
-  chmod 644 /usr/lib/systemd/system/botadmin.service || exit 1
   systemctl enable botadmin.service
   systemctl start botadmin.service
 }
