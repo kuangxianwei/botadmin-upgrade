@@ -180,7 +180,7 @@
                     layer.confirm('开始采集入库？', function (index) {
                         main.req({
                             url: '/spider/exec',
-                            data: {id: data.id},
+                            data: {id: data.id, thread: 1},
                             index: index,
                             ending: 'table-list',
                         });
