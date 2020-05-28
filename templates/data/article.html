@@ -175,7 +175,8 @@
 
         //监听工具栏
         table.on('toolbar(table-list)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id);
+            var data = table.checkStatus(obj.config.id).data,
+                ids = Array();
             switch (obj.event) {
                 case 'add':
                     main.req({
@@ -184,12 +185,10 @@
                     });
                     break;
                 case 'del':
-                    var data = checkStatus.data;
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除选中吗？', function (index) {
-                        var ids =  Array();
                         for (var i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }
@@ -220,27 +219,23 @@
                     });
                     break;
                 case 'original':
-                    var data = checkStatus.data, ids =  Array();
                     for (var i = 0; i < data.length; i++) {
                         ids[i] = data[i].id;
                     }
                     var thread = data.length;
-                    if (thread == 0) {
+                    if (thread === 0) {
                         thread = 10
                     }
-                    layer.prompt({
-                            formType: 0,
-                            value: thread,
-                            title: '批量检测原创度,请输入最大线程数'
-                        },
-                        function (value, index, elem) {
-                            main.req({
-                                url: url + '/original',
-                                data: {'ids': ids.join(), 'thread': value},
-                                index: index,
-                                tips: {},
-                            });
-                        });
+                    var content = '<div class="layui-card">\n<div class="layui-card-body layui-form">\n<div class="layui-form-item">\n<label class="layui-form-label">线程:</label>\n<div class="layui-input-inline">\n<input type="text" name="thread" value="thread" class="layui-input"/>\n</div>\n</div>\n<div class="layui-form-item">\n<label class="layui-form-label">强制:</label>\n<div class="layui-input-inline">\n<input type="checkbox" name="force" lay-skin="switch" lay-text="打开|关闭">\n</div>\n<div class="layui-form-mid layui-word-aux">不过滤已经检测过的</div>\n</div>\n<div class="layui-form-item">\n<div class="layui-hide">\n<input type="text" name="ids" value="ids" class="layui-input"/>\n<button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>\n</div>\n</div>\n</div>\n</div>';
+                    content = content.replace(/ value="thread"/, ' value="' + thread + '"');
+                    content = content.replace(/ value="ids"/, ' value="' + ids.join() + '"');
+                    main.popup({
+                        title: '批量检测原创度',
+                        content: content,
+                        url: url + '/original',
+                        tips: {},
+                        area: ['400px', '280px'],
+                    });
                     break;
                 case 'case':
                     $.get(url + '/case', {}, function (html) {

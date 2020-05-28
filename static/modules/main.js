@@ -20,15 +20,15 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 for (i = 0; i < 36; i++) {
                     if (!uuid[i]) {
                         r = 0 | Math.random() * 16;
-                        uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                        uuid[i] = chars[(i === 19) ? (r & 0x3) | 0x8 : r];
                     }
                 }
             }
             return uuid.join('');
         },
-        request = function (opts) {
+        request = function (options) {
             var loadindex = layer.load(1, {shade: [0.6, '#000', true]}),
-                opts = opts || {},
+                opts = options || {},
                 /*合并默认设置*/
                 opts = $.extend({
                     url: opts.url || $('meta[name=current_uri]').attr('content'),
@@ -129,13 +129,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
             var url = typeof url === 'string' ? url : window.location.href,
                 index = url.indexOf('?');
-            if (index == -1) {
+            if (index === -1) {
                 return '';
             }
             var params = url.slice(index + 1).split('&');
             for (var i = 0; i < params.length; i++) {
                 var param = params[i].split("=");
-                if (param[0] == key) {
+                if (param[0] === key) {
                     return param[1];
                 }
             }
@@ -143,8 +143,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         },
         uuid: uuid,
         req: request,
-        popup: function (options) {
-            var options = options || {},
+        popup: function (opts) {
+            var options = opts || {},
                 submit = options.submit || uuid(),
                 url = options.url,
                 ending = options.ending,
@@ -152,7 +152,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     type: 1,
                     shadeClose: true,
                     scrollbar: false,
-                    maxmin: true,
                     btnAlign: 'c',
                     shade: 0.8,
                     fixed: false,
@@ -186,8 +185,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             layer.open($.extend(base, options));
             form.render();
         },
-        slider: function (options) {
-            var options = options || {},
+        slider: function (opts) {
+            var options = opts || {},
                 pub_attr_deg = options.pub_attr_deg || 3,
                 link_deg = options.link_deg || 3,
                 out_link_deg = options.out_link_deg || 0,
