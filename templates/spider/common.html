@@ -311,8 +311,8 @@
                 form = layui.form,
                 currentIndex = $('.step-content').closest('[times]').attr('times'), //先得到当前iframe层的索引;
                 currentId = $('input[name=id][type=hidden]').val() || 0,
-                testTableName = 'test-' + currentId,
-                siteTableName = 'site-' + currentId,
+                seeds = Array(), //种子列表
+                classes = {}, //栏目HTML
                 utils = {
                     /*总渲染*/
                     render: function () {
@@ -402,7 +402,7 @@
                                 tips: {},
                                 success: function (res) {
                                     if (res.code === 0) {
-                                        layui.sessionData(testTableName, {key: "list", value: res.data});
+                                        seeds = res.data;
                                     }
                                 }
                             });
@@ -414,10 +414,12 @@
                         });
                         form.on('submit(testDetail)', function (obj) {
                             $('.step-content').removeClass('layui-form');
-                            var detailUrl = layui.sessionData(testTableName).list || [];
+                            if (seeds.length === 0) {
+                                seeds = obj.field.seeds.split("\n")
+                            }
                             layer.prompt({
                                 formType: 0,
-                                value: detailUrl[0],
+                                value: seeds[0],
                                 title: '请输入完整的URL地址 http 开头'
                             }, function (value, index, elem) {
                                 obj.field.detail_url = value;
@@ -442,12 +444,6 @@
                                 index: currentIndex,
                                 ending: function () {
                                     location.reload("/spider");
-                                },
-                                success: function (res) {
-                                    if (res.code === 0) {
-                                        layui.sessionData(testTableName, null);
-                                        layui.sessionData(siteTableName, null);
-                                    }
                                 }
                             });
                         });
@@ -460,15 +456,14 @@
                         if (isNaN(parseInt(id))) {
                             return false
                         }
-                        var optionHtml = layui.sessionData(siteTableName)[id];
-                        if (typeof optionHtml === 'string' && optionHtml.length > 10) {
-                            $('[lay-filter=class_id]').html(optionHtml);
+                        if (typeof classes[id] === 'string' && classes[id].length > 10) {
+                            $('[lay-filter=class_id]').html(classes[id]);
                             form.render();
                             return false;
                         }
                         $.get('/site/class', {id: id, class_id: classId}, function (res) {
                             if (res.code === 0) {
-                                layui.sessionData(siteTableName, {key: id, value: res.data});
+                                classes[id] = res.data;
                                 $('[lay-filter=class_id]').html(res.data);
                                 form.render();
                             }
@@ -476,7 +471,7 @@
                     },
                     /*获取lay-id*/
                     getLayId: function (elem) {
-                        var ids = new Array(), id = 0;
+                        var ids = Array(), id = 0;
                         $(elem).each(function () {
                             var layid = parseInt($(this).attr('lay-id'));
                             if (!isNaN(layid)) {
@@ -518,8 +513,8 @@
                         if (elem.substring(0, 1) === '#') {
                             elem = elem.substring(1);
                         }
-                        var content = $('#' + elem).html(), ids = new Array(),
-                            layId = {id: parseInt(id), ids: new Array()};
+                        var content = $('#' + elem).html(), ids = Array(),
+                            layId = {id: parseInt(id), ids: Array()};
                         if (!content) {
                             return false;
                         }

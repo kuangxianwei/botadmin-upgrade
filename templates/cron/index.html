@@ -147,7 +147,7 @@
 
         //监听工具栏
         table.on('toolbar(table-list)', function (obj) {
-            var data = table.checkStatus(obj.config.id).data, ids = new Array();
+            var data = table.checkStatus(obj.config.id).data, ids =  Array();
             switch (obj.event) {
                 case 'sync':
                     main.req({

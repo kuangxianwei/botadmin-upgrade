@@ -354,7 +354,7 @@
         // 监听操作
         form.on('submit(submit-acts)', function (obj) {
             var checkData = table.checkStatus('table-list').data, // 得到选中的数据
-                names = new Array();
+                names =  Array();
             if (checkData.length === 0) {
                 return layer.msg('请选择数据');
             }

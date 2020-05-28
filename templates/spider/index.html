@@ -228,7 +228,7 @@
         table.on('toolbar(table-list)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id),
                 data = checkStatus.data,
-                ids = new Array();
+                ids = Array();
             layui.each(data, function (i, item) {
                 ids[i] = item.id;
             });

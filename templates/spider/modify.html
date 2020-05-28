@@ -414,12 +414,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">绑定栏目:</label>
                     <div class="layui-input-block" lay-filter="class_id">
-                        <select name="class_id" lay-search>
-                            <option value="">搜索...</option>
-                            {{if gt .obj.ClassId 0 -}}
-                                <option value="{{$.obj.ClassId}}" selected>{{$.obj.ClassId}}</option>
-                            {{end -}}
-                        </select>
+                        {{.class_html}}
                     </div>
                 </div>
             </div>
