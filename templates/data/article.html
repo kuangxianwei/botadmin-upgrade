@@ -94,7 +94,7 @@
             toolbar: '#toolbar',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},
+                {field: 'id', title: 'ID', hide: true},
                 {field: 'title', title: '标题', event: 'modify', style: 'cursor:pointer;color:#01aaed;font-weight:bold'},
                 {
                     field: 'original_deg',
@@ -109,6 +109,7 @@
                         return '<strong style="color:#00a6ff;">' + d.original_deg.toFixed(2) + '%</strong>';
                     }
                 },
+                {field: 'record', title: '记录', width: 160},
                 {field: 'description', title: '描述', hide: true},
                 {field: 'tags', title: 'Tags', hide: true},
                 {field: 'site_id', title: '绑定网站ID', hide: true},

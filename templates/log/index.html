@@ -81,17 +81,17 @@
 
         //头工具栏事件
         table.on('toolbar(table-list)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id);
+            var checkStatus = table.checkStatus(obj.config.id),
+                data = checkStatus.data,
+                tokens = Array();
             switch (obj.event) {
                 case 'del':
-                    var data = checkStatus.data;
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        var tokens =  Array();
                         for (var i = 0; i < data.length; i++) {
-                            tokens[i] = tokens[i].token;
+                            tokens[i] = data[i].token;
                         }
                         main.req({
                             url: url + '/del',

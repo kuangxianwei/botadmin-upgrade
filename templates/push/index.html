@@ -1,15 +1,25 @@
 <div class="layui-card">
     <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item" id="form-search">
+        <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">绑定ID</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="site_id" placeholder="请输入" autocomplete="off"
-                           class="layui-input">
+                    <input type="text" name="bd_username" value="" class="layui-input" autocomplete="off"
+                           placeholder="模糊匹配百度用户名称">
                 </div>
             </div>
             <div class="layui-inline">
-                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="submit-search">
+                <label class="layui-form-label">绑定:</label>
+                <div class="layui-input-inline">
+                    <select name="site_id" class="layui-select" lay-filter="select_site_id" lay-search>
+                        <option value="">搜索...</option>
+                        {{range .sites -}}
+                            <option value="{{.Id}}">{{.Vhost}}</option>
+                        {{end -}}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn" lay-submit lay-filter="search">
                     <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                 </button>
             </div>
@@ -120,7 +130,7 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        var ids =  Array();
+                        var ids = Array();
                         for (var i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }
@@ -149,16 +159,17 @@
                     });
             }
         });
-
-        //监听搜索
-        form.on('submit(submit-search)', function (data) {
-            var field = data.field;
-            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
-            //执行重载
+        //监控搜索
+        form.on('submit(search)', function (obj) {
             table.reload('table-list', {
-                where: field,
+                where: obj.field,
                 page: {curr: 1}
             });
+            return false;
+        })
+        //监控选择
+        form.on('select(select_site_id)', function (obj) {
+            $('button[lay-filter=search]').click();
             return false;
         });
     });

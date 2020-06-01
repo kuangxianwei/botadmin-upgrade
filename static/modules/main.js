@@ -235,6 +235,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     return value;
                 }
             });
+        },
+        timestampFormat: function (timestamp) {
+            var d = new Date(timestamp);   //创建一个指定的日期对象
+            return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
         }
     });
 });
