@@ -2173,7 +2173,7 @@ mip-accordion ul li {float:none;height:28px;line-height:28px;}
 .title-view .fr {margin-top:3px;padding-right:14px;}
 .title-view .fr font {color:#23b0cd;}
 .list-pic li{width:23%;margin:1%;float:left}
-.protxt{text-align:center;}
+.protxt{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;text-align: center;}
 .pro-hr {height:6px;border:none;border-top:6px groove skyblue;}
 .pro-tips {padding-right:15px;padding-left:15px;text-indent:2em;}
 .list-article {text-align:center;padding:0px 20px 20px 20px;width:640px;}

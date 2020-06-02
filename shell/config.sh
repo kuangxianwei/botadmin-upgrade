@@ -1,0 +1,14 @@
+UPSTREAM_PATH=/usr/local/nginx/conf/upstream
+SSL_PATH=/usr/local/nginx/conf/ssl
+PROXY_PATH=/usr/local/nginx/conf/proxy
+REWRITE_PATH=/usr/local/nginx/conf/rewrite
+NGINX_PATH=/usr/local/nginx
+ARTICLE_PATH=data/article
+PHP_INI=/usr/local/php/etc/php.ini
+WWWLOGS_PATH=/home/wwwlogs
+BACKUP_PATH=/home/backup
+NGINX_CONF_PATH=/usr/local/nginx/conf
+WWWROOT_PATH=/home/wwwroot
+MYSQL_INI=/etc/my.cnf
+AD_PATH=/usr/local/nginx/conf/ad
+VHOST_PATH=/usr/local/nginx/conf/vhost
