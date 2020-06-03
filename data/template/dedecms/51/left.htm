@@ -1,0 +1,32 @@
+<div class="sp_left" id="contentLeft">
+  <div class="con1-left">
+	<p class="left-title1">{dede:type typeid='2'}[field:typename /]{/dede:type}</p>
+	<div class="con1_class">
+	<ul id="left-type">
+		{dede:channel type='son' typeid='2'}
+		<li><a href="[field:typeurl/]" title="[field:typename/]">[field:typename/]</a></li>
+		{/dede:channel}
+	</ul>
+	</div>
+  </div>
+  <div class="sub_youhui sub_common">
+	<div class="sub_common_title">
+	<h2>新闻资讯</h2>
+	</div>
+	<div class="sub_youhui_content">
+	<div class="syl_list sub_common_padding">
+		<ul>
+		{dede:arclist row='5' titlelen='36' typeid='1'}
+		<li> <a href="[field:arcurl/]" title="[field:title/]">[field:title/]</a> </li>
+		{/dede:arclist}
+		</ul>
+	</div>
+	</div>
+  </div>
+  <div class="sub_content sub_common">
+	<p class="fy_ltname">咨询热线</p>
+	<span class="fyltel">{dede:global.cfg_webname/}</span>
+	<div class="sub_content_list sub_common_padding"> 地址：{dede:global.cfg_indexname/} <br />
+	</div>
+  </div>
+</div>

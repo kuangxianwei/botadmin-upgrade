@@ -1,0 +1,107 @@
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="table-list" lay-filter="table-list"></table>
+    </div>
+</div>
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
+            <i class="layui-icon layui-icon-delete"></i>删除
+        </button>
+    </div>
+</script>
+<script type="text/html" id="table-toolbar">
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del"><i
+                class="layui-icon layui-icon-delete"></i>删除</a>
+</script>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/static/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index', //主入口模块
+        main: 'main'
+    }).use(['index', 'form', 'table', 'main'], function () {
+        var $ = layui.$,
+            table = layui.table,
+            main = layui.main,
+            url = {{.current_uri}};
+
+        //日志管理
+        table.render({
+            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            method: 'post',
+            elem: '#table-list',
+            toolbar: '#toolbar',
+            url: url,
+            cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                {field: 'alias', title: '别名', minWidth: 100, sort: true},
+                {field: 'token', title: 'Token', minWidth: 100},
+                {
+                    field: 'record', title: '记录', minWidth: 100, align: 'center',
+                    event: 'record', style: 'cursor:pointer;color:#01aaed;',
+                    templet: function (d) {
+                        return '查看';
+                    }
+                },
+                {field: 'updated', title: '时间', minWidth: 100, sort: true},
+                {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+            ]],
+            page: true,
+            limit: 10,
+            limits: [10, 15, 20, 25, 30],
+            text: '对不起，加载出现异常！'
+        });
+
+        table.on('tool(table-list)', function (obj) {
+            var data = obj.data;
+            switch (obj.event) {
+                case 'del':
+                    layer.confirm('确定删除此条日志？', function (index) {
+                        main.req({
+                            url: '/log/del',
+                            data: {token: data.token},
+                            index: index,
+                            ending: obj.del,
+                        });
+                    });
+                    break;
+                case 'record':
+                    $.get('/log/single', data, function (html) {
+                        main.popup({
+                            title: '任务日志',
+                            content: html,
+                            url: '/log/single',
+                        });
+                    });
+                    break;
+            }
+        });
+
+        //头工具栏事件
+        table.on('toolbar(table-list)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id),
+                data = checkStatus.data,
+                tokens = Array();
+            switch (obj.event) {
+                case 'del':
+                    if (data.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
+                        for (var i = 0; i < data.length; i++) {
+                            tokens[i] = data[i].token;
+                        }
+                        main.req({
+                            url: url + '/del',
+                            data: {'tokens': tokens.join()},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+            }
+        });
+    });
+</script>

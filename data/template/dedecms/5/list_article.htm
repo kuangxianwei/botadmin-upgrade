@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/static/css/global.css" rel="stylesheet" />
+</head>
+<body>
+{dede:include file='head.htm'/}
+<div id="wrap">
+  <div class="main">
+	{dede:include file='left.htm'/}
+	<div class="all">
+	<div class="all-t"><img src="{dede:global.cfg_templets_skin/}/static/images/xwdt_t.jpg" /></div>
+	<div class="all-box">
+		<div class="xw">
+		<ul>
+		{dede:list pagesize='17'}
+			<li><span class="date">[field:pubdate function="date('Y-m-d',@me)"/]</span><a href="[field:arcurl/]" title="[field:fulltitle/]">[field:title/]</a></li>
+		{/dede:list}
+		</ul>
+		</div>
+		<div class="page"><ul>{dede:pagelist listitem="info,index,end,pre,next,pageno,option" listsize="5"/}</ul></div>
+	</div>
+	</div>
+  </div>
+  <div class="cl10"></div>
+  {dede:include file='foot.htm'/} </div>
+</div>
+</body>
+</html>

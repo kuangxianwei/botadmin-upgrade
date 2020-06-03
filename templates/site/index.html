@@ -1,0 +1,574 @@
+<div class="layui-card">
+    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item" id="form-search">
+            <div class="layui-inline">
+                <label class="layui-form-label">域名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="vhost" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-inline">
+                    <select name="status">
+                        <option value="">无</option>
+                        {{range .status -}}
+                            <option value="{{.}}">{{.}}</option>
+                        {{end -}}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="submit-search">
+                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card-body">
+        <table id="table-list" lay-filter="table-list"></table>
+    </div>
+</div>
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-container">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中的网站">
+                <i class="layui-icon layui-icon-delete"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="add" lay-tips="单个添加网站">
+                <i class="layui-icon layui-icon-add-1"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="batchadd" lay-tips="批量添加网站">
+                <i class="layui-icon layui-icon-add-1"></i>Batch
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="found" lay-tips="创建选中的网站程序并且生成nginx配置文件">
+                <i class="layui-icon layui-icon-website"></i>建站
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="install" lay-tips="安装已选中并且已经创建完成的网站">
+                <i class="layui-icon layui-icon-chart-screen"></i>安装
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="setup" lay-tips="按配置信息，设置网站后台信息">
+                <i class="layui-icon layui-icon-set"></i>配置
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="update_nginx"
+                    lay-tips="更新nginx配置 不选择则更新全部">
+                <i class="layui-icon layui-icon-refresh"></i>Nginx
+            </button>
+            <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="update_website_setup"
+                    lay-tips="更新网站后台配置 不选择则更新全部">
+                <i class="layui-icon layui-icon-refresh"></i>Setup
+            </button>
+            <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="update_website" lay-tips="更新选中网站的文章和目录">
+                <i class="layui-icon layui-icon-refresh"></i>Website
+            </button>
+            <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="website_cron" lay-tips="同步定时任务">
+                <i class="layui-icon layui-icon-refresh"></i>Cron
+            </button>
+            <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="pull_config" lay-tips="远程网站配置覆盖本地">
+                <i class="layui-icon layui-icon-download-circle"></i>Config
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="publish" lay-tips="选中的网站发布文章">
+                <i class="layui-icon layui-icon-release"></i>发布文章
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="jobs" lay-tips="查看运行中的任务">任务
+            </button>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="table-toolbar">
+    <div class="layui-btn-group">
+        <a class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
+            <i class="layui-icon layui-icon-export"></i>
+        </a>
+        <a class="layui-btn layui-btn-xs" lay-event="link" lay-tips="外链">
+            <i class="layui-icon layui-icon-link"></i>
+        </a>
+        <a class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="编辑">
+            <i class="layui-icon layui-icon-edit"></i>
+        </a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+            <i class="layui-icon layui-icon-delete"></i>
+        </a>
+        <a class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i>
+        </a>
+    </div>
+</script>
+<script type="text/html" id="push">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">数量:</label>
+                <div class="layui-input-inline">
+                    <input name="count" value="0">
+                    <div class="layui-form-mid layui-word-aux">推送最后发布的N篇文章</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" lay-tips="本网站的完整URL一行一条">Urls:</label>
+                <div class="layui-input-block">
+                    <textarea name="urls" class="layui-textarea" rows="6"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <input type="hidden" name="id" value="">
+                <button class="layui-hide" lay-filter="submit-push" lay-submit>提交</button>
+            </div>
+        </div>
+    </div>
+</script>
+<script src="/static/layui/layui.js"></script>
+<script src="/static/modules/clipboard.min.js"></script>
+<script>
+    layui.config({
+        base: '/static/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index', //主入口模块
+        main: 'main'
+    }).use(['index', 'table', 'main', 'slider'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            table = layui.table,
+            element = layui.element,
+            main = layui.main,
+            url = {{.current_uri}},
+            push_url = '/push',
+            sql_url = '/sql',
+            ftp_url = '/ftp';
+
+        //列表管理
+        table.render({
+            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            method: 'post',
+            elem: '#table-list',
+            toolbar: '#toolbar',
+            url: url,
+            cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                {field: 'id', title: 'ID', sort: true, width: 60, align: 'center'},
+                {
+                    field: 'vhost', title: '主域名',
+                    style: 'cursor:pointer;color:#01aaed;font-weight:bold', templet: function (d) {
+                        return '<a lay-href="/file?path=' + d.vhost_dir + '" style="color:#01aaed">' + d.vhost + '</a>';
+                    }
+                },
+                {field: 'status', title: '状态', sort: true, width: 100},
+                {
+                    field: 'ftp_id', width: 80, title: 'FtpId', align: 'center', event: 'ftp',
+                    style: 'cursor:pointer;color:#01aaed;font-weight:bold'
+                },
+                {
+                    field: 'sql_id', width: 80, title: 'SqlId', align: 'center', event: 'sql',
+                    style: 'cursor:pointer;color:#01aaed;font-weight:bold'
+                },
+                {
+                    field: 'push_id', width: 80, title: 'PushId', align: 'center', event: 'push_id',
+                    style: 'cursor:pointer;color:#01aaed;font-weight:bold'
+                },
+                {field: 'admin_dir', title: '后台目录', hide: true},
+                {
+                    field: 'web_user', title: 'User', align: 'center', event: 'clipboard',
+                    style: 'cursor:pointer;color:#01aaed;',
+                    templet: function (d) {
+                        return '<a href="javscript:;" lay-tips="点击复制用户名到粘贴板" data-clipboard-text="' + d.web_user + '"><i class="layui-icon layui-icon-file-b"></i></a>';
+                    }, width: 80
+                },
+                {
+                    field: 'web_pwd', title: 'Pwd', align: 'center', event: 'clipboard',
+                    style: 'cursor:pointer;color:#01aaed;',
+                    templet: function (d) {
+                        return '<a href="javscript:;" lay-tips="点击复制登录密码到粘贴板" data-clipboard-text="' + d.web_pwd + '"><i class="layui-icon layui-icon-file-b"></i></a>';
+                    }, width: 80
+                },
+                {
+                    field: 'auth_code', title: 'Auth', align: 'center', event: 'clipboard',
+                    style: 'cursor:pointer;color:#01aaed;',
+                    templet: function (d) {
+                        return '<a href="javscript:;" lay-tips="点击复制认证码到粘贴板" data-clipboard-text="' + d.auth_code + '"><i class="layui-icon layui-icon-file-b"></i></a>';
+                    }, width: 80
+                },
+                {
+                    field: 'pic_dir', width: 80, title: '图', align: 'center', event: 'pic',
+                    style: 'cursor:pointer;color:#01aaed;font-weight:bold',
+                    templet: function (d) {
+                        return '<i class="layui-icon layui-icon-picture" lay-tips="添加图片"></i>';
+                    }
+                },
+                {field: 'vhost_dir', title: '网站路径', hide: true},
+                {field: 'updated', title: '时间', sort: true, hide: true},
+                {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+            ],],
+            page: true,
+            limit: 10,
+            limits: [10, 15, 20, 25, 30, 1000],
+            text: '对不起，加载出现异常！'
+        });
+
+        //监听工具条
+        table.on('tool(table-list)', function (obj) {
+            var data = obj.data;
+            switch (obj.event) {
+                case 'del':
+                    layer.confirm('确定删除此条日志？', function (index) {
+                        main.req({
+                            url: url + '/del',
+                            data: data,
+                            ending: obj.del,
+                            index: index
+                        });
+                    });
+                    break;
+                case 'modify':
+                    $.get(url + '/modify', data, function (html) {
+                        main.popup({
+                            url: url + '/modify',
+                            title: '修改网站设置',
+                            content: html,
+                            ending: 'table-list',
+                        });
+                        form.render();
+                    });
+                    break;
+                case 'link':
+                    $.get(url + '/link', data, function (html) {
+                        main.popup({
+                            url: url + '/link',
+                            title: '修改网站内链',
+                            content: html,
+                            ending: 'table-list',
+                        });
+                        form.render();
+                    });
+                    break;
+                case 'pic':
+                    $.get(url + '/image', data, function (html) {
+                        main.popup({
+                            url: url + '/image',
+                            title: '添加图片',
+                            content: html,
+                        });
+                        form.render();
+                    });
+                    break;
+                case "push_id":
+                    $.get(push_url + '/relationship',
+                        {'id': data.push_id, 'site_id': data.id},
+                        function (html) {
+                            var title = data.push_id > 0 ? '选择Push' : '添加Push';
+                            main.popup({
+                                url: push_url + '/relationship',
+                                title: title,
+                                content: html,
+                                ending: 'table-list',
+                            });
+                        });
+                    break;
+                case "push":
+                    var pushHtml = $('#push').html(),
+                        othis = $(pushHtml);
+                    othis.find('input[name=id]').val(data.id);
+                    main.popup({
+                        url: '/site/push',
+                        title: "推送",
+                        content: othis.html()
+                    });
+                    break;
+                case "ftp":
+                    $.get(ftp_url + '/relationship',
+                        {'id': data.ftp_id, 'site_id': data.id, 'username': data.vhost},
+                        function (html) {
+                            var title = data.ftp_id > 0 ? '选择FTP' : '添加FTP';
+                            main.popup({
+                                url: ftp_url + '/relationship',
+                                title: title,
+                                content: html,
+                                ending: 'table-list',
+                            });
+                            element.render();
+                        });
+                    break;
+                case "sql":
+                    $.get(sql_url + '/relationship',
+                        {'id': data.sql_id, 'site_id': data.id, 'username': data.vhost},
+                        function (html) {
+                            var title = data.sql_id > 0 ? '选择SQL' : '添加SQL';
+                            main.popup({
+                                url: sql_url + '/relationship',
+                                title: title,
+                                content: html,
+                                ending: 'table-list',
+                            });
+                        });
+                    break;
+                case 'log':
+                    $.get('/log/single', {token: 'site.' + data.id}, function (html) {
+                        main.popup({
+                            title: '发布日志',
+                            content: html,
+                            url: '/log/single',
+                        });
+                    });
+                    break;
+                case 'clipboard':
+                    var clipboard = new ClipboardJS('a[data-clipboard-text]');
+                    clipboard.on('success', function (e) {
+                        layer.msg('复制成功');
+                        clipboard.destroy();  //解决多次弹窗
+                        e.clearSelection();
+                    });
+                    break;
+            }
+        });
+
+        //头工具栏事件
+        table.on('toolbar(table-list)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id),
+                data = checkStatus.data;
+            switch (obj.event) {
+                case 'del':
+                    if (data.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
+                        var ids = Array();
+                        for (var i = 0; i < data.length; i++) {
+                            ids[i] = data[i].id;
+                        }
+                        main.req({
+                            url: url + '/del',
+                            data: {'ids': ids.join()},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'add':
+                    $.get(url + '/add', {}, function (html) {
+                        main.popup({
+                            url: url + '/add',
+                            title: '添加网站',
+                            content: html,
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'batchadd':
+                    $.get(url + '/batchadd', {}, function (html) {
+                        main.popup({
+                            url: url + '/batchadd',
+                            title: '批量添加网站',
+                            content: html,
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'found':
+                    if (data.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '写入网站，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index, elem) {
+                            var ids = Array();
+                            for (var i = 0; i < data.length; i++) {
+                                ids[i] = data[i].id;
+                            }
+                            main.req({
+                                url: url + '/found',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                tips: {},
+                                ending: 'table-list',
+                            });
+                        });
+                    break;
+                case 'install':
+                    if (data.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '安装选择的网站，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index, elem) {
+                            var ids = Array();
+                            for (var i = 0; i < data.length; i++) {
+                                ids[i] = data[i].id;
+                            }
+                            main.req({
+                                url: url + '/install',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                tips: {},
+                                ending: 'table-list',
+                            });
+                        });
+                    break;
+                case 'setup':
+                    if (data.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '初始化选中的网站，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index, elem) {
+                            var ids = Array();
+                            for (var i = 0; i < data.length; i++) {
+                                ids[i] = data[i].id;
+                            }
+                            main.req({
+                                url: url + '/setup',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                tips: {},
+                                ending: 'table-list',
+                            });
+                        });
+                    break;
+                case 'publish':
+                    if (data.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '选中的网站发布文章，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index, elem) {
+                            var ids = Array();
+                            for (var i = 0; i < data.length; i++) {
+                                ids[i] = data[i].id;
+                            }
+                            main.req({
+                                url: url + '/publish',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                tips: {},
+                                ending: 'table-list',
+                            });
+                        });
+                    break;
+                case 'update_nginx':
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '更新选中网站的NGINX配置，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index, elem) {
+                            var ids = Array();
+                            for (var i = 0; i < data.length; i++) {
+                                ids[i] = data[i].id;
+                            }
+                            main.req({
+                                url: url + '/update/nginx',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                tips: {},
+                                ending: 'table-list',
+                            });
+                        });
+                    break;
+                case 'update_website_setup':
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '更新选中网站的网站后台配置，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index, elem) {
+                            var ids = Array();
+                            for (var i = 0; i < data.length; i++) {
+                                ids[i] = data[i].id;
+                            }
+                            main.req({
+                                url: url + '/update/website/setup',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                tips: {},
+                                ending: 'table-list',
+                            });
+                        });
+                    break;
+                case 'update_website':
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '更新选中网站的文章和目录，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index, elem) {
+                            var ids = Array();
+                            for (var i = 0; i < data.length; i++) {
+                                ids[i] = data[i].id;
+                            }
+                            main.req({
+                                url: url + '/update/website',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                tips: {},
+                                ending: 'table-list',
+                            });
+                        });
+                    break;
+                case 'website_cron':
+                    main.req({
+                        url: url + '/update/cron',
+                        ending: 'table-list',
+                    });
+                    break;
+                case 'pull_config':
+                    if (data.length < 1) {
+                        layer.msg("未选择");
+                        return false;
+                    }
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '远程网站配置覆盖本地，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index, elem) {
+                            var ids = Array();
+                            for (var i = 0; i < data.length; i++) {
+                                ids[i] = data[i].id;
+                            }
+                            main.req({
+                                url: url + '/pull/config',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                tips: {},
+                            });
+                        });
+                    break;
+                case 'jobs':
+                    main.req({
+                        url: url + '/jobs',
+                        tips: {},
+                        ending: '-',
+                    });
+                    break;
+            }
+        });
+
+        //监听搜索
+        form.on('submit(submit-search)', function (data) {
+            var field = data.field;
+            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
+            //执行重载
+            table.reload('table-list', {
+                where: field,
+                page: {curr: 1}
+            });
+            return false;
+        });
+    });
+</script>

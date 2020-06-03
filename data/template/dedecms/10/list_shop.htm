@@ -1,0 +1,107 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+
+
+<script language="javascript" src="{dede:global.cfg_templets_skin/}/daxibei/js/MSClass.js"></script>
+<link href="{dede:global.cfg_templets_skin/}/daxibei/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="main">
+
+
+
+{dede:include filename="head.htm"/}
+
+
+
+<div id="content">
+<div class="n_content">
+<div class="conn_left left">
+<div class="conn_list">
+<h2>产品展示<span class="english"></span></h2>
+<ul>
+
+      {dede:arclist titlelen='14' row='4'}
+      <li><a href="[field:arcurl /]">[field:title /]</a></li>
+      {/dede:arclist}
+
+</ul>
+</div>
+<div class="contactus">
+<h2>联系我们<span class="english">CONTACT US</span></h2>
+<ul>
+<li class="name">{dede:global.cfg_webname/}</li>
+<li>地址：武昌区中北路267号世纪彩城世纪大厦1605室</li>
+<li>电话：027-87797083</li>
+</ul>
+</div>
+</div>
+<div class="conn_right right">
+<h2 class="title"><span class="address right">您现在所在的位置是：{dede:field name='position'/}</span>{dede:field.typename /}</h2>
+<div class="">
+
+<div class="cont">
+
+
+      <ul class="conn_prolist">
+
+
+
+		{dede:list pagesize='10' type='image.' imgwidth='160' imgheight='102'  titlelen='14'}
+
+
+        <li><a href="[field:arcurl/]">[field:image/]</a>
+          <p>[field:title/]</p>
+        </li>
+
+
+		{/dede:list}
+
+
+
+
+
+      </ul>
+      <div class="clear"></div>
+      <div class="page">
+      <p>
+
+
+
+				{dede:pagelist listitem="info,index,end,pre,next,pageno" listsize="5"/}
+
+
+
+    </p>
+    </div>
+
+
+      <div class="clear"></div>
+
+    </div>
+</div>
+</div>
+<div class="clear"></div>
+
+</div>
+</div>
+<div class="clear"></div>
+
+
+
+{dede:include filename="footer.htm"/}
+
+
+</div>
+
+</body>
+</html>

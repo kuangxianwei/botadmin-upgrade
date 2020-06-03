@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta name="applicable-device" content="pc">
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<title>{dede:field name='title'/}_{dede:global.cfg_titlelast/}</title>
+<meta name="description" content="{dede:global.cfg_description/}">
+<meta name="keywords" content="{dede:global.cfg_keywords/}">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/reset.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/layout.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/zerogrid.css">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/responsive.css">
+  <!--[if lt IE 9]>
+  	<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/html5.js"></script>
+	<style type="text/css">
+		.bg{ behavior: url({dede:global.cfg_templets_skin/}/js/PIE.htc); }
+	</style>
+  <![endif]-->
+</head>
+<body id="page2">
+	<div class="body1">
+	<div class="body2">
+	<div class="body5">
+		<div class="main zerogrid">
+<!-- header -->
+			<header>
+				{dede:include filename="head.htm"/}
+			</header>
+<!-- header end-->
+		</div>
+	</div>
+	</div>
+	</div>
+	<div class="body3">
+		<div class="main zerogrid">
+<!-- content -->
+<div class="chanpinfenlei1">
+<div class="chanpinfenlei">
+<ul>
+{dede:channel type='son' row='10' currentstyle="<li class='hover kuang'><a href='~typelink~' ~rel~><span>~typename~</span></a></li>"}
+<li class="kuang"><a href='[field:typelink/]'>[field:typename/]</a></li>
+{/dede:channel}
+	</ul>
+</div></div>
+			<article id="content">
+				<div class="wrapper tabs">
+					<div class="tabslie">
+{dede:list pagesize='10' titlelen='60' infolen='340'}
+<h5><span class="dropcap"><strong>[field:pubdate function=MyDate('y-m-d',@me)/]</strong></span><a href='[field:arcurl/]'>[field:title/]</a></h5>
+<div class="wrapper pad_bot2">
+<figure class="left marg_right1"><img title="[field:fulltitle/]" src="[field:litpic/]" height=114 width=125></figure>
+<p class="pad_bot1">[field:description function='cn_substr(@me,326)'/]... <a href="[field:arcurl/]" class="link1">查看更多</a></p>
+</div>
+{/dede:list}
+					</div>
+<ul class="nav">{dede:pagelist listitem="info,index,end,pre,next,pageno" listsize="5"/}
+					</ul>
+				</div>
+			</article>
+		</div>
+	</div>
+	<div class="body4">
+		{dede:include filename="foot.htm"/}
+</body>
+</html>
