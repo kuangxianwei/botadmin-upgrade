@@ -77,6 +77,5 @@ test -d ./ngx_http_substitutions_filter_module && rm -rf ./ngx_http_substitution
 text -d ./ngx_cache_purge-2.3 && rm -rf ./ngx_cache_purge-2.3
 tar -jxvf ./ngx_http_substitutions_filter_module.tar.bz2 || exit 1
 tar -jxvf ./ngx_cache_purge-2.3.tar.bz2 || exit 1
-exit 1
 pushd "${APP_DIR}/shell/lnmp" || exit 1
 LNMP_Auto="y" DBSelect="4" DB_Root_Password="botadmin.cn" InstallInnodb="y" PHPSelect="5" SelectMalloc="2" CheckMirror="n" ./install.sh lnmp
