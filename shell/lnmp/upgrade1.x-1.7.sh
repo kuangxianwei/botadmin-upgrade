@@ -1,6 +1,5 @@
-#!/bin/bash
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
-export PATH
+#!/usr/bin/env bash
+export PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 
 # Check if user is root
 if [ $(id -u) != "0" ]; then
@@ -28,6 +27,18 @@ Upgrade_Dependent()
         yum -y update nss
 
         if [ "${DISTRO}" = "CentOS" ] && echo "${CentOS_Version}" | grep -Eqi "^8"; then
+            if ! yum repolist all|grep PowerTools; then
+                echo "PowerTools repository not found, add PowerTools repository ..."
+                cat >/etc/yum.repos.d/CentOS-PowerTools.repo<<EOF
+[PowerTools]
+name=CentOS-\$releasever - PowerTools
+mirrorlist=http://mirrorlist.centos.org/?release=\$releasever&arch=\$basearch&repo=PowerTools&infra=\$infra
+#baseurl=http://mirror.centos.org/\$contentdir/\$releasever/PowerTools/\$basearch/os/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+EOF
+            fi
             dnf --enablerepo=PowerTools install rpcgen -y
             dnf --enablerepo=PowerTools install oniguruma-devel -y
         fi

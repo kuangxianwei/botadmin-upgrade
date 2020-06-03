@@ -1,11 +1,4 @@
-#!/bin/bash
-
-Deb_Check_MySQL()
-{
-    apt-get purge -y mysql-client mysql-server mysql-common mysql-server-core-5.5 mysql-client-5.5
-    rm -f /etc/my.cnf
-    rm -rf /etc/mysql/
-}
+#!/usr/bin/env bash
 
 MySQL_ARM_Patch()
 {

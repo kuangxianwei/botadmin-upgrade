@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 Set_Timezone()
 {
@@ -56,11 +56,20 @@ Deb_RemoveAMP()
     for removepackages in apache2 apache2-doc apache2-utils apache2.2-common apache2.2-bin apache2-mpm-prefork apache2-doc apache2-mpm-worker php5 php5-common php5-cgi php5-cli php5-mysql php5-curl php5-gd;
     do apt-get purge -y $removepackages; done
     if [[ "${DBSelect}" != "0" ]]; then
-        for removepackages in mysql-client mysql-server mysql-common mysql-server-core-5.5 mysql-client-5.5 mariadb-client mariadb-server mariadb-common;
-        do apt-get purge -y $removepackages; done
-        dpkg -l |grep mysql
-        dpkg -P mysql-server mysql-common libmysqlclient15off libmysqlclient15-dev
-        dpkg -P mariadb-client mariadb-server mariadb-common
+        if echo "${Ubuntu_Version}" | grep -Eqi "^20\.04"; then
+            dpkg -l |grep mysql
+            dpkg --force-all -P mysql-server
+            dpkg --force-all -P mariadb-client mariadb-server mariadb-common libmariadbd-dev
+            [[ -d "/etc/mysql" ]] && rm -rf /etc/mysql
+            for removepackages in mysql-server mariadb-server;
+            do apt-get purge -y $removepackages; done
+        else
+            dpkg -l |grep mysql
+            dpkg --force-all -P mysql-server mysql-common libmysqlclient15off libmysqlclient15-dev libmysqlclient18 libmysqlclient18-dev libmysqlclient20 libmysqlclient-dev libmysqlclient21
+            dpkg --force-all -P mariadb-client mariadb-server mariadb-common libmariadbd-dev
+            for removepackages in mysql-client mysql-server mysql-common mysql-server-core-5.5 mysql-client-5.5 mariadb-client mariadb-server mariadb-common;
+            do apt-get purge -y $removepackages; done
+        fi
     fi
     killall apache2
     dpkg -l |grep apache
@@ -154,13 +163,15 @@ Ubuntu_Modify_Source()
     elif grep -Eqi "17.04" /etc/*-release || echo "${Ubuntu_Version}" | grep -Eqi '^17.04'; then
         CodeName='zesty'
     elif grep -Eqi "17.10" /etc/*-release || echo "${Ubuntu_Version}" | grep -Eqi '^17.10'; then
-        Ubuntu_Deadline artful
+        CodeName='artful'
     elif grep -Eqi "16.04" /etc/*-release || echo "${Ubuntu_Version}" | grep -Eqi '^16.04'; then
         Ubuntu_Deadline xenial
     elif grep -Eqi "18.10" /etc/*-release || echo "${Ubuntu_Version}" | grep -Eqi '^18.10'; then
-        Ubuntu_Deadline cosmic
+        CodeName='cosmic'
     elif grep -Eqi "19.04" /etc/*-release || echo "${Ubuntu_Version}" | grep -Eqi '^19.04'; then
-        Ubuntu_Deadline disco
+        CodeName='disco'
+    elif grep -Eqi "19.10" /etc/*-release || echo "${Ubuntu_Version}" | grep -Eqi '^19.10'; then
+        Ubuntu_Deadline eoan
     fi
     if [ "${CodeName}" != "" ]; then
         \cp /etc/apt/sources.list /etc/apt/sources.list.$(date +"%Y%m%d")
@@ -190,11 +201,9 @@ Check_Old_Releases_URL()
 
 Ubuntu_Deadline()
 {
-    trusty_deadline=`date -d "2019-7-22 00:00:00" +%s`
-    artful_deadline=`date -d "2018-7-31 00:00:00" +%s`
-    xenial_deadline=`date -d "2021-4-30 00:00:00" +%s`
-    cosmic_deadline=`date -d "2019-7-30 00:00:00" +%s`
-    disco_deadline=`date -d "2020-1-30 00:00:00" +%s`
+    trusty_deadline=`date -d "2022-4-30 00:00:00" +%s`
+    xenial_deadline=`date -d "2024-4-30 00:00:00" +%s`
+    eoan_deadline=`date -d "2020-7-30 00:00:00" +%s`
     cur_time=`date  +%s`
     case "$1" in
         trusty)
@@ -203,28 +212,16 @@ Ubuntu_Deadline()
                 Check_Old_Releases_URL trusty
             fi
             ;;
-        artful)
-            if [ ${cur_time} -gt ${artful_deadline} ]; then
-                echo "${cur_time} > ${artful_deadline}"
-                Check_Old_Releases_URL artful
-            fi
-            ;;
         xenial)
             if [ ${cur_time} -gt ${xenial_deadline} ]; then
                 echo "${cur_time} > ${xenial_deadline}"
                 Check_Old_Releases_URL xenial
             fi
             ;;
-        cosmic)
-            if [ ${cur_time} -gt ${cosmic_deadline} ]; then
-                echo "${cur_time} > ${cosmic_deadline}"
-                Check_Old_Releases_URL cosmic
-            fi
-            ;;
-        disco)
-            if [ ${cur_time} -gt ${disco_deadline} ]; then
-                echo "${cur_time} > ${disco_deadline}"
-                Check_Old_Releases_URL disco
+        eoan)
+            if [ ${cur_time} -gt ${eoan_deadline} ]; then
+                echo "${cur_time} > ${eoan_deadline}"
+                Check_Old_Releases_URL eoan
             fi
             ;;
     esac
@@ -244,6 +241,18 @@ CentOS_Dependent()
     yum -y update nss
 
     if [ "${DISTRO}" = "CentOS" ] && echo "${CentOS_Version}" | grep -Eqi "^8"; then
+        if ! yum repolist all|grep PowerTools; then
+            echo "PowerTools repository not found, add PowerTools repository ..."
+            cat >/etc/yum.repos.d/CentOS-PowerTools.repo<<EOF
+[PowerTools]
+name=CentOS-\$releasever - PowerTools
+mirrorlist=http://mirrorlist.centos.org/?release=\$releasever&arch=\$basearch&repo=PowerTools&infra=\$infra
+#baseurl=http://mirror.centos.org/\$contentdir/\$releasever/PowerTools/\$basearch/os/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+EOF
+        fi
         dnf --enablerepo=PowerTools install rpcgen -y
         dnf --enablerepo=PowerTools install oniguruma-devel -y
     fi
@@ -397,10 +406,10 @@ Install_Mhash()
 
 Install_Freetype()
 {
-    if echo "${Ubuntu_Version}" | grep -Eqi "^1[89]\." || echo "${Mint_Version}" | grep -Eqi "^19\." || echo "${Deepin_Version}" | grep -Eqi "^15\.[7-9]|1[0-9]" || echo "${Debian_Version}" | grep -Eqi "^9|10"; then
-        Download_Files ${Download_Mirror}/lib/freetype/${Freetype_New_Ver}.tar.bz2 ${Freetype_New_Ver}.tar.bz2
+    if echo "${Ubuntu_Version}" | grep -Eqi "^1[89]\.|20\." || echo "${Mint_Version}" | grep -Eqi "^19\." || echo "${Deepin_Version}" | grep -Eqi "^15\.[7-9]|1[6-9]|20" || echo "${Debian_Version}" | grep -Eqi "^9|10" || echo "${Raspbian_Version}" | grep -Eqi "^9|10" || echo "${CentOS_Version}" | grep -Eqi "^8"  || echo "${RHEL_Version}" | grep -Eqi "^8" || echo "${Fedora_Version}" | grep -Eqi "^3[0-9]|29"; then
+        Download_Files ${Download_Mirror}/lib/freetype/${Freetype_New_Ver}.tar.xz ${Freetype_New_Ver}.tar.xz
         Echo_Blue "[+] Installing ${Freetype_New_Ver}"
-        Tarj_Cd ${Freetype_New_Ver}.tar.bz2 ${Freetype_New_Ver}
+        TarJ_Cd ${Freetype_New_Ver}.tar.xz ${Freetype_New_Ver}
         ./configure --prefix=/usr/local/freetype --enable-freetype-config
     else
         Download_Files ${Download_Mirror}/lib/freetype/${Freetype_Ver}.tar.bz2 ${Freetype_Ver}.tar.bz2
@@ -596,7 +605,7 @@ Install_Nghttp2()
         cd ${cur_dir}/src
         Download_Files ${Download_Mirror}/lib/nghttp2/${Nghttp2_Ver}.tar.xz ${Nghttp2_Ver}.tar.xz
         [[ -d "${Nghttp2_Ver}" ]] && rm -rf ${Nghttp2_Ver}
-        tar Jxf ${Nghttp2_Ver}.tar.xz && cd ${Nghttp2_Ver}
+        TarJ_Cd ${Nghttp2_Ver}.tar.xz ${Nghttp2_Ver}
         ./configure --prefix=/usr/local/nghttp2
         Make_Install
         cd ${cur_dir}/src/
@@ -725,7 +734,7 @@ Add_Swap()
         fi
     fi
     if command -v python >/dev/null 2>&1; then
-        Disk_Avail=$(${cur_dir}/include/disk.py)
+        Disk_Avail=$(python ${cur_dir}/include/disk.py)
     elif command -v python3 >/dev/null 2>&1; then
         Disk_Avail=$(python3 ${cur_dir}/include/disk.py)
     elif command -v python2 >/dev/null 2>&1; then
