@@ -76,4 +76,20 @@ test -d ./ngx_cache_purge-2.3 && rm -rf ./ngx_cache_purge-2.3
 tar -jxvf ./ngx_http_substitutions_filter_module.tar.bz2 || exit 1
 tar -jxvf ./ngx_cache_purge-2.3.tar.bz2 || exit 1
 pushd "${APP_DIR}/shell/lnmp" || exit 1
+#lnmp 配置
+cat>"${APP_DIR}/shell/lnmp/lnmp.conf"<<EOF
+Download_Mirror='https://soft.vpser.net'
+Nginx_Modules_Options='--add-module=${APP_DIR}/shell/lnmp/src/ngx_http_substitutions_filter_module --add-module=${APP_DIR}/shell/lnmp/src/ngx_cache_purge-2.3'
+PHP_Modules_Options=''
+##MySQL/MariaDB database directory##
+MySQL_Data_Dir='/usr/local/mysql/var'
+MariaDB_Data_Dir='/usr/local/mariadb/var'
+##Default website home directory##
+Default_Website_Dir='/home/wwwroot/default'
+Enable_Nginx_Openssl='y'
+Enable_PHP_Fileinfo='n'
+Enable_Nginx_Lua='n'
+Enable_Swap='y'
+EOF
+#开始安装lnmp
 LNMP_Auto="y" DBSelect="4" DB_Root_Password="botadmin.cn" InstallInnodb="y" PHPSelect="5" SelectMalloc="2" CheckMirror="n" ./install.sh lnmp
