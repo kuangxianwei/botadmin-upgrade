@@ -1,17 +1,16 @@
 <?php
-
 if (!function_exists('get_process_id')) {
     /*获取流程*/
     function get_process_id()
     {
         global $class_r;
         foreach ($class_r as $k => $v) {
-            if (strlen(str_replace($v['sonclass'], '|', '')) === 0 && strpos($v['classname'], "流程")) {
+            if (strlen(str_replace($v['sonclass'], '|', '')) === 0 && strpos($v['classname'], "流程") !== false) {
                 return $v['classid'];
             }
         }
         foreach ($class_r as $k => $v) {
-            if (strlen(str_replace($v['sonclass'], '|', '')) === 0 && strpos($v['classpath'], "process")) {
+            if (strlen(str_replace($v['sonclass'], '|', '')) === 0 && stripos($v['classpath'], "process") !== false) {
                 return $v['classid'];
             }
         }
@@ -25,12 +24,12 @@ if (!function_exists('get_price_id')) {
     {
         global $class_r;
         foreach ($class_r as $k => $v) {
-            if ($v['bclassid'] === 0 && (strpos($v['classname'], "价格") || strpos($v['classname'], "套餐") || strpos($v['classname'], "费用"))) {
+            if ($v['bclassid'] === 0 && (strpos($v['classname'], "价格") !== false || strpos($v['classname'], "套餐") !== false || strpos($v['classname'], "费用") !== false)) {
                 return $v['classid'];
             }
         }
         foreach ($class_r as $k => $v) {
-            if ($v['bclassid'] === 0 && (strpos($v['classpath'], "price") || strpos($v['classpath'], 'taocan') || strpos($v['classpath'], "feiyong"))) {
+            if ($v['bclassid'] === 0 && (stripos($v['classpath'], "price") !== false || stripos($v['classpath'], 'taocan') !== false || stripos($v['classpath'], "feiyong") !== false)) {
                 return $v['classid'];
             }
         }
@@ -44,12 +43,12 @@ if (!function_exists('get_ask_id')) {
     {
         global $class_r;
         foreach ($class_r as $k => $v) {
-            if ($v['bclassid'] === 0 && (strpos($v['classname'], "疑难解答") || strpos($v['classname'], "疑难") || strpos($v['classname'], "解答") || strpos($v['classname'], "问答"))) {
+            if ($v['bclassid'] === 0 && (strpos($v['classname'], "疑难解答") !== false || strpos($v['classname'], "疑难") !== false || strpos($v['classname'], "解答") !== false || strpos($v['classname'], "问答") !== false)) {
                 return $v['classid'];
             }
         }
         foreach ($class_r as $k => $v) {
-            if ($v['bclassid'] === 0 && (strpos($v['classpath'], "ask") || strpos($v['classpath'], 'wenda') || strpos($v['classpath'], "jieda"))) {
+            if ($v['bclassid'] === 0 && (stripos($v['classpath'], "ask") !== false || stripos($v['classpath'], 'wenda') !== false || stripos($v['classpath'], "jieda") !== false)) {
                 return $v['classid'];
             }
         }
@@ -62,19 +61,18 @@ if (!function_exists('get_about_id')) {
     function get_about_id()
     {
         global $class_r;
-        $has = $v['bclassid'] === 0 && substr_count($v['sonclass'], '|') >= 5;
         foreach ($class_r as $k => $v) {
-            if ($has && (strpos($v['classname'], "公司实力") || strpos($v['classname'], "公司") || strpos($v['classname'], "关于") || strpos($v['classname'], "实力"))) {
+            if ($v['bclassid'] === 0 && substr_count($v['sonclass'], '|') >= 5 && (strpos($v['classname'], "公司实力") !== false || strpos($v['classname'], "公司") !== false || strpos($v['classname'], "关于") !== false || strpos($v['classname'], "实力") !== false)) {
                 return $v['classid'];
             }
         }
         foreach ($class_r as $k => $v) {
-            if ($has && (strpos($v['classpath'], "about") || strpos($v['classpath'], 'gongsi'))) {
+            if ($v['bclassid'] === 0 && substr_count($v['sonclass'], '|') >= 5 && (stripos($v['classpath'], "about") !== false || stripos($v['classpath'], 'gongsi') !== false)) {
                 return $v['classid'];
             }
         }
         foreach ($class_r as $k => $v) {
-            if ($has) {
+            if ($v['bclassid'] === 0 && substr_count($v['sonclass'], '|') >= 5) {
                 return $v['classid'];
             }
         }
@@ -87,15 +85,14 @@ if (!function_exists('get_ivf_id')) {
     function get_ivf_id()
     {
         global $class_r;
-        $has      = $v['bclassid'] === 0 && substr_count($v['sonclass'], '|') >= 2;
         $about_id = get_about_id();
         foreach ($class_r as $k => $v) {
-            if ($has && $v['classid'] !== $about_id || stripos($v['classpath'], "ivf")) {
+            if ($v['bclassid'] === 0 && substr_count($v['sonclass'], '|') >= 2 && $v['classid'] !== $about_id || stripos($v['classpath'], "ivf") !== false) {
                 return $v['classid'];
             }
         }
         foreach ($class_r as $k => $v) {
-            if ($has && $v['classid'] !== $about_id) {
+            if ($v['bclassid'] === 0 && substr_count($v['sonclass'], '|') >= 2 && $v['classid'] !== $about_id) {
                 return $v['classid'];
             }
         }
@@ -123,12 +120,12 @@ if (!function_exists('get_contact_id')) {
     {
         global $class_r;
         foreach ($class_r as $k => $v) {
-            if ($v['bclassid'] === 0 && (strpos($v['classname'], "联系我们") || strpos($v['classname'], "联系"))) {
+            if ($v['bclassid'] === 0 && (strpos($v['classname'], "联系我们") !== false || strpos($v['classname'], "联系") !== false)) {
                 return $v['classid'];
             }
         }
         foreach ($class_r as $k => $v) {
-            if ($v['bclassid'] === 0 && (strpos($v['classpath'], "contact") || strpos($v['classpath'], 'lianxiwomen') || strpos($v['classpath'], "lianxi") || strpos($v['classpath'], "lxwm"))) {
+            if ($v['bclassid'] === 0 && (stripos($v['classpath'], "contact") !== false || stripos($v['classpath'], 'lianxiwomen') !== false || stripos($v['classpath'], "lianxi") !== false || stripos($v['classpath'], "lxwm") !== false)) {
                 return $v['classid'];
             }
         }
@@ -142,12 +139,12 @@ if (!function_exists('get_case_id')) {
     {
         global $class_r;
         foreach ($class_r as $k => $v) {
-            if (strpos($v['classname'], "成功案例") || strpos($v['classname'], "案例")) {
+            if (strpos($v['classname'], "成功案例") !== false || strpos($v['classname'], "案例") !== false) {
                 return $v['classid'];
             }
         }
         foreach ($class_r as $k => $v) {
-            if (strpos($v['classpath'], "case") || strpos($v['classpath'], 'cgal') || strpos($v['classpath'], "anli") || strpos($v['classpath'], "chenggonganli")) {
+            if (stripos($v['classpath'], "case") !== false || stripos($v['classpath'], 'cgal') !== false || stripos($v['classpath'], "anli") !== false || stripos($v['classpath'], "chenggonganli") !== false) {
                 return $v['classid'];
             }
         }
