@@ -1,0 +1,191 @@
+<div class="layui-card">
+    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item" id="form-search">
+            <div class="layui-inline">
+                <label class="layui-form-label">任务名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="submit-search">
+                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-card-body">
+        <table id="table-list" lay-filter="table-list"></table>
+        <blockquote class="layui-elem-quote" style="margin-top: 10px;">
+            1:分钟是指任务执行的分钟数,可以是每几分钟执行一次,可以是指定多少分钟时执行一次<br/>
+            2:小时是指任务执行的小时数,一天24小时,可以每小时,也可以指定在哪个小时,也就是时间点<br/>
+            3:日是指任务执行的日期,一个月31天,可以每天执行,可指定哪些天,也就是几号<br/>
+            4:月是指任务执行的月份,一年12个月,可以每月执行,也可能指定哪些几个月<br/>
+            5:周是指一周的七天,每周是指本周里的每天,也可以指定是周几执行<br/>
+            6:执行程序是指该任务所要执行的程序,使用绝对路径<br/>
+            7:更多的时间设置可通过修改模板灵活定义<br/>
+            8:有修改或增加计划任务等操作后,需"更新计划任务"才会生效<br/>
+            9:修复系统任务是指如删除系统自带的计划任务时可在此恢复<br/>
+        </blockquote>
+    </div>
+</div>
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-container">
+        <button class="layui-btn selecting" lay-event="taskSync">
+            <i class="layui-icon layui-icon-refresh-1"></i>更新任务
+        </button>
+        <button class="layui-btn selecting" lay-event="taskAdd" id="LAY_layer_iframe_add">
+            <i class="layui-icon layui-icon-add-1"></i>添加任务
+        </button>
+        <button class="layui-btn selecting" lay-event="taskRecord" id="LAY_layer_iframe_record">
+            <i class="layui-icon layui-icon-list"></i>执行记录
+        </button>
+        <button class="layui-btn selecting" lay-event="taskCrond" id="LAY_layer_iframe_crond">
+            <i class="layui-icon layui-icon-list"></i>查看crond
+        </button>
+    </div>
+</script>
+<script type="text/html" id="switchStatus">
+    {{ html .SwitchStatus}}
+</script>
+<script type="text/html" id="table-toolbar">
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs" lay-event="modify">
+            <i class="layui-icon layui-icon-edit"></i>
+        </button>
+        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
+            <i class="layui-icon layui-icon-delete"></i>
+        </button>
+    </div>
+</script>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/static/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index', //主入口模块
+        main: 'main',
+    }).use(['index', 'form', 'table', 'main'], function () {
+        var $ = layui.$,
+            form = layui.form,
+            table = layui.table,
+            main = layui.main,
+            url = {{.current_uri}};
+
+        //日志管理
+        table.render({
+            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            method: 'post',
+            elem: '#table-list',
+            url: url,
+            toolbar: '#toolbar',
+            cols: [[
+                {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},
+                {field: 'name', title: '任务名称', width: 160},
+                {field: 'cmd', title: '命令', minWidth: 200},
+                {field: 'status', title: '状态', width: 92, templet: '#switchStatus', unresize: true},
+                {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+            ]],
+            page: true,
+
+            limit: 10,
+            limits: [10, 15, 20, 25, 30],
+            text: '对不起，加载出现异常！'
+        });
+
+        //监听工具条
+        table.on('tool(table-list)', function (obj) {
+            var data = obj.data;
+            switch (obj.event) {
+                case 'del':
+                    layer.confirm('确定删除？', function (index) {
+                        main.req({
+                            url: url + '/del',
+                            data: data,
+                            index: index,
+                            ending: obj.del
+                        });
+                    });
+                    break;
+                case 'modify':
+                    $.get(url + '/modify', data, function (html) {
+                        main.popup({
+                            title: '修改任务',
+                            content: html,
+                            url: url + '/modify',
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+            }
+        });
+
+        //监听开关
+        form.on('switch(switchStatus)', function (obj) {
+            var id = this.id,
+                checked = this.checked;
+            if (!id) {
+                layer.tips('ID为空，无法操作！', obj.othis);
+                return false;
+            }
+            main.req({
+                url: url + '/status',
+                data: {'id': id, "status": checked},
+                ending: 'table-list',
+            });
+            return false;
+        });
+
+        //监听搜索
+        form.on('submit(submit-search)', function (data) {
+            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
+            var field = data.field;
+            //执行重载
+            table.reload('table-list', {
+                where: field,
+                page: {curr: 1}
+            });
+            return false;
+        });
+
+        //监听工具栏
+        table.on('toolbar(table-list)', function (obj) {
+            switch (obj.event) {
+                case 'taskSync':
+                    main.req({
+                        url: url + '/sync',
+                        ending: 'table-list',
+                    });
+                    break;
+                case 'taskAdd':
+                    $.get(url + '/add', {}, function (html) {
+                        main.popup({
+                            title: '添加任务',
+                            content: html,
+                            url: url + '/add',
+                            ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'taskRecord':
+                    $.get('/file/editor', {'path': '/var/log/cron', 'hide': true}, function (html) {
+                        main.popup({
+                            title: '执行记录',
+                            content: html,
+                        });
+                        table.render();
+                    });
+                    break;
+                case 'taskCrond':
+                    $.get('/file/editor', {'path': {{.crondpath}}, 'hide': true}, function (html) {
+                        main.popup({
+                            title: '查看配置',
+                            content: html,
+                        });
+                        table.render();
+                    });
+                    break;
+            }
+        });
+    });
+</script>

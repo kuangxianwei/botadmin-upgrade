@@ -1,0 +1,98 @@
+<div class="layui-card">
+    <div class="layui-card-body layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" value="" class="layui-input" required="" lay-verify="required">
+            </div>
+            <div class="layui-form-mid layui-word-aux">任务名称不可重复</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型:</label>
+            <div class="layui-input-inline">
+                <select name="type" class="layui-select" lay-filter="type">
+                    <option value="0" selected>发布</option>
+                    <option value="1">采集</option>
+                    <option value="2">系统</option>
+                </select>
+            </div>
+            <div class="layui-form-mid layui-word-aux">任务类型</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">分:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="minute" value="" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">0-59</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">时:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="hour" value="" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">0-23</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">天:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="day" value="" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">1-31</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">月:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="month" value="" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">1-12</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">周:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="week" value="" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">0-6</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">命令:</label>
+            <div class="layui-input-inline" lay-filter="cmd">
+                {{.siteSelect}}
+            </div>
+            <div class="layui-form-mid layui-word-aux">需要执行的命令</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">启用:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="打开|关闭">
+            </div>
+        </div>
+        <div class="layui-hide">
+            <button class="layui-btn" lay-submit="" lay-filter="submitAdd"></button>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form'], function () {
+        var $ = layui.$,
+            form = layui.form;
+        form.on('select(type)', function (obj) {
+            var othis = $('div[lay-filter=cmd]');
+            switch (obj.value) {
+                case '0':
+                    $.get('/cron/site/select', function (html) {
+                        othis.html(html);
+                        form.render('select');
+                    });
+                    break;
+                case '1':
+                    $.get('/cron/spider/select', function (html) {
+                        othis.html(html);
+                        form.render('select');
+                    });
+                    break;
+                default:
+                    othis.html('<textarea name="cmd" class="layui-textarea"></textarea>');
+            }
+        });
+    });
+</script>

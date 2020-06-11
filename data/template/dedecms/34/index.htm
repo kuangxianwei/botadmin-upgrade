@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<META content=IE=7 http-equiv=X-UA-Compatible>
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}">
+<meta name="description" content="{dede:global.cfg_description/}">
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/images/Layout.css" media="all" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/images/inner.css" />
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+<!-- 头部内容开始 -->
+{dede:include filename='head.htm'/}
+<!-------------------------------------------公司简介与新闻开始---------------------------------------------------->
+<div id="youshi" class="clearfix">
+  <h2 class="htitle"><span>企业通过ISO9001质量管理体系认证</span><strong>屹源五金<em>ADVANTAGE</em></strong></h2>
+  <div class="content clearfix">
+    <ul class="item about">{dede:global.cfg_about/}</ul>
+    <ul class="item news">
+{dede:arclist row='7'}
+    <li><span class="time">[field:pubdate function=strftime('%Y-%m-%d',@me)/] ([field:click/])</span><a href="[field:arcurl/]" title="[field:title/]" target="_blank">· [field:title/]</a></li>
+{/dede:arclist}
+  </ul>
+    </div>
+</div>
+<!-------------------------------------------公司简介与新闻结束---------------------------------------------------->
+<!-------------------------------------------推荐产品开始---------------------------------------------------->
+<div id="yitihua" class="clearfix">
+  <h2 class="htitle"><span>专业的金属制品生产企业</span><strong>我们为您提供<em>PRODUCTS</em></strong></h2>
+ <DIV class=blk_29>
+<DIV id=LeftArr class=LeftBotton></DIV>
+<DIV id=ISL_Cont_1 class=Cont><!-- 图片列表 begin -->
+{dede:arclist row='8' flag='c'}<DIV class=box><A class=imgBorder title="[field:title/]"
+href="[field:arcurl/]" target=_blank><IMG alt="[field:title/]"
+src="[field:picname/]"></A>
+<P><A class=imgBorder title="[field:title/]"
+href="[field:arcurl/]"
+target=_blank>[field:title/]</A></P></DIV>{/dede:arclist}
+<!-- 图片列表 end --></DIV>
+<DIV id=RightArr class=RightBotton></DIV></DIV>
+<SCRIPT language=javascript type=text/javascript>
+        <!--//--><![CDATA[//><!--
+        var scrollPic_02 = new ScrollPic();
+        scrollPic_02.scrollContId   = "ISL_Cont_1"; //内容容器ID
+        scrollPic_02.arrLeftId  = "LeftArr";//左箭头ID
+        scrollPic_02.arrRightId = "RightArr"; //右箭头ID
+        scrollPic_02.frameWidth = 920;//显示框宽度
+        scrollPic_02.pageWidth  = 920; //翻页宽度
+        scrollPic_02.speed      = 3; //移动速度(单位毫秒，越小越快)
+        scrollPic_02.space      = 50; //每次移动像素(单位px，越大越快)
+        scrollPic_02.autoPlay   = true; //自动播放
+        scrollPic_02.autoPlayTime   = 3; //自动播放间隔时间(秒)
+        scrollPic_02.initialize(); //初始化
+        //--><!]]>
+</SCRIPT></div>
+<!-------------------------------------------推荐产品结束---------------------------------------------------->
+<div class="clear20"></div>
+<!-- 主体内容结束 -->
+<!-- 尾部内容开始 -->
+<div id="extendedcontent" class="clearfix">
+  <div class="wrapper clearfix">
+  </div>
+</div>
+<div id="linker" class="clearfix">
+<b>友情链接：</b>{dede:flink row='24'}[field:link/]  {/dede:flink}
+</div>
+<div id="copyright">
+  <div class="warp clearfix">
+    <div class="left">Copyright &copy; 2014～2015  {dede:global.cfg_webname/} 版权所有</div>
+    <div class="right">专注于金属制品的设计和生产<strong>{dede:global.cfg_indexname/}</strong>&nbsp;<em>|</em><a href="/data/sitemap.html">网站地图</a><em>|</em><a href="/data/rssmap.html">Rss订阅</a></div>
+  </div>
+</div>
+
+<!-- 尾部内容结束 -->
+</body>
+</html>

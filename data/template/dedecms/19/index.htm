@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<TITLE>{dede:global.cfg_webname/}</TITLE>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}">
+<meta name="description" content="{dede:global.cfg_description/}">
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/css/style.css" />
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jQuery1.7.2.js" ></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/dropdown.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/hd2.js"></script>
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="mn">
+  <div> {dede:type typeid='1' }
+    <div class="in4cp"><span><a href="[field:typelink /]"><img src="[field:global.cfg_templets_skin/]/style/images/more.png" border="0" /></a></span><strong>[field:typename /]</strong>
+    <div style="clear:both"></div>
+    </div>
+    {/dede:type}
+    <div class="in4cpb">
+    <div id=demo class="in02gd"align=center>
+        <table border=0 align=center cellpadding=0 cellspacing=0 cellspace=0 >
+        <tr>
+            <td valign=top id=marquePic1><table width='100%' border='0' cellspacing='0'>
+                <tr> {dede:arclist titlelen='30' row='20' typeid='2'}
+                <td align=center><a href="[field:arcurl/]" title="[field:title /]"><img src="[field:litpic/]"><br>
+                    [field:title /]</a></td>
+                {/dede:arclist} </tr>
+            </table></td>
+            <td width="20" valign=top id=marquePic2></td>
+        </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+var speed=50
+marquePic2.innerHTML=marquePic1.innerHTML
+function Marquee(){
+if(demo.scrollLeft>=marquePic1.scrollWidth){
+demo.scrollLeft=0
+}else{
+demo.scrollLeft++
+}
+}
+var MyMar=setInterval(Marquee,speed)
+demo.onmouseover=function() {clearInterval(MyMar)}
+demo.onmouseout=function() {MyMar=setInterval(Marquee,speed)}
+</script>
+    </div>
+  </div>
+  <div>
+    <div class="in1">
+    <div class="in1dh"><strong>{dede:type typeid='1' }[field:typename /]{/dede:type}</strong></div>
+    <div class="in1b">
+        <ul>
+        {dede:channelartlist typeid='1' row='4'}
+        <li><a href="{dede:field name='typeurl'/}">{dede:field name='typename'/}</A></li>
+        {/dede:channelartlist}
+        </ul>
+    </div>
+    <div class="in1lxfs"><strong>{dede:type typeid='2' }[field:typename /]{/dede:type}</strong></div>
+    <div class="in1lxfsb"> 联系电话：{dede:global.cfg_tel/} <br />
+        联系传真：{dede:global.cfg_fax/}<br />
+        联系手机：{dede:global.cfg_phone/}<br />
+        联系QQ：{dede:global.cfg_qq/}<br />
+        电子邮箱：{dede:global.cfg_mail/}<br />
+        联系地址：{dede:global.cfg_address/} </div>
+    </div>
+    <div class="in5"> {dede:type typeid='2' }
+    <div class="in2gsjj"><span><a href="[field:typelink /]"><img src="[field:global.cfg_templets_skin/]/style/images/more.png" border="0" /></a></span><strong>[field:typename /]</strong></div>
+    {/dede:type}
+    <div class="in2gsjjb"> <img src="{dede:global.cfg_templets_skin/}/style/images/lou.jpg" width="368" height="259" />
+  {dede:global.cfg_about/}
+        <div style="clear:both"></div>
+    </div>
+    <div>
+        <div style="float:left; width:365px; margin-right:15px;"> {dede:type typeid='2' }
+        <div class="in2hyzs"><span><a href="[field:typelink /]"><img src="[field:global.cfg_templets_skin/]/style/images/more.png" border="0" /></a></span><strong>[field:typename /]</strong></div>
+        {/dede:type}
+        <div class="in2hyzsb">
+            <ul>
+            {dede:arclist titlelen='50' row='5' typeid='3'}
+            <li><span>[field:pubdate function='strftime("%m-%d",@me)'/]</span><a href="[field:arcurl/]" title="[field:title /]">[field:title /]</a></li>
+            {/dede:arclist}
+            </ul>
+        </div>
+        </div>
+        <div style="float:left; width:365px;"> {dede:type typeid='4' }
+        <div class="in2hyzs"><span><a href="[field:typelink /]"><img src="[field:global.cfg_templets_skin/]/style/images/more.png" border="0" /></a></span><strong>[field:typename /]</strong></div>
+        {/dede:type}
+        <div class="in2hyzsb">
+            <ul>
+            {dede:arclist titlelen='50' row='5' typeid='5'}
+            <li><span>[field:pubdate function='strftime("%m-%d",@me)'/]</span><a href="[field:arcurl/]" title="[field:title /]">[field:title /]</a></li>
+            {/dede:arclist}
+            </ul>
+        </div>
+        </div>
+        <div style=" clear:both"></div>
+    </div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+</div>
+<div class="bt">
+  <div class="bta">
+    <p> {dede:channel row='9' type='top' } <a href="[field:typelink/]" title="[field:typename function='substr(@me,0,16)'/]" >[field:typename function='substr(@me,0,16)'/]</a> {/dede:channel} </p>
+    {dede:global name='cfg_webname'/} <br />
+    联系电话：{dede:global.cfg_tel/}   联系传真：{dede:global.cfg_fax/}  电子邮箱：{dede:global.cfg_mail/} 联系地址：{dede:global.cfg_address/}
+    <p><b>友情链接</b>{dede:flink row='24'}[field:link/] {/dede:flink}</p>
+    </div>
+</div>
+</body>
+</html>
