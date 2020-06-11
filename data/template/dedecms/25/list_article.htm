@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="applicable-device" content="pc">
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>{dede:field.typename/}_{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:global.keywords/}"/>
+<meta name="description" content="{dede:global.description function='Html2Text(@me)'/}"/>
+{dede:include filename="ys.htm"/}
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<ins class="wrap"><ins class="fw">
+	<ins class="catpos">您现在的位置：{dede:field.position/}</ins>
+	<ins class="bk20"></ins>
+	<ins class="contBox">
+		<ins class="lt contLeft">
+			<ins class="list_c1">
+				<ul>
+				{dede:list pagesize='3'}
+					<li>
+						<h3><a href="[field:arcurl/]" title="[field:title/]">[field:title/]</a></h3>
+						<bdo>[field:description/]</bdo>
+						<font ><a href="[field:arcurl/]" rel="nofollow" title="[field:title/]">详细信息<s>&rarr;</s></a></font>
+					</li>
+				{/dede:list}
+				</ul>
+			</ins>
+			<ins class="pagelist">{dede:pagelist listitem="index,pre,pageno,next,end" /}
+</ins>
+		</ins>
+	{dede:include filename="left.htm"/}
+		<ins class="bk"></ins>
+	</ins>
+	<ins class="bk30"></ins>
+</ins></ins>
+{dede:include filename="footer.htm"/}</body>
+</html>

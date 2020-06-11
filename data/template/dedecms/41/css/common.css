@@ -1,0 +1,85 @@
+﻿@charset "utf-8";
+.preview img{float:left;margin: 3px;}
+/*最热文章排列数字开始*/
+.span_hot_1{height:16px;display: block;background-color: #FF6600;width:16px;float: left;color: #FFFFFF;font-weight: bold;text-align: center;font-family: "新宋体";font-size: 14px;margin: 3px;padding: 3px;line-height: 16px;}
+.span_hot_2{height:16px;display: block;background-color: #CCCCCC;width:16px;float: left;color: #FFFFFF;font-weight: bold;text-align: center;font-family: "新宋体";font-size: 14px;margin: 3px;padding: 3px;line-height: 16px;}
+/*最热文章排列数字结束*/
+body { color:#333333;font:12px/1.231 Verdana, Arial, Helvetica, sans-serif "";background:url(../images/jczb_022.jpg)/*tpa=http://www.honxajade.com/skins/default/images/jczb_022.jpg*/ repeat-x;} /*网站字体颜色*/
+html,body{overflow-x:hidden;}
+a { color:#333333; text-decoration:none; }  /*for ie f6n.net*/
+a:focus{outline:0;} /*for ff f6n.net*/
+a:hover { color:#333333; text-decoration:underline;}
+.vam { vertical-align:middle;}
+.clear{clear:both; height:0; line-height:0; font-size:0; overflow:hidden;}
+.tr { text-align:right;}
+.tl { text-align:left;}
+.center { text-align:center;}
+.fl { float:left;}
+.fr { float:right;}
+.fw{ font-family:"微软雅黑","宋体";}
+.pa{ position:absolute;}
+.pr{ position:relative}
+.mt8{ margin-top:8px;}
+.mt5{ margin-top:5px;}
+.mt10{ margin-top:10px;}
+.disBlock{display:inline-block;*display:inline;*zoom:1;vertical-align:top;}
+/* -- 购物车外部框架 -- */
+.cart_header , .cart_content , .cart_footer { width:960px; margin:10px auto; }
+
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.clearfix{overflow:hidden;_zoom:1;}
+
+/* -- 页面整体布局 -- */
+.header{background:url(../images/jczb_01.jpg)/*tpa=http://www.honxajade.com/skins/default/images/jczb_01.jpg*/ no-repeat top center;color:#666666;position:relative;height:174px;overflow:hidden;}
+.wfix{width:960px;margin:0 auto;}
+.align_c{text-align:center;}
+.align_r{text-align:right;}
+.disNone{display:none;}
+.left { width:201px; float:left; overflow:hidden;}
+.left2 { width:670px; float:left; overflow:hidden;}
+.left3 { width:754px; float:left; overflow:hidden; color:#666;}
+.lefttop { background:url(../images/left_top_img.gif)/*tpa=http://www.honxajade.com/skins/default/images/left_top_img.gif*/ no-repeat; height:3px; font-size:0; overflow:hidden;}
+.left2top { background:url(../images/left2_top_img.gif)/*tpa=http://www.honxajade.com/skins/default/images/left2_top_img.gif*/ no-repeat; height:3px; font-size:0; overflow:hidden;}
+.leftbot { background:url(../images/left_bot_img.gif)/*tpa=http://www.honxajade.com/skins/default/images/left_bot_img.gif*/ no-repeat; height:3px; font-size:0; overflow:hidden;  margin-bottom:10px;}
+.left2bot { background:url(../images/right_bot2_img.gif)/*tpa=http://www.honxajade.com/skins/default/images/right_bot2_img.gif*/ no-repeat; height:3px; font-size:0; overflow:hidden; margin-bottom:10px;}
+
+.right { width:754px; float:left; display:inline; margin-left:5px; overflow:hidden;}
+.right2 { width:275px;  float:right; overflow:hidden;}
+.right3 { width:201px; float:right; overflow:hidden; color:#666;}
+.righttop { background:url(../images/right_top_img.gif)/*tpa=http://www.honxajade.com/skins/default/images/right_top_img.gif*/ no-repeat; height:3px; font-size:0; overflow:hidden;}
+.right2top { background:url(../images/right2_top_img.gif)/*tpa=http://www.honxajade.com/skins/default/images/right2_top_img.gif*/ no-repeat; height:3px; font-size:0; overflow:hidden;}
+.rightbot { background:url(../images/right_bot_img.gif)/*tpa=http://www.honxajade.com/skins/default/images/right_bot_img.gif*/ no-repeat; height:3px; font-size:0; overflow:hidden; margin-bottom:10px;}
+.right2bot { background:url(../images/left_bot2_img.gif)/*tpa=http://www.honxajade.com/skins/default/images/left_bot2_img.gif*/ no-repeat; height:3px; font-size:0; overflow:hidden; margin-bottom:10px;}
+
+.right_main { width:752px; min-height:458px; border:solid 1px #d5d5d5; border-top:0; border-bottom:0; padding-bottom:15px; overflow:hidden;}
+.right2_main { width:273px; border:solid 1px #d5d5d5; border-top:0; border-bottom:0; padding-bottom:15px; overflow:hidden;}
+.left2_main { width:668px;  border:solid 1px #d5d5d5; border-top:0; border-bottom:0; overflow:hidden;}
+
+/*头部开始*/
+.topNav{height:24px;line-height:24px;color:#666666;}
+.topNav a,.topNav a:visited{color:#666666;margin:0 8px;}
+.logo{height:73px;padding:5px 0 0 10px;overflow:hidden;}
+.logo h1{margin:8px 0 0 10px;color:#c70202;font-size:20px;line-height:24px;border-left:1px solid #b6b5b5;height:45px;padding-left:10px;}
+.logo h1 span{display:block;font-size:12px;color:#414040;font-weight:normal;}
+.topRight{padding:0 10px 0 0;}
+.iLink{padding:2px 0 0 23px;}
+.iLink a{margin-left:5px;}
+.topTel{color:#7a3d1e;font:16px/20px Arial,"微软雅黑","宋体";padding-top:30px;}
+.topTel span{font-size:24px;color:#cd0303;}
+
+.mainNav{height:35px;line-height:35px;overflow:hidden;}
+.mainNav ul{margin-right:-18px;}
+.mainNav li{float:left;margin-right:1px;}
+.mainNav a{color:#fff;padding:0 12px;font:14px/35px "宋体";font-weight:bold;}
+
+.mainNav li a:hover, .mainNav .current a{ background:url(../images/nav_bg.gif)/*tpa=http://www.honxajade.com/skins/default/images/nav_bg.gif*/ repeat-x center; color:#9d4701; text-decoration:none;}
+.searchBar{height:37px;line-height:37px;color:#666666;}
+.searchBar a{padding-left:5px;}
+.searchBar a,.searchBar:visited{color:#666666;}
+
+/*底部开始*/
+.footer{background:#7e5820 url(../images/jczb_57.jpg)/*tpa=http://www.honxajade.com/skins/default/images/jczb_57.jpg*/ repeat-x;padding:10px 0 30px 0;margin-top:20px;}
+.footnav{height:28px; line-height:28px;  color:#fff;}
+.footnav a,.footnav a:hover,.footnav a:visited{ padding:0 12px; color:#fff;}
+.font2,.font2 a,.font2 a:hover,.font2 a:visited{ line-height:22px;padding:10px 0 0 0; text-align:center; color:#966d37;}
+/*底部结束*/

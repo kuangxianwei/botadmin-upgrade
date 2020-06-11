@@ -1,0 +1,21 @@
+<header>
+  <div>
+	<div class="inner clear">
+	<div class="logo"> <a href="/" title="{dede:global.cfg_titlelast/}" id="web_logo"> <img src="{dede:global.cfg_templets_skin/}/skin/images/logo1.png" alt="{dede:global.cfg_titlelast/}" title="{dede:global.cfg_titlelast/}" style="margin:15px 0px 0px 20px;" /> </a> </div>
+	<div class="otr-nav">
+		<div class="top-nav"><a href='#' onclick='SetHome(this,window.location,"非IE浏览器不支持此功能，请手动设置！");' style='cursor:pointer;' title='设为首页'  >设为首页</a><span>-</span><a href='#' onclick='addFavorite("非IE浏览器不支持此功能，请手动设置！");' style='cursor:pointer;' title='收藏本站'  >收藏本站</a></div>
+		<nav>
+		<ul class="list-none">
+			<li id="nav_10001"><a href='/' title='公司首页' class='nav'><span>公司首页</span></a></li>
+			{dede:channel type='top' row='10' currentstyle="
+			<li class='navdown'><a href='~typelink~' ~rel~><span>~typename~</span></a>"</li>
+			}
+			<li class="line"></li>
+			<li id='nav_[field:global name=autoindex runphp="yes"]@me=@me+1;[/field:global]'  ><a href='[field:typeurl/]' 0 title='[field:typename/]' class='hover-none nav'><span>[field:typename/]</span></a></li>
+			{/dede:channel}
+		</ul>
+		</nav>
+	</div>
+	</div>
+  </div>
+</header>

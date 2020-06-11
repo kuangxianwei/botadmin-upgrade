@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta name="applicable-device" content="pc">
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<title>{dede:field name='title'/}_{dede:global.cfg_titlelast/}</title>
+<meta name="description" content="{dede:global.cfg_description/}">
+<meta name="keywords" content="{dede:global.cfg_keywords/}">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/reset.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/layout.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/zerogrid.css">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/responsive.css">
+  <!--[if lt IE 9]>
+    <script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/html5.js"></script>
+    <style type="text/css">
+        .bg{ behavior: url({dede:global.cfg_templets_skin/}/js/PIE.htc); }
+    </style>
+  <![endif]-->
+</head>
+<body id="page3">
+    <div class="body1">
+    <div class="body2">
+    <div class="body5">
+        <div class="main zerogrid">
+<!-- header -->
+            <header>
+                {dede:include filename="head.htm"/}
+            </header>
+<!-- header end-->
+        </div>
+    </div>
+    </div>
+    </div>
+    <div class="body3">
+        <div class="main zerogrid">
+<!-- content -->
+            <article id="content">
+                <div class="wrapper">
+                    <h2 class="under2">{dede:field.title/}<br> <span>更新时间：{dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/} 发布者：{dede:adminname/}</span></h2>
+                    <div class="wrapper">
+                        {dede:field.body/}
+文章《{dede:field.title/}》原创来自：<a href="{dede:global.cfg_basehost/}">{dede:global.cfg_indexname/}</a>
+                        <p></p>
+                        <p>与《{dede:field.title/}》相关文章：</p>
+{dede:likearticle row='5' titlelen='70'}
+<p>➟<a href="[field:arcurl/]">[field:title/]></p>
+{/dede:likearticle}
+                    </div>
+                </div>
+<div class="sxwenz">
+<b>{dede:prenext get='pre'/} {dede:prenext get='next'/}</b> <span>{dede:type}<a href="[field:typeurl/]">返回[field:typename/]</a>{/dede:type}</span></div>
+            </article>
+        </div>
+    </div>
+    <div class="body4">
+        {dede:include filename="foot.htm"/}
+</body>
+</html>

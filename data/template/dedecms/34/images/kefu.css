@@ -1,0 +1,29 @@
+@charset "utf-8";
+.right_kf_c a { text-decoration: none; color: #FFF; }
+.right_kf { width: 110px; position: relative; z-index: 99999 !important; }
+.right_kf_t { background: url(title.png)/*tpa=http://www.cangzhouyy.com/images/title.png*/ no-repeat; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src= "/images/title.png" ); height: 127px; cursor: pointer; }
+.right_kf_t2 { background: url(title2.png)/*tpa=http://www.cangzhouyy.com/images/title2.png*/ no-repeat; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src= "/images/title2.png" ); height: 127px; cursor: pointer; }
+.right_kf_c { padding: 0 3px; }
+.right_kf_c li { padding-left: 17px; padding-top: 4px; text-align: center; }
+.right_kf_c li.c { padding: 0; }
+.right_kf_c a { display: block; padding-left: 22px; line-height: 26px; font-family: "宋体"; }
+.right_kf_c a.p { padding: 0; }
+.right_kf_c .no1 { background: url(bg1.jpg)/*tpa=http://www.cangzhouyy.com/images/bg1.jpg*/ repeat-x; }
+.right_kf_c .no2 { background: url(bg2.jpg)/*tpa=http://www.cangzhouyy.com/images/bg2.jpg*/ repeat-x; }
+.right_kf_c .no3 { background: url(bg3.jpg)/*tpa=http://www.cangzhouyy.com/images/bg3.jpg*/ repeat-x; }
+.right_kf_c .no4 { background: url(bg4.jpg)/*tpa=http://www.cangzhouyy.com/images/bg4.jpg*/ repeat-x; }
+.right_kf_c .no5 { background: url(bg5.jpg)/*tpa=http://www.cangzhouyy.com/images/bg5.jpg*/ repeat-x; }
+.right_kf_c .no6 { background: url(bg6.jpg)/*tpa=http://www.cangzhouyy.com/images/bg6.jpg*/ repeat-x; }
+.right_kf_c .bd_sq { background: url(bg7.jpg)/*tpa=http://www.cangzhouyy.com/images/bg7.jpg*/ repeat-x; }
+/*
+.right_kf_c .no1 a { padding-left: 11px !important; }
+*/
+.right_kf_c .no2 a { background: url(QQ2.jpg)/*tpa=http://www.cangzhouyy.com/images/QQ2.jpg*/ left top no-repeat; }
+.right_kf_c .no3 a { background: url(QQ3.jpg)/*tpa=http://www.cangzhouyy.com/images/QQ3.jpg*/ left top no-repeat; }
+/*
+.right_kf_c .no4 a { background: url(/images/QQ4.jpg) left top no-repeat; }
+.right_kf_c .no5 a { background: url(/images/QQ5.jpg) left top no-repeat; }
+*/
+.right_kf_c .no6 a { background: url(QQ6.jpg)/*tpa=http://www.cangzhouyy.com/images/QQ6.jpg*/ left top no-repeat; }
+.right_kf_b { background: url(bot.png)/*tpa=http://www.cangzhouyy.com/images/bot.png*/ no-repeat; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src= "/images/bot.png" ); height: 189px; }
+#advisoryTips span { display: block; float: right; background: url(kf_no.png)/*tpa=http://www.cangzhouyy.com/images/kf_no.png*/ no-repeat; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src= "/images/kf_no.png" ); width: 63px; height: 161px; cursor: pointer; }
