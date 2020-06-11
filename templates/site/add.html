@@ -626,8 +626,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">Rewrite:</label>
                         <div class="layui-input-inline">
-                            <select name="rewrite">
-                                <option value="">无</option>
+                            <select name="rewrite" lay-search>
+                                <option value="">搜索...</option>
                                 {{range .rewrites -}}
                                     <option value="{{.}}"{{if eq . $.obj.Rewrite}} selected{{end}}>{{.}}</option>
                                 {{end -}}
@@ -648,8 +648,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">使用IP:</label>
                         <div class="layui-input-inline">
-                            <select name="ip_addr">
-                                <option value="">默认</option>
+                            <select name="ip_addr" lay-search>
+                                <option value="">搜索...</option>
                                 {{range .ips}}
                                     <option value="{{.}}">{{.}}</option>
                                 {{end}}

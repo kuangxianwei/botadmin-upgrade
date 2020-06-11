@@ -494,7 +494,6 @@
             <div class="layui-btn-group">
                 <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
                 <button class="layui-btn" data-event="reset">恢复默认</button>
-                <button class="layui-btn" data-event="edit">配置文件</button>
             </div>
         </div>
     </div>
@@ -541,14 +540,6 @@
                         ending: function () {
                             location.replace(url);
                         }
-                    });
-                    break;
-                case 'edit':
-                    $.get('/file/editor', {'path': 'data/config.conf', 'hide': true}, function (html) {
-                        main.popup({
-                            title: '编辑配置文件',
-                            content: html,
-                        });
                     });
                     break;
             }

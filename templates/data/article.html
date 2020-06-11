@@ -37,6 +37,10 @@
                 lay-tips="检查原创度 不勾选则检测全部">
             <i class="layui-icon layui-icon-vercode"></i>
         </button>
+        <button class="layui-btn selecting layui-btn-sm" lay-event="ban" id="LAY_layer_iframe_ban"
+                lay-tips="过滤违禁词 不勾选则选择全部">
+            <i class="layui-icon layui-icon-filter"></i>
+        </button>
     </div>
     <div class="layui-btn-group">
         <button class="layui-btn selecting layui-btn-sm layui-btn-danger" lay-event="del" id="LAY_layer_iframe_del"
@@ -67,6 +71,8 @@
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
+        <button class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i></button>
     </div>
 </script>
 <script src="/static/layui/layui.js"></script>
@@ -109,7 +115,6 @@
                         return '<strong style="color:#00a6ff;">' + d.original_deg.toFixed(2) + '%</strong>';
                     }
                 },
-                {field: 'record', title: '记录', width: 160},
                 {field: 'description', title: '描述', hide: true},
                 {field: 'tags', title: 'Tags', hide: true},
                 {field: 'site_id', title: '绑定网站ID', hide: true},
@@ -119,6 +124,18 @@
                     templet: function (d) {
                         var msg = '<input id="' + d.id + '" type="checkbox" name="used" lay-skin="switch" lay-text="是|否" lay-filter="switchUsed"';
                         if (d.used) {
+                            msg += ' checked>';
+                        } else {
+                            msg += '>';
+                        }
+                        return msg;
+                    }
+                },
+                {
+                    field: 'ban_vetted', title: '过滤违禁', align: 'center', width: 92, unresize: true, event: 'ban_vetted',
+                    templet: function (d) {
+                        var msg = '<input id="' + d.id + '" type="checkbox" name="ban_vetted" lay-skin="switch" lay-text="是|否" lay-filter="switchBanVetted"';
+                        if (d.ban_vetted) {
                             msg += ' checked>';
                         } else {
                             msg += '>';
@@ -169,6 +186,15 @@
                             ending: 'table-list',
                         });
                         element.render();
+                    });
+                    break;
+                case 'log':
+                    $.get(url + '/log', data, function (html) {
+                        main.popup({
+                            title: '日志',
+                            url: url + '/log',
+                            content: html,
+                        });
                     });
                     break;
             }
@@ -238,6 +264,20 @@
                         area: ['400px', '280px'],
                     });
                     break;
+                case 'ban':
+                    for (var i = 0; i < data.length; i++) {
+                        ids[i] = data[i].id;
+                    }
+                    var thread = data.length;
+                    if (thread === 0) {
+                        thread = 10
+                    }
+                    main.req({
+                        url: url + '/ban',
+                        data: {thread: thread, ids: ids.join()},
+                        ending: 'table-list'
+                    });
+                    break;
                 case 'case':
                     $.get(url + '/case', {}, function (html) {
                         main.popup({
@@ -281,6 +321,20 @@
             main.req({
                 url: url + '/used',
                 data: {'id': id, "used": checked},
+                ending: 'table-list',
+            });
+            return false;
+        });
+        form.on('switch(switchBanVetted)', function (obj) {
+            var id = this.id,
+                checked = this.checked;
+            if (!id) {
+                layer.tips('ID为空，无法操作！', obj.othis);
+                return false;
+            }
+            main.req({
+                url: url + '/banvet',
+                data: {'id': id, "ban_vetted": checked},
                 ending: 'table-list',
             });
             return false;

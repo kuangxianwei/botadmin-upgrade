@@ -67,6 +67,9 @@
         <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </a>
+        <a class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i>
+        </a>
     </div>
 </script>
 <script src="/static/layui/layui.js"></script>
@@ -94,9 +97,9 @@
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'Id', hide: true},
                 {field: 'token', title: 'Token', hide: true},
-                {field: 'keyword', title: '关键词', width: 150, sort: true},
-                {field: 'expect', title: '网站', width: 150, sort: true},
-                {field: 'engine', title: '引擎', width: 150, align: 'center', sort: true},
+                {field: 'keyword', title: '关键词', minWidth: 150, sort: true},
+                {field: 'expect', title: '网站', minWidth: 150, sort: true},
+                {field: 'engine', title: '引擎', minWidth: 150, align: 'center', sort: true},
                 {field: 'first', title: '初排', width: 80, align: 'center', sort: true},
                 {field: 'current', title: '新排', width: 80, align: 'center', sort: true},
                 {
@@ -117,7 +120,6 @@
                         return main.timestampFormat(obj.timestamp / 1000000);
                     }
                 },
-                {field: 'record', title: '记录'},
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
             page: true,
@@ -156,6 +158,15 @@
                             url: '/rank/exec',
                             data: {id: data.id},
                             index: index,
+                        });
+                    });
+                    break;
+                case 'log':
+                    $.get('/rank/log', data, function (html) {
+                        main.popup({
+                            title: '日志',
+                            content: html,
+                            url: '/rank/log',
                         });
                     });
                     break;

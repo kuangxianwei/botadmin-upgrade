@@ -234,11 +234,11 @@
                     });
                     break;
                 case 'log':
-                    $.get('/log/single', {token: 'spider.' + data.id}, function (html) {
+                    $.get('/spider/log', {'id': data.id}, function (html) {
                         main.popup({
-                            title: '发布日志',
+                            title: '日志',
                             content: html,
-                            url: '/log/single',
+                            url: '/spider/log',
                         });
                     });
                     break;

@@ -45,9 +45,12 @@
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
         <a class="layui-btn layui-btn-xs" lay-event="modify"><i
-                    class="layui-icon layui-icon-edit"></i>编辑</a>
+                    class="layui-icon layui-icon-edit" lay-tips="编辑修改"></i></a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i
-                    class="layui-icon layui-icon-delete"></i>删除</a>
+                    class="layui-icon layui-icon-delete"></i></a>
+        <a class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i>
+        </a>
     </div>
 </script>
 <script src="/static/layui/layui.js"></script>
@@ -114,6 +117,15 @@
                             content: html,
                             url: url + '/modify',
                             ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'log':
+                    $.get(url + '/log', data, function (html) {
+                        main.popup({
+                            title: '日志',
+                            content: html,
+                            url: url + '/log',
                         });
                     });
                     break;

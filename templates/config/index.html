@@ -6,6 +6,7 @@
                 <li>环境设置</li>
                 <li>采集设置</li>
                 <li>翻译设置</li>
+                <li>违禁设置</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show layui-form">
@@ -80,11 +81,30 @@
                         </div>
                     </div>
                 </div>
+                <div class="layui-tab-item layui-form">
+                    {{.banHtml}}
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <div class="layui-btn-group">
+                            <button class="layui-btn" lay-submit lay-filter="submit-ban">立即提交
+                            </button>
+                            <button class="layui-btn layui-btn-danger" data-event="reset" data-name="ban"
+                                    data-tip="违禁设置恢复到出厂设置?">恢复出厂设置
+                            </button>
+                            <button class="layui-btn" data-event="ban-test">测试</button>
+                            <button class="layui-btn layui-btn-small layui-btn-normal" data-event="edit-deny">编辑黑名单
+                            </button>
+                            <button class="layui-btn layui-btn-small layui-btn-normal" data-event="edit-allow">编辑白名单
+                            </button>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" id="test-ban">
+                        <textarea class="layui-textarea layui-bg-black layui-hide" name="content" rows="10"
+                                  style="color: white;"></textarea>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="layui-card-body">
-        <button class="layui-btn layui-btn-primary" data-event="edit">在线编辑配置文件</button>
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
@@ -115,9 +135,9 @@
             });
             return false;
         });
-        form.on('submit(submit-cache)', function (obj) {
+        form.on('submit(submit-ban)', function (obj) {
             main.req({
-                url: url + '/cache',
+                url: url + '/ban',
                 data: obj.field,
             });
             return false;
@@ -171,14 +191,35 @@
                         });
                     });
                     break;
-                case 'edit':
-                    $.get('/file/editor', {'path': 'data/config.conf', 'hide': true}, function (html) {
-                        main.popup({
-                            title: '编辑文件',
-                            content: html,
-                        });
+                case 'ban-test':
+                    main.popup({
+                        title: '测试违禁词',
+                        url: url + '/test/ban',
+                        area: ['70%', '70%'],
+                        ending: function (res) {
+                            $('#test-ban>textarea').removeClass('layui-hide').text(res.msg);
+                        },
+                        content: '<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea layui-bg-black" name="content" rows="15" style="color: white;">输入需要检查的内容...</textarea></div><div class="layui-hide"><button class="layui-btn" lay-submit lay-filter="submit"></button></div></div></div>'
                     });
                     break;
+                case 'edit-deny':
+                    $.get('/config/edit', {name: 'deny'}, function (html) {
+                        main.popup({
+                            title: '编辑黑名单',
+                            content: html,
+                            url: '/config/edit'
+                        });
+                    });
+                    break
+                case 'edit-allow':
+                    $.get('/config/edit', {name: 'allow'}, function (html) {
+                        main.popup({
+                            title: '编辑白名单',
+                            content: html,
+                            url: '/config/edit'
+                        });
+                    });
+                    break
             }
             return false;
         });

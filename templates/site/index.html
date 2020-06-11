@@ -307,11 +307,11 @@
                         });
                     break;
                 case 'log':
-                    $.get('/log/single', {token: 'site.' + data.id}, function (html) {
+                    $.get('/site/log', data, function (html) {
                         main.popup({
-                            title: '发布日志',
+                            title: '日志',
                             content: html,
-                            url: '/log/single',
+                            url: '/site/log',
                         });
                     });
                     break;
@@ -322,6 +322,8 @@
                         clipboard.destroy();  //解决多次弹窗
                         e.clearSelection();
                     });
+                    break;
+                default:
                     break;
             }
         });
