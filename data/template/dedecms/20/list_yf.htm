@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/skin/css/base.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/skin/js/jquery.min.js"></script>
+<script>
+  function dropMenu(obj){
+	$(obj).each(function(){
+		var theSpan = $(this);
+		var theMenu = theSpan.find(".submenu");
+		var tarHeight = theMenu.height();
+		theMenu.css({height:0,opacity:0});
+		theSpan.hover(
+			function(){
+
+				theMenu.stop().show().animate({height:tarHeight,opacity:1},400);
+			},
+			function(){
+				;
+				theMenu.stop().animate({height:0,opacity:0},400,function(){
+					$(this).css({display:"none"});
+				});
+			}
+		);
+	});
+}
+
+$(document).ready(function(){
+
+	dropMenu(".drop-menu-effect");
+
+});
+
+
+</script>
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="content">
+  <div class="banner">
+    <div class="topimg" style="background: url({dede:global.cfg_templets_skin/}/skin/images/20150810113025979.jpg)  top center no-repeat;"></div>
+    <div class="botnav">
+      <ul>
+        <li class="nav_home"><a href="/"></a></li>
+        {dede:channel type='son' currentstyle="
+        <li class='nav_li'><a href='~typelink~'>~typename~</a></li>
+        "}
+        <li class="nav_li"><a href="[field:typeurl/]">[field:typename/]</a></li>
+        {/dede:channel}
+      </ul>
+    </div>
+    <!--botnav-->
+  </div>
+  <!--bannerj及nav-->
+  <div class="incont">
+    <div class="toptitle">
+      <ul>
+        <li>所在位置：</li>
+        <li> {dede:field name='position'/} </li>
+      </ul>
+    </div>
+    <!--content incont top title-->
+    <div class="botmain">
+      <script src="{dede:global.cfg_templets_skin/}/skin/js/jquery.colorbox.js"></script>
+      <link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/skin/css/lightbox.css" />
+      <script>
+	$(document).ready(function(){
+		$(".group1").colorbox({rel:'group1'});
+	});
+</script>
+      <style>
+*{margin:0;padding:0;font-family:'微软雅黑';}
+.yanfa_top{border:1px solid #dedede;border-top:3px solid #1c8f44;height:104px;margin-bottom:19px;padding:0 20px;font-size:12px;}
+  .yanfa_top h3{font-size:14px;height:44px;line-height:44px;}
+
+  .s_yanfa{border:1px solid #dedede;overflow:hidden;padding:25px 20px 0 20px;margin-bottom:20px;}
+
+  .s_yanfa li{float:left;width:214px;height:156px;margin:0 50px 30px 0;}
+  .s_yanfa li:hover{outline:1px solid #0f893a;}
+   .s_yanfa li:hover h3{background:#0f893a url({dede:global.cfg_templets_skin/}/skin/images/tubiaoh.png) no-repeat 190px center;color:#fff;}
+
+
+
+  .s_yanfa li h3{height:32px;line-height:32px;padding-left:13px;font-size:12px;color:#666666;background:#ededed url({dede:global.cfg_templets_skin/}/skin/images/tubiao.png) no-repeat 190px center;}
+
+
+
+</style>
+      <div class="incont">
+        <div class="incont-main">
+          <div class="yanfa_top"><br>
+            <p>先进的生产设备是企业产品质量的基础！<br>
+              创新的工艺流程是企业产品质量的动力！<br>
+              完善的质检机制是企业产品质量的保障！</p>
+          </div>
+          <ul class="s_yanfa">
+            {dede:list pagesize ='8'}
+            <li > <a href="[field:picname/]"  class="group_btn group1" title="[field:title/]">
+              <div style="text-align:center"><img src="[field:picname/]" width="220" height="124"></div>
+              <h3>[field:title/]</h3>
+              </a> </li>
+            <!--1-->
+            {/dede:list}
+          </ul>
+        </div>
+        <!--<div class="incont-page">
+             </div>--><!--page-->
+      </div>
+    </div>
+    <!--content incont botmain right images-->
+
+  </div>
+  <!--content incont bottom main-->
+</div>
+<!--content-->
+</div>
+{dede:include filename="footer.htm"/}
+<!--footer-->
+</body>
+</html>

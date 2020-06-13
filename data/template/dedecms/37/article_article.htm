@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- InstanceBegin template="/Templates/news_template.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{dede:field.keywords/}"/>
+<meta name="description" content="{dede:field.description  function='html2text(@me)'/}"/>
+<title>{dede:field.title/}-{dede:global.cfg_titlelast/}</title>
+<link href="{dede:global.cfg_templets_skin/}/style/base.css" rel="stylesheet" type="text/css" media="all" />
+<link href="{dede:global.cfg_templets_skin/}/style/meiya.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<script>
+            $(function(){
+                    $(".nav ul li:has(ul)").hover(function(){
+                        $(this).children("ul").stop(true, true).slideDown("fast");
+                    }, function(){
+                        $(this).children("ul").stop(true, true).slideUp("fast");
+                    });
+            });
+        </script>
+<div class="pos">
+<div class="pos">{dede:field name='position'/}</div>
+<div class="main clearfix">
+  <div class="main_l fl">
+    <ul>
+    {dede:channel type='son' row='5'}
+    <li><a href="[field:typelink/]" >[field:typename/] </a></li>
+    {/dede:channel}
+    </ul>
+  </div>
+  <div class="main_r newslist fr"> <!-- InstanceBeginEditable name="head" -->
+    <h2 class="tc">{dede:field.title/}</h2>
+    <p class="tr main_r_date">{dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/} </p>
+    {dede:field.body/}
+文章《{dede:field.title/}》原创来自：<a href="{dede:global.cfg_basehost/}">{dede:global.cfg_indexname/}</a>
+<p></p><p>与《{dede:field.title/}》相关文章：</p>{dede:likearticle row='5' titlelen='70'}<p>➟<a href="[field:arcurl/]">[field:title/]></p>{/dede:likearticle}
+<!-- InstanceEndEditable --> </div>
+  {dede:include filename="footer.htm"/} </div>
+</body>
+</html>

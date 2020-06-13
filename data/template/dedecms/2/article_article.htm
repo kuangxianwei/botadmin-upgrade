@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/css/style000.css" />
+<script type="text/javascript" language="javascript" src="{dede:global.cfg_templets_skin/}/js/jquery-1.js"></script>
+<script type="text/javascript" language="javascript" src="{dede:global.cfg_templets_skin/}/js/droppy00.js"></script>
+<script type="text/javascript" language="javascript" src="{dede:global.cfg_templets_skin/}/js/thickbox.js"></script>
+<script type="text/javascript" language="javascript" src="{dede:global.cfg_templets_skin/}/js/helper00.js"></script>
+<script type="text/javascript" language="javascript" src="{dede:global.cfg_templets_skin/}/js/png00000.js"></script>
+</head>
+<!--  页面头部【end】 -->
+{dede:include filename="head.htm"/}
+    <div id="main_con">
+    <div id="left">
+<script type="text/javascript" language="javascript">
+function ContentSize(size)
+{
+    var obj=document.getElementById("artview_content");
+    obj.style.fontSize=size+"px";
+}
+</script>
+<div class="artview" >
+    <div class="artview_title">{dede:field.title/}</div>
+    <div class="artview_info">来源:{dede:field.source/} &nbsp;&nbsp;&nbsp;发布时间: {dede:field.pubdate function="MyDate('Y-m-d H:i',@me)"/}&nbsp;&nbsp;&nbsp;<script src="{dede:field name='phpurl'/}/count.php?view=yes&aid={dede:field name='id'/}&mid={dede:field name='mid'/}" type='text/javascript' language="javascript"></script> 次浏览&nbsp;&nbsp;&nbsp;大小:&nbsp;&nbsp;<a href="javascript:ContentSize(16)">16px</a>&nbsp;&nbsp;<a href="javascript:ContentSize(14)">14px</a>&nbsp;&nbsp;<a href="javascript:ContentSize(12)">12px</a></div>
+    <div class="artview_intr">{dede:field.description/}</div>
+    <div id="artview_content">
+    {dede:field.body/}
+文章《{dede:field.title/}》原创来自：<a href="{dede:global.cfg_basehost/}">{dede:global.cfg_indexname/}</a>
+    <p>与《{dede:field.title/}》相关文章：</p>
+{dede:likearticle row='5' titlelen='70'}
+<p>➟<a href="[field:arcurl/]">[field:title/]></p>
+{/dede:likearticle}
+    </div>
+    <div class="blankbar1"></div>
+</div>      </div>
+                {dede:include filename="cebian.htm"/}
+        <div class="blankbar"></div>
+    </div>
+  </div>
+<!-- 页脚【start】 -->
+{dede:include filename="footer.htm"/}
+</body>
+</html>

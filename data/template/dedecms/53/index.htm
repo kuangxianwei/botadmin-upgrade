@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+    <link href="{dede:global.cfg_templets_skin/}/style/images/style.css" rel="stylesheet" type="text/css">
+    <link href="{dede:global.cfg_templets_skin/}/style/images/index.css" rel="stylesheet" type="text/css">
+    <link href="{dede:global.cfg_templets_skin/}/style/images/linr.css" rel="stylesheet" type="text/css">
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div id="wap">
+    <div id="w_left2">
+        <div class="m1000">
+{dede:channelartlist row=4}
+            <div class="m10 bdf ">
+                <div class="zjwd_a">
+                    <strong><a href="{dede:field name='typeurl'/}">{dede:field name='typename'/}</a></strong>
+                    <span><a href="{dede:field name='typeurl'/}"><img src="{dede:global.cfg_templets_skin/}/style/images/index_a_31.gif" height="9" width="41"></a></span>
+                </div>
+                <div class="border css_p">
+                    <ul class="list">
+                    {dede:arclist titlelen='42' row='10'}
+                    <li><a href="[field:arcurl /]">[field:title /]</a><span>[field:pubdate function="MyDate('m-d',@me)"/]</span></li>
+                    {/dede:arclist}
+                    </ul>
+                </div>
+            </div>
+{/dede:channelartlist}
+            <p class="clr"></p>
+        </div>
+    </div>
+    <div id="w_right1">
+        <div class="m10 zjwd">
+            <div class="zjwd_a">
+                <strong><a href="#">推荐</a></strong>
+                <span><img src="{dede:global.cfg_templets_skin/}/style/images/index_a_45.gif" height="9" width="41"></span>
+            </div>
+            <div class="border">
+                <div class="zjwd_b">
+                    <ul class="list">
+                    {dede:arclist titlelen='42' row='10' flag = 'h,c,f,p'}
+                    <li><a href="[field:arcurl /]">[field:title /]</a></li>
+                    {/dede:arclist}
+                                            </ul>
+                </div>
+            </div>
+        </div>
+        <div class="m10 hzqt">
+            <div class="zjwd_a">
+                <strong><a href="#">{dede:global.cfg_indexname/}介绍</a></strong>
+                <span><img src="{dede:global.cfg_templets_skin/}/style/images/index_a_45.gif" height="9" width="41"></a></span>
+            </div>
+            <div class="border">
+                <div class="css_p">
+                    <ul class="list">
+{dede:global.cfg_about/}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="clr"></p>
+</div>
+<div id="bottom">
+    <ul>
+    <li><b>友情链接：</b>{dede:flink row='24'}[field:link/] {/dede:flink}</li>
+        <li>
+        {dede:global.cfg_webname/}
+        </li>
+    </ul>
+</div>
+</body>
+</html>

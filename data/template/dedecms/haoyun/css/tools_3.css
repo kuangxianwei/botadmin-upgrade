@@ -1,0 +1,10 @@
+@charset "utf-8";
+.ulTools {width:640px;padding:20px 0;margin:30px auto;background:#f7f7f7;border:2px solid #ddd;font-size:14px;-webkit-border-radius:10px;}
+.ulTools li {height:37px;padding:15px 0;line-height:37px;text-align:center;}
+.ulTools .liBut {height:60px;}
+.ulTools .liBut input {width:114px;height:54px;background:#498FB8;border:3px solid #C6E3F1;color:#fff;font-size:14px;cursor:pointer;-webkit-border-radius:10px;}
+.ulTools select {width:80px;}
+.toolsr {width:640px;padding:20px 0 10px;margin:30px auto;background:#EDF9FF;border:2px solid #C6E3F1;font-size:14px;color:#498FB8;-webkit-border-radius:10px;}
+.srHead {padding:5px 0 15px 40px;font-weight:800;color:#498FB8}
+.dTxt {width:550px;margin:0 auto;font-size:14px;line-height:24px;}
+#results {height:25px;padding:0px 0 15px 40px;line-height:25px;color:#f60;font-weight:800;font-size:16px;}

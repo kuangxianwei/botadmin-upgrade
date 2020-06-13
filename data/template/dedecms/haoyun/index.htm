@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templets_skin/}/css/index.3.css" rel="stylesheet" type="text/css">
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body name="index">
+<div id="wrap">
+<!--头部开始-->
+{dede:include filename="head.htm"/}
+<!--头部结束-->
+<div id="main">
+<div class="dMain dMain_1 clear">
+<div class="dLeft dLeft_1">
+<h1>关于<strong>{dede:global.cfg_indexname/}</strong></h1>
+{dede:arclist row='1' type='image.' flag='h'}<img src="[field:litpic/]" alt="关于[field:global.cfg_keywords/]"  width="150" height="150" align="left" />{/dede:arclist}{dede:global.cfg_about/}
+</div>
+<div class="dRight dRight_1">
+<div class="dBox_r">
+{dede:channelartlist typeid ='4,4'}
+<div class="dHead_r"><strong><a href="{dede:field name='typeurl'/}" target="_blank">怀孕工具</a></strong>|TOOLS</div>
+<div class="dBody_r">
+<ul class="ulList_1 clear">
+{dede:arclist orderby='id' row='10' orderway='asc'}
+<li class="li_[field:global.autoindex/]"><a href="[field:arcurl /]" target="_blank">[field:title /]</a></li>
+{/dede:arclist}
+</ul>
+</div>
+{/dede:channelartlist}
+<div class="dBox_r">
+<div class="dHead_r"><strong>排卵计算器</strong></div>
+<div class="dBody_r">
+<ul class="ulTools">
+<form method="post" name="frmInput" id="frmInput">
+<li>最短月经周期:<input type="text" name="txtMinMensesCyc" maxlength="2" value="28" class="inpTxt inpTxt_1"> 天</li>
+<li>最长月经周期:<input type="text" name="txtMaxMensesCyc" maxlength="2" value="28" class="inpTxt inpTxt_1"> 天</li>
+<li>上次月经时间:<input type="text" name="txtYear" value="" maxlength="4" id="year_0"  class="inpTxt inpTxt_2 inpYear">年 <input type="text" name="txtMonth" value="" maxlength="2" id="month_0"  class="inpTxt inpTxt_1 inpMonth">月 <input type="text" name="txtDay" value="" size="2" maxlength="2"  id="day_0"  class="inpTxt inpTxt_1 inpDay">日</li>
+<li class="liBut"><input type="button" name="btnCalculate" value="计 算" id="pl" class="inpBut inpBut_1"></li>
+</form>
+</ul>
+<div id="Layer_Ovu" class="toolsr toolsr_1">
+<div class="srtitle"><strong>排卵计算结果显示</strong><span onClick="document.getElementById('Layer_Ovu').style.display='none'">关闭</span></div>
+<div class="srtext">
+<div class="srtextl" id="Calendar1"></div>
+<div class="srtextl" id="Calendar2"></div>
+<div class="srtextb clear"><span class="col1"></span><span>安全期</span><span class="col2"></span><span>排卵期</span><span class="col3"></span><span>月经期</span></div>
+</div></div></div></div>
+</div>
+</div>
+</div>
+<div class="dMain dMain_2 clear">
+<div class="dLeft dLeft_2">
+<div class="dHead_l">{dede:channelartlist typeid="7,7"}<strong><a href="{dede:field name='typeurl'/}" rel="nofollow" target="_blank">{dede:field name='typename'/}</a></strong>
+{/dede:channelartlist}
+</div>
+{dede:arclist flag='p' noflag='h' limit='0,1' orderby='pubdate'}<div class="dImg_1">
+<span class="sImg"><a href="[field:arcurl /]" target="_blank"><img src="[field:litpic/]" alt="[field:title /]"></a></span>
+<span class="sTitle"><a href="[field:arcurl /]" target="_blank">[field:title /]</a></span>
+<span class="sExp">[field:info function="cn_substr（@me,250）"/]...</span>
+</div>{/dede:arclist}
+<div class="dBox_4">
+<ul class="ulTextlist_5">
+{dede:arclist noflag='h' flag='c' row='1' orderby='pubdate' limit='0,1'}
+<li class="li_0"><a href="[field:arcurl /]" rel="nofollow" target="_blank">[field:title /]</a></li>
+{/dede:arclist}
+{dede:arclist noflag='h' flag='c' row='6' orderby='pubdate' limit='1,6'}
+<li><span class="sChannel"><a href="[field:typeurl/]" rel="nofollow" title="[field:fulltitle/]" >[field:typename/]</a></span>| <a href="[field:arcurl /]" target="_blank">[field:title /]</a></li>
+{/dede:arclist}
+</ul>
+</div>
+{dede:channelartlist row='6'}
+<div class="dBox_1{dede:global name=itemindex runphp='yes'}if(@me%2==0){@me=' dBox_1_1';}else{@me='';}{/dede:global}">
+<div class="dHead_1"><strong><a href="{dede:field name='typeurl'/}" target="_blank">{dede:field name='typename'/}</a></strong></div>
+<div class="dBody_1">
+<ul class="ulTextlist_6">
+{dede:arclist row='5' orderby='pubdate'}
+[field:global name='autoindex' runphp='yes']if(@me==1){@me='<li class="li_0">';}else{@me='<li>';}[/field:global]<a href="[field:arcurl /]" target="_blank">[field:title /]</a></li>
+{/dede:arclist}
+</ul>
+</div>
+</div>
+{/dede:channelartlist}
+</div>
+
+<div class="dRight dRight_2">
+<div class="dBox_r borB10">
+<div class="dHead_r"><strong>TAG标签</strong></div>
+
+<div class="dBody_r">
+<ul class="ulTextlist_3 ulTextlist_3_3">
+<li class="li_0">最新标签</li>
+{dede:tag row='30' sort='new'}<li><a href="[field:link/]" target="_blank">[field:tag /]</a></li>{/dede:tag}
+</ul>
+</div>
+</div>
+<div class="dBox_r">
+<div class="dHead_r"><strong>预产期计算工具</strong></div>
+<div class="dBody_r">
+<ul class="ulTools">
+<form name="health">
+<li>末次月经时间:<input name="year" value="" size="5" maxlength="4" class="inpTxt inpTxt_2 inpYear" id="year_1">年 <input name="month" value="" size="5" maxlength="2"  class="inpTxt inpTxt_1 inpMonth" id="month_1">月 <input name="day" value="" size="5" maxlength="2" class="inpTxt inpTxt_1 inpDay"  id="day_1">日</li>
+<li>平均月经周期:<select name="mweek" class="smax"><option value="3">3</option><option value="4" selected="selected">4</option><option value="5">5</option></select> 周</li>
+<li class="liBut"><input type="button" value="计 算" id="ycq" onMouseUp="document.getElementById('resultb').style.cssText='display:block;';"  class="inpBut inpBut_1"></li>
+</form>
+</ul>
+
+<div class="toolsr toolsr_2" id="resultb">
+<div class="srtitle"><strong>测试结果</strong><span onClick="document.getElementById('resultb').style.display='none'">关闭</span></div>
+<div class="srtext">
+<ul>
+<li>您的预产期是：<input readonly="readonly" id="yuchan" class="inpTxt inpTxt_3"></li>
+<li>您现在正处于孕期的第<input readonly="readonly" id="yuchan2" class="inpTxt inpTxt_1">周</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="dMain clear">
+<div class="dBox_5">
+<div class="dHead_1"><strong>友情链接</strong>联系QQ：88364809</div>
+<div class="dBody_1">
+{dede:flink row='24'}[field:link/]{/dede:flink}
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--底部开始-->
+{dede:include filename="footer.htm"/}
+<!--底部结束-->
+</body>
+</html>

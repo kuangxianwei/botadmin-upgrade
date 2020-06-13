@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<TITLE>{dede:field name="title"/}_{dede:global.cfg_titlelast/}</TITLE>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+<link rel="stylesheet" type="text/css" href="{dede:global.cfg_templets_skin/}/style/css/style.css" />
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jQuery1.7.2.js" ></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/dropdown.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/hd2.js"></script>
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="mn">
+  <div class="indexmn"> {dede:include filename="left.htm"/}
+	<div class="in5">
+	<div class="neir"><span>当前位置：{dede:field name='position'/}</span><strong>{dede:field name='typename'/}</strong></div>
+	<div class="inf01">
+		<h1>{dede:field name="title"/}</h1>
+		<div class="inf01a">作者： {dede:field name='writer' /} 来源： {dede:field name='source'/}  发布时间：{dede:field name='pubdate' function='GetDateMk(@me)'/}</div>
+		<div class="inf01b">{dede:field name='body'/}</div>
+文章《{dede:field.title/}》原创来自：<a href="{dede:global.cfg_basehost/}">{dede:global.cfg_indexname/}</a>
+<p></p><p>与《{dede:field.title/}》相关文章：</p>{dede:likearticle row='5' titlelen='70'}<p>➟<a href="[field:arcurl/]">[field:title/]></p>{/dede:likearticle}
+		<div class="inf01c">{dede:prenext get='pre'/} <br />
+		{dede:prenext get='next'/}</div>
+	</div>
+	</div>
+	<div style="clear:both"></div>
+  </div>
+</div>
+{dede:include filename="foot.htm"/}
+</body>
+</html>

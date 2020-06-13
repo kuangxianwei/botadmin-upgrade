@@ -1,0 +1,20 @@
+<div class="header">
+  <div class="wfix">
+    <div class="topNav align_r"> <a href="javascript:addBookmark()"> 收藏本站</a> | <a href="#">联系我们</a> </div>
+    <div class="topRight fr">
+      <div class="topTel"> 全国免费订购热线：<span>0371-69815717</span></div>
+    </div>
+    <div class="logo"><img src="{dede:global.cfg_templets_skin/}/images/logo.png" title="{dede:global.cfg_indexname/}" width="303" height="54" />
+      <h1 class="disBlock fw"><a href="{dede:global.cfg_cmsurl/}/" class="disBlock">{dede:global.cfg_indexname/}</a><span>{dede:global.cfg_titlelast/}</span></h1>
+    </div>
+    <div class="mainNav">
+      <ul class="clearfix">
+<li ><a href="{dede:global.cfg_cmsurl/}/" class="disBlock">网站首页</a></li>
+  {dede:channel type='top' row='10' currentstyle="<li><a href='~typelink~' ~rel~  class='disBlock'>~typename~</a></li>"}
+      	<li><a href='[field:typeurl/]' [field:rel/]  class='disBlock'>[field:typename/]</a></li>
+      	{/dede:channel}
+      </ul>
+    </div>
+    <div class="searchBar"> <span class="hotKeyWord">最新动向：{dede:global.cfg_webname/}</span> </div>
+  </div>
+</div>

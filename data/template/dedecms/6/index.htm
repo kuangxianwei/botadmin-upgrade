@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templets_skin/}/css/css.css" rel="stylesheet" type="text/css" />
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="con">
+  <div class="floor1">
+  <div class="left" style="width:360px;">
+    <div class="news">新闻资讯</div>
+      <div class="xwzx">
+        <ul>{dede:arclist row='7' titlelen='60' typeid='top'}
+        <li><a href="[field:arcurl/]">[field:title/]</a></li>{/dede:arclist}
+        </ul>
+      </div>
+    </div>
+    <div class="left">
+      <h3>{dede:global.cfg_titlelast/}简介</h3>
+      <div class="gsjj">{dede:global.cfg_about/}</div>
+    </div>
+    <div class="right">
+      <div class="news">联系我们</div>
+      <img src="{dede:global.cfg_templets_skin/}/images/wubb.jpg" width="200" height="124"  alt="健康宝宝"/>
+      <p> 公司名称：{dede:global.cfg_webname/}<br />
+邮箱:wuhanLaiya@126.com<br />
+服务：{dede:global.cfg_indexname/}
+      </p>
+    </div>
+  </div>
+  <div class="floortwo">
+    <div class="news">图文热点</div>
+    <div class="leftLoop">
+      <div class="bd">
+        <ul class="picList">{dede:arclist titlelen='160' typeid=top limit='0,4' type="image" orderby='rand' flag="c"}
+          <li>
+            <a href="[field:arcurl/]"><img src="[field:picname/]" width="140" height="118" border="0" /></a> <p class="title"><a href="[field:arcurl/]">[field:title /]</a></p> </li>{/dede:arclist}
+</ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+<p><b>友情链接：</b>{dede:flink row='24'}[field:link/]{/dede:flink}</p>
+    <p>版权信息 {dede:global.cfg_indexname/}提供的的文章均由本站原创，如要转载，请注明本站网址:{dede:global.cfg_basehost/}</p>
+  </div>
+</body></html>
