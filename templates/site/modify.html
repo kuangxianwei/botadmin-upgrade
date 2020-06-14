@@ -558,7 +558,8 @@
                     <fieldset class="layui-elem-field">
                         <legend>推送</legend>
                         <div class="layui-form-item">
-                            <label class="layui-form-label" lay-tips="api 别名 说明 一行一条 &#123;&#123;site&#125;&#125; 代表: http://www.nfivf.com &#123;&#123;host&#125;&#125; 代表: www.nfivf.com">推送设置</label>
+                            <label class="layui-form-label" lay-event="assign-push"
+                                   style="cursor:pointer;color:#01aaed;">填充默认</label>
                             <div class="layui-input-block">
                                 <textarea name="pushs" class="layui-textarea" rows="3">{{.pushs}}</textarea>
                             </div>
@@ -670,12 +671,21 @@
     </blockquote>
 </div>
 <script>
-    layui.use(['main', 'form'], function () {
+    layui.use(['main', 'form', 'layer'], function () {
         var $ = layui.$,
             form = layui.form,
+            layer = layui.layer,
             main = layui.main,
             //获取模板目录名称
             tplName = $('select[name=tpl_name]').val();
+        $('[lay-event=assign-push]').click(function () {
+            $.get('/site/default/push', function (res) {
+                if (res.length === 0) {
+                    layer.msg('默认数据为空');
+                }
+                $('textarea[name=pushs]').val(res);
+            });
+        });
         //改变模板目录列表
         form.on('select(system)', function (obj) {
             var tplurl = '/site/tpl?system=' + obj.value;
