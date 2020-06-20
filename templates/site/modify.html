@@ -94,12 +94,12 @@
                         <label class="layui-form-label">状态:</label>
                         <div class="layui-input-inline">
                             <select name="status">
-                                {{range .site_status}}
-                                    <option value="{{.}}"{{if eq $.obj.Status .}} selected{{end}}>{{.}}</option>
+                                {{range $i,$v:=.status}}
+                                    <option value="{{$i}}"{{if eq $.obj.Status $i}} selected{{end}}>{{$v}}</option>
                                 {{end}}
                             </select>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">旧站 表示搬过来的站</div>
+                        <div class="layui-form-mid layui-word-aux">外部站只允许发布文章</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">备注信息:</label>

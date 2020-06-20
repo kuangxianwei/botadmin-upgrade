@@ -83,6 +83,7 @@
                 {field: 'password', title: '密码', align: 'center'},
                 {field: 'dbname', title: '数据库名', align: 'center'},
                 {field: 'charset', title: '编码', align: 'center', width: 66},
+                {field: 'prefix', title: '前缀', hide: true},
                 {field: 'host', title: '访问地址', align: 'center', width: 90},
                 {field: 'site_id', title: '绑定站点', align: 'center'},
                 {field: 'updated', title: '时间', align: 'center', sort: true},
@@ -115,6 +116,7 @@
                         main.popup({
                             title: '修改MySQL',
                             content: html,
+                            area: ['400px', '90%'],
                             url: url + '/modify',
                             ending: 'table-list',
                         });
@@ -131,6 +133,7 @@
                         main.popup({
                             title: '创建数据库',
                             content: html,
+                            area: ['50%', '80%'],
                             url: url + '/add',
                             ending: 'table-list',
                         });

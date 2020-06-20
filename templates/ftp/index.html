@@ -106,6 +106,7 @@
                         main.popup({
                             title: '添加FTP',
                             url: url + '/add',
+                            area: ['70%', '80%'],
                             content: html,
                             ending: 'table-list',
                         });
@@ -118,7 +119,7 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        var ids =  Array();
+                        var ids = Array();
                         for (var i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }

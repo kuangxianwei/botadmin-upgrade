@@ -21,19 +21,25 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">数据库名:</label>
-            <input type="text" name="dbname" value="{{.obj.Dbname}}" class="layui-input" disabled>
+            <div class="layui-input-inline">
+                <input type="text" name="dbname" value="{{.obj.Dbname}}" class="layui-input" disabled>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">数据库编码:</label>
-            <input type="text" name="charset" value="{{.obj.Charset}}" class="layui-input" disabled>
+            <div class="layui-input-inline">
+                <input type="text" name="charset" value="{{.obj.Charset}}" class="layui-input" disabled>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">主机名:</label>
-            <input type="text" name="host" value="{{.obj.Host}}" class="layui-input" disabled>
+            <div class="layui-input-inline">
+                <input type="text" name="host" value="{{.obj.Host}}" class="layui-input" disabled>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">备注:</label>
-            <div class="layui-input-inline">
+            <div class="layui-input-block">
                 <input type="text" name="note" value="{{.obj.Note}}" class="layui-input">
             </div>
         </div>

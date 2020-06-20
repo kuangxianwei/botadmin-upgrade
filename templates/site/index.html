@@ -11,9 +11,9 @@
                 <label class="layui-form-label">状态</label>
                 <div class="layui-input-inline">
                     <select name="status">
-                        <option value="">无</option>
-                        {{range .status -}}
-                            <option value="{{.}}">{{.}}</option>
+                        <option value="-1">无</option>
+                        {{range $i,$v:=.status -}}
+                            <option value="{{$i}}">{{$v}}</option>
                         {{end -}}
                     </select>
                 </div>
@@ -29,6 +29,34 @@
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
+<div class="layui-hide" id="import"></div>
+<script type="text/html" id="import-form">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="status" lay-skin="switch" lay-text="外站|保持" checked>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">MySQL:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="sql" lay-skin="switch" lay-text="外站|保持" checked>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">FTP:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="ftp" lay-skin="switch" lay-text="外站|保持" checked>
+                </div>
+            </div>
+            <div class="layui-form-item layui-hide">
+                <button lay-submit lay-filter="submit-import"></button>
+            </div>
+        </div>
+    </div>
+</script>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
         <div class="layui-btn-group">
@@ -77,6 +105,12 @@
                 <i class="layui-icon layui-icon-release"></i>发布文章
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="jobs" lay-tips="查看运行中的任务">任务
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出配置">
+                <i class="layui-icon layui-icon-export"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="import" lay-tips="导入配置">
+                <i class="layui-icon layui-icon-upload"></i>
             </button>
         </div>
     </div>
@@ -131,16 +165,36 @@
     }).extend({
         index: 'lib/index', //主入口模块
         main: 'main'
-    }).use(['index', 'table', 'main', 'slider'], function () {
+    }).use(['index', 'table', 'upload', 'main', 'slider'], function () {
         var $ = layui.$,
             form = layui.form,
             table = layui.table,
+            upload = layui.upload,
             element = layui.element,
             main = layui.main,
             url = {{.current_uri}},
             sql_url = '/sql',
-            ftp_url = '/ftp';
-
+            ftp_url = '/ftp',
+            //渲染上传配置
+            importCinfig = upload.render({
+                headers: {'X-CSRF-Token':{{.csrf_token}}},
+                elem: '#import',
+                url: '/site/import',
+                accept: 'file',
+                exts: 'txt|conf|json',
+                before: function (obj) {
+                    layer.load(); //上传loading
+                },
+                done: function (res, index, upload) {
+                    layer.closeAll('loading'); //关闭loading
+                    if (res.code === 0) {
+                        layer.msg(res.msg);
+                        table.reload('table-list');
+                    } else {
+                        layer.alert(res.msg, {icon: 2});
+                    }
+                },
+            });
         //列表管理
         table.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},
@@ -155,10 +209,29 @@
                     field: 'vhost', title: '主域名',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold',
                     templet: function (d) {
+                        if (d.status === 4) {
+                            return d.vhost;
+                        }
                         return '<a lay-href="/file?path=' + d.vhost_dir + '" style="color:#01aaed">' + d.vhost + '</a>';
                     }
                 },
-                {field: 'status', title: '状态', sort: true, width: 100},
+                {
+                    field: 'status', title: '状态', sort: true, width: 100, templet: function (d) {
+                        switch (d.status) {
+                            case 0:
+                                return '准备就绪';
+                            case 1:
+                                return '创建完成';
+                            case 2:
+                                return '安装完成';
+                            case 3:
+                                return '本地-正常';
+                            case 4:
+                                return '外部-正常';
+                        }
+                        return '未知';
+                    }
+                },
                 {
                     field: 'ftp_id', width: 80, title: 'FTP', align: 'center', event: 'ftp',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold'
@@ -200,11 +273,15 @@
                 {field: 'updated', title: '时间', sort: true, hide: true},
                 {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
+            where: {status: -1},
             page: true,
             limit: 10,
             limits: [10, 15, 20, 25, 30, 1000],
-            text: '对不起，加载出现异常！'
+            text: '对不起，加载出现异常！',
         });
+        form.on('submit(submit-import)', function (obj) {
+            console.log(obj);
+        })
 
         //监听工具条
         table.on('tool(table-list)', function (obj) {
@@ -263,6 +340,10 @@
                     });
                     break;
                 case "ftp":
+                    if (data.status === 4) {
+                        layer.msg("外部网站不允许编辑FTP");
+                        return false;
+                    }
                     $.get(ftp_url + '/relationship',
                         {'id': data.ftp_id, 'site_id': data.id, 'username': data.vhost},
                         function (html) {
@@ -277,6 +358,10 @@
                         });
                     break;
                 case "sql":
+                    if (data.status === 4) {
+                        layer.msg("外部网站不允许编辑数据库");
+                        return false;
+                    }
                     $.get(sql_url + '/relationship',
                         {'id': data.sql_id, 'site_id': data.id, 'username': data.vhost},
                         function (html) {
@@ -538,8 +623,40 @@
                     main.req({
                         url: url + '/jobs',
                         tips: {},
-                        ending: '-',
                     });
+                    break;
+                case 'export':
+                    var ids = Array();
+                    for (var i = 0; i < data.length; i++) {
+                        ids[i] = data[i].id
+                    }
+                    window.open(encodeURI('site/export?ids=' + ids.join()));
+                    break;
+                case 'import':
+                    layer.open({
+                        type: 1,
+                        title: "导入配置",
+                        btn: ['提交', '取消'],
+                        shadeClose: true,
+                        scrollbar: false,
+                        shade: 0.8,
+                        fixed: false,
+                        maxmin: true,
+                        btnAlign: 'c',
+                        content: $('#import-form').html(),
+                        yes: function (index, dom) {
+                            dom.find('.layui-form button[lay-submit]button[lay-filter=submit-import]').click();
+                            layer.close(index);
+                        },
+                        success: function (dom, index) {
+                            form.on('submit(submit-import)', function (obj) {
+                                importCinfig.reload({data: obj.field});
+                                $('#import').click();
+                                return false;
+                            });
+                        }
+                    });
+                    form.render();
                     break;
             }
         });
