@@ -67,18 +67,18 @@
                 <i class="layui-icon layui-icon-add-1"></i>
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="batchadd" lay-tips="批量添加网站">
-                <i class="layui-icon layui-icon-add-1"></i>Batch
+                <i class="layui-icon iconfont icon-batchadd"></i>
             </button>
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" lay-event="found" lay-tips="创建选中的网站程序并且生成nginx配置文件">
-                <i class="layui-icon layui-icon-website"></i>建站
+                <i class="layui-icon layui-icon-website"></i>
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="install" lay-tips="安装已选中并且已经创建完成的网站">
-                <i class="layui-icon layui-icon-chart-screen"></i>安装
+                <i class="layui-icon iconfont icon-install"></i>
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="setup" lay-tips="按配置信息，设置网站后台信息">
-                <i class="layui-icon layui-icon-set"></i>配置
+                <i class="layui-icon layui-icon-set"></i>
             </button>
         </div>
         <div class="layui-btn-group">
@@ -102,15 +102,16 @@
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" lay-event="publish" lay-tips="选中的网站发布文章">
-                <i class="layui-icon layui-icon-release"></i>发布文章
+                <i class="layui-icon layui-icon-release"></i>
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="jobs" lay-tips="查看运行中的任务">任务
+            <button class="layui-btn layui-btn-sm" lay-event="jobs" lay-tips="查看运行中的任务">
+                <i class="layui-icon iconfont icon-work"></i>
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出配置">
-                <i class="layui-icon layui-icon-export"></i>
+                <i class="layui-icon iconfont icon-export"></i>
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="import" lay-tips="导入配置">
-                <i class="layui-icon layui-icon-upload"></i>
+                <i class="layui-icon iconfont icon-import"></i>
             </button>
         </div>
     </div>
@@ -245,21 +246,21 @@
                     field: 'web_user', title: 'User', align: 'center', event: 'clipboard',
                     style: 'cursor:pointer;color:#01aaed;',
                     templet: function (d) {
-                        return '<a href="javscript:;" lay-tips="点击复制用户名到粘贴板" data-clipboard-text="' + d.web_user + '"><i class="layui-icon layui-icon-file-b"></i></a>';
+                        return '<a href="javscript:;" lay-tips="点击复制用户名到粘贴板" data-clipboard-text="' + d.web_user + '"><i class="layui-icon iconfont icon-copy"></i></a>';
                     }, width: 80
                 },
                 {
                     field: 'web_pwd', title: 'Pwd', align: 'center', event: 'clipboard',
                     style: 'cursor:pointer;color:#01aaed;',
                     templet: function (d) {
-                        return '<a href="javscript:;" lay-tips="点击复制登录密码到粘贴板" data-clipboard-text="' + d.web_pwd + '"><i class="layui-icon layui-icon-file-b"></i></a>';
+                        return '<a href="javscript:;" lay-tips="点击复制登录密码到粘贴板" data-clipboard-text="' + d.web_pwd + '"><i class="layui-icon iconfont icon-copy"></i></a>';
                     }, width: 80
                 },
                 {
                     field: 'auth_code', title: 'Auth', align: 'center', event: 'clipboard',
                     style: 'cursor:pointer;color:#01aaed;',
                     templet: function (d) {
-                        return '<a href="javscript:;" lay-tips="点击复制认证码到粘贴板" data-clipboard-text="' + d.auth_code + '"><i class="layui-icon layui-icon-file-b"></i></a>';
+                        return '<a href="javscript:;" lay-tips="点击复制认证码到粘贴板" data-clipboard-text="' + d.auth_code + '"><i class="layui-icon iconfont icon-copy"></i></a>';
                     }, width: 80
                 },
                 {
@@ -636,7 +637,7 @@
                     layer.open({
                         type: 1,
                         title: "导入配置",
-                        btn: ['提交', '取消'],
+                        btn: ['导入', '取消'],
                         shadeClose: true,
                         scrollbar: false,
                         shade: 0.8,

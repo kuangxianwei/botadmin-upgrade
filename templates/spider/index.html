@@ -50,6 +50,22 @@
         </div>
     </div>
 </div>
+<div class="layui-hide" id="import"></div>
+<script type="text/html" id="import-form">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">保留绑定:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="site_id" lay-skin="switch" lay-text="是|否">
+                </div>
+            </div>
+            <div class="layui-form-item layui-hide">
+                <button lay-submit lay-filter="submit-import"></button>
+            </div>
+        </div>
+    </div>
+</script>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
         <div class="layui-btn-group">
@@ -73,9 +89,18 @@
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" lay-event="syncCron" lay-tips="同步定时任务">
-                <i class="layui-icon layui-icon-refresh"></i>Cron
+                <i class="layui-icon iconfont icon-cron"></i>
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="jobs" lay-tips="查看运行中的任务">任务
+            <button class="layui-btn layui-btn-sm" lay-event="jobs" lay-tips="查看运行中的任务">
+                <i class="layui-icon iconfont icon-work"></i>
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
+                <i class="layui-icon iconfont icon-export"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入配置">
+                <i class="layui-icon iconfont icon-import"></i>
             </button>
         </div>
     </div>
@@ -90,7 +115,7 @@
     </div>
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs" lay-event="copy" lay-tips="复制规则">
-            <i class="layui-icon layui-icon-file-b"></i>
+            <i class="layui-icon iconfont icon-copy"></i>
         </button>
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
@@ -125,11 +150,32 @@
         index: 'lib/index', //主入口模块
         main: 'main',
         step: 'step',
-    }).use(['index', 'form', 'table', 'main'], function () {
+    }).use(['index', 'form', 'table', 'upload', 'main'], function () {
         var $ = layui.$,
             form = layui.form,
             table = layui.table,
-            main = layui.main;
+            upload = layui.upload,
+            main = layui.main,
+            //渲染上传配置
+            importCinfig = upload.render({
+                headers: {'X-CSRF-Token':{{.csrf_token}}},
+                elem: '#import',
+                url: '/spider/import',
+                accept: 'file',
+                exts: 'txt|conf|json',
+                before: function (obj) {
+                    layer.load(); //上传loading
+                },
+                done: function (res, index, upload) {
+                    layer.closeAll('loading'); //关闭loading
+                    if (res.code === 0) {
+                        layer.msg(res.msg);
+                        table.reload('table-list');
+                    } else {
+                        layer.alert(res.msg, {icon: 2});
+                    }
+                },
+            });
         table.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},
             method: 'post',
@@ -336,6 +382,35 @@
                         tips: {},
                         ending: '-',
                     });
+                    break;
+                case 'export':
+                    window.open(encodeURI('spider/export?ids=' + ids.join()));
+                    break;
+                case 'import':
+                    layer.open({
+                        type: 1,
+                        title: "导入配置",
+                        btn: ['导入', '取消'],
+                        shadeClose: true,
+                        scrollbar: false,
+                        shade: 0.8,
+                        fixed: false,
+                        maxmin: true,
+                        btnAlign: 'c',
+                        content: $('#import-form').html(),
+                        yes: function (index, dom) {
+                            dom.find('.layui-form button[lay-submit]button[lay-filter=submit-import]').click();
+                            layer.close(index);
+                        },
+                        success: function (dom, index) {
+                            form.on('submit(submit-import)', function (obj) {
+                                importCinfig.reload({data: obj.field});
+                                $('#import').click();
+                                return false;
+                            });
+                        }
+                    });
+                    form.render();
                     break;
             }
         });
