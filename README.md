@@ -1,2 +1,3 @@
-版本号为 v1.0.6
-
+# BotAdmin
+## BotAdmin 升级版
+# v1.0.7
