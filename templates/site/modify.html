@@ -561,7 +561,7 @@
                             <label class="layui-form-label" lay-event="assign-push"
                                    style="cursor:pointer;color:#01aaed;">填充默认</label>
                             <div class="layui-input-block">
-                                <textarea name="pushs" class="layui-textarea" rows="3">{{.pushs}}</textarea>
+                                <textarea name="push_config" class="layui-textarea" rows="3">{{.push_config}}</textarea>
                             </div>
                         </div>
                     </fieldset>
@@ -683,7 +683,7 @@
                 if (res.length === 0) {
                     layer.msg('默认数据为空');
                 }
-                $('textarea[name=pushs]').val(res);
+                $('textarea[name=push_config]').val(res);
             });
         });
         //改变模板目录列表
