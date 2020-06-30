@@ -1,0 +1,51 @@
+<div class="head">
+  <div class="logo"><a href="{dede:global.cfg_indexurl/}"><img src="{dede:global.cfg_templets_skin/}/static/images/logo.jpg" /></a></div>
+  <div class="topbox">
+	<div class="topadd"> <a href="javascript:setHomepage(this)">设为首页</a> | <a href="javascript:addFavourite();">加入收藏</a> </a> </div>
+	<div class="toptel"></div>
+	<div class="tophot">24小时咨询热线:{dede:global.cfg_tel/}</div>
+  </div>
+  <div class="nav">
+	<ul>
+	<li><a href="{dede:global.cfg_indexurl/}" class="index">{dede:global.cfg_indexname/}</a></li>
+	{dede:channel type='top' row='8'}
+	<li><a href="[field:typelink/]">[field:typename/]</a></li>
+	{/dede:channel}
+	</ul>
+  </div>
+</div>
+<div class="cl10"></div>
+<div id="flash-box">
+  <div id="flash">
+	<script language='javascript'>
+		linkarr = new Array();
+		picarr = new Array();
+		textarr = new Array();
+		var swf_width=1002;
+		var swf_height=270;
+		//文字颜色|文字位置|文字背景颜色|文字背景透明度|按键文字颜色|按键默认颜色|按键当前颜色|自动播放时间|图片过渡效果|是否显示按钮|打开方式
+		var configtg='0xffffff||0x3FA61F|5|0xffffff|0x3772B4|0x000033|2|3|1|_blank';
+		var files = "";
+		var links = "";
+		var texts = "";
+		//这里设置调用标记
+		{dede:arclist typeid='21' addfields='addlink' channelid='' row='5'}
+		linkarr[[field:global.autoindex/]] = "[field:addlink/]";
+		picarr[[field:global.autoindex/]]  = "[field:litpic/]";
+		{/dede:arclist}
+		for(i=1;i<picarr.length;i++){
+		if(files=="") files = picarr[i];
+		else files += "|"+picarr[i];
+		}
+		for(i=1;i<linkarr.length;i++){
+		if(links=="") links = linkarr[i];
+		else links += "|"+linkarr[i];
+		}
+		document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="'+ swf_width +'" height="'+ swf_height +'">');
+		document.write('<param name="movie" value="{dede:global.cfg_templeturl /}/default/images/bcastr3.swf"><param name="quality" value="high">');
+		document.write('<param name="menu" value="false"><param name=wmode value="opaque">');
+		document.write('<param name="FlashVars" value="bcastr_file='+files+'&bcastr_link='+links+'&bcastr_title='+texts+'&bcastr_config='+configtg+'">');
+		document.write('<embed src="{dede:global.cfg_templeturl /}/default/images/bcastr3.swf" wmode="opaque" FlashVars="bcastr_file='+files+'&bcastr_link='+links+'&bcastr_title='+texts+'&bcastr_config='+configtg+'&menu="false" quality="high" width="'+ swf_width +'" height="'+ swf_height +'" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />'); document.write('</object>');
+		</script>
+  </div>
+</div>

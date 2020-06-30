@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TAG_{dede:global.cfg_titlelast/}</title>
+<link href="{dede:global.cfg_templets_skin/}/css/common.css" rel="stylesheet" type="text/css" />
+</head>
+<body name="list">
+<div id="wrap">
+<!--头部开始-->
+{dede:include filename="head.htm"/}
+<!--头部结束-->
+<div id="main">
+<!--城市开始-->
+{dede:include filename="city.htm"/}
+<!--城市结束-->
+<div class="dMain clear">
+<div class="dLeft">
+<div class="dPosition"><h1 class="h1List">{dede:field.title/}</h1>您当前的位置:<a href="{dede:global.cfg_cmsurl/}/">主页</a> &gt; <a href='tags.php'>TAG标签</a> &gt; {dede:field.title /}</div>
+<div class="dShare"></div>
+<ul class="ulTextlist_2">
+{dede:list orderby='sortrank' pagesize='10'}
+<li>[field:array runphp='yes']@me = (strpos(@me['litpic'],'defaultpic') ? "" : "<a href='{@me['arcurl']}' title='{@me['title']}' class='preview'><img src='{@me['litpic']}' alt='{@me['title']}' height=\"100\" width=\"100\" align='left'/></a>"); [/field:array]
+<em>[[field:typelink/]]</em>
+<a href="[field:arcurl/]" title="[field:title/]" target="_blank"><b>[field:title/]</b></a> <span>([field:pubdate function="GetDateTimeMK(@me)"/])</span>
+<p class="intro">[field:description/]...</p>
+</li>
+{/dede:list}
+</ul>
+<div class="dPages">{dede:pagelist listitem="info,index,end,pre,next,pageno,option" listsize="5"/}</div>
+</div>
+<div class="dRight">
+<div class="dBox_r borB10">
+{dede:channelartlist typeid ='4,4'}
+<div class="dHead_r"><strong><a href="{dede:field name='typeurl'/}" rel="nofollow" target="_blank">怀孕工具</a></strong>|TOOLS</div>
+<div class="dBody_r">
+<ul class="ulList_3 clear">
+{dede:arclist orderby='id' row='10' orderway='asc'}
+<li class="li_[field:global.autoindex/]"><a href="[field:arcurl /]" rel="nofollow" target="_blank">[field:title /]</a></li>
+{/dede:arclist}
+</ul>
+</div>
+{/dede:channelartlist}
+</div>
+<div class="dBox_r">
+<div class="dHead_r"><strong>推荐文章</strong></div>
+<div class="dBody_r">
+<ul class="ulTextlist_3">
+{dede:arclist orderby='rand' row='5'}
+<li><a href="[field:arcurl /]" target="_blank">[field:title /]</a></li>
+{/dede:arclist}
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--底部开始-->
+{dede:include filename="footer.htm"/}
+<!--底部结束-->
+</body>
+</html>

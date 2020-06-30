@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/style/style.css" rel="stylesheet" media="screen" type="text/css" />
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="fwmain">
+        <div class="fwmain_nleft edit_putHere" id="edit_putHere_area1" saveTitle="area1">
+            <div class="label clear fwtop_nav6" id="597" rel="597" titles="竖形分类菜单">
+    <div class="label_head">
+        <div class="label_title">最新文章</div>
+    </div>
+    <div class="label_content">
+    {dede:arclist titlelen='42' row='8' typeid='1' }
+    <li class="wenzhang">
+    <a href="[field:arcurl /]" title="[field:title /]">[field:title /]</a>
+    </li>
+    {/dede:arclist}
+    </div>
+    <div class="label_foot"></div>
+</div>
+<div class="label clear" id="599" rel="599" titles="自定义内容">
+    <div class="label_head">
+        <div class="label_title">联系我们</div>
+    </div>
+    <div class="label_content" style="height:90px;">
+        <div class="about_con clearfix">
+        <!--{dede:global.cfg_lxfs/}--->
+        地 址：{dede:global.cfg_city/}市石化路63号<br />
+        电 话：18137502575<br />
+        Q   Q：723272800<br />
+        </div>
+    </div>
+    <div class="label_foot"></div>
+</div>
+        </div>
+        <div class="fwmain_nright edit_putHere" id="edit_putHere_area2" saveTitle="area2">
+            <div class="label clear" id="608" rel="608" titles="文章列表">
+    <div class="label_head">
+    <div class="label_title"><span>{dede:field name='position'/}</span>{dede:field.typename/}</div>
+    </div>
+    <div class="label_content">
+        <div class="item_list id608">
+            <ul class="clearfix" id="articlelist608">
+                {dede:list pagesize='10'}
+  <li><a href="[field:arcurl/]">[field:title/]</a><span class="datetime">[field:pubdate function=MyDate('Y-m-d',@me)/]</span></li>
+{/dede:list}
+            </ul>
+        </div>
+    </div>
+    <div class="dai">{dede:pagelist listitem="info,index,end,pre,next,pageno,option" listsize="5"/}</div>
+    <div class="label_foot"></div>
+</div>
+        </div>
+        <div class="clear"></div>
+    </div>
+{dede:include filename="footer.htm"/}
+</body>
+</html>

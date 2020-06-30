@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templets_skin/}/skin/css/css.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/skin/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/skin/js/jquery.jslides.js"></script>
+<!-- sdftjx.cn Baidu tongji analytics -->
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<!-- /header -->
+<div class="mad1"></div>
+<div class="mid ingsjj">
+  <div class="ings">
+    <div class="injjnr"><img src="{dede:global.cfg_templets_skin/}/skin/images/gsz.jpg" width="366" height="252" /><span class="dattt">关于{dede:global.cfg_indexname/}</span>{dede:global.cfg_about/}
+    <br />
+</div>
+  </div>
+</div>
+<div class="mid cpgs">
+  <ul class="yyl">
+    {dede:arclist row='5' titlelen='24' orderby='pubdate' typeid='1'}
+    <li><a href="[field:arcurl/]"><img src="[field:litpic/]"  alt="[field:title function='html2text(@me)'/]"/>[field:title/]</a></li>
+    {/dede:arclist}
+  </ul>
+</div>
+<div class="clear"></div>
+<div class="xinlink">
+  <div class="clear"></div>
+  <div class="mid indnews">
+    <div class="innewsfl fl">
+    <div class="datitle2">{dede:type typeid='2'} <a href="[field:typelink/]"><img src="[field:global.cfg_templets_skin/]/skin/images/news.jpg" width="283" height="45" /></a>{/dede:type} </div>
+    <ul class="inul">
+        {dede:arclist row='6' titlelen='52' orderby='pubdate' typeid='2'}
+        <li>[field:textlink/]</li>
+        {/dede:arclist}
+    </ul>
+    </div>
+    <div class="innewsfl fl">
+    <div class="datitle2">{dede:type typeid='3'} <a href="[field:typelink/]"><img src="[field:global.cfg_templets_skin/]/skin/images/gszx.jpg" width="283" height="45" /></a>{/dede:type} </div>
+    <ul class="inul">
+        {dede:arclist row='6' titlelen='52' orderby='pubdate' typeid='3'}
+        <li>[field:textlink/]</li>
+        {/dede:arclist}
+    </ul>
+    </div>
+    <div class="ijswd fr">
+    <div class="datitle2">{dede:type typeid='4'} <a href="[field:typelink/]"><img src="[field:global.cfg_templets_skin/]/skin/images/fq.jpg" width="283" height="45" /></a>{/dede:type} </div>
+    <ul class="inwen">
+        {dede:arclist row='2' titlelen='36' orderby='pubdate' typeid='4'}
+        <li>
+        <div class="wen"><a href="[field:arcurl/]" class="title">[field:title/]...</a></div>
+        <div class="da">[field:info function= cn_substr(@me,100) /]...</div>
+        </li>
+        {/dede:arclist}
+    </ul>
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="mid links"><img src="{dede:global.cfg_templets_skin/}/skin/images/link.jpg" width="945" height="57" /><br />
+{dede:flink row='24'}[field:link/] {/dede:flink}
+    </div>
+  <div class="clear"></div>
+</div>
+{dede:include filename="footer.htm"/}
+<!-- /footer -->
+</body>
+</html>

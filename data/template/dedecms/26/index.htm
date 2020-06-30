@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templets_skin/}/images/css.css" rel="stylesheet" type="text/css">
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+	<div class="mainbody">
+    <div>
+        <div class="banner left">
+            <img src="{dede:global.cfg_templets_skin/}/images/12.jpg">
+        </div>
+        <div class="blank10"></div>
+        <div class="clear"></div>
+        <div class="indexcon_box indexw_2 left">
+            <div class="title yahei"><span class="fs16">关于{dede:global.cfg_indexname/}</span></div>
+            <div class="about_box yahei">
+                <div class="left"><img src="{dede:global.cfg_templets_skin/}/images/about_pt.jpg" width="180"></div>
+{dede:global.cfg_about/}
+                <div class="clear"></div>
+            </div>
+        </div>
+<div class="con_boxjg indexw_1 right">
+{dede:channel type='top' row='1'}<div class="title yahei"><span class="fs16">[field:typename/]</span></div>{/dede:channel}
+            <div class="contact_box yahei fs14">
+{dede:arclist row='8' flag='h,c,a,p'}
+<li><a href='[field:arcurl/]'>[field:title/]</a></li>
+{/dede:arclist}
+</div>
+        </div>
+        <div class="blank10"></div>
+        <div class="indexcon_box w_3">
+            <div class="title yahei"><a style="color: #000;" href="/" class="right">MORE+</a><span class="fs16">案例展示</span></div>
+            <div class="product_list">
+                <div id="demo" style="overflow:hidden;width:950px; margin-left:10px;" align="center">
+                    <table cellspace="0" align="center" border="0" cellpadding="1" cellspacing="1">
+                        <tbody>
+<tr>
+
+<td id="marquePic1" bgcolor="ffffff" valign="top">
+<table border="0" cellspacing="0" width="100%">
+<tbody>
+<tr>
+{dede:arclist row='8' type='images.'}
+<td align="center">
+<dl>
+<dt><a href="[field:arcurl/]" title="[field:title/]"><img src="[field:litpic/]" alt="[field:title/]" width="160"></a></dt>
+<dd><a href="[field:arcurl/]">[field:title/]</a></dd>
+</dl>
+</td>
+{/dede:arclist}
+</tbody>
+</table>
+</td>                         
+</tr>
+</tbody>
+</table>
+                </div>
+                <script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/zaza.js"></script>
+            </div>
+        </div>
+        <div class="blank10"></div>
+    </div>
+</div>
+<div class="blank20"></div>
+
+{dede:include filename="footer.htm"/}
+</body>
+</html>
