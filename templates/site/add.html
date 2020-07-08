@@ -14,6 +14,14 @@
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-item">
+                        <div class="layui-row">
+                            <div class="layui-col-sm6">
+                            </div>
+                            <div class="layui-col-sm5">
+                            </div>
+                        </div>
+
+
                         <div class="layui-inline" lay-tips="选择网站程序类型">
                             <label class="layui-form-label">网站类型:</label>
                             <div class="layui-input-block">
@@ -113,18 +121,22 @@
                     <fieldset class="layui-elem-field">
                         <legend>后台登录</legend>
                         <div class="layui-form-item">
-                            <div class="layui-inline" lay-tips="由3-15个字母或数字组成">
-                                <label class="layui-form-label">用户名:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="web_user" autocomplete="off" class="layui-input"
-                                           placeholder="3-15个字符">
+                            <div class="layui-row">
+                                <div class="layui-col-sm6">
+                                    <label class="layui-form-label"
+                                           lay-tips="由3-15个字母或数字组成">用户名:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="web_user" autocomplete="off" class="layui-input"
+                                               placeholder="3-15个字符">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-inline" lay-tips="由6-15个字符组成">
-                                <label class="layui-form-label">密码:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="web_pwd" autocomplete="off" class="layui-input"
-                                           placeholder="6-15个字符">
+                                <div class="layui-col-sm5">
+                                    <label class="layui-form-label"
+                                           lay-tips="由6-15个字符组成">密码:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="web_pwd" autocomplete="off" class="layui-input"
+                                               placeholder="6-15个字符">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -132,43 +144,63 @@
                     <fieldset class="layui-elem-field">
                         <legend>后台设置</legend>
                         <div class="layui-form-item">
-                            <div class="layui-inline" lay-tips="主标题，如:广州南方39助孕网">
-                                <label class="layui-form-label">首页标题:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="title" autocomplete="off" class="layui-input"
-                                           placeholder="广州南方39助孕网">
+                            <div class="layui-row layui-col-space10">
+                                <div class="layui-col-sm5">
+                                    <label class="layui-form-label" lay-tips="主标题，如:广州南方39助孕网">首页标题:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" autocomplete="off" class="layui-input"
+                                               placeholder="广州南方39助孕网">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-inline" lay-tips="每个网页的标题后缀 如:南方39助孕网">
-                                <label class="layui-form-label">副标题:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="title_suffix" autocomplete="off" class="layui-input"
-                                           placeholder="39助孕网">
+                                <div class="layui-col-sm1">
+                                    <button class="layui-btn layui-btn-radius" lay-event="valid-title">验证合规</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline" lay-tips="多个关键词用英文逗号,隔开">
-                                <label class="layui-form-label">关键词:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="keywords" autocomplete="off" class="layui-input"
-                                           placeholder="关键词1,关键词2">
+                                <div class="layui-col-sm4">
+                                    <label class="layui-form-label" lay-tips="每个网页的标题后缀 如:南方39助孕网">副标题:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title_suffix" autocomplete="off" class="layui-input"
+                                               placeholder="39助孕网">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-inline" lay-tips="多个Tag用英文逗号,隔开">
-                                <label class="layui-form-label">Tags:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="tags" autocomplete="off" class="layui-input"
-                                           placeholder="Tag1,tag2">
+                                <div class="layui-col-sm1">
+                                    <button class="layui-btn layui-btn-radius" lay-event="valid-title-suffix">验证合规
+                                    </button>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">描述:</label>
-                            <div class="layui-input-inline" style="width: 80%;" lay-tips="用80-120个字符描述网站">
-                                <input type="text" name="description" autocomplete="off" class="layui-input"
-                                       placeholder="网站描述">
+                            <div class="layui-row">
+                                <div class="layui-col-sm6">
+                                    <label class="layui-form-label" lay-tips="多个关键词用英文逗号,隔开">关键词:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="keywords" autocomplete="off" class="layui-input"
+                                               placeholder="关键词1,关键词2">
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm5">
+                                    <label class="layui-form-label" lay-tips="多个Tag用英文逗号,隔开">Tags:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="tags" autocomplete="off" class="layui-input"
+                                               placeholder="Tag1,tag2">
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-row layui-col-space10">
+                                <div class="layui-col-sm10">
+                                    <label class="layui-form-label" lay-tips="用80-120个字符描述网站">描述:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="description" autocomplete="off" class="layui-input"
+                                               placeholder="网站描述">
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm1">
+                                    <button class="layui-btn layui-btn-radius" lay-event="valid-description">验证合规
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label"
@@ -188,58 +220,72 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <div class="layui-inline" lay-tips="网站后台登录认证码 15个字母或数字组成">
-                                <label class="layui-form-label">认证码:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="auth_code" class="layui-input" value="{{.obj.AuthCode}}">
+                            <div class="layui-row">
+                                <div class="layui-col-sm6">
+                                    <label class="layui-form-label" lay-tips="网站后台登录认证码 15个字母或数字组成">认证码:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="auth_code" class="layui-input"
+                                               value="{{.obj.AuthCode}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-inline" lay-tips="网站后台登录目录名称">
-                                <label class="layui-form-label">后台目录:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="admin_dir" class="layui-input" value="{{.obj.AdminDir}}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label" lay-tips="一般栏目数量设置不超过10个">栏目数量:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="class_num" class="layui-input" value="{{.obj.ClassNum}}">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label" lay-tips="选择城市必须是实际存在的">城市:</label>
-                                <div class="layui-input-inline">
-                                    <select name="city" lay-search>
-                                        <option value="">直接选择或搜索选择</option>
-                                        {{range .citys -}}
-                                            <option value="{{.}}">{{.}}</option>
-                                        {{end -}}
-                                        <option value="random"{{if .obj.CityEnabled}} selected{{end}}>随机城市</option>
-                                    </select>
+                                <div class="layui-col-sm5">
+                                    <label class="layui-form-label" lay-tips="网站后台登录目录名称">后台目录:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="admin_dir" class="layui-input"
+                                               value="{{.obj.AdminDir}}">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <div class="layui-inline" lay-tips="网站广告代码一般为js代码">
-                                <label class="layui-form-label">广告:</label>
-                                <div class="layui-input-inline">
-                                    <textarea name="ad" class="layui-textarea">{{.obj.Ad}}</textarea>
+                            <div class="layui-row">
+                                <div class="layui-col-sm6">
+                                    <label class="layui-form-label" lay-tips="一般栏目数量设置不超过10个">栏目数量:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="class_num" class="layui-input"
+                                               value="{{.obj.ClassNum}}">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="layui-inline" lay-tips="李谊:139-2235-2985 一行一条">
-                                <label class="layui-form-label">联系方式:</label>
-                                <div class="layui-input-inline">
-                                <textarea name="contact"
-                                          class="layui-textarea">{{join .obj.Contact "\n"}}</textarea>
+                                <div class="layui-col-sm5">
+                                    <label class="layui-form-label" lay-tips="选择城市必须是实际存在的">城市:</label>
+                                    <div class="layui-input-block">
+                                        <select name="city" lay-search>
+                                            <option value="">直接选择或搜索选择</option>
+                                            {{range .citys -}}
+                                                <option value="{{.}}">{{.}}</option>
+                                            {{end -}}
+                                            <option value="random"{{if .obj.CityEnabled}} selected{{end}}>随机城市</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">灰词替换:</label>
-                            <div class="layui-input-inline" lay-tips="灰词=>替换成的是词 一行一条">
-                                <textarea name="replaces" class="layui-textarea">{{join .obj.Replaces "\n"}}</textarea>
+                            <div class="layui-row">
+                                <div class="layui-col-sm6">
+                                    <label class="layui-form-label" lay-tips="网站广告代码一般为js代码">广告:</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="ad" class="layui-textarea">{{.obj.Ad}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm5">
+                                    <label class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="contact"
+                                                  class="layui-textarea">{{join .obj.Contact "\n"}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-row">
+                                <div class="layui-col-sm6">
+                                    <label class="layui-form-label" lay-tips="灰词=>替换成的是词 一行一条">灰词替换:</label>
+                                    <div class="layui-input-block">
+                                        <textarea name="replaces"
+                                                  class="layui-textarea">{{join .obj.Replaces "\n"}}</textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -676,6 +722,36 @@
             form = layui.form,
             //获取模板目录名称
             tplName = $('select[name=tpl_name]').val();
+        $('[lay-event]').click(function () {
+            switch ($(this).attr('lay-event')) {
+                case 'valid-title':
+                    main.req({
+                        url: '/site/valid',
+                        data: {text: $('input[name=title]').val()}
+                    });
+                    break;
+                case 'valid-title-suffix':
+                    main.req({
+                        url: '/site/valid',
+                        data: {text: $('input[name=title_suffix]').val()}
+                    });
+                    break;
+                case 'valid-description':
+                    main.req({
+                        url: '/site/valid',
+                        data: {text: $('input[name=description]').val()}
+                    });
+                    break;
+                case 'assign-push':
+                    $.get('/site/default/push', function (res) {
+                        if (res.length === 0) {
+                            layer.msg('默认数据为空');
+                        }
+                        $('textarea[name=push_config]').val(res);
+                    });
+                    break;
+            }
+        });
         //改变模板目录列表
         form.on('select(system)', function (obj) {
             var tplurl = '/site/tpl?system=' + obj.value;
