@@ -60,9 +60,6 @@
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中的网站">
-                <i class="layui-icon layui-icon-delete"></i>
-            </button>
             <button class="layui-btn layui-btn-sm" lay-event="add" lay-tips="单个添加网站">
                 <i class="layui-icon layui-icon-add-1"></i>
             </button>
@@ -127,10 +124,7 @@
         <a class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="编辑">
             <i class="layui-icon layui-icon-edit"></i>
         </a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
-            <i class="layui-icon layui-icon-delete"></i>
-        </a>
-        <a class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
+        <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
         </a>
     </div>
@@ -272,7 +266,19 @@
                 },
                 {field: 'vhost_dir', title: '网站路径', hide: true},
                 {field: 'updated', title: '时间', sort: true, hide: true},
-                {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {
+                    field: 'id',
+                    title: '删除',
+                    width: 80,
+                    event: 'del',
+                    align: 'center',
+                    style: 'cursor:pointer;color:red;',
+                    hide: true,
+                    templet: function (d) {
+                        return '<i class="layui-icon layui-icon-delete"></i>';
+                    }
+                },
+                {title: '操作', width: 160, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             where: {status: -1},
             page: true,
