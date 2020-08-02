@@ -79,6 +79,14 @@
             </button>
         </div>
         <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="rank" lay-tips="获取关键词排名">
+                <i class="layui-icon layui-icon-layim-download"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="del-rank" lay-tips="删除关键词缓存">
+                <i class="layui-icon layui-icon-fonts-del"></i>
+            </button>
+        </div>
+        <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="update_nginx"
                     lay-tips="更新nginx配置 不选择则更新全部">
                 <i class="layui-icon layui-icon-refresh"></i>Nginx
@@ -115,6 +123,8 @@
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
+        <a class="layui-btn layui-btn-xs" lay-event="rank" lay-tips="获取关键词排名">
+            <i class="layui-icon layui-icon-layim-download"></i></a>
         <a class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
             <i class="layui-icon layui-icon-export"></i>
         </a>
@@ -278,7 +288,7 @@
                         return '<i class="layui-icon layui-icon-delete"></i>';
                     }
                 },
-                {title: '操作', width: 160, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             where: {status: -1},
             page: true,
@@ -286,14 +296,18 @@
             limits: [10, 15, 20, 25, 30, 1000],
             text: '对不起，加载出现异常！',
         });
-        form.on('submit(submit-import)', function (obj) {
-            console.log(obj);
-        })
 
         //监听工具条
         table.on('tool(table-list)', function (obj) {
             var data = obj.data;
             switch (obj.event) {
+                case 'rank':
+                    main.req({
+                        url: '/site/rank',
+                        tips: {},
+                        data: data
+                    });
+                    break;
                 case 'del':
                     layer.confirm('确定删除此条日志？', function (index) {
                         main.req({
@@ -405,18 +419,17 @@
 
         //头工具栏事件
         table.on('toolbar(table-list)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id),
-                data = checkStatus.data;
+            var data = table.checkStatus(obj.config.id).data,
+                ids = Array();
+            for (var i = 0; i < data.length; i++) {
+                ids[i] = data[i].id;
+            }
             switch (obj.event) {
                 case 'del':
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        var ids = Array();
-                        for (var i = 0; i < data.length; i++) {
-                            ids[i] = data[i].id;
-                        }
                         main.req({
                             url: url + '/del',
                             data: {'ids': ids.join()},
@@ -455,10 +468,6 @@
                             title: '写入网站，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
-                            var ids = Array();
-                            for (var i = 0; i < data.length; i++) {
-                                ids[i] = data[i].id;
-                            }
                             main.req({
                                 url: url + '/found',
                                 data: {'ids': ids.join(), 'thread': value},
@@ -478,10 +487,6 @@
                             title: '安装选择的网站，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
-                            var ids = Array();
-                            for (var i = 0; i < data.length; i++) {
-                                ids[i] = data[i].id;
-                            }
                             main.req({
                                 url: url + '/install',
                                 data: {'ids': ids.join(), 'thread': value},
@@ -501,10 +506,6 @@
                             title: '初始化选中的网站，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
-                            var ids = Array();
-                            for (var i = 0; i < data.length; i++) {
-                                ids[i] = data[i].id;
-                            }
                             main.req({
                                 url: url + '/setup',
                                 data: {'ids': ids.join(), 'thread': value},
@@ -524,10 +525,6 @@
                             title: '选中的网站发布文章，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
-                            var ids = Array();
-                            for (var i = 0; i < data.length; i++) {
-                                ids[i] = data[i].id;
-                            }
                             main.req({
                                 url: url + '/publish',
                                 data: {'ids': ids.join(), 'thread': value},
@@ -544,10 +541,6 @@
                             title: '更新选中网站的NGINX配置，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
-                            var ids = Array();
-                            for (var i = 0; i < data.length; i++) {
-                                ids[i] = data[i].id;
-                            }
                             main.req({
                                 url: url + '/update/nginx',
                                 data: {'ids': ids.join(), 'thread': value},
@@ -564,10 +557,6 @@
                             title: '更新选中网站的网站后台配置，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
-                            var ids = Array();
-                            for (var i = 0; i < data.length; i++) {
-                                ids[i] = data[i].id;
-                            }
                             main.req({
                                 url: url + '/update/website/setup',
                                 data: {'ids': ids.join(), 'thread': value},
@@ -584,10 +573,6 @@
                             title: '更新选中网站的文章和目录，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
-                            var ids = Array();
-                            for (var i = 0; i < data.length; i++) {
-                                ids[i] = data[i].id;
-                            }
                             main.req({
                                 url: url + '/update/website',
                                 data: {'ids': ids.join(), 'thread': value},
@@ -614,10 +599,6 @@
                             title: '远程网站配置覆盖本地，请输入线程数量 太多会卡死'
                         },
                         function (value, index, elem) {
-                            var ids = Array();
-                            for (var i = 0; i < data.length; i++) {
-                                ids[i] = data[i].id;
-                            }
                             main.req({
                                 url: url + '/pull/config',
                                 data: {'ids': ids.join(), 'thread': value},
@@ -633,10 +614,6 @@
                     });
                     break;
                 case 'export':
-                    var ids = Array();
-                    for (var i = 0; i < data.length; i++) {
-                        ids[i] = data[i].id
-                    }
                     window.open(encodeURI('site/export?ids=' + ids.join()));
                     break;
                 case 'import':
@@ -664,6 +641,29 @@
                         }
                     });
                     form.render();
+                    break;
+                case 'rank':
+                    if (ids.length === 0) {
+                        layer.alert("请选择数据!", {icon: 2});
+                        return false;
+                    }
+                    main.req({
+                        url: '/site/rank',
+                        data: {'ids': ids.join()},
+                        ending: 'table-list',
+                        tips: {},
+                    });
+                    break;
+                case 'del-rank':
+                    if (ids.length === 0) {
+                        layer.alert("请选择数据!", {icon: 2});
+                        return false;
+                    }
+                    main.req({
+                        url: '/site/del/rank',
+                        data: {'ids': ids.join()},
+                        ending: 'table-list',
+                    });
                     break;
             }
         });
