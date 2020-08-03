@@ -400,6 +400,13 @@
                             <textarea name="bd_cookies" class="layui-textarea" rows="3">{{.obj.BdCookies}}</textarea>
                         </div>
                     </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" lay-tips="忽略百度关键词列表">过滤</label>
+                        <div class="layui-input-block">
+                            <textarea name="bd_ignores" class="layui-textarea"
+                                      rows="3">{{ join .obj.BdIgnores "\n"}}</textarea>
+                        </div>
+                    </div>
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">

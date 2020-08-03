@@ -9,19 +9,12 @@
                 <li>FTP帐户</li>
                 <li>基本控制</li>
                 <li>发布设置</li>
+                <li>SEO设置</li>
                 <li>设置更多选项</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-item">
-                        <div class="layui-row">
-                            <div class="layui-col-sm6">
-                            </div>
-                            <div class="layui-col-sm5">
-                            </div>
-                        </div>
-
-
                         <div class="layui-inline" lay-tips="选择网站程序类型">
                             <label class="layui-form-label">网站类型:</label>
                             <div class="layui-input-block">
@@ -651,6 +644,21 @@
                             </table>
                         </div>
                     </fieldset>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" lay-tips="登录百度后的cookies">百度 Cookies</label>
+                        <div class="layui-input-block">
+                            <textarea name="bd_cookies" class="layui-textarea" rows="3">{{.obj.BdCookies}}</textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" lay-tips="忽略百度关键词列表">过滤</label>
+                        <div class="layui-input-block">
+                            <textarea name="bd_ignores" class="layui-textarea"
+                                      rows="3">{{ join .obj.BdIgnores "\n"}}</textarea>
+                        </div>
+                    </div>
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
