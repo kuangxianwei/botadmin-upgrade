@@ -27,46 +27,41 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             return uuid.join('');
         },
         request = function (options) {
-            var loadindex = layer.load(1, {shade: [0.6, '#000', true]}),
-                opts = options || {},
-                /*合并默认设置*/
-                opts = $.extend({
-                    url: opts.url || $('meta[name=current_uri]').attr('content'),
-                    type: 'POST',
-                    dataType: 'json',
-                }, opts),
-                isPost = opts.type.toUpperCase() === 'POST';
-            if (isPost) {
-                opts.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, opts.headers || {});
+            options = options || {};
+            if (typeof options.url !== 'string') {
+                options.url = $('meta[name=current_uri]').attr('content');
             }
-            var request = $.ajax(opts);
+            options = $.extend({
+                type: 'POST',
+                dataType: 'json',
+            }, options);
+            // 加载中...
+            var loading = layer.load(1, {shade: [0.7, '#000', true]}),
+                isPost = options.type.toUpperCase() === 'POST';
+            if (isPost) {
+                options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, options.headers || {});
+            }
+            var request = $.ajax(options);
             request.done(function (res) {
                 switch (res.code) {
                     case 0:
-                        var tips = {};
-                        if ('index' in opts) {
-                            layer.close(opts.index);
+                        if ('index' in options) {
+                            layer.close(options.index);
                         }
-                        if (typeof opts.ending === 'string' && opts.ending != '-') {
-                            table.reload(opts.ending, {page: {curr: 1}});
-                        } else if (typeof opts.ending === 'function') {
-                            opts.ending(res);
+                        if (typeof options.ending === 'string' && options.ending !== '-') {
+                            table.reload(options.ending, {page: {curr: 1}});
+                        } else if (typeof options.ending === 'function') {
+                            options.ending(res);
                         }
-                        if (Object.prototype.toString.call(opts.tips) === '[object Object]') {
-                            tips = $.extend({
+                        if (typeof options.tips === 'function') {
+                            options.tips(res);
+                        } else {
+                            layer.msg(res.msg, {
                                 icon: 1,
-                                time: 0,
-                                btn: ['关闭'],
-                                yes: function (index) {
-                                    layer.close(index);
-                                }
-                            }, opts.tips);
+                                time: 2000,
+                                shade: [0.6, '#000', true]
+                            });
                         }
-                        layer.msg(res.msg, $.extend({
-                            icon: 1,
-                            time: 2000,
-                            shade: [0.6, '#000', true]
-                        }, tips));
                         break;
                     case 1001:
                     case 403:
@@ -77,8 +72,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         }
                         break;
                     default:
-                        if (typeof opts.error === 'function') {
-                            opts.error(res);
+                        if (typeof options.error === 'function') {
+                            options.error(res);
                         }
                         layer.alert(res.msg, {
                             skin: 'layui-layer-admin',
@@ -119,7 +114,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 });
             });
             request.always(function () {
-                layer.close(loadindex);
+                layer.close(loading);
             });
         };
     exports('main', {
@@ -127,8 +122,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             if (typeof key !== 'string') {
                 return '';
             }
-            var url = typeof url === 'string' ? url : window.location.href,
-                index = url.indexOf('?');
+            if (typeof url !== 'string') {
+                url = window.location.href;
+            }
+            var index = url.indexOf('?');
             if (index === -1) {
                 return '';
             }
@@ -143,9 +140,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         },
         uuid: uuid,
         req: request,
-        popup: function (opts) {
-            var options = opts || {},
-                submit = options.submit || uuid(),
+        popup: function (options) {
+            options = options || {};
+            var submit = options.submit || uuid(),
                 url = options.url,
                 ending = options.ending,
                 base = {
@@ -185,9 +182,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             layer.open($.extend(base, options));
             form.render();
         },
-        slider: function (opts) {
-            var options = opts || {},
-                pub_attr_deg = options.pub_attr_deg || 3,
+        slider: function (options) {
+            options = options || {};
+            var pub_attr_deg = options.pub_attr_deg || 3,
                 link_deg = options.link_deg || 3,
                 out_link_deg = options.out_link_deg || 0,
                 title_tag_deg = options.title_tag_deg || 3;

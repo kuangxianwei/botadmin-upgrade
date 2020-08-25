@@ -101,7 +101,7 @@
                                 <div class="layui-inline" style="width: 23%">
                                     <label class="layui-form-label" lay-tips="原创度0-100 小于这个原创度的网站将丢弃">原创度:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="original_deg" value="{{.obj.OriginalDeg}}"
+                                        <input type="text" name="original_rate" value="{{.obj.OriginalRate}}"
                                                class="layui-input">
                                     </div>
                                 </div>
@@ -176,7 +176,7 @@
                                                 </div>
                                             </div>
                                             <div class="layui-form-item">
-                                                <div class="parse-method">
+                                                <div class="parse-method{{if ne $v.Reg ""}} layui-hide{{end}}">
                                                     <div class="layui-inline">
                                                         <label class="layui-form-label-col">DOM解析:</label>
                                                     </div>
@@ -208,7 +208,7 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="parse-method layui-hide">
+                                                <div class="parse-method{{if eq $v.Reg ""}} layui-hide{{end}}">
                                                     <div class="layui-inline">
                                                         <label class="layui-form-label-col">正则解析:</label>
                                                     </div>
@@ -218,8 +218,7 @@
                                                                   name="list.reg.{{$i}}">{{$v.Reg}}</textarea>
                                                     </div>
                                                     <div class="layui-inline">
-                                                        <button class="layui-btn layui-btn-radius" parse-method>
-                                                            转为DOM解析
+                                                        <button class="layui-btn layui-btn-radius" parse-method>转为DOM解析
                                                         </button>
                                                     </div>
                                                 </div>
@@ -287,7 +286,7 @@
                                                 </div>
                                             </div>
                                             <div class="layui-form-item">
-                                                <div class="parse-method">
+                                                <div class="parse-method{{if ne $v.Page.Reg ""}} layui-hide{{end}}">
                                                     <div class="layui-inline">
                                                         <label class="layui-form-label-col">DOM解析:</label>
                                                     </div>
@@ -320,7 +319,7 @@
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div class="parse-method layui-hide">
+                                                <div class="parse-method{{if eq $v.Page.Reg ""}} layui-hide{{end}}">
                                                     <div class="layui-inline">
                                                         <label class="layui-form-label-col">正则解析:</label>
                                                     </div>
@@ -330,8 +329,7 @@
                                                                   name="list.page.reg.{{$i}}">{{$v.Page.Reg}}</textarea>
                                                     </div>
                                                     <div class="layui-inline">
-                                                        <button class="layui-btn layui-btn-radius" parse-method>
-                                                            转为DOM解析
+                                                        <button class="layui-btn layui-btn-radius" parse-method>转为DOM解析
                                                         </button>
                                                     </div>
                                                 </div>
@@ -389,8 +387,108 @@
                         lay-event="addDetailRule" lay-tips="点击无限添加规则">+
                 </button>
                 <div class="layui-tab layui-tab-card" lay-filter="step-detail" lay-allowclose="true">
-                    <ul class="layui-tab-title">{{.tabDetailTitle}}</ul>
-                    <div class="layui-tab-content">{{.tabDetailContent}}</div>
+                    <ul class="layui-tab-title">
+                        {{range $i,$v:= .obj.Detail -}}
+                            <li lay-id="{{$i}}"{{if eq $i 0}} class="layui-this"{{end}}>{{$v.Alias}}</li>
+                        {{end -}}
+                    </ul>
+                    <div class="layui-tab-content">
+                        {{range $i,$v:= .obj.Detail -}}
+                            <div class="layui-tab-item{{if eq $i 0}} layui-show{{end}}">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label-col">指定范围:</label>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="detail.limit.{{$i}}" value="{{$v.Limit}}"
+                                                   class="layui-input">
+                                        </div>
+                                        <div class="layui-form-mid layui-word-aux">指定获取范围 为空则不指定 &lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;</div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="parse-method{{if ne $v.Reg ""}} layui-hide{{end}}">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label-col">DOM解析:</label>
+                                        </div>
+                                        <div class="layui-inline" lay-tips="一行一条规则，逐行匹配到则终止匹配">
+                                            <textarea class="layui-textarea"
+                                                      name="detail.dom.{{$i}}">{{$v.Dom}}</textarea>
+                                        </div>
+                                        <div class="layui-inline" lay-tips="选择dom取值方法">
+                                            <div class="layui-input-inline" style="width: 80px">
+                                                <select name="detail.method.{{$i}}" class="layui-select">
+                                                    <option value="attr"{{if eq $v.Method "attr"}} selected{{end}}>Attr
+                                                    </option>
+                                                    <option value="text"{{if eq $v.Method "text"}} selected{{end}}>Text
+                                                    </option>
+                                                    <option value="html"{{if eq $v.Method "html"}} selected{{end}}>Html
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline" lay-tips="属性名称 默认为 href">
+                                            <input type="text" name="detail.attr_name.{{$i}}" value="{{$v.AttrName}}"
+                                                   class="layui-input">
+                                        </div>
+                                        <div class="layui-inline">
+                                            <button class="layui-btn layui-btn-radius" parse-method>转为正则解析</button>
+                                        </div>
+                                    </div>
+                                    <div class="parse-method{{if eq $v.Reg ""}} layui-hide{{end}}">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label-col">正则解析:</label>
+                                        </div>
+                                        <div class="layui-inline" style="width: 55%"
+                                             lay-tips="一行一条规则，逐行匹配到则终止匹配">
+                                            <textarea class="layui-textarea"
+                                                      name="detail.reg.{{$i}}">{{$v.Reg}}</textarea>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <button class="layui-btn layui-btn-radius" parse-method>转为DOM解析</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <fieldset class="layui-elem-field layui-field-title">
+                                    <legend>过滤</legend>
+                                </fieldset>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="detail.match.{{$i}}" value="{{$v.Match}}"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <div class="layui-form-mid layui-word-aux">原词 一行一条</div>
+                                        <textarea name="detail.olds.{{$i}}"
+                                                  class="layui-textarea">{{join $v.Olds "\n"}}</textarea>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <div class="layui-form-mid layui-word-aux">替换成 对应原词一行一条</div>
+                                        <textarea name="detail.news.{{$i}}"
+                                                  class="layui-textarea">{{join $v.News "\n"}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <input type="checkbox" name="detail.trim_html.{{$i}}"
+                                               title="过滤html标签"{{if $v.TrimHtml}} checked{{end}}>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <input type="checkbox" name="detail.reg_enabled.{{$i}}"
+                                               title="启用正则过滤"{{if $v.RegEnabled}} checked{{end}}>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-hide">
+                                    <input type="hidden" name="detail.alias.{{$i}}" value="{{$v.Alias}}">
+                                    <input type="hidden" name="detail.name.{{$i}}" value="{{$v.Name}}">
+                                </div>
+                            </div>
+                        {{end -}}
+                    </div>
                 </div>
                 <div class="layui-card-body">
                     <button class="layui-hide" lay-submit lay-filter="testDetail"></button>

@@ -10,7 +10,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label" lay-tips="显示原创度小于这个这个的文章">原创度:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="original_deg" placeholder="70.00" autocomplete="off" class="layui-input">
+                    <input type="text" name="original_rate" placeholder="70.00" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -103,16 +103,16 @@
                 {field: 'id', title: 'ID', hide: true},
                 {field: 'title', title: '标题', event: 'modify', style: 'cursor:pointer;color:#01aaed;font-weight:bold'},
                 {
-                    field: 'original_deg',
+                    field: 'original_rate',
                     title: '原创度',
                     align: 'center',
                     sort: true,
                     width: 120,
                     templet: function (d) {
-                        if (d.original_deg < 70) {
-                            return '<strong style="color:red;">' + d.original_deg.toFixed(2) + '%</strong>';
+                        if (d.original_rate < 70) {
+                            return '<strong style="color:red;">' + d.original_rate.toFixed(2) + '%</strong>';
                         }
-                        return '<strong style="color:#00a6ff;">' + d.original_deg.toFixed(2) + '%</strong>';
+                        return '<strong style="color:#00a6ff;">' + d.original_rate.toFixed(2) + '%</strong>';
                     }
                 },
                 {field: 'description', title: '描述', hide: true},
@@ -260,7 +260,7 @@
                         title: '批量检测原创度',
                         content: content,
                         url: url + '/original',
-                        tips: {},
+                        seeds,
                         area: ['400px', '280px'],
                     });
                     break;

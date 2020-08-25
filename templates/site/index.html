@@ -121,12 +121,31 @@
         </div>
     </div>
 </script>
+<script type="text/html" id="table-copy">
+    <div class="layui-btn-group">
+        <a class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
+           data-type="user" lay-tips="复制登录用户名到粘贴板">
+            <i class="layui-icon layui-icon-username"></i>
+        </a>
+        <a class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
+           data-type="pwd" lay-tips="复制登录密码到粘贴板">
+            <i class="layui-icon layui-icon-password"></i>
+        </a>
+        <a class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
+           data-type="auth" lay-tips="复制登录认证码到粘贴板">
+            <i class="layui-icon layui-icon-auz"></i>
+        </a>
+    </div>
+</script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
         <a class="layui-btn layui-btn-xs" lay-event="rank" lay-tips="获取关键词排名">
             <i class="layui-icon layui-icon-layim-download"></i></a>
         <a class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
             <i class="layui-icon layui-icon-export"></i>
+        </a>
+        <a class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dir" lay-tips="设置文章图片">
+            <i class="layui-icon layui-icon-picture"></i>
         </a>
         <a class="layui-btn layui-btn-xs" lay-event="link" lay-tips="外链">
             <i class="layui-icon layui-icon-link"></i>
@@ -209,7 +228,7 @@
             url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'id', title: 'ID', sort: true, width: 60, align: 'center'},
+                {field: 'id', title: 'ID', sort: true, width: 60, align: 'center', hide: true},
                 {
                     field: 'vhost', title: '主域名',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold',
@@ -245,35 +264,16 @@
                     field: 'sql_id', width: 80, title: 'MySQL', align: 'center', event: 'sql',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold'
                 },
-                {field: 'admin_dir', title: '后台目录', hide: true},
                 {
-                    field: 'web_user', title: 'User', align: 'center', event: 'clipboard',
-                    style: 'cursor:pointer;color:#01aaed;',
-                    templet: function (d) {
-                        return '<a href="javscript:;" lay-tips="点击复制用户名到粘贴板" data-clipboard-text="' + d.web_user + '"><i class="layui-icon iconfont icon-copy"></i></a>';
-                    }, width: 80
-                },
-                {
-                    field: 'web_pwd', title: 'Pwd', align: 'center', event: 'clipboard',
-                    style: 'cursor:pointer;color:#01aaed;',
-                    templet: function (d) {
-                        return '<a href="javscript:;" lay-tips="点击复制登录密码到粘贴板" data-clipboard-text="' + d.web_pwd + '"><i class="layui-icon iconfont icon-copy"></i></a>';
-                    }, width: 80
-                },
-                {
-                    field: 'auth_code', title: 'Auth', align: 'center', event: 'clipboard',
-                    style: 'cursor:pointer;color:#01aaed;',
-                    templet: function (d) {
-                        return '<a href="javscript:;" lay-tips="点击复制认证码到粘贴板" data-clipboard-text="' + d.auth_code + '"><i class="layui-icon iconfont icon-copy"></i></a>';
-                    }, width: 80
-                },
-                {
-                    field: 'pic_dir', width: 80, title: '图', align: 'center', event: 'pic',
-                    style: 'cursor:pointer;color:#01aaed;font-weight:bold',
-                    templet: function (d) {
-                        return '<i class="layui-icon layui-icon-picture" lay-tips="添加图片"></i>';
+                    field: 'admin_url', title: 'admin', align: 'center', event: 'login',
+                    style: 'cursor:pointer;color:#01aaed;', width: 80, templet(d) {
+                        return '登录';
                     }
                 },
+                {title: '复制', width: 126, align: 'center', fixed: 'right', toolbar: '#table-copy'},
+                {field: 'web_user', title: '用户名', align: 'center', hide: true},
+                {field: 'web_pwd', title: 'Pwd', align: 'center', hide: true},
+                {field: 'auth_code', title: 'Auth', align: 'center', hide: true},
                 {field: 'vhost_dir', title: '网站路径', hide: true},
                 {field: 'updated', title: '时间', sort: true, hide: true},
                 {
@@ -288,7 +288,7 @@
                         return '<i class="layui-icon layui-icon-delete"></i>';
                     }
                 },
-                {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', width: 210, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             where: {status: -1},
             page: true,
@@ -304,7 +304,9 @@
                 case 'rank':
                     main.req({
                         url: '/site/rank',
-                        tips: {},
+                        tips: function (res) {
+                            layer.alert(res.msg, {area: ['500px', '450px']});
+                        },
                         data: data
                     });
                     break;
@@ -340,7 +342,7 @@
                         form.render();
                     });
                     break;
-                case 'pic':
+                case 'pic_dir':
                     $.get(url + '/image', data, function (html) {
                         main.popup({
                             url: url + '/image',
@@ -405,12 +407,30 @@
                     });
                     break;
                 case 'clipboard':
+                    var othis = $(this);
+                    switch (othis.attr('data-type')) {
+                        case 'user':
+                            othis.attr('data-clipboard-text', data.web_user);
+                            break;
+                        case 'pwd':
+                            othis.attr('data-clipboard-text', data.web_pwd);
+                            break;
+                        case 'auth':
+                            othis.attr('data-clipboard-text', data.auth_code);
+                            break;
+                        default:
+                            layer.alert('出错了')
+                            return false;
+                    }
                     var clipboard = new ClipboardJS('a[data-clipboard-text]');
                     clipboard.on('success', function (e) {
                         layer.msg('复制成功');
                         clipboard.destroy();  //解决多次弹窗
                         e.clearSelection();
                     });
+                    break;
+                case 'login':
+                    window.open(data.admin_url, '_blank');
                     break;
                 default:
                     break;
@@ -472,7 +492,9 @@
                                 url: url + '/found',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: {},
+                                tips: function (res) {
+                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                },
                                 ending: 'table-list',
                             });
                         });
@@ -491,7 +513,9 @@
                                 url: url + '/install',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: {},
+                                tips: function (res) {
+                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                },
                                 ending: 'table-list',
                             });
                         });
@@ -510,7 +534,9 @@
                                 url: url + '/setup',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: {},
+                                tips: function (res) {
+                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                },
                                 ending: 'table-list',
                             });
                         });
@@ -529,7 +555,9 @@
                                 url: url + '/publish',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: {},
+                                tips: function (res) {
+                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                },
                                 ending: 'table-list',
                             });
                         });
@@ -545,7 +573,9 @@
                                 url: url + '/update/nginx',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: {},
+                                tips: function (res) {
+                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                },
                                 ending: 'table-list',
                             });
                         });
@@ -561,7 +591,9 @@
                                 url: url + '/update/website/setup',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: {},
+                                tips: function (res) {
+                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                },
                                 ending: 'table-list',
                             });
                         });
@@ -577,7 +609,9 @@
                                 url: url + '/update/website',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: {},
+                                tips: function (res) {
+                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                },
                                 ending: 'table-list',
                             });
                         });
@@ -603,14 +637,18 @@
                                 url: url + '/pull/config',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: {},
+                                tips: function (res) {
+                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                },
                             });
                         });
                     break;
                 case 'jobs':
                     main.req({
                         url: url + '/jobs',
-                        tips: {},
+                        tips: function (res) {
+                            layer.alert(res.msg, {area: ['500px', '450px']});
+                        },
                     });
                     break;
                 case 'export':
@@ -651,7 +689,9 @@
                         url: '/site/rank',
                         data: {'ids': ids.join()},
                         ending: 'table-list',
-                        tips: {},
+                        tips: function (res) {
+                            layer.alert(res.msg, {area: ['500px', '450px']});
+                        },
                     });
                     break;
                 case 'del-rank':
@@ -659,10 +699,12 @@
                         layer.alert("请选择数据!", {icon: 2});
                         return false;
                     }
-                    main.req({
-                        url: '/site/del/rank',
-                        data: {'ids': ids.join()},
-                        ending: 'table-list',
+                    layer.confirm('删除后需要重新下载，确定删除？', function (index) {
+                        main.req({
+                            url: '/site/del/rank',
+                            data: {'ids': ids.join()},
+                            ending: 'table-list',
+                        });
                     });
                     break;
             }

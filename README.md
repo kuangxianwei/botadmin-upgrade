@@ -1,3 +1,3 @@
 # BotAdmin
 ## BotAdmin 升级版
-# v1.1.4
+# v1.1.5
