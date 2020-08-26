@@ -26,6 +26,14 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">数据库前缀:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="prefix" required lay-verify="required" class="layui-input"
+                       value="{{.obj.Prefix}}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">字母开头下划线结尾 如：bot_</div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">数据库编码:</label>
             <div class="layui-input-inline">
                 <input type="text" name="charset" value="{{.obj.Charset}}" class="layui-input" disabled>
