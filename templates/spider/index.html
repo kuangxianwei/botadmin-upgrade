@@ -80,11 +80,14 @@
             </button>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchdel" lay-tips="删除选中">
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中">
                 <i class="layui-icon layui-icon-delete"></i>
             </button>
             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="recordReset" lay-tips="清空全部已经采集过的记录">
                 <i class="layui-icon layui-icon-fonts-clear"></i>记录
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="closePage" lay-tips="关闭分页">
+                <i class="layui-icon layui-icon-close"></i>分页
             </button>
         </div>
         <div class="layui-btn-group">
@@ -213,7 +216,7 @@
             ],],
             page: true,
             limit: 10,
-            limits: [10, 15, 20, 25, 30],
+            limits: [10, 15, 20, 25, 30, 1000],
             text: '对不起，加载出现异常！',
         });
         table.on('tool(table-list)', function (obj) {
@@ -307,7 +310,7 @@
                 ids[i] = item.id;
             });
             switch (obj.event) {
-                case 'batchdel':
+                case 'del':
                     if (ids.length === 0) {
                         return layer.msg('请选择数据');
                     }
@@ -367,6 +370,16 @@
                         main.req({
                             url: '/spider/record/reset',
                             index: index
+                        });
+                    });
+                    break;
+                case "closePage":
+                    layer.confirm('确定关闭选中规则的分页采集？', function (index) {
+                        main.req({
+                            url: url + '/close/page',
+                            data: {ids: ids.join()},
+                            index: index,
+                            ending: 'table-list',
                         });
                     });
                     break;
