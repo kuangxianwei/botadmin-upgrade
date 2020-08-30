@@ -190,16 +190,24 @@
                             <cite>文件管理</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="file-manager">
+                            <dd data-name="file">
                                 <a lay-href="/file" lay-tips="文件管理"
                                    lay-direction="2">文件管理</a>
                             </dd>
+                            <dd data-name="file-template">
+                                <a lay-href="/file?path=data/template" lay-tips="上传或者修改模板"
+                                   lay-direction="2">模板目录</a>
+                            </dd>
+                            <dd data-name="file-pic">
+                                <a lay-href="/file?path=data/pic" lay-tips="上传或者修改图片"
+                                   lay-direction="2">图片目录</a>
+                            </dd>
                             <dd data-name="file-logs">
-                                <a lay-href="/file?path=logs" lay-tips="程序日志"
+                                <a lay-href="/file?path=logs" lay-tips="本程序日志目录"
                                    lay-direction="2">程序日志</a>
                             </dd>
                             <dd data-name="file-sys-log">
-                                <a lay-href="/file?path=/var/log" lay-tips="系统日志"
+                                <a lay-href="/file?path=/var/log" lay-tips="系统日志目录"
                                    lay-direction="2">系统日志</a>
                             </dd>
                         </dl>

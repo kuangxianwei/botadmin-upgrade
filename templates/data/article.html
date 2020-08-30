@@ -1,20 +1,31 @@
 <div class="layui-card">
     <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item" id="form-search">
-            <div class="layui-inline">
-                <label class="layui-form-label">标题:</label>
+        <div class="layui-row">
+            <div class="layui-col-md3">
+                <label class="layui-form-label" lay-tips="输入标题的部分或者全部">标题:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input class="layui-input" type="text" name="title" placeholder="请输入标题" autocomplete="off">
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-col-md3">
                 <label class="layui-form-label" lay-tips="显示原创度小于这个这个的文章">原创度:</label>
                 <div class="layui-input-inline">
                     <input type="text" name="original_rate" placeholder="70.00" autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="layui-inline">
-                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="submit-search">
+            <div class="layui-col-md4">
+                <label class="layui-form-label" lay-tips="选择指定网站的文章">网站:</label>
+                <div class="layui-input-inline">
+                    <select name="site_id" lay-filter="select_site_id" lay-search>
+                        <option value="0">搜索...</option>
+                        {{range .sites -}}
+                            <option value="{{.Id}}">{{.Vhost}}</option>
+                        {{end -}}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-col-md1">
+                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="search">
                     <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                 </button>
             </div>
@@ -303,7 +314,7 @@
             }
         });
         //监听搜索
-        form.on('submit(submit-search)', function (data) {
+        form.on('submit(search)', function (data) {
             var field = data.field;
             table.reload('table-list', {
                 where: field,
@@ -337,6 +348,11 @@
                 data: {'id': id, "ban_vetted": checked},
                 ending: 'table-list',
             });
+            return false;
+        });
+        //监控选择site id
+        form.on('select(select_site_id)', function (obj) {
+            $('button[lay-filter=search]').click();
             return false;
         });
     });

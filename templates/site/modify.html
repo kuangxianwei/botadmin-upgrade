@@ -595,6 +595,14 @@
                         </div>
                         <div class="layui-form-mid layui-word-aux">只发布指定本站的文章</div>
                     </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">删除已发:</label>
+                        <div class="layui-input-inline">
+                            <input type="checkbox" name="del_pub" lay-skin="switch"
+                                   lay-text="是|否"{{if .obj.DelPub}} checked{{end}}>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">发布后马上从数据库中删除该文章</div>
+                    </div>
                     <fieldset class="layui-elem-field">
                         <legend>推送</legend>
                         <div class="layui-form-item">
