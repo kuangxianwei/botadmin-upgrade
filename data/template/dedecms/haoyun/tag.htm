@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/css/common.css" rel="stylesheet" type="text/css" />
+</head>
+<body name="list">
+<div id="wrap">
+<!--头部开始-->
+{dede:include filename="head.htm"/}
+<!--头部结束-->
+<div id="main">
+
+<div class="dHead_M"><strong>当前位置：<a href="{dede:global.cfg_cmsurl/}/">主页</a> &gt; TAG标签</strong></div>
+
+<div class="dBody_M">
+
+<div class="dText_M">
+
+<ul class="clear">
+<h3>最新标签</h3>
+{dede:tag row='60' sort='new'}<li><a href='[field:link/]' class='tagc[field:highlight /]' title='[field:tag /]'>[field:tag /]</a></li>{/dede:tag}
+</ul>
+<ul class="clear">
+<h3>当月热门标签</h3>
+{dede:tag row='60'  sort='month'}<li><a href='[field:link/]' class='tagc[field:highlight /]' title='[field:tag /]'>[field:tag /]</a></li>{/dede:tag}
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!--底部开始-->
+{dede:include filename="footer.htm"/}
+<!--底部结束-->
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>{dede:field.title/}_{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:field.keywords/}" />
+<meta name="description" content="{dede:field.description function='html2text(@me)'/}" />
+<meta name="Author" content="adminbuy.cn"/>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+<meta http-equiv="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}/view.php?aid={dede:field.id/}">
+<script type="text/javascript">if(window.location.toString().indexOf('pref=padindex') != -1){}else{if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){if(window.location.href.indexOf("?mobile")<0){try{if(/Android|Windows Phone|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){window.location.href="{dede:global.cfg_waphost/}/view.php?aid={dede:field.id/}";}else if(/iPad/i.test(navigator.userAgent)){}else{}}catch(e){}}}}</script>
+<LINK href="{dede:global.cfg_templets_skin/}/style/css/style.css" rel=stylesheet>
+<LINK href="{dede:global.cfg_templets_skin/}/style/css/jbox.css" rel=stylesheet>
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/jquery.js"></script>
+<script language="JavaScript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/menu.js"></script>
+<!--[if lt IE 10]>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/style/js/PIE.js"></script>
+<![endif]-->
+<script>
+$(function() {
+    if (window.PIE) {
+        $('.returnlist,.prolist li,.pro_li_img,.pro_li_txt,.viewmore,.page *').each(function() {
+            PIE.attach(this);
+        });
+    }
+});
+
+</script>
+<script>
+	$(document).ready(function() {
+        $('.tijiao1').click(function(){
+			if($('#xm').val()==0){
+				alert('请输入姓名');
+				return false;
+				}
+			if($('#sj').val()==0){
+				alert('请输入手机');
+				return false;
+				}
+			if($('#yx').val()==0){
+				alert('请输入邮箱');
+				return false;
+				}
+			if($('#zt').val()==0){
+				alert('请输入主题');
+				return false;
+				}
+			if($('#nr').val()==0){
+				alert('请输入内容');
+				return false;
+				}
+			})
+    });
+</script>
+</head>
+<body>
+{dede:include filename="head2.htm"/}
+<div class="clear"></div>
+<div class="view_t">
+  <div class="vtitle">
+    <div class="vtitlemain"><font>Feedback</font> <span><b>{dede:field.typename/}</b></span> </div>
+  </div>
+  <div class="titleview">
+    <div class="main">当前位置：{dede:field.position/}</div>
+  </div>
+</div>
+<div class="fyMain">
+  <div class="viewcon">
+    <div class="message">
+      <form action="/plus/diy.php" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="action" value="post" />
+        <input type="hidden" name="diyid" value="1" />
+        <input type="hidden" name="do" value="2" />
+        <ul>
+          <li>
+            <p class="message_title"><span class="c_red">* </span>姓名：</p>
+            <p class="message_content">
+              <input type="text" name="xn" id="xm" size="30"/>
+            </p>
+          </li>
+          <li>
+            <p class="message_title"><span class="c_red">* </span>手机：</p>
+            <p class="message_content">
+              <input type="text" name="sj" size="30" id="sj" />
+            </p>
+          </li>
+          <li>
+            <p class="message_title">邮箱：</p>
+            <p class="message_content">
+              <input name="yx" type="text" id="yx" size="30" />
+            </p>
+          </li>
+          <li>
+            <p class="message_title"><span class="c_red">* </span>主题：</p>
+            <p class="message_content">
+              <input name="zt" type="text" id="zt" size="30" />
+            </p>
+          </li>
+          <li class="contentb">
+            <p class="message_title"><span class="c_red">* </span>内容：</p>
+            <p class="message_content">
+              <textarea name="nr" id="nr" cols="45" rows="5" ></textarea>
+            </p>
+          </li>
+         <input type="hidden" name="dede_fields" value="xm,text;sj,text;yx,text;zt,text;nr,multitext" />
+		<input type="hidden" name="dede_fieldshash" value="025774755c2f7beade9ceb361783caa4" />
+          <li class="yzm">
+            <p>
+              <input type="submit" name="submit" value="" class="tijiao1" width="103"/>
+            </p>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>
+{dede:include filename="foot.htm"/}
+</body>
+</html>
