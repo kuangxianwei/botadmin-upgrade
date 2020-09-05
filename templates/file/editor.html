@@ -12,7 +12,6 @@
             main = layui.main,
             index = parent.layer.getFrameIndex(window.name),
             url = {{.current_uri}};
-
         form.render();
         $('.layui-form button[lay-submit]').attr('lay-filter', 'submit');
         form.on('submit(submit)', function (obj) {
@@ -21,13 +20,13 @@
                 data: obj.field,
                 ending: function () {
                     parent.layer.close(index);
-                },
-                ending: 'table-list'
+                }
             });
             return false;
         });
-        $('#btnClose').on('click', function () {
+        $('[lay-filter=cancel]').on('click', function () {
             parent.layer.close(index);
+            return false;
         });
         $('#btnClear').on('click', function () {
             $('textarea[name=content]').text('').focus();

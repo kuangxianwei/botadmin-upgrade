@@ -1,0 +1,58 @@
+<script>
+    layui.use(['main', 'form', 'layer'], function () {
+        var $ = layui.$,
+            main = layui.main,
+            form = layui.form,
+            layer = layui.layer,
+            //获取模板目录名称
+            tpl_name = $('select[name=tpl_name]').val();
+        $('[lay-event]').click(function () {
+            switch ($(this).attr('lay-event')) {
+                case 'valid-title':
+                    main.req({
+                        url: '/site/valid',
+                        data: {text: $('input[name=title]').val()}
+                    });
+                    break;
+                case 'valid-title-suffix':
+                    main.req({
+                        url: '/site/valid',
+                        data: {text: $('input[name=title_suffix]').val()}
+                    });
+                    break;
+                case 'valid-description':
+                    main.req({
+                        url: '/site/valid',
+                        data: {text: $('input[name=description]').val()}
+                    });
+                    break;
+                case 'assign-push':
+                    $.get('/site/default/push', function (res) {
+                        if (res.length === 0) {
+                            layer.msg('默认数据为空');
+                        }
+                        $('textarea[name=push_config]').val(res);
+                    });
+                    break;
+            }
+        });
+
+        //改变模板目录列表
+        form.on('select(system)', function (obj) {
+            $.get('/site/admin', {system: obj.value}, function (html) {
+                $('input[name=admin_dir]').val(html);
+            });
+            $.get('/site/tpl', {system: obj.value, tpl_name: tpl_name}, function (html) {
+                $('div[lay-filter=tpl_name]').html(html);
+                form.render();
+            });
+        });
+        //滑块控制
+        main.slider({
+            pub_attr_deg:{{$.obj.PubAttrDeg}},
+            link_deg:{{$.obj.LinkDeg}},
+            out_link_deg:{{$.obj.OutLinkDeg}},
+            title_tag_deg:{{$.obj.TitleTagDeg}}
+        });
+    });
+</script>
