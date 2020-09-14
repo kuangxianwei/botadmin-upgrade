@@ -199,13 +199,14 @@
         });
         form.on('submit(submit)', function (obj) {
             var cityData = transfer.getData('cityData'),
-                cities =  Array();
+                cities = Array();
             layui.each(cityData, function (i, v) {
                 cities[i] = v.title;
             });
             obj.field.cities = cities.join();
             main.req({
                 url: url,
+                multiple: true,
                 data: obj.field,
             });
             return false;
