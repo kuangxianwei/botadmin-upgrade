@@ -43,6 +43,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
             var request = $.ajax(options);
             request.done(function (res) {
+                res.msg = '<textarea class="layui-textarea" style="height:100%;">' + res.msg + '</textarea>';
                 switch (res.code) {
                     case 0:
                         if ('index' in options) {
@@ -82,9 +83,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             btn: '',
                             closeBtn: false,
                             anim: 6,
-                            success: function (layero, index) {
+                            success: function (o, index) {
                                 var elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                                layero.append(elemClose);
+                                o.append(elemClose);
                                 elemClose.on('click', function () {
                                     layer.close(index);
                                 });
@@ -104,9 +105,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     btn: '',
                     closeBtn: false,
                     anim: 6,
-                    success: function (layero, index) {
+                    success: function (o, index) {
                         var elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                        layero.append(elemClose);
+                        o.append(elemClose);
                         elemClose.on('click', function () {
                             layer.close(index);
                         });
