@@ -43,7 +43,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
             var request = $.ajax(options);
             request.done(function (res) {
-                res.msg = '<textarea class="layui-textarea" style="height:100%;">' + res.msg + '</textarea>';
+                if (res.textarea === true && res.msg.length > 80) {
+                    res.msg = '<textarea class="layui-textarea" style="height:100%;">' + res.msg + '</textarea>';
+                } else {
+                    var reg = new RegExp('\n', 'g');
+                    res.msg = res.msg.replace(reg, '<br/>');
+                }
                 switch (res.code) {
                     case 0:
                         if ('index' in options) {
