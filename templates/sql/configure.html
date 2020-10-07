@@ -47,7 +47,13 @@
                     main.req({url: url + '/recover'});
                     break;
                 case 'reboot-sql':
-                    main.req({url: url + '/reboot'});
+                    main.req({
+                        url: '/system/reservice',
+                        data: {act: 'mysql'},
+                        tips: function (res) {
+                            layer.alert(res.msg, {area: ['400px', '350px']});
+                        },
+                    });
                     break;
             }
         });
