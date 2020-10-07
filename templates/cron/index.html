@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="submit-search">
+                <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
                     <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                 </button>
             </div>
@@ -135,7 +135,7 @@
         });
 
         //监听搜索
-        form.on('submit(submit-search)', function (data) {
+        form.on('submit(search)', function (data) {
             var field = data.field;
             //执行重载
             table.reload('table-list', {
@@ -147,7 +147,7 @@
 
         //监听工具栏
         table.on('toolbar(table-list)', function (obj) {
-            var data = table.checkStatus(obj.config.id).data, ids =  Array();
+            var data = table.checkStatus(obj.config.id).data, ids = Array();
             switch (obj.event) {
                 case 'sync':
                     main.req({

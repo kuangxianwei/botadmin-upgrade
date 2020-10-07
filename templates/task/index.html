@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="submit-search">
+                <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
                     <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                 </button>
             </div>
@@ -31,16 +31,16 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn selecting" lay-event="taskSync">
+        <button class="layui-btn" lay-event="taskSync">
             <i class="layui-icon layui-icon-refresh-1"></i>更新任务
         </button>
-        <button class="layui-btn selecting" lay-event="taskAdd" id="LAY_layer_iframe_add">
+        <button class="layui-btn" lay-event="taskAdd" id="LAY_layer_iframe_add">
             <i class="layui-icon layui-icon-add-1"></i>添加任务
         </button>
-        <button class="layui-btn selecting" lay-event="taskRecord" id="LAY_layer_iframe_record">
+        <button class="layui-btn" lay-event="taskRecord" id="LAY_layer_iframe_record">
             <i class="layui-icon layui-icon-list"></i>执行记录
         </button>
-        <button class="layui-btn selecting" lay-event="taskCrond" id="LAY_layer_iframe_crond">
+        <button class="layui-btn" lay-event="taskCrond" id="LAY_layer_iframe_crond">
             <i class="layui-icon layui-icon-list"></i>查看crond
         </button>
     </div>
@@ -137,7 +137,7 @@
         });
 
         //监听搜索
-        form.on('submit(submit-search)', function (data) {
+        form.on('submit(search)', function (data) {
             //$("#form-search :input").val("").removeAttr("checked").remove("selected");
             var field = data.field;
             //执行重载

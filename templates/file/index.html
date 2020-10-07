@@ -20,8 +20,8 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="submit-search"
-                        id="submit-search">
+                <button class="layui-btn" data-type="reload" lay-submit lay-filter="search"
+                        id="search">
                     <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                 </button>
             </div>
@@ -56,7 +56,7 @@
         <div class="layui-inline">
             <div class="layui-input-inline">
                 <input name="inherit" type="checkbox" title="继承" lay-skin="primary" checked/>
-                <button class="layui-btn selecting" lay-submit lay-filter="submit-acts">确定</button>
+                <button class="layui-btn" lay-submit lay-filter="submit-acts">确定</button>
             </div>
         </div>
     </div>
@@ -338,7 +338,7 @@
         });
 
         // 监听搜索
-        form.on('submit(submit-search)', function (obj) {
+        form.on('submit(search)', function (obj) {
             // 执行重载
             $("#form-search :input").val("").removeAttr("checked").remove("selected");
             var field = obj.field;
@@ -353,7 +353,7 @@
         // 监听操作
         form.on('submit(submit-acts)', function (obj) {
             var checkData = table.checkStatus('table-list').data, // 得到选中的数据
-                names =  Array();
+                names = Array();
             if (checkData.length === 0) {
                 return layer.msg('请选择数据');
             }

@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <button class="layui-btn selecting" data-type="reload" lay-submit lay-filter="submit-search">
+                <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
                     <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                 </button>
             </div>
@@ -27,21 +27,21 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
-        <button class="layui-btn selecting layui-btn-sm" lay-event="add">
+        <button class="layui-btn layui-btn-sm" lay-event="add">
             <i class="layui-icon layui-icon-add-1"></i>创建MySQL
         </button>
-        <button class="layui-btn selecting layui-btn-sm" lay-event="sync">
+        <button class="layui-btn layui-btn-sm" lay-event="sync">
             <i class="layui-icon layui-icon-refresh-3"></i>同步MySQL
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn selecting layui-btn-sm" lay-event="modifyroot">
+        <button class="layui-btn layui-btn-sm" lay-event="modifyroot">
             <i class="layui-icon layui-icon-edit"></i>修改密码
         </button>
-        <button class="layui-btn selecting layui-btn-sm" lay-event="resetroot">
+        <button class="layui-btn layui-btn-sm" lay-event="resetroot">
             <i class="layui-icon layui-icon-refresh"></i>重置密码
         </button>
-        <button class="layui-btn selecting layui-btn-sm" lay-event="viewroot">
+        <button class="layui-btn layui-btn-sm" lay-event="viewroot">
             <i class="layui-icon  layui-icon-about"></i>查看密码
         </button>
     </div>
@@ -178,7 +178,7 @@
             }
         });
         //监听搜索
-        form.on('submit(submit-search)', function (data) {
+        form.on('submit(search)', function (data) {
             var field = data.field;
             //$("#form-search :input").val("").removeAttr("checked").remove("selected");
             //执行重载
