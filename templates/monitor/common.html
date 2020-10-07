@@ -32,7 +32,7 @@
                 <div class="layui-input-inline">
                     <select name="method">
                         {{range $i,$v:=.methods -}}
-                            <option value="$i"{{if eq $.obj.Method $i}} selected{{end}}>{{$v}}</option>
+                            <option value="{{$i}}"{{if eq $.obj.Method $i}} selected{{end}}>{{$v}}</option>
                         {{end -}}
                     </select>
                 </div>
@@ -48,7 +48,7 @@
                 <tr>
                     <th align="center" style="margin-right: 2%;">启用定时</th>
                     <th align="center">分:0-59 *-,</th>
-                    <th align="center">时:0-59 *-,</th>
+                    <th align="center">时:0-23 *-,</th>
                     <th align="center">天:1-31 *-,</th>
                     <th align="center">月:1-12 *-,</th>
                     <th align="center">周:0-6 *-,</th>
