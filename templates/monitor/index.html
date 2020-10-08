@@ -82,7 +82,7 @@
             toolbar: '#toolbar',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},
+                {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
                 {
                     field: 'cron_enabled',
                     title: '启用',
@@ -99,7 +99,7 @@
                         return msg;
                     }
                 },
-                {field: 'addr', title: '目标地址'},
+                {field: 'addr', title: '目标地址', sort: true},
                 {field: 'email_id', title: '配置ID', width: 80, align: 'center'},
                 {field: 'to', title: '邮箱'},
                 {field: 'updated', title: '时间', align: 'center', sort: true},

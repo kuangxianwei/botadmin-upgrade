@@ -2,11 +2,17 @@
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <label class="layui-form-label">目标地址:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="addr" lay-verify="required" autocomplete="off"
-                       class="layui-input" placeholder="监控地址" value="{{.obj.Addr}}">
-            </div>
-            <div class="layui-form-mid layui-word-aux">https://www.nfivf.com</div>
+            {{if .obj.Addr -}}
+                <div class="layui-input-inline">
+                    <input type="text" name="addr" lay-verify="required" autocomplete="off"
+                           class="layui-input" placeholder="监控地址" value="{{.obj.Addr}}">
+                </div>
+            {{else -}}
+                <div class="layui-input-inline">
+                    <textarea name="address" class="layui-textarea" rows="3"></textarea>
+                </div>
+                <div class="layui-form-mid layui-word-aux">https://www.nfivf.com 一行一条</div>
+            {{end -}}
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱配置:</label>

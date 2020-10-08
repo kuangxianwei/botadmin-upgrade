@@ -118,6 +118,9 @@
             <button class="layui-btn layui-btn-sm" lay-event="import" lay-tips="导入配置">
                 <i class="layui-icon iconfont icon-import"></i>
             </button>
+            <button class="layui-btn layui-btn-sm" lay-event="vhosts" lay-tips="获取全部主机列表">
+                <i class="layui-icon layui-icon-fonts-code"></i>
+            </button>
         </div>
     </div>
 </script>
@@ -705,6 +708,15 @@
                             data: {'ids': ids.join()},
                             ending: 'table-list',
                         });
+                    });
+                    break;
+                case 'vhosts':
+                    main.req({
+                        url: url + '/vhosts',
+                        data: {ids: ids.join()},
+                        tips: function (res) {
+                            layer.alert(res.msg, {area: ['500px', '450px']});
+                        },
                     });
                     break;
             }
