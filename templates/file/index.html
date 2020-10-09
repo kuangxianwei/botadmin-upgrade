@@ -216,8 +216,7 @@
                                 url: url,
                                 where: {'path': current_path}
                             });
-                        },
-                        ending: 'table-list'
+                        }
                     });
                     break;
                 case 'uncompress':
@@ -251,7 +250,7 @@
                     table.reload('table-list', {
                         url: url,
                         where: {
-                            'path': '/home/wwwroot'
+                            path: '/home/wwwroot'
                         }
                     });
                     break;
@@ -259,7 +258,7 @@
                     table.reload('table-list', {
                         url: url,
                         where: {
-                            'path': '/root'
+                            path: '/root'
                         }
                     });
                     break;
@@ -274,15 +273,15 @@
                             main.req({
                                 url: url + '/newfolder',
                                 data: {
-                                    'name': value,
-                                    'path': current_path
+                                    name: value,
+                                    path: current_path
                                 },
                                 index: index,
                                 ending: function () {
                                     table.reload('table-list', {
                                         url: url,
                                         where: {
-                                            'path': current_path
+                                            path: current_path
                                         }
                                     });
                                 }
@@ -300,15 +299,15 @@
                             main.req({
                                 url: url + '/newfile',
                                 data: {
-                                    'name': value,
-                                    'path': current_path
+                                    name: value,
+                                    path: current_path
                                 },
                                 index: index,
                                 ending: function () {
                                     table.reload('table-list', {
                                         url: url,
                                         where: {
-                                            'path': current_path
+                                            path: current_path
                                         }
                                     });
                                 }
@@ -320,7 +319,7 @@
                     table.reload('table-list', {
                         url: url,
                         where: {
-                            'path': current_path
+                            path: current_path
                         }
                     });
             }
@@ -364,15 +363,17 @@
             });
             var field = obj.field;
             field.name = names.join();
+            field.path = current_path;
             if (field.act == 'del') {
                 layer.confirm('删除后不可恢复，确定批量删除吗？', function (index) {
                     main.req({
                         url: url + '/del',
                         data: field,
+                        index: index,
                         ending: function () {
                             table.reload('table-list', {
                                 url: url,
-                                where: {'path': current_path}
+                                where: {path: current_path}
                             });
                         }
                     });
@@ -384,7 +385,7 @@
                     ending: function () {
                         table.reload('table-list', {
                             url: url,
-                            where: {'path': current_path}
+                            where: {path: current_path}
                         });
                     }
                 });

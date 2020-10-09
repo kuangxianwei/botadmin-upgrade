@@ -43,7 +43,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
             var request = $.ajax(options);
             request.done(function (res) {
-                if (res.textarea === true && res.msg.length > 80) {
+                if (res.textarea === true && res.msg.length > 50) {
                     res.msg = '<textarea class="layui-textarea" style="height:100%;">' + res.msg + '</textarea>';
                 } else {
                     var reg = new RegExp('\n', 'g');
