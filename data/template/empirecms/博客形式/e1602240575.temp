@@ -132,9 +132,7 @@
         [!--smalldh--]
 </marquee>
 </td></tr></table><!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><a href='#ecms' onclick='NextPhPage();' title='点击进入下一张图片'><img src='[!--picurl--]' alt='[!--picname--]' border=1 class='photoresize'></a><br><span style='line-height=18pt'>[!--picname--]</span><!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->12<!---ecms.field--->栏目tabs导航<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--]<!--list.var1-->[!--empirenews.listtemp--]<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><li id="tabnav_btn_[!--no--]" onmouseover="tabit(this)"><a href="[!--classurl--]">[!--classname--]</a></li><!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->13<!---ecms.field--->评论列表<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--] 
-
 <!--list.var1-->
-
    <table width="100%" cellspacing="1" cellpadding="3" border="0">
         <tbody><tr> 
           <td background="[!--news.url--]skin/custom/images/plhrbg.gif"></td>
@@ -153,7 +151,6 @@
           <td colspan="2" class="text" height="50">[!--pltext--]</td>
         </tr>
         <tr> 
-          
           <td colspan="2"><div class="re" align="right"><a href="#tosaypl" onclick="javascript:document.saypl.saytext.value='[quote][!--plid--][/quote]';document.saypl.repid.value='[!--plid--]';document.saypl.saytext.focus();">回复</a>&nbsp; 
 <a href="JavaScript:makeRequest('[!--news.url--]e/pl/doaction.php?enews=DoForPl&plid=[!--plid--]&classid=[!--classid--]&id=[!--id--]&dopl=1&doajax=1&ajaxarea=zcpldiv[!--plid--]','EchoReturnedText','GET','');">支持</a>[<span id="zcpldiv[!--plid--]">[!--zcnum--]</span>]&nbsp;
 <a href="JavaScript:makeRequest('[!--news.url--]e/pl/doaction.php?enews=DoForPl&plid=[!--plid--]&classid=[!--classid--]&id=[!--id--]&dopl=0&doajax=1&ajaxarea=fdpldiv[!--plid--]','EchoReturnedText','GET','');">反对</a>[<span id="fdpldiv[!--plid--]">[!--fdnum--]</span>]</div></td>
@@ -318,7 +315,6 @@ echo $tag;
 			   [/e:loop]		  
           </dl>
         </div>
-		
 		  <ul>
 		   [e:loop={'selfinfo','4,8',0,0}]
 		   <li><a href="<?=$bqsr['titleurl']?>"><?=$bqr['title']?></a></li>
@@ -1360,7 +1356,7 @@ document.write('<script src="[!--news.url--]e/member/login/loginjs.php?t='+Math.
       <div class="item"><img src="[!--news.url--]skin/custom/images/weixin.jpg"></div>
     </div>
   </aside><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->9<!---ecms.field--->head<!---ecms.field--->列表页顶部<!---ecms.field---><?php
-$title_url= get_title_url();
+$page_info_r= page_info_r();
 ?><!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -1368,12 +1364,13 @@ $title_url= get_title_url();
 <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-siteapp">
-<title><?=$title_url['title']?></title>
+<title><?=$page_info_r['title']?></title>
 <meta name="keywords" content="[!--pagekey--]">
 <meta name="description" content="[!--pagedes--]">
 <link rel="stylesheet" id="da-bootstrap-css" href="[!--news.url--]skin/custom/css/bootstrap.css" type="text/css" media="all">
 <link rel="stylesheet" id="da-fontawesome-css" href="[!--news.url--]skin/custom/css/font-awesome.css" type="text/css" media="all">
 <link rel="stylesheet" id="da-main-css" href="[!--news.url--]skin/custom/css/main.css" type="text/css" media="all">
+<link rel="canonical" href="<?=$page_info_r['url']?>">
 <?=$public_r[add_ad]?>
 </head><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->10<!---ecms.field--->pagelist<!---ecms.field--->分页导航<!---ecms.field---><div class="pagination">
 <ul>
@@ -1402,17 +1399,10 @@ $title_url= get_title_url();
 	   [/e:loop]	  
      </ul>
     </div>
-	
-	
-	
 	<!--右侧广告位二-->
     <div class="widget widget_ui_ads"> 
   <!--     <script src="/d/js/acmsd/thea4.js"></script> -->
     </div>
-	
-	
-	
-	
     <div class="widget widget_ui_posts">
       <h3>推荐文章</h3>
       <ul>
@@ -1421,9 +1411,6 @@ $title_url= get_title_url();
 	  [/e:loop]			
      </ul>
     </div>
-	
-	
-	
 	<!--侧边栏广告位3-->
     <div class="widget widget_ui_ads"> 
    <!--   <script src="/d/js/acmsd/thea5.js"></script>  -->

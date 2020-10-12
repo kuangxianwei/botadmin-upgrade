@@ -163,36 +163,7 @@
                         <p>[!--smalltext--]<br/><a href="[!--titleurl--]" title="[!--oldtitle--]" class="color1">查看详情</a></p>
                     </li>
                 </ul>
-</mip-tabs-item><!---ecms.field--->0<!---ecms.field--->5<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认js模板<!---ecms.field--->[!--empirenews.listtemp--]<li><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a></li>[!--empirenews.listtemp--]<!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->m-d<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->32<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻列表模板<!---ecms.field---><?php
-if(isset($_GET['tagname'])){
-    $class_name = $_GET['tagname'];
-    $selfurl = abs_url("/tag/{$class_name}");
-    $selftitle = "{$class_name}-";
-}else{
-    $r['classid'] = $GLOBALS[navclassid];
-    $selfurl = abs_url(str_replace("niu", "top", sys_ReturnBqClassname($r, 9)));
-    $rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-    $selftitle = isset($rst[0])?$rst[0]:$class_r[$GLOBALS[navclassid]][classname];
-    if($selftitle){$selftitle = "{$selftitle}-";}
-    $class_name = $class_r[$GLOBALS[navclassid]][bname];
-}
-?><!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="canonical" href="<?=$selfurl?>">
-    <title><?=$selftitle.$public_r[add_title_suffix]?></title>
-    <meta name="keywords" content="[!--pagekey--]"/>
-    <meta name="description" content="[!--pagedes--]"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
+</mip-tabs-item><!---ecms.field--->0<!---ecms.field--->5<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认js模板<!---ecms.field--->[!--empirenews.listtemp--]<li><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a></li>[!--empirenews.listtemp--]<!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->m-d<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->32<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻列表模板<!---ecms.field--->[!--temp.head--]
 <body>
 <!--头部开始-->
 [!--temp.header--]
@@ -203,7 +174,7 @@ if(isset($_GET['tagname'])){
         [!--temp.aside--]
         <!--侧边栏结束-->
         <div class="col-md-9 main-r">
-            <div class="title-view"><h1 class="col-md-8"><i class="icon-share"></i><?=$class_name?></h1><span class="col-md-4">您当前的位置：[!--newsnav--]</span></div>
+            <div class="title-view"><h1 class="col-md-8"><i class="icon-share"></i><?=$page_info_r['bname']?></h1><span class="col-md-4">您当前的位置：[!--newsnav--]</span></div>
             <div class="list-article">
                 [!--empirenews.listtemp--]<!--list.var1--> [!--empirenews.listtemp--]
             </div>
@@ -244,35 +215,7 @@ if($GLOBALS[navclassid] && !empty($class_r[$GLOBALS[navclassid]]['classname'])){
         }
     }
 }
-if(isset($_GET['tagname'])){
-    $class_name = $_GET['tagname'];
-    $selfurl = abs_url("/tag/{$class_name}");
-    $selftitle = "{$class_name}-";
-}else{
-    $r['classid'] = $GLOBALS[navclassid];
-    $selfurl = abs_url(str_replace("niu", "top", sys_ReturnBqClassname($r, 9)));
-    $rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-    $selftitle = isset($rst[0])?$rst[0]:$class_r[$GLOBALS[navclassid]][classname];
-    if($selftitle){$selftitle = "{$selftitle}-";}
-    $class_name = $class_r[$GLOBALS[navclassid]][bname];
-}
-?><!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="canonical" href="<?=$selfurl?>">
-    <title><?=$selftitle.$public_r[add_title_suffix]?></title>
-    <meta name="keywords" content="[!--pagekey--]"/>
-    <meta name="description" content="[!--pagedes--]"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
+?>[!--temp.head--]
 <body>
 <!--头部开始-->
 [!--temp.header--]
@@ -283,7 +226,7 @@ if(isset($_GET['tagname'])){
         [!--temp.aside--]
         <!--侧边栏结束-->
         <div class="col-md-9 main-r">
-            <div class="title-view"><h1 class="col-md-8"><i class="icon-share"></i><?=$class_name?></h1><span  class="col-md-4">您的位置：[!--newsnav--]</span></div>
+            <div class="title-view"><h1 class="col-md-8"><i class="icon-share"></i><?=$page_info_r['bname']?></h1><span  class="col-md-4">您的位置：[!--newsnav--]</span></div>
             <ul class="list-pic">
                 <?=$tip?>
                 [!--empirenews.listtemp--]<!--list.var1--> [!--empirenews.listtemp--]
@@ -304,37 +247,17 @@ if(isset($_GET['tagname'])){
 </body>
 </html><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field---><li class="col-xs-6 col-md-3"><a title="[!--oldtitle--]" href="[!--titleurl--]"><img alt="[!--oldtitle--]" src="[!--titlepic--]" width="204" height="139"></a> <p class="protxt"><a title="[!--oldtitle--]" href="[!--titleurl--]">[!--title--]</a> </p></li><!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻内容模板<!---ecms.field--->0<!---ecms.field---><?php
 $tip = '';
-if($GLOBALS[navclassid] && !empty($class_r[$GLOBALS[navclassid]]['classname'])){
-    $c_name = $class_r[$GLOBALS[navclassid]]['classname'];
-    foreach (array('案例','成功','展示','case') as $v) {
-        if(strpos($c_name, $v)){
-            $tip = '<p class="pro-tips"><span class="red">温馨提示: </span>'.$c_name.'只更新授权允许的照片，尊重个人意见部分'.$c_name.'不允许公开，望谅解。同时请大家自觉遵守不要盗图，后果自负。</p><hr class="pro-hr" />';
+if (!empty($class_r[$GLOBALS['navclassid']]['classname'])) {
+    $classname = $class_r[$GLOBALS['navclassid']]['classname'];
+    foreach (array('案例', '成功', '展示', 'case') as $v) {
+        if (strpos($classname, $v)) {
+            $tip = '<p class="pro-tips"><span class="red">温馨提示: </span>' . $classname . '只更新授权允许的照片(不是真实姓名，均为化名)，尊重个人意见部分' . $classname . '不允许公开，望谅解。同时请大家自觉遵守不要盗图，后果自负! </p><hr class="pro-hr" />';
         }
     }
 }
-$titleurl = abs_url($navinfor[titleurl]);
-$rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-$title = isset($rst[0])?'_'.$rst[0]:'';
-$title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
+$field_r = array('usname' => '姓名', 'usheight' => '身高(CM)', 'usages' => '年龄(周岁)', 'usweight' => '体重(KG)', 'ustype' => '血型', 'useye' => '眼睛', 'usedu' => '学历', 'usmajor' => '专业', 'usaddress' => '籍贯', 'usmenstruation' => '月经周期(天)', 'usnowaddress' => '现住地址');
 ?>
-<!DOCTYPE html>
-<html mip lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="canonical" href="<?=$titleurl?>">
-    <title><?=$title?></title>
-    <meta name="keywords" content="[!--pagekey--]"/>
-    <meta name="description" content="<?php if ($navinfor['smalltext']) {?>[!--smalltext--]<?php } else {?>[!--pagedes--]<?php }?>"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-    <meta property="og:image" content="[!--titlepic--]"/>
-</head>
+[!--temp.head--]
 <body>
 <!--头部开始-->
 [!--temp.header--]
@@ -385,34 +308,13 @@ $title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
 [!--temp.footer--]
 <!--底部结束-->
 </body>
-</html><!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record--->2<!---ecms.field--->TOOL_费用计算内容模板<!---ecms.field--->0<!---ecms.field---><?php
-$rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-$title = isset($rst[0])?'_'.$rst[0]:'';
-$title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
-?><!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="canonical" href="<?=abs_url($navinfor['titleurl'])?>">
-    <title><?=$title?></title>
-    <meta name="keywords" content="[!--pagekey--]"/>
-    <meta name="description" content="<?php if($navinfor['smalltext']){?>[!--smalltext--]<?php }else{?>[!--pagedes--]<?php }?>"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <link href="[!--news.url--]skin/custom/css/tools.css" rel="stylesheet"/>
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
+</html><!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record--->2<!---ecms.field--->TOOL_费用计算内容模板<!---ecms.field--->0<!---ecms.field--->[!--temp.head--]
 <body>
 <!--头部开始-->
 [!--temp.header--]
 <!--头部结束-->
 <div class="main-tools auto-center">
-        <div class="title-view"><h2><i class="icon-share"></i>[e:loop={"select bname,classname from {$dbtbpre}enewsclass where classid='$GLOBALS[navclassid]'",1,24,0}]<?=empty($bqr[bname])?$bqr[classname]:$bqr[bname]?>[/e:loop]</h2><span class="fr">您当前的位置：[!--newsnav--]</span></div>
+        <div class="title-view"><h2><i class="icon-share"></i><?=$page_info_r['bname']?></h2><span class="fr">您当前的位置：[!--newsnav--]</span></div>
     <h1 class="center">[!--title--]</h1>
     <p class="title-s">更新时间：[!--newstime--]&#160;&#160;&#160;&#160;文章原创来自:<?php if(empty($navinfor[befrom])){?>
         <a href="<?=abs_url('/')?>" target="_blank"><?=get_site_r()['keywords'][0]?></a><?php }else{?>[!--befrom--]<?php }?></p>
@@ -521,30 +423,13 @@ $title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
 [!--temp.case--]
 [!--temp.footer--]
 </body>
-</html><!---ecms.field--->Y-m-d<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->TOOLS默认内容模板<!---ecms.field--->0<!---ecms.field---><!DOCTYPE html>
-<html>
- <head>
-  <meta charset="utf-8">
-  <meta name="applicable-device" content="pc,mobile">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-  <title>[!--pagetitle--]_<?php $rst=$empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=".$GLOBALS[navclassid]); echo $rst[0];?>-<?=$public_r[add_title_suffix]?></title>
-  <link rel="canonical" href="<?=abs_url($navinfor['titleurl'])?>" />
-  <meta name="keywords" content="[!--pagekey--]" />
-  <meta name="description" content="<?php if($navinfor['smalltext']){?>[!--smalltext--]<?php }else{?>[!--pagedes--]<?php }?>" />
-  <link rel="stylesheet" type="text/css" href="<?=abs_url('/skin/custom/css/tools.css')?>" />
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/style.css">
-  <style mip-custom>
-  [!--temp.css--]
-  </style>
-  <script language="JavaScript" type="text/javascript" src="<?=abs_url('/skin/custom/js/js.js')?>"></script>
- </head>
+</html><!---ecms.field--->Y-m-d<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->TOOLS默认内容模板<!---ecms.field--->0<!---ecms.field--->[!--temp.head--]
  <body>
   <!--头部开始-->
   [!--temp.header--]
   <!--头部结束-->
   <div class="main-tools auto-center">
-   <div class="title-view"><h2><i class="icon-share"></i>[e:loop={"select bname,classname from {$dbtbpre}enewsclass where classid='$GLOBALS[navclassid]'",1,24,0}]<?=empty($bqr[bname])?$bqr[classname]:$bqr[bname]?>[/e:loop]</h2><span class="fr">您当前的位置：[!--newsnav--]</span></div>
+   <div class="title-view"><h2><i class="icon-share"></i><?=$page_info_r['bname']?></h2><span class="fr">您当前的位置：[!--newsnav--]</span></div>
    <h1 class="center">[!--title--]</h1>
    <p class="title-s">更新时间：[!--newstime--]&nbsp;&nbsp;&nbsp;&nbsp;文章原创来自:<?php if(empty($navinfor['befrom'])):?><a href="<?=abs_url('/')?>" target="_blank"><?=get_site_r()['keywords'][0]?></a><?php else:?>[!--befrom--]<?php endif;?> 点击：<script src="[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1"></script> 次</p>
    <p class="center"></p>
@@ -577,38 +462,13 @@ $title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
   [!--temp.footer--]
   <!--底部结束-->
  </body>
-</html><!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record--->4<!---ecms.field--->TOOLS_血型选择器模板<!---ecms.field--->0<!---ecms.field---><?php
-$rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-$title = isset($rst[0])?'_'.$rst[0]:'';
-$title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
-?><!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="utf-8">
-  <meta name="applicable-device" content="pc,mobile">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-  <link rel="canonical" href="[!--titleurl--]">
-  <title><?=$title?></title>
-  <meta name="keywords" content="[!--pagekey--]"/>
-  <meta name="description" content="<?php if ($navinfor['smalltext']) {?>
-    [!--smalltext--]
-<?php } else {?>
-        [!--pagedes--]
-<?php }?>"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <link href="<?=abs_url('/skin/custom/css/tools.css')?>" rel="stylesheet"/>
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
+</html><!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record--->4<!---ecms.field--->TOOLS_血型选择器模板<!---ecms.field--->0<!---ecms.field--->[!--temp.head--]
 <body>
 <!--头部开始-->
 [!--temp.header--]
 <!--头部结束-->
 <div class="main-tools container">
-  <div class="title-view"><h2  class="col-md-8"><i class="icon-share"></i>[e:loop={"select bname,classname from {$dbtbpre}enewsclass where classid='$GLOBALS[navclassid]'",1,24,0}]<?=empty($bqr[bname])?$bqr[classname]:$bqr[bname]?>[/e:loop]</h2><span  class="col-md-4">您当前的位置：[!--newsnav--]</span></div>
+  <div class="title-view"><h2  class="col-md-8"><i class="icon-share"></i><?=$page_info_r['bname']?></h2><span  class="col-md-4">您当前的位置：[!--newsnav--]</span></div>
   <h1 class="center">[!--title--]</h1>
   <p class="title-s">时间:[!--newstime--]&#160;&#160;来源:<?php
                         if (empty($navinfor[befrom])) {
@@ -697,38 +557,17 @@ $title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
 </body>
 </html><!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record--->5<!---ecms.field--->志愿者内容模板<!---ecms.field--->0<!---ecms.field---><?php
 $tip = '';
-if($GLOBALS[navclassid] && !empty($class_r[$GLOBALS[navclassid]]['classname'])){
-    $c_name = $class_r[$GLOBALS[navclassid]]['classname'];
-    foreach (array('案例','成功','展示','case') as $v) {
-        if(strpos($c_name, $v)){
-            $tip = '<p class="pro-tips"><span class="red">温馨提示: </span>'.$c_name.'只更新授权允许的照片(不是真实姓名，均为化名)，尊重个人意见部分'.$c_name.'不允许公开，望谅解。同时请大家自觉遵守不要盗图，后果自负! </p><hr class="pro-hr" />';
+if (!empty($class_r[$GLOBALS['navclassid']]['classname'])) {
+    $classname = $class_r[$GLOBALS['navclassid']]['classname'];
+    foreach (array('案例', '成功', '展示', 'case') as $v) {
+        if (strpos($classname, $v)) {
+            $tip = '<p class="pro-tips"><span class="red">温馨提示: </span>' . $classname . '只更新授权允许的照片(不是真实姓名，均为化名)，尊重个人意见部分' . $classname . '不允许公开，望谅解。同时请大家自觉遵守不要盗图，后果自负! </p><hr class="pro-hr" />';
         }
     }
 }
-$field_r = array('usname'=>'姓名', 'usheight'=>'身高(CM)', 'usages'=>'年龄(周岁)', 'usweight'=>'体重(KG)', 'ustype'=>'血型', 'useye'=>'眼睛', 'usedu'=>'学历', 'usmajor'=>'专业', 'usaddress'=>'籍贯', 'usmenstruation'=>'月经周期(天)', 'usnowaddress'=>'现住地址');
-$titleurl = abs_url($navinfor[titleurl]);
-$rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-$title = isset($rst[0])?'_'.$rst[0]:'';
-$title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
+$field_r = array('usname' => '姓名', 'usheight' => '身高(CM)', 'usages' => '年龄(周岁)', 'usweight' => '体重(KG)', 'ustype' => '血型', 'useye' => '眼睛', 'usedu' => '学历', 'usmajor' => '专业', 'usaddress' => '籍贯', 'usmenstruation' => '月经周期(天)', 'usnowaddress' => '现住地址');
 ?>
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="canonical" href="<?=$titleurl?>">
-    <title><?=$title?></title>
-    <meta name="keywords" content="[!--pagekey--]"/>
-    <meta name="description" content="<?php if ($navinfor['smalltext']) {?>[!--smalltext--]<?php } else {?>[!--pagedes--]<?php }?>"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-<meta property="og:image" content="[!--titlepic--]"/>
-</head>
+[!--temp.head--]
 <body>
 <!--头部开始-->
 [!--temp.header--]
@@ -739,8 +578,7 @@ $title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
         [!--temp.aside--]
         <!--侧边栏结束-->
         <div class="col-md-9 main-r">
-            <div class="title-view"><h2 class="col-md-8"><i class="icon-share"></i><?=empty($class_r[$GLOBALS[navclassid]][bname])?$class_r[$GLOBALS[navclassid]][classname]:$class_r[$GLOBALS[navclassid]][bname]?></h2><span  class="col-md-4">您的位置：[!--newsnav--]</span></div>
-
+            <div class="title-view"><h2 class="col-md-8"><i class="icon-share"></i><?=$page_info_r['bname']?></h2><span  class="col-md-4">您的位置：[!--newsnav--]</span></div>
             <div class="padding25">
                 <h1 class="center">[!--title--]</h1>
                 <p class="title-s">时间:[!--newstime--]&#160;&#160;来源:<?php if(empty($navinfor['befrom'])):?><a href="<?=abs_url('/')?>" target="_blank"><?=get_site_r()['keywords'][0]?></a><?php else:?>[!--befrom--]<?php endif;?></p>
@@ -789,7 +627,8 @@ $title = $navinfor[title].$title.'-'.$public_r[add_title_suffix];
 [!--temp.footer--]
 <!--底部结束-->
 </body>
-</html><!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->9<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field---><?php
+</html><!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->[!--temp.head--]
+<?php
 $home = 1;
 $cids = array(
     'price'   => get_price_id(),
@@ -797,35 +636,14 @@ $cids = array(
     'ivf'     => get_ivf_id(),
     'other'   => get_other_id(),
     'ask'     => get_ask_id()
-);?><!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <title>[!--pagetitle--]</title>
-    <meta name="keywords" content="[!--pagekey--]">
-    <meta name="description" content="[!--pagedes--]">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-    <link rel="canonical" href="<?=abs_url($public_r[newsurl])?>">
-<?=$public_r['add_site_verify']?>
-    <meta property="og:image" content="[e:loop={0,1,3,1,'isgood=1','newstime DESC'}]<?=$bqr['titlepic']?>[/e:loop]" />
-</head>
-<body>
+);?><body>
 [!--temp.header--]
 <div class="container">
-
     <div class="title title-bg">
         <i class="icon-price fl"></i>
         <h2><?=$class_r[$cids['price']]['classname']?></h2>
         <a href="<?=abs_url($class_r[$cids['price']]['classpath'])?>/" title="<?=$class_r[$cids['price']]['classname']?>"><i class="icon-more2 fr"></i></a>
     </div>
-
     <ul id="myTab" class="nav nav-tabs">
         [e:loop={"select * from {$dbtbpre}ecms_news where classid={$cids['price']} and isgood=2 order by newstime desc limit 0,4",20,24,0}]
         <li <?if($bqno==1){?>class="active"<?}?>>
@@ -2637,7 +2455,24 @@ li.processV{float:right;width:705px;color:#fff;font-family:Arial,Tahoma;font-siz
     .xd h3{text-align:center;padding-bottom:0px;line-height:70px;margin:20px 0px 0px;padding-left:0px;padding-right:0px;color:rgb(231,0,19);font-size:36px;padding-top:0px;}
     .xd p{padding-bottom:0px;line-height:20px;text-indent:2em;margin:0px 0px 0px 0px;padding-left:2%;width:96%;padding-right:0px;padding-top:0px;}
     .xdimg{display:block;}
-}<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认投票模板<!---ecms.field---><table width=100% border=0 align=center cellpadding=3 cellspacing=0><form name=enewsvote method=POST action='[!--vote.action--]' target=_blank><tr><td><strong>[!--title--]</strong></td></tr><input type=hidden name=voteid value='[!--voteid--]'><input type=hidden name=enews value=AddVote>
+}<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->12<!---ecms.field--->head<!---ecms.field--->head部分<!---ecms.field---><?php $page_info_r=page_info_r()?><!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="applicable-device" content="pc,mobile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <title><?=$page_info_r['title']?></title>
+    <meta name="keywords" content="[!--pagekey--]">
+    <meta name="description" content="[!--pagedes--]">
+    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
+    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
+    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="canonical" href="<?=$page_info_r['url']?>">
+    <meta property="og:image" content="[e:loop={0,1,3,1,'isgood=1','newstime DESC'}]<?=$bqr['titlepic']?>[/e:loop]" />
+</head><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认投票模板<!---ecms.field---><table width=100% border=0 align=center cellpadding=3 cellspacing=0><form name=enewsvote method=POST action='[!--vote.action--]' target=_blank><tr><td><strong>[!--title--]</strong></td></tr><input type=hidden name=voteid value='[!--voteid--]'><input type=hidden name=enews value=AddVote>
 [!--empirenews.listtemp--]
 <tr><td>[!--vote.box--]&nbsp;[!--vote.name--]</td></tr>
 [!--empirenews.listtemp--]
@@ -2645,30 +2480,8 @@ li.processV{float:right;width:705px;color:#fff;font-family:Arial,Tahoma;font-siz
 [!--empirenews.listtemp--]
 <tr><td>[!--vote.box--]&nbsp;[!--vote.name--]</td></tr>
 [!--empirenews.listtemp--]
-<tr><td align=center><input type=submit name=submit value=投票>&nbsp;&nbsp;<input type=button name=button value=查看结果 onclick=javascript:window.open('[!--news.url--]e/public/vote/?classid=[!--classid--]&id=[!--id--]','','width=[!--width--],height=[!--height--],scrollbars=yes');></td></tr></form></table><!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->通用一级栏目模板<!---ecms.field---><?php
-$r['classid'] = $GLOBALS[navclassid];
-$selfurl = abs_url(str_replace("niu", "top", sys_ReturnBqClassname($r, 9)));
-$rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-$selftitle = isset($rst[0])?$rst[0]:$class_r[$GLOBALS[navclassid]][classname];
-if($selftitle){$selftitle = "{$selftitle}-";}
-?>
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="canonical" href="<?=$selfurl?>">
-    <title><?=$selftitle.$public_r[add_title_suffix]?></title>
-    <meta name="keywords" content="[!--pagekey--]"/>
-    <meta name="description" content="[!--pagedes--]"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
+<tr><td align=center><input type=submit name=submit value=投票>&nbsp;&nbsp;<input type=button name=button value=查看结果 onclick=javascript:window.open('[!--news.url--]e/public/vote/?classid=[!--classid--]&id=[!--id--]','','width=[!--width--],height=[!--height--],scrollbars=yes');></td></tr></form></table><!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->通用一级栏目模板<!---ecms.field--->[!--temp.head--]
+<?php print_r($info_r);?>
 <body>
 <!--头部开始-->
 [!--temp.header--]
@@ -2678,7 +2491,7 @@ if($selftitle){$selftitle = "{$selftitle}-";}
         <!--子栏目开始-->
         <div class="introList">
             <!--开始-->
-            <div class="introTitle"><h3>[e:loop={"select bname,classname from {$dbtbpre}enewsclass where classid='$GLOBALS[navclassid]'",1,24,0}]<?=empty($bqr[bname])?$bqr[classname]:$bqr[bname]?>[/e:loop]</h3><span>IVF</span></div>
+            <div class="introTitle"><h3><?=$page_info_r['bname']?></h3><span>IVF</span></div>
             <div class="SeoText">
                 <!--内容开始-->
                 <ul class="show">
@@ -2697,30 +2510,7 @@ if($selftitle){$selftitle = "{$selftitle}-";}
 [!--temp.footer--]
 <!--底部结束-->
 </body>
-</html><!---ecms.field--->0<!---ecms.record--->2<!---ecms.field--->关于我们封面模板<!---ecms.field---><?php
-$r['classid'] = $GLOBALS[navclassid];
-$selfurl = abs_url(str_replace("niu", "top", sys_ReturnBqClassname($r, 9)));
-$rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-$selftitle = isset($rst[0])?$rst[0]:$class_r[$GLOBALS[navclassid]][classname];
-if($selftitle){$selftitle = "{$selftitle}-";}
-?>
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="canonical" href="<?=$selfurl?>">
-    <title><?=$selftitle.$public_r[add_title_suffix]?></title>
-    <meta name="keywords" content="[!--pagekey--]"/>
-    <meta name="description" content="[!--pagedes--]"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
+</html><!---ecms.field--->0<!---ecms.record--->2<!---ecms.field--->关于我们封面模板<!---ecms.field--->[!--temp.head--]
 <body>
 [!--temp.header--]
 <!--头部结束-->
@@ -2729,7 +2519,7 @@ if($selftitle){$selftitle = "{$selftitle}-";}
     <div class="intro">
         <div class="introList">
             <!--开始-->
-            <div class="introTitle"><h1>[e:loop={"select bname,classname from {$dbtbpre}enewsclass where classid='$GLOBALS[navclassid]'",1,24,0}]<?=empty($bqr[bname])?$bqr[classname]:$bqr[bname]?>[/e:loop]</h1><span>Company profile</span></div>
+            <div class="introTitle"><h1><?=$page_info_r['bname']?></h1><span>Company profile</span></div>
             <div class="SeoText">
                 <!--内容开始-->
                 <div class="zmbox">
@@ -3152,30 +2942,7 @@ if($selftitle){$selftitle = "{$selftitle}-";}
 [!--temp.footer--]
 <!--底部结束-->
 </body>
-</html><!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->助孕流程模板<!---ecms.field---><?php
-$r['classid'] = $GLOBALS[navclassid];
-$selfurl = abs_url(str_replace("niu", "top", sys_ReturnBqClassname($r, 9)));
-$rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-$selftitle = isset($rst[0])?$rst[0]:$class_r[$GLOBALS[navclassid]][classname];
-if($selftitle){$selftitle = "{$selftitle}-";}
-?>
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="canonical" href="<?=$selfurl?>">
-    <title><?=$selftitle.$public_r[add_title_suffix]?></title>
-    <meta name="keywords" content="[!--pagekey--]"/>
-    <meta name="description" content="[!--pagedes--]"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
+</html><!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->助孕流程模板<!---ecms.field--->[!--temp.head--]
 <body>
 <!--头部开始-->
 [!--temp.header--]
@@ -3185,7 +2952,7 @@ if($selftitle){$selftitle = "{$selftitle}-";}
         <div class="processList">
             <ul>
                 <li class="processT STYLE1">
-                    <h1 class="f18"><strong>[e:loop={"select bname,classname from {$dbtbpre}enewsclass where classid='$GLOBALS[navclassid]'",1,24,0}]<?=empty($bqr[bname])?$bqr[classname]:$bqr[bname]?>[/e:loop]>></strong></h1>
+                    <h1 class="f18"><strong><?=$page_info_r['bname']?></strong></h1>
                 </li>
                 <li class="processV">
                     <p>
@@ -3483,30 +3250,7 @@ if($selftitle){$selftitle = "{$selftitle}-";}
 [!--temp.footer--]
 <!--底部结束-->
 </body>
-</html><!---ecms.field--->0<!---ecms.record--->4<!---ecms.field--->联系我们模板<!---ecms.field---><?php
-$r['classid'] = $GLOBALS[navclassid];
-$selfurl = abs_url(str_replace("niu", "top", sys_ReturnBqClassname($r, 9)));
-$rst = $empire->fetch1("SELECT `bname` FROM `{$dbtbpre}enewsclass` WHERE `classid`=" . $GLOBALS[navclassid]);
-$selftitle = isset($rst[0])?$rst[0]:$class_r[$GLOBALS[navclassid]][classname];
-if($selftitle){$selftitle = "{$selftitle}-";}
-?>
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    <meta charset="utf-8">
-    <meta name="applicable-device" content="pc,mobile">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-    <link rel="canonical" href="<?=$selfurl?>">
-    <title><?=$selftitle.$public_r[add_title_suffix]?></title>
-    <meta name="keywords" content="[!--pagekey--]"/>
-    <meta name="description" content="[!--pagedes--]"/>
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/boot/css/style.css">
-    <script src="[!--news.url--]skin/custom/boot/js/jquery.1.12.4.min.js" type="text/javascript"></script>
-    <script src="[!--news.url--]skin/custom/boot/js/bootstrap.min.js" type="text/javascript"></script>
-</head>
+</html><!---ecms.field--->0<!---ecms.record--->4<!---ecms.field--->联系我们模板<!---ecms.field--->[!--temp.head--]
 <body>
 <!--头部开始-->
 [!--temp.header--]
@@ -3518,12 +3262,10 @@ if($selftitle){$selftitle = "{$selftitle}-";}
         <!--侧边栏结束-->
         <div class="col-md-9 main-r">
             <div class="maintop"></div>
-
             <div class="title-view">
-                <h1 class="col-md-8"><i class="icon-share"></i>[e:loop={"select bname,classname from {$dbtbpre}enewsclass where classid='$GLOBALS[navclassid]'",1,24,0}]<?=empty($bqr[bname])?$bqr[classname]:$bqr[bname]?>[/e:loop]</h1>
+                <h1 class="col-md-8"><i class="icon-share"></i><?=$page_info_r['bname']?></h1>
                 <span class="col-md-4">您的位置:[!--newsnav--]</span>
             </div>
-
             <div class="mainRightMain">
                 <div class="padding25">
                     <h2 class="center">[!--pagetitle--]</h2>
@@ -3541,50 +3283,50 @@ if($selftitle){$selftitle = "{$selftitle}-";}
                                 <script type="text/javascript">
                                     //创建和初始化地图函数：
                                     function initMap(){
-                                      createMap();//创建地图
-                                      setMapEvent();//设置地图事件
-                                      addMapControl();//向地图添加控件
-                                      addMapOverlay();//向地图添加覆盖物
+                                        createMap();//创建地图
+                                        setMapEvent();//设置地图事件
+                                        addMapControl();//向地图添加控件
+                                        addMapOverlay();//向地图添加覆盖物
                                     }
                                     function createMap(){
-                                      map = new BMap.Map("map");
-                                      map.centerAndZoom(new BMap.Point(113.332571,23.190986),15);
+                                        map = new BMap.Map("map");
+                                        map.centerAndZoom(new BMap.Point(113.332571,23.190986),15);
                                     }
                                     function setMapEvent(){
-                                      map.enableScrollWheelZoom();
-                                      map.enableKeyboard();
-                                      map.enableDragging();
-                                      map.enableDoubleClickZoom()
+                                        map.enableScrollWheelZoom();
+                                        map.enableKeyboard();
+                                        map.enableDragging();
+                                        map.enableDoubleClickZoom()
                                     }
                                     function addClickHandler(target,window){
-                                      target.addEventListener("click",function(){
-                                        target.openInfoWindow(window);
-                                      });
+                                        target.addEventListener("click",function(){
+                                            target.openInfoWindow(window);
+                                        });
                                     }
                                     function addMapOverlay(){
                                     }
                                     //向地图添加控件
                                     function addMapControl(){
-                                      var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
-                                      scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
-                                      map.addControl(scaleControl);
-                                      var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
-                                      map.addControl(navControl);
-                                      var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
-                                      map.addControl(overviewControl);
+                                        var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+                                        scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+                                        map.addControl(scaleControl);
+                                        var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+                                        map.addControl(navControl);
+                                        var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
+                                        map.addControl(overviewControl);
                                     }
                                     var map;
-                                      initMap();
+                                    initMap();
                                 </script>
 
                                 <br/>
-<?php
-    foreach(get_contact_r() as $k => $v){
-?>
-                                <p><i class="icon-phone"></i><span class="red f22"><?=$v?></span></p>
-<?php
-    }
-?>
+                                <?php
+                                foreach(get_contact_r() as $k => $v){
+                                    ?>
+                                    <p><i class="icon-phone"></i><span class="red f22"><?=$v?></span></p>
+                                    <?php
+                                }
+                                ?>
                                 <p><i class="icon-position"></i>公司地址：广东省广州市白云区广州大道北 南方医院旁</p>
                                 <p><i class="icon-train"></i>广州南站（有专车接送） 地铁路线：3号线到京溪南方医院D出口 </p>
                                 <p><i class="icon-plane"></i>白云国际机场（有专车接送）地铁路线：3号线到京溪南方医院D出口 </p>
