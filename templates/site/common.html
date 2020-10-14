@@ -46,6 +46,8 @@
                 $('div[lay-filter=tpl_name]').html(html);
                 form.render();
             });
+            $('select[name=rewrite]>option[value="' + obj.value + '.conf"]').prop('selected', true);
+            form.render('select');
         });
         //滑块控制
         main.slider({
