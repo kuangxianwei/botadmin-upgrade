@@ -1055,7 +1055,7 @@ $listtemp=$headtit.'
 <script type='text/javascript' src='[!--news.url--]skin/custom/js/jquery.min.js'></script>
 <script type='text/javascript' src='[!--news.url--]skin/custom/js/bootstrap.min.js'></script><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->head<!---ecms.field--->head部分<!---ecms.field---><?php
 $page_info_r= page_info_r(); 
-$host_url = abs_url();
+$host_url = abs_url('/');
 ?><!DOCTYPE HTML>
 <html>
 <head>

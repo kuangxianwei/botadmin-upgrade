@@ -7,6 +7,7 @@
                 <li>采集设置</li>
                 <li>翻译设置</li>
                 <li>违禁设置</li>
+                <li>监控服务</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show layui-form">
@@ -97,6 +98,83 @@
                                   style="color: white;"></textarea>
                     </div>
                 </div>
+                <div class="layui-tab-item layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">Nginx:</label>
+                        <div class="layui-input-inline">
+                            <input type="checkbox" name="nginx_enabled" lay-skin="switch"
+                                   lay-text="打开|关闭"{{if .monitor.NginxEnabled}} checked{{end}}>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="text-danger">开启监控NGINX</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">MySQL:</label>
+                        <div class="layui-input-inline">
+                            <input type="checkbox" name="mysql_enabled" lay-skin="switch"
+                                   lay-text="打开|关闭"{{if .monitor.MysqlEnabled}} checked{{end}}>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="text-danger">开启监控MySQL</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">PHP:</label>
+                        <div class="layui-input-inline">
+                            <input type="checkbox" name="php_enabled" lay-skin="switch"
+                                   lay-text="打开|关闭"{{if .monitor.PhpEnabled}} checked{{end}}>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="text-danger">开启监控PHP</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th rowspan="2"><label class="layui-form-label">定时:</label></th>
+                                <th align="center">分:0-59 *-,</th>
+                                <th align="center">时:0-23 *-,</th>
+                                <th align="center">天:1-31 *-,</th>
+                                <th align="center">月:1-12 *-,</th>
+                                <th align="center">周:0-6 *-,</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" name="minute" value="{{.monitor.Minute}}"
+                                           class="layui-input">
+                                </td>
+                                <td style="padding-left: 2%;">
+                                    <input type="text" name="hour" value="{{.monitor.Hour}}" class="layui-input">
+                                </td>
+                                <td style="padding-left: 2%;">
+                                    <input type="text" name="day" value="{{.monitor.Day}}" class="layui-input">
+                                </td>
+                                <td style="padding-left: 2%;">
+                                    <input type="text" name="month" value="{{.monitor.Month}}" class="layui-input">
+                                </td>
+                                <td style="padding-left: 2%;">
+                                    <input type="text" name="week" value="{{.monitor.Week}}" class="layui-input">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <div class="layui-btn-group">
+                            <button class="layui-btn" lay-submit lay-filter="submit-monitor">立即提交
+                            </button>
+                            <button class="layui-btn layui-btn-danger" data-event="reset" data-name="monitor"
+                                    data-tip="违禁设置恢复到出厂设置?">恢复出厂设置
+                            </button>
+                            <button class="layui-btn" data-event="status" data-name="monitor"
+                                    data-tip="查看定时状态">查看状态
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -125,6 +203,13 @@
         form.on('submit(submit-server)', function (obj) {
             main.req({
                 url: url + '/server',
+                data: obj.field,
+            });
+            return false;
+        });
+        form.on('submit(submit-monitor)', function (obj) {
+            main.req({
+                url: url + '/monitor',
                 data: obj.field,
             });
             return false;
@@ -168,10 +253,27 @@
             var othis = $(this);
             var event = othis.data('event');
             switch (event) {
+                case 'status':
+                    var name = othis.data('name'),
+                        tip = othis.data('tip');
+                    if (name.length === 0) {
+                        return false;
+                    }
+                    layer.confirm(tip, function (index) {
+                        main.req({
+                            url: url + '/status',
+                            data: {name: name},
+                            index: index,
+                            tips: function (res) {
+                                layer.alert(res.msg, {area: ['500px', '450px']});
+                            },
+                        });
+                    });
+                    break;
                 case 'reset':
                     var name = othis.data('name'),
                         tip = othis.data('tip');
-                    if (name.length == 0) {
+                    if (name.length === 0) {
                         return false;
                     }
                     layer.confirm(tip, function (index) {
