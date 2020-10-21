@@ -153,8 +153,8 @@ Install_PHP()
     Clean_PHP_Src_Dir
 }
 
-#设置botadmin开机启动#
-Add_Botadmin_Startup() {
+#设置botAdmin开机启动#
+Add_BotAdmin_Startup() {
   systemctl unmask firewalld.service
   systemctl enable firewalld.service
   systemctl start firewalld.service
@@ -176,7 +176,7 @@ LNMP_Stack()
     Creat_PHP_Tools
     Add_Iptables_Rules
     Add_LNMP_Startup
-    Add_Botadmin_Startup
+    Add_BotAdmin_Startup
     Check_LNMP_Install
 }
 

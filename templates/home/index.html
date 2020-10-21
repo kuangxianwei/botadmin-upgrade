@@ -202,7 +202,8 @@
                                     onclick="act_confirm('确定要更新吗?','','act=upsys')"
                                     style="display: none"><span id="ndown">立即更新
                         </span></button>
-                            <a href="https://github.com/kuangxianwei/botadmin-upgrade/releases" data-target="notab" target="_blank">更新日志</a>
+                            <a href="https://github.com/kuangxianwei/botadmin-upgrade/releases" data-target="notab"
+                               target="_blank">更新日志</a>
                         </td>
                     </tr>
                     <tr>
@@ -244,6 +245,23 @@
             <div class="layui-card-header">最新资讯</div>
             <div class="layui-card-body">
                 <iframe id="iframeSRC" src="" scrolling="no" frameborder="0"
+                        height="440px" width="100%"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header">探针</div>
+            <div class="layui-card-body">
+                <iframe id="iframeP" src="{{.p_url}}" frameborder="0" height="500px" width="100%"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md12">
+        <div class="layui-card">
+            <div class="layui-card-header">OCP</div>
+            <div class="layui-card-body">
+                <iframe id="iframeOCP" src="{{.ocp_url}}" frameborder="0"
                         height="200px" width="100%"></iframe>
             </div>
         </div>
