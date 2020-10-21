@@ -11,17 +11,120 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show layui-form">
-                    {{.baseHtml}}
+                    <div class="layui-row">
+                        <div class="layui-col-md3">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">用户名:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="username" value="{{.base.Username}}" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">Host:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="addr" value="{{.base.Addr}}" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">端口:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="port" value="{{.base.Port}}" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md3">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">运行模式:</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="run_mode" value="prod"
+                                           title="正常"{{if eq .base.RunMode "prod"}} checked{{end}}>
+                                    <input type="radio" name="run_mode" value="dev"
+                                           title="调试"{{if eq .base.RunMode "dev"}} checked{{end}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">Gzip:</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="gzip_enabled"
+                                           lay-skin="switch" lay-text="打开|关闭"{{if .base.GzipEnabled}} checked{{end}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">CSRF:</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="csrf_enabled"
+                                           lay-skin="switch" lay-text="打开|关闭"{{if .base.CsrfEnabled}} checked{{end}}>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">登录限制:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="limit_login" value="{{.base.LimitLogin}}" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">登录错误次数超过将限制N分钟后登录 0为不限制录</div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md5">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">csrf秘钥:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="csrf_secret"
+                                           value="{{.base.CsrfSecret}}" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md5">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">PhpMyAdmin:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="php_my_admin_name" value="{{.base.PhpMyAdminName}}"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md5">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">定时排名:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="rank_spec" value="{{.base.RankSpec}}" class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md5">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">定时重启:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="reboot_spec" value="{{.base.RebootSpec}}"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="uid" value="{{.base.Uid}}">
                     <div class="layui-form-item">
                         <label class="layui-form-label"></label>
                         <div class="layui-btn-group">
-                            <button class="layui-btn" lay-submit lay-filter="submit-base">立即提交
-                            </button>
+                            <button class="layui-btn" lay-submit lay-filter="submit-base">立即提交</button>
                             <button class="layui-btn" data-event="reset" data-name="base" data-tip="Base 恢复出厂设置?">恢复默认
                             </button>
                         </div>
                     </div>
                 </div>
+
                 <div class="layui-tab-item layui-form">
                     {{.serverHtml}}
                     <div class="layui-form-item">
