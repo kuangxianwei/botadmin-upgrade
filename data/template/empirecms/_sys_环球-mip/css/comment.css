@@ -1,0 +1,33 @@
+/*comment*/
+.comment-box{padding:0 15px;}
+.comment-box .comment-title{padding:10px 0;}
+.comment-box .comment-title a{color:#999;font-size:12px;}
+.comment-box .comment-title .more{float:right;}
+
+.comment-box textarea{padding:5px 5px;border:1px solid #ddd;width:100%;}
+.comment-box dl{padding:0px 0;}
+.comment-box dt{float:left;width:42px;margin-right:-42px;}
+.comment-box dd{float:left;position:relative;width:100%;}
+.comment-box .dd-box{margin-left:52px;}
+
+.comment-box .user-box{padding-left:10px;border:1px solid #ddd;background:#fff;height:26px;}
+.comment-box .user-link{float:left;line-height:24px;}
+.comment-box .user-key{float:left;margin-left:15px;}
+.comment-box .user-key input{border:1px solid #ccc;border-top:0;border-bottom:0;background:#fff;height:26px;line-height:26px;width:60px;text-align:center;font-size:12px;}
+.comment-box .user-code{float:left;}
+.comment-box .user-btn{float:right;line-height:24px;}
+.comment-box .comment-chk{position:relative;top:2px;}
+.comment-box .comment-btn{float:right;border:0;background-color:none;background-position:0 -22px;color:#fff;height:26px;line-height:26px;text-align:center;font-weight:bold;width:86px;cursor:pointer;}
+.comment-box .comment:hover{background-position:0 -48px;}
+.font-num{font-family:Georgia, Arial, Tahoma, Geneva;}
+
+mip-form div{display:block;padding: 0 0 0 0;color:#333;}
+mip-form input[type='text'], mip-form input[type='input'], mip-form input[type='datetime'], mip-form input[type='email'], mip-form input[type='number'], mip-form input[type='tel'], mip-form input[type='url']{padding-right:0;}
+mip-form input, mip-form textarea, mip-form select{display:inline-block;padding:0;font-size:14px;}
+mip-form input[type='submit']{border-radius:0;}
+
+
+@media screen and (max-width:767px){
+
+
+}
