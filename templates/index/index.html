@@ -146,8 +146,8 @@
                                    lay-direction="2">MySQL设置</a>
                             </dd>
                             <dd data-name="sql-phpMyAdmin">
-                                <a href="javascript:;" data-phpmyadmin="{{.phpmyadmin}}"
-                                   lay-tips="使用 phpmyadmin 管理" lay-direction="2">PhpMyAdmin</a>
+                                <a href="{{.phpmyadmin}}" lay-tips="使用 phpmyadmin 管理"
+                                   lay-direction="2" target="_blank">PhpMyAdmin</a>
                             </dd>
                         </dl>
                     </li>
@@ -343,11 +343,7 @@
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index'], function () {
-        var $ = layui.$;
-        $('a[data-phpmyadmin]').click(function () {
-            window.open(window.location.protocol + '//' + window.location.hostname + $(this).data('phpmyadmin'));
-        });
-        $('dd[data-event=logout]').click(function () {
+        layui.$('dd[data-event=logout]').click(function () {
             layui.view.exit(function () {
                 location.href = '/auth/logout';
             });

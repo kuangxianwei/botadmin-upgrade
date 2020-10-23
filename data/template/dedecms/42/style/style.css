@@ -1,0 +1,90 @@
+@charset "utf-8";
+* {
+	margin: 0;
+	padding: 0;
+}
+body{ font-family:"宋体"; font-size:12px; color:#4d4d4d; background:url(../images/bodybg.jpg) repeat-x; text-align:center;}
+#main{ background:url(../images/mainbg.jpg) repeat-y; text-align:left; width:1000px; margin-left:auto; margin-right:auto;}
+ul,li{ list-style:none;}
+img{ display:block; border:none;}
+a{ color:#4d4d4d; text-decoration:none;}
+a:hover{color:#2284c6; text-decoration: underline;}
+h2{ font-size:14px; color:#000; padding-left:12px; line-height:32px; height:32px; margin-bottom:5px;}
+h2 img{ display:inline;}
+.english{ font-family:"Arial"; font-size:11px; color:#2284c6; margin-left:10px;}
+.more{ margin-top:10px; margin-right:5px;}
+.address{ font-size:12px; font-weight:normal; margin-right:5px;}
+.address a{ color:#000;}
+.title{ border-bottom:solid 1px #2284c6;}
+
+.auto{ margin-left:auto; margin-right:auto;}
+.left{ float:left;}
+.right{ float:right;}
+.clear{ clear:both;}
+
+#header{ background:url(../images/headbg.jpg) repeat-x left bottom; width:950px; padding:0 25px 31px 25px;}
+.logo, .logo img{ width:390px; height:49px;}
+.logo{ padding-top:15px;}
+.sc{ text-align:right; width:185px;}
+.sc p{ line-height:36px;}
+.sc img{ width:185px; height:16px; margin-top:10px;}
+
+#nav{ background:url(../images/navbg.jpg) repeat-x; line-height:32px; height:32px; padding-bottom:15px; padding-left:30px;}
+#nav li{ font-size:14px; font-weight:bold; float:left;}
+#nav li a{ color:#fff; text-align:center; display:block; width:110px; height:32px;}
+#nav li a:hover{color:#2284c6;  text-decoration:none; background:url(../images/navhoverbg.jpg) no-repeat  center top;}
+
+#banner{ background:url(../images/bannerbg.jpg) repeat-x left bottom;width:960px; height:360px; padding-bottom:15px;}
+
+#content, #footer{ padding-left:20px; padding-right:20px;}
+.news, .aboutus, .contactus{ width:310px; padding-right:10px; padding-bottom:6px;}
+.news li{ background:url(../images/libg.jpg) no-repeat left center; line-height:24px; border-bottom:dotted 1px #575757; padding-left:15px; padding-right:5px; margin-left:14px; margin-right:10px;}
+.news li a,.conn_list li a{width:85%;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;	white-space:nowrap;display: block;}
+.news li span{ float:right;}
+
+.news, .aboutus{ background:url(../images/divboxg.jpg) no-repeat right 15px;}
+.aboutus p{ line-height:24px; padding-left:17px;}
+
+.contactus ul{ background:url(../images/contactusulbg.jpg) no-repeat; width:195px; height:125px; padding-left:10px; padding-top:12px; padding-right:90px; margin-left:12px; margin-top:12px;}
+.contactus li{ line-height:24px;}
+.name{ color:#2284c6; font-weight:bold; margin-bottom:8px;}
+
+.proshow h2{ border-bottom:solid 1px #2284c6;}
+.proshow ul{ width:960px;}
+.proshow li{ display:inline; float:left; margin-left:16px; margin-top:10px;}
+.proshow li img, .conn_prolist li img{ width:160px; height:102px; padding:5px; border:solid 1px #e7e7e7;}
+.proshow li p, .conn_prolist li p{ text-align:center; line-height:24px;}
+
+.friendlink{ background:url(../images/friendlink.jpg) repeat-x; width:960px; padding-bottom:20px;margin-top:5px;}
+.friendlink h2{ width:75px; margin-top:10px;}
+.friendlink p{ line-height:24px; width:865px; margin-top:15px;}
+
+.copyright { color:#fff; background:#2284c6; line-height:24px; padding:15px;}
+.copyright p span{ float:right;}
+.copyright p a, .copyright p a:hover{ color:#fff;}
+
+.n_content{ background:url(../images/ncontentbg.jpg) repeat-y 325px top; width:960px; margin-bottom:10px;}
+.conn_left{ width:320px;}
+.conn_list{ margin-bottom:10px;}
+.conn_list li{ background:url(../images/libg.jpg) no-repeat left center; line-height:24px; border-bottom:dotted 1px #575757; margin-left:20px; margin-right:10px;}
+.conn_list li a{ display:block; margin-left:10px; padding-left:5px;}
+.conn_list li a:hover{ font-size:14px; font-weight:bold; color:#fff; text-decoration:none; background:#2284c6;}
+
+.conn_right{ width:620px;}
+.conn_newslist{ margin-top:15px;}
+.conn_newslist li{ background:url(../images/libg.jpg) no-repeat left center; line-height:24px; border-bottom:dotted 1px #575757; padding-left:15px; padding-right:5px; margin-left:14px; margin-right:10px;}
+.conn_newslist li span{float:right;}
+
+.page { color:#000; background:#fff;line-height:40px; text-align:center; padding-top:20px;}
+.page li {float:left;margin:2px;}
+.page p a { color:#333; padding:0 3px;}
+.conn_prolist{ width:620px;}
+.conn_prolist li{display:inline; float:left; margin-left:26px; margin-top:15px;}
+
+
+.boxs{ padding:1px 10px;}
+.titleshow{ text-align:center; color:#000; margin:10px auto; font-size:16px;}
+.ti{  border-bottom: 1px solid #dcdcdc; margin:0px auto; text-align:center;}
+.showcontent{ min-height:500px; height:auto; overflow:hidden;  line-height:200%; margin:10px auto 0;}
+
+

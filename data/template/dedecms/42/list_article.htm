@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc">
+<title>{dede:field.title/}-{dede:global.cfg_titlelast/}</title>
+<meta name="description" content="{dede:field name='description'  function='html2text(@me)'/}" />
+<meta name="keywords" content="{dede:field name='keywords'/}"/>
+<link href="{dede:global.cfg_templets_skin/}/style/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="main">
+{dede:include filename="head.htm"/}
+<div id="content">
+<div class="n_content">
+<div class="conn_left left">
+<div class="conn_list">
+<h2>新闻资讯<span class="english"></span></h2>
+<ul>
+{dede:arclist row='8' orderby='pubdate' titlelen='100'}
+<li><a href="[field:arcurl/]">[field:title/]</a></li>
+{/dede:arclist}
+</ul>
+</div>
+<div class="contactus">
+<h2>联系我们<span class="english">CONTACT US</span></h2>
+<ul>
+<li class="name">名称：{dede:field.seotitle /}</li>
+<li>联系人：张经理</li>
+</ul>
+</div>
+</div>
+<div class="conn_right right">
+<h2 class="title"><span class="address right">您现在所在的位置是：{dede:field name='position'/}</span>{dede:field.seotitle /}</h2>
+<div class="">
+<div class="cont">
+<ul class="conn_newslist">
+{dede:list pagesize='10'}
+<li><span>[[field:pubdate function="GetDateTimeMK(@me)"/]]</span><a href="[field:arcurl/]">[field:title/]</a></li>
+{/dede:list}
+</ul>
+<div class="clear"></div>
+<div class="page">
+{dede:pagelist listitem="info,index,end,pre,next,pageno,option" listsize="5"/}
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+</div></div>
+<div class="clear"></div>
+{dede:include filename="footer.htm"/}
+</div>
+</body>
+</html>

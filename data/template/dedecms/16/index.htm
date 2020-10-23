@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templets_skin/}/style/style.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="{dede:global.cfg_cmsurl/}/include/dedeajax2.js"></script>
+<script language="javascript" type="text/javascript" src="{dede:global.cfg_cmspath/}/images/js/j.js" ></script>
+<script language="javascript" type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/pic_scroll.js"></script>
+<script language="javascript" type="text/javascript">
+</script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/jquery.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/superslide.2.1.js"></script>
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body class="index">
+{dede:include filename="head2.htm"/}
+<div class="fullSlide">
+  <div class="bd">
+    <ul>
+    <li _src="url({dede:global.cfg_templets_skin/}/images/1.jpg)" style="background:#E2025E center 0 no-repeat;"></li>
+    <li _src="url({dede:global.cfg_templets_skin/}/images/2.jpg)" style="background:#DED5A1 center 0 no-repeat;"</li>
+    <li _src="url({dede:global.cfg_templets_skin/}/images/3.jpg)" style="background:#B8CED1 center 0 no-repeat;"></li>
+    </ul>
+  </div>
+  <div class="hd">
+    <ul>
+    </ul>
+  </div>
+  <span class="prev"></span> <span class="next"></span> </div>
+<script type="text/javascript">
+jQuery(".fullSlide").hover(function() {
+    jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 0.5)
+},
+function() {
+    jQuery(this).find(".prev,.next").fadeOut()
+});
+jQuery(".fullSlide").slide({
+    titCell: ".hd ul",
+    mainCell: ".bd ul",
+    effect: "fold",
+    autoPlay: true,
+    autoPage: true,
+    trigger: "click",
+    startFun: function(i) {
+        var curLi = jQuery(".fullSlide .bd li").eq(i);
+        if ( !! curLi.attr("_src")) {
+            curLi.css("background-image", curLi.attr("_src")).removeAttr("_src")
+        }
+    }
+});
+</script>
+<div style="margin:10px auto; width:1000px;">
+  <div>
+    <div class="inn1">
+    <p><span><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/more.jpg" border="0" /></a></span><strong>关于{dede:global.cfg_indexname/}</strong></p>
+    <div style="padding:10px;"> <img src="{dede:global.cfg_templets_skin/}/images/20140220155815681568.jpg" /> <br />
+    {dede:global.cfg_about/}</div>
+    </div>
+    <div class="inn2">
+    <p><span><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/more.jpg" alt="/news/" /></a></span><strong>窗帘知识</strong></p>
+    <div class="inn4"> {dede:arclist row='6' titlelen='50' orderby='pubdate' typeid =1 channelid='1'}
+        <li><span>[field:pubdate function='strftime("%m-%d",@me)'/]</span><a href="[field:arcurl/]">[field:title/]</a></li>
+        {/dede:arclist} </div>
+    </div>
+    <div class="inn3">
+    <p><span><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/more.jpg" border="0" /></a></span><strong>联系方式</strong></p>
+    <div style="padding:10px; line-height:22px;"> <img src="{dede:global.cfg_templets_skin/}/images/20140220154924552455.jpg" width="230" height="90" /> 地 址：{dede:global.cfg_city/}市石化路63号<br />
+        电 话：18136959568<br />
+        Q   Q：65986595
+    {dede:global.cfg_webname/}</div>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+  <div class="inn5">
+    <p><span><a href="#"><img src="{dede:global.cfg_templets_skin/}/images/more.jpg" border="0" /></a></span><strong>产品展示</strong></p>
+    <ul>
+    {dede:arclist row='5' titlelen='30' typeid='2,3,4'}
+    <li><a href="[field:arcurl/]"><img src="[field:litpic/]" alt="" /></a>
+        <p><a href="[field:arcurl/]">[field:title/]</a></p>
+    </li>
+    {/dede:arclist}
+    </ul>
+  </div>
+</div>
+<div class="clear"></div>
+{dede:include filename="footer2.htm"/}
+</body>
+</html>

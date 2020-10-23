@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}">
+<meta name="keywords" content="{dede:global.cfg_keywords/}">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/reset.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/layout.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/zerogrid.css">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/responsive.css">
+<link rel="stylesheet" href="{dede:global.cfg_templets_skin/}/css/responsiveslides.css" />
+  <!--[if lt IE 9]>
+    <script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/html5.js"></script>
+    <style type="text/css">
+        .bg{ behavior: url({dede:global.cfg_templets_skin/}/js/PIE.htc); }
+    </style>
+  <![endif]-->
+    <script src="{dede:global.cfg_templets_skin/}/js/responsiveslides.js"></script>
+    <script>
+        $(function () {
+        $("#slider").responsiveSlides({
+            auto: true,
+            pager: false,
+            nav: true,
+            speed: 500,
+            maxwidth: 960,
+            namespace: "centered-btns"
+        });
+        });
+    </script>
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body id="page1">
+<div class="body1">
+    <div class="body2">
+        <div class="main zerogrid">
+<!-- header -->
+            <header>
+                {dede:include filename="head.htm"/}
+                <div class="wrapper row">
+                    <div class="slider">
+                        <div class="rslides_container">
+                            <ul class="rslides" id="slider">
+                                <li><img src="{dede:global.cfg_templets_skin/}/images/img1.jpg" alt=""></li>
+                                <li><a href=""><img src="{dede:global.cfg_templets_skin/}/images/img2.jpg" alt=""></a></li>
+                                <li><img src="{dede:global.cfg_templets_skin/}/images/img1.jpg" alt=""></li>
+                                <li><a href=""><img src="{dede:global.cfg_templets_skin/}/images/img2.jpg" alt=""></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+<!-- header end-->
+        </div>
+    </div>
+</div>
+    <div class="body3">
+        <div class="main zerogrid">
+<!-- content -->
+            <article id="content">
+                <div class="wrapper row">
+                    <section class="col-3-4">
+                        <div class="wrap-col">
+                            <h2 class="under">{dede:global.cfg_indexname/}企业简介</h2>
+                            <div class="wrapper">
+                                <figure class="left marg_right1"><img src="{dede:global.cfg_templets_skin/}/images/page1_img1.jpg" alt=""></figure>
+<p class="pad_bot1">{dede:global.cfg_about/}</P>
+</div>
+                        </div>
+                    </section>
+                    <section class="col-1-4">
+                        <div class="wrap-col">
+                            <h2>工程案例</h2>
+                            <div class="testimonials">
+                            <div id="testimonials">
+                            <ul>
+{dede:arclist row=10 titlelen='16' imgwidth='194' imgheight='129' type='image'}
+<li><div>
+<a href="[field:arcurl/]" title="[field:fulltitle/]"><img src="[field:litpic/]"></a>
+</div>
+<span><strong class="color1"><a href="[field:arcurl/]" title="[field:fulltitle/]">[field:title/]</a></strong> </span>
+</li>
+{/dede:arclist}
+                            </ul>
+                            </div>
+                            <a href="#" class="up"></a>
+                            <a href="#" class="down"></a>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+<div class="wrapper row">
+<div class="chanpinfenlei">
+<ul>
+{dede:channel type='son' row='10' typeid='3'}
+<li class="kuang"><a href='[field:typelink/]'>[field:typename/]</a></li>
+{/dede:channel}
+<span class="youkuang"><a href="{dede:type typeid='3'}[field:typeurl/]{/dede:type}">所有分类>>></a></span>
+    </ul>
+</div>
+</div>
+<div class="wrapper row">{dede:channelartlist typeid='3' }
+<div class="chanpin">
+<ul>
+{dede:arclist row=6 titlelen='30' imgwidth='280' imgheight='186' type='image'}
+<li><span><a href="[field:arcurl/]" title="[field:fulltitle/]"><img src="[field:litpic/]"></a><br><a href="[field:arcurl/]" title="[field:fulltitle/]">[field:title/]</a></span></li>
+{/dede:arclist}
+</ul>
+</div> {/dede:channelartlist}
+</div>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/js/h.js"></script>
+            </article>
+        </div>
+    </div>
+    <div class="body4">
+        {dede:include filename="indexfoot.htm"/}
+<div style="width:80%; margin-right:auto; margin-left:auto; margin-bottom: 20px;"><b>友情链接：</b>
+{dede:flink row='24'}[field:link/] {/dede:flink}
+</div>
+</body>
+</html>

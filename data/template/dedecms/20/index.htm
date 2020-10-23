@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="applicable-device" content="pc" />
+<meta name="location" content="province={dede:global.cfg_province/};city={dede:global.cfg_city/}" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>{dede:global.cfg_webname/}</title>
+<script language="JavaScript" type="text/javascript" src="/js/uadirect.js"></script>
+<meta http-equiv="mobile-agent" content="format=html5;url={dede:global.cfg_waphost/}/" />
+<meta name="mobile-agent" content="format=xhtml;url={dede:global.cfg_waphost/}" />
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templets_skin/}/skin/css/base.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/skin/js/jquery.min.js"></script>
+<script>
+  function dropMenu(obj){
+    $(obj).each(function(){
+        var theSpan = $(this);
+        var theMenu = theSpan.find(".submenu");
+        var tarHeight = theMenu.height();
+        theMenu.css({height:0,opacity:0});
+        theSpan.hover(
+            function(){
+                theMenu.stop().show().animate({height:tarHeight,opacity:1},400);
+            },
+            function(){
+                ;
+                theMenu.stop().animate({height:0,opacity:0},400,function(){
+                    $(this).css({display:"none"});
+                });
+            }
+        );
+    });
+}
+$(document).ready(function(){
+    dropMenu(".drop-menu-effect");
+});
+</script>
+<link rel="canonical" href="{dede:global.cfg_basehost/}">
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<style>
+  .nav li ul{z-index:999999;}
+</style>
+<div class="content">
+<div class="index-banner">
+  <ul id="slides">
+    <li style="background:url('{dede:global.cfg_templets_skin/}/skin/images/20150827085728234.jpg') no-repeat center top"><a href=""></a></li>
+    <li style="background:url('{dede:global.cfg_templets_skin/}/skin/images/20150827085809379.jpg') no-repeat center top"><a href=""></a></li>
+    <li style="background:url('{dede:global.cfg_templets_skin/}/skin/images/20150805011541886.jpg') no-repeat center top"><a href=""></a></li>
+    <li style="background:url('{dede:global.cfg_templets_skin/}/skin/images/20150805011619696.jpg') no-repeat center top"><a href=""></a></li>
+  </ul>
+</div>
+<!--banner-->
+<div class="xiangmu">
+<div class="cont">
+<div class="contc">
+<div class="nrc">
+<div class="jieshaon">
+  <div class="aboutj"> {dede:type typeid='2'} <a href="[field:typelink/]"><img src="[field:global.cfg_templets_skin/]/skin/images/about-bg.png"></a>{/dede:type} </div>
+  <div class="xinxin">
+{dede:global.cfg_about/}
+  </div>
+</div>
+<div id="newn">
+<div id="newn_t">
+<ul>
+<li class="hover">企业动态</li>
+<li class="act">行业动态</li>
+</div>
+<div class="newn_b">{dede:type typeid='1'} <a href="[field:typelink/]">
+  <div class="gengduo"></div>
+  </a>{/dede:type}
+  {dede:arclist typeid='1' limit='0,1' infolen='80' titlelen=24}
+  <div class="newn_bt">
+    <!--上-->
+    <div class="newn_bt_l fl"><a href="[field:arcurl/]"><img src="[field:picname/]" style="width: 115px;height:81px;"></a></div>
+    <div class="newn_bt_r fr"> <span><strong><a href="[field:arcurl/]">[field:title/]...</a></strong></span>
+    <p>[field:info/]...</p>
+    <span>[field:pubdate function="MyDate('Y.m.d',@me)"/]</span></div>
+  </div>
+  {/dede:arclist}
+  <div class="newn_bb">
+    <!--上-->
+    <div class="zwz fl">
+    <ul>
+        {dede:arclist typeid='2' limit='1,3' titlelen=38}
+        <li><a href="[field:arcurl/]">[field:title/]...</a><a style="float:right; margin-right:-90px;">[field:pubdate function="MyDate('Y.m.d',@me)"/]</a></li>
+        {/dede:arclist}
+    </ul>
+    </div>
+    <!--上-->
+  </div>
+</div>
+<div class="newn_b" style="display:none"> {dede:type typeid='3'} <a href="[field:typelink/]">
+  <div class="gengduo"></div>
+  </a>{/dede:type}
+  {dede:arclist typeid='3' limit='0,1' infolen='80' titlelen=24}
+  <div class="newn_bt">
+    <div class="newn_bt_l fl"><img src="[field:picname/]" style="width: 115px;height:81px;"></div>
+    <div class="newn_bt_r fr"> <span><strong><a href="[field:arcurl/]">[field:title/]...</a></strong></span>
+    <p>[field:info/]...</p>
+    <span>date&nbsp;:&nbsp;[field:pubdate function="MyDate('Y.m.d',@me)"/]</span></div>
+  </div>
+  {/dede:arclist}
+  <div class="newn_bb">
+    <div class="zwz fl">
+    <ul>
+        {dede:arclist typeid='1' limit='1,3' titlelen=38}
+        <li><a href="[field:arcurl/]">[field:title/]...</a><a style="float:right; margin-right:-90px;">[field:pubdate function="MyDate('Y.m.d',@me)"/]</a></li>
+        {/dede:arclist}
+    </ul>
+    </div>
+  </div>
+</div>
+</div>
+<!--选项卡-->
+</div>
+<script>
+    function getclass(oPearent,sClass){
+    var oLent=oPearent.getElementsByTagName('*');
+    var arr=[];
+    for(var i=0;i<oLent.length;i++){
+        if(oLent[i].className == sClass){
+            arr.push(oLent[i]);
+            }
+        }
+    return arr;
+    }
+            window.onload=function(){
+                var oNe=document.getElementById('newn');
+                var oLi=document.getElementById('newn_t').getElementsByTagName('li');
+                var oNe_b=getclass(oNe,'newn_b');
+                oLi[0].style.borderBottom ='0';
+                for(var i=0;i<oLi.length;i++){
+                oLi[i].index=i;
+                oLi[i].onclick=function(){
+                    for(var i=0;i<oNe_b.length;i++){
+                    oNe_b[i].style.display='none';
+                    oLi[i].className='act';
+                    }
+                    // this.style.borderBottom ='0';
+                    // this.style.borderLeft ='1px solid #4a835a';
+                    // this.style.borderRight ='1px solid #4a835a';
+                    // this.style.borderTop ='1px solid #4a835a';
+                    oNe_b[this.index].style.display='block'
+                    this.className='hover';
+                }
+                }
+            }
+    </script>
+<script>
+    </script>
+<!--nrc-->
+<div class="jigou">
+  <div class="keyan">{dede:type typeid='2'} <a href="[field:typelink/]">
+    <div class="pp1"><strong>[field:typename/]</strong></div>
+    <div class="pp2">R & D Center</div>
+    </a>{/dede:type} </div>
+  <div class="fuwu"> {dede:type typeid='3'}<a href="[field:typelink/]">
+    <div class="pp1"><strong>企业荣誉与产品认证</strong></div>
+    <div class="pp2">Honor Certification</div>
+    </a>{/dede:type} </div>
+  <div class="lianxi">{dede:type typeid='4'} <a href="[field:typelink/]">
+    <div class="pp1"><strong>[field:typename/]</strong></div>
+    <div class="pp2">Contact Us</div>
+    </a>{/dede:type} </div>
+</div>
+<!--jigou-->
+</div>
+<div class="clear"></div>
+</div>
+<!--cont-->
+</div>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/skin/js/jquery.min.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/skin/js/jquery.jslides.js"></script>
+<div class="footer">
+  <div class="t_dibu"> <b>友情链接: </b>{dede:flink row='24'}[field:link/] | {/dede:flink} <br/>
+    {dede:global.cfg_webname/}&nbsp;&nbsp;&nbsp;&nbsp;电话：0898-66889888 传真：0898-66889777&nbsp;&nbsp;
+
+    </div>
+  <!--footer-right-->
+</div>
+<!--footer-->
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="applicable-device" content="pc">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<title>{dede:field.title/}_{dede:global.cfg_titlelast/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/}" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/}" />
+<link href="{dede:global.cfg_templets_skin/}/skin/css/all.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/skin/js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="{dede:global.cfg_templets_skin/}/skin/js/jquery.jslides.js"></script>
+</head>
+<body>
+{dede:include filename="head.htm"/}
+<div class="mm" style="margin-bottom:10px;">
+  <div class="left">
+	<div class="left_t">
+	<div class="left_tt">{dede:field name='typeid' function="GetTopTypename(@me)"/} Message</div>
+	<div class="left_tm">
+		<ul>
+		{dede:channel type ='son' currentstyle="
+		<li><a href='~typelink~' class='thisclass'>~typename~</a> </li>
+		"}
+		<li><a href="[field:typeurl/]">[field:typename/]</a></li>
+		{/dede:channel}
+		</ul>
+	</div>
+	</div>
+	<div class="contact">
+	<div class="left_tt">联系我们  Contact us</div>
+	<div class="contact1">
+		<ul>
+		<li>电 话：{dede:global.cfg_dh/}</li>
+		<li>手 机：{dede:global.cfg_sj/}</li>
+		<li>联 系人：{dede:global.cfg_mc/}</li>
+		<li>邮 编：{dede:global.cfg_yx/}</li>
+		<li>网 址：www.dedecms.com</li>
+		<li>地 址：{dede:global.cfg_dz/}</li>
+		</ul>
+	</div>
+	</div>
+  </div>
+  <div class="mmr">
+	<div class="dh">在线留言</div>
+	<div class="content">
+	<form action="/plus/diy.php" enctype="multipart/form-data" method="post">
+		<input type="hidden" name="action" value="post" />
+		<input type="hidden" name="diyid" value="1" />
+		<input type="hidden" name="do" value="2" />
+		<table width="100%%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td width="15%" height="21" align="right">&nbsp;</td>
+			<td width="85%" colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="15%" height="28" align="right">姓名：</td>
+			<td width="85%" colspan="2"><input type="text" name="name" />
+			* 请输入您的真实姓名</td>
+		</tr>
+		<tr>
+			<td width="15%" height="29" align="right">邮箱：</td>
+			<td width="85%" colspan="2"><input type="text" name="bt" />
+			*	请输入您的邮箱地址</td>
+		</tr>
+		<tr>
+			<td width="15%" height="28" align="right">电话：</td>
+			<td width="85%" colspan="2"><input type="text" name="tel" />
+			*请填您的电话或手机号码</td>
+		</tr>
+		<tr>
+			<td width="15%" height="32" align="right">地 址：</td>
+			<td width="85%" colspan="2"><input type="text" name="add" />
+			* 请输入您的联系地址</td>
+		</tr>
+		<tr>
+			<td align="right">留言内容：</td>
+			<td colspan="2"><textarea rows="5" name="nr" id="nr" cols="16" style="width:95%; height:200px; margin:10px 0px;"></textarea></td>
+		</tr>
+		<tr>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<input type="hidden" name="dede_fields" value="name,text;tel,text;bt,text;nr,text;add,text" />
+			<input type="hidden" name="dede_fieldshash" value="6399a8ffc82645919e48acbdf9fb4c85" />
+			<td align="right"><input name="submit" type="submit" value="提交" /></td>
+			<td align="left"><input name="reset" type="reset" value="重填" /></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td align="center">&nbsp;</td>
+			<td align="left">&nbsp;</td>
+		</tr>
+		</table>
+	</form>
+	</div>
+  </div>
+  <div class="clear"></div>
+</div>
+{dede:include filename="footer.htm"/}
+</body>
+</html>
