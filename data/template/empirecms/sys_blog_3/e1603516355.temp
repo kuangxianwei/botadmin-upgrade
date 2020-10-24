@@ -160,108 +160,40 @@
 	<!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认js模板<!---ecms.field--->[!--empirenews.listtemp--]<li><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a></li>[!--empirenews.listtemp--]<!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->m-d<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->32<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻列表模板<!---ecms.field--->[!--temp.head--]
 <body>
 [!--temp.header--]
-<nav class="breadcrumb container">[!--newsnav--]</nav>
-<div id="content" class="content container clearfix">
-    <section id="mainbox" class="fl br mb">
-        <!-- 广告位AD6  -->
-        <div class="new-post">
-            [!--empirenews.listtemp--]<!--list.var1-->[!--empirenews.listtemp--]
+<article>
+    <!--lbox begin-->
+    <div class="lbox">
+        <div class="whitebg bloglist">
+            <h2 class="htitle">[!--newsnav--]</h2>
+            <ul>
+                [!--empirenews.listtemp--]<!--list.var1-->[!--empirenews.listtemp--]
+            </ul>
+            <div class="pagelist">[!--show.listpage--]</div>
         </div>
-        <div class="pagebar">
-            <div class="nav-links">[!--show.listpage--]</div>
-        </div>
-    </section>
+    </div>
     [!--temp.sidebar--]
-</div>
+</article>
 [!--temp.footer--]
 </body>
-</html><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->if($r['ispic']===1){
-$listtemp=<<<EOF
-<article class="article-list br mb sb clearfix">
-    <figure class="figure fl">
-        <a href="[!--titleurl--]" title="[!--oldtitle--]" target="_blank" class="thumbnail">
-            <img class="img-cover br" src="[!--titlepic--]" alt="[!--oldtitle--]">
-        </a>
-    </figure>
-    <div class="content">
-        <h2 class="title ellipsis m-multi-ellipsis">
-            <a href="[!--titleurl--]" title="[!--oldtitle--]" target="_blank">[!--title--]</a>
-        </h2>
-        <p class="intro hidden-sm">[!--smalltext--]</p>
-        <p class="data clearfix">
-            <time class="time fl" datetime="[!--newstime--]" title="[!--newstime--]">
-                <i class="iconfont icon-time"></i>[!--newstime--]
-            </time>
-            <span class="hidden-sm-md-lg tag ellipsis fr">
-                <i class="iconfont icon-tag"></i>
-                <a href="[!--this.classlink--]" class="classname">[!--this.classname--]</a>
-            </span>
-        </p>
-    </div>
-</article>
-EOF;
-} else {
-$listtemp=<<<EOF
-<article class="article-list br mb sb clearfix">
-    <div class="content">
-        <h2 class="title ellipsis m-multi-ellipsis">
-            <a href="[!--titleurl--]" title="[!--oldtitle--]" target="_blank">[!--title--]</a>
-        </h2>
-        <p class="intro hidden-sm">[!--smalltext--]</p>
-        <p class="data clearfix">
-            <time class="time fl" datetime="[!--newstime--]" title="[!--newstime--]">
-                <i class="iconfont icon-time"></i>[!--newstime--]
-            </time>
-            <span class="hidden-sm-md-lg tag ellipsis fr">
-                <i class="iconfont icon-tag"></i>
-                <a href="[!--this.classlink--]" class="classname">[!--this.classname--]</a>
-            </span>
-        </p>
-    </div>
-</article>
-EOF;
-}<!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻内容模板<!---ecms.field--->0<!---ecms.field--->[!--temp.head--]
+</html><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field---><li>
+    <h3 class="blogtitle"><a href="[!--titleurl--]" title="[!--oldtitle--]" target="_blank">[!--title--]</a></h3>
+    <span class="blogpic imgscale"><i>[!--this.classname--]</i><a href="[!--titleurl--]" title="[!--title--]">
+            <img src="[!--titlepic--]" alt="[!--oldtitle--]"></a></span>
+    <p class="blogtext">[!--smalltext--]</p>
+    <p class="bloginfo"><span>[!--newstime--]</span></p>
+    <a href="[!--titleurl--]" class="viewmore">阅读更多</a>
+</li><!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻内容模板<!---ecms.field--->0<!---ecms.field--->[!--temp.head--]
 <body>
 [!--temp.header--]
 <style>
-    .btn-success {
-        color: #fff;
-        background-color: #5cb85c;
-        border-color: #4cae4c;
-    }
-
-    .btn {
-        display: inline-block;
-        padding: 6px 12px;
-        margin-bottom: 0;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 1.42857143;
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: middle;
-        -ms-touch-action: manipulation;
-        touch-action: manipulation;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        background-image: none;
-        border: 1px solid transparent;
-        border-radius: 4px;
-    }
-
     .article_footer .tag {
         text-align: right;
         color: #999;
         padding: 10px;
     }
-
     .fr {
         float: right;
     }
-
     .article_footer .tag a {
         display: inline-block;
         color: #999;
@@ -272,159 +204,102 @@ EOF;
         border-radius: 3px;
     }
 </style>
-<nav class="breadcrumb container">[!--newsnav--]</nav>
-<div id="content" class="content container clearfix">
-    <div id="mainbox" class="article-box fl mb">
-        <article class="art-main sb br mb">
-            <div class="art-head mb">
-                <h1 class="art-title">[!--title--]</h1>
-                <div class="head-info">
-                    <time class="time" datetime="[!--newstime--]" title="[!--newstime--]">
-                        <i class="iconfont icon-time"></i>[!--newstime--]
-                    </time>
-                    <i class="iconfont icon-link"></i>浏览:<script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script>次
+<article>
+    <div class="lbox">
+        <div class="content_box whitebg">
+            <h2 class="htitle">
+                <span class="con_nav">您现在的位置是:[!--newsnav--]</span>
+                <span>[!--newstime--] 点击: <script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script></span>
+            </h2>
+            <h1 class="con_tilte">[!--title--]</h1>
+            <div class="con_text">[!--newstext--]</div>
+            <div class="entry-copyright">
+                郑重声明：本文版权归原作者所有，转载文章仅为传播更多信息之目的，如作者信息标记有误，请第一时间联系我们修改或删除，多谢。
+            </div>
+            <div class="article_footer clearfix">
+                <div class="fr tag"> 标签:
+                    <?php $tag_row=$empire->fetch1("select infotags from
+                    {$dbtbpre}ecms_news_data_{$navinfor[stb]} where id='$navinfor[id]'");
+                    $tags=array_unique(explode(',',$tag_row['infotags']));
+                    foreach($tags as $tag){?>
+                    <a href="[!--news.url--]tag/<?=$tag?>" target="_blank"><?=$tag?></a>
+                    <?php } ?>
                 </div>
             </div>
-            <div class="art-content">
-                <div data-v-e73bee8c="" class="article-cover">
-                    [!--newstext--]
-                    <div class="art-copyright br mb">
-                        <p><span class="copyright">郑重声明:</span>本文版权归原作者所有，转载文章仅为传播更多信息之目的，如作者信息标记有误，请第一时间联系我们修改或删除，多谢。
-                        </p>
-                    </div>
-                    <div class="article_footer clearfix">
-                        <div class="fr tag"> 标签:
-                            <?php $tag_row=$empire->fetch1("select infotags from
-                            {$dbtbpre}ecms_news_data_{$navinfor[stb]} where id='$navinfor[id]'");
-                            $tags=array_unique(explode(',',$tag_row['infotags']));
-                            foreach($tags as $tag){?>
-                            <a href="[!--news.url--]tag/<?=$tag?>" target="_blank"><?=$tag?></a>
-                            <?php } ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </article>
-        <div class="quick-prev-next">
-            [!--info.pre--]
-            [!--info.next--]
         </div>
-        <!--相关文章优先选择同tag的文章，无tag则调用最新文章-->
-        <div class="related-art sb br mb">
-            <p class="c-title"><span class="name">相关文章</span></p>
-            <ul class="ul clearfix">
+        <div class="whitebg">
+            <h2 class="htitle">相关文章</h2>
+            <ul class="otherlink">
                 [e:loop={'news',8,3,0,"ispic=1 AND keyboard like '%$navinfor[keyboard]%' or title like
                 '%$navinfor[keyboard]%'",''}]
-                <li class="related-item mt fl">
+                <li>
                     <a href="<?= $bqsr['titleurl'] ?>" title="<?= $bqr['title'] ?>" target="_blank">
-                        <p class="titile"><?= $bqr['title'] ?></p>
+                        <img src="<?= $bqr['titlepic'] ?>" alt="<?= $bqr['title'] ?>" class="thumb" height="116">
                     </a>
+                    <a href="<?= $bqsr['titleurl'] ?>" target="_blank"
+                       title="<?= $bqr['title'] ?>"><?= $bqr['title'] ?></a>
                 </li>
                 [/e:loop]
             </ul>
         </div>
     </div>
     [!--temp.sidebar--]
-</div>
+</article>
 [!--temp.footer--]
 </body>
 </html><!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->[!--temp.head--]
 <body>
 [!--temp.header--]
-<div id="content" class="content container">
-    <div class="clearfix">
-        <div id="mainbox" class="fl">
-            <div class="swiper-container br">
-                <ul class="swiper-wrapper ">
-                    [e:loop={'SELECT * FROM [!db.pre!]ecms_news order by rand() limit 3',0,24,1}]
-                    <li class="swiper-slide">
-                        <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank" class="link">
-                            <p class="p ellipsis"><?=$bqr['title']?></p>
-                            <img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>"/>
-                            <i class="mask"></i>
-                        </a>
-                    </li>
-                    [/e:loop]
-                </ul>
-                <p class="swiper-pagination"></p>
-                <i class="hidden-sm-md-lg swiper-button-next iconfont icon-right"></i>
-                <i class="hidden-sm-md-lg swiper-button-prev iconfont icon-left"></i>
-            </div>
-            <div class="recommend-c sb br mb">
-                <p class="c-title mb"><span>首页头条推荐</span></p>
-                <div class="wrap clearfix">
-                    <?php $isgood_title='';?>
-                    <article class="img-list br mb fl">
-                        <div class="clearfix">
-                            [e:loop={0,1,3,1,'isgood>0'}]
-                            <?php $isgood_title=$bqr['title'];?>
-                            <figure class="figure fl">
-                                <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank" class="thumbnail">
-                                    <img class="img-cover br"src="<?=$bqr['titlepic']?>"alt="<?=$bqr['title']?>">
-                                </a>
-                            </figure>
-                            <div class="content">
-                                <h2 class="title ellipsis m-multi-ellipsis">
-                                    <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a>
-                                </h2>
-                                <div class="intro">
-                                    <?=$bqr['smalltext']?>
-                                </div>
-                            </div>
-                            [/e:loop]
-                        </div>
-                    </article>
-                    [e:loop={0,6,3,1,'isgood>0'}]
-                    <?php if ($bqr['title']!==$isgood_title):?>
-                    <p class="list ellipsis fl clearfix jq-hook">
-                        <i class="iconfont icon-hot fl"></i>
-                        <a class="a fl ellipsis" href="<?=$bqsr['titleurl']?>"
-                                title="<?=$bqr['title']?>"><?=$bqr['title']?></a>
-                        <time class="list-time fr" datetime="<?=date('Y-m-d',$bqr['newstime'])?>" title="<?=date('Y-m-d',$bqr['newstime'])?>"><?=date('m-d',$bqr['newstime'])?></time>
-                    </p>
-                    <?php endif;?>
-                    [/e:loop]
-                </div>
-            </div>
-            <!-- 最新文章 -->
-            <div class="new-post">
-                <p class="c-title"><span>最新文章</span></p>
-                [e:loop={0,12,3,0}]
-                <article class="article-list br mb sb clearfix">
-                    <?php if($bqr['titlepic']):?>
-                    <figure class="figure fl">
-                        <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank" class="thumbnail">
-                            <img class="img-cover br" src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>">
-                        </a>
-                    </figure>
-                    <?php endif;?>
-                    <div class="content">
-                        <h2 class="title ellipsis m-multi-ellipsis">
-                            <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank"><?=$bqr['title']?></a>
-                        </h2>
-                        <p class="intro hidden-sm"><?=$bqr['smalltext']?></p>
-                        <p class="data clearfix">
-                            <time class="time fl" datetime="<?=date('Y-m-d',$bqr['newstime'])?>" title="<?=date('Y-m-d',$bqr['newstime'])?>">
-                                <i class="iconfont icon-time"></i><?=date('Y-m-d',$bqr['newstime'])?>
-                            </time>
-                            <span class="hidden-sm-md-lg tag ellipsis fr">
-                                <i class="iconfont icon-tag"></i>
-                                <a href="<?=$bqsr['classurl']?>" class="classname"><?=$bqsr['classname']?></a>
-                            </span>
-                        </p>
-                    </div>
-                </article>
+<article>
+    <div class="lbox">
+        <div class="zhuanti whitebg">
+            <h2 class="htitle"><span class="hnav">……</span>头条</h2>
+            <ul>
+                [e:loop={0,6,3,1,'firsttitle>0'}]
+                <li>
+                    <i class="ztpic"><a href="<?=$bqsr['titleurl']?>" class="focus" rel="bookmark"
+                                        title="<?=$bqr['title']?>" target="_blank">
+                            <img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>"
+                                 title="<?=$bqr['title']?>"/><span><?=$bqr['title']?></span></a></i>
+                    <b><?=$bqr['title']?></b><span><?=$bqr['smalltext']?></span>
+                    <a href="<?=$bqsr['titleurl']?>" target="_blank" class="readmore">文章阅读</a>
+                </li>
                 [/e:loop]
-            </div>
+            </ul>
         </div>
-        [!--temp.sidebar--]
+        <div class="whitebg bloglist">
+            <h2 class="htitle">最新文章</h2>
+            <ul>
+                [e:loop={0,10,3,0}]
+                <li>
+                    <h3 class="blogtitle">
+                        <a href="<?=$bqsr['titleurl']?>" class="focus" rel="bookmark" title="<?=$bqr['title']?>" target="_blank">
+                            <?=$bqr['title']?>
+                        </a>
+                    </h3>
+                    <?php if($bqr['titlepic']):?>
+                    <span class="blogpic imgscale"><i>医学前沿</i>
+                        <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
+                            <img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>"/>
+                        </a>
+                    </span>
+                    <?php endif;?>
+                    <p class="blogtext"><?=$bqr['smalltext']?></p>
+                    <p class="bloginfo"><span><?=date('Y-m-d',$bqr['newstime'])?></span></p>
+                    <a href="<?=$bqsr['titleurl']?>" class="viewmore">阅读更多</a>
+                </li>
+                [/e:loop]
+            </ul>
+        </div>
     </div>
-    <!-- 友情链接 -->
-    <div class="flink container sb br mb">
-        <p class="c-title mb">友情链接</p>
-        <ul id="flink" class="f-list clearfix">
-            [e:loop={'select * from [!db.pre!]enewslink where checked=1 and classid=1 order by myorder',20,24,0}]
-            <li><a href="<?=$bqr[lurl]?>" title="<?=$bqr[lname]?>" target="_blank"><?=$bqr[lname]?></a></li>
+    [!--temp.sidebar--]
+</article>
+<div style="width: 100%; margin-bottom: 20px;">
+    <div class="links whitebg" style="max-width:1165px;margin: 0 auto;">
+        <h4>友情链接</h4>
+        <ul>
+            [e:loop={"select * from {$dbtbpre}enewslink where checked=1 and classid=1 order by myorder",20,24,0}]
+            <li><a href="<?= $bqr['lurl'] ?>" title="<?= $bqr['lname'] ?>" target='_blank'><?= $bqr['lname'] ?></a></li>
             [/e:loop]
         </ul>
     </div>
@@ -1008,73 +883,51 @@ $listtemp=$headtit.'
           <time><i class=\"fa fa-clock-o\"></i><font>[!--newstime--]</font></time>
           <span class=\"pv\"><i class=\"fa fa-eye\"></i>阅读([!--onclick--])</span> <span class=\"pc\"><i class=\"fa fa-comments-o\"></i>作者([!--username--])</span> </p>
         <p class=\"note\">[!--smalltext--]</p>
-</article>';<!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->header<!---ecms.field--->页面头部<!---ecms.field---><header class="header sb">
-    <div class="h-wrap container clearfix"><?php
-        $h = 'h1';
-        if ($navclassid){$h = 'h2';}
-        ?>
-        <<?=$h?> class="logo-area fl">
+</article>';<!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->header<!---ecms.field--->页面头部<!---ecms.field---><header id="header">
+    <div class="navbox">
+        <h2 id="mnavh"><span class="navicon"></span></h2>
+        <div class="logo">
             <a href="[!--news.url--]" title="<?=$public_r['add_title_suffix']?>">
-                <img class="img" src="[!--news.url--]/skin/custom/images/logo_default.png"
-                     alt="<?=$public_r['sitename']?>" title="<?=$public_r['sitename']?>"/>
+                <img src="[!--news.url--]skin/custom/images/logo.png" alt="<?=$public_r['add_title_suffix']?>">
             </a>
-        </<?=$h?>>
-        <div class="m-nav-btn"><i class="iconfont icon-category"></i></div>
-        <nav class="responsive-nav">
-            <div class="pc-nav m-nav fl" data-type="index" data-infoid="index">
-                <ul class="nav-ul">
-                    <li id="nvabar-item-index"><a href="[!--news.url--]" title="<?=$public_r['sitename']?>">首页</a></li>
-                    [e:loop={"select classid,classname,classpath,bname,islast from {$dbtbpre}enewsclass where bclassid=0 and
-                    showclass=0 order by myorder,classid ASC",0,24,0}]
-                    <li>
-                        <?php if ($bqr['islast']!=='0'): ?>
-                        <a href="<?=$bqsr['classurl']?>"><?=$bqr['classname']?></a>
-                        <?php else:?>
-                        <a href="javascript:;"><?=$bqr['classname']?></a>
-                        <span class="toggle-btn"><i class="iconfont icon-down"></i></span>
-                        <ul class="dropdown-nav nav-sb br sub-nav animated-fast fadeInUpMenu clearfix">
-                            <?php $child = $empire->query("select classid,classname,bname,classpath from {$dbtbpre}enewsclass
-                            where bclassid={$bqr['classid']} order by myorder,classid asc limit 11");
-                            while ($child_r = $empire->fetch($child)) { ?>
-                            <li><a href="<?=sys_ReturnBqClassUrl($child_r,9)?>" title="<?=$child_r['bname'] ? $child_r['bname'] : $child_r['classname']?>"><?=$child_r['classname']?></a></li>
-                            <?php }?>
-                        </ul>
-                        <?php endif;?>
-                    </li>
-                    [/e:loop]
-                </ul>
-            </div>
+        </div>
+        <nav>
+            <ul id="starlist">
+                <li>
+                    <a href="[!--news.url--]" <?=$navclassid ? '':'id="selected" '?>title="<?=$public_r['sitename']?>">首页</a>
+                </li>
+                [e:loop={"select classid,classname,classpath,bname,islast from {$dbtbpre}enewsclass where bclassid=0 and
+                showclass=0 order by myorder,classid ASC limit 10",0,24,0}]
+                <li id="menu-item-<?=$bqno?>">
+                    <a href="<?=$bqsr['classurl']?>"<?=$navclassid==$bqr['classid']?'id="selected" ':''?>><?=$bqr['classname']?></a>
+                </li>
+                [/e:loop]
+                <li class="menu">
+                    <a href="javascript:;">更多</a>
+                    <ul class="sub">
+                        [e:loop={"select classid,classname,classpath,bname,islast from {$dbtbpre}enewsclass where bclassid=0 and
+                        showclass=0 order by myorder,classid ASC limit 10,30",0,24,0}]
+                        <li><a href="<?=$bqsr['classurl']?>"><?=$bqr['classname']?></a></li>
+                        [/e:loop]
+                    </ul>
+                </li>
+            </ul>
         </nav>
+        <div class="searchico"></div>
     </div>
-</header><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record--->2<!---ecms.field--->footer<!---ecms.field--->页面尾部<!---ecms.field---><footer class="footer">
-    <div class="main container">
-        <div class="f-about">
-            <small><span>Copyright © 2019 <a href="[!--news.url--]"><?=$public_r['add_title_suffix']?></a>本站素材如有侵权请联系我们！联系QQ:38050123. <a href="http://www.beian.miit.gov.cn" target="_blank" rel="nofollow">闽ICP备20003584号-1</a></span></small> </div>
-        <div class="clear"></div>
+</header><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record--->2<!---ecms.field--->footer<!---ecms.field--->页面尾部<!---ecms.field---><footer>
+    <div class="box">
+        <div class="wxbox">
+            <ul></ul>
+        </div>
+        <div class="endnav">
+            <p>文增多来自于网络</p>
+            <p>如有侵犯您的版权，请联系我们删除 联系QQ:38050123 </p>
+            <p>Copyright (C) <?=$public_r['add_title_suffix']?> .<a href="http://www.beian.miit.gov.cn" target="_blank" rel="nofollow">闽ICP备18021900号-8</a>
+        </div>
     </div>
-    <div id="toolbar" class="toolbar ">
-        <div id="totop" class="btn hidden sb br"> <i class="iconfont icon-top"></i></div>
-    </div>
+    <a href="#"><div class="top"></div></a>
 </footer>
-<!--黑色透明遮罩-->
-<div id="mask-hidden" class="mask-hidden transition"></div>
-<script src="[!--news.url--]skin/custom/js/common.js" type="text/javascript"></script>
-<!--[if lt IE 9]><script src="[!--news.url--]skin/custom/js/html5-css3.js"></script><![endif]-->
-<!--初始化Swiper-->
-<script>
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        centeredSlides: true,
-        autoplay: 3500,
-        slidesPerView: 1,
-        paginationClickable: true,
-        autoplayDisableOnInteraction: false,
-        spaceBetween: 0,
-        loop: true
-    });
-</script>
 <script>
     (function(){
         var bp = document.createElement('script');
@@ -1089,96 +942,93 @@ $listtemp=$headtit.'
         s.parentNode.insertBefore(bp, s);
     })();
 </script><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->head<!---ecms.field--->head部分<!---ecms.field---><?php
-$page_info_r= page_info_r();
+$page_info_r= page_info_r(); 
 $host_url = abs_url('/');
-?><!DOCTYPE html>
-<html lang="zh-CN">
+?><!DOCTYPE HTML>
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit">
-    <meta name="force-rendering" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
-    <meta name="applicable-device" content="pc,mobile">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=10,IE=9,IE=8">
+    <meta name="applicable-device"content="pc,mobile">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title><?=$page_info_r['title']?></title>
     <meta name="keywords" content="[!--pagekey--]">
     <meta name="description" content="[!--pagedes--]">
-    <link rel="shortcut icon" href="[!--news.url--]skin/custom/images/favicon.ico">
-    <link rel="stylesheet" href="[!--news.url--]skin/custom/css/iconfont.css" type="text/css">
-    <link rel="stylesheet" href="[!--news.url--]skin/custom/css/style.css" type="text/css">
-    <!--[if lt IE 9]><div class="fuck-ie"><p class="tips">*您的IE浏览器版本过低，为获得更好的体验请使用Chrome、Firefox或其他现代浏览器!</p></div><![endif]-->
-    <script src="[!--news.url--]skin/custom/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <link rel="icon" href="[!--news.url--]skin/custom/images/favicon.ico">
+    <link href="[!--news.url--]skin/custom/css/base.css" rel="stylesheet">
+    <link href="[!--news.url--]skin/custom/css/m.css" rel="stylesheet">
+    <script src="[!--news.url--]skin/custom/js/jquery-1.8.3.min.js" ></script>
+    <script src="[!--news.url--]skin/custom/js/comm.js"></script>
+    <!--[if lt IE 9]>
+    <script src="[!--news.url--]skin/custom/js/modernizr.js"></script>
+    <![endif]-->
     <link rel="canonical" href="<?=$page_info_r['url']?>">
     <?=$public_r[add_ad]?>
-</head>
-<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->4<!---ecms.field--->sidebar<!---ecms.field--->侧边栏<!---ecms.field---><aside id="sidebar" class="hidden-sm-md-lg fr">
-    <div class="theiaStickySidebar">
-        <section id="aside_hot" class="widget widget_aside_hot sb br mb">
-            <p class="c-title mb"><span class="name">热门文章</span></p>
-            <ul class="widget-content aside_hot">
-                <?php if($navclassid):?>
-                [e:loop={'selfinfo',6,0,0,'','onclick DESC'}]
-                <li class="clearfix">
-                    <span class="list list-8"><?=$bqno?></span>
-                    <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"
-                       target="_blank"><?=esub($bqr['title'],50)?></a>
-                </li>
-                [/e:loop]
-                <?php else:?>
-                [e:loop={0,6,3,0,'','onclick DESC'}]
-                <li class="clearfix">
-                    <span class="list list-8"><?=$bqno?></span>
-                    <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"
-                       target="_blank"><?=esub($bqr['title'],50)?></a>
-                </li>
-                [/e:loop]
-                <?php endif;?>
-            </ul>
-        </section>
-        <section id="aside_hot_comment" class="widget widget_aside_hot_comment sb br mb">
-            <p class="c-title mb"><span class="name">热点推荐</span></p>
-            <ul class="widget-content aside_hot_comment">
-                <?php if($navclassid):?>
-                [e:loop={'selfinfo',8,0,0,'isgood>0','onclick DESC'}]
-                <li class="list clearfix">
-                    <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank">
-                        <?php if($bqr['titlepic']):?>
-                        <span class="img-wrap">
-                            <img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" class="img-cover br random-img"/>
-                        </span>
-                        <?php endif;?>
-                        <div class="new-text">
-                            <p class="title"><?=$bqr['title']?></p>
-                            <div class="info"><span class="time">
-                                    <i class="iconfont icon-time"></i><?=date('Y-m-d H:i:s', $bqr['newstime']) ?></span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                [/e:loop]
-                <?php else:?>
-                [e:loop={0,8,3,0,'isgood>0','onclick DESC'}]
-                <li class="list clearfix">
-                    <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank">
-                        <?php if($bqr['titlepic']):?>
-                        <span class="img-wrap">
-                            <img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" class="img-cover br random-img"/>
-                        </span>
-                        <?php endif;?>
-                        <div class="new-text">
-                            <p class="title"><?=$bqr['title']?></p>
-                            <div class="info"><span class="time">
-                                    <i class="iconfont icon-time"></i><?=date('Y-m-d H:i:s', $bqr['newstime']) ?></span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                [/e:loop]
-                <?php endif;?>
-            </ul>
-        </section>
+</head><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->4<!---ecms.field--->sidebar<!---ecms.field--->侧边栏<!---ecms.field---><div class="rbox">
+    <div class="whitebg paihang">
+        <h2 class="htitle">点击排行</h2>
+        <ul>
+            <?php if ($navclassid):?>
+            [e:loop={'selfinfo',8,3,0,'','onclick DESC'}]
+            <li><i></i><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a> </li>
+            [/e:loop]
+            <?php else:?>
+            [e:loop={0,8,3,0,'','onclick DESC'}]
+            <li><i></i><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a> </li>
+            [/e:loop]
+            <?php endif;?>
+        </ul>
     </div>
-</aside><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认投票模板<!---ecms.field---><table width=100% border=0 align=center cellpadding=3 cellspacing=0><form name=enewsvote method=POST action='[!--vote.action--]' target=_blank><tr><td><strong>[!--title--]</strong></td></tr><input type=hidden name=voteid value='[!--voteid--]'><input type=hidden name=enews value=AddVote>
+    <div class="whitebg tuijian">
+        <h2 class="htitle">热门推荐</h2>
+        <ul>
+            <?php if ($navclassid):?>
+            [e:loop={'selfinfo',20,3,1,'isgood>0'}]
+            <li>
+                <a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
+                    <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>" /></i>
+                </a>
+                <p><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a></p>
+            </li>
+            [/e:loop]
+            <?php else:?>
+            [e:loop={0,20,3,1,'isgood>0'}]
+            <li>
+                <a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
+                    <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>" /></i>
+                </a>
+                <p><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a></p>
+            </li>
+            [/e:loop]
+            <?php endif;?>
+        </ul>
+    </div>
+    <div class="whitebg tuijian">
+        <h2 class="htitle">随机推荐</h2>
+        <ul>
+            <?php if ($navclassid):?>
+            [e:loop={'selfinfo',10,3,1,'','rand()'}]
+            <li>
+                <a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
+                    <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>" /></i>
+                </a>
+                <p><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a></p>
+            </li>
+            [/e:loop]
+            <?php else:?>
+            [e:loop={0,10,3,1,'','rand()'}]
+            <li>
+                <a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
+                    <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>" /></i>
+                </a>
+                <p><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a></p>
+            </li>
+            [/e:loop]
+            <?php endif;?>
+        </ul>
+    </div>
+</div>
+<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认投票模板<!---ecms.field---><table width=100% border=0 align=center cellpadding=3 cellspacing=0><form name=enewsvote method=POST action='[!--vote.action--]' target=_blank><tr><td><strong>[!--title--]</strong></td></tr><input type=hidden name=voteid value='[!--voteid--]'><input type=hidden name=enews value=AddVote>
 [!--empirenews.listtemp--]
 <tr><td>[!--vote.box--]&nbsp;[!--vote.name--]</td></tr>
 [!--empirenews.listtemp--]
@@ -1189,41 +1039,50 @@ $host_url = abs_url('/');
 <tr><td align=center><input type=submit name=submit value=投票>&nbsp;&nbsp;<input type=button name=button value=查看结果 onclick=javascript:window.open('[!--news.url--]e/public/vote/?classid=[!--classid--]&id=[!--id--]','','width=[!--width--],height=[!--height--],scrollbars=yes');></td></tr></form></table><!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->通用一级栏目模板<!---ecms.field--->[!--temp.head--]
 <body>
 [!--temp.header--]
-<nav class="breadcrumb container">[!--newsnav--]</nav>
-<div id="content" class="content container clearfix">
-    <section id="mainbox" class="fl br mb">
-        <!-- 广告位AD6  -->
-        <div class="new-post">
-            [e:loop={'selfinfo',12,0,0}]
-            <article class="article-list br mb sb clearfix">
-                <?php if($bqr['titlepic']):?>
-                <figure class="figure fl">
-                    <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank" class="thumbnail">
-                        <img class="img-cover br" src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>">
-                    </a>
-                </figure>
-                <?php endif;?>
-                <div class="content">
-                    <h2 class="title ellipsis m-multi-ellipsis">
-                        <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank"><?=$bqr['title']?></a>
-                    </h2>
-                    <p class="intro hidden-sm"><?=$bqr['smalltext']?></p>
-                    <p class="data clearfix">
-                        <time class="time fl" datetime="<?=date('Y-m-d',$bqr['newstime'])?>" title="<?=date('Y-m-d',$bqr['newstime'])?>">
-                            <i class="iconfont icon-time"></i><?=date('Y-m-d',$bqr['newstime'])?>
-                        </time>
-                        <span class="hidden-sm-md-lg tag ellipsis fr">
-                                <i class="iconfont icon-tag"></i>
-                                <a href="<?=$bqsr['classurl']?>" class="classname"><?=$bqsr['classname']?></a>
-                            </span>
-                    </p>
-                </div>
-            </article>
-            [/e:loop]
+<article>
+    <div class="lbox">
+        <div class="zhuanti whitebg">
+            <h2 class="htitle"><span class="hnav">……</span>头条</h2>
+            <ul>
+                [e:loop={'selfinfo',6,3,1,'firsttitle>0'}]
+                <li>
+                    <i class="ztpic"><a href="<?=$bqsr['titleurl']?>" class="focus" rel="bookmark"
+                                        title="<?=$bqr['title']?>" target="_blank">
+                            <img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>"
+                                 title="<?=$bqr['title']?>"/><span><?=$bqr['title']?></span></a></i>
+                    <b><?=$bqr['title']?></b><span><?=$bqr['smalltext']?></span>
+                    <a href="<?=$bqsr['titleurl']?>" target="_blank" class="readmore">文章阅读</a>
+                </li>
+                [/e:loop]
+            </ul>
         </div>
-    </section>
+        <div class="whitebg bloglist">
+            <h2 class="htitle">最新文章</h2>
+            <ul>
+                [e:loop={'selfinfo',10,3,0}]
+                <li>
+                    <h3 class="blogtitle">
+                        <a href="<?=$bqsr['titleurl']?>" class="focus" rel="bookmark" title="<?=$bqr['title']?>" target="_blank">
+                            <?=$bqr['title']?>
+                        </a>
+                    </h3>
+                    <?php if($bqr['titlepic']):?>
+                    <span class="blogpic imgscale"><i>医学前沿</i>
+                        <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
+                            <img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>"/>
+                        </a>
+                    </span>
+                    <?php endif;?>
+                    <p class="blogtext"><?=$bqr['smalltext']?></p>
+                    <p class="bloginfo"><span><?=date('Y-m-d',$bqr['newstime'])?></span></p>
+                    <a href="<?=$bqsr['titleurl']?>" class="viewmore">阅读更多</a>
+                </li>
+                [/e:loop]
+            </ul>
+        </div>
+    </div>
     [!--temp.sidebar--]
-</div>
+</article>
 [!--temp.footer--]
 </body>
 </html><!---ecms.field--->0<!---ecms.record--->2<!---ecms.field--->分类信息一级栏目模板<!---ecms.field---><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

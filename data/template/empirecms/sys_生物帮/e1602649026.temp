@@ -231,6 +231,7 @@ EOF;
                         <?php else: ?>
                             [!--befrom--]
                         <?php endif; ?></span>
+<span class="item">点击:<script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script></span>
                 </div>
             </header>
             <article class="article-content">
