@@ -209,7 +209,7 @@
         <div class="content_box whitebg">
             <h2 class="htitle">
                 <span class="con_nav">您现在的位置是:[!--newsnav--]</span>
-                <span>[!--newstime--] 点击: <script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script></span>
+                <span>[!--newstime--] 点击: <script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script> 来源:<?=article_source()?></span>
             </h2>
             <h1 class="con_tilte">[!--title--]</h1>
             <div class="con_text">[!--newstext--]</div>
@@ -944,6 +944,7 @@ $listtemp=$headtit.'
 </script><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->head<!---ecms.field--->head部分<!---ecms.field---><?php
 $page_info_r= page_info_r(); 
 $host_url = abs_url('/');
+$selfid=$navclassid?'selfinfo':0;
 ?><!DOCTYPE HTML>
 <html>
 <head>
@@ -968,22 +969,15 @@ $host_url = abs_url('/');
     <div class="whitebg paihang">
         <h2 class="htitle">点击排行</h2>
         <ul>
-            <?php if ($navclassid):?>
-            [e:loop={'selfinfo',8,3,0,'','onclick DESC'}]
+            [e:loop={$selfid,8,3,0,'','onclick DESC'}]
             <li><i></i><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a> </li>
             [/e:loop]
-            <?php else:?>
-            [e:loop={0,8,3,0,'','onclick DESC'}]
-            <li><i></i><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a> </li>
-            [/e:loop]
-            <?php endif;?>
         </ul>
     </div>
     <div class="whitebg tuijian">
         <h2 class="htitle">热门推荐</h2>
         <ul>
-            <?php if ($navclassid):?>
-            [e:loop={'selfinfo',20,3,1,'isgood>0'}]
+            [e:loop={$selfid,20,3,1,'isgood>0'}]
             <li>
                 <a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
                     <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>" /></i>
@@ -991,23 +985,12 @@ $host_url = abs_url('/');
                 <p><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a></p>
             </li>
             [/e:loop]
-            <?php else:?>
-            [e:loop={0,20,3,1,'isgood>0'}]
-            <li>
-                <a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
-                    <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>" /></i>
-                </a>
-                <p><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a></p>
-            </li>
-            [/e:loop]
-            <?php endif;?>
         </ul>
     </div>
     <div class="whitebg tuijian">
         <h2 class="htitle">随机推荐</h2>
         <ul>
-            <?php if ($navclassid):?>
-            [e:loop={'selfinfo',10,3,1,'','rand()'}]
+            [e:loop={$selfid,10,3,1,'','rand()'}]
             <li>
                 <a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
                     <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>" /></i>
@@ -1015,16 +998,6 @@ $host_url = abs_url('/');
                 <p><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a></p>
             </li>
             [/e:loop]
-            <?php else:?>
-            [e:loop={0,10,3,1,'','rand()'}]
-            <li>
-                <a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>">
-                    <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" title="<?=$bqr['title']?>" /></i>
-                </a>
-                <p><a target="_blank" href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=$bqr['title']?></a></p>
-            </li>
-            [/e:loop]
-            <?php endif;?>
         </ul>
     </div>
 </div>

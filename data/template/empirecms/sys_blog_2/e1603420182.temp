@@ -282,7 +282,8 @@ EOF;
                     <time class="time" datetime="[!--newstime--]" title="[!--newstime--]">
                         <i class="iconfont icon-time"></i>[!--newstime--]
                     </time>
-                    <i class="iconfont icon-link"></i>浏览:<script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script>次
+                    <i class="iconfont icon-view"></i>浏览:<script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script>次
+                    <i class="iconfont icon-link"></i>来源:<?=article_source()?>
                 </div>
             </div>
             <div class="art-content">
@@ -331,6 +332,7 @@ EOF;
 </html><!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->[!--temp.head--]
 <body>
 [!--temp.header--]
+<p class="index-breadcrumb"></p>
 <div id="content" class="content container">
     <div class="clearfix">
         <div id="mainbox" class="fl">
@@ -1091,6 +1093,7 @@ $listtemp=$headtit.'
 </script><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->head<!---ecms.field--->head部分<!---ecms.field---><?php
 $page_info_r= page_info_r();
 $host_url = abs_url('/');
+$selfid=$navclassid?'selfinfo':0;
 ?><!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -1116,30 +1119,19 @@ $host_url = abs_url('/');
         <section id="aside_hot" class="widget widget_aside_hot sb br mb">
             <p class="c-title mb"><span class="name">热门文章</span></p>
             <ul class="widget-content aside_hot">
-                <?php if($navclassid):?>
-                [e:loop={'selfinfo',6,0,0,'','onclick DESC'}]
+                [e:loop={$selfid,6,3,0,'','onclick DESC'}]
                 <li class="clearfix">
                     <span class="list list-8"><?=$bqno?></span>
                     <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"
                        target="_blank"><?=esub($bqr['title'],50)?></a>
                 </li>
                 [/e:loop]
-                <?php else:?>
-                [e:loop={0,6,3,0,'','onclick DESC'}]
-                <li class="clearfix">
-                    <span class="list list-8"><?=$bqno?></span>
-                    <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"
-                       target="_blank"><?=esub($bqr['title'],50)?></a>
-                </li>
-                [/e:loop]
-                <?php endif;?>
             </ul>
         </section>
         <section id="aside_hot_comment" class="widget widget_aside_hot_comment sb br mb">
             <p class="c-title mb"><span class="name">热点推荐</span></p>
             <ul class="widget-content aside_hot_comment">
-                <?php if($navclassid):?>
-                [e:loop={'selfinfo',8,0,0,'isgood>0','onclick DESC'}]
+                [e:loop={$selfid,8,3,0,'isgood>0','onclick DESC'}]
                 <li class="list clearfix">
                     <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank">
                         <?php if($bqr['titlepic']):?>
@@ -1156,25 +1148,6 @@ $host_url = abs_url('/');
                     </a>
                 </li>
                 [/e:loop]
-                <?php else:?>
-                [e:loop={0,8,3,0,'isgood>0','onclick DESC'}]
-                <li class="list clearfix">
-                    <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank">
-                        <?php if($bqr['titlepic']):?>
-                        <span class="img-wrap">
-                            <img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>" class="img-cover br random-img"/>
-                        </span>
-                        <?php endif;?>
-                        <div class="new-text">
-                            <p class="title"><?=$bqr['title']?></p>
-                            <div class="info"><span class="time">
-                                    <i class="iconfont icon-time"></i><?=date('Y-m-d H:i:s', $bqr['newstime']) ?></span>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                [/e:loop]
-                <?php endif;?>
             </ul>
         </section>
     </div>
