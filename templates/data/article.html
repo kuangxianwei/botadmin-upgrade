@@ -69,8 +69,10 @@
     </div>
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-sm" lay-event="case" id="LAY_layer_iframe_case"
-                lay-tips="查看采集文章范本">
-            <i class="layui-icon layui-icon-template"></i>
+                lay-tips="查看采集文章范本">范
+        </button>
+        <button class="layui-btn layui-btn-sm" lay-event="translate" id="LAY_layer_iframe_translate"
+                lay-tips="翻译成指定的语言">译
         </button>
     </div>
 </script>
@@ -94,7 +96,7 @@
         index: 'lib/index', //主入口模块
         main: 'main',
     }).use(['index', 'form', 'table', 'upload', 'main'], function () {
-        var $ = layui.$,
+        let $ = layui.$,
             table = layui.table,
             main = layui.main,
             form = layui.form,
@@ -133,7 +135,7 @@
                 {
                     field: 'used', title: '使用', align: 'center', width: 92, unresize: true, event: 'used',
                     templet: function (d) {
-                        var msg = '<input id="' + d.id + '" type="checkbox" name="used" lay-skin="switch" lay-text="是|否" lay-filter="switchUsed"';
+                        let msg = '<input id="' + d.id + '" type="checkbox" name="used" lay-skin="switch" lay-text="是|否" lay-filter="switchUsed"';
                         if (d.used) {
                             msg += ' checked>';
                         } else {
@@ -145,7 +147,7 @@
                 {
                     field: 'ban_vetted', title: '过滤违禁', align: 'center', width: 92, unresize: true, event: 'ban_vetted',
                     templet: function (d) {
-                        var msg = '<input id="' + d.id + '" type="checkbox" name="ban_vetted" lay-skin="switch" lay-text="是|否" lay-filter="switchBanVetted"';
+                        let msg = '<input id="' + d.id + '" type="checkbox" name="ban_vetted" lay-skin="switch" lay-text="是|否" lay-filter="switchBanVetted"';
                         if (d.ban_vetted) {
                             msg += ' checked>';
                         } else {
@@ -176,7 +178,7 @@
         });
         //监听工具条
         table.on('tool(table-list)', function (obj) {
-            var data = obj.data;
+            let data = obj.data;
             switch (obj.event) {
                 case 'del':
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
@@ -213,8 +215,14 @@
 
         //监听工具栏
         table.on('toolbar(table-list)', function (obj) {
-            var data = table.checkStatus(obj.config.id).data,
+            let data = table.checkStatus(obj.config.id).data,
+                isEmpty = data.length === 0,
+                thread = isEmpty ? 10 : data.length,
+                content = '',
                 ids = Array();
+            for (let i = 0; i < data.length; i++) {
+                ids[i] = data[i].id;
+            }
             switch (obj.event) {
                 case 'add':
                     main.req({
@@ -223,13 +231,11 @@
                     });
                     break;
                 case 'del':
-                    if (data.length === 0) {
-                        return layer.msg('请选择数据');
+                    if (isEmpty) {
+                        layer.msg('请勾选数据', {icon: 2});
+                        return false;
                     }
                     layer.confirm('删除后不可恢复，确定删除选中吗？', function (index) {
-                        for (var i = 0; i < data.length; i++) {
-                            ids[i] = data[i].id;
-                        }
                         main.req({
                             url: url + '/del',
                             data: {'ids': ids.join()},
@@ -251,38 +257,24 @@
                     layer.confirm('把所有已经发布的文章更改为未发布？', function (index) {
                         main.req({
                             url: url + '/recover',
+                            ids: ids.join(),
                             index: index,
                             ending: 'table-list'
                         });
                     });
                     break;
                 case 'original':
-                    for (var i = 0; i < data.length; i++) {
-                        ids[i] = data[i].id;
-                    }
-                    var thread = data.length;
-                    if (thread === 0) {
-                        thread = 10
-                    }
-                    var content = '<div class="layui-card">\n<div class="layui-card-body layui-form">\n<div class="layui-form-item">\n<label class="layui-form-label">线程:</label>\n<div class="layui-input-inline">\n<input type="text" name="thread" value="thread" class="layui-input"/>\n</div>\n</div>\n<div class="layui-form-item">\n<label class="layui-form-label">强制:</label>\n<div class="layui-input-inline">\n<input type="checkbox" name="force" lay-skin="switch" lay-text="打开|关闭">\n</div>\n<div class="layui-form-mid layui-word-aux">不过滤已经检测过的</div>\n</div>\n<div class="layui-form-item">\n<div class="layui-hide">\n<input type="text" name="ids" value="ids" class="layui-input"/>\n<button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>\n</div>\n</div>\n</div>\n</div>';
+                    content = '<div class="layui-card">\n<div class="layui-card-body layui-form">\n<div class="layui-form-item">\n<label class="layui-form-label">线程:</label>\n<div class="layui-input-inline">\n<input type="text" name="thread" value="thread" class="layui-input"/>\n</div>\n</div>\n<div class="layui-form-item">\n<label class="layui-form-label">强制:</label>\n<div class="layui-input-inline">\n<input type="checkbox" name="force" lay-skin="switch" lay-text="打开|关闭">\n</div>\n<div class="layui-form-mid layui-word-aux">不过滤已经检测过的</div>\n</div>\n<div class="layui-form-item">\n<div class="layui-hide">\n<input type="text" name="ids" value="ids" class="layui-input"/>\n<button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>\n</div>\n</div>\n</div>\n</div>';
                     content = content.replace(/ value="thread"/, ' value="' + thread + '"');
                     content = content.replace(/ value="ids"/, ' value="' + ids.join() + '"');
                     main.popup({
                         title: '批量检测原创度',
                         content: content,
                         url: url + '/original',
-                        seeds,
                         area: ['400px', '280px'],
                     });
                     break;
                 case 'ban':
-                    for (var i = 0; i < data.length; i++) {
-                        ids[i] = data[i].id;
-                    }
-                    var thread = data.length;
-                    if (thread === 0) {
-                        thread = 10
-                    }
                     main.req({
                         url: url + '/ban',
                         data: {thread: thread, ids: ids.join()},
@@ -302,6 +294,21 @@
                         });
                     });
                     break;
+                case 'translate':
+                    if (isEmpty) {
+                        layer.msg('请勾选数据', {icon: 2});
+                        return false;
+                    }
+                    content = '<div class="layui-card">\n<div class="layui-card-body layui-form">\n<div class="layui-form-item">\n<label class="layui-form-label">线程:</label>\n<div class="layui-input-inline">\n<input type="text" name="thread" value="thread" class="layui-input"/>\n</div>\n</div>\n<div class="layui-form-item">\n<label class="layui-form-label">强制:</label>\n<div class="layui-input-inline">\n<input type="checkbox" name="force" lay-skin="switch" lay-text="打开|关闭">\n</div>\n<div class="layui-form-mid layui-word-aux">不过滤已经检测过的</div>\n</div>\n<div class="layui-form-item">\n<div class="layui-hide">\n<input type="text" name="ids" value="ids" class="layui-input"/>\n<button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>\n</div>\n</div>\n</div>\n</div>';
+                    content = content.replace(/ value="thread"/, ' value="' + thread + '"');
+                    content = content.replace(/ value="ids"/, ' value="' + ids.join() + '"');
+                    main.popup({
+                        title: '翻译',
+                        content: content,
+                        url: url + '/translate',
+                        area: ['400px', '280px'],
+                    });
+                    break;
                 case 'delused':
                     layer.confirm('删除所有已经发布是文章列表？', function (index) {
                         main.req({
@@ -315,7 +322,7 @@
         });
         //监听搜索
         form.on('submit(search)', function (data) {
-            var field = data.field;
+            let field = data.field;
             table.reload('table-list', {
                 where: field,
                 page: {curr: 1}
@@ -323,7 +330,7 @@
             return false;
         });
         form.on('switch(switchUsed)', function (obj) {
-            var id = this.id,
+            let id = this.id,
                 checked = this.checked;
             if (!id) {
                 layer.tips('ID为空，无法操作！', obj.othis);
@@ -337,7 +344,7 @@
             return false;
         });
         form.on('switch(switchBanVetted)', function (obj) {
-            var id = this.id,
+            let id = this.id,
                 checked = this.checked;
             if (!id) {
                 layer.tips('ID为空，无法操作！', obj.othis);
@@ -351,7 +358,7 @@
             return false;
         });
         //监控选择site id
-        form.on('select(select_site_id)', function (obj) {
+        form.on('select(select_site_id)', function () {
             $('button[lay-filter=search]').click();
             return false;
         });

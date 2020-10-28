@@ -218,20 +218,8 @@ EOF;
                 <h1 class="article-title">[!--title--]</h1>
                 <div class="article-meta">
                     <span class="item">[!--newstime--]</span>
-                    <span class="item">来源：<?php if (empty($navinfor['befrom'])): ?>
-                            <a href="<?= $host_url ?>" target="_blank"><?php
-                                $keys = get_site_r()['keywords'];
-                                $max = count($keys) - 1;
-                                if ($max >= 0) {
-                                    echo $keys[rand(0, $max)];
-                                } else {
-                                    echo '试管婴儿';
-                                }
-                                ?></a>
-                        <?php else: ?>
-                            [!--befrom--]
-                        <?php endif; ?></span>
-<span class="item">点击:<script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script></span>
+                    <span class="item">来源:<?=article_source()?></span>
+                    <span class="item">点击:<script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script></span>
                 </div>
             </header>
             <article class="article-content">
@@ -1057,6 +1045,7 @@ $listtemp=$headtit.'
 <script type='text/javascript' src='[!--news.url--]skin/custom/js/bootstrap.min.js'></script><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->head<!---ecms.field--->head部分<!---ecms.field---><?php
 $page_info_r= page_info_r(); 
 $host_url = abs_url('/');
+$selfid=$navclassid?'selfinfo':0;
 ?><!DOCTYPE HTML>
 <html>
 <head>
@@ -1073,15 +1062,14 @@ $host_url = abs_url('/');
 <link rel="canonical" href="<?=$page_info_r['url']?>">
 <?=$public_r[add_ad]?>
 </head><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->4<!---ecms.field--->sidebar<!---ecms.field--->侧边栏<!---ecms.field---><div class="sidebar">
-    <?php if (!isset($_GET['tagname'])):?>
     <div class="widget widget_ui_posts">
         <h3>特别推荐</h3>
         <ul>
-            [e:loop={'selfinfo',8,0,0,'isgood>0','onclick DESC'}]
+            [e:loop={$selfid,8,3,0,'isgood>0','onclick DESC'}]
             <li>
                 <a target="_blank" href="<?= $bqsr['titleurl'] ?>" title="<?= $bqr['title'] ?>">
                     <?php if ($bqr['titlepic']): ?>
-                        <span class="thumbnail">
+                    <span class="thumbnail">
                             <img src="<?= $bqr['titlepic'] ?>" alt="<?= $bqr['title'] ?>" class="thumb"/>
                         </span>
                     <?php endif; ?>
@@ -1092,11 +1080,10 @@ $host_url = abs_url('/');
             [/e:loop]
         </ul>
     </div>
-    <?php endif;?>
     <div class="widget widget_ui_posts xiaoquzb">
         <h3>最新文章</h3>
         <ul>
-            [e:loop={0,10,3,0,'','newstime DESC'}]
+            [e:loop={$selfid,10,3,0,'','newstime DESC'}]
             <li>
                 <a target="_blank" href="<?= $bqsr['titleurl'] ?>" title="<?= $bqr['title'] ?>">
                     <span class="text"><?= esub($bqr['title'], 44) ?></span></a>
@@ -1104,11 +1091,10 @@ $host_url = abs_url('/');
             [/e:loop]
         </ul>
     </div>
-    <?php if (!isset($_GET['tagname'])):?>
     <div class="widget widget_ui_posts">
         <h3>热门文章</h3>
         <ul>
-            [e:loop={'selfinfo',10,0,1,'','onclick DESC'}]
+            [e:loop={$selfid,10,3,1,'','onclick DESC'}]
             <li>
                 <a target="_blank" href="<?= $bqsr['titleurl'] ?>" title="<?= $bqr['title'] ?>">
                     <span class="thumbnail">
@@ -1120,7 +1106,6 @@ $host_url = abs_url('/');
             [/e:loop]
         </ul>
     </div>
-    <?php endif;?>
     <div class="widget widget_ui_tags">
         <h3>热门标签</h3>
         <div class="items">

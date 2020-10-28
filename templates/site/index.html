@@ -91,18 +91,24 @@
                     lay-tips="更新nginx配置 不选择则更新全部">
                 <i class="layui-icon layui-icon-refresh"></i>Nginx
             </button>
-            <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="update_website_setup"
+            <button class="layui-btn layui-btn-sm" lay-event="update_website_setup"
                     lay-tips="更新网站后台配置 不选择则更新全部">
                 <i class="layui-icon layui-icon-refresh"></i>Setup
             </button>
             <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="update_website" lay-tips="更新选中网站的文章和目录">
                 <i class="layui-icon layui-icon-refresh"></i>Website
             </button>
-            <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="website_cron" lay-tips="同步定时任务">
+            <button class="layui-btn layui-btn-sm" lay-event="website_cron" lay-tips="同步定时任务">
                 <i class="layui-icon layui-icon-refresh"></i>Cron
             </button>
             <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="pull_config" lay-tips="远程网站配置覆盖本地">
                 <i class="layui-icon layui-icon-download-circle"></i>Config
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="links" lay-tips="添加友情链接">加
+                <i class="layui-icon layui-icon-link"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="del_links" lay-tips="删除友情链接">删
+                <i class="layui-icon layui-icon-link"></i>
             </button>
         </div>
         <div class="layui-btn-group">
@@ -142,6 +148,9 @@
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
+        <a class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="编辑">
+            <i class="layui-icon layui-icon-edit"></i>
+        </a>
         <a class="layui-btn layui-btn-xs" lay-event="rank" lay-tips="获取关键词排名">
             <i class="layui-icon layui-icon-layim-download"></i></a>
         <a class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
@@ -150,11 +159,11 @@
         <a class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dir" lay-tips="设置文章图片">
             <i class="layui-icon layui-icon-picture"></i>
         </a>
-        <a class="layui-btn layui-btn-xs" lay-event="link" lay-tips="外链">
-            <i class="layui-icon layui-icon-link"></i>
+        <a class="layui-btn layui-btn-xs" lay-event="link" lay-tips="添加友链">
+            加<i class="layui-icon layui-icon-link"></i>
         </a>
-        <a class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="编辑">
-            <i class="layui-icon layui-icon-edit"></i>
+        <a class="layui-btn layui-btn-xs layui-bg-red" lay-event="del_link" lay-tips="删除友链">
+            删<i class="layui-icon layui-icon-link"></i>
         </a>
         <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
@@ -291,7 +300,7 @@
                         return '<i class="layui-icon layui-icon-delete"></i>';
                     }
                 },
-                {title: '操作', width: 210, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', width: 260, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             where: {status: -1},
             page: true,
@@ -338,9 +347,20 @@
                     $.get(url + '/link', data, function (html) {
                         main.popup({
                             url: url + '/link',
-                            title: '修改网站内链',
+                            title: '添改友链',
                             content: html,
-                            ending: 'table-list',
+                            area: ['500px', '500px'],
+                        });
+                        form.render();
+                    });
+                    break;
+                case 'del_link':
+                    $.get(url + '/link', data, function (html) {
+                        main.popup({
+                            url: url + '/del/link',
+                            title: '删除友链',
+                            content: html,
+                            area: ['500px', '500px'],
                         });
                         form.render();
                     });
@@ -367,7 +387,7 @@
                     break;
                 case "ftp":
                     if (data.status === 4) {
-                        layer.msg("外部网站不允许编辑FTP");
+                        layer.msg("外部网站不允许编辑FTP", {icon: 2});
                         return false;
                     }
                     $.get(ftp_url + '/relationship',
@@ -385,7 +405,7 @@
                     break;
                 case "sql":
                     if (data.status === 4) {
-                        layer.msg("外部网站不允许编辑数据库");
+                        layer.msg("外部网站不允许编辑数据库", {icon: 2});
                         return false;
                     }
                     $.get(sql_url + '/relationship',
@@ -450,7 +470,8 @@
             switch (obj.event) {
                 case 'del':
                     if (data.length === 0) {
-                        return layer.msg('请选择数据');
+                        layer.msg("未选择", {icon: 2});
+                        return false;
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
                         main.req({
@@ -483,7 +504,8 @@
                     break;
                 case 'found':
                     if (data.length === 0) {
-                        return layer.msg('请选择数据');
+                        layer.msg("未选择", {icon: 2});
+                        return false;
                     }
                     layer.prompt({
                             formType: 0,
@@ -504,7 +526,8 @@
                     break;
                 case 'install':
                     if (data.length === 0) {
-                        return layer.msg('请选择数据');
+                        layer.msg("未选择", {icon: 2});
+                        return false;
                     }
                     layer.prompt({
                             formType: 0,
@@ -525,7 +548,8 @@
                     break;
                 case 'setup':
                     if (data.length === 0) {
-                        return layer.msg('请选择数据');
+                        layer.msg("未选择", {icon: 2});
+                        return false;
                     }
                     layer.prompt({
                             formType: 0,
@@ -546,7 +570,8 @@
                     break;
                 case 'publish':
                     if (data.length === 0) {
-                        return layer.msg('请选择数据');
+                        layer.msg("未选择", {icon: 2});
+                        return false;
                     }
                     layer.prompt({
                             formType: 0,
@@ -627,7 +652,7 @@
                     break;
                 case 'pull_config':
                     if (data.length < 1) {
-                        layer.msg("未选择");
+                        layer.msg("未选择", {icon: 2});
                         return false;
                     }
                     layer.prompt({
@@ -685,7 +710,7 @@
                     break;
                 case 'rank':
                     if (ids.length === 0) {
-                        layer.alert("请选择数据!", {icon: 2});
+                        layer.msg("请选择数据!", {icon: 2});
                         return false;
                     }
                     main.req({
@@ -699,7 +724,7 @@
                     break;
                 case 'del-rank':
                     if (ids.length === 0) {
-                        layer.alert("请选择数据!", {icon: 2});
+                        layer.msg("请选择数据!", {icon: 2});
                         return false;
                     }
                     layer.confirm('删除后需要重新下载，确定删除？', function (index) {
@@ -717,6 +742,36 @@
                         tips: function (res) {
                             layer.alert(res.msg, {area: ['500px', '450px']});
                         },
+                    });
+                    break;
+                case 'links':
+                    if (ids.length === 0) {
+                        layer.msg("请选择数据!", {icon: 2});
+                        return false;
+                    }
+                    $.get(url + '/link', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            url: url + '/link',
+                            title: '添加友链',
+                            content: html,
+                            area: ['500px', '500px'],
+                        });
+                        form.render();
+                    });
+                    break;
+                case 'del_links':
+                    if (ids.length === 0) {
+                        layer.msg("请选择数据!", {icon: 2});
+                        return false;
+                    }
+                    $.get(url + '/link', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            url: url + '/del/link',
+                            title: '删除友链',
+                            content: html,
+                            area: ['500px', '500px'],
+                        });
+                        form.render();
                     });
                     break;
             }

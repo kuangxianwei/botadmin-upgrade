@@ -1,12 +1,13 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <textarea class="layui-textarea layui-bg-black" name="links" rows="20"
-                      style="color: white;">{{join .obj.Links "\n"}}</textarea>
+            <textarea class="layui-textarea layui-bg-black" name="links" rows="10"
+                      style="color: white;">{{join .links "\n"}}</textarea>
         </div>
         <div class="layui-form-item layui-hide">
             <div class="layui-input-block">
-                <input type="hidden" name="id" value="{{.obj.Id}}">
+                <input type="hidden" name="id" value="{{.id}}">
+                <input type="hidden" name="ids" value="{{.ids}}">
                 <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
             </div>
         </div>
