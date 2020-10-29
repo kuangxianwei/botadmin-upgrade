@@ -681,3 +681,12 @@ span.cp-hello,span.cp-login,span.cp-vrs {display:block; padding:5px 10px; margin
 .pagess ul li.thisclass a {color: #fff;}
 .pagess ul li a{ display:block;color:#999}
 .pagess ul li a:hover {color: #fff;}
+
+.links ul { overflow: hidden; margin-top: 20px }
+.links li { display: inline-block; width: 120px; float: left; line-height: 30px; text-align: center }
+.links li a { display: block; }
+.links li:hover { background: #f7f7f7 }
+
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+.links li { width: 100%; text-align: left }
+}

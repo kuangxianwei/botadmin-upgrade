@@ -161,7 +161,7 @@
 <body>
 [!--temp.header--]
 <div class="container">
-    <div class="breadcrumb"> <i class="icon-home"></i> <a href='http://www.prccnf.com/'>主页</a> > <a href='/wzyh/'>网站优化</a> >  </div>
+    <div class="breadcrumb"> <i class="icon-home"></i>[!--newsnav--]</div>
     <main class="main" role="main">
         <div class="clear"></div>
         <div class="post istop cate1 auth1">
@@ -273,6 +273,16 @@
         [/e:loop]
     </main>
     [!--temp.sidebar--]
+</div>
+<div style="width: 100%; margin-bottom: 20px;">
+    <div class="links whitebg" style="max-width:1165px;margin: 0 auto;">
+        <h4>友情链接</h4>
+        <ul>
+            [e:loop={'select * from [!db.pre!]enewslink where checked=1 order by lid',20,24,0}]
+            <li><a href="<?= $bqr['lurl'] ?>" title="<?= $bqr['lname'] ?>" target='_blank'><?= $bqr['lname'] ?></a></li>
+            [/e:loop]
+        </ul>
+    </div>
 </div>
 [!--temp.footer--]
 </body>
@@ -806,20 +816,14 @@ margin-top:10px;
 [!--temp.footer--]
 </body>
 </html><!---ecms.field--->120<!---ecms.field--->Y-m-d H:i:s<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认搜索模板<!---ecms.field--->[!--temp.head_list--]
-
 <body class="archive category  category-1">
-
 [!--temp.header--]
-
 <section class="container">
   <div class="content-wrap">
-    <div class="content">		  
-	  
+    <div class="content">		    
 <div class="title">
 <h3 style="font-size:20px;margin-top:10px;">搜索到<strong>[!--ecms.num--]</strong>项符合<strong>[!--keyboard--]</strong>的查询结果</h3>
 </div>
-
-	  
 [!--empirenews.listtemp--]
 <!--list.var1-->
 [!--empirenews.listtemp--]	  
@@ -882,7 +886,6 @@ $listtemp=$headtit.'
 </header><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record--->2<!---ecms.field--->footer<!---ecms.field--->页面尾部<!---ecms.field---><footer class="footer">
     <div class="foot">
         <p>Copyright 2019 © <?=$public_r['sitename']?> All Rights Reserved.</p>
-        网站合作:
     </div>
 </footer>
 <script>

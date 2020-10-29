@@ -298,7 +298,7 @@
     <div class="links whitebg" style="max-width:1165px;margin: 0 auto;">
         <h4>友情链接</h4>
         <ul>
-            [e:loop={"select * from {$dbtbpre}enewslink where checked=1 and classid=1 order by myorder",20,24,0}]
+            [e:loop={'select * from [!db.pre!]enewslink where checked=1 order by lid',20,24,0}]
             <li><a href="<?= $bqr['lurl'] ?>" title="<?= $bqr['lname'] ?>" target='_blank'><?= $bqr['lname'] ?></a></li>
             [/e:loop]
         </ul>

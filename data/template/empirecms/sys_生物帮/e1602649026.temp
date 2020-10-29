@@ -380,7 +380,7 @@ EOF;
         <div class="widget widget_ui_tags">
             <h3>友情链接</h3>
             <div class="items">
-                [e:loop={"select * from {$dbtbpre}enewslink where checked=1 and classid=1 order by myorder",20,24,0}]
+                [e:loop={'select * from [!db.pre!]enewslink where checked=1 order by lid',20,24,0}]
                 <a href="<?= $bqr['lurl'] ?>" title="<?= $bqr['lname'] ?>" target='_blank'><?= $bqr['lname'] ?></a>
                 [/e:loop]
             </div>

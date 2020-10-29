@@ -425,7 +425,7 @@ EOF;
     <div class="flink container sb br mb">
         <p class="c-title mb">友情链接</p>
         <ul id="flink" class="f-list clearfix">
-            [e:loop={'select * from [!db.pre!]enewslink where checked=1 and classid=1 order by myorder',20,24,0}]
+            [e:loop={'select * from [!db.pre!]enewslink where checked=1 order by lid',20,24,0}]
             <li><a href="<?=$bqr[lurl]?>" title="<?=$bqr[lname]?>" target="_blank"><?=$bqr[lname]?></a></li>
             [/e:loop]
         </ul>
