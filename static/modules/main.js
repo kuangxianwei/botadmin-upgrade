@@ -1,20 +1,23 @@
 /*导出基本操作*/
 layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         layer = layui.layer,
         form = layui.form,
         table = layui.table,
         slider = layui.slider,
+        defineObj = function (obj) {
+            return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
+        },
         uuid = function () {
-            var len = 32,//32长度
+            let len = 32,//32长度
                 radix = 16,//16进制
                 chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split(''),
-                uuid = [], i,
-                radix = radix || chars.length;
+                uuid = [], i;
+            radix = radix || chars.length;
             if (len) {
                 for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
             } else {
-                var r;
+                let r;
                 uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
                 uuid[14] = '4';
                 for (i = 0; i < 36; i++) {
@@ -27,7 +30,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             return uuid.join('');
         },
         request = function (options) {
-            options = options || {};
+            options = defineObj(options);
             if (typeof options.url !== 'string') {
                 options.url = $('meta[name=current_uri]').attr('content');
             }
@@ -36,17 +39,17 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 dataType: 'json',
             }, options);
             // 加载中...
-            var loading = layer.load(1, {shade: [0.7, '#000', true]}),
+            let loading = layer.load(1, {shade: [0.7, '#000', true]}),
                 isPost = options.type.toUpperCase() === 'POST';
             if (isPost) {
                 options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, options.headers || {});
             }
-            var request = $.ajax(options);
+            let request = $.ajax(options);
             request.done(function (res) {
                 if (res.textarea === true && res.msg.length > 50) {
                     res.msg = '<textarea class="layui-textarea" style="height:100%;">' + res.msg + '</textarea>';
                 } else {
-                    var reg = new RegExp('\n', 'g');
+                    let reg = new RegExp('\n', 'g');
                     res.msg = res.msg.replace(reg, '<br/>');
                 }
                 switch (res.code) {
@@ -89,7 +92,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             closeBtn: false,
                             anim: 6,
                             success: function (o, index) {
-                                var elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
+                                let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
                                 o.append(elemClose);
                                 elemClose.on('click', function () {
                                     layer.close(index);
@@ -99,7 +102,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
             });
             request.fail(function (obj) {
-                var msg = 'Fail: statusCode: ' + obj.status;
+                let msg = 'Fail: statusCode: ' + obj.status;
                 if (obj.status === 403) {
                     msg = '登录超时或权限不够 statusCode: ' + obj.status;
                 }
@@ -111,7 +114,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     closeBtn: false,
                     anim: 6,
                     success: function (o, index) {
-                        var elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
+                        let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
                         o.append(elemClose);
                         elemClose.on('click', function () {
                             layer.close(index);
@@ -131,13 +134,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             if (typeof url !== 'string') {
                 url = window.location.href;
             }
-            var index = url.indexOf('?');
+            let index = url.indexOf('?');
             if (index === -1) {
                 return '';
             }
-            var params = url.slice(index + 1).split('&');
-            for (var i = 0; i < params.length; i++) {
-                var param = params[i].split("=");
+            let params = url.slice(index + 1).split('&');
+            for (let i = 0; i < params.length; i++) {
+                let param = params[i].split("=");
                 if (param[0] === key) {
                     return param[1];
                 }
@@ -147,8 +150,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         uuid: uuid,
         req: request,
         popup: function (options) {
-            options = options || {};
-            var submit = options.submit || uuid(),
+            options = defineObj(options);
+            let submit = options.submit || uuid(),
                 url = options.url,
                 ending = options.ending,
                 base = {
@@ -189,8 +192,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             form.render();
         },
         slider: function (options) {
-            options = options || {};
-            var pub_attr_deg = options.pub_attr_deg || 3,
+            options = defineObj(options);
+            let pub_attr_deg = options.pub_attr_deg || 3,
                 link_deg = options.link_deg || 3,
                 out_link_deg = options.out_link_deg || 0,
                 title_tag_deg = options.title_tag_deg || 3;
@@ -240,7 +243,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             });
         },
         timestampFormat: function (timestamp) {
-            var d = new Date(timestamp);   //创建一个指定的日期对象
+            let d = new Date(timestamp);   //创建一个指定的日期对象
             return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
         }
     });

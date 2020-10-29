@@ -160,7 +160,7 @@
             upload = layui.upload,
             main = layui.main,
             //渲染上传配置
-            importCinfig = upload.render({
+            importConfig = upload.render({
                 headers: {'X-CSRF-Token':{{.csrf_token}}},
                 elem: '#import',
                 url: '/spider/import',
@@ -220,7 +220,7 @@
             text: '对不起，加载出现异常！',
         });
         table.on('tool(table-list)', function (obj) {
-            var data = obj.data;
+            let data = obj.data;
             switch (obj.event) {
                 case 'del':
                     layer.confirm('确定删除此条日志？', function (index) {
@@ -303,7 +303,7 @@
             }
         });
         table.on('toolbar(table-list)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id),
+            let checkStatus = table.checkStatus(obj.config.id),
                 data = checkStatus.data,
                 ids = Array();
             layui.each(data, function (i, item) {
@@ -419,7 +419,7 @@
                         },
                         success: function (dom, index) {
                             form.on('submit(submit-import)', function (obj) {
-                                importCinfig.reload({data: obj.field});
+                                importConfig.reload({data: obj.field});
                                 $('#import').click();
                                 return false;
                             });

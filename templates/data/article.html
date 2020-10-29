@@ -299,14 +299,14 @@
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
-                    content = '<div class="layui-card">\n<div class="layui-card-body layui-form">\n<div class="layui-form-item">\n<label class="layui-form-label">线程:</label>\n<div class="layui-input-inline">\n<input type="text" name="thread" value="thread" class="layui-input"/>\n</div>\n</div>\n<div class="layui-form-item">\n<label class="layui-form-label">强制:</label>\n<div class="layui-input-inline">\n<input type="checkbox" name="force" lay-skin="switch" lay-text="打开|关闭">\n</div>\n<div class="layui-form-mid layui-word-aux">不过滤已经检测过的</div>\n</div>\n<div class="layui-form-item">\n<div class="layui-hide">\n<input type="text" name="ids" value="ids" class="layui-input"/>\n<button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>\n</div>\n</div>\n</div>\n</div>';
-                    content = content.replace(/ value="thread"/, ' value="' + thread + '"');
-                    content = content.replace(/ value="ids"/, ' value="' + ids.join() + '"');
-                    main.popup({
-                        title: '翻译',
-                        content: content,
-                        url: url + '/translate',
-                        area: ['400px', '280px'],
+                    $.get(url + '/translate', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            title: '翻译',
+                            content: html,
+                            url: url + '/translate',
+                            area: ['750px', '400px'],
+                        });
+                        form.render();
                     });
                     break;
                 case 'delused':
