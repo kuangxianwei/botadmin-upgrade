@@ -197,13 +197,11 @@
                     </tr>
                     <tr>
                         <td>当前版本:</td>
-                        <td>软件 {{.version}} 最新 <span id="nver"></span>
-                            <button class="layui-btn layui-btn-mini btnUpdate"
-                                    onclick="act_confirm('确定要更新吗?','','act=upsys')"
-                                    style="display: none"><span id="ndown">立即更新
-                        </span></button>
-                            <a href="https://github.com/kuangxianwei/botadmin-upgrade/releases" data-target="notab"
-                               target="_blank">更新日志</a>
+                        <td><h2 style="display:inline-block; padding-right:20px;">{{.version}}</h2>
+                            <a class="layui-btn layui-btn-sm"
+                               href="https://github.com/kuangxianwei/botadmin-upgrade/releases" target="_blank">更新日志
+                            </a>
+                            <button class="layui-btn layui-btn-sm" lay-event="update-templates">更新建站模板</button>
                         </td>
                     </tr>
                     <tr>
@@ -275,16 +273,21 @@
         index: 'lib/index', //主入口模块
         main: 'main',
     }).use(['index', 'sample', 'main'], function () {
-        var $ = layui.$,
+        let $ = layui.$,
             main = layui.main;
         $('li[data-reservice]').click(function () {
-            var act = $(this).data("reservice");
+            let act = $(this).data("reservice");
             main.req({
                 url: '/system/reservice',
                 tips: function (res) {
                     layer.alert(res.msg, {area: ['500px', '350px']});
                 },
                 data: {act: act},
+            });
+        });
+        $('button[lay-event="update-templates"]').click(function () {
+            main.req({
+                url: '/home/update/templates'
             });
         });
     });
