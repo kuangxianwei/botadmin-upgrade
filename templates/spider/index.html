@@ -86,7 +86,7 @@
             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="recordReset" lay-tips="清空全部已经采集过的记录">
                 <i class="layui-icon layui-icon-fonts-clear"></i>记录
             </button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="closePage" lay-tips="关闭分页">
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="disable-page" lay-tips="关闭分页">
                 <i class="layui-icon layui-icon-close"></i>分页
             </button>
         </div>
@@ -96,6 +96,12 @@
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="jobs" lay-tips="查看运行中的任务">
                 <i class="layui-icon iconfont icon-work"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="disable-jobs" lay-tips="停止选择的定时采集任务">
+                闭任务
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="enable-jobs" lay-tips="启用选择的定时采集任务">
+                开任务
             </button>
         </div>
         <div class="layui-btn-group">
@@ -146,7 +152,7 @@
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
-    var url = {{.current_uri}};
+    let url = {{.current_uri}};
     layui.config({
         base: '/static/' //静态资源所在路径
     }).extend({
@@ -154,7 +160,7 @@
         main: 'main',
         step: 'step',
     }).use(['index', 'form', 'table', 'upload', 'main'], function () {
-        var $ = layui.$,
+        let $ = layui.$,
             form = layui.form,
             table = layui.table,
             upload = layui.upload,
@@ -197,7 +203,7 @@
                     field: 'status', title: '状态', width: 100, align: 'center',
                     event: 'status', style: 'cursor:pointer;color:#01aaed;',
                     templet: function (d) {
-                        var text = '采集前';
+                        let text = '采集前';
                         if (d.status === 1) {
                             text = "采集中";
                         } else if (d.status === 2) {
@@ -264,7 +270,7 @@
                     });
                     break;
                 case 'status':
-                    var othis = $($('#table-status').html());
+                    let othis = $($('#table-status').html());
                     othis.find('div.layui-form:first').prepend('<input type="hidden" name="id" value="' + data.id + '">');
                     othis.find('select[name=status]:first>option[value=' + data.status + ']').attr("selected", true);
                     main.popup({
@@ -338,7 +344,7 @@
                     if (ids.length === 0) {
                         return layer.msg('请选择数据');
                     }
-                    var othis = $($('#table-status').html());
+                    let othis = $($('#table-status').html());
                     othis.find('div.layui-form:first').prepend('<input type="hidden" name="ids" value="' + ids.join() + '">');
                     main.popup({
                         title: '修改状态',
@@ -373,10 +379,10 @@
                         });
                     });
                     break;
-                case "closePage":
+                case "disable-page":
                     layer.confirm('确定关闭选中规则的分页采集？', function (index) {
                         main.req({
-                            url: url + '/close/page',
+                            url: url + '/disable/page',
                             data: {ids: ids.join()},
                             index: index,
                             ending: 'table-list',
@@ -395,6 +401,18 @@
                         tips: function (res) {
                             layer.alert(res.msg, {area: ['500px', '450px']});
                         },
+                        ending: '-',
+                    });
+                    break;
+                case 'enable-jobs':
+                    main.req({
+                        url: url + '/enable/jobs',
+                        ending: '-',
+                    });
+                    break;
+                case 'disable-jobs':
+                    main.req({
+                        url: url + '/disable/jobs',
                         ending: '-',
                     });
                     break;
