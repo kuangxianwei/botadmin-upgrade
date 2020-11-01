@@ -134,36 +134,64 @@ layui.define(['form', 'element'], function (exports) {
                 step.goto({position: $('a[data-step-next]').data("stepNext")});
             });
         },
-        //显示允许的
-        transUsable = function (opts) {
-            opts.engine = opts.engine || $("select[name='trans.engine." + opts.id + "']").val();
-            if (typeof opts.engine !== 'string' || opts.engine.length === 0) {
-                return false;
-            }
-            let source_name = "trans.source." + opts.id,
-                target_name = "trans.target." + opts.id,
-                source_obj = $("select[name='" + source_name + "']"),
-                target_obj = $("select[name='" + target_name + "']");
-
-            /*服务器获取*/
-            $.get('/spider/usable', {
-                engine: opts.engine,
-                source_name: source_name,
-                target_name: target_name,
-                source_selected: source_obj.val(),
-                target_selected: target_obj.val()
-            }, function (res) {
-                if (res.code === 0) {
-                    source_obj.replaceWith(res.data.source);
-                    target_obj.replaceWith(res.data.target);
-                    form.render();
+        //显示可绑定翻译配置
+        trans = {
+            //显示允许的语言列表
+            usable: function (opts) {
+                opts.engine = opts.engine || $("select[name='trans.engine." + opts.id + "']").val();
+                if (typeof opts.engine !== 'string' || opts.engine.length === 0) {
                     return false;
                 }
-                layui.layer.alert(res.msg);
-            });
-            return false;
-        },
-        trans = {
+                let source_name = "trans.source." + opts.id,
+                    target_name = "trans.target." + opts.id,
+                    cfg_name = "trans.cfg_id." + opts.id,
+                    source_obj = $("select[name='" + source_name + "']"),
+                    target_obj = $("select[name='" + target_name + "']"),
+                    cfg_obj = $("select[name='" + cfg_name + "']");
+                $.get('/trans/select', {
+                    name: cfg_name,
+                    engine: opts.engine,
+                    selected: cfg_obj.val()
+                }, function (res) {
+                    if (res.code === 0) {
+                        cfg_obj.replaceWith(res.data);
+                        form.render();
+                        return false;
+                    }
+                    layui.layer.alert(res.msg);
+                });
+                /*服务器获取*/
+                $.get('/spider/usable', {
+                    engine: opts.engine,
+                    source_name: source_name,
+                    target_name: target_name,
+                    source_selected: source_obj.val(),
+                    target_selected: target_obj.val()
+                }, function (res) {
+                    if (res.code === 0) {
+                        source_obj.replaceWith(res.data.source);
+                        target_obj.replaceWith(res.data.target);
+                        form.render();
+                        return false;
+                    }
+                    layui.layer.alert(res.msg);
+                });
+                return false;
+            },
+            // 获取新索引ID
+            index: function () {
+                let rs = $('#trans-items').html().match(/name="trans\.engine\.(\d+)"/g),
+                    ids = [];
+                $.each(rs, function (i, v) {
+                    let ls = v.split('.'),
+                        id = parseInt(ls.slice(ls.length - 1) || '');
+                    if (!isNaN(id)) {
+                        ids.push(id);
+                    }
+                });
+                return ids.length > 0 ? Math.max.apply(null, ids) + 1 : 1;
+            },
+            //渲染
             render: function () {
                 //渲染现有的
                 $('select[name^="trans.engine."][lay-filter^="trans.engine"]').each(function () {
@@ -172,9 +200,10 @@ layui.define(['form', 'element'], function (exports) {
                         ls = selection.split('.'),
                         index = parseInt(ls.slice(ls.length - 1) || '');
                     if (!isNaN(index)) {
-                        transUsable({id: index, engine: othis.val()});
+                        trans.usable({id: index, engine: othis.val()});
                         form.on('select(trans.engine.' + index + ')', function (obj) {
-                            transUsable({id: index, engine: obj.value});
+                            trans.usable({id: index, engine: obj.value});
+                            return false;
                         });
                     }
                 });
@@ -185,31 +214,17 @@ layui.define(['form', 'element'], function (exports) {
             },
             //添加
             add: function () {
-                //监控添加
+                //监控添加按钮
                 $('button[lay-event=add-trans]').click(function () {
                     let othis = $('#trans-items'),
-                        rs = othis.html().match(/name="trans\.engine\.(\d+)"/g),
-                        index = 1;
-                    if (rs) {
-                        let ids = [];
-                        $.each(rs, function (i, v) {
-                            let ls = v.split('.'),
-                                id = parseInt(ls.slice(ls.length - 1) || '');
-                            if (!isNaN(id)) {
-                                ids.push(id);
-                            }
-                        });
-                        if (ids.length > 0) {
-                            index = Math.max.apply(null, ids) + 1;
-                        }
-                    }
-                    let content = $('#trans-item').html().replace(/\{num\}/g, index);
+                        index = trans.index(),
+                        content = $('#trans-item').html().replace(/\{num\}/g, index);
                     othis.append(content);
                     let engine = $('select[name="trans.engine.' + index + '"]').val();
                     if (engine) {
-                        transUsable({id: index, engine: engine});
+                        trans.usable({id: index, engine: engine});
                         form.on('select(trans.engine.' + index + ')', function (obj) {
-                            transUsable({id: index, engine: obj.value});
+                            trans.usable({id: index, engine: obj.value});
                         });
                     } else {
                         element.render();
