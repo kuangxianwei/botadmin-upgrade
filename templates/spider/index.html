@@ -80,29 +80,66 @@
             </button>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中">
-                <i class="layui-icon layui-icon-delete"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="recordReset" lay-tips="清空全部已经采集过的记录">
-                <i class="layui-icon layui-icon-fonts-clear"></i>记录
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="disable-page" lay-tips="关闭分页">
-                <i class="layui-icon layui-icon-close"></i>分页
-            </button>
+            <ul class="layui-nav layui-bg-green botadmin-nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" lay-tips="批量删除或清除" lay-direction="2" class="layui-bg-red">
+                        <i class="layui-icon layui-icon-fonts-del"></i>
+                        <cite>清除</cite>
+                        <span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid layui-btn-primary" lay-event="del">
+                                删除规则
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid layui-btn-primary"
+                                    lay-event="recordDel">清除记录
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid layui-btn-primary"
+                                    lay-event="disable-page">关闭分页
+                            </button>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="syncCron" lay-tips="同步定时任务">
-                <i class="layui-icon iconfont icon-cron"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm" lay-event="jobs" lay-tips="查看运行中的任务">
-                <i class="layui-icon iconfont icon-work"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="cron-disable" lay-tips="停止选择的定时采集任务">
-                闭任务
-            </button>
-            <button class="layui-btn layui-btn-sm" lay-event="cron-enable" lay-tips="启用选择的定时采集任务">
-                开任务
-            </button>
+            <ul class="layui-nav layui-bg-green botadmin-nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" lay-tips="定时采集任务" lay-direction="2">
+                        <i class="layui-icon iconfont icon-work"></i>
+                        <cite>任务</cite>
+                        <span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid layui-btn-primary"
+                                    lay-event="syncCron">
+                                同步任务
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
+                                    lay-event="jobs">查看任务
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid layui-bg-red"
+                                    lay-event="cron-disable">关闭任务
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
+                                    lay-event="cron-enable">启用任务
+                            </button>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
@@ -129,7 +166,7 @@
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
-        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="recordReset" lay-tips="清空当前这条规则的记录">
+        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="recordDel" lay-tips="清空当前这条规则的记录">
             <i class="layui-icon layui-icon-fonts-clear"></i>
         </button>
     </div>
@@ -165,11 +202,12 @@
             table = layui.table,
             upload = layui.upload,
             main = layui.main,
+            url = {{.current_uri}},
             //渲染上传配置
             importConfig = upload.render({
                 headers: {'X-CSRF-Token':{{.csrf_token}}},
                 elem: '#import',
-                url: '/spider/import',
+                url: url + '/import',
                 accept: 'file',
                 exts: 'txt|conf|json',
                 before: function (obj) {
@@ -230,6 +268,9 @@
             limit: 10,
             limits: [10, 15, 20, 25, 30, 1000],
             text: '对不起，加载出现异常！',
+            done: function () {
+                layui.element.render();
+            }
         });
         table.on('tool(table-list)', function (obj) {
             let data = obj.data, othis = $(this);
@@ -252,7 +293,7 @@
                 case 'del':
                     layer.confirm('确定删除此条日志？', function (index) {
                         main.req({
-                            url: '/spider/del',
+                            url: url + '/del',
                             data: {id: data.id},
                             index: index,
                             ending: obj.del,
@@ -273,7 +314,7 @@
                 case 'copy':
                     layer.confirm('确定复制:' + data.name + '?', function (index) {
                         main.req({
-                            url: '/spider/copy',
+                            url: url + '/copy',
                             data: {id: data.id},
                             index: index,
                             ending: 'table-list',
@@ -283,7 +324,7 @@
                 case 'exec':
                     layer.confirm('开始采集入库？', function (index) {
                         main.req({
-                            url: '/spider/exec',
+                            url: url + '/exec',
                             data: {id: data.id, thread: 1},
                             index: index,
                             ending: 'table-list',
@@ -310,19 +351,19 @@
                     });
                     break;
                 case 'log':
-                    $.get('/spider/log', {'id': data.id}, function (html) {
+                    $.get(url + '/log', {'id': data.id}, function (html) {
                         main.popup({
                             title: '日志',
                             content: html,
-                            url: '/spider/log',
+                            url: url + '/log',
                         });
                     });
                     break;
-                case "recordReset":
+                case "recordDel":
                     layer.confirm('确定清空这条规则的日志？可能导致重复采集', function (index) {
                         main.req({
-                            url: '/spider/record/reset/one',
-                            data: {seeds: data.seeds.join()},
+                            url: url + '/record/del',
+                            data: data,
                             index: index,
                         });
                     });
@@ -385,17 +426,18 @@
                         title: '采集入库:输入线程数,太多会卡死'
                     }, function (value, index, elem) {
                         main.req({
-                            url: '/spider/exec',
+                            url: url + '/exec',
                             data: {ids: ids.join(), thread: value},
                             index: index,
                             ending: 'table-list',
                         });
                     });
                     break;
-                case 'recordReset':
+                case 'recordDel':
                     layer.confirm('确定清空采集记录?清空后可导致重复采集', function (index) {
                         main.req({
-                            url: '/spider/record/reset',
+                            url: url + '/record/del',
+                            data: {ids: ids.join()},
                             index: index
                         });
                     });
@@ -412,7 +454,7 @@
                     break;
                 case 'syncCron':
                     main.req({
-                        url: '/spider/sync/cron',
+                        url: url + '/sync/cron',
                         ending: 'table-list',
                     });
                     break;
