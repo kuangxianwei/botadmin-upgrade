@@ -119,6 +119,7 @@
                                     <label class="layui-form-label" lay-tips="原创度0-100 小于这个原创度的网站将丢弃">原创度:</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="original_rate" value="{{.obj.OriginalRate}}"
+                                               autocomplete="off" placeholder="70"
                                                class="layui-input">
                                     </div>
                                 </div>
@@ -126,7 +127,8 @@
                                      lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">
                                     <label class="layui-form-label">Delay:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="delay" class="layui-input" value="{{.obj.Delay}}">
+                                        <input type="text" name="delay" class="layui-input" value="{{.obj.Delay}}"
+                                               autocomplete="off" placeholder="10-20">
                                     </div>
                                 </div>
                                 <div class="layui-inline" style="width: 23%" lay-tips="指定字符集">
@@ -185,6 +187,8 @@
                                                 <div class="layui-inline">
                                                     <div class="layui-input-inline">
                                                         <input type="text" name="list.limit.{{$i}}" value="{{$v.Limit}}"
+                                                               autocomplete="off"
+                                                               placeholder="&lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;"
                                                                class="layui-input">
                                                     </div>
                                                     <div class="layui-form-mid layui-word-aux">指定获取范围 为空则不指定 &lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;
@@ -217,7 +221,8 @@
                                                     </div>
                                                     <div class="layui-inline" lay-tips="属性名称 默认为 href">
                                                         <input type="text" name="list.attr_name.{{$i}}"
-                                                               value="{{$v.AttrName}}" class="layui-input">
+                                                               value="{{$v.AttrName}}" autocomplete="off"
+                                                               placeholder="href" class="layui-input">
                                                     </div>
                                                     <div class="layui-inline">
                                                         <button class="layui-btn layui-btn-radius" parse-method>转为正则解析
@@ -240,36 +245,43 @@
                                                 </div>
                                             </div>
                                             <fieldset class="layui-elem-field layui-field-title">
-                                                <legend>过滤</legend>
+                                                <legend>正则过滤</legend>
                                             </fieldset>
                                             <div class="layui-form-item">
                                                 <label class="layui-form-label"
                                                        lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
                                                 <div class="layui-input-block">
                                                     <input type="text" name="list.match.{{$i}}" value="{{$v.Match}}"
+                                                           autocomplete="off" placeholder="/index\.html$"
                                                            class="layui-input">
                                                 </div>
                                             </div>
+                                            <fieldset class="layui-elem-field layui-field-title">
+                                                <legend>字符串、正则或DOM替换</legend>
+                                            </fieldset>
                                             <div class="layui-form-item">
-                                                <div class="layui-inline">
-                                                    <div class="layui-form-mid layui-word-aux">原词 一行一条</div>
-                                                    <textarea name="list.olds.{{$i}}"
-                                                              class="layui-textarea">{{join $v.Olds "\n"}}</textarea>
+                                                <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
+                                        <textarea name="list.olds.{{$i}}"
+                                                  class="layui-textarea">{{join $v.Olds "\n"}}</textarea>
                                                 </div>
                                                 <div class="layui-inline">
-                                                    <div class="layui-form-mid layui-word-aux">替换成 对应原词一行一条</div>
-                                                    <textarea name="list.news.{{$i}}"
-                                                              class="layui-textarea">{{join $v.News "\n"}}</textarea>
+                                                    <label class="layui-form-label-col" style="color: #009688;">
+                                                        <i class="layui-icon layui-icon-spread-left"></i>
+                                                    </label>
                                                 </div>
-                                            </div>
-                                            <div class="layui-form-item">
-                                                <div class="layui-inline">
-                                                    <input type="checkbox" name="list.trim_html.{{$i}}"
-                                                           title="过滤html标签"{{if $v.TrimHtml}} checked{{end}}>
+                                                <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
+                                        <textarea name="list.news.{{$i}}"
+                                                  class="layui-textarea">{{join $v.News "\n"}}</textarea>
                                                 </div>
-                                                <div class="layui-inline">
-                                                    <input type="checkbox" name="list.reg_enabled.{{$i}}"
-                                                           title="启用正则过滤"{{if $v.RegEnabled}} checked{{end}}>
+                                                <div class="layui-inline" style="width: 12%">
+                                                    <select name="list.type.{{$i}}" class="layui-select">
+                                                        <option value="0"{{if eq $v.Type 0}} selected{{end}}>字符串
+                                                        </option>
+                                                        <option value="1"{{if eq $v.Type 1}} selected{{end}}>正则
+                                                        </option>
+                                                        <option value="2"{{if eq $v.Type 2}} selected{{end}}>DOM
+                                                        </option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -295,7 +307,9 @@
                                                 <div class="layui-inline">
                                                     <div class="layui-input-inline">
                                                         <input type="text" name="list.page.limit.{{$i}}"
-                                                               value="{{$v.Page.Limit}}" class="layui-input">
+                                                               value="{{$v.Page.Limit}}" autocomplete="off"
+                                                               placeholder="&lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;"
+                                                               class="layui-input">
                                                     </div>
                                                     <div class="layui-form-mid layui-word-aux">指定获取范围 为空则不指定 &lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;
                                                     </div>
@@ -328,7 +342,7 @@
                                                     <div class="layui-inline" lay-tips="属性名称 默认为 href">
                                                         <input type="text" name="list.page.attr_name.{{$i}}"
                                                                value="{{$v.Page.AttrName}}"
-                                                               class="layui-input">
+                                                               autocomplete="on" placeholder="href" class="layui-input">
                                                     </div>
                                                     <div class="layui-inline">
                                                         <button class="layui-btn layui-btn-radius" parse-method>转为正则解析
@@ -351,36 +365,44 @@
                                                 </div>
                                             </div>
                                             <fieldset class="layui-elem-field layui-field-title">
-                                                <legend>过滤</legend>
+                                                <legend>正则过滤</legend>
                                             </fieldset>
                                             <div class="layui-form-item">
                                                 <label class="layui-form-label"
                                                        lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
                                                 <div class="layui-input-block">
                                                     <input type="text" name="list.page.match.{{$i}}"
-                                                           value="{{$v.Page.Match}}" class="layui-input">
+                                                           value="{{$v.Page.Match}}"
+                                                           autocomplete="off" placeholder="/index\.html$"
+                                                           class="layui-input">
                                                 </div>
                                             </div>
+                                            <fieldset class="layui-elem-field layui-field-title">
+                                                <legend>字符串、正则或DOM替换</legend>
+                                            </fieldset>
                                             <div class="layui-form-item">
-                                                <div class="layui-inline">
-                                                    <div class="layui-form-mid layui-word-aux">原词 一行一条</div>
-                                                    <textarea name="list.page.olds.{{$i}}"
-                                                              class="layui-textarea">{{join $v.Page.Olds "\n"}}</textarea>
+                                                <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
+                                        <textarea name="list.page.olds.{{$i}}"
+                                                  class="layui-textarea">{{join $v.Page.Olds "\n"}}</textarea>
                                                 </div>
                                                 <div class="layui-inline">
-                                                    <div class="layui-form-mid layui-word-aux">替换成 对应原词一行一条</div>
-                                                    <textarea name="list.page.news.{{$i}}"
-                                                              class="layui-textarea">{{join $v.Page.News "\n"}}</textarea>
+                                                    <label class="layui-form-label-col" style="color: #009688;">
+                                                        <i class="layui-icon layui-icon-spread-left"></i>
+                                                    </label>
                                                 </div>
-                                            </div>
-                                            <div class="layui-form-item">
-                                                <div class="layui-inline">
-                                                    <input type="checkbox" name="list.page.trim_html.{{$i}}"
-                                                           title="过滤html标签"{{if $v.Page.TrimHtml}} checked{{end}}>
+                                                <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
+                                        <textarea name="list.page.news.{{$i}}"
+                                                  class="layui-textarea">{{join $v.Page.News "\n"}}</textarea>
                                                 </div>
-                                                <div class="layui-inline">
-                                                    <input type="checkbox" name="list.page.reg_enabled.{{$i}}"
-                                                           title="启用正则过滤"{{if $v.Page.RegEnabled}} checked{{end}}>
+                                                <div class="layui-inline" style="width: 12%">
+                                                    <select name="list.page.type.{{$i}}" class="layui-select">
+                                                        <option value="0"{{if eq $v.Page.Type 0}} selected{{end}}>字符串
+                                                        </option>
+                                                        <option value="1"{{if eq $v.Page.Type 1}} selected{{end}}>正则
+                                                        </option>
+                                                        <option value="2"{{if eq $v.Page.Type 2}} selected{{end}}>DOM
+                                                        </option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -418,6 +440,8 @@
                                     <div class="layui-inline">
                                         <div class="layui-input-inline">
                                             <input type="text" name="detail.limit.{{$i}}" value="{{$v.Limit}}"
+                                                   autocomplete="off"
+                                                   placeholder="&lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;"
                                                    class="layui-input">
                                         </div>
                                         <div class="layui-form-mid layui-word-aux">指定获取范围 为空则不指定 &lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;</div>
@@ -446,7 +470,7 @@
                                         </div>
                                         <div class="layui-inline" lay-tips="属性名称 默认为 href">
                                             <input type="text" name="detail.attr_name.{{$i}}" value="{{$v.AttrName}}"
-                                                   class="layui-input">
+                                                   autocomplete="on" placeholder="href" class="layui-input">
                                         </div>
                                         <div class="layui-inline">
                                             <button class="layui-btn layui-btn-radius" parse-method>转为正则解析</button>
@@ -467,35 +491,66 @@
                                     </div>
                                 </div>
                                 <fieldset class="layui-elem-field layui-field-title">
-                                    <legend>过滤</legend>
+                                    <legend>正则过滤</legend>
                                 </fieldset>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label" lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="detail.match.{{$i}}" value="{{$v.Match}}"
-                                               class="layui-input">
+                                               autocomplete="off" placeholder="/index\.html$" class="layui-input">
                                     </div>
                                 </div>
+                                <fieldset class="layui-elem-field layui-field-title">
+                                    <legend>DOM替换</legend>
+                                </fieldset>
                                 <div class="layui-form-item">
+                                    <div class="layui-inline" style="width: 45%" lay-tips="原词 一行一条">
+                                                    <textarea name="detail.filter_dom.olds.{{$i}}"
+                                                              class="layui-textarea">{{join $v.FilterDom.Olds "\n"}}</textarea>
+                                    </div>
                                     <div class="layui-inline">
-                                        <div class="layui-form-mid layui-word-aux">原词 一行一条</div>
+                                        <label class="layui-form-label-col" style="color: #009688;">
+                                            <i class="layui-icon layui-icon-spread-left"></i>
+                                        </label>
+                                    </div>
+                                    <div class="layui-inline" style="width: 45%" lay-tips="替换成 对应原词一行一条">
+                                        <textarea name="detail.filter_dom.news.{{$i}}"
+                                                  class="layui-textarea">{{join $v.FilterDom.News "\n"}}</textarea>
+                                    </div>
+                                </div>
+                                <fieldset class="layui-elem-field layui-field-title">
+                                    <legend>字符串、正则或DOM替换</legend>
+                                </fieldset>
+                                <div class="layui-form-item">
+                                    <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
                                         <textarea name="detail.olds.{{$i}}"
                                                   class="layui-textarea">{{join $v.Olds "\n"}}</textarea>
                                     </div>
                                     <div class="layui-inline">
-                                        <div class="layui-form-mid layui-word-aux">替换成 对应原词一行一条</div>
+                                        <label class="layui-form-label-col" style="color: #009688;">
+                                            <i class="layui-icon layui-icon-spread-left"></i>
+                                        </label>
+                                    </div>
+                                    <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
                                         <textarea name="detail.news.{{$i}}"
                                                   class="layui-textarea">{{join $v.News "\n"}}</textarea>
                                     </div>
+                                    <div class="layui-inline" style="width: 12%">
+                                        <select name="detail.type.{{$i}}" class="layui-select">
+                                            <option value="0"{{if eq $v.Type 0}} selected{{end}}>字符串
+                                            </option>
+                                            <option value="1"{{if eq $v.Type 1}} selected{{end}}>正则
+                                            </option>
+                                            <option value="2"{{if eq $v.Type 2}} selected{{end}}>DOM
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
+
                                 <div class="layui-form-item">
                                     <div class="layui-inline">
                                         <input type="checkbox" name="detail.trim_html.{{$i}}"
                                                title="过滤html标签"{{if $v.TrimHtml}} checked{{end}}>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <input type="checkbox" name="detail.reg_enabled.{{$i}}"
-                                               title="启用正则过滤"{{if $v.RegEnabled}} checked{{end}}>
                                     </div>
                                 </div>
                                 <div class="layui-form-item layui-hide">
@@ -689,7 +744,7 @@
                         </div>
                     </div>
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend>过滤</legend>
+                        <legend>正则过滤</legend>
                     </fieldset>
                     <div class="layui-form-item">
                         <label class="layui-form-label"
@@ -699,22 +754,27 @@
                                    autocomplete="off" placeholder="/\d+\.html$">
                         </div>
                     </div>
+                    <fieldset class="layui-elem-field layui-field-title">
+                        <legend>字符串、正则或DOM替换</legend>
+                    </fieldset>
                     <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <div class="layui-form-mid layui-word-aux">原词 一行一条</div>
+                        <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
                             <textarea name="list.olds.{id}" class="layui-textarea"></textarea>
                         </div>
                         <div class="layui-inline">
-                            <div class="layui-form-mid layui-word-aux">替换成 对应原词一行一条</div>
+                            <label class="layui-form-label-col" style="color: #009688;">
+                                <i class="layui-icon layui-icon-spread-left"></i>
+                            </label>
+                        </div>
+                        <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
                             <textarea name="list.news.{id}" class="layui-textarea"></textarea>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <input type="checkbox" name="list.trim_html.{id}" title="过滤html标签">
-                        </div>
-                        <div class="layui-inline">
-                            <input type="checkbox" name="list.reg_enabled.{id}" title="启用正则过滤">
+                        <div class="layui-inline" style="width: 12%">
+                            <select name="list.type.{id}" class="layui-select">
+                                <option value="0" selected>字符串</option>
+                                <option value="1">正则</option>
+                                <option value="2">DOM</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -784,7 +844,7 @@
                         </div>
                     </div>
                     <fieldset class="layui-elem-field layui-field-title">
-                        <legend>过滤</legend>
+                        <legend>正则过滤</legend>
                     </fieldset>
                     <div class="layui-form-item">
                         <label class="layui-form-label"
@@ -794,22 +854,27 @@
                                    autocomplete="off" placeholder="/\d+\.html$">
                         </div>
                     </div>
+                    <fieldset class="layui-elem-field layui-field-title">
+                        <legend>字符串、正则或DOM替换</legend>
+                    </fieldset>
                     <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <div class="layui-form-mid layui-word-aux">原词 一行一条</div>
+                        <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
                             <textarea name="list.page.olds.{id}" class="layui-textarea"></textarea>
                         </div>
                         <div class="layui-inline">
-                            <div class="layui-form-mid layui-word-aux">替换成 对应原词一行一条</div>
+                            <label class="layui-form-label-col" style="color: #009688;">
+                                <i class="layui-icon layui-icon-spread-left"></i>
+                            </label>
+                        </div>
+                        <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
                             <textarea name="list.page.news.{id}" class="layui-textarea"></textarea>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <input type="checkbox" name="list.page.trim_html.{id}" title="过滤html标签">
-                        </div>
-                        <div class="layui-inline">
-                            <input type="checkbox" name="list.page.reg_enabled.{id}" title="启用正则过滤">
+                        <div class="layui-inline" style="width: 12%">
+                            <select name="list.page.type.{id}" class="layui-select">
+                                <option value="0" selected>字符串</option>
+                                <option value="1">正则</option>
+                                <option value="2">DOM</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -871,7 +936,7 @@
             </div>
         </div>
         <fieldset class="layui-elem-field layui-field-title">
-            <legend>过滤</legend>
+            <legend>正则过滤</legend>
         </fieldset>
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
@@ -880,22 +945,48 @@
                        autocomplete="off" placeholder="/\d+\.html$">
             </div>
         </div>
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>DOM替换</legend>
+        </fieldset>
         <div class="layui-form-item">
+            <div class="layui-inline" style="width: 45%" lay-tips="原词 一行一条">
+                <textarea name="detail.filter_dom.olds.{id}" class="layui-textarea"></textarea>
+            </div>
             <div class="layui-inline">
-                <div class="layui-form-mid layui-word-aux">原词 一行一条</div>
+                <label class="layui-form-label-col" style="color: #009688;">
+                    <i class="layui-icon layui-icon-spread-left"></i>
+                </label>
+            </div>
+            <div class="layui-inline" style="width: 45%" lay-tips="替换成 对应原词一行一条">
+                <textarea name="detail.filter_dom.news.{id}" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>字符串、正则或DOM替换</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
                 <textarea name="detail.olds.{id}" class="layui-textarea"></textarea>
             </div>
             <div class="layui-inline">
-                <div class="layui-form-mid layui-word-aux">替换成 对应原词一行一条</div>
+                <label class="layui-form-label-col" style="color: #009688;">
+                    <i class="layui-icon layui-icon-spread-left"></i>
+                </label>
+            </div>
+            <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
                 <textarea name="detail.news.{id}" class="layui-textarea"></textarea>
+            </div>
+            <div class="layui-inline" style="width: 12%">
+                <select name="detail.type.{id}" class="layui-select">
+                    <option value="0" selected>字符串</option>
+                    <option value="1">正则</option>
+                    <option value="2">DOM</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
                 <input type="checkbox" name="detail.trim_html.{id}" title="过滤html标签" checked>
-            </div>
-            <div class="layui-inline">
-                <input type="checkbox" name="detail.reg_enabled.{id}" title="启用正则过滤">
             </div>
         </div>
         <div class="layui-form-item layui-hide">
