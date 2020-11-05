@@ -63,7 +63,7 @@
             <button class="layui-btn layui-btn-sm" lay-event="add" lay-tips="单个添加网站">
                 <i class="layui-icon layui-icon-add-1"></i>
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="batchadd" lay-tips="批量添加网站">
+            <button class="layui-btn layui-btn-sm" lay-event="batch" lay-tips="批量添加网站">
                 <i class="layui-icon iconfont icon-batchadd"></i>
             </button>
         </div>
@@ -580,10 +580,10 @@
                         });
                     });
                     break;
-                case 'batchadd':
-                    $.get(url + '/batchadd', {}, function (html) {
+                case 'batch':
+                    $.get(url + '/batch', {}, function (html) {
                         main.popup({
-                            url: url + '/batchadd',
+                            url: url + '/batch',
                             title: '批量添加网站',
                             content: html,
                             ending: 'table-list',
