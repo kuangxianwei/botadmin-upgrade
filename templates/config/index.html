@@ -158,22 +158,28 @@
                 <div class="layui-tab-item">
                     <div class="layui-fluid">
                         <div class="layui-row layui-col-space10">
-                            <div class="layui-col-sm4">
-                                <fieldset class="layui-elem-field layui-form">
-                                    <legend>谷歌翻译</legend>
-                                    {{.transGoogleHtml}}
-                                </fieldset>
-                            </div>
-                            <div class="layui-col-sm4">
+                            <div class="layui-col-sm3">
                                 <fieldset class="layui-elem-field layui-form">
                                     <legend>百度翻译</legend>
                                     {{.transBaiduHtml}}
                                 </fieldset>
                             </div>
-                            <div class="layui-col-sm4">
+                            <div class="layui-col-sm3">
+                                <fieldset class="layui-elem-field layui-form">
+                                    <legend>腾讯翻译</legend>
+                                    {{.transTencentHtml}}
+                                </fieldset>
+                            </div>
+                            <div class="layui-col-sm3">
                                 <fieldset class="layui-elem-field layui-form">
                                     <legend>有道翻译</legend>
                                     {{.transYoudaoHtml}}
+                                </fieldset>
+                            </div>
+                            <div class="layui-col-sm3">
+                                <fieldset class="layui-elem-field layui-form">
+                                    <legend>谷歌翻译</legend>
+                                    {{.transGoogleHtml}}
                                 </fieldset>
                             </div>
                         </div>
@@ -348,6 +354,13 @@
         form.on('submit(submit-youdao)', function (obj) {
             main.req({
                 url: url + '/youdao',
+                data: obj.field,
+            });
+            return false;
+        });
+        form.on('submit(submit-tencent)', function (obj) {
+            main.req({
+                url: url + '/tencent',
                 data: obj.field,
             });
             return false;

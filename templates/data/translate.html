@@ -6,8 +6,8 @@
             </div>
             <div class="layui-inline" style="width: 100px;">
                 <select name="engine" lay-filter="engine">
-                    {{range $k,$v :=.engines}}
-                        <option value="{{$k}}">{{$v.Alias}}</option>
+                    {{range $v :=.engines}}
+                        <option value="{{$v.Name}}">{{$v.Alias}}</option>
                     {{end}}
                 </select>
             </div>

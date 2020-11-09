@@ -44,8 +44,8 @@
                                         </div>
                                         <div class="layui-inline width120">
                                             <select name="trans.engine.{{$i}}" lay-filter="trans.engine.{{$i}}">
-                                                {{range $kk,$vv:=$.adapters}}
-                                                    <option value="{{$kk}}"{{if eq $kk $v.Engine}} selected{{end}}>{{$vv.Alias}}</option>
+                                                {{range $vv:=$.engines}}
+                                                    <option value="{{$vv.Name}}"{{if eq $vv.Name $v.Engine}} selected{{end}}>{{$vv.Alias}}</option>
                                                 {{end}}
                                             </select>
                                         </div>
@@ -653,8 +653,8 @@
         </div>
         <div class="layui-inline width120">
             <select name="trans.engine.{num}" lay-filter="trans.engine.{num}">
-                {{range $k,$v:=.adapters}}
-                    <option value="{{$k}}">{{$v.Alias}}</option>
+                {{range $v:=.engines}}
+                    <option value="{{$v.Name}}">{{$v.Alias}}</option>
                 {{end}}
             </select>
         </div>
