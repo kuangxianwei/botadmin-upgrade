@@ -15,7 +15,7 @@
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-item">
-                        <div class="layui-inline" lay-tips="选择网站程序类型">
+                        <div class="layui-inline">
                             <label class="layui-form-label">网站类型:</label>
                             <div class="layui-input-block">
                                 <select name="system" lay-filter="system"{{if gt .obj.Status 0}} disabled{{end}}>
@@ -25,7 +25,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="layui-inline" lay-tips="选择网站模板目录">
+                        <div class="layui-inline">
                             <label class="layui-form-label">选择模板:</label>
                             <div class="layui-input-inline" lay-filter="tpl_name">
                                 {{.tpl_select}}
@@ -792,7 +792,11 @@
                 $('div[lay-filter=tpl_name]').html(html);
                 form.render();
             });
-            $('select[name=rewrite]>option[value="' + obj.value + '.conf"]').prop('selected', true);
+            if (obj.value === 'dedecms') {
+                $('select[name=rewrite]>option').prop('selected', false);
+            } else {
+                $('select[name=rewrite]>option[value="' + obj.value + '.conf"]').prop('selected', true);
+            }
             form.render('select');
         });
         //滑块控制
