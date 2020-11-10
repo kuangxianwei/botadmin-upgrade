@@ -276,8 +276,6 @@
             element = layui.element,
             main = layui.main,
             url = {{.current_uri}},
-            sql_url = '/sql',
-            ftp_url = '/ftp',
             //渲染上传配置
             importConfig = upload.render({
                 headers: {'X-CSRF-Token':{{.csrf_token}}},
@@ -478,13 +476,12 @@
                         layer.msg("外部网站不允许编辑FTP", {icon: 2});
                         return false;
                     }
-                    $.get(ftp_url + '/relationship',
+                    $.get('/ftp/relationship',
                         {'id': data['ftp_id'], 'site_id': data.id, 'username': data.vhost},
                         function (html) {
-                            let title = data['ftp_id'] > 0 ? '选择FTP' : '添加FTP';
                             main.popup({
-                                url: ftp_url + '/relationship',
-                                title: title,
+                                url: '/ftp/relationship',
+                                title: data['ftp_id'] > 0 ? '选择FTP' : '添加FTP',
                                 content: html,
                                 ending: 'table-list',
                             });
@@ -496,12 +493,12 @@
                         layer.msg("外部网站不允许编辑数据库", {icon: 2});
                         return false;
                     }
-                    $.get(sql_url + '/relationship',
+                    $.get('/sql/relationship',
                         {'id': data['sql_id'], 'site_id': data.id, 'username': data.vhost},
                         function (html) {
                             let title = data['sql_id'] > 0 ? '选择SQL' : '添加SQL';
                             main.popup({
-                                url: sql_url + '/relationship',
+                                url: '/sql/relationship',
                                 title: title,
                                 content: html,
                                 ending: 'table-list',
