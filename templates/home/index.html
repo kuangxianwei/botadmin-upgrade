@@ -138,6 +138,12 @@
                                     <cite>服务重启</cite>
                                 </a>
                             </li>
+                            <li class="layui-col-xs3">
+                                <a lay-event="resetRecord">
+                                    <i class="layui-icon layui-icon-log"></i>
+                                    <cite>清空日志</cite>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -285,10 +291,20 @@
                 data: {act: act},
             });
         });
-        $('button[lay-event="update-templates"]').click(function () {
-            main.req({
-                url: '/home/update/templates'
-            });
+        $('[lay-event]').click(function () {
+            switch ($(this).attr('lay-event')) {
+                case 'resetRecord':
+                    main.req({
+                        url: '/config/reset/record'
+                    });
+                    break;
+                case 'update-templates':
+                    main.req({
+                        url: '/home/update/templates'
+                    });
+                    break;
+            }
+
         });
     });
 </script>

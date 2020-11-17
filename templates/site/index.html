@@ -592,66 +592,42 @@
                         layer.msg("未选择", {icon: 2});
                         return false;
                     }
-                    layer.prompt({
-                            formType: 0,
-                            value: data.length,
-                            title: '写入网站，请输入线程数量 太多会卡死'
+                    main.req({
+                        url: url + '/found',
+                        data: {'ids': ids.join()},
+                        tips: function (res) {
+                            layer.alert(res.msg, {area: ['500px', '450px']});
                         },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/found',
-                                data: {'ids': ids.join(), 'thread': value},
-                                index: index,
-                                tips: function (res) {
-                                    layer.alert(res.msg, {area: ['500px', '450px']});
-                                },
-                                ending: 'table-list',
-                            });
-                        });
+                        ending: 'table-list',
+                    });
                     break;
                 case 'install':
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});
                         return false;
                     }
-                    layer.prompt({
-                            formType: 0,
-                            value: data.length,
-                            title: '安装选择的网站，请输入线程数量 太多会卡死'
+                    main.req({
+                        url: url + '/install',
+                        data: {'ids': ids.join()},
+                        tips: function (res) {
+                            layer.alert(res.msg, {area: ['500px', '450px']});
                         },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/install',
-                                data: {'ids': ids.join(), 'thread': value},
-                                index: index,
-                                tips: function (res) {
-                                    layer.alert(res.msg, {area: ['500px', '450px']});
-                                },
-                                ending: 'table-list',
-                            });
-                        });
+                        ending: 'table-list',
+                    });
                     break;
                 case 'setup':
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});
                         return false;
                     }
-                    layer.prompt({
-                            formType: 0,
-                            value: data.length,
-                            title: '初始化选中的网站，请输入线程数量 太多会卡死'
+                    main.req({
+                        url: url + '/setup',
+                        data: {'ids': ids.join()},
+                        tips: function (res) {
+                            layer.alert(res.msg, {area: ['500px', '450px']});
                         },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/setup',
-                                data: {'ids': ids.join(), 'thread': value},
-                                index: index,
-                                tips: function (res) {
-                                    layer.alert(res.msg, {area: ['500px', '450px']});
-                                },
-                                ending: 'table-list',
-                            });
-                        });
+                        ending: 'table-list',
+                    });
                     break;
                 case 'publish':
                     if (data.length === 0) {

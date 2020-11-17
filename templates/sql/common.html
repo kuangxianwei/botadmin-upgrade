@@ -54,7 +54,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">主机名:</label>
             <div class="layui-input-inline">
-                <textarea name="host" class="layui-textarea">{{.obj.Host}}</textarea>
+                <textarea name="hosts" class="layui-textarea">{{join .obj.Hosts "\n"}}</textarea>
             </div>
             <div class="layui-form-mid layui-word-aux">指定IP访问 10.211.55.2 一行一个</div>
         </div>
