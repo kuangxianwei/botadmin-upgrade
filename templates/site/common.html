@@ -684,11 +684,12 @@
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label"
-                               lay-tips="随机外链列表 关键词=>URL 例如：试管婴儿=>https://www.nfivf.com/">随机外链:</label>
-                        <div class="layui-input-block">
-                            <textarea name="bd_ignores" class="layui-textarea" s
+                               lay-tips="内链列表 关键词=>URL 例如：试管婴儿=>https://www.nfivf.com/">内链列表:</label>
+                        <div class="layui-input-inline" style="min-width: 40%;">
+                            <textarea name="links" class="layui-textarea"
                                       rows="5">{{ join .obj.Links "\n"}}</textarea>
                         </div>
+                        <div class="layui-form-mid layui-word-aux">试管婴儿=>https://www.nfivf.com/ 一行一条</div>
                     </div>
                 </div>
                 <div class="layui-tab-item">
