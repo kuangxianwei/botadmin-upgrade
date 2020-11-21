@@ -52,7 +52,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">默认首页</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="indexs" value="{{join .obj.Indexs ","}}"
+                            <input type="text" name="indexes" value="{{join .obj.Indexes ","}}"
                                    class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">留空为默认值，多个用英文逗号“,”分隔</div>
@@ -409,17 +409,34 @@
                     </fieldset>
                 </div>
                 <div class="layui-tab-item">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label" lay-tips="登录百度后的cookies">百度 Cookies</label>
-                        <div class="layui-input-block">
-                            <textarea name="bd_cookies" class="layui-textarea" rows="3">{{.obj.BdCookies}}</textarea>
+                    <div class="layui-row">
+                        <div class="layui-col-md6">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" lay-tips="登录百度后的cookies">百度 Cookies:</label>
+                                <div class="layui-input-block">
+                                    <textarea name="bd_cookies" class="layui-textarea"
+                                              rows="3">{{.obj.BdCookies}}</textarea>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label" lay-tips="忽略百度关键词列表">过滤</label>
-                        <div class="layui-input-block">
+                        <div class="layui-col-md6">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" lay-tips="忽略百度关键词列表">过滤:</label>
+                                <div class="layui-input-block">
                             <textarea name="bd_ignores" class="layui-textarea"
                                       rows="3">{{ join .obj.BdIgnores "\n"}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md6">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"
+                                       lay-tips="外链列表 关键词=>URL 例如：试管婴儿=>https://www.nfivf.com/">外链列表:</label>
+                                <div class="layui-input-block">
+                            <textarea name="out_links" class="layui-textarea"
+                                      rows="5">{{ join .obj.OutLinks "\n"}}</textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -530,8 +547,7 @@
         index: 'lib/index', //主入口模块
         main: 'main',
     }).use(['index', 'form', 'main'], function () {
-        var $ = layui.$,
-            layer = layui.layer,
+        let $ = layui.$,
             main = layui.main,
             form = layui.form,
             //获取模板目录名称
@@ -539,11 +555,11 @@
             url = {{.current_uri}};
         //改变模板目录列表
         form.on('select(system)', function (obj) {
-            var tplurl = '/site/tpl?system=' + obj.value;
+            let tplUrl = '/site/tpl?system=' + obj.value;
             if (tplName) {
-                tplurl = tplurl + '&tpl_name=' + tplName;
+                tplUrl = tplUrl + '&tpl_name=' + tplName;
             }
-            $.get(tplurl, {}, function (html) {
+            $.get(tplUrl, {}, function (html) {
                 $('div[lay-filter=tpl_name]').html(html);
                 form.render();
             });
@@ -556,7 +572,7 @@
             return false;
         });
         $('.layui-btn[data-event]').on('click', function () {
-            var event = $(this).data('event');
+            let event = $(this).data('event');
             switch (event) {
                 case 'reset':
                     main.req({

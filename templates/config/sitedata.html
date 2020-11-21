@@ -10,7 +10,6 @@
                 <li>城市</li>
                 <li>Tags</li>
                 <li>IP</li>
-                <li>外链</li>
                 <li>关于</li>
             </ul>
             <div class="layui-tab-content">
@@ -127,16 +126,6 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
-                        <textarea class="layui-textarea" name="links" rows="15">{{join .obj.Links "\n"}}</textarea>
-                    </div>
-                    <blockquote class="layui-elem-quote">
-                        关键词=>绝对URL<br/>
-                        广州试管婴儿=>https://www.nfivf.com/<br/>
-                        一行一条
-                    </blockquote>
-                </div>
-                <div class="layui-tab-item">
-                    <div class="layui-form-item">
                         <a class="layui-btn layui-btn-radius"
                            lay-href="/file?path={{.aboutdir}}" lay-tips="添加文件后,必须同步设置才生效">关于设置</a>
                     </div>
@@ -183,7 +172,7 @@
         index: 'lib/index', //主入口模块
         main: 'main',
     }).use(['index', 'form', 'main', 'transfer'], function () {
-        var $ = layui.$,
+        let $ = layui.$,
             main = layui.main,
             form = layui.form,
             transfer = layui.transfer,
@@ -198,7 +187,7 @@
             showSearch: true
         });
         form.on('submit(submit)', function (obj) {
-            var cityData = transfer.getData('cityData'),
+            let cityData = transfer.getData('cityData'),
                 cities = Array();
             layui.each(cityData, function (i, v) {
                 cities[i] = v.title;

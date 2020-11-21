@@ -66,7 +66,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">默认首页:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="indexs" class="layui-input" value="{{join .obj.Indexs ","}}">
+                            <input type="text" name="indexes" class="layui-input" value="{{join .obj.Indexes ","}}">
                         </div>
                         <div class="layui-form-mid layui-word-aux">留空为默认值，多个用英文逗号","分隔</div>
                     </div>
@@ -681,15 +681,26 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"
-                               lay-tips="内链列表 关键词=>URL 例如：试管婴儿=>https://www.nfivf.com/">内链列表:</label>
-                        <div class="layui-input-inline" style="min-width: 40%;">
+                        <div class="layui-col-md6">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"
+                                       lay-tips="内链列表 关键词=>URL 例如：试管婴儿=>https://www.nfivf.com/">内链列表:</label>
+                                <div class="layui-input-block">
                             <textarea name="links" class="layui-textarea"
                                       rows="5">{{ join .obj.Links "\n"}}</textarea>
+                                </div>
+                            </div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">试管婴儿=>https://www.nfivf.com/ 一行一条</div>
+                        <div class="layui-col-md6">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"
+                                       lay-tips="外链列表 关键词=>URL 例如：试管婴儿=>https://www.nfivf.com/">外链列表:</label>
+                                <div class="layui-input-block">
+                            <textarea name="out_links" class="layui-textarea"
+                                      rows="5">{{ join .obj.OutLinks "\n"}}</textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-tab-item">
