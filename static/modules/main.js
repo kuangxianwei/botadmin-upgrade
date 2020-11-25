@@ -30,19 +30,15 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             return uuid.join('');
         },
         request = function (options) {
-            options = defineObj(options);
+            options = $.extend({type: 'POST', dataType: 'json'}, defineObj(options));
             if (typeof options.url !== 'string') {
                 options.url = $('meta[name=current_uri]').attr('content');
             }
-            options = $.extend({
-                type: 'POST',
-                dataType: 'json',
-            }, options);
             // 加载中...
             let loading = layer.load(1, {shade: [0.7, '#000', true]}),
                 isPost = options.type.toUpperCase() === 'POST';
             if (isPost) {
-                options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, options.headers || {});
+                options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, defineObj(options.headers));
             }
             let request = $.ajax(options);
             request.done(function (res) {

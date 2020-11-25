@@ -166,9 +166,6 @@
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
-        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="recordDel" lay-tips="清空当前这条规则的记录">
-            <i class="layui-icon layui-icon-fonts-clear"></i>
-        </button>
     </div>
 </script>
 <script type="text/html" id="table-status">
@@ -356,15 +353,6 @@
                             title: '日志',
                             content: html,
                             url: url + '/log',
-                        });
-                    });
-                    break;
-                case "recordDel":
-                    layer.confirm('确定清空这条规则的日志？可能导致重复采集', function (index) {
-                        main.req({
-                            url: url + '/record/del',
-                            data: data,
-                            index: index,
                         });
                     });
                     break;

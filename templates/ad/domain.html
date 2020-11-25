@@ -1,0 +1,31 @@
+<div class="layui-card">
+    <div class="layui-card-body layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">广告域名:</label>
+            <div class="layui-input-inline" style="min-width: 50%">
+                <input type="text" name="domain" value="{{.domain}}" lay-verify="required" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">访问广告的URL地址</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
+        </div>
+    </div>
+</div>
+<script src="/static/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '/static/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index', //主入口模块
+        main: 'main'
+    }).use(['index', 'main'], function () {
+        let form = layui.form,
+            main = layui.main,
+            url = {{.current_uri}};
+        form.on('submit(submit)', function (obj) {
+            main.req({url: url, data: obj.field});
+        });
+    });
+</script>
