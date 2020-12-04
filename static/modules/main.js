@@ -5,8 +5,28 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         form = layui.form,
         table = layui.table,
         slider = layui.slider,
-        defineObj = function (obj) {
+        tidyObj = function (obj) {
             return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
+        },
+        getParam = function (key, url) {
+            if (typeof key !== 'string') {
+                return '';
+            }
+            if (typeof url !== 'string') {
+                url = window.location.href;
+            }
+            let index = url.indexOf('?');
+            if (index === -1) {
+                return '';
+            }
+            let params = url.slice(index + 1).split('&');
+            for (let i = 0; i < params.length; i++) {
+                let param = params[i].split("=");
+                if (param[0] === key) {
+                    return param[1];
+                }
+            }
+            return '';
         },
         uuid = function () {
             let len = 32,//32长度
@@ -29,8 +49,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
             return uuid.join('');
         },
-        request = function (options) {
-            options = $.extend({type: 'POST', dataType: 'json'}, defineObj(options));
+        req = function (options) {
+            options = $.extend({type: 'POST', dataType: 'json'}, tidyObj(options));
             if (typeof options.url !== 'string') {
                 options.url = $('meta[name=current_uri]').attr('content');
             }
@@ -38,7 +58,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             let loading = layer.load(1, {shade: [0.7, '#000', true]}),
                 isPost = options.type.toUpperCase() === 'POST';
             if (isPost) {
-                options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, defineObj(options.headers));
+                options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, tidyObj(options.headers));
             }
             let request = $.ajax(options);
             request.done(function (res) {
@@ -123,124 +143,98 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             });
         };
     exports('main', {
-        getParam: function (key, url) {
-            if (typeof key !== 'string') {
-                return '';
-            }
-            if (typeof url !== 'string') {
-                url = window.location.href;
-            }
-            let index = url.indexOf('?');
-            if (index === -1) {
-                return '';
-            }
-            let params = url.slice(index + 1).split('&');
-            for (let i = 0; i < params.length; i++) {
-                let param = params[i].split("=");
-                if (param[0] === key) {
-                    return param[1];
-                }
-            }
-            return '';
-        },
+        tidyObj: tidyObj,
+        getParam: getParam,
         uuid: uuid,
-        req: request,
+        req: req,
         popup: function (options) {
-            options = defineObj(options);
-            let submit = options.submit || uuid(),
-                url = options.url,
-                ending = options.ending,
-                base = {
-                    type: 1,
-                    shadeClose: true,
-                    scrollbar: false,
-                    btnAlign: 'c',
-                    shade: 0.8,
-                    fixed: false,
-                    maxmin: true,
-                    btn: ['提交', '取消'],
-                    area: ['95%', '95%'],
-                    zIndex: 200000,
-                    yes: function (index, dom) {
-                        if (typeof options.submit === "undefined") {
-                            dom.find('.layui-form button[lay-submit]').attr('lay-filter', submit).click();
-                        } else {
-                            dom.find('.layui-form button[lay-submit]button[lay-filter=' + submit + ']').click();
-                        }
-                    },
-                    success: function (dom, index) {
-                        form.on('submit(' + submit + ')', function (obj) {
-                            request({
-                                url: url || obj.field.url,
-                                data: obj.field,
-                                index: index,
-                                ending: ending,
-                            });
-                            return false;
-                        });
+            options = tidyObj(options);
+            let hasSubmit = typeof options.submit === 'string';
+            options.submit = hasSubmit ? options.submit : uuid();
+            layer.open($.extend({
+                type: 1,
+                shadeClose: true,
+                scrollbar: false,
+                btnAlign: 'c',
+                shade: 0.8,
+                fixed: false,
+                maxmin: true,
+                btn: ['提交', '取消'],
+                area: ['95%', '95%'],
+                zIndex: 200000,
+                yes: function (index, dom) {
+                    if (hasSubmit) {
+                        dom.find('*[lay-submit][lay-filter=' + options.submit + ']').click();
+                    } else {
+                        dom.find('*[lay-submit]').attr('lay-filter', options.submit).click();
                     }
-                };
-            delete options.ending;
-            delete options.submit;
-            delete options.url;
-            delete options.ending;
-            layer.open($.extend(base, options));
-            form.render();
+                },
+                success: function (dom, index) {
+                    form.render();
+                    form.on('submit(' + options.submit + ')', function (obj) {
+                        req({
+                            url: options.url || obj.field.url,
+                            data: obj.field,
+                            index: index,
+                            ending: options.ending,
+                        });
+                        return false;
+                    });
+                }
+            }, options));
         },
-        slider: function (options) {
-            options = defineObj(options);
-            let pub_attr_deg = options.pub_attr_deg || 3,
-                link_deg = options.link_deg || 3,
-                out_link_deg = options.out_link_deg || 0,
-                title_tag_deg = options.title_tag_deg || 3;
-            //文章随机插入属性阈值
-            slider.render({
-                elem: '#pub_attr_deg',
-                value: pub_attr_deg,
-                min: 0,
-                max: 10,
-                setTips: function (value) {
-                    $('input[name=pub_attr_deg]').val(value);
-                    return value;
+        slider: function () {
+            $.each(arguments, function (i, v) {
+                let obj = tidyObj(v);
+                if (typeof (obj.setTips) !== 'function') {
+                    obj.setTips = function (value) {
+                        $('input[name=' + obj.elem.slice(1) + ']').val(value);
+                        return value;
+                    }
                 }
-            });
-            //内链阈值
-            slider.render({
-                elem: '#link_deg',
-                value: link_deg,
-                min: 0,
-                max: 10,
-                setTips: function (value) {
-                    $('input[name=link_deg]').val(value);
-                    return value;
-                }
-            });
-            //外链链阈值
-            slider.render({
-                elem: '#out_link_deg',
-                value: out_link_deg,
-                min: 0,
-                max: 10,
-                setTips: function (value) {
-                    $('input[name=out_link_deg]').val(value);
-                    return value;
-                }
-            });
-            //标题tag阈值
-            slider.render({
-                elem: '#title_tag_deg',
-                value: title_tag_deg,
-                min: 0,
-                max: 10,
-                setTips: function (value) {
-                    $('input[name=title_tag_deg]').val(value);
-                    return value;
-                }
+                slider.render($.extend({value: 0, min: 0, max: 10}, obj));
             });
         },
         timestampFormat: function (timestamp) {
             let d = new Date(timestamp);   //创建一个指定的日期对象
             return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+        },
+        formData: function (elem) {
+            let data = {},
+                items = {};
+            switch (typeof elem) {
+                case 'undefined':
+                    items = $('.layui-form *[name]').serializeArray();
+                    break;
+                case 'string':
+                    items = $(elem + ' *[name]').serializeArray();
+                    break;
+                case 'object':
+                    items = elem.serializeArray();
+                    break;
+                default:
+                    return {};
+            }
+            $.each(items, function () {
+                let field = data[this.name];
+                switch (typeof field) {
+                    case 'undefined':
+                        data[this.name] = this.value;
+                        break;
+                    case 'string':
+                        if (field !== this.value) {
+                            data[this.name] = [field, this.value];
+                        }
+                        break;
+                    case 'object':
+                        if (Array.isArray(field) && field.indexOf(this.value) === -1) {
+                            field.push(this.value);
+                            data[this.name] = field;
+                        }
+                        break;
+                }
+            });
+            return data;
         }
     });
 });

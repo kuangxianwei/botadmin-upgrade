@@ -140,6 +140,9 @@ Write_botadmin
 #赋权限#
 pushd "$APP_DIR" || exit 1
 chmod +x -R ./botadmin ./shell/* || exit 1
+test -d ./data/contact || mkdir -p ./data/contact
+chmod -R 0755 ./data
+echo "open_basedir=${APP_DIR}/data/contact:/tmp/:/proc/" >./data/contact/.user.ini
 command -v bzip2 || {
   yum -y install bzip2 || exit 1
 }
