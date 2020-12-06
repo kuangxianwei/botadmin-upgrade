@@ -645,8 +645,7 @@
 <script type="text/template" id="trans-item">
     <div class="layui-form-item">
         <div class="layui-inline" style="top:-5px">
-            <input type="checkbox" name="trans.enabled.{num}" lay-skin="switch"
-                   lay-text="启用|关闭" class="layui-input">
+            <input type="checkbox" name="trans.enabled.{num}" lay-skin="switch" lay-text="启用|关闭" checked>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label-col">引擎:</label>
@@ -1164,6 +1163,8 @@
                             classes[id] = res.data;
                             $('[lay-filter=class_id]').html(res.data);
                             form.render();
+                        } else {
+                            layer.alert(res.msg);
                         }
                     });
                 },

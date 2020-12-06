@@ -226,10 +226,9 @@ layui.define(['form', 'element'], function (exports) {
                         form.on('select(trans.engine.' + index + ')', function (obj) {
                             trans.usable({id: index, engine: obj.value});
                         });
-                    } else {
-                        element.render();
-                        form.render();
                     }
+                    element.render();
+                    form.render();
                     trans.del();
                 })
             },
@@ -259,7 +258,7 @@ layui.define(['form', 'element'], function (exports) {
                 //显示当前块
                 $('.step-content>div').removeAttr('style').eq(opts.position).css({'display': 'block'});
                 /*给内容区 加上 layui-form 类和下一步标识*/
-                $('div.step-content>div').addClass('layui-form').each(function (i, o) {
+                $('div.step-content>div').addClass('layui-form').each(function (i) {
                     $(this).children().eq(0).before('<a class="layui-hide" lay-submit lay-filter="stepNext" data-step="' + i + '"></a>');
                 });
                 $('div.step-content>div:first').before('<a class="layui-hide" lay-submit lay-filter="stepSubmit"></a>');

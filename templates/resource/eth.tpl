@@ -44,11 +44,4 @@
             text: '对不起，加载出现异常！'
         });
     });
-
-    // function forever() {
-    //     setTimeout("forever()", 1000);
-    //     console.log(1)
-    // }
-    //
-    // forever();
 </script>

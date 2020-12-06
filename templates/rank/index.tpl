@@ -115,7 +115,6 @@
                 {field: 'created', title: '创建时间', hide: true},
                 {
                     field: 'timestamp', title: '排名时间', hide: true, templet: function (obj) {
-                        console.log(obj.timestamp);
                         return main.timestampFormat(obj.timestamp / 1000000);
                     }
                 },
