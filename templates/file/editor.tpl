@@ -1,4 +1,4 @@
-{{template "file/modify.html" .}}
+{{template "file/modify.tpl" .}}
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.config({
