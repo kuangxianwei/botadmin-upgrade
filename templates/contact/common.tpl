@@ -72,12 +72,12 @@
         <div class="layui-row">
             <div class="layui-col-md5">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">限制:</label>
+                    <label class="layui-form-label">最大限制:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="max" value="{{.obj.Max}}" lay-verify="number"
                                autocomplete="on" placeholder="0" class="layui-input">
                     </div>
-                    <div class="layui-form-mid layui-word-aux">超过则不启用 0为不限制</div>
+                    <div class="layui-form-mid layui-word-aux">0为不限制</div>
                 </div>
             </div>
             <div class="layui-col-md6">
@@ -122,6 +122,16 @@
             <button class="layui-btn" lay-event="fill-consult">填充默认</button>
         </div>
         <div class="layui-form-item">
+            <div class="layui-row">
+                <div class="layui-col-md3">
+                    <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
+                    <button class="layui-btn" lay-event="cities">选择城市</button>
+                </div>
+                <div class="layui-col-md6" id="cities" style="display:none;align-items: center;overflow: hidden;">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">其他:</label>
             <div class="layui-input-inline" style="width: 50%">
                 <textarea name="other" class="layui-textarea" rows="4">{{.obj.Other}}</textarea>
@@ -137,22 +147,43 @@
     </div>
 </div>
 <script>
-    layui.use(['main'], function () {
+    layui.use(['main', 'transfer'], function () {
+        let $ = layui.$,
+            main = layui.main,
+            form = layui.form,
+            transfer = layui.transfer;
         //滑块控制
-        layui.main.slider({elem: '#weight', value: {{.obj.Weight}}, max: 100});
-        layui.$('[lay-event="fill-consult"]').on('click', function () {
+        main.slider({elem: '#weight', value: {{.obj.Weight}}, max: 100});
+        $('[lay-event="fill-consult"]').on('click', function () {
             layui.main.req({
                 url: '/contact/fill/consult', ending: function (res) {
                     layui.$('[name="consult"]').val(res.data);
                 }
             });
         });
-        layui.$('[lay-event="fill-other"]').on('click', function () {
+        $('[lay-event="fill-other"]').on('click', function () {
             layui.main.req({
                 url: '/contact/fill/other', ending: function (res) {
                     layui.$('[name="other"]').val(res.data);
                 }
             });
+        });
+        //显示城市搜索框
+        transfer.render({
+            id: 'cityData',
+            elem: '#cities',
+            data: {{.cityData}},
+            title: ['全部城市', '城市'],
+            value: {{.cityValue}},
+            showSearch: true
+        });
+        $('*[lay-event=cities]').click(function () {
+            let obj = $('#cities');
+            if (obj.css('display') === 'none') {
+                obj.css('display', 'block');
+            } else {
+                obj.css('display', 'none');
+            }
         });
     });
 </script>

@@ -104,7 +104,7 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
-                        <div id="city" style="text-align: center;">></div>
+                        <div id="city" style="text-align: center;overflow: hidden;"></div>
                     </div>
                 </div>
                 <div class="layui-tab-item">

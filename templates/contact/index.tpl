@@ -38,12 +38,13 @@
     }).extend({
         index: 'lib/index', //主入口模块
         main: 'main'//自定义请求模块
-    }).use(['index', 'form', 'table', 'main', 'upload'], function () {
+    }).use(['index', 'form', 'table', 'main', 'upload', 'transfer'], function () {
         let $ = layui.$,
             form = layui.form,
             table = layui.table,
             main = layui.main,
             upload = layui.upload,
+            transfer = layui.transfer,
             url = {{.current_uri}};
 
         //日志管理
@@ -126,9 +127,16 @@
                                 form.render();
                                 let loading;
                                 dom.find('#submit').on('click', function () {
+                                    let cityData = transfer.getData('cityData'),
+                                        cities = Array();
+                                    $.each(cityData, function (i, v) {
+                                        cities[i] = v.title;
+                                    });
+                                    let field = main.formData(dom.selector);
+                                    field.cities = cities.join();
                                     main.req({
                                         url: url + '/modify',
-                                        data: main.formData(dom.selector),
+                                        data: field,
                                         index: layerIndex,
                                         ending: 'table-list',
                                     });
@@ -145,6 +153,12 @@
                                     bindAction: '#uploadSubmit',
                                     before: function () {
                                         this.data = main.formData(dom.selector);
+                                        let cityData = transfer.getData('cityData'),
+                                            cities = Array();
+                                        $.each(cityData, function (i, v) {
+                                            cities[i] = v.title;
+                                        });
+                                        this.data.cities = cities.join();
                                         loading = layer.load(1, {shade: [0.7, '#000', true]});
                                     },
                                     choose: function (obj) {
@@ -258,9 +272,16 @@
                                 form.render();
                                 let loading;
                                 dom.find('#submit').on('click', function () {
+                                    let cityData = transfer.getData('cityData'),
+                                        cities = Array();
+                                    $.each(cityData, function (i, v) {
+                                        cities[i] = v.title;
+                                    });
+                                    let field = main.formData(dom.selector);
+                                    field.cities = cities.join();
                                     main.req({
                                         url: url + '/add',
-                                        data: main.formData(dom.selector),
+                                        data: field,
                                         index: layerIndex,
                                         ending: 'table-list',
                                     });

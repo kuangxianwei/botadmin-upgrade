@@ -5,8 +5,8 @@
             <div class="layui-input-inline" style="min-width: 50%">
                 <input type="text" name="host" value="{{.obj.Host}}" lay-verify="required" class="layui-input">
             </div>
-            {{if .js_code -}}
-                <button class="layui-btn layui-btn-primary" data-clipboard-text="{{.js_code}}">复制js代码</button>
+            {{if .jsCode -}}
+                <button class="layui-btn layui-btn-primary" data-clipboard-text="{{.jsCode}}">复制js代码</button>
             {{end -}}
         </div>
         <div class="layui-row">
@@ -33,6 +33,16 @@
                        class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">如QQ在线</div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-row">
+                <div class="layui-col-md3">
+                    <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
+                    <button class="layui-btn" lay-event="cities">选择城市</button>
+                </div>
+                <div class="layui-col-md6" id="cities" style="display:none;align-items: center;overflow: hidden;">
+                </div>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">其他:</label>
@@ -79,10 +89,11 @@
     }).extend({
         index: 'lib/index', //主入口模块
         main: 'main'
-    }).use(['index', 'main', 'upload'], function () {
+    }).use(['index', 'main', 'upload', 'transfer'], function () {
         let $ = layui.$,
             main = layui.main,
             upload = layui.upload,
+            transfer = layui.transfer,
             loading,
             url = {{.current_uri}};
         let clipboard = new ClipboardJS('*[data-clipboard-text]');
@@ -106,7 +117,14 @@
             return false;
         });
         $('#submit').click(function () {
-            main.req({url: url, data: main.formData()});
+            let cityData = transfer.getData('cityData'),
+                cities = Array();
+            $.each(cityData, function (i, v) {
+                cities[i] = v.title;
+            });
+            let field = main.formData();
+            field.cities = cities.join();
+            main.req({url: url, data: field});
         });
         upload.render({
             elem: '#uploadFile',
@@ -119,7 +137,13 @@
             auto: false,
             bindAction: '#uploadSubmit',
             before: function () {
+                let cityData = transfer.getData('cityData'),
+                    cities = Array();
+                $.each(cityData, function (i, v) {
+                    cities[i] = v.title;
+                });
                 this.data = main.formData();
+                this.data.cities = cities.join();
                 loading = layer.load(1, {shade: [0.7, '#000', true]});
             },
             choose: function (obj) {
@@ -170,6 +194,23 @@
                     }
                 });
             },
+        });
+        //显示城市搜索框
+        transfer.render({
+            id: 'cityData',
+            elem: '#cities',
+            data: {{.cityData}},
+            title: ['全部城市', '城市'],
+            value: {{.cityValue}},
+            showSearch: true
+        });
+        $('*[lay-event=cities]').click(function () {
+            let obj = $('#cities');
+            if (obj.css('display') === 'none') {
+                obj.css('display', 'block');
+            } else {
+                obj.css('display', 'none');
+            }
         });
     });
 </script>
