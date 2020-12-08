@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="layui-col-md3">
+                        <div class="layui-col-md2">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">Gzip:</label>
                                 <div class="layui-input-block">
@@ -58,12 +58,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="layui-col-md3">
+                        <div class="layui-col-md2">
                             <div class="layui-form-item">
                                 <label class="layui-form-label">CSRF:</label>
                                 <div class="layui-input-block">
                                     <input type="checkbox" name="csrf_enabled"
                                            lay-skin="switch" lay-text="打开|关闭"{{if .base.CsrfEnabled}} checked{{end}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md2">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">广告缓存:</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="ad_cached"
+                                           lay-skin="switch" lay-text="打开|关闭"{{if .base.AdCached}} checked{{end}}>
                                 </div>
                             </div>
                         </div>
