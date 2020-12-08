@@ -44,6 +44,17 @@
                 </div>
             </div>
         </div>
+        <div class="layui-form-item" lay-filter="duration">
+            <label class="layui-form-label">时间范围:</label>
+            <div class="layui-btn-group">
+                <button class="layui-btn" lay-event="add-duration">
+                    <i class="layui-icon layui-icon-add-circle"></i>
+                </button>
+                <button class="layui-btn layui-bg-red" lay-event="del-duration" style="display:none;">
+                    <i class="layui-icon layui-icon-fonts-del"></i>
+                </button>
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">其他:</label>
             <div class="layui-input-inline" style="width: 50%">
@@ -89,11 +100,12 @@
     }).extend({
         index: 'lib/index', //主入口模块
         main: 'main'
-    }).use(['index', 'main', 'upload', 'transfer'], function () {
+    }).use(['index', 'main', 'upload', 'transfer', 'laydate'], function () {
         let $ = layui.$,
             main = layui.main,
             upload = layui.upload,
             transfer = layui.transfer,
+            layDate = layui.laydate,
             loading,
             url = {{.current_uri}};
         let clipboard = new ClipboardJS('*[data-clipboard-text]');
@@ -123,6 +135,9 @@
                 cities[i] = v.title;
             });
             let field = main.formData();
+            if (field.durations instanceof Array) {
+                field.durations = field.durations.join();
+            }
             field.cities = cities.join();
             main.req({url: url, data: field});
         });
@@ -137,12 +152,15 @@
             auto: false,
             bindAction: '#uploadSubmit',
             before: function () {
+                this.data = main.formData();
                 let cityData = transfer.getData('cityData'),
                     cities = Array();
                 $.each(cityData, function (i, v) {
                     cities[i] = v.title;
                 });
-                this.data = main.formData();
+                if (this.data.durations instanceof Array) {
+                    this.data.durations = this.data.durations.join();
+                }
                 this.data.cities = cities.join();
                 loading = layer.load(1, {shade: [0.7, '#000', true]});
             },
@@ -151,7 +169,7 @@
                     $('#uploadResult').html('<img height="130" width="130" alt="二维码" src="' + result + '" title="' + file.name + '"/>');
                 });
             },
-            done: function (res, index, upload) {
+            done: function (res, index) {
                 layer.close(loading);
                 if (res.code === 0) {
                     layer.msg(res.msg, {icon: 1}, function () {
@@ -175,7 +193,7 @@
                     }
                 });
             },
-            error: function (index, upload) {
+            error: function (index) {
                 layer.close(index);
                 layer.close(loading);
                 layer.alert("网络错误", {
@@ -212,5 +230,31 @@
                 obj.css('display', 'none');
             }
         });
+        let delObj = $('*[lay-event=del-duration]');
+        let addObj = $('*[lay-event=add-duration]');
+        // 添加时间段
+        addObj.click(function () {
+            let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
+            layKey++
+            $(this).parent().before('<div class="layui-input-inline"><input type="text" name="durations" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
+            layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
+            delObj.css('display', 'inline-block');
+        });
+        // 删除时间段
+        delObj.click(function () {
+            $(this).parents('div.layui-form-item').find('input:last').parent().remove();
+            let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key');
+            if (typeof layKey === 'undefined') {
+                delObj.css('display', 'none');
+            }
+        });
+        let layKey, html;
+        {{range $k,$v:=.obj.Durations -}}
+        layKey = {{$k}}+1;
+        html = '<div class="layui-input-inline"><input type="text" name="durations" value="' + {{$v}} +'" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>';
+        $('div[lay-filter=duration]>div.layui-btn-group').before(html);
+        layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
+        delObj.css('display', 'inline-block');
+        {{end -}}
     });
 </script>

@@ -17,6 +17,11 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="setup">
+            <i class="layui-icon layui-icon-set"></i>配置
+        </button>
+    </div>
+    <div class="layui-btn-group">
         <button class="layui-btn layui-btn-sm" lay-event="add">
             <i class="layui-icon layui-icon-addition"></i>添加
         </button>
@@ -133,6 +138,9 @@
                                         cities[i] = v.title;
                                     });
                                     let field = main.formData(dom.selector);
+                                    if (field.durations instanceof Array) {
+                                        field.durations = field.durations.join();
+                                    }
                                     field.cities = cities.join();
                                     main.req({
                                         url: url + '/modify',
@@ -158,6 +166,9 @@
                                         $.each(cityData, function (i, v) {
                                             cities[i] = v.title;
                                         });
+                                        if (this.data.durations instanceof Array) {
+                                            this.data.durations = this.data.durations.join();
+                                        }
                                         this.data.cities = cities.join();
                                         loading = layer.load(1, {shade: [0.7, '#000', true]});
                                     },
@@ -166,7 +177,7 @@
                                             $('#uploadResult').html('<img height="130" width="130" alt="二维码" src="' + result + '" title="' + file.name + '"/>');
                                         });
                                     },
-                                    done: function (res, index, upload) {
+                                    done: function (res, index) {
                                         layer.close(loading);
                                         if (res.code === 0) {
                                             table.reload('table-list', {page: {curr: 1}});
@@ -192,7 +203,7 @@
                                             }
                                         });
                                     },
-                                    error: function (index, upload) {
+                                    error: function (index) {
                                         layer.close(index);
                                         layer.close(loading);
                                         layer.alert("网络错误", {
@@ -278,6 +289,9 @@
                                         cities[i] = v.title;
                                     });
                                     let field = main.formData(dom.selector);
+                                    if (field.durations instanceof Array) {
+                                        field.durations = field.durations.join();
+                                    }
                                     field.cities = cities.join();
                                     main.req({
                                         url: url + '/add',
@@ -298,6 +312,15 @@
                                     bindAction: '#uploadSubmit',
                                     before: function () {
                                         this.data = main.formData(dom.selector);
+                                        let cityData = transfer.getData('cityData'),
+                                            cities = Array();
+                                        $.each(cityData, function (i, v) {
+                                            cities[i] = v.title;
+                                        });
+                                        if (this.data.durations instanceof Array) {
+                                            this.data.durations = this.data.durations.join();
+                                        }
+                                        this.data.cities = cities.join();
                                         loading = layer.load(1, {shade: [0.7, '#000', true]});
                                     },
                                     choose: function (obj) {
@@ -305,7 +328,7 @@
                                             $('#uploadResult').html('<img height="130" width="130" alt="二维码" src="' + result + '" title="' + file.name + '"/>');
                                         });
                                     },
-                                    done: function (res, index, upload) {
+                                    done: function (res, index) {
                                         layer.close(loading);
                                         if (res.code === 0) {
                                             table.reload('table-list', {page: {curr: 1}});
@@ -331,7 +354,7 @@
                                             }
                                         });
                                     },
-                                    error: function (index, upload) {
+                                    error: function (index) {
                                         layer.close(index);
                                         layer.close(loading);
                                         layer.alert("网络错误", {
@@ -365,6 +388,50 @@
                             data: {usernames: usernames.join()},
                             index: index,
                             ending: 'table-list'
+                        });
+                    });
+                    break;
+                case 'setup':
+                    if (data.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    $.get(url + '/setup', {usernames: usernames.join()}, function (html) {
+                        layer.open({
+                            title: '批量设置',
+                            content: html,
+                            type: 1,
+                            shadeClose: true,
+                            scrollbar: false,
+                            btnAlign: 'c',
+                            shade: 0.8,
+                            fixed: false,
+                            maxmin: true,
+                            btn: ['提交', '取消'],
+                            area: ['90%', '90%'],
+                            zIndex: 200000,
+                            yes: function (index, dom) {
+                                dom.find('*[lay-submit]').click();
+                            },
+                            success: function (dom, layerIndex) {
+                                form.render();
+                                form.on('submit(setupSubmit)', function () {
+                                    let cityData = transfer.getData('cityData'),
+                                        cities = Array();
+                                    $.each(cityData, function (i, v) {
+                                        cities[i] = v.title;
+                                    });
+                                    let field = main.formData(dom.selector);
+                                    if (field.durations instanceof Array) {
+                                        field.durations = field.durations.join();
+                                    }
+                                    field.cities = cities.join();
+                                    main.req({
+                                        url: url + '/setup',
+                                        data: field,
+                                        index: layerIndex,
+                                    });
+                                });
+                            }
                         });
                     });
                     break;
