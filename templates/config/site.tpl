@@ -36,7 +36,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">默认目录</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="wwwroot_path" value="{{.obj.WwwrootPath}}"
+                            <input type="text" name="webroot_path" value="{{.obj.WebrootPath}}"
                                    class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">创建网站和ftp时默认的根目录</div>
@@ -97,7 +97,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">手机目录</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="shost_dir" value="{{.obj.ShostDir}}"
+                            <input type="text" name="wap_host_dir" value="{{.obj.WapHostDir}}"
                                    class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">手机站目录 一般为网站内目录</div>
@@ -299,8 +299,8 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">泛域名支持</label>
                             <div class="layui-input-inline">
-                                <input type="checkbox" name="unlimit_bind" lay-skin="switch"
-                                       lay-text="是|否"{{if .obj.UnlimitBind}} checked{{end}}>
+                                <input type="checkbox" name="unlimited_bind" lay-skin="switch"
+                                       lay-text="是|否"{{if .obj.UnlimitedBind}} checked{{end}}>
                             </div>
                             <div class="layui-form-mid layui-word-aux"><span
                                         class="text-danger">对泛域名的支持，一般不需要开启</span>

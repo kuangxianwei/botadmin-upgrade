@@ -62,12 +62,12 @@
                                    class="layui-input"
                                    placeholder="留空将使用域名为目录" {{if gt .obj.Status 0}} disabled{{end}}>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">可指定目录/home/webrobot，网站文件上传至public_html目录下</div>
+                        <div class="layui-form-mid layui-word-aux">可指定目录/home/wwwroot，网站文件上传至public_html目录下</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">默认首页:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="indexes" class="layui-input" value="{{join .obj.Indexes " ,"}}"
+                            <input type="text" name="indexes" class="layui-input" value="{{join .obj.Indexes ","}}"
                                    autocomplete="on" placeholder="index.html,index.php">
                         </div>
                         <div class="layui-form-mid layui-word-aux">留空为默认值，多个用英文逗号","分隔</div>
@@ -88,8 +88,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">泛域名支持:</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" name="unlimit_bind" lay-skin="switch"
-                                   lay-text="打开|关闭" {{if .obj.UnlimitBind}} checked{{end}}>
+                            <input type="checkbox" name="unlimited_bind" lay-skin="switch"
+                                   lay-text="打开|关闭" {{if .obj.UnlimitedBind}} checked{{end}}>
                         </div>
                         <div class="layui-form-mid layui-word-aux">
                             <span class="text-danger">对泛域名的支持，一般不需要开启</span>
@@ -296,7 +296,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">手机域名:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="shost" value="{{.obj.Shost}}" autocomplete="off"
+                            <input type="text" name="wap_host" value="{{.obj.WapHost}}" autocomplete="off"
                                    placeholder="如:m.webrobot.cn" class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">请确定域名已经解析到服务器ip</div>
@@ -304,7 +304,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">路径名:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="shost_dir" class="layui-input" value="{{.obj.ShostDir}}"
+                            <input type="text" name="wap_host_dir" class="layui-input" value="{{.obj.WapHostDir}}"
                                    autocomplete="off" placeholder="m">
                         </div>
                         <div class="layui-form-mid layui-word-aux">确保网站根目录下存在这个路径</div>

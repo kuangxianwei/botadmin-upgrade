@@ -1,5 +1,5 @@
 <div class="layui-card">
-    <div class="layui-card-header">一行一个主域名，如需更多配置 用英文双竖线隔开 www.nfivf.com||{"shost":"m.nfivf.com"}
+    <div class="layui-card-header">一行一个主域名，如需更多配置 用英文双竖线隔开 www.nfivf.com||{"wap_host":"m.nfivf.com"}
         <a class="layui-btn" lay-href="/site/label">查看全部标签</a></div>
     <div class="layui-card-body layui-form">
         <div class="layui-form-item layui-form-text">

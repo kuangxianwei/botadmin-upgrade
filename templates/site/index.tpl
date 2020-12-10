@@ -92,31 +92,31 @@
         <div class="layui-btn-group">
             <ul class="layui-nav layui-bg-green botadmin-nav">
                 <li class="layui-nav-item">
-                    <a href="javascript:" lay-tips="重置" lay-direction="2">
+                    <a href="javascript:" lay-tips="重载" lay-direction="2">
                         <i class="layui-icon layui-icon-refresh"></i>
-                        <cite>重置</cite>
+                        <cite>重载</cite>
                         <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="update_nginx">重置Nginx
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_nginx">Nginx
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="update_website_setup">
-                                重置网站配置
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_website_setup">
+                                网站配置
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="update_website">更新网站文章
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="update_website">更新网站
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="website_cron">同步定时任务
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_cron">定时任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="pull_config">拉取远程配置
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="pull_config">拉取配置
                             </button>
                         </dd>
                     </dl>
@@ -256,6 +256,29 @@
             <div class="layui-form-item">
                 <input type="hidden" name="id" value="">
                 <button class="layui-hide" lay-filter="submit-push" lay-submit>提交</button>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="reload-setup">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">重载模板:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="reload_tpl" lay-skin="switch" lay-text="是|否"/>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" lay-tips="线程太多会卡死">线程:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="thread" value="1" autocomplete="on" placeholder="1"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item layui-hide">
+                <input name="ids" value="">
+                <button lay-submit>提交</button>
             </div>
         </div>
     </div>
@@ -651,7 +674,7 @@
                             });
                         });
                     break;
-                case 'update_nginx':
+                case 'reload_nginx':
                     layer.prompt({
                             formType: 0,
                             value: data.length,
@@ -659,7 +682,7 @@
                         },
                         function (value, index) {
                             main.req({
-                                url: url + '/update/nginx',
+                                url: url + '/reload/nginx',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
                                 tips: function (res) {
@@ -669,23 +692,22 @@
                             });
                         });
                     break;
-                case 'update_website_setup':
-                    layer.prompt({
-                            formType: 0,
-                            value: data.length,
-                            title: '更新选中网站的网站后台配置，请输入线程数量 太多会卡死'
+                case 'reload_website_setup':
+                    if (ids.length === 0) {
+                        layer.msg('请选择数据', {icon: 2});
+                        return false
+                    }
+                    let contentObj = $($("#reload-setup").html());
+                    contentObj.find('*[name=ids]').attr('value', ids.join());
+                    main.popup({
+                        title: '重载Nginx',
+                        content: contentObj.prop('outerHTML'),
+                        url: url + '/reload/website/setup',
+                        area: ['400px', '300px'],
+                        tips: function (res) {
+                            layer.alert(res.msg, {area: ['400px', '350px']});
                         },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/update/website/setup',
-                                data: {'ids': ids.join(), 'thread': value},
-                                index: index,
-                                tips: function (res) {
-                                    layer.alert(res.msg, {area: ['500px', '450px']});
-                                },
-                                ending: 'table-list',
-                            });
-                        });
+                    });
                     break;
                 case 'update_website':
                     layer.prompt({
@@ -705,9 +727,9 @@
                             });
                         });
                     break;
-                case 'website_cron':
+                case 'reload_cron':
                     main.req({
-                        url: url + '/update/cron',
+                        url: url + '/reload/cron',
                         ending: 'table-list',
                     });
                     break;
@@ -727,7 +749,7 @@
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
                                 tips: function (res) {
-                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                    layer.alert(res.msg, {area: ['400px', '300px']});
                                 },
                             });
                         });

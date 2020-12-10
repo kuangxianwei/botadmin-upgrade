@@ -172,12 +172,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 success: function (dom, index) {
                     form.render();
                     form.on('submit(' + options.submit + ')', function (obj) {
-                        req({
+                        let reqOptions = {
                             url: options.url || obj.field.url,
                             data: obj.field,
                             index: index,
                             ending: options.ending,
-                        });
+                        };
+                        if (typeof options.tips === 'function') {
+                            reqOptions.tips = options.tips;
+                        }
+                        req(reqOptions);
                         return false;
                     });
                 }

@@ -83,22 +83,22 @@
                 <td>绑定域名</td>
             </tr>
             <tr>
-                <td>shost</td>
+                <td>wap_host</td>
                 <td>string</td>
                 <td>手机域名</td>
             </tr>
             <tr>
-                <td>stitle</td>
+                <td>wap_title</td>
                 <td>string</td>
                 <td>手机域名标题</td>
             </tr>
             <tr>
-                <td>sdescription</td>
+                <td>wap_description</td>
                 <td>string</td>
                 <td>手机域名描述</td>
             </tr>
             <tr>
-                <td>skeywords</td>
+                <td>wap_keywords</td>
                 <td>string</td>
                 <td>手机域名关键词</td>
             </tr>
@@ -118,7 +118,7 @@
                 <td> 网站程序</td>
             </tr>
             <tr>
-                <td>wwwroot_path</td>
+                <td>webroot_path</td>
                 <td>string</td>
                 <td> 创建网站和ftp时默认的根目录</td>
             </tr>
@@ -173,7 +173,7 @@
                 <td> phpmyadmin目录</td>
             </tr>
             <tr>
-                <td>shost_dir</td>
+                <td>wap_host_dir</td>
                 <td>string</td>
                 <td> 手机站目录</td>
             </tr>
@@ -328,7 +328,7 @@
                 <td> 启用随机城市选择</td>
             </tr>
             <tr>
-                <td>unlimit_bind</td>
+                <td>unlimited_bind</td>
                 <td>bool</td>
                 <td> 启用泛域名支持</td>
             </tr>
