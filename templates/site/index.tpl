@@ -342,7 +342,7 @@
                         if (d.status === 4) {
                             return d.vhost;
                         }
-                        return '<a lay-href="/file?path=' + d['vhost_dir'] + '" style="color:#01aaed">' + d.vhost + '</a>';
+                        return '<a lay-href="/file?path=' + d['webroot_path'] + '" style="color:#01aaed">' + d.vhost + '</a>';
                     }
                 },
                 {
@@ -380,7 +380,7 @@
                 {field: 'web_user', title: '用户名', align: 'center', hide: true},
                 {field: 'web_pwd', title: 'Pwd', align: 'center', hide: true},
                 {field: 'auth_code', title: 'Auth', align: 'center', hide: true},
-                {field: 'vhost_dir', title: '网站路径', hide: true},
+                {field: 'webroot_path', title: '网站路径', hide: true},
                 {field: 'updated', title: '时间', sort: true, hide: true},
                 {
                     field: 'id',

@@ -58,7 +58,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">站点目录:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="vhost_dir" value="{{.obj.VhostDir}}" autocomplete="off"
+                            <input type="text" name="webroot_path" value="{{.obj.WebrootPath}}" autocomplete="off"
                                    class="layui-input"
                                    placeholder="留空将使用域名为目录" {{if gt .obj.Status 0}} disabled{{end}}>
                         </div>
@@ -304,7 +304,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">路径名:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="wap_host_dir" class="layui-input" value="{{.obj.WapHostDir}}"
+                            <input type="text" name="wap_root_dir" class="layui-input" value="{{.obj.WapRootDir}}"
                                    autocomplete="off" placeholder="m">
                         </div>
                         <div class="layui-form-mid layui-word-aux">确保网站根目录下存在这个路径</div>

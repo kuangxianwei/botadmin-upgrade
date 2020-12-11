@@ -97,7 +97,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">手机目录</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="wap_host_dir" value="{{.obj.WapHostDir}}"
+                            <input type="text" name="wap_root_dir" value="{{.obj.WapRootDir}}"
                                    class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">手机站目录 一般为网站内目录</div>

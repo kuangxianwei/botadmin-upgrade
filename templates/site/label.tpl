@@ -103,7 +103,7 @@
                 <td>手机域名关键词</td>
             </tr>
             <tr>
-                <td>vhost_dir</td>
+                <td>webroot_path</td>
                 <td>string</td>
                 <td>主域名目录</td>
             </tr>
@@ -173,7 +173,7 @@
                 <td> phpmyadmin目录</td>
             </tr>
             <tr>
-                <td>wap_host_dir</td>
+                <td>wap_root_dir</td>
                 <td>string</td>
                 <td> 手机站目录</td>
             </tr>
