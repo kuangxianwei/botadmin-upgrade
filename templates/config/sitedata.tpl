@@ -38,8 +38,8 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
-                        <textarea class="layui-textarea" name="title_suffixs"
-                                  rows="15">{{join .obj.TitleSuffixs "\n"}}</textarea>
+                        <textarea class="layui-textarea" name="title_suffixes"
+                                  rows="15">{{join .obj.TitleSuffixes "\n"}}</textarea>
                     </div>
                     <div class="layui-collapse">
                         <div class="layui-colla-item">
