@@ -1,13 +1,9 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <div class="layui-row">
-                <div class="layui-col-md3">
-                    <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
-                    <button class="layui-btn" lay-event="cities">选择城市</button>
-                </div>
-                <div class="layui-col-md6" id="cities" style="display:none;align-items: center;overflow: hidden;"></div>
-            </div>
+            <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
+            <button class="layui-btn" lay-event="cities">选择城市</button>
+            <input type="hidden" name="cities" value="">
         </div>
         <div class="layui-form-item" lay-filter="duration">
             <label class="layui-form-label">时间范围:</label>
@@ -49,7 +45,8 @@
         let $ = layui.$,
             main = layui.main,
             layDate = layui.laydate,
-            transfer = layui.transfer;
+            transfer = layui.transfer,
+            citiesData = {{.cityData}};
         // 填充咨询链接
         $('[lay-event="fill-consult"]').on('click', function () {
             main.req({
@@ -66,23 +63,30 @@
                 }
             });
         });
-        //显示城市搜索框
-        transfer.render({
-            id: 'cityData',
-            elem: '#cities',
-            data: {{.cityData}},
-            title: ['全部城市', '城市'],
-            value: '',
-            showSearch: true
-        });
-        // 显示城市设置
+        // 监控城市
         $('*[lay-event=cities]').click(function () {
-            let obj = $('#cities');
-            if (obj.css('display') === 'none') {
-                obj.css('display', 'block');
-            } else {
-                obj.css('display', 'none');
-            }
+            main.pop({
+                content: `<div id="cities"></div>`,
+                success: function (dom) {
+                    //显示城市搜索框
+                    transfer.render({
+                        title: ['全部城市', '城市'],
+                        id: 'cityData',
+                        elem: dom.find('#cities'),
+                        data: citiesData,
+                        value: $('*[name=cities]').val().split(','),
+                        showSearch: true,
+                    });
+                },
+                done: function (dom) {
+                    let cityData = transfer.getData('cityData'),
+                        cities = Array();
+                    $.each(cityData, function (i, v) {
+                        cities[i] = v.value;
+                    });
+                    $('*[name=cities]').val(cities.join())
+                }
+            });
         });
         let delObj = $('*[lay-event=del-duration]');
         let addObj = $('*[lay-event=add-duration]');
