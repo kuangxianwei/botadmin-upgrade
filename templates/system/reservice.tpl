@@ -65,7 +65,7 @@
                     url: url,
                     data: {'act': act},
                     tips: function (res) {
-                        layer.alert(res.msg, {area: ['500px', '350px']});
+                        main.msg(res.msg);
                     },
                     index: index
                 });

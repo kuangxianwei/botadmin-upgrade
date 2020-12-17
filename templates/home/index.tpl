@@ -193,7 +193,8 @@
             <div class="layui-card-body">
                 <table class="layui-table" lay-even="" lay-skin="nob">
                     <colgroup>
-                        <col width="105"><col>
+                        <col width="105">
+                        <col>
                     </colgroup>
                     <tbody>
                     <tr>
@@ -285,7 +286,7 @@
             main.req({
                 url: '/system/reservice',
                 tips: function (res) {
-                    layer.alert(res.msg, {area: ['500px', '350px']});
+                    main.msg(res.msg);
                 },
                 data: {act: act},
             });

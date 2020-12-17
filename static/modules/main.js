@@ -5,6 +5,19 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         form = layui.form,
         table = layui.table,
         slider = layui.slider,
+        popOpts = {
+            opacity: '0.7',
+            content: '',
+            scroll: true,
+            confirm: true,
+            area: ['auto', 'auto'],
+            success: function (dom) {
+                return true;
+            }, done: function (dom) {
+                return true;
+            },
+            zIndex: 2147483000,
+        },
         tidyObj = function (obj) {
             return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
         },
@@ -141,6 +154,30 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             request.always(function () {
                 layer.close(loading);
             });
+        },
+        pop = function (options) {
+            options = $.extend(popOpts, options);
+            let insertThis = $('div').first();
+            if (insertThis.length === 0) {
+                insertThis = $('body').last();
+            }
+            if (insertThis.length === 0) {
+                return false;
+            }
+            let id = uuid();
+            insertThis.before('<div id="' + id + '"></div>');
+            let popupThis = $('#' + id);
+            popupThis.append('<style>.shade{z-index:' + options.zIndex + ';position:fixed;visibility:visible;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,' + options.opacity + ')}.shade>div{min-width:150px;min-height:100px;width:' + options.area[0] + ';height:' + options.area[1] + ';position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);padding:1.5em;background:#fff;border-radius:10px;box-shadow:-2px 2px 2px #888}.shade>div>div{overflow:' + (options.scroll ? 'scroll' : 'hidden') + ';height:100%;width:100%}.shade>div>.shade-cancel,.shade>div>.shade-confirm{z-index:' + options.zIndex + 1 + ';height:28px;width:28px;line-height:28px;text-align:center;border-radius:14px;position:absolute}.shade>div>.shade-cancel{top:-17px;right:-17px;background-color:rgba(0,0,0,.8);box-shadow:-2px 2px 2px 2px #888}.shade>div>.shade-confirm{bottom:-30px;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);background-color:#0a6e85;box-shadow:-2px -2px 2px 2px #888}</style>');
+            popupThis.append('<div class="shade"><div><a href="#" title="Cancel" class="shade-cancel"><svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M810.666667 273.493333L750.506667 213.333333 512 451.84 273.493333 213.333333 213.333333 273.493333 451.84 512 213.333333 750.506667 273.493333 810.666667 512 572.16 750.506667 810.666667 810.666667 750.506667 572.16 512z" fill="#fff"></path></svg></a>' + (options.confirm ? '<a href="#" title="Confirm" class="shade-confirm"><svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M448 864a32 32 0 0 1-18.88-6.08l-320-234.24a32 32 0 1 1 37.76-51.52l292.16 213.44 397.76-642.56a32 32 0 0 1 54.4 33.92l-416 672a32 32 0 0 1-21.12 14.4L448 864z" fill="#fff"></path></svg></a>' : '') + '<div>' + options.content + '</div></div></div>');
+            options.success(popupThis);
+            popupThis.find('.shade-cancel').click(function () {
+                popupThis.remove();
+            });
+            popupThis.find('.shade-confirm').click(function () {
+                if (options.done(popupThis) !== false) {
+                    popupThis.remove();
+                }
+            });
         };
     exports('main', {
         tidyObj: tidyObj,
@@ -239,6 +276,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
             });
             return data;
+        },
+        pop: pop,
+        msg: function (msg, options) {
+            pop($.extend({content: msg, scroll: false, confirm: false}, options || {}));
+        },
+        confirm: function (msg, options) {
+            pop($.extend({content: msg}, options || {}));
         }
     });
 });

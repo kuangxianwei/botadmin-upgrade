@@ -28,6 +28,7 @@
         .botadmin-nav > .layui-nav-item .layui-nav-child {top: 30px;line-height: 30px;}
         .layui-input, .layui-textarea {display: inline-block !important;}
         .layui-elem-field {padding: revert !important;}
+        .layui-transfer-box{overflow: hidden !important;}
     </style>
 </head>
 <body>

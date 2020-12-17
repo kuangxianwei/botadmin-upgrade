@@ -426,7 +426,7 @@
                     main.req({
                         url: '/site/rank',
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['500px', '450px']});
+                            main.msg(res.msg);
                         },
                         data: data
                     });
@@ -550,7 +550,7 @@
                             othis.attr('data-clipboard-text', data['auth_code']);
                             break;
                         default:
-                            layer.alert('出错了')
+                            layer.alert('出错了', {icon: 2})
                             return false;
                     }
                     let clipboard = new ClipboardJS('a[data-clipboard-text]');
@@ -619,7 +619,7 @@
                         url: url + '/found',
                         data: {'ids': ids.join()},
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['500px', '450px']});
+                            main.msg(res.msg);
                         },
                         ending: 'table-list',
                     });
@@ -633,7 +633,7 @@
                         url: url + '/install',
                         data: {'ids': ids.join()},
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['500px', '450px']});
+                            main.msg(res.msg);
                         },
                         ending: 'table-list',
                     });
@@ -647,7 +647,7 @@
                         url: url + '/setup',
                         data: {'ids': ids.join()},
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['500px', '450px']});
+                            main.msg(res.msg);
                         },
                         ending: 'table-list',
                     });
@@ -668,7 +668,7 @@
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
                                 tips: function (res) {
-                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                    main.msg(res.msg);
                                 },
                                 ending: 'table-list',
                             });
@@ -686,7 +686,7 @@
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
                                 tips: function (res) {
-                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                    main.msg(res.msg);
                                 },
                                 ending: 'table-list',
                             });
@@ -705,7 +705,7 @@
                         url: url + '/reload/website/setup',
                         area: ['400px', '300px'],
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['400px', '350px']});
+                            main.msg(res.msg);
                         },
                     });
                     break;
@@ -721,7 +721,7 @@
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
                                 tips: function (res) {
-                                    layer.alert(res.msg, {area: ['500px', '450px']});
+                                    main.msg(res.msg);
                                 },
                                 ending: 'table-list',
                             });
@@ -749,7 +749,7 @@
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
                                 tips: function (res) {
-                                    layer.alert(res.msg, {area: ['400px', '300px']});
+                                    main.msg(res.msg);
                                 },
                             });
                         });
@@ -758,7 +758,7 @@
                     main.req({
                         url: url + '/jobs',
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['500px', '450px']});
+                            main.msg(res.msg);
                         },
                     });
                     break;
@@ -815,7 +815,7 @@
                         data: {'ids': ids.join()},
                         ending: 'table-list',
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['500px', '450px']});
+                            main.msg(res.msg);
                         },
                     });
                     break;
@@ -838,7 +838,7 @@
                         url: url + '/vhosts',
                         data: {ids: ids.join()},
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['500px', '450px']});
+                            main.msg(res.msg);
                         },
                     });
                     break;

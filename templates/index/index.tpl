@@ -115,6 +115,9 @@
                                     <dd data-name="contact-config">
                                         <a lay-href="/contact/config" lay-tips="基本配置" lay-direction="2">基本配置</a>
                                     </dd>
+                                    <dd data-name="contact-style">
+                                        <a lay-href="/contact/style" lay-tips="样式列表" lay-direction="2">样式列表</a>
+                                    </dd>
                                 </dl>
                             </dd>
                         </dl>

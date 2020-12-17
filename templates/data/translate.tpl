@@ -61,7 +61,7 @@
                 layui.form.render();
                 return false;
             }
-            layui.layer.alert(res.msg);
+            layui.layer.alert(res.msg, {icon: 2});
         });
         return false;
     }

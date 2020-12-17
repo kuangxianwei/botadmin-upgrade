@@ -51,7 +51,7 @@
                         url: '/system/reservice',
                         data: {act: 'mysql'},
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['400px', '350px']});
+                            main.msg(res.msg);
                         },
                     });
                     break;

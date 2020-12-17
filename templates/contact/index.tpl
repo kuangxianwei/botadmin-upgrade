@@ -49,7 +49,6 @@
             table = layui.table,
             main = layui.main,
             upload = layui.upload,
-            transfer = layui.transfer,
             url = {{.current_uri}};
 
         //日志管理
@@ -80,6 +79,7 @@
                 {field: 'qr', title: '二维码', hide: true},
                 {field: 'weight', title: '权重', hide: true},
                 {field: 'done', title: '完成', minWidth: 100},
+                {field: 'style_id', title: '样式', hide: true},
                 {field: 'other', title: '其他', hide: true},
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
@@ -132,16 +132,10 @@
                                 form.render();
                                 let loading;
                                 dom.find('#submit').on('click', function () {
-                                    let cityData = transfer.getData('cityData'),
-                                        cities = Array();
-                                    $.each(cityData, function (i, v) {
-                                        cities[i] = v.title;
-                                    });
                                     let field = main.formData(dom.selector);
                                     if (field.durations instanceof Array) {
                                         field.durations = field.durations.join();
                                     }
-                                    field.cities = cities.join();
                                     main.req({
                                         url: url + '/modify',
                                         data: field,
@@ -161,15 +155,9 @@
                                     bindAction: '#uploadSubmit',
                                     before: function () {
                                         this.data = main.formData(dom.selector);
-                                        let cityData = transfer.getData('cityData'),
-                                            cities = Array();
-                                        $.each(cityData, function (i, v) {
-                                            cities[i] = v.title;
-                                        });
                                         if (this.data.durations instanceof Array) {
                                             this.data.durations = this.data.durations.join();
                                         }
-                                        this.data.cities = cities.join();
                                         loading = layer.load(1, {shade: [0.7, '#000', true]});
                                     },
                                     choose: function (obj) {
@@ -283,16 +271,10 @@
                                 form.render();
                                 let loading;
                                 dom.find('#submit').on('click', function () {
-                                    let cityData = transfer.getData('cityData'),
-                                        cities = Array();
-                                    $.each(cityData, function (i, v) {
-                                        cities[i] = v.title;
-                                    });
                                     let field = main.formData(dom.selector);
                                     if (field.durations instanceof Array) {
                                         field.durations = field.durations.join();
                                     }
-                                    field.cities = cities.join();
                                     main.req({
                                         url: url + '/add',
                                         data: field,
@@ -312,15 +294,9 @@
                                     bindAction: '#uploadSubmit',
                                     before: function () {
                                         this.data = main.formData(dom.selector);
-                                        let cityData = transfer.getData('cityData'),
-                                            cities = Array();
-                                        $.each(cityData, function (i, v) {
-                                            cities[i] = v.title;
-                                        });
                                         if (this.data.durations instanceof Array) {
                                             this.data.durations = this.data.durations.join();
                                         }
-                                        this.data.cities = cities.join();
                                         loading = layer.load(1, {shade: [0.7, '#000', true]});
                                     },
                                     choose: function (obj) {
@@ -415,16 +391,10 @@
                             success: function (dom, layerIndex) {
                                 form.render();
                                 form.on('submit(setupSubmit)', function () {
-                                    let cityData = transfer.getData('cityData'),
-                                        cities = Array();
-                                    $.each(cityData, function (i, v) {
-                                        cities[i] = v.title;
-                                    });
                                     let field = main.formData(dom.selector);
                                     if (field.durations instanceof Array) {
                                         field.durations = field.durations.join();
                                     }
-                                    field.cities = cities.join();
                                     main.req({
                                         url: url + '/setup',
                                         data: field,

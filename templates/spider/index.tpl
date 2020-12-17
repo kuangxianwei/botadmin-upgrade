@@ -450,7 +450,7 @@
                     main.req({
                         url: url + '/jobs',
                         tips: function (res) {
-                            layer.alert(res.msg, {area: ['500px', '450px']});
+                            main.msg(res.msg);
                         }
                     });
                     break;

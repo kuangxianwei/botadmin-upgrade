@@ -1,6 +1,16 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
+            <label class="layui-form-label">样式:</label>
+            <div class="layui-input-inline">
+                <select name="style_id" class="layui-select">
+                    {{range $v:=.styles -}}
+                        <option value="{{$v.Id}}"{{if eq $v.Id $.obj.StyleId}} selected{{end}}>{{$v.Name}}</option>
+                    {{end -}}
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">绑定域名:</label>
             <div class="layui-input-inline" style="min-width: 50%">
                 <input type="text" name="host" value="{{.obj.Host}}" lay-verify="required" class="layui-input">
@@ -35,14 +45,9 @@
             <div class="layui-form-mid layui-word-aux">如QQ在线</div>
         </div>
         <div class="layui-form-item">
-            <div class="layui-row">
-                <div class="layui-col-md3">
-                    <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
-                    <button class="layui-btn" lay-event="cities">选择城市</button>
-                </div>
-                <div class="layui-col-md6" id="cities" style="display:none;align-items: center;overflow: hidden;">
-                </div>
-            </div>
+            <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
+            <button class="layui-btn" lay-event="cities">选择城市</button>
+            <input type="hidden" name="cities" value="{{join .obj.Cities ","}}">
         </div>
         <div class="layui-form-item" lay-filter="duration">
             <label class="layui-form-label">时间范围:</label>
@@ -107,7 +112,8 @@
             transfer = layui.transfer,
             layDate = layui.laydate,
             loading,
-            url = {{.current_uri}};
+            url = {{.current_uri}},
+            citiesData = {{.cityData}};
         let clipboard = new ClipboardJS('*[data-clipboard-text]');
         clipboard.on('success', function (e) {
             layer.msg('复制成功');
@@ -129,16 +135,10 @@
             return false;
         });
         $('#submit').click(function () {
-            let cityData = transfer.getData('cityData'),
-                cities = Array();
-            $.each(cityData, function (i, v) {
-                cities[i] = v.title;
-            });
             let field = main.formData();
             if (field.durations instanceof Array) {
                 field.durations = field.durations.join();
             }
-            field.cities = cities.join();
             main.req({url: url, data: field});
         });
         upload.render({
@@ -153,15 +153,9 @@
             bindAction: '#uploadSubmit',
             before: function () {
                 this.data = main.formData();
-                let cityData = transfer.getData('cityData'),
-                    cities = Array();
-                $.each(cityData, function (i, v) {
-                    cities[i] = v.title;
-                });
                 if (this.data.durations instanceof Array) {
                     this.data.durations = this.data.durations.join();
                 }
-                this.data.cities = cities.join();
                 loading = layer.load(1, {shade: [0.7, '#000', true]});
             },
             choose: function (obj) {
@@ -213,22 +207,30 @@
                 });
             },
         });
-        //显示城市搜索框
-        transfer.render({
-            id: 'cityData',
-            elem: '#cities',
-            data: {{.cityData}},
-            title: ['全部城市', '城市'],
-            value: {{.cityValue}},
-            showSearch: true
-        });
+        // 监控城市
         $('*[lay-event=cities]').click(function () {
-            let obj = $('#cities');
-            if (obj.css('display') === 'none') {
-                obj.css('display', 'block');
-            } else {
-                obj.css('display', 'none');
-            }
+            main.pop({
+                content: `<div id="cities"></div>`,
+                success: function (dom) {
+                    //显示城市搜索框
+                    transfer.render({
+                        title: ['全部城市', '城市'],
+                        id: 'cityData',
+                        elem: dom.find('#cities'),
+                        data: citiesData,
+                        value: $('*[name=cities]').val().split(','),
+                        showSearch: true,
+                    });
+                },
+                done: function (dom) {
+                    let cityData = transfer.getData('cityData'),
+                        cities = Array();
+                    $.each(cityData, function (i, v) {
+                        cities[i] = v.value;
+                    });
+                    $('*[name=cities]').val(cities.join())
+                }
+            });
         });
         let delObj = $('*[lay-event=del-duration]');
         let addObj = $('*[lay-event=add-duration]');

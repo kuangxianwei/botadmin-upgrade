@@ -1041,11 +1041,11 @@
                             title: '输入标识 由字母下划线或数字组成 字母开头'
                         }, function (name, index) {
                             if (!/^[a-zA-Z][a-zA-Z0-9_]+/.test(name)) {
-                                layer.alert('您输入的标识不合法!');
+                                layer.alert('您输入的标识不合法!', {icon: 2});
                                 return false;
                             }
                             if (existsHtml.indexOf('value="' + name + '"') !== -1) {
-                                layer.alert('您输入的标识"' + name + '"已经存在');
+                                layer.alert('您输入的标识"' + name + '"已经存在', {icon: 2});
                                 return false;
                             }
                             layer.prompt({
@@ -1054,7 +1054,7 @@
                                 title: '请输入别名 例如:标题'
                             }, function (alias, index) {
                                 if (existsHtml.indexOf('value="' + alias + '"') !== -1) {
-                                    layer.alert('您输入的别名"' + alias + '"已经存在');
+                                    layer.alert('您输入的别名"' + alias + '"已经存在', {icon: 2});
                                     return false;
                                 }
                                 let opts = new utils.buildDetailItem($('#step-detail-item').html(), {
@@ -1062,7 +1062,7 @@
                                     alias: alias
                                 });
                                 if (!opts.content) {
-                                    layer.alert('添加内容为空');
+                                    layer.alert('添加内容为空', {icon: 2});
                                     return false;
                                 }
                                 element.tabAdd('step-detail', {
@@ -1093,7 +1093,7 @@
                             url: '/spider/test/list',
                             data: obj.field,
                             tips: function (res) {
-                                layer.alert(res.msg, {area: ['500px', '450px']});
+                                main.msg(res.msg);
                             },
                             success: function (res) {
                                 if (res.code === 0) {
@@ -1123,7 +1123,7 @@
                                 data: obj.field,
                                 index: index,
                                 tips: function (res) {
-                                    layer.alert(res.msg, {area: ['80%', '80%']});
+                                    main.msg(res.msg);
                                 }
                             });
                         });
@@ -1164,7 +1164,7 @@
                             $('[lay-filter=class_id]').html(res.data);
                             form.render();
                         } else {
-                            layer.alert(res.msg);
+                            layer.alert(res.msg, {icon: 2});
                         }
                     });
                 },

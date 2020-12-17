@@ -1,26 +1,33 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-row">
-            <div class="layui-col-md5">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">启用:</label>
-                    <div class="layui-input-inline">
-                        <input type="checkbox" name="enabled" lay-skin="switch"
-                               lay-text="是|否"{{if .obj.Enabled}} checked{{end}}/>
-                    </div>
+            <div class="layui-col-md2">
+                <label class="layui-form-label">启用:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="enabled" lay-skin="switch"
+                           lay-text="是|否"{{if .obj.Enabled}} checked{{end}}/>
                 </div>
             </div>
-            <div class="layui-col-md6">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">排序:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="sort" value="{{.obj.Sort}}" autocomplete="off" placeholder="0"
-                               class="layui-input">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">值越大越排后面</div>
+            <div class="layui-col-md4">
+                <label class="layui-form-label">样式:</label>
+                <div class="layui-input-inline">
+                    <select name="style_id" class="layui-select">
+                        {{range $v:=.styles -}}
+                            <option value="{{$v.Id}}"{{if eq $v.Id $.obj.StyleId}} selected{{end}}>{{$v.Name}}</option>
+                        {{end -}}
+                    </select>
                 </div>
+            </div>
+            <div class="layui-col">
+                <label class="layui-form-label">排序:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="sort" value="{{.obj.Sort}}" autocomplete="off" placeholder="0"
+                           class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">值越大越排后面</div>
             </div>
         </div>
+        <div class="layui-form-item"></div>
         <div class="layui-row">
             <div class="layui-col-md5">
                 <div class="layui-form-item">
@@ -122,14 +129,9 @@
             <button class="layui-btn" lay-event="fill-consult">填充默认</button>
         </div>
         <div class="layui-form-item">
-            <div class="layui-row">
-                <div class="layui-col-md3">
-                    <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
-                    <button class="layui-btn" lay-event="cities">选择城市</button>
-                </div>
-                <div class="layui-col-md6" id="cities" style="display:none;align-items: center;overflow: hidden;">
-                </div>
-            </div>
+            <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
+            <button class="layui-btn" lay-event="cities">选择城市</button>
+            <input type="hidden" name="cities" value="{{join .obj.Cities ","}}">
         </div>
         <div class="layui-form-item" lay-filter="duration">
             <label class="layui-form-label">时间范围:</label>
@@ -150,6 +152,7 @@
             <div class="layui-form-mid layui-word-aux">例如百度统计客服代码</div>
             <button class="layui-btn" lay-event="fill-other">填充默认</button>
         </div>
+        <div id="kuang"></div>
         <div class="layui-form-item layui-hide">
             <button lay-submit>提交</button>
             <button id="uploadSubmit"></button>
@@ -162,39 +165,48 @@
         let $ = layui.$,
             main = layui.main,
             layDate = layui.laydate,
-            transfer = layui.transfer;
+            transfer = layui.transfer,
+            citiesData = {{.cityData}};
         //滑块控制
         main.slider({elem: '#weight', value: {{.obj.Weight}}, max: 100});
         $('[lay-event="fill-consult"]').on('click', function () {
-            layui.main.req({
+            main.req({
                 url: '/contact/fill/consult', ending: function (res) {
                     layui.$('[name="consult"]').val(res.data);
                 }
             });
         });
         $('[lay-event="fill-other"]').on('click', function () {
-            layui.main.req({
+            main.req({
                 url: '/contact/fill/other', ending: function (res) {
                     layui.$('[name="other"]').val(res.data);
                 }
             });
         });
-        //显示城市搜索框
-        transfer.render({
-            id: 'cityData',
-            elem: '#cities',
-            data: {{.cityData}},
-            title: ['全部城市', '城市'],
-            value: {{.cityValue}},
-            showSearch: true
-        });
+        // 监控城市
         $('*[lay-event=cities]').click(function () {
-            let obj = $('#cities');
-            if (obj.css('display') === 'none') {
-                obj.css('display', 'block');
-            } else {
-                obj.css('display', 'none');
-            }
+            main.pop({
+                content: `<div id="cities"></div>`,
+                success: function (dom) {
+                    //显示城市搜索框
+                    transfer.render({
+                        title: ['全部城市', '城市'],
+                        id: 'cityData',
+                        elem: dom.find('#cities'),
+                        data: citiesData,
+                        value: $('*[name=cities]').val().split(','),
+                        showSearch: true,
+                    });
+                },
+                done: function (dom) {
+                    let cityData = transfer.getData('cityData'),
+                        cities = Array();
+                    $.each(cityData, function (i, v) {
+                        cities[i] = v.value;
+                    });
+                    $('*[name=cities]').val(cities.join())
+                }
+            });
         });
         let delObj = $('*[lay-event=del-duration]');
         let addObj = $('*[lay-event=add-duration]');
