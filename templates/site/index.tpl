@@ -838,7 +838,7 @@
                         url: url + '/vhosts',
                         data: {ids: ids.join()},
                         tips: function (res) {
-                            main.msg(res.msg);
+                            main.msg(res.msg,{area:['300px','400px']});
                         },
                     });
                     break;
