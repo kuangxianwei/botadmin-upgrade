@@ -1,3 +1,3 @@
 # ${RootPath} 程序根目录
 
-rm -rf "${RootPath}/templates"
+find "${RootPath}/data/template/empirecms" -type f -name '*.temp' -exec rm -f {} \;
