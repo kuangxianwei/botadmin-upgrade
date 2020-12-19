@@ -272,8 +272,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" lay-tips="线程太多会卡死">线程:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="thread" value="1" autocomplete="on" placeholder="1"
-                           class="layui-input">
+                    <input type="text" name="thread" value="10" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item layui-hide">
@@ -838,7 +837,7 @@
                         url: url + '/vhosts',
                         data: {ids: ids.join()},
                         tips: function (res) {
-                            main.msg(res.msg,{area:['300px','400px']});
+                            main.msg(res.msg);
                         },
                     });
                     break;

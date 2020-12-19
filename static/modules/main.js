@@ -76,7 +76,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             let request = $.ajax(options);
             request.done(function (res) {
                 if (res.textarea === true && res.msg.length > 50) {
-                    res.msg = '<textarea class="layui-textarea" style="height:100%;">' + res.msg + '</textarea>';
+                    let rows = (res.msg.match(/\n/g)).length;
+                    res.msg = '<textarea class="layui-textarea" rows="' + (rows > 12 ? 12 : rows) + '" style="width:350px;">' + res.msg + '</textarea>';
                 } else {
                     let reg = new RegExp('\n', 'g');
                     res.msg = res.msg.replace(reg, '<br/>');
