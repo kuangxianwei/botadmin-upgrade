@@ -13,8 +13,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">浮动:</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="float" value="0" title="靠右"{{if eq .obj.Float 0}} checked{{end}}>
                         <input type="radio" name="float" value="1" title="靠左"{{if gt .obj.Float 0}} checked{{end}}>
+                        <input type="radio" name="float" value="0" title="靠右"{{if eq .obj.Float 0}} checked{{end}}>
                     </div>
                 </div>
             </div>
