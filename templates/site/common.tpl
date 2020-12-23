@@ -1,3 +1,15 @@
+<style>
+    #theme > img {
+        max-width: 80px;
+        max-height: 80px;
+    }
+
+    #theme > img:hover {
+        max-width: 200px;
+        max-height: 200px;
+        cursor: pointer;
+    }
+</style>
 <div class="layui-card">
     <div class="layui-card-body">
         <div class="layui-tab layui-tab-card layui-form">
@@ -14,8 +26,8 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
+                    <div class="layui-row layui-col-space5">
+                        <div class="layui-col-md3">
                             <label class="layui-form-label">网站类型:</label>
                             <div class="layui-input-block">
                                 <select name="system" lay-filter="system" {{if gt .obj.Status 0}} disabled{{end}}>
@@ -26,16 +38,20 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="layui-inline">
+                        <div class="layui-col-md4">
                             <label class="layui-form-label">选择模板:</label>
                             <div class="layui-input-inline" lay-filter="tpl_name">
                                 {{.tpl_select}}
                             </div>
-                            <div class="layui-form-mid layui-word-aux">
-                                <a lay-href="/file?path={{.tpl_dir}}">查看所有模板</a>
-                            </div>
+                        </div>
+                        <div class="layui-col" id="theme">
+                            {{if .theme.Face -}}
+                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.Face}}"
+                                     title="{{.theme.Alias}}">
+                            {{end -}}
                         </div>
                     </div>
+                    <div class="layui-form-item"></div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">站点域名:</label>
                         <div class="layui-input-inline">
@@ -803,7 +819,7 @@
             }
         });
 
-        //改变模板目录列表
+        //监控系统选择
         form.on('select(system)', function (obj) {
             $.get('/site/admin', {system: obj.value}, function (html) {
                 $('input[name=admin_dir]').val(html);
@@ -811,6 +827,19 @@
             $.get('/site/tpl', {system: obj.value, tpl_name: tpl_name}, function (html) {
                 $('div[lay-filter=tpl_name]').html(html);
                 form.render();
+                let tplName = $('select[name=tpl_name]').val();
+                $('#theme').empty();
+                if (tplName) {
+                    $.get('/site/theme', {system: $('select[name=system]').val(), tpl_name: tplName}, function (res) {
+                        if (res.code === 0) {
+                            if (res.data.Face) {
+                                $('#theme').html('<img width="100%" height="100%" alt="' + res.data.Alias + '" src="' + res.data.Face + '" title="' + res.data.Alias + '">');
+                            }
+                        } else {
+                            console.log(res.msg);
+                        }
+                    });
+                }
             });
             if (obj.value === 'dedecms') {
                 $('select[name=rewrite]>option').prop('selected', false);
@@ -826,5 +855,23 @@
             {elem: '#out_link_deg', value: {{$.obj.OutLinkDeg}}},
             {elem: '#title_tag_deg', value: {{$.obj.TitleTagDeg}}},
         );
+        $('#theme').click(function () {
+            main.msg($('#theme').html(), {area: ["80%", "80%"]});
+        });
+        //改变模板
+        form.on('select(tpl_name)', function (obj) {
+            $('#theme').empty();
+            if (obj.value) {
+                $.get('/site/theme', {system: $('select[name=system]').val(), tpl_name: obj.value}, function (res) {
+                    if (res.code === 0) {
+                        if (res.data.Face) {
+                            $('#theme').html('<img width="100%" height="100%" alt="' + res.data.Alias + '" src="' + res.data.Face + '" title="' + res.data.Alias + '">');
+                        }
+                    } else {
+                        console.log(res.msg);
+                    }
+                });
+            }
+        });
     });
 </script>
