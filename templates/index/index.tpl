@@ -103,7 +103,7 @@
                                     <cite>邮箱设置</cite>
                                 </a>
                             </dd>
-                            <dd data-name="safe" class="layui-nav-item">
+                            <dd data-name="safe">
                                 <a href="javascript:" lay-tips="联系方式" lay-direction="2">
                                     <i class="layui-icon layui-icon-about"></i>
                                     <cite>联系方式</cite>
@@ -132,13 +132,33 @@
                                 <a lay-href="/site" lay-tips="网站列表"
                                    lay-direction="2">网站列表</a>
                             </dd>
-                            <dd data-name="site-baidu">
-                                <a lay-href="/file?path={{.rankDir}}" lay-tips="下载关键词"
-                                   lay-direction="2">下载关键词</a>
+                            <dd data-name="seo">
+                                <a href="javascript:" lay-tips="SEO设置" lay-direction="2">
+                                    <cite>SEO</cite>
+                                </a>
+                                <dl class="layui-nav-child">
+                                    <dd data-name="site-baidu">
+                                        <a lay-href="/file?path={{.rankDir}}" lay-tips="下载关键词"
+                                           lay-direction="2">下载关键词</a>
+                                    </dd>
+                                    <dd data-name="site-rank">
+                                        <a lay-href="/rank" lay-tips="关键词排名"
+                                           lay-direction="2">关键词排名</a>
+                                    </dd>
+                                </dl>
                             </dd>
-                            <dd data-name="site-rank">
-                                <a lay-href="/rank" lay-tips="关键词排名"
-                                   lay-direction="2">关键词排名</a>
+                            <dd data-name="theme">
+                                <a href="javascript:" lay-tips="主题管理" lay-direction="2">
+                                    <cite>主题管理</cite>
+                                </a>
+                                <dl class="layui-nav-child">
+                                    {{range $system:=.systems -}}
+                                        <dd data-name="site-{{$system.Name}}">
+                                            <a lay-href="/themes?system={{$system.Name}}" lay-tips="{{$system.Alias}}"
+                                               lay-direction="2">{{$system.Alias}}</a>
+                                        </dd>
+                                    {{end -}}
+                                </dl>
                             </dd>
                             <dd data-name="modify-hosts">
                                 <a lay-href="/file/editor?path=/etc/hosts" lay-tips="修改Hosts"

@@ -31,9 +31,8 @@
                             <label class="layui-form-label">网站类型:</label>
                             <div class="layui-input-block">
                                 <select name="system" lay-filter="system" {{if gt .obj.Status 0}} disabled{{end}}>
-                                    {{range $k,$v:=.systems -}}
-                                        <option value="{{$k}}" {{if eq $.obj.System $k}} selected{{end}}>{{$v.Alias}}
-                                        </option>
+                                    {{range $system:=.systems -}}
+                                        <option value="{{$system.Name}}" {{if eq $.obj.System $system.Name}} selected{{end}}>{{$system.Alias}}</option>
                                     {{end -}}
                                 </select>
                             </div>
@@ -47,7 +46,7 @@
                         <div class="layui-col" id="theme">
                             {{if .theme.Face -}}
                                 <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.Face}}"
-                                     title="{{.theme.Alias}}">
+                                     title="{{.theme.Readme}}">
                             {{end -}}
                         </div>
                     </div>
@@ -833,7 +832,7 @@
                     $.get('/site/theme', {system: $('select[name=system]').val(), tpl_name: tplName}, function (res) {
                         if (res.code === 0) {
                             if (res.data.Face) {
-                                $('#theme').html('<img width="100%" height="100%" alt="' + res.data.Alias + '" src="' + res.data.Face + '" title="' + res.data.Alias + '">');
+                                $('#theme').html('<img width="100%" height="100%" alt="' + res.data.Alias + '" src="' + res.data.Face + '" title="' + res.data.Readme + '">');
                             }
                         } else {
                             console.log(res.msg);
@@ -864,8 +863,8 @@
             if (obj.value) {
                 $.get('/site/theme', {system: $('select[name=system]').val(), tpl_name: obj.value}, function (res) {
                     if (res.code === 0) {
-                        if (res.data.Face) {
-                            $('#theme').html('<img width="100%" height="100%" alt="' + res.data.Alias + '" src="' + res.data.Face + '" title="' + res.data.Alias + '">');
+                        if (res.data.face) {
+                            $('#theme').html('<img width="100%" height="100%" alt="' + res.data.alias + '" src="' + res.data.face + '" title="' + res.data.readme + '">');
                         }
                     } else {
                         console.log(res.msg);

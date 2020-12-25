@@ -187,7 +187,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         req: req,
         popup: function (options) {
             options = tidyObj(options);
-            let hasSubmit = typeof options.submit === 'string';
+            let hasSubmit = typeof options.submit === 'string',
+                success = typeof options.success === 'function' ? options.success : function (dom, index) {
+                },
+                yes = typeof options.yes === 'function' ? options.yes : function (index, dom) {
+                };
+            delete options.success;
+            delete options.yes;
             options.submit = hasSubmit ? options.submit : uuid();
             layer.open($.extend({
                 type: 1,
@@ -200,14 +206,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 btn: ['提交', '取消'],
                 area: ['95%', '95%'],
                 zIndex: 200000,
-                yes: function (index, dom) {
-                    if (hasSubmit) {
-                        dom.find('*[lay-submit][lay-filter=' + options.submit + ']').click();
-                    } else {
-                        dom.find('*[lay-submit]').attr('lay-filter', options.submit).click();
-                    }
-                },
                 success: function (dom, index) {
+                    success(dom, index);
                     form.render();
                     form.on('submit(' + options.submit + ')', function (obj) {
                         let reqOptions = {
@@ -222,7 +222,15 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         req(reqOptions);
                         return false;
                     });
-                }
+                },
+                yes: function (index, dom) {
+                    yes(index, dom);
+                    if (hasSubmit) {
+                        dom.find('*[lay-submit][lay-filter=' + options.submit + ']').click();
+                    } else {
+                        dom.find('*[lay-submit]').attr('lay-filter', options.submit).click();
+                    }
+                },
             }, options));
         },
         slider: function () {
