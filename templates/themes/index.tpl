@@ -114,10 +114,10 @@
                     'lay-text': data.alias + '主题',
                 });
             };
+        flow.lazyimg();
         $('img[lay-src]').click(function () {
             main.msg('<img src="' + this.src + '" width="100%" height="auto">', {area: ['80%', '80%']});
         });
-        flow.lazyimg();
         $('.item [data-event]').click(function () {
             let othis = $(this), event = othis.data('event'), parentThis = othis.closest('.item'),
                 theme = parentThis.data('theme');

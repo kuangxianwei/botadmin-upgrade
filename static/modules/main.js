@@ -11,9 +11,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             scroll: true,
             confirm: true,
             area: ['auto', 'auto'],
-            success: function (dom) {
+            success: function () {
                 return true;
-            }, done: function (dom) {
+            }, done: function () {
                 return true;
             },
             zIndex: 2147483000,
@@ -61,6 +61,25 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
             }
             return uuid.join('');
+        },
+        err = function (content, options) {
+            return layer.alert(content, $.extend({
+                skin: 'layui-layer-admin',
+                shadeClose: true,
+                icon: 2,
+                btn: '',
+                shade: 0.7,
+                closeBtn: false,
+                anim: 6,
+                title: false,
+                success: function (o, index) {
+                    let elemClose = $('<i class="layui-icon layui-icon-close-fill" close style="font-size:2rem;color:#ffffff;top:-28px;right: -28px"></i>');
+                    o.append(elemClose);
+                    elemClose.on('click', function () {
+                        layer.close(index);
+                    });
+                }
+            }, options));
         },
         req = function (options) {
             options = $.extend({type: 'POST', dataType: 'json'}, tidyObj(options));
@@ -114,21 +133,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         if (typeof options.error === 'function') {
                             options.error(res);
                         }
-                        layer.alert(res.msg, {
-                            skin: 'layui-layer-admin',
-                            shadeClose: true,
-                            icon: 2,
-                            btn: '',
-                            closeBtn: false,
-                            anim: 6,
-                            success: function (o, index) {
-                                let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                                o.append(elemClose);
-                                elemClose.on('click', function () {
-                                    layer.close(index);
-                                });
-                            }
-                        });
+                        return err(res.msg);
                 }
             });
             request.fail(function (obj) {
@@ -136,21 +141,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 if (obj.status === 403) {
                     msg = '登录超时或权限不够 statusCode: ' + obj.status;
                 }
-                layer.alert(msg, {
-                    skin: 'layui-layer-admin',
-                    shadeClose: true,
-                    icon: 2,
-                    btn: '',
-                    closeBtn: false,
-                    anim: 6,
-                    success: function (o, index) {
-                        let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                        o.append(elemClose);
-                        elemClose.on('click', function () {
-                            layer.close(index);
-                        });
-                    }
-                });
+                return err(msg);
             });
             request.always(function () {
                 layer.close(loading);
@@ -184,6 +175,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         tidyObj: tidyObj,
         getParam: getParam,
         uuid: uuid,
+        error: err,
         req: req,
         popup: function (options) {
             options = tidyObj(options);
