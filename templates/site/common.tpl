@@ -216,7 +216,7 @@
                                    lay-tips="[{&quot;name&quot;:&quot;栏目1&quot;,&quot;&quot;:[{&quot;name&quot;:&quot;子栏目1&quot;},{&quot;name&quot;:&quot;子栏目2&quot;}]},{&quot;name&quot;:&quot;栏目2&quot;}]">栏目名称:</label>
                             <div class="layui-input-inline" style="width: 50%">
                                 <textarea name="classes" class="layui-textarea"
-                                          rows="7">{{json .obj.Classes}}</textarea>
+                                          rows="7">{{jsonIndent .obj.Classes}}</textarea>
                             </div>
                             <div class="layui-input-inline" style="width: 30%">
 <textarea class="layui-textarea" rows="7">[
