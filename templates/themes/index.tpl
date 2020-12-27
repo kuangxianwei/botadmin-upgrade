@@ -55,7 +55,7 @@
     {{range $theme:=.themes -}}
         <div class="layui-col-md3">
             <div class="item" data-theme="{{json $theme}}">
-                <img lay-src="{{$theme.Face}}" alt="{{$theme.Name}}" title="{{$theme.Alias}}">
+                <img src="/theme/theme.png" lay-src="{{$theme.Face}}" alt="{{$theme.Name}}" title="{{$theme.Alias}}">
                 <h3>
                     <label>名称:</label>
                     <span class="alias">{{$theme.Alias}}</span>
