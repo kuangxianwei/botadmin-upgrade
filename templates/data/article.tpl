@@ -88,16 +88,10 @@
             <i class="layui-icon layui-icon-log"></i></button>
     </div>
 </script>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main',
-    }).use(['index', 'form', 'table', 'upload', 'main'], function () {
-        let $ = layui.$,
-            table = layui.table,
+    JS.use(['index', 'main'], function () {
+        let table = layui.table,
             main = layui.main,
             form = layui.form,
             upload = layui.upload,

@@ -19,16 +19,10 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
         <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
-<script src="/static/layui/layui.js?ver={{.version}}"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'//自定义请求模块
-    }).use(['index', 'form', 'table', 'main', 'upload', 'transfer'], function () {
-        let $ = layui.$,
-            table = layui.table,
+    JS.use(['index', 'main'], function () {
+        let table = layui.table,
             main = layui.main,
             url = {{.current_uri}};
 

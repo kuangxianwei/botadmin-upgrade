@@ -164,16 +164,10 @@
         </div>
     </div>
 </div>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main',
-    }).use(['index', 'form', 'main', 'transfer'], function () {
-        let $ = layui.$,
-            main = layui.main,
+    JS.use(['index', 'main'], function () {
+        let main = layui.main,
             form = layui.form,
             transfer = layui.transfer,
             url = {{.current_uri}};

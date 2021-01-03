@@ -9,15 +9,10 @@
         </blockquote>
     </div>
 </div>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index', 'form', 'table'], function () {
-        let table = layui.table,
-            url = {{.current_uri}};
+    JS.use(['index', 'main'], function () {
+        let table = layui.table;
 
         //规则管理
         table.render({
@@ -38,7 +33,6 @@
                 {field: 'Multicast', title: '并发', align: 'center'}
             ]],
             page: false,
-
             limit: 10,
             limits: [10, 15, 20, 25, 30],
             text: '对不起，加载出现异常！'

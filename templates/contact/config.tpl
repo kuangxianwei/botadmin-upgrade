@@ -97,24 +97,21 @@
         </div>
     </div>
 </div>
-<script src="/static/layui/layui.js"></script>
 <script src="/static/modules/clipboard.min.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'
-    }).use(['index', 'main', 'upload', 'transfer', 'laydate'], function () {
-        let $ = layui.$,
-            main = layui.main,
+    JS.use(['index', 'main'], function () {
+        let main = layui.main,
             upload = layui.upload,
             transfer = layui.transfer,
             layDate = layui.laydate,
             loading,
             url = {{.current_uri}},
-            citiesData = {{.cityData}};
-        let clipboard = new ClipboardJS('*[data-clipboard-text]');
+            citiesData = {{.cityData}},
+            durations = {{.obj.Durations}},
+            delObj = $('*[lay-event=del-duration]'),
+            addObj = $('*[lay-event=add-duration]'),
+            clipboard = new ClipboardJS('*[data-clipboard-text]');
         clipboard.on('success', function (e) {
             layer.msg('复制成功');
             e.clearSelection();
@@ -190,21 +187,7 @@
             error: function (index) {
                 layer.close(index);
                 layer.close(loading);
-                layer.alert("网络错误", {
-                    skin: 'layui-layer-admin',
-                    shadeClose: true,
-                    icon: 2,
-                    btn: '',
-                    closeBtn: false,
-                    anim: 6,
-                    success: function (o, index) {
-                        let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                        o.append(elemClose);
-                        elemClose.on('click', function () {
-                            layer.close(index);
-                        });
-                    }
-                });
+                main.error("网络错误");
             },
         });
         // 监控城市
@@ -232,8 +215,6 @@
                 }
             });
         });
-        let delObj = $('*[lay-event=del-duration]');
-        let addObj = $('*[lay-event=add-duration]');
         // 添加时间段
         addObj.click(function () {
             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
@@ -250,13 +231,13 @@
                 delObj.css('display', 'none');
             }
         });
-        let layKey, html;
-        {{range $k,$v:=.obj.Durations -}}
-        layKey = {{$k}}+1;
-        html = '<div class="layui-input-inline"><input type="text" name="durations" value="' + {{$v}} +'" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>';
-        $('div[lay-filter=duration]>div.layui-btn-group').before(html);
-        layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
-        delObj.css('display', 'inline-block');
-        {{end -}}
+        if (durations) {
+            durations.forEach(function (item, index) {
+                index += 1
+                $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="durations" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
+                layDate.render({elem: '#date-' + index, type: 'time', range: true});
+                delObj.css('display', 'inline-block');
+            });
+        }
     });
 </script>

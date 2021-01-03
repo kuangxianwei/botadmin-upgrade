@@ -13,16 +13,10 @@
         <i class="layui-icon layui-icon-delete"></i>删除
     </a>
 </script>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main',
-    }).use(['index', 'table', 'main'], function () {
-        let $ = layui.$,
-            table = layui.table,
+    JS.use(['index', 'main'], function () {
+        let table = layui.table,
             main = layui.main,
             url = {{.current_uri}};
         //规则管理

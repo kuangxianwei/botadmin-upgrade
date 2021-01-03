@@ -1,4 +1,22 @@
-<div class="layui-card">
+<style>
+    *[lay-event], *[data-event] {
+        cursor: pointer;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    legend > a > i {
+        color: #0a6e85;
+    }
+
+    ul.layui-row > li > i {
+        width: 100%;
+        color: #0a6e85;
+        font-size: 50px;
+        display: inline-block;
+    }
+</style>
+<div class="layui-card" id="custom-style">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <label class="layui-form-label">名称:</label>
@@ -50,7 +68,7 @@
                 </div>
             </div>
             <div class="layui-col-md3">
-                <label class="layui-form-label">Svg颜色:</label>
+                <label class="layui-form-label">图标颜色:</label>
                 <div class="layui-input-inline" style="width: 100px;">
                     <input type="text" name="svg_color" value="{{.obj.SvgColor}}" placeholder="请选择颜色"
                            class="layui-input">
@@ -71,54 +89,110 @@
             </div>
         </div>
         <div class="layui-form-item"></div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" lay-tips="手机图标">手机Svg:</label>
-            <div class="layui-input-inline" style="width: 80%">
-                <input type="text" name="phone_svg" value="{{.obj.PhoneSvg}}" autocomplete="off" placeholder="手机图标代码"
-                       class="layui-input">
-                <input type="hidden" name="phone_text" value="{{.obj.PhoneText}}">
-                <input type="hidden" name="mobile_phone_text" value="{{.obj.MobilePhoneText}}">
-            </div>
-            <button class="layui-btn" lay-event="phone">提示文本</button>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" lay-tips="微信图标">微信Svg:</label>
-            <div class="layui-input-inline" style="width: 80%">
-                <input type="text" name="wechat_svg" value="{{.obj.WechatSvg}}" placeholder="微信图标代码" autocomplete="off"
-                       class="layui-input">
-                <input type="hidden" name="wechat_text" value="{{.obj.WechatText}}">
-                <input type="hidden" name="mobile_wechat_text" value="{{.obj.MobileWechatText}}">
-            </div>
-            <button class="layui-btn" lay-event="wechat">提示文本</button>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" lay-tips="咨询图标">咨询Svg:</label>
-            <div class="layui-input-inline" style="width: 80%">
-                <input type="text" name="consult_svg" value="{{.obj.ConsultSvg}}" placeholder="咨询图标代码"
-                       autocomplete="off" class="layui-input">
-                <input type="hidden" name="consult_text" value="{{.obj.ConsultText}}">
-                <input type="hidden" name="mobile_consult_text" value="{{.obj.MobileConsultText}}">
-            </div>
-            <button class="layui-btn" lay-event="consult">提示文本</button>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label"></label>
-            <button class="layui-btn" lay-event="pc-css">PC端自定义css</button>
-            <button class="layui-btn" lay-event="mobile-css">移动端自定义css</button>
-            <input type="hidden" name="pc_css" value="{{.obj.PcCss}}">
-            <input type="hidden" name="mobile_css" value="{{.obj.MobileCss}}">
-        </div>
-        <div class="layui-form-item layui-hide">
+        <ul class="layui-row layui-col-space10">
+            <li class="layui-col-xs4" lay-event="menu">
+                <i class="layui-icon iconfont icon-menu"></i>
+                <cite>菜单设置</cite>
+                <input type="hidden" name="menu.icon" value="{{.obj.Menu.Icon}}">
+                <input type="hidden" name="menu.text" value="{{.obj.Menu.Text}}">
+                <input type="hidden" name="menu.mobile_text" value="{{.obj.Menu.MobileText}}">
+                <input type="hidden" name="menu.href" value="{{.obj.Menu.Href}}">
+            </li>
+            <li class="layui-col-xs4" lay-event="phone">
+                <i class="layui-icon iconfont icon-phone"></i>
+                <cite>手机设置</cite>
+                <input type="hidden" name="phone.icon" value="{{.obj.Phone.Icon}}">
+                <input type="hidden" name="phone.text" value="{{.obj.Phone.Text}}">
+                <input type="hidden" name="phone.mobile_text" value="{{.obj.Phone.MobileText}}">
+                <input type="hidden" name="phone.href" value="{{.obj.Phone.Href}}">
+            </li>
+            <li class="layui-col-xs4" lay-event="wechat">
+                <i class="layui-icon iconfont icon-wechat-full"></i>
+                <cite>微信设置</cite>
+                <input type="hidden" name="wechat.icon" value="{{.obj.Wechat.Icon}}">
+                <input type="hidden" name="wechat.text" value="{{.obj.Wechat.Text}}">
+                <input type="hidden" name="wechat.mobile_text" value="{{.obj.Wechat.MobileText}}">
+                <input type="hidden" name="wechat.href" value="{{.obj.Wechat.Href}}">
+            </li>
+            <li class="layui-col-xs4" lay-event="consult">
+                <i class="layui-icon iconfont icon-consulting"></i>
+                <cite>在线咨询</cite>
+                <input type="hidden" name="consult.icon" value="{{.obj.Consult.Icon}}">
+                <input type="hidden" name="consult.text" value="{{.obj.Consult.Text}}">
+                <input type="hidden" name="consult.mobile_text" value="{{.obj.Consult.MobileText}}">
+                <input type="hidden" name="consult.href" value="{{.obj.Consult.Href}}">
+            </li>
+            <li class="layui-col-xs4" lay-event="pc-css">
+                <i class="layui-icon iconfont icon-pc"></i>
+                <cite>CSS</cite>
+                <input type="hidden" name="pc_css" value="{{.obj.PcCss}}">
+            </li>
+            <li class="layui-col-xs4" lay-event="mobile-css">
+                <i class="layui-icon iconfont icon-mobile"></i>
+                <cite>CSS</cite>
+                <input type="hidden" name="mobile_css" value="{{.obj.MobileCss}}">
+            </li>
+        </ul>
+        <div class="layui-form-item"></div>
+        <div class="layui-hide">
             <input name="id" value="{{.obj.Id}}">
             <button lay-submit>提交</button>
         </div>
+        <fieldset class="layui-elem-field">
+            <legend><i class="layui-icon iconfont icon-menu"></i>
+                <a href="javascript:void(0);" lay-event="add-menu" lay-tips="新增子菜单">
+                    <i class="layui-icon layui-icon-add-circle"></i>子菜单
+                </a>
+            </legend>
+            <div id="menu-items">
+            </div>
+        </fieldset>
     </div>
 </div>
 <script>
-    layui.use(['main', 'colorpicker'], function () {
-        let $ = layui.$,
-            main = layui.main,
-            colorpicker = layui.colorpicker;
+    JS.use(['main'], function () {
+        let main = layui.main,
+            colorpicker = layui.colorpicker,
+            submenus = {{.obj.Submenu}},
+            kv = {
+                'icon': '图标',
+                'href': '链接地址',
+                'text': 'PC端文字',
+                'mobile_text': '移动端文字',
+            },
+            getId = function () {
+                let ids = Array(), id = 0;
+                $('#menu-items').find('*[name]').each(function (i, v) {
+                    let names = $(v).attr('name').split('.'),
+                        id = parseInt(names.slice(names.length - 1, names.length));
+                    if (!isNaN(id)) {
+                        ids.push(id);
+                    }
+                });
+                ids.forEach(function (i) {
+                    if (i > id) {
+                        id = i
+                    }
+                });
+                id++
+                return id;
+            },
+            insertMenu = function (id, values) {
+                let obj = $(`<div class="layui-form-item"><div class="layui-inline"><label class="layui-form-label-col">PC端文本:</label></div><div class="layui-inline width120"><input name="pc" value="" class="layui-input"></div><div class="layui-inline"><label class="layui-form-label-col">移动端文本:</label></div><div class="layui-inline width120"><input name="mobile" value="" class="layui-input"></div><div class="layui-inline"><label class="layui-form-label-col">链接:</label></div><div class="layui-inline" style="min-width: 320px"><input name="href" value="" class="layui-input"></div><i class="layui-icon layui-icon-delete" style="color: red" lay-tips="删除该项" data-event="del-menu"></i></div>`);
+                values = $.extend({pc: "", mobile: "", href: ""}, values || {});
+                obj.find('*[name=pc]').attr('name', 'submenu.text.' + id).val(values.pc);
+                obj.find('*[name=mobile]').attr('name', 'submenu.mobile_text.' + id).val(values.mobile);
+                obj.find('*[name=href]').attr('name', 'submenu.href.' + id).val(values.href);
+                $('#menu-items').append(obj);
+                $('[data-event="del-menu"]').click(function () {
+                    $(this).closest('div.layui-form-item').remove();
+                });
+            };
+        if (submenus) {
+            submenus.forEach(function (v, i) {
+                insertMenu(i, {pc: v.text, mobile: v.mobile_text, href: v.href});
+            });
+        }
         //表单赋值
         colorpicker.render({
             elem: '#color',
@@ -148,87 +222,56 @@
                 $('*[name=hover_color]').val(color);
             }
         });
-        $('*[lay-event=phone]').click(function () {
-            main.confirm($('#text').html(), {
-                scroll: false,
-                success: function (dom) {
-                    dom.find('*[name=pc]').val($('*[name=phone_text]').val());
-                    dom.find('*[name=mobile]').val($('*[name=mobile_phone_text]').val());
-                },
-                done: function (dom) {
-                    $('*[name=phone_text]').val(dom.find('*[name=pc]').val());
-                    $('*[name=mobile_phone_text]').val(dom.find('*[name=mobile]').val());
-                }
-            });
-        });
-        $('*[lay-event=wechat]').click(function () {
-            main.confirm($('#text').html(), {
-                scroll: false,
-                success: function (dom) {
-                    dom.find('*[name=pc]').val($('*[name=wechat_text]').val());
-                    dom.find('*[name=mobile]').val($('*[name=mobile_wechat_text]').val());
-                },
-                done: function (dom) {
-                    $('*[name=wechat_text]').val(dom.find('*[name=pc]').val());
-                    $('*[name=mobile_wechat_text]').val(dom.find('*[name=mobile]').val());
-                }
-            });
-        });
-        $('*[lay-event=consult]').click(function () {
-            main.confirm($('#text').html(), {
-                scroll: false,
-                success: function (dom) {
-                    dom.find('*[name=pc]').val($('*[name=consult_text]').val());
-                    dom.find('*[name=mobile]').val($('*[name=mobile_consult_text]').val());
-                },
-                done: function (dom) {
-                    $('*[name=consult_text]').val(dom.find('*[name=pc]').val());
-                    $('*[name=mobile_consult_text]').val(dom.find('*[name=mobile]').val());
-                }
-            });
-        });
-        $('*[lay-event=pc-css]').click(function () {
-            main.confirm($('#css').html(), {
-                scroll: false,
-                area: ['70%', '70%'],
-                success: function (dom) {
-                    dom.find('*[name=css]').val($('*[name=pc_css]').val());
-                },
-                done: function (dom) {
-                    $('*[name=pc_css]').val(dom.find('*[name=css]').val());
-                }
-            });
-        });
-        $('*[lay-event=mobile-css]').click(function () {
-            main.confirm($('#css').html(), {
-                scroll: false,
-                area: ['70%', '70%'],
-                success: function (dom) {
-                    dom.find('*[name=css]').val($('*[name=mobile_css]').val());
-                },
-                done: function (dom) {
-                    $('*[name=mobile_css]').val(dom.find('*[name=css]').val());
-                }
-            });
+        $('#custom-style [lay-event]').click(function () {
+            let othis = $(this),
+                event = othis.attr('lay-event'),
+                data = othis.find('[name]').serializeArray();
+            switch (event) {
+                case 'add-menu':
+                    insertMenu(getId());
+                    break;
+                default:
+                    if (event.lastIndexOf('-css') !== -1) {
+                        main.confirm('', {
+                            scroll: false,
+                            area: ['60%', '60%'],
+                            success: function (dom) {
+                                $.each(data, function (index, obj) {
+                                    let textObj = $(`<textarea class="layui-textarea" name="" style="width: 100%;height: 100%"></textarea>`);
+                                    textObj.attr('name', obj.name).val(obj.value);
+                                    dom.find('div>div>div').first().append(textObj);
+                                });
+                            },
+                            done: function (dom) {
+                                let d = dom.find('[name]').serializeArray();
+                                $.each(d, function (index, obj) {
+                                    $('*[name="' + obj.name + '"]').val(obj.value);
+                                })
+                            }
+                        });
+                        return;
+                    }
+                    main.confirm('', {
+                        scroll: false,
+                        area: ['50%', 'auto'],
+                        success: function (dom) {
+                            $.each(data, function (index, obj) {
+                                let slice = obj.name.split('.'),
+                                    name = slice.slice(slice.length - 1, slice.length).toString(),
+                                    itemObj = $(`<div class="layui-form-item"><label class="layui-form-label">` + kv[name] + `:</label><div class="layui-input-block"><input type="text" name="" value="" class="layui-input"></div></div>`);
+                                itemObj.find('[name]').attr('name', name).val(obj.value);
+                                dom.find('div>div>div').first().append(itemObj);
+                            });
+                        },
+                        done: function (dom) {
+                            let d = dom.find('[name]').serializeArray();
+                            $.each(d, function (index, obj) {
+                                $('*[name="' + event + '.' + obj.name + '"]').val(obj.value);
+                            })
+                        }
+                    });
+            }
         });
     });
 </script>
-<script type="text/html" id="text">
-    <div class="layui-form-item">
-        <label class="layui-form-label">PC:</label>
-        <div class="layui-input-inline">
-            <input type="text" name="pc" value="" class="layui-input">
-        </div>
-        <div class="layui-form-mid layui-word-aux">PC端的文本说明</div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">Mobile:</label>
-        <div class="layui-input-inline">
-            <input type="text" name="mobile" value="" class="layui-input">
-        </div>
-        <div class="layui-form-mid layui-word-aux">移动端的文本说明</div>
-    </div>
-</script>
-<script type="text/html" id="css">
-    <textarea class="layui-textarea" name="css" style="width: 100%;height: 100%"></textarea>
-</script>
+

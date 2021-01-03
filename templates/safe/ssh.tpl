@@ -78,16 +78,10 @@
         6:如果是使用PuTTy登录，需要使用puttygen生成.ppk格式的文件方可正常使用
     </blockquote>
 </div>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'
-    }).use(['index', 'form', 'main'], function () {
-        let $ = layui.$,
-            main = layui.main,
+    JS.use(['index', 'main'], function () {
+        let main = layui.main,
             form = layui.form,
             url = {{.current_uri}};
 

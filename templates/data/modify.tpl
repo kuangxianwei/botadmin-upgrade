@@ -71,9 +71,8 @@
     </div>
 </div>
 <script>
-    layui.use(['layer'], function () {
-        let $ = layui.$,
-            form = layui.form,
+    JS.use(function () {
+        let form = layui.form,
             class_id = $('select[name=class_id]').val();
         form.on('select(site_id)', function (obj) {
             if (obj.value === 0 || obj.value === "") {

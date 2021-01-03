@@ -14,15 +14,10 @@
 <script type="text/html" id="table-toolbar">
     <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="kill">停止</button>
 </script>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index', 'table'], function () {
+    JS.use(['index'], function () {
         let table = layui.table;
-
         //规则管理
         table.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},

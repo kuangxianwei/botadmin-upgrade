@@ -28,14 +28,9 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del"><i
                 class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
-<script src="/static/layui/layui.js?ver={{.version}}"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'//自定义请求模块
-    }).use(['index', 'form', 'table', 'main'], function () {
+    JS.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
             main = layui.main,
@@ -65,8 +60,6 @@
             limits: [10, 15, 20, 25, 30],
             text: '对不起，加载出现异常！'
         });
-
-
         //监听工具条
         table.on('tool(table-list)', function (obj) {
             let data = obj.data;

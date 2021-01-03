@@ -55,7 +55,7 @@
     {{range $theme:=.themes -}}
         <div class="layui-col-md3">
             <div class="item" data-theme="{{json $theme}}">
-                <img src="/theme/theme.png" lay-src="{{$theme.Face}}" alt="{{$theme.Name}}" title="{{$theme.Alias}}">
+                <img src="/theme/loading.svg" lay-src="{{$theme.Face}}" alt="{{$theme.Name}}" title="{{$theme.Alias}}">
                 <h3>
                     <label>名称:</label>
                     <span class="alias">{{$theme.Alias}}</span>
@@ -79,27 +79,20 @@
         </div>
     {{end -}}
 </div>
-<script src="/static/layui/layui.js"></script>
 <script type="text/html" id="edit">
     <div class="layui-form">
         <input name="alias" class="layui-input" value="">
         <textarea class="layui-textarea" name="readme" rows="6" lay-verify="required"></textarea>
-        <div class="layui-form-item layui-hide">
-            <input name="system" value="">
-            <input name="name" value="">
-            <input name="event" value="">
-            <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
-        </div>
+        <input type="hidden" name="system" value="">
+        <input type="hidden" name="name" value="">
+        <input type="hidden" name="event" value="">
+        <button class="layui-hide" lay-submit lay-filter="submit">提交</button>
     </div>
 </script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index', 'flow', 'main', 'upload'], function () {
-        let $ = layui.$,
-            main = layui.main,
+    JS.use(['index', 'main'], function () {
+        let main = layui.main,
             flow = layui.flow,
             upload = layui.upload,
             editHtml = $('#edit').html(),
@@ -115,7 +108,7 @@
                 });
             };
         flow.lazyimg();
-        $('img[lay-src]').click(function () {
+        $('.item>img').click(function () {
             main.msg('<img src="' + this.src + '" width="100%" height="auto">', {area: ['80%', '80%']});
         });
         $('.item [data-event]').click(function () {
@@ -171,23 +164,9 @@
                         acceptMime: 'image/jpg,image/png,image/jpeg,image/gif',
                         done: function (res) {
                             if (res.code === 0) {
-                                return parentThis.find('img').attr('src', res.data.face);
+                                return parentThis.find($('img')).attr('src', res.data.face);
                             }
-                            layer.alert(res.msg, {
-                                skin: 'layui-layer-admin',
-                                shadeClose: true,
-                                icon: 2,
-                                btn: '',
-                                closeBtn: false,
-                                anim: 6,
-                                success: function (o, index) {
-                                    let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                                    o.append(elemClose);
-                                    elemClose.on('click', function () {
-                                        layer.close(index);
-                                    });
-                                }
-                            });
+                            main.error(res.msg);
                         },
                     });
                     $('#' + theme.name).click();

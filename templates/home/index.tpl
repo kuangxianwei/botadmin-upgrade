@@ -133,7 +133,7 @@
                                 </a>
                             </li>
                             <li class="layui-col-xs3">
-                                <a lay-href="/system/reservice">
+                                <a lay-href="/system/reboot">
                                     <i class="layui-icon iconfont icon-system"></i>
                                     <cite>服务重启</cite>
                                 </a>
@@ -157,27 +157,27 @@
                 <div class="layui-carousel layadmin-carousel layadmin-shortcut">
                     <div carousel-item>
                         <ul class="layui-row layui-col-space10">
-                            <li class="layui-col-xs4" data-reservice="web">
+                            <li class="layui-col-xs4" data-reboot="web">
                                 <i class="layui-icon layui-icon-website"></i>
                                 <cite>重启Web</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reservice="mysql">
+                            <li class="layui-col-xs4" data-reboot="mysql">
                                 <i class="layui-icon iconfont icon-sql"></i>
                                 <cite>重启MySQL</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reservice="pureftpd">
+                            <li class="layui-col-xs4" data-reboot="pureftpd">
                                 <i class="layui-icon iconfont icon-ftp"></i>
                                 <cite>重启FTP</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reservice="ssh">
+                            <li class="layui-col-xs4" data-reboot="ssh">
                                 <i class="layui-icon iconfont icon-ssh"></i>
                                 <cite>重启SSH</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reservice="botadmin">
+                            <li class="layui-col-xs4" data-reboot="botadmin">
                                 <i class="layui-icon layui-icon-app"></i>
                                 <cite>重启App</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reservice="reboot">
+                            <li class="layui-col-xs4" data-reboot="reboot">
                                 <i class="layui-icon iconfont icon-resource"></i>
                                 <cite>重启服务器</cite>
                             </li>
@@ -271,20 +271,14 @@
         </div>
     </div>
 </div>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main',
-    }).use(['index', 'sample', 'main'], function () {
-        let $ = layui.$,
-            main = layui.main;
-        $('li[data-reservice]').click(function () {
-            let act = $(this).data("reservice");
+    JS.use(['index', 'main', 'sample'], function () {
+        let main = layui.main;
+        $('li[data-reboot]').click(function () {
+            let act = $(this).data("reboot");
             main.req({
-                url: '/system/reservice',
+                url: '/system/reboot',
                 tips: function (res) {
                     main.msg(res.msg);
                 },
@@ -294,17 +288,12 @@
         $('[lay-event]').click(function () {
             switch ($(this).attr('lay-event')) {
                 case 'resetRecord':
-                    main.req({
-                        url: '/config/reset/record'
-                    });
+                    main.req({url: '/config/reset/record'});
                     break;
                 case 'update-templates':
-                    main.req({
-                        url: '/home/update/templates'
-                    });
+                    main.req({url: '/home/update/templates'});
                     break;
             }
-
         });
     });
 </script>

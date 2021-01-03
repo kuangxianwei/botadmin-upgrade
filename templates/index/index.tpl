@@ -85,38 +85,52 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="set-config">
-                                <a lay-href="/config" lay-tips="系统设置"
-                                   lay-direction="2">系统设置</a>
+                                <a lay-href="/config" lay-tips="系统设置" lay-direction="2">
+                                    <i class="iconfont icon-sys"></i>
+                                    <cite>系统</cite>
+                                </a>
                             </dd>
                             <dd data-name="set-site">
-                                <a lay-href="/config/site" lay-tips="网站设置"
-                                   lay-direction="2">网站设置</a>
+                                <a lay-href="/config/site" lay-tips="网站设置" lay-direction="2">
+                                    <i class="iconfont icon-website-set"></i>
+                                    <cite>网站</cite>
+                                </a>
                             </dd>
                             <dd data-name="set-data">
                                 <a lay-href="/config/sitedata" lay-tips="资料设置" lay-direction="2">
-                                    <cite>资料设置</cite>
+                                    <i class="iconfont icon-data"></i>
+                                    <cite>资料</cite>
                                 </a>
                             </dd>
                             <dd data-name="set-email">
                                 <a lay-href="/email" lay-tips="邮箱设置" lay-direction="2">
-                                    <i class="layui-icon layui-icon-email"></i>
-                                    <cite>邮箱设置</cite>
+                                    <i class="iconfont icon-email"></i>
+                                    <cite>邮箱</cite>
                                 </a>
                             </dd>
-                            <dd data-name="safe">
+                            <dd data-name="about">
                                 <a href="javascript:" lay-tips="联系方式" lay-direction="2">
-                                    <i class="layui-icon layui-icon-about"></i>
-                                    <cite>联系方式</cite>
+                                    <i class="iconfont icon-about"></i>
+                                    <cite>联系</cite>
                                 </a>
                                 <dl class="layui-nav-child">
                                     <dd data-name="contact-list">
-                                        <a lay-href="/contact" lay-tips="联系列表" lay-direction="2">联系列表</a>
+                                        <a lay-href="/contact" lay-tips="联系列表" lay-direction="2">
+                                            <i class="iconfont icon-consult"></i>
+                                            <cite>联系列表</cite>
+                                        </a>
                                     </dd>
                                     <dd data-name="contact-config">
-                                        <a lay-href="/contact/config" lay-tips="基本配置" lay-direction="2">基本配置</a>
+                                        <a lay-href="/contact/config" lay-tips="基本配置" lay-direction="2">
+                                            <i class="iconfont icon-host"></i>
+                                            <cite>基本配置</cite>
+                                        </a>
                                     </dd>
                                     <dd data-name="contact-style">
-                                        <a lay-href="/contact/style" lay-tips="样式列表" lay-direction="2">样式列表</a>
+                                        <a lay-href="/contact/style" lay-tips="样式列表" lay-direction="2">
+                                            <i class="iconfont icon-style-text"></i>
+                                            <cite>样式列表</cite>
+                                        </a>
                                     </dd>
                                 </dl>
                             </dd>
@@ -129,40 +143,50 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="site-show">
-                                <a lay-href="/site" lay-tips="网站列表"
-                                   lay-direction="2">网站列表</a>
+                                <a lay-href="/site" lay-tips="网站列表" lay-direction="2">
+                                    <i class="iconfont icon-list"></i>
+                                    <cite>网站列表</cite>
+                                </a>
                             </dd>
                             <dd data-name="seo">
                                 <a href="javascript:" lay-tips="SEO设置" lay-direction="2">
+                                    <i class="iconfont icon-seo-1"></i>
                                     <cite>SEO</cite>
                                 </a>
                                 <dl class="layui-nav-child">
                                     <dd data-name="site-baidu">
-                                        <a lay-href="/file?path={{.rankDir}}" lay-tips="下载关键词"
-                                           lay-direction="2">下载关键词</a>
+                                        <a lay-href="/file?path={{.rankDir}}" lay-tips="下载关键词" lay-direction="2">
+                                            <i class="iconfont icon-download"></i>
+                                            <cite>关键词</cite>
+                                        </a>
                                     </dd>
                                     <dd data-name="site-rank">
-                                        <a lay-href="/rank" lay-tips="关键词排名"
-                                           lay-direction="2">关键词排名</a>
+                                        <a lay-href="/rank" lay-tips="关键词排名" lay-direction="2">
+                                            <i class="iconfont icon-sort"></i>
+                                            <cite>排名</cite>
+                                        </a>
                                     </dd>
                                 </dl>
                             </dd>
                             <dd data-name="theme">
                                 <a href="javascript:" lay-tips="主题管理" lay-direction="2">
-                                    <cite>主题管理</cite>
+                                    <i class="iconfont icon-theme"></i>
+                                    <cite>主题</cite>
                                 </a>
                                 <dl class="layui-nav-child">
                                     {{range $system:=.systems -}}
                                         <dd data-name="site-{{$system.Name}}">
                                             <a lay-href="/themes?system={{$system.Name}}" lay-tips="{{$system.Alias}}"
-                                               lay-direction="2">{{$system.Alias}}</a>
+                                               lay-direction="2"><cite>{{$system.Alias}}</cite></a>
                                         </dd>
                                     {{end -}}
                                 </dl>
                             </dd>
                             <dd data-name="modify-hosts">
-                                <a lay-href="/file/editor?path=/etc/hosts" lay-tips="修改Hosts"
-                                   lay-direction="2">Hosts</a>
+                                <a lay-href="/file/editor?path=/etc/hosts" lay-tips="修改Hosts" lay-direction="2">
+                                    <i class="iconfont icon-host"></i>
+                                    <cite>Hosts</cite>
+                                </a>
                             </dd>
                         </dl>
                     </li>
@@ -173,12 +197,11 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="sql-show">
-                                <a lay-href="/sql" lay-tips="MYSQL列表"
-                                   lay-direction="2">MYSQL列表</a>
+                                <a lay-href="/sql" lay-tips="MYSQL列表" lay-direction="2"><cite>MYSQL列表</cite></a>
                             </dd>
                             <dd data-name="sql-seter">
                                 <a lay-href="/sql/configure" lay-tips="MySQL设置"
-                                   lay-direction="2">MySQL设置</a>
+                                   lay-direction="2"><cite>MySQL设置</cite></a>
                             </dd>
                             <dd data-name="sql-phpMyAdmin">
                                 <a href="{{.phpmyadmin}}" lay-tips="使用 phpmyadmin 管理"
@@ -194,7 +217,7 @@
                         <dl class="layui-nav-child">
                             <dd data-name="ftp-show">
                                 <a lay-href="/ftp" lay-tips="FTP列表"
-                                   lay-direction="2">FTP列表</a>
+                                   lay-direction="2"><cite>FTP列表</cite></a>
                             </dd>
                         </dl>
                     </li>
@@ -206,11 +229,11 @@
                         <dl class="layui-nav-child">
                             <dd data-name="site-default">
                                 <a lay-href="/spider" lay-tips="规则列表"
-                                   lay-direction="2">规则列表</a>
+                                   lay-direction="2"><cite>规则列表</cite></a>
                             </dd>
                             <dd data-name="site-data">
                                 <a lay-href="/data" lay-tips="文章列表"
-                                   lay-direction="2">文章列表</a>
+                                   lay-direction="2"><cite>文章列表</cite></a>
                             </dd>
                             <dd data-name="translate">
                                 <a href="javascript:">翻译配置</a>
@@ -231,11 +254,11 @@
                         <dl class="layui-nav-child">
                             <dd data-name="tools-ban">
                                 <a lay-href="/tools/ban" lay-tips="过滤违禁词"
-                                   lay-direction="2">过滤违禁词</a>
+                                   lay-direction="2"><cite>过滤违禁词</cite></a>
                             </dd>
                             <dd data-name="monitor">
                                 <a lay-href="/monitor" lay-tips="网站监控"
-                                   lay-direction="2">网站监控</a>
+                                   lay-direction="2"><cite>网站监控</cite></a>
                             </dd>
                         </dl>
                     </li>
@@ -247,23 +270,23 @@
                         <dl class="layui-nav-child">
                             <dd data-name="file">
                                 <a lay-href="/file" lay-tips="文件管理"
-                                   lay-direction="2">文件管理</a>
+                                   lay-direction="2"><cite>文件管理</cite></a>
                             </dd>
                             <dd data-name="file-template">
                                 <a lay-href="/file?path=data/template" lay-tips="上传或者修改模板"
-                                   lay-direction="2">模板目录</a>
+                                   lay-direction="2"><cite>模板目录</cite></a>
                             </dd>
                             <dd data-name="file-pic">
                                 <a lay-href="/file?path=data/pic" lay-tips="上传或者修改图片"
-                                   lay-direction="2">图片目录</a>
+                                   lay-direction="2"><cite>图片目录</cite></a>
                             </dd>
                             <dd data-name="file-logs">
                                 <a lay-href="/file?path=logs" lay-tips="本程序日志目录"
-                                   lay-direction="2">程序日志</a>
+                                   lay-direction="2"><cite>程序日志</cite></a>
                             </dd>
                             <dd data-name="file-sys-log">
                                 <a lay-href="/file?path=/var/log" lay-tips="系统日志目录"
-                                   lay-direction="2">系统日志</a>
+                                   lay-direction="2"><cite>系统日志</cite></a>
                             </dd>
                         </dl>
                     </li>
@@ -274,31 +297,53 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="system-service">
-                                <a lay-href="/system/service" lay-tips="启动服务" lay-direction="2">启动服务</a>
+                                <a lay-href="/system/service" lay-tips="启动服务" lay-direction="2">
+                                    <i class="iconfont icon-reboot"></i>
+                                    <cite>启动服务</cite>
+                                </a>
                             </dd>
                             <dd data-name="system-Port">
-                                <a lay-href="/system/port" lay-tips="端口管理"
-                                   lay-direction="2">端口管理</a>
+                                <a lay-href="/system/port" lay-tips="端口管理" lay-direction="2">
+                                    <i class="iconfont icon-port"></i>
+                                    <cite>端口管理</cite>
+                                </a>
                             </dd>
                             <dd data-name="system-process">
-                                <a lay-href="/system/process" lay-tips="进程管理" lay-direction="2">进程管理</a>
+                                <a lay-href="/system/process" lay-tips="进程管理" lay-direction="2">
+                                    <i class="iconfont icon-process-task"></i>
+                                    <cite>进程管理</cite>
+                                </a>
                             </dd>
                             <dd data-name="system-ifconfig">
-                                <a lay-href="/system/ifconfig" lay-tips="IP设置" lay-direction="2">IP设置</a>
+                                <a lay-href="/system/ifconfig" lay-tips="IP设置" lay-direction="2">
+                                    <i class="iconfont icon-ip"></i>
+                                    <cite>IP设置</cite>
+                                </a>
                             </dd>
                             <dd data-name="system-resolv">
-                                <a lay-href="/system/resolv" lay-tips="设置DNS" lay-direction="2">设置DNS</a>
+                                <a lay-href="/system/resolv" lay-tips="设置DNS" lay-direction="2">
+                                    <i class="iconfont icon-dns"></i>
+                                    <cite>设置DNS</cite>
+                                </a>
                             </dd>
                             <dd data-name="system-cmd">
-                                <a lay-href="/system/cmd" lay-tips="运行命令"
-                                   lay-direction="2">运行命令</a>
+                                <a lay-href="/system/cmd" lay-tips="运行命令" lay-direction="2">
+                                    <i class="iconfont icon-dns"></i>
+                                    <cite>运行命令</cite>
+                                </a>
                             </dd>
-                            <dd data-name="system-reservice">
-                                <a lay-href="/system/reservice" lay-tips="服务重启" lay-direction="2">服务重启</a>
+                            <dd data-name="system-reboot">
+                                <a lay-href="/system/reboot" lay-tips="服务重启" lay-direction="2">
+                                    <i class="iconfont icon-reboot"></i>
+                                    <cite>服务重启</cite>
+                                </a>
                             </dd>
                             <dd data-name="system-time">
                                 <a lay-href="/system/time" lay-tips="时间设置"
-                                   lay-direction="2">时间设置</a>
+                                   lay-direction="2">
+                                    <i class="iconfont icon-time"></i>
+                                    <cite>时间设置</cite>
+                                </a>
                             </dd>
                         </dl>
                     </li>
@@ -309,15 +354,15 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="resource-disk">
-                                <a lay-href="/resource/disk" lay-tips="磁盘使用率" lay-direction="2">磁盘使用率</a>
+                                <a lay-href="/resource/disk" lay-tips="磁盘使用率" lay-direction="2"><cite>磁盘使用率</cite></a>
                             </dd>
                             <dd data-name="resource-eth">
                                 <a lay-href="/resource/eth" lay-tips="网卡流量"
-                                   lay-direction="2">网卡流量</a>
+                                   lay-direction="2"><cite>网卡流量</cite></a>
                             </dd>
                             <dd data-name="resource-mem">
                                 <a lay-href="/resource/mem" lay-tips="内存管理"
-                                   lay-direction="2">内存管理</a>
+                                   lay-direction="2"><cite>内存管理</cite></a>
                             </dd>
                         </dl>
                     </li>
@@ -328,18 +373,19 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="safe-login">
-                                <a lay-href="/safe/login" lay-tips="登录设置"
-                                   lay-direction="2">登录设置</a>
+                                <a lay-href="/safe/login" lay-tips="登录设置" lay-direction="2">
+                                    <cite>登录设置</cite>
+                                </a>
                             </dd>
                             <dd data-name="safe-firewall">
-                                <a lay-href="/safe/firewall" lay-tips="防火墙设置" lay-direction="2">防火墙设置</a>
+                                <a lay-href="/safe/firewall" lay-tips="防火墙设置" lay-direction="2"><cite>防火墙设置</cite></a>
                             </dd>
                             <dd data-name="safe-ssh">
                                 <a lay-href="/safe/ssh" lay-tips="SSH管理"
-                                   lay-direction="2">SSH管理</a>
+                                   lay-direction="2"><cite>SSH管理</cite></a>
                             </dd>
                             <dd data-name="safe-ping">
-                                <a lay-href="/safe/ping" lay-tips="PING管理" lay-direction="2">PING管理</a>
+                                <a lay-href="/safe/ping" lay-tips="PING管理" lay-direction="2"><cite>PING管理</cite></a>
                             </dd>
                         </dl>
                     </li>
@@ -380,14 +426,10 @@
         <div class="layadmin-body-shade" layadmin-event="shade"></div>
     </div>
 </div>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index'], function () {
-        layui.$('dd[data-event=logout]').click(function () {
+    JS.use(['index'], function () {
+        $('dd[data-event=logout]').click(function () {
             layui.view.exit(function () {
                 location.href = '/auth/logout';
             });

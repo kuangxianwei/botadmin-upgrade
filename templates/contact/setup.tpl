@@ -41,9 +41,8 @@
     </div>
 </div>
 <script>
-    layui.use(['main', 'transfer', 'laydate'], function () {
-        let $ = layui.$,
-            main = layui.main,
+    JS.use(['main'], function () {
+        let main = layui.main,
             layDate = layui.laydate,
             transfer = layui.transfer,
             citiesData = {{.cityData}};

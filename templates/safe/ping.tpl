@@ -18,14 +18,9 @@
         2 由于OepnVZ虚拟化限制，此功能在OpenVZ的VPS上无效。
     </blockquote>
 </div>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'
-    }).use(['index', 'form', 'main'], function () {
+    JS.use(['index', 'main'], function () {
         let main = layui.main,
             form = layui.form,
             url = {{.current_uri}};

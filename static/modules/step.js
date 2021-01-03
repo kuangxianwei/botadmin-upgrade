@@ -56,18 +56,6 @@ layui.define(['form', 'element'], function (exports) {
         form = layui.form,
         layer = layui.layer,
         element = layui.element,
-        //默认选项
-        options = {
-            elem: '.step-header',
-            titleW: '90%',
-            data: [
-                {title: '第一步'},
-                {title: '第二步'},
-                {title: '第三步'},
-                {title: '第四步'},
-            ],
-            position: 0,
-        },
         /*渲染上一步 下一步*/
         renderGoto = function (opts) {
             let next = opts.position + 1,
@@ -89,18 +77,26 @@ layui.define(['form', 'element'], function (exports) {
             $('div.layui-layer-btn').html(btn + '<a data-step-close="' + opts.position + '">取消</a>');
         },
         /*合并 选项*/
-        mergeOptions = function (opts) {
-            opts = $.extend(options, defineObj(opts));
-            if (!opts.contentW) {
-                opts.contentW = options.titleW;
+        mergeOptions = function (options) {
+            options = $.extend({
+                elem: '.step-header',
+                titleW: '90%',
+                data: [
+                    {title: '第一步'},
+                    {title: '第二步'},
+                    {title: '第三步'},
+                    {title: '第四步'},
+                ],
+                position: 0,
+            }, defineObj(options));
+            options.contentW = options.contentW || options.titleW;
+            if (options.position < 0) {
+                options.position = 0;
             }
-            if (opts.position < 0) {
-                opts.position = 0;
+            if (options.position >= options.data.length) {
+                options.position = options.data.length - 1;
             }
-            if (opts.position >= opts.data.length) {
-                opts.position = opts.data.length - 1;
-            }
-            return opts;
+            return options;
         },
         /*监测 事件*/
         onEvent = function () {
@@ -246,24 +242,24 @@ layui.define(['form', 'element'], function (exports) {
             },
         },
         step = {
-            render: function (opts) {
+            render: function (options) {
                 layui.link('/static/style/step.css');
                 //合并选项
-                opts = mergeOptions(opts);
+                options = mergeOptions(options);
                 //渲染头部
-                renderSpeed(opts);
-                $('.lay-step').css('width', opts.titleW);
+                renderSpeed(options);
+                $('.lay-step').css('width', options.titleW);
                 /*内容区域加上宽度*/
-                $('.step-content').css('width', opts.contentW);
+                $('.step-content').css('width', options.contentW);
                 //显示当前块
-                $('.step-content>div').removeAttr('style').eq(opts.position).css({'display': 'block'});
+                $('.step-content>div').removeAttr('style').eq(options.position).css({'display': 'block'});
                 /*给内容区 加上 layui-form 类和下一步标识*/
                 $('div.step-content>div').addClass('layui-form').each(function (i) {
                     $(this).children().eq(0).before('<a class="layui-hide" lay-submit lay-filter="stepNext" data-step="' + i + '"></a>');
                 });
                 $('div.step-content>div:first').before('<a class="layui-hide" lay-submit lay-filter="stepSubmit"></a>');
                 //渲染 上下步
-                renderGoto(opts);
+                renderGoto(options);
                 //监控事件
                 onEvent();
                 /*验证爬虫名称和种子*/
@@ -274,14 +270,14 @@ layui.define(['form', 'element'], function (exports) {
                 //渲染翻译
                 step.trans.render();
             },
-            goto: function (opts) {
-                opts = mergeOptions(opts)
+            goto: function (options) {
+                options = mergeOptions(options)
                 //显示当前块
-                $('.step-content>div').removeAttr('style').eq(opts.position).css({'display': 'block'});
+                $('.step-content>div').removeAttr('style').eq(options.position).css({'display': 'block'});
                 //渲染头部
-                renderSpeed(opts);
+                renderSpeed(options);
                 //渲染 上下步
-                renderGoto(opts);
+                renderGoto(options);
                 //监控事件
                 onEvent();
             },

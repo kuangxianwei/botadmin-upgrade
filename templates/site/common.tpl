@@ -780,9 +780,8 @@
     </div>
 </div>
 <script>
-    layui.use(['main', 'form', 'layer'], function () {
-        let $ = layui.$,
-            main = layui.main,
+    JS.use(['main'], function () {
+        let main = layui.main,
             form = layui.form,
             layer = layui.layer,
             //获取模板目录名称

@@ -996,9 +996,8 @@
 </script>
 <!--自定义-->
 <script>
-    layui.use(['step', 'element', 'main'], function () {
-        let $ = layui.$,
-            step = layui.step,
+    JS.use(['step'], function () {
+        let step = layui.step,
             element = layui.element,
             main = layui.main,
             form = layui.form,

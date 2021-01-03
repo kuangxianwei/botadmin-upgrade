@@ -34,14 +34,9 @@
         </blockquote>
     </div>
 </div>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'
-    }).use(['index', 'form', 'main'], function () {
+    JS.use(['index', 'main'], function () {
         let main = layui.main,
             form = layui.form,
             url = {{.current_uri}};

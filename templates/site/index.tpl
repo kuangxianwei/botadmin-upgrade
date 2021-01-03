@@ -282,17 +282,10 @@
         </div>
     </div>
 </script>
-<script src="/static/layui/layui.js"></script>
-<script src="/static/modules/clipboard.min.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'
-    }).use(['index', 'table', 'upload', 'main', 'slider'], function () {
-        let $ = layui.$,
-            form = layui.form,
+    JS.use(['index', 'main'], function () {
+        let form = layui.form,
             table = layui.table,
             upload = layui.upload,
             element = layui.element,

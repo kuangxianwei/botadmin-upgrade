@@ -17,15 +17,10 @@
         </div>
     </div>
 </div>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use(['index', 'form'], function () {
-        let $ = layui.$,
-            url = '/system/time';
+    JS.use(['index', 'main'], function () {
+        let url = '/system/time';
         $("#ntpdate").click(function () {
             layer.confirm("确定要同步时间？", function () {
                 let loading = layer.load(1, {shade: [0.5, '#000']});

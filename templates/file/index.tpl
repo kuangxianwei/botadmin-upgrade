@@ -103,16 +103,10 @@
 <script type="text/html" id="table-content-name">
     {{ html .file_name }}
 </script>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' // 静态资源所在路径
-    }).extend({
-        index: 'lib/index', // 主入口模块
-        main: 'main',
-    }).use(['index', 'main', 'upload', 'table'], function () {
-        let $ = layui.$,
-            form = layui.form,
+    JS.use(['index', 'main'], function () {
+        let form = layui.form,
             table = layui.table,
             main = layui.main,
             upload = layui.upload,

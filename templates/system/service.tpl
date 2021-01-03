@@ -14,14 +14,9 @@
 <script type="text/html" id="table-toolbar">
     {{ html .ChkToolbar}}
 </script>
-<script src="/static/layui/layui.js?v={{.Version}}"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'
-    }).use(['index', 'main', 'table'], function () {
+    JS.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
             url = {{.current_uri}},

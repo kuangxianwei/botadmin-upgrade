@@ -1,14 +1,8 @@
 {{template "file/modify.tpl" .}}
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'
-    }).use(['index', 'form', 'main'], function () {
-        let $ = layui.$,
-            form = layui.form,
+    JS.use(['index', 'main'], function () {
+        let form = layui.form,
             main = layui.main,
             index = parent.layer.getFrameIndex(window.name),
             url = {{.current_uri}};

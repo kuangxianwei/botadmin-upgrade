@@ -5,19 +5,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         form = layui.form,
         table = layui.table,
         slider = layui.slider,
-        popOpts = {
-            opacity: '0.7',
-            content: '',
-            scroll: true,
-            confirm: true,
-            area: ['auto', 'auto'],
-            success: function () {
-                return true;
-            }, done: function () {
-                return true;
-            },
-            zIndex: 2147483000,
-        },
         tidyObj = function (obj) {
             return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
         },
@@ -148,7 +135,19 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             });
         },
         pop = function (options) {
-            options = $.extend(popOpts, options);
+            options = $.extend({
+                opacity: '0.7',
+                content: '',
+                scroll: true,
+                confirm: true,
+                area: ['auto', 'auto'],
+                success: function () {
+                    return true;
+                }, done: function () {
+                    return true;
+                },
+                zIndex: 2147483000,
+            }, options);
             let insertThis = $('div').first();
             if (insertThis.length === 0) {
                 insertThis = $('body').last();
@@ -252,7 +251,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     items = $(elem + ' *[name]').serializeArray();
                     break;
                 case 'object':
-                    items = elem.serializeArray();
+                    items = elem.find('[name]').serializeArray();
                     break;
                 default:
                     return {};

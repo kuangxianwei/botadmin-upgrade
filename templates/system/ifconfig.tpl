@@ -91,16 +91,10 @@
         </div>
     </div>
 </script>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/'
-    }).extend({
-        index: 'lib/index',
-        main: 'main'
-    }).use(['index', 'form', 'table', 'main'], function () {
-        let $ = layui.$,
-            form = layui.form,
+    JS.use(['index', 'main'], function () {
+        let form = layui.form,
             table = layui.table,
             main = layui.main,
             url = {{.current_uri}};

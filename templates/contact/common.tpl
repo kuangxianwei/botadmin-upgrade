@@ -152,7 +152,6 @@
             <div class="layui-form-mid layui-word-aux">例如百度统计客服代码</div>
             <button class="layui-btn" lay-event="fill-other">填充默认</button>
         </div>
-        <div id="kuang"></div>
         <div class="layui-form-item layui-hide">
             <button lay-submit>提交</button>
             <button id="uploadSubmit"></button>
@@ -161,25 +160,27 @@
     </div>
 </div>
 <script>
-    layui.use(['main', 'transfer', 'laydate'], function () {
-        let $ = layui.$,
-            main = layui.main,
+    JS.use(['main'], function () {
+        let main = layui.main,
             layDate = layui.laydate,
             transfer = layui.transfer,
-            citiesData = {{.cityData}};
+            citiesData = {{.cityData}},
+            durations = {{.obj.Durations}},
+            addObj = $('*[lay-event=add-duration]'),
+            delObj = $('*[lay-event=del-duration]');
         //滑块控制
         main.slider({elem: '#weight', value: {{.obj.Weight}}, max: 100});
         $('[lay-event="fill-consult"]').on('click', function () {
             main.req({
                 url: '/contact/fill/consult', ending: function (res) {
-                    layui.$('[name="consult"]').val(res.data);
+                    $('[name="consult"]').val(res.data);
                 }
             });
         });
         $('[lay-event="fill-other"]').on('click', function () {
             main.req({
                 url: '/contact/fill/other', ending: function (res) {
-                    layui.$('[name="other"]').val(res.data);
+                    $('[name="other"]').val(res.data);
                 }
             });
         });
@@ -208,8 +209,6 @@
                 }
             });
         });
-        let delObj = $('*[lay-event=del-duration]');
-        let addObj = $('*[lay-event=add-duration]');
         // 添加时间段
         addObj.click(function () {
             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
@@ -226,14 +225,13 @@
                 delObj.css('display', 'none');
             }
         });
-        let layKey, html;
-        {{range $k,$v:=.obj.Durations -}}
-        layKey = {{$k}}+1;
-        html = '<div class="layui-input-inline"><input type="text" name="durations" value="' + {{$v}} +'" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>';
-        $('div[lay-filter=duration]>div.layui-btn-group').before(html);
-        layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
-        delObj.css('display', 'inline-block');
-        {{end -}}
+        if (durations) {
+            durations.forEach(function (item, index) {
+                index += 1
+                $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="durations" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
+                layDate.render({elem: '#date-' + index, type: 'time', range: true});
+                delObj.css('display', 'inline-block');
+            });
+        }
     });
 </script>
-

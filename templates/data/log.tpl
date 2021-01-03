@@ -1,4 +1,3 @@
-
 <div class="layui-card-body layui-form">
     <div class="layui-form-item">
             <textarea class="layui-textarea layui-bg-black" name="log" rows="20"

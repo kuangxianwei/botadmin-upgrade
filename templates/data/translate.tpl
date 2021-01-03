@@ -38,9 +38,6 @@
     </div>
 </div>
 <script>
-    let $ = layui.$;
-
-    // 显示可用语言
     function displayUsable(engine) {
         engine = engine || $("select[name='engine']").val();
         let source_name = "source",

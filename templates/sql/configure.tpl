@@ -21,16 +21,10 @@
         </div>
     </div>
 </div>
-<script src="/static/layui/layui.js"></script>
+{{template "JS" -}}
 <script>
-    layui.config({
-        base: '/static/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index', //主入口模块
-        main: 'main'
-    }).use(['index', 'form', 'table', 'main'], function () {
-        let $ = layui.$,
-            main = layui.main,
+    JS.use(['index', 'main'], function () {
+        let main = layui.main,
             url = {{.current_uri}};
         $('button[lay-event]').click(function () {
             switch ($(this).attr('lay-event')) {
@@ -48,7 +42,7 @@
                     break;
                 case 'reboot-sql':
                     main.req({
-                        url: '/system/reservice',
+                        url: '/system/reboot',
                         data: {act: 'mysql'},
                         tips: function (res) {
                             main.msg(res.msg);
