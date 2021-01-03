@@ -282,6 +282,7 @@
         </div>
     </div>
 </script>
+<script src="/static/modules/clipboard.min.js"></script>
 {{template "JS" -}}
 <script>
     JS.use(['index', 'main'], function () {
