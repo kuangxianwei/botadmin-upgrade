@@ -18,7 +18,7 @@
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-sm" lay-event="setup">
-            <i class="layui-icon layui-icon-set"></i>配置
+            <i class="layui-icon layui-icon-set"></i>批量配置
         </button>
     </div>
     <div class="layui-btn-group">

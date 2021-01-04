@@ -179,9 +179,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         popup: function (options) {
             options = tidyObj(options);
             let hasSubmit = typeof options.submit === 'string',
-                success = typeof options.success === 'function' ? options.success : function (dom, index) {
+                success = typeof options.success === 'function' ? options.success : function () {
+                    return true;
                 },
-                yes = typeof options.yes === 'function' ? options.yes : function (index, dom) {
+                yes = typeof options.yes === 'function' ? options.yes : function () {
+                    return true;
                 };
             delete options.success;
             delete options.yes;
@@ -198,7 +200,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 area: ['95%', '95%'],
                 zIndex: 200000,
                 success: function (dom, index) {
-                    success(dom, index);
+                    if (success(dom, index) === false) {
+                        return false
+                    }
                     form.render();
                     form.on('submit(' + options.submit + ')', function (obj) {
                         let reqOptions = {
@@ -215,7 +219,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     });
                 },
                 yes: function (index, dom) {
-                    yes(index, dom);
+                    if (yes(index, dom) === false) {
+                        return false
+                    }
                     if (hasSubmit) {
                         dom.find('*[lay-submit][lay-filter=' + options.submit + ']').click();
                     } else {

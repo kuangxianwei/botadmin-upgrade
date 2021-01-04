@@ -1,9 +1,16 @@
+<style>
+    .layui-form i.layui-icon-delete {
+        color: red;
+        cursor: pointer;
+    }
+</style>
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
             <button class="layui-btn" lay-event="cities">选择城市</button>
             <input type="hidden" name="cities" value="">
+            <i class="layui-icon layui-icon-delete" lay-event="del"></i>
         </div>
         <div class="layui-form-item" lay-filter="duration">
             <label class="layui-form-label">时间范围:</label>
@@ -15,6 +22,7 @@
                     <i class="layui-icon layui-icon-fonts-del"></i>
                 </button>
             </div>
+            <i class="layui-icon layui-icon-delete" lay-event="del"></i>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">在线咨询:</label>
@@ -25,6 +33,7 @@
             </div>
             <div class="layui-form-mid layui-word-aux">如QQ在线</div>
             <button class="layui-btn" lay-event="fill-consult">填充默认</button>
+            <i class="layui-icon layui-icon-delete" lay-event="del"></i>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">其他:</label>
@@ -33,6 +42,7 @@
             </div>
             <div class="layui-form-mid layui-word-aux">例如百度统计客服代码</div>
             <button class="layui-btn" lay-event="fill-other">填充默认</button>
+            <i class="layui-icon layui-icon-delete" lay-event="del"></i>
         </div>
         <div class="layui-form-item layui-hide">
             <input name="usernames" value="{{.usernames}}">
@@ -104,6 +114,9 @@
             if (typeof layKey === 'undefined') {
                 delObj.css('display', 'none');
             }
+        });
+        $('.layui-form>.layui-form-item>i[lay-event=del]').on('click', function () {
+            $(this).parent().remove();
         });
     });
 </script>

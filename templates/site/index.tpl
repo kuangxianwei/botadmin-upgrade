@@ -66,6 +66,9 @@
             <button class="layui-btn layui-btn-sm" lay-event="batch" lay-tips="批量添加网站">
                 <i class="layui-icon iconfont icon-batchadd"></i>
             </button>
+            <button class="layui-btn layui-btn-sm" lay-event="edit" lay-tips="批量修改网站">
+                <i class="layui-icon layui-icon-edit"></i>
+            </button>
         </div>
         <div class="layui-btn-group">
             <ul class="layui-nav layui-bg-green botadmin-nav">
@@ -276,6 +279,48 @@
                 </div>
             </div>
             <div class="layui-form-item layui-hide">
+                <input name="ids" value="">
+                <button lay-submit>提交</button>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="edit-options-html">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择修改项:</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="ad" title="广告代码" checked>
+                    <input type="checkbox" name="replaces" title="灰词替换">
+                    <input type="checkbox" name="contact" title="联系方式">
+                    <input type="checkbox" name="insert_pic_deg" title="插图阈值">
+                    <input type="checkbox" name="pub_deg" title="发布阈值">
+                    <input type="checkbox" name="content_deg" title="内容阈值">
+                    <input type="checkbox" name="link_deg" title="内链阀值">
+                    <input type="checkbox" name="out_link_deg" title="外链阀值">
+                    <input type="checkbox" name="title_tag_deg" title="标题阀值">
+                    <input type="checkbox" name="pub_self" title="指定发布">
+                    <input type="checkbox" name="cron_enabled" title="定时发布">
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="edit-html">
+    <style>
+        .layui-form i.layui-icon-delete {
+            color: red;
+            cursor: pointer;
+        }
+
+        .layui-form .layui-input-inline {
+            min-width: 500px;
+        }
+    </style>
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-hide">
                 <input name="ids" value="">
                 <button lay-submit>提交</button>
             </div>
@@ -569,6 +614,113 @@
                 ids[i] = data[i].id;
             }
             switch (obj.event) {
+                case 'edit':
+                    if (data.length === 0) {
+                        layer.msg("未选择", {icon: 2});
+                        return false;
+                    }
+                    layer.open({
+                        type: 1,
+                        title: '批量修改配置',
+                        shadeClose: true,
+                        scrollbar: false,
+                        btnAlign: 'c',
+                        shade: 0.8,
+                        fixed: false,
+                        area: ['500px', '300px'],
+                        maxmin: true,
+                        zIndex: 200000,
+                        btn: ['确定', '取消'],
+                        content: $('#edit-options-html').html(),
+                        success: function (dom, index) {
+                            let uuid = main.uuid();
+                            dom.find('.layui-form').append('<input type="hidden" name="ids" value="' + ids.join() + '">')
+                                .append('<button class="layui-hide" lay-submit lay-filter="' + uuid + '"></button>');
+                            form.render();
+                            form.on('submit(' + uuid + ')', function (obj) {
+                                let field = obj.field, count = 0;
+                                for (let k in field) {
+                                    if (field.hasOwnProperty(k)) {
+                                        count++
+                                    }
+                                }
+                                if (count < 2) {
+                                    main.error('最少选择其中一项');
+                                    return false;
+                                }
+                                layer.close(index);
+                                main.popup({
+                                    title: '批量修改配置',
+                                    url: url + '/modify',
+                                    content: $('#edit-html').html(),
+                                    success: function (dom, index) {
+                                        let formDom = dom.find('.layui-form');
+                                        formDom.find('input[name=ids]').val(field.ids);
+                                        delete field.ids;
+                                        $.each(field, function (k, v) {
+                                            switch (k) {
+                                                case 'ad':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">广告代码:</label><div class="layui-input-inline"><textarea name="ad" class="layui-textarea"></textarea></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                                case 'replaces':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">灰词替换:</label><div class="layui-input-inline"><textarea name="replaces" class="layui-textarea"></textarea></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                                case 'contact':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">联系方式:</label><div class="layui-input-inline"><textarea name="contact" class="layui-textarea"></textarea></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                                case 'insert_pic_deg':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">插图阈值:</label><div class="layui-input-inline"><input type="text" name="insert_pic_deg" value="1-3" class="layui-input"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                                case 'pub_deg':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">发布阈值:</label><div class="layui-input-inline"><input type="text" name="pub_deg" value="1-3" class="layui-input"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                                case 'content_deg':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">内容阈值:</label><div class="layui-input-inline"><input type="text" name="content_deg" value="1-3" class="layui-input"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                                case 'link_deg':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">内链阀值:</label><div class="layui-input-inline" style="margin-top:18px;"><div id="link_deg"></div><input type="hidden" name="link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入内链</div></div>`);
+                                                    main.slider({elem: '#link_deg', value: 3});
+                                                    break;
+                                                case 'out_link_deg':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">外链阀值:</label><div class="layui-input-inline" style="margin-top:18px;"><div id="out_link_deg"></div><input type="hidden" name="out_link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入外链</div></div>`);
+                                                    main.slider({elem: '#out_link_deg', value: 3});
+                                                    break;
+                                                case 'title_tag_deg':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">标题阀值:</label><div class="layui-input-inline" style="margin-top:18px;"><div id="title_tag_deg"></div><input type="hidden" name="title_tag_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">标题插入tag 值越高 几率越高</div></div>`);
+                                                    main.slider({elem: '#title_tag_deg', value: 3});
+                                                    break;
+                                                case 'pub_self':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">指定文章:</label><div class="layui-input-inline"><input type="checkbox" name="pub_self" lay-skin="switch" lay-text="是|否" checked></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                                case 'cron_enabled':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">定时发布:</label><div class="layui-input-inline"><input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否" checked></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                            }
+                                        });
+                                        formDom.find('i[lay-event=del]').on('click', function () {
+                                            $(this).parent().remove();
+                                        });
+                                    },
+                                    yes: function (index, dom) {
+                                        let cols = Array();
+                                        dom.find('.layui-form [name]').each(function (i, obj) {
+                                            if (obj.name) {
+                                                cols.push(obj.name);
+                                            }
+                                        });
+                                        dom.find('.layui-form input[name=cols]').remove();
+                                        dom.find('.layui-form').append('<input type="hidden" name="cols" value="' + cols.join() + '">');
+                                    },
+                                    ending: 'table-list',
+                                });
+                                return false;
+                            });
+                        },
+                        yes: function (index, dom) {
+                            dom.find('button[lay-submit]').click();
+                        },
+                    });
+                    break;
                 case 'del':
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});
