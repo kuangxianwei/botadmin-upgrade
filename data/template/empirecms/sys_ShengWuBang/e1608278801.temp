@@ -1020,12 +1020,12 @@ $listtemp=$headtit.'
 </article>';<!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->header<!---ecms.field--->页面头部<!---ecms.field---><header class="header">
     <div class="container">
         <h2 class="logo">
-            <a href="<?=$host_url?>" title="[!--pagedes--]"><img src="[!--news.url--]skin/custom/images/logo.png" alt="[!--pagedes--]"><?= $public_r['add_title_suffix'] ?></a>
+            <a href="[!--news.url--]" title="[!--pagedes--]"><img src="[!--news.url--]skin/custom/images/logo.png" alt="[!--pagedes--]"><?= $public_r['add_title_suffix'] ?></a>
         </h2>
         <div class="brand"><?=$public_r['add_title_suffix']?>门户网站<br><?=strtoupper(parse_host()['host']) ?></div>
         <ul class="site-nav site-navbar">
             <li id="menu-item-49385" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-49385">
-                <a target="_blank" href="<?=$host_url ?>" title="<?=$public_r['sitename']?>"><i
+                <a target="_blank" href="[!--news.url--]" title="<?=$public_r['sitename']?>"><i
                         class="fa fa-book"></i>首页</a>
             </li>
             [e:loop={"select classid,classname,classpath,bname,islast from {$dbtbpre}enewsclass where bclassid=0 and
