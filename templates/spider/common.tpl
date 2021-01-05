@@ -549,8 +549,8 @@
 
                                 <div class="layui-form-item">
                                     <div class="layui-inline">
-                                        <input type="checkbox" name="detail.trim_html.{{$i}}"
-                                               title="过滤html标签"{{if $v.TrimHtml}} checked{{end}}>
+                                        <input type="checkbox" name="detail.raw.{{$i}}"
+                                               title="原始"{{if $v.Raw}} checked{{end}}>
                                     </div>
                                 </div>
                                 <div class="layui-form-item layui-hide">
@@ -985,7 +985,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <input type="checkbox" name="detail.trim_html.{id}" title="过滤html标签" checked>
+                <input type="checkbox" name="detail.raw.{id}" title="原始">
             </div>
         </div>
         <div class="layui-form-item layui-hide">
