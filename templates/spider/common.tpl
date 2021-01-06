@@ -165,252 +165,8 @@
                         style="margin-bottom: -65px;margin-left: -35px" lay-event="addListRule" lay-tips="点击无限添加列表规则">+
                 </button>
                 <div class="layui-tab layui-tab-card" lay-filter="step-list" lay-allowclose="true">
-                    <ul class="layui-tab-title">
-                        {{range $i,$v:= .obj.List -}}
-                            <li lay-id="{{$i}}"{{if eq $i 0 }} class="layui-this"{{end}}>Rule-{{increment $i}}</li>
-                        {{end -}}
-                    </ul>
-                    <div class="layui-tab-content">
-                        {{range $i,$v:= .obj.List -}}
-                            <div class="layui-tab-item{{if eq $i 0 }} layui-show{{end}}">
-                                <div class="layui-collapse" lay-accordion>
-                                    <div class="layui-colla-item">
-                                        <h2 class="layui-colla-title">列表采集</h2>
-                                        <div class="layui-colla-content layui-show">
-                                            <fieldset class="layui-elem-field layui-field-title">
-                                                <legend>获取</legend>
-                                            </fieldset>
-                                            <div class="layui-form-item">
-                                                <div class="layui-inline">
-                                                    <label class="layui-form-label-col">指定范围:</label>
-                                                </div>
-                                                <div class="layui-inline">
-                                                    <div class="layui-input-inline">
-                                                        <input type="text" name="list.limit.{{$i}}" value="{{$v.Limit}}"
-                                                               autocomplete="off"
-                                                               placeholder="&lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;"
-                                                               class="layui-input">
-                                                    </div>
-                                                    <div class="layui-form-mid layui-word-aux">指定获取范围 为空则不指定 &lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="layui-form-item">
-                                                <div class="parse-method{{if ne $v.Reg ""}} layui-hide{{end}}">
-                                                    <div class="layui-inline">
-                                                        <label class="layui-form-label-col">DOM解析:</label>
-                                                    </div>
-                                                    <div class="layui-inline" lay-tips="一行一条规则，逐行匹配到则终止匹配">
-                                                        <textarea class="layui-textarea"
-                                                                  name="list.dom.{{$i}}">{{$v.Dom}}</textarea>
-                                                    </div>
-                                                    <div class="layui-inline" lay-tips="选择dom取值方法">
-                                                        <div class="layui-input-inline" style="width: 80px">
-                                                            <select name="list.method.{{$i}}">
-                                                                <option value="attr"{{if eq $v.Method "attr"}}
-                                                                selected{{end}}>Attr
-                                                                </option>
-                                                                <option value="text"{{if eq $v.Method "text"}}
-                                                                selected{{end}}>Text
-                                                                </option>
-                                                                <option value="html"{{if eq $v.Method "html"}}
-                                                                selected{{end}}>Html
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="layui-inline" lay-tips="属性名称 默认为 href">
-                                                        <input type="text" name="list.attr_name.{{$i}}"
-                                                               value="{{$v.AttrName}}" autocomplete="off"
-                                                               placeholder="href" class="layui-input">
-                                                    </div>
-                                                    <div class="layui-inline">
-                                                        <button class="layui-btn layui-btn-radius" parse-method>转为正则解析
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="parse-method{{if eq $v.Reg ""}} layui-hide{{end}}">
-                                                    <div class="layui-inline">
-                                                        <label class="layui-form-label-col">正则解析:</label>
-                                                    </div>
-                                                    <div class="layui-inline" style="width: 55%"
-                                                         lay-tips="一行一条规则，逐行匹配到则终止匹配">
-                                                        <textarea class="layui-textarea"
-                                                                  name="list.reg.{{$i}}">{{$v.Reg}}</textarea>
-                                                    </div>
-                                                    <div class="layui-inline">
-                                                        <button class="layui-btn layui-btn-radius" parse-method>转为DOM解析
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <fieldset class="layui-elem-field layui-field-title">
-                                                <legend>正则过滤</legend>
-                                            </fieldset>
-                                            <div class="layui-form-item">
-                                                <label class="layui-form-label"
-                                                       lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
-                                                <div class="layui-input-block">
-                                                    <input type="text" name="list.match.{{$i}}" value="{{$v.Match}}"
-                                                           autocomplete="off" placeholder="/index\.html$"
-                                                           class="layui-input">
-                                                </div>
-                                            </div>
-                                            <fieldset class="layui-elem-field layui-field-title">
-                                                <legend>字符串、正则或DOM替换</legend>
-                                            </fieldset>
-                                            <div class="layui-form-item">
-                                                <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
-                                        <textarea name="list.olds.{{$i}}"
-                                                  class="layui-textarea">{{join $v.Olds "\n"}}</textarea>
-                                                </div>
-                                                <div class="layui-inline">
-                                                    <label class="layui-form-label-col" style="color: #009688;">
-                                                        <i class="layui-icon layui-icon-spread-left"></i>
-                                                    </label>
-                                                </div>
-                                                <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
-                                        <textarea name="list.news.{{$i}}"
-                                                  class="layui-textarea">{{join $v.News "\n"}}</textarea>
-                                                </div>
-                                                <div class="layui-inline" style="width: 12%">
-                                                    <select name="list.type.{{$i}}" class="layui-select">
-                                                        <option value="0"{{if eq $v.Type 0}} selected{{end}}>字符串
-                                                        </option>
-                                                        <option value="1"{{if eq $v.Type 1}} selected{{end}}>正则
-                                                        </option>
-                                                        <option value="2"{{if eq $v.Type 2}} selected{{end}}>DOM
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="layui-colla-item">
-                                        <h2 class="layui-colla-title">分页采集</h2>
-                                        <div class="layui-colla-content">
-                                            <div class="layui-form-item">
-                                                <label class="layui-form-label">开启分页:</label>
-                                                <div class="layui-input-inline">
-                                                    <input type="checkbox" name="list.page.enabled.{{$i}}"
-                                                           lay-skin="switch"
-                                                           lay-text="开启|关闭"{{if $v.Page.Enabled}} checked{{end}}>
-                                                </div>
-                                            </div>
-                                            <fieldset class="layui-elem-field layui-field-title">
-                                                <legend>获取</legend>
-                                            </fieldset>
-                                            <div class="layui-form-item">
-                                                <div class="layui-inline">
-                                                    <label class="layui-form-label-col">指定范围:</label>
-                                                </div>
-                                                <div class="layui-inline">
-                                                    <div class="layui-input-inline">
-                                                        <input type="text" name="list.page.limit.{{$i}}"
-                                                               value="{{$v.Page.Limit}}" autocomplete="off"
-                                                               placeholder="&lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;"
-                                                               class="layui-input">
-                                                    </div>
-                                                    <div class="layui-form-mid layui-word-aux">指定获取范围 为空则不指定 &lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="layui-form-item">
-                                                <div class="parse-method{{if ne $v.Page.Reg ""}} layui-hide{{end}}">
-                                                    <div class="layui-inline">
-                                                        <label class="layui-form-label-col">DOM解析:</label>
-                                                    </div>
-                                                    <div class="layui-inline" lay-tips="一行一条规则，逐行匹配到则终止匹配">
-                                                        <textarea class="layui-textarea"
-                                                                  name="list.page.dom.{{$i}}">{{$v.Page.Dom}}</textarea>
-                                                    </div>
-                                                    <div class="layui-inline" lay-tips="选择dom取值方法">
-                                                        <div class="layui-input-inline" style="width: 80px">
-                                                            <select name="list.page.method.{{$i}}">
-                                                                <option value="attr"{{if eq $v.Page.Method "attr"}}
-                                                                selected{{end}}>Attr
-                                                                </option>
-                                                                <option value="text"{{if eq $v.Page.Method "text"}}
-                                                                selected{{end}}>Text
-                                                                </option>
-                                                                <option value="html"{{if eq $v.Page.Method "html"}}
-                                                                selected{{end}}>Html
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="layui-inline" lay-tips="属性名称 默认为 href">
-                                                        <input type="text" name="list.page.attr_name.{{$i}}"
-                                                               value="{{$v.Page.AttrName}}"
-                                                               autocomplete="on" placeholder="href" class="layui-input">
-                                                    </div>
-                                                    <div class="layui-inline">
-                                                        <button class="layui-btn layui-btn-radius" parse-method>转为正则解析
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="parse-method{{if eq $v.Page.Reg ""}} layui-hide{{end}}">
-                                                    <div class="layui-inline">
-                                                        <label class="layui-form-label-col">正则解析:</label>
-                                                    </div>
-                                                    <div class="layui-inline" style="width: 55%"
-                                                         lay-tips="一行一条规则，逐行匹配到则终止匹配">
-                                                        <textarea class="layui-textarea"
-                                                                  name="list.page.reg.{{$i}}">{{$v.Page.Reg}}</textarea>
-                                                    </div>
-                                                    <div class="layui-inline">
-                                                        <button class="layui-btn layui-btn-radius" parse-method>转为DOM解析
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <fieldset class="layui-elem-field layui-field-title">
-                                                <legend>正则过滤</legend>
-                                            </fieldset>
-                                            <div class="layui-form-item">
-                                                <label class="layui-form-label"
-                                                       lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
-                                                <div class="layui-input-block">
-                                                    <input type="text" name="list.page.match.{{$i}}"
-                                                           value="{{$v.Page.Match}}"
-                                                           autocomplete="off" placeholder="/index\.html$"
-                                                           class="layui-input">
-                                                </div>
-                                            </div>
-                                            <fieldset class="layui-elem-field layui-field-title">
-                                                <legend>字符串、正则或DOM替换</legend>
-                                            </fieldset>
-                                            <div class="layui-form-item">
-                                                <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
-                                        <textarea name="list.page.olds.{{$i}}"
-                                                  class="layui-textarea">{{join $v.Page.Olds "\n"}}</textarea>
-                                                </div>
-                                                <div class="layui-inline">
-                                                    <label class="layui-form-label-col" style="color: #009688;">
-                                                        <i class="layui-icon layui-icon-spread-left"></i>
-                                                    </label>
-                                                </div>
-                                                <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
-                                        <textarea name="list.page.news.{{$i}}"
-                                                  class="layui-textarea">{{join $v.Page.News "\n"}}</textarea>
-                                                </div>
-                                                <div class="layui-inline" style="width: 12%">
-                                                    <select name="list.page.type.{{$i}}" class="layui-select">
-                                                        <option value="0"{{if eq $v.Page.Type 0}} selected{{end}}>字符串
-                                                        </option>
-                                                        <option value="1"{{if eq $v.Page.Type 1}} selected{{end}}>正则
-                                                        </option>
-                                                        <option value="2"{{if eq $v.Page.Type 2}} selected{{end}}>DOM
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {{end -}}
-                    </div>
+                    <ul class="layui-tab-title"></ul>
+                    <div class="layui-tab-content"></div>
                 </div>
                 <div class="layui-card-body">
                     <button class="layui-hide" lay-submit lay-filter="testList"></button>
@@ -425,141 +181,8 @@
                         lay-event="addDetailRule" lay-tips="点击无限添加规则">+
                 </button>
                 <div class="layui-tab layui-tab-card" lay-filter="step-detail" lay-allowclose="true">
-                    <ul class="layui-tab-title">
-                        {{range $i,$v:= .obj.Detail -}}
-                            <li lay-id="{{$i}}"{{if eq $i 0}} class="layui-this"{{end}}>{{$v.Alias}}</li>
-                        {{end -}}
-                    </ul>
-                    <div class="layui-tab-content">
-                        {{range $i,$v:= .obj.Detail -}}
-                            <div class="layui-tab-item{{if eq $i 0}} layui-show{{end}}">
-                                <div class="layui-form-item">
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label-col">指定范围:</label>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="detail.limit.{{$i}}" value="{{$v.Limit}}"
-                                                   autocomplete="off"
-                                                   placeholder="&lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;"
-                                                   class="layui-input">
-                                        </div>
-                                        <div class="layui-form-mid layui-word-aux">指定获取范围 为空则不指定 &lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;</div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <div class="parse-method{{if ne $v.Reg ""}} layui-hide{{end}}">
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label-col">DOM解析:</label>
-                                        </div>
-                                        <div class="layui-inline" lay-tips="一行一条规则，逐行匹配到则终止匹配">
-                                            <textarea class="layui-textarea"
-                                                      name="detail.dom.{{$i}}">{{$v.Dom}}</textarea>
-                                        </div>
-                                        <div class="layui-inline" lay-tips="选择dom取值方法">
-                                            <div class="layui-input-inline" style="width: 80px">
-                                                <select name="detail.method.{{$i}}" class="layui-select">
-                                                    <option value="attr"{{if eq $v.Method "attr"}} selected{{end}}>Attr
-                                                    </option>
-                                                    <option value="text"{{if eq $v.Method "text"}} selected{{end}}>Text
-                                                    </option>
-                                                    <option value="html"{{if eq $v.Method "html"}} selected{{end}}>Html
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="layui-inline" lay-tips="属性名称 默认为 href">
-                                            <input type="text" name="detail.attr_name.{{$i}}" value="{{$v.AttrName}}"
-                                                   autocomplete="on" placeholder="href" class="layui-input">
-                                        </div>
-                                        <div class="layui-inline">
-                                            <button class="layui-btn layui-btn-radius" parse-method>转为正则解析</button>
-                                        </div>
-                                    </div>
-                                    <div class="parse-method{{if eq $v.Reg ""}} layui-hide{{end}}">
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label-col">正则解析:</label>
-                                        </div>
-                                        <div class="layui-inline" style="width: 55%"
-                                             lay-tips="一行一条规则，逐行匹配到则终止匹配">
-                                            <textarea class="layui-textarea"
-                                                      name="detail.reg.{{$i}}">{{$v.Reg}}</textarea>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <button class="layui-btn layui-btn-radius" parse-method>转为DOM解析</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <fieldset class="layui-elem-field layui-field-title">
-                                    <legend>正则过滤</legend>
-                                </fieldset>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label" lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="detail.match.{{$i}}" value="{{$v.Match}}"
-                                               autocomplete="off" placeholder="/index\.html$" class="layui-input">
-                                    </div>
-                                </div>
-                                <fieldset class="layui-elem-field layui-field-title">
-                                    <legend>DOM替换</legend>
-                                </fieldset>
-                                <div class="layui-form-item">
-                                    <div class="layui-inline" style="width: 45%" lay-tips="原词 一行一条">
-                                                    <textarea name="detail.filter_dom.olds.{{$i}}"
-                                                              class="layui-textarea">{{join $v.FilterDom.Olds "\n"}}</textarea>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label-col" style="color: #009688;">
-                                            <i class="layui-icon layui-icon-spread-left"></i>
-                                        </label>
-                                    </div>
-                                    <div class="layui-inline" style="width: 45%" lay-tips="替换成 对应原词一行一条">
-                                        <textarea name="detail.filter_dom.news.{{$i}}"
-                                                  class="layui-textarea">{{join $v.FilterDom.News "\n"}}</textarea>
-                                    </div>
-                                </div>
-                                <fieldset class="layui-elem-field layui-field-title">
-                                    <legend>字符串、正则或DOM替换</legend>
-                                </fieldset>
-                                <div class="layui-form-item">
-                                    <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
-                                        <textarea name="detail.olds.{{$i}}"
-                                                  class="layui-textarea">{{join $v.Olds "\n"}}</textarea>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label-col" style="color: #009688;">
-                                            <i class="layui-icon layui-icon-spread-left"></i>
-                                        </label>
-                                    </div>
-                                    <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
-                                        <textarea name="detail.news.{{$i}}"
-                                                  class="layui-textarea">{{join $v.News "\n"}}</textarea>
-                                    </div>
-                                    <div class="layui-inline" style="width: 12%">
-                                        <select name="detail.type.{{$i}}" class="layui-select">
-                                            <option value="0"{{if eq $v.Type 0}} selected{{end}}>字符串
-                                            </option>
-                                            <option value="1"{{if eq $v.Type 1}} selected{{end}}>正则
-                                            </option>
-                                            <option value="2"{{if eq $v.Type 2}} selected{{end}}>DOM
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="layui-form-item">
-                                    <div class="layui-inline">
-                                        <input type="checkbox" name="detail.raw.{{$i}}"
-                                               title="原始"{{if $v.Raw}} checked{{end}}>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item layui-hide">
-                                    <input type="hidden" name="detail.alias.{{$i}}" value="{{$v.Alias}}">
-                                    <input type="hidden" name="detail.name.{{$i}}" value="{{$v.Name}}">
-                                </div>
-                            </div>
-                        {{end -}}
-                    </div>
+                    <ul class="layui-tab-title"></ul>
+                    <div class="layui-tab-content"></div>
                 </div>
                 <div class="layui-card-body">
                     <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
@@ -699,7 +322,7 @@
                         </div>
                         <div class="layui-inline">
                             <div class="layui-input-inline">
-                                <input type="text" name="list.limit.{id}" value="" class="layui-input"
+                                <input type="text" name="list.limit." value="" class="layui-input"
                                        autocomplete="off" placeholder="&lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;">
                             </div>
                             <div class="layui-form-mid layui-word-aux">指定获取范围 为空则不指定 &lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;
@@ -712,11 +335,11 @@
                                 <label class="layui-form-label-col" lay-tips="一行一条规则，逐行匹配到则终止匹配">DOM解析:</label>
                             </div>
                             <div class="layui-inline">
-                                <textarea class="layui-textarea" name="list.dom.{id}"></textarea>
+                                <textarea class="layui-textarea" name="list.dom."></textarea>
                             </div>
                             <div class="layui-inline" lay-tips="选择dom取值方法">
                                 <div class="layui-input-inline" style="width: 80px">
-                                    <select name="list.method.{id}">
+                                    <select name="list.method." lay-filter="method">
                                         <option value="attr">Attr</option>
                                         <option value="text">Text</option>
                                         <option value="html">Html</option>
@@ -724,7 +347,7 @@
                                 </div>
                             </div>
                             <div class="layui-inline" lay-tips="属性名称 默认为 href">
-                                <input type="text" name="list.attr_name.{id}" value="href" class="layui-input">
+                                <input type="text" name="list.attr_name." value="href" class="layui-input">
                             </div>
                             <div class="layui-inline">
                                 <button class="layui-btn layui-btn-radius" parse-method>转为正则解析</button>
@@ -735,7 +358,7 @@
                                 <label class="layui-form-label-col">正则解析:</label>
                             </div>
                             <div class="layui-inline" style="width: 55%" lay-tips="一行一条规则，逐行匹配到则终止匹配">
-                                <textarea class="layui-textarea" name="list.reg.{id}"></textarea>
+                                <textarea class="layui-textarea" name="list.reg."></textarea>
                             </div>
                             <div class="layui-inline">
                                 <button class="layui-btn layui-btn-radius" parse-method>转为DOM解析</button>
@@ -749,7 +372,7 @@
                         <label class="layui-form-label"
                                lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
                         <div class="layui-input-block">
-                            <input type="text" name="list.match.{id}" value="" class="layui-input"
+                            <input type="text" name="list.match." value="" class="layui-input"
                                    autocomplete="off" placeholder="/\d+\.html$">
                         </div>
                     </div>
@@ -758,7 +381,7 @@
                     </fieldset>
                     <div class="layui-form-item">
                         <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
-                            <textarea name="list.olds.{id}" class="layui-textarea"></textarea>
+                            <textarea name="list.olds." class="layui-textarea"></textarea>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label-col" style="color: #009688;">
@@ -766,10 +389,10 @@
                             </label>
                         </div>
                         <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
-                            <textarea name="list.news.{id}" class="layui-textarea"></textarea>
+                            <textarea name="list.news." class="layui-textarea"></textarea>
                         </div>
                         <div class="layui-inline" style="width: 12%">
-                            <select name="list.type.{id}" class="layui-select">
+                            <select name="list.type." class="layui-select">
                                 <option value="0" selected>字符串</option>
                                 <option value="1">正则</option>
                                 <option value="2">DOM</option>
@@ -784,7 +407,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">开启分页:</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" name="list.page.enabled.{id}" lay-skin="switch"
+                            <input type="checkbox" name="list.page.enabled." lay-skin="switch"
                                    lay-text="开启|关闭">
                         </div>
                     </div>
@@ -797,7 +420,7 @@
                         </div>
                         <div class="layui-inline">
                             <div class="layui-input-inline">
-                                <input type="text" name="list.page.limit.{id}" value=""
+                                <input type="text" name="list.page.limit." value=""
                                        class="layui-input"
                                        autocomplete="off"
                                        placeholder="&lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;">
@@ -812,11 +435,11 @@
                                 <label class="layui-form-label-col">DOM解析:</label>
                             </div>
                             <div class="layui-inline" lay-tips="一行一条规则，逐行匹配到则终止匹配">
-                                <textarea class="layui-textarea" name="list.page.dom.{id}"></textarea>
+                                <textarea class="layui-textarea" name="list.page.dom."></textarea>
                             </div>
                             <div class="layui-inline" lay-tips="选择dom取值方法">
                                 <div class="layui-input-inline" style="width: 80px">
-                                    <select name="list.page.method.{id}">
+                                    <select name="list.page.method." lay-filter="method">
                                         <option value="attr">Attr</option>
                                         <option value="text">Text</option>
                                         <option value="html">Html</option>
@@ -824,7 +447,7 @@
                                 </div>
                             </div>
                             <div class="layui-inline" lay-tips="属性名称 默认为 href">
-                                <input type="text" name="list.page.attr_name.{id}" value="href" class="layui-input">
+                                <input type="text" name="list.page.attr_name." value="href" class="layui-input">
                             </div>
                             <div class="layui-inline">
                                 <button class="layui-btn layui-btn-radius" parse-method>转为正则解析</button>
@@ -835,7 +458,7 @@
                                 <label class="layui-form-label-col">正则解析:</label>
                             </div>
                             <div class="layui-inline" style="width: 55%" lay-tips="一行一条规则，逐行匹配到则终止匹配">
-                                <textarea class="layui-textarea" name="list.page.reg.{id}"></textarea>
+                                <textarea class="layui-textarea" name="list.page.reg."></textarea>
                             </div>
                             <div class="layui-inline">
                                 <button class="layui-btn layui-btn-radius" parse-method>转为DOM解析</button>
@@ -849,7 +472,7 @@
                         <label class="layui-form-label"
                                lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
                         <div class="layui-input-block">
-                            <input type="text" name="list.page.match.{id}" value="" class="layui-input"
+                            <input type="text" name="list.page.match." value="" class="layui-input"
                                    autocomplete="off" placeholder="/\d+\.html$">
                         </div>
                     </div>
@@ -858,7 +481,7 @@
                     </fieldset>
                     <div class="layui-form-item">
                         <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
-                            <textarea name="list.page.olds.{id}" class="layui-textarea"></textarea>
+                            <textarea name="list.page.olds." class="layui-textarea"></textarea>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label-col" style="color: #009688;">
@@ -866,10 +489,10 @@
                             </label>
                         </div>
                         <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
-                            <textarea name="list.page.news.{id}" class="layui-textarea"></textarea>
+                            <textarea name="list.page.news." class="layui-textarea"></textarea>
                         </div>
                         <div class="layui-inline" style="width: 12%">
-                            <select name="list.page.type.{id}" class="layui-select">
+                            <select name="list.page.type." class="layui-select">
                                 <option value="0" selected>字符串</option>
                                 <option value="1">正则</option>
                                 <option value="2">DOM</option>
@@ -890,7 +513,7 @@
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="detail.limit.{id}" value="" class="layui-input"
+                    <input type="text" name="detail.limit." value="" class="layui-input"
                            autocomplete="off"
                            placeholder="&lt;html[^&gt;]*&gt;([\s\S]*?)&lt;/html&gt;">
                 </div>
@@ -904,19 +527,19 @@
                     <label class="layui-form-label-col" lay-tips="一行一条规则，逐行匹配到则终止匹配">DOM解析:</label>
                 </div>
                 <div class="layui-inline">
-                    <textarea class="layui-textarea" name="detail.dom.{id}"></textarea>
+                    <textarea class="layui-textarea" name="detail.dom."></textarea>
                 </div>
                 <div class="layui-inline" lay-tips="选择dom取值方法">
                     <div class="layui-input-inline" style="width: 80px">
-                        <select name="detail.method.{id}">
-                            <option value="attr">Attr</option>
+                        <select name="detail.method." lay-filter="method">
                             <option value="text">Text</option>
+                            <option value="attr">Attr</option>
                             <option value="html">Html</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline" lay-tips="属性名称 默认为 href">
-                    <input type="text" name="detail.attr_name.{id}" value="" class="layui-input">
+                    <input type="hidden" name="detail.attr_name." value="href" class="layui-input">
                 </div>
                 <div class="layui-inline">
                     <button class="layui-btn layui-btn-radius" parse-method>转为正则解析</button>
@@ -927,7 +550,7 @@
                     <label class="layui-form-label-col" lay-tips="一行一条规则，逐行匹配到则终止匹配">正则解析:</label>
                 </div>
                 <div class="layui-inline" style="width: 55%">
-                    <textarea class="layui-textarea" name="detail.reg.{id}"></textarea>
+                    <textarea class="layui-textarea" name="detail.reg."></textarea>
                 </div>
                 <div class="layui-inline">
                     <button class="layui-btn layui-btn-radius" parse-method>转为DOM解析</button>
@@ -940,7 +563,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="例如:只匹配以/index.html结尾的数据 /index\.html$">正则匹配:</label>
             <div class="layui-input-block">
-                <input type="text" name="detail.match.{id}" value="" class="layui-input"
+                <input type="text" name="detail.match." value="" class="layui-input"
                        autocomplete="off" placeholder="/\d+\.html$">
             </div>
         </div>
@@ -949,7 +572,7 @@
         </fieldset>
         <div class="layui-form-item">
             <div class="layui-inline" style="width: 45%" lay-tips="原词 一行一条">
-                <textarea name="detail.filter_dom.olds.{id}" class="layui-textarea"></textarea>
+                <textarea name="detail.filter_dom.olds." class="layui-textarea"></textarea>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label-col" style="color: #009688;">
@@ -957,7 +580,7 @@
                 </label>
             </div>
             <div class="layui-inline" style="width: 45%" lay-tips="替换成 对应原词一行一条">
-                <textarea name="detail.filter_dom.news.{id}" class="layui-textarea"></textarea>
+                <textarea name="detail.filter_dom.news." class="layui-textarea"></textarea>
             </div>
         </div>
         <fieldset class="layui-elem-field layui-field-title">
@@ -965,7 +588,7 @@
         </fieldset>
         <div class="layui-form-item">
             <div class="layui-inline" style="width: 38%" lay-tips="原词 一行一条">
-                <textarea name="detail.olds.{id}" class="layui-textarea"></textarea>
+                <textarea name="detail.olds." class="layui-textarea"></textarea>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label-col" style="color: #009688;">
@@ -973,10 +596,10 @@
                 </label>
             </div>
             <div class="layui-inline" style="width: 38%" lay-tips="替换成 对应原词一行一条">
-                <textarea name="detail.news.{id}" class="layui-textarea"></textarea>
+                <textarea name="detail.news." class="layui-textarea"></textarea>
             </div>
             <div class="layui-inline" style="width: 12%">
-                <select name="detail.type.{id}" class="layui-select">
+                <select name="detail.type." class="layui-select">
                     <option value="0" selected>字符串</option>
                     <option value="1">正则</option>
                     <option value="2">DOM</option>
@@ -984,13 +607,9 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <input type="checkbox" name="detail.raw.{id}" title="原始">
+            <div class="layui-inline layui-hide">
+                <input type="checkbox" name="detail.raw." title="原始">
             </div>
-        </div>
-        <div class="layui-form-item layui-hide">
-            <input type="hidden" name="detail.alias.{id}" value="{alias}">
-            <input type="hidden" name="detail.name.{id}" value="{name}">
         </div>
     </div>
 </script>
@@ -1015,10 +634,10 @@
                         if (isEmpty) {
                             listTabTitleThis.html('<li lay-id="0" class="layui-this">Rule-1</li>');
                         }
-                        let options = new utils.buildListItem('step-list-item'),
+                        let options = new utils.buildListItem(),
                             tabAdd = element.tabAdd('step-list', {
                                 title: 'Rule-' + (options.id + 1),
-                                content: options.content,
+                                content: options.dom.html(),
                                 id: options.id
                             });
                         if (isEmpty) {
@@ -1056,17 +675,14 @@
                                     layer.alert('您输入的别名"' + alias + '"已经存在', {icon: 2});
                                     return false;
                                 }
-                                let opts = new utils.buildDetailItem($('#step-detail-item').html(), {
-                                    name: name,
-                                    alias: alias
-                                });
-                                if (!opts.content) {
+                                let opts = new utils.buildDetailItem({name: name, alias: alias});
+                                if (!opts.dom || opts.dom.length === 0) {
                                     layer.alert('添加内容为空', {icon: 2});
                                     return false;
                                 }
                                 element.tabAdd('step-detail', {
                                     title: alias,
-                                    content: opts.content,
+                                    content: opts.dom.html(),
                                     id: opts.id
                                 }).tabChange('step-detail', opts.id);
                                 layer.close(index);
@@ -1171,77 +787,75 @@
                 getLayId: function (elem) {
                     let ids = Array(), id = 0;
                     $(elem).each(function () {
-                        let layid = parseInt($(this).attr('lay-id'));
-                        if (!isNaN(layid)) {
-                            ids.push(layid);
+                        let layId = parseInt($(this).attr('lay-id'));
+                        if (!isNaN(layId)) {
+                            ids.push(layId);
                         }
                     });
                     if (ids.length > 0) {
                         id = Math.max.apply(null, ids) + 1;
                     }
-                    return {id: id, ids: ids}
+                    return id
                 },
                 /*构建 详情 item*/
-                buildDetailItem: function (content, field, id) {
-                    if (typeof content !== 'string' || content.length === 0 || Object.prototype.toString.call(field) !== '[object Object]' || typeof field.name !== 'string') {
+                buildDetailItem: function (field, id) {
+                    if (Object.prototype.toString.call(field) !== '[object Object]' || typeof field.name !== 'string') {
                         return false;
                     }
+                    id = parseInt(id);
+                    if (isNaN(id)) {
+                        id = utils.getLayId('[lay-filter=step-detail]>.layui-tab-title>li[lay-id]');
+                    }
+                    let itemDom = $($('#step-detail-item').html());
+                    itemDom.find('[name]').each(function () {
+                        let othis = $(this);
+                        othis.attr('name', othis.attr('name') + id);
+                    });
                     if (typeof field.alias !== 'string' || field.alias.length < 1) {
                         field.alias = field.name.substring(0, 1).toUpperCase() + field.name.substring(1);
                     }
-                    let layId;
-                    if (id) {
-                        layId = {id: id, ids: [id]};
-                    } else {
-                        layId = utils.getLayId('[lay-filter=step-detail]>.layui-tab-title>li[lay-id]');
-                    }
                     switch (field.name) {
                         case 'title':
-                            content = content.replace(/name="detail\.dom\.\{id\}">/, 'name="detail.dom.{id}">h1')
-                                .replace(/option\s+value="text"/, 'option value="text" selected');
+                            itemDom.find('[name="detail.dom.' + id + '"]').val('h1');
+                            itemDom.find('[name="detail.method.' + id + '"]>option[value=text]').attr('selected', true);
                             break;
                         case 'tags':
-                            content = content.replace(/name="detail\.dom\.\{id\}">/, 'name="detail.dom.{id}">.tags')
-                                .replace(/option\s+value="text"/, 'option value="text" selected');
+                            itemDom.find('[name="detail.dom.' + id + '"]').val('.tags');
+                            itemDom.find('[name="detail.method.' + id + '"]>option[value=text]').attr('selected', true);
                             break;
                         case 'content':
-                            content = content.replace(/name="detail\.dom\.\{id\}">/, 'name="detail.dom.{id}">body')
-                                .replace(/option\s+value="html"/, 'option value="html" selected');
+                            itemDom.find('[name="detail.dom.' + id + '"]').val('body');
+                            itemDom.find('[name="detail.method.' + id + '"]>option[value=html]').attr('selected', true);
+                            itemDom.find('[name="detail.raw.' + id + '"]').parent().removeClass('layui-hide');
                             break;
                         case 'keywords':
-                            content = content.replace(/name="detail\.dom\.\{id\}">/, 'name="detail.dom.{id}">meta[name=keywords]')
-                                .replace(/name="detail\.attr_name\.\{id\}"\s+value=""/, 'name="detail.attr_name.{id}" value="content"');
+                            itemDom.find('[name="detail.dom.' + id + '"]').val('meta[name=keywords]');
+                            itemDom.find('[name="detail.method.' + id + '"]>option[value=attr]').attr('selected', true);
+                            itemDom.find('[name="detail.attr_name.' + id + '"]').val('content').attr('type', 'text');
                             break;
                         case 'description':
-                            content = content.replace(/name="detail\.dom\.\{id\}">/, 'name="detail.dom.{id}">meta[name=description]')
-                                .replace(/name="detail\.attr_name\.\{id\}"\s+value=""/, 'name="detail.attr_name.{id}" value="content"');
+                            itemDom.find('[name="detail.dom.' + id + '"]').val('meta[name=description]');
+                            itemDom.find('[name="detail.method.' + id + '"]>option[value=attr]').attr('selected', true);
+                            itemDom.find('[name="detail.attr_name.' + id + '"]').val('content').attr('type', 'text');
                             break;
                     }
-                    this.content = content.replace(/\{id\}/g, layId.id.toString())
-                        .replace(/\{name\}/g, field.name)
-                        .replace(/\{alias\}/, field.alias);
-                    this.id = layId.id;
-                    this.ids = layId.ids;
+                    itemDom.append(`<div class="layui-hide"><input type="hidden" name="detail.alias.` + id + `" value="` + field.alias + `"><input type="hidden" name="detail.name.` + id + `" value="` + field.name + `"></div>`);
+                    this.dom = itemDom;
+                    this.id = id;
                 },
                 /*构建 列表 item*/
-                buildListItem: function (elem, id) {
-                    if (typeof elem !== 'string') {
-                        return false;
+                buildListItem: function (id) {
+                    let itemDom = $($('#step-list-item').html());
+                    id = parseInt(id);
+                    if (isNaN(id)) {
+                        id = utils.getLayId('[lay-filter=step-list]>.layui-tab-title>li[lay-id]');
                     }
-                    if (elem.substring(0, 1) === '#') {
-                        elem = elem.substring(1);
-                    }
-                    let content = $('#' + elem).html(),
-                        layId = {id: parseInt(id), ids: Array()};
-                    if (!content) {
-                        return false;
-                    }
-                    if (isNaN(layId.id)) {
-                        layId = utils.getLayId('[lay-filter=step-list]>.layui-tab-title>li[lay-id]');
-                    }
-                    this.content = content.replace(/\{id\}/g, layId.id);
-                    this.id = layId.id;
-                    this.ids = layId.ids;
+                    itemDom.find('[name]').each(function () {
+                        let othis = $(this);
+                        othis.attr('name', othis.attr('name') + id);
+                    });
+                    this.dom = itemDom;
+                    this.id = id;
                 },
                 /*转换解析方法*/
                 renderMethod: function () {
@@ -1250,6 +864,22 @@
                             parent = othis.closest('div.parse-method');
                         parent.addClass('layui-hide');
                         parent.siblings().removeClass('layui-hide');
+                    });
+                    /* jquery 解析方法 attr text html*/
+                    form.on('select(method)', function (obj) {
+                        switch (obj.value) {
+                            case 'attr':
+                                obj.othis.closest('.parse-method').find('input[name*=".attr_name."]').attr('type', 'text');
+                                obj.othis.closest('.layui-tab-item').find('input[name*=".raw."]').parent().addClass("layui-hide");
+                                break;
+                            case 'html':
+                                obj.othis.closest('.layui-tab-item').find('input[name*=".raw."]').parent().removeClass("layui-hide");
+                                obj.othis.closest('.parse-method').find('input[name*=".attr_name."]').attr('type', 'hidden');
+                                break;
+                            default:
+                                obj.othis.closest('.layui-tab-item').find('input[name*=".raw."]').parent().addClass("layui-hide");
+                                obj.othis.closest('.parse-method').find('input[name*=".attr_name."]').attr('type', 'hidden');
+                        }
                     });
                 },
                 /*初始化详情步骤*/
@@ -1261,39 +891,121 @@
                             {name: 'keywords', alias: '关键词'},
                             {name: 'tags', alias: 'Tags'},
                         ],
-                        tabTitleElem = $('[lay-filter=step-detail]>ul.layui-tab-title'),
-                        tabContentElem = $('[lay-filter=step-detail]>div.layui-tab-content'),
-                        titleHtml = '',
-                        contentHtml = '',
-                        detailContent = $('#step-detail-item').html();
+                        tabTitleDom = $('[lay-filter=step-detail]>ul.layui-tab-title'),
+                        tabContentDom = $('[lay-filter=step-detail]>div.layui-tab-content');
                     $.each(fields, function (i, v) {
-                        let opts = new utils.buildDetailItem(detailContent, v, i);
-                        if (!opts.content) {
-                            opts.content = `<div class="layui-tab-item layui-show"></div>`;
-                        }
+                        let opts = new utils.buildDetailItem(v, i);
                         if (i === 0) {
-                            titleHtml += '<li class="layui-this" lay-id="0">' + v.alias + '</li>';
+                            tabTitleDom.append('<li class="layui-this" lay-id="' + opts.id + '">' + v.alias + '</li>');
                         } else {
-                            titleHtml += '<li lay-id="' + i + '">' + v.alias + '</li>';
-                            opts.content = opts.content.replace(/ layui-show/, '');
+                            tabTitleDom.append('<li lay-id="' + opts.id + '">' + v.alias + '</li>');
+                            opts.dom.removeClass('layui-show');
                         }
-                        contentHtml += opts.content;
+                        if (!opts.dom || opts.dom.length === 0) {
+                            tabContentDom.append('<div class="layui-tab-item layui-show"></div>');
+                        } else {
+                            tabContentDom.append(opts.dom);
+                        }
                     });
-                    tabTitleElem.html(titleHtml);
-                    tabContentElem.html(contentHtml);
                 },
                 /*初始化列表步骤*/
                 initList: function () {
-                    let tabTitleElem = $('[lay-filter=step-list]>ul.layui-tab-title'),
-                        tabContentElem = $('[lay-filter=step-list]>div.layui-tab-content'),
-                        opts = new utils.buildListItem('step-list-item', 0);
-                    tabTitleElem.html('<li class="layui-this" lay-id="0">Rule-1</li>');
-                    if (!opts.content) {
-                        opts.content = `<div class="layui-tab-item  layui-show"></div>`;
+                    let opts = new utils.buildListItem(0);
+                    $('[lay-filter=step-list]>ul.layui-tab-title').html('<li class="layui-this" lay-id="0">Rule-1</li>');
+                    if (!opts.dom || opts.dom.length === 0) {
+                        $('[lay-filter=step-list]>div.layui-tab-content').html(`<div class="layui-tab-item  layui-show"></div>`);
+                    } else {
+                        $('[lay-filter=step-list]>div.layui-tab-content').html(opts.dom);
                     }
-                    tabContentElem.html(opts.content);
                 }
-            };
+            },
+            stepList = {{.obj.List}},
+            detailList = {{.obj.Detail}};
+        /* 初始化已经存在的列表*/
+        if (stepList) {
+            let titleDom = $('.layui-tab[lay-filter="step-list"]>ul.layui-tab-title'),
+                contentDom = $('.layui-tab[lay-filter="step-list"]>div.layui-tab-content');
+            $.each(stepList, function (index, obj) {
+                let opts = new utils.buildListItem(index);
+                titleDom.append(`<li lay-id="` + opts.id + `"` + (opts.id === 0 ? ' class="layui-this"' : '') + `>Rule-` + (opts.id + 1) + `</li>`);
+                opts.dom.find('[name="list.limit.' + opts.id + '"]').attr('value', obj.limit);
+                if (obj.reg.length > 0) {
+                    opts.dom.find('[name="list.reg.' + opts.id + '"]').text(obj.reg)
+                        .closest('.parse-method').removeClass('layui-hide');
+                    opts.dom.find('[name="list.dom.' + opts.id + '"]')
+                        .closest('.parse-method').addClass('layui-hide');
+                } else {
+                    opts.dom.find('[name="list.dom.' + opts.id + '"]').text(obj.dom)
+                        .closest('.parse-method').removeClass('layui-hide');
+                    opts.dom.find('[name="list.reg.' + opts.id + '"]')
+                        .closest('.parse-method').addClass('layui-hide');
+                }
+                opts.dom.find('[name="list.method.' + opts.id + '"]>option[value=' + obj.method + ']').attr('selected', true);
+                opts.dom.find('[name="list.attr_name.' + opts.id + '"]').attr('value', obj['attr_name']);
+                opts.dom.find('[name="list.match.' + opts.id + '"]').attr('value', obj.match);
+                opts.dom.find('[name="list.olds.' + opts.id + '"]').text(obj['olds'].join('\n'));
+                opts.dom.find('[name="list.news.' + opts.id + '"]').text(obj['news'].join('\n'));
+                opts.dom.find('[name="list.type.' + opts.id + '"]>option[value=' + obj.type + ']').attr('selected', true);
+                opts.dom.find('[name="list.page.enabled.' + opts.id + '"]').attr('checked', obj.page.enabled);
+                opts.dom.find('[name="list.page.limit.' + opts.id + '"]').attr('value', obj.page.limit);
+                opts.dom.find('[name="list.page.method.' + opts.id + '"]>option[value=' + obj.page.method + ']').attr('selected', true);
+                opts.dom.find('[name="list.page.attr_name.' + opts.id + '"]').attr('value', obj.page['attr_name']);
+                opts.dom.find('[name="list.page.match.' + opts.id + '"]').attr('value', obj.page.match);
+                opts.dom.find('[name="list.page.olds.' + opts.id + '"]').text(obj.page['olds'].join('\n'));
+                opts.dom.find('[name="list.page.news.' + opts.id + '"]').text(obj.page['news'].join('\n'));
+                opts.dom.find('[name="list.page.type.' + opts.id + '"]>option[value=' + obj.page.type + ']').attr('selected', true);
+                if (obj.page.reg.length > 0) {
+                    opts.dom.find('[name="list.page.reg.' + opts.id + '"]').text(obj.page.reg)
+                        .closest('.parse-method').removeClass('layui-hide');
+                    opts.dom.find('[name="list.page.dom.' + opts.id + '"]')
+                        .closest('.parse-method').addClass('layui-hide');
+                } else {
+                    opts.dom.find('[name="list.page.dom.' + opts.id + '"]').text(obj.page.dom)
+                        .closest('.parse-method').removeClass('layui-hide');
+                    opts.dom.find('[name="list.page.reg.' + opts.id + '"]')
+                        .closest('.parse-method').addClass('layui-hide');
+                }
+                if (opts.id > 0) {
+                    opts.dom.removeClass('layui-show');
+                }
+                contentDom.append(opts.dom);
+            })
+        }
+        /*初始化已经存在的详情列表*/
+        if (detailList) {
+            let titleDom = $('.layui-tab[lay-filter="step-detail"]>ul.layui-tab-title'),
+                contentDom = $('.layui-tab[lay-filter="step-detail"]>div.layui-tab-content');
+            $.each(detailList, function (index, obj) {
+                let opts = new utils.buildDetailItem({name: obj.name, alias: obj.alias}, index);
+                titleDom.append(`<li lay-id="` + opts.id + `"` + (opts.id === 0 ? ' class="layui-this"' : '') + `>` + obj.alias + `</li>`);
+                opts.dom.find('[name="detail.limit.' + opts.id + '"]').attr('value', obj.limit);
+                opts.dom.find('[name="detail.method.' + opts.id + '"]>option[value=' + obj.method + ']').attr('selected', true);
+                opts.dom.find('[name="detail.attr_name.' + opts.id + '"]').attr('value', obj['attr_name']);
+                opts.dom.find('[name="detail.match.' + opts.id + '"]').attr('value', obj.match);
+                opts.dom.find('[name="detail.filter_dom.olds.' + opts.id + '"]').text(obj['filter_dom']['olds'].join('\n'));
+                opts.dom.find('[name="detail.filter_dom.news.' + opts.id + '"]').text(obj['filter_dom']['news'].join('\n'));
+                opts.dom.find('[name="detail.olds.' + opts.id + '"]').text(obj['olds'].join('\n'));
+                opts.dom.find('[name="detail.news.' + opts.id + '"]').text(obj['news'].join('\n'));
+                opts.dom.find('[name="detail.type.' + opts.id + '"]>option[value=' + obj.type + ']').attr('selected', true);
+                opts.dom.find('[name="detail.raw.' + opts.id + '"]').attr('checked', obj.raw);
+                if (obj.reg.length > 0) {
+                    opts.dom.find('[name="detail.reg.' + opts.id + '"]').text(obj.reg)
+                        .closest('.parse-method').removeClass('layui-hide');
+                    opts.dom.find('[name="detail.dom.' + opts.id + '"]')
+                        .closest('.parse-method').addClass('layui-hide');
+                } else {
+                    opts.dom.find('[name="detail.dom.' + opts.id + '"]').text(obj.dom)
+                        .closest('.parse-method').removeClass('layui-hide');
+                    opts.dom.find('[name="detail.reg.' + opts.id + '"]')
+                        .closest('.parse-method').addClass('layui-hide');
+                }
+                if (opts.id > 0) {
+                    opts.dom.removeClass('layui-show');
+                }
+                contentDom.append(opts.dom);
+            })
+        }
+
         /*渲染步骤*/
         step.render({
             position: 0,
