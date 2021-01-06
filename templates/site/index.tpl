@@ -701,16 +701,6 @@
                                             $(this).parent().remove();
                                         });
                                     },
-                                    yes: function (index, dom) {
-                                        let cols = Array();
-                                        dom.find('.layui-form [name]').each(function (i, obj) {
-                                            if (obj.name) {
-                                                cols.push(obj.name);
-                                            }
-                                        });
-                                        dom.find('.layui-form input[name=cols]').remove();
-                                        dom.find('.layui-form').append('<input type="hidden" name="cols" value="' + cols.join() + '">');
-                                    },
                                     ending: 'table-list',
                                 });
                                 return false;
