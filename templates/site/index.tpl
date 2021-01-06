@@ -302,6 +302,7 @@
                     <input type="checkbox" name="title_tag_deg" title="标题阀值">
                     <input type="checkbox" name="pub_self" title="指定发布">
                     <input type="checkbox" name="cron_enabled" title="定时发布">
+                    <input type="checkbox" name="push_config" title="推送配置">
                 </div>
             </div>
         </div>
@@ -694,6 +695,9 @@
                                                     break;
                                                 case 'cron_enabled':
                                                     formDom.append(`<div class="layui-form-item"><label class="layui-form-label">定时发布:</label><div class="layui-input-inline"><input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否" checked></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                                case 'push_config':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">推送配置:</label><div class="layui-input-inline"><textarea name="push_config" class="layui-textarea"></textarea></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
                                                     break;
                                             }
                                         });
