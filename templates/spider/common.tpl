@@ -802,59 +802,166 @@
                     if (Object.prototype.toString.call(field) !== '[object Object]' || typeof field.name !== 'string') {
                         return false;
                     }
+                    if (typeof field.alias !== 'string' || field.alias.length === 0) {
+                        field.alias = field.name.substring(0, 1).toUpperCase() + field.name.substring(1);
+                    }
                     id = parseInt(id);
                     if (isNaN(id)) {
                         id = utils.getLayId('[lay-filter=step-detail]>.layui-tab-title>li[lay-id]');
                     }
-                    let itemDom = $($('#step-detail-item').html());
-                    itemDom.find('[name]').each(function () {
+                    let dom = $($('#step-detail-item').html());
+                    dom.find('[name]').each(function () {
                         let othis = $(this);
                         othis.attr('name', othis.attr('name') + id);
                     });
-                    if (typeof field.alias !== 'string' || field.alias.length < 1) {
-                        field.alias = field.name.substring(0, 1).toUpperCase() + field.name.substring(1);
+                    if (field && typeof field.dom === 'string') {
+                        field = $.extend({
+                            limit: '',
+                            method: '',
+                            attr_name: '',
+                            match: '',
+                            olds: [],
+                            news: [],
+                            type: 0,
+                            raw: false,
+                            reg: '',
+                        }, field);
+                        dom.find('[name="detail.limit.' + id + '"]').val(field.limit);
+                        dom.find('[name="detail.method.' + id + '"]>option[value=' + field.method + ']').prop('selected', true);
+                        dom.find('[name="detail.attr_name.' + id + '"]').val(field.attr_name);
+                        dom.find('[name="detail.match.' + id + '"]').val(field.match);
+                        if (field.filter_dom) {
+                            field.filter_dom = $.extend({olds: [], news: []}, field.filter_dom);
+                            dom.find('[name="detail.filter_dom.olds.' + id + '"]').val(field.filter_dom.olds.join('\n'));
+                            dom.find('[name="detail.filter_dom.news.' + id + '"]').val(field.filter_dom.news.join('\n'));
+                        }
+                        dom.find('[name="detail.olds.' + id + '"]').val(field.olds.join('\n'));
+                        dom.find('[name="detail.news.' + id + '"]').val(field.news.join('\n'));
+                        dom.find('[name="detail.type.' + id + '"]>option[value=' + field.type + ']').prop('selected', true);
+                        dom.find('[name="detail.raw.' + id + '"]').prop('checked', field.raw);
+                        if (field.reg.length > 0) {
+                            dom.find('[name="detail.reg.' + id + '"]').val(field.reg)
+                                .closest('.parse-method').removeClass('layui-hide');
+                            dom.find('[name="detail.dom.' + id + '"]')
+                                .closest('.parse-method').addClass('layui-hide');
+                        } else {
+                            dom.find('[name="detail.dom.' + id + '"]').val(field.dom)
+                                .closest('.parse-method').removeClass('layui-hide');
+                            dom.find('[name="detail.reg.' + id + '"]')
+                                .closest('.parse-method').addClass('layui-hide');
+                        }
+                        if (id > 0) {
+                            dom.removeClass('layui-show');
+                        }
+                    } else {
+                        switch (field.name) {
+                            case 'title':
+                                dom.find('[name="detail.dom.' + id + '"]').val('h1');
+                                dom.find('[name="detail.method.' + id + '"]>option[value=text]').prop('selected', true);
+                                break;
+                            case 'tags':
+                                dom.find('[name="detail.dom.' + id + '"]').val('.tags');
+                                dom.find('[name="detail.method.' + id + '"]>option[value=text]').prop('selected', true);
+                                break;
+                            case 'content':
+                                dom.find('[name="detail.dom.' + id + '"]').val('body');
+                                dom.find('[name="detail.method.' + id + '"]>option[value=html]').prop('selected', true);
+                                dom.find('[name="detail.raw.' + id + '"]').parent().removeClass('layui-hide');
+                                break;
+                            case 'keywords':
+                                dom.find('[name="detail.dom.' + id + '"]').val('meta[name=keywords]');
+                                dom.find('[name="detail.method.' + id + '"]>option[value=attr]').prop('selected', true);
+                                dom.find('[name="detail.attr_name.' + id + '"]').val('content').attr('type', 'text');
+                                break;
+                            case 'description':
+                                dom.find('[name="detail.dom.' + id + '"]').val('meta[name=description]');
+                                dom.find('[name="detail.method.' + id + '"]>option[value=attr]').prop('selected', true);
+                                dom.find('[name="detail.attr_name.' + id + '"]').val('content').attr('type', 'text');
+                                break;
+                        }
                     }
-                    switch (field.name) {
-                        case 'title':
-                            itemDom.find('[name="detail.dom.' + id + '"]').val('h1');
-                            itemDom.find('[name="detail.method.' + id + '"]>option[value=text]').attr('selected', true);
-                            break;
-                        case 'tags':
-                            itemDom.find('[name="detail.dom.' + id + '"]').val('.tags');
-                            itemDom.find('[name="detail.method.' + id + '"]>option[value=text]').attr('selected', true);
-                            break;
-                        case 'content':
-                            itemDom.find('[name="detail.dom.' + id + '"]').val('body');
-                            itemDom.find('[name="detail.method.' + id + '"]>option[value=html]').attr('selected', true);
-                            itemDom.find('[name="detail.raw.' + id + '"]').parent().removeClass('layui-hide');
-                            break;
-                        case 'keywords':
-                            itemDom.find('[name="detail.dom.' + id + '"]').val('meta[name=keywords]');
-                            itemDom.find('[name="detail.method.' + id + '"]>option[value=attr]').attr('selected', true);
-                            itemDom.find('[name="detail.attr_name.' + id + '"]').val('content').attr('type', 'text');
-                            break;
-                        case 'description':
-                            itemDom.find('[name="detail.dom.' + id + '"]').val('meta[name=description]');
-                            itemDom.find('[name="detail.method.' + id + '"]>option[value=attr]').attr('selected', true);
-                            itemDom.find('[name="detail.attr_name.' + id + '"]').val('content').attr('type', 'text');
-                            break;
-                    }
-                    itemDom.append(`<div class="layui-hide"><input type="hidden" name="detail.alias.` + id + `" value="` + field.alias + `"><input type="hidden" name="detail.name.` + id + `" value="` + field.name + `"></div>`);
-                    this.dom = itemDom;
+                    dom.append(`<div class="layui-hide"><input type="hidden" name="detail.alias.` + id + `" value="` + field.alias + `"><input type="hidden" name="detail.name.` + id + `" value="` + field.name + `"></div>`);
+                    this.dom = dom;
                     this.id = id;
                 },
                 /*构建 列表 item*/
-                buildListItem: function (id) {
-                    let itemDom = $($('#step-list-item').html());
+                buildListItem: function (id, field) {
+                    let dom = $($('#step-list-item').html());
                     id = parseInt(id);
                     if (isNaN(id)) {
                         id = utils.getLayId('[lay-filter=step-list]>.layui-tab-title>li[lay-id]');
                     }
-                    itemDom.find('[name]').each(function () {
+                    dom.find('[name]').each(function () {
                         let othis = $(this);
                         othis.attr('name', othis.attr('name') + id);
                     });
-                    this.dom = itemDom;
+                    if (field && typeof field.dom === 'string') {
+                        field = $.extend({
+                            limit: '',
+                            reg: '',
+                            method: 'attr',
+                            attr_name: '',
+                            match: '',
+                            olds: [],
+                            news: [],
+                            type: 0
+                        }, field);
+                        dom.find('[name="list.limit.' + id + '"]').val(field.limit);
+                        if (field.reg.length > 0) {
+                            dom.find('[name="list.reg.' + id + '"]').val(field.reg)
+                                .closest('.parse-method').removeClass('layui-hide');
+                            dom.find('[name="list.dom.' + id + '"]')
+                                .closest('.parse-method').addClass('layui-hide');
+                        } else {
+                            dom.find('[name="list.dom.' + id + '"]').val(field.dom)
+                                .closest('.parse-method').removeClass('layui-hide');
+                            dom.find('[name="list.reg.' + id + '"]')
+                                .closest('.parse-method').addClass('layui-hide');
+                        }
+                        dom.find('[name="list.method.' + id + '"]>option[value=' + field.method + ']').prop('selected', true);
+                        dom.find('[name="list.attr_name.' + id + '"]').val(field.attr_name);
+                        dom.find('[name="list.match.' + id + '"]').val(field.match);
+                        dom.find('[name="list.olds.' + id + '"]').val(field.olds.join('\n'));
+                        dom.find('[name="list.news.' + id + '"]').val(field.news.join('\n'));
+                        dom.find('[name="list.type.' + id + '"]>option[value=' + field.type + ']').prop('selected', true);
+                        if (field.page) {
+                            field.page = $.extend({
+                                enabled: false,
+                                limit: '',
+                                method: '',
+                                attr_name: '',
+                                match: '',
+                                olds: [],
+                                news: [],
+                                type: 0,
+                                reg: '',
+                                dom: '',
+                            }, field.page);
+                            dom.find('[name="list.page.enabled.' + id + '"]').prop('checked', field.page.enabled);
+                            dom.find('[name="list.page.limit.' + id + '"]').val(field.page.limit);
+                            dom.find('[name="list.page.method.' + id + '"]>option[value=' + field.page.method + ']').prop('selected', true);
+                            dom.find('[name="list.page.attr_name.' + id + '"]').val(field.page.attr_name);
+                            dom.find('[name="list.page.match.' + id + '"]').val(field.page.match);
+                            dom.find('[name="list.page.olds.' + id + '"]').val(field.page.olds.join('\n'));
+                            dom.find('[name="list.page.news.' + id + '"]').val(field.page.news.join('\n'));
+                            dom.find('[name="list.page.type.' + id + '"]>option[value=' + field.page.type + ']').prop('selected', true);
+                            if (field.page.reg.length > 0) {
+                                dom.find('[name="list.page.reg.' + id + '"]').val(field.page.reg)
+                                    .closest('.parse-method').removeClass('layui-hide');
+                                dom.find('[name="list.page.dom.' + id + '"]')
+                                    .closest('.parse-method').addClass('layui-hide');
+                            } else {
+                                dom.find('[name="list.page.dom.' + id + '"]').val(field.page.dom)
+                                    .closest('.parse-method').removeClass('layui-hide');
+                                dom.find('[name="list.page.reg.' + id + '"]')
+                                    .closest('.parse-method').addClass('layui-hide');
+                            }
+                        }
+                        if (id > 0) {
+                            dom.removeClass('layui-show');
+                        }
+                    }
+                    this.dom = dom;
                     this.id = id;
                 },
                 /*转换解析方法*/
@@ -895,7 +1002,7 @@
                         tabContentDom = $('[lay-filter=step-detail]>div.layui-tab-content');
                     $.each(fields, function (i, v) {
                         let opts = new utils.buildDetailItem(v, i);
-                        if (i === 0) {
+                        if (opts.id === 0) {
                             tabTitleDom.append('<li class="layui-this" lay-id="' + opts.id + '">' + v.alias + '</li>');
                         } else {
                             tabTitleDom.append('<li lay-id="' + opts.id + '">' + v.alias + '</li>');
@@ -925,83 +1032,20 @@
         if (stepList) {
             let titleDom = $('.layui-tab[lay-filter="step-list"]>ul.layui-tab-title'),
                 contentDom = $('.layui-tab[lay-filter="step-list"]>div.layui-tab-content');
-            $.each(stepList, function (index, obj) {
-                let opts = new utils.buildListItem(index);
+            $.each(stepList, function (index, field) {
+                let opts = new utils.buildListItem(index, field);
                 titleDom.append(`<li lay-id="` + opts.id + `"` + (opts.id === 0 ? ' class="layui-this"' : '') + `>Rule-` + (opts.id + 1) + `</li>`);
-                opts.dom.find('[name="list.limit.' + opts.id + '"]').attr('value', obj.limit);
-                if (obj.reg.length > 0) {
-                    opts.dom.find('[name="list.reg.' + opts.id + '"]').text(obj.reg)
-                        .closest('.parse-method').removeClass('layui-hide');
-                    opts.dom.find('[name="list.dom.' + opts.id + '"]')
-                        .closest('.parse-method').addClass('layui-hide');
-                } else {
-                    opts.dom.find('[name="list.dom.' + opts.id + '"]').text(obj.dom)
-                        .closest('.parse-method').removeClass('layui-hide');
-                    opts.dom.find('[name="list.reg.' + opts.id + '"]')
-                        .closest('.parse-method').addClass('layui-hide');
-                }
-                opts.dom.find('[name="list.method.' + opts.id + '"]>option[value=' + obj.method + ']').attr('selected', true);
-                opts.dom.find('[name="list.attr_name.' + opts.id + '"]').attr('value', obj['attr_name']);
-                opts.dom.find('[name="list.match.' + opts.id + '"]').attr('value', obj.match);
-                opts.dom.find('[name="list.olds.' + opts.id + '"]').text(obj['olds'].join('\n'));
-                opts.dom.find('[name="list.news.' + opts.id + '"]').text(obj['news'].join('\n'));
-                opts.dom.find('[name="list.type.' + opts.id + '"]>option[value=' + obj.type + ']').attr('selected', true);
-                opts.dom.find('[name="list.page.enabled.' + opts.id + '"]').attr('checked', obj.page.enabled);
-                opts.dom.find('[name="list.page.limit.' + opts.id + '"]').attr('value', obj.page.limit);
-                opts.dom.find('[name="list.page.method.' + opts.id + '"]>option[value=' + obj.page.method + ']').attr('selected', true);
-                opts.dom.find('[name="list.page.attr_name.' + opts.id + '"]').attr('value', obj.page['attr_name']);
-                opts.dom.find('[name="list.page.match.' + opts.id + '"]').attr('value', obj.page.match);
-                opts.dom.find('[name="list.page.olds.' + opts.id + '"]').text(obj.page['olds'].join('\n'));
-                opts.dom.find('[name="list.page.news.' + opts.id + '"]').text(obj.page['news'].join('\n'));
-                opts.dom.find('[name="list.page.type.' + opts.id + '"]>option[value=' + obj.page.type + ']').attr('selected', true);
-                if (obj.page.reg.length > 0) {
-                    opts.dom.find('[name="list.page.reg.' + opts.id + '"]').text(obj.page.reg)
-                        .closest('.parse-method').removeClass('layui-hide');
-                    opts.dom.find('[name="list.page.dom.' + opts.id + '"]')
-                        .closest('.parse-method').addClass('layui-hide');
-                } else {
-                    opts.dom.find('[name="list.page.dom.' + opts.id + '"]').text(obj.page.dom)
-                        .closest('.parse-method').removeClass('layui-hide');
-                    opts.dom.find('[name="list.page.reg.' + opts.id + '"]')
-                        .closest('.parse-method').addClass('layui-hide');
-                }
-                if (opts.id > 0) {
-                    opts.dom.removeClass('layui-show');
-                }
                 contentDom.append(opts.dom);
             })
         }
+
         /*初始化已经存在的详情列表*/
         if (detailList) {
             let titleDom = $('.layui-tab[lay-filter="step-detail"]>ul.layui-tab-title'),
                 contentDom = $('.layui-tab[lay-filter="step-detail"]>div.layui-tab-content');
-            $.each(detailList, function (index, obj) {
-                let opts = new utils.buildDetailItem({name: obj.name, alias: obj.alias}, index);
-                titleDom.append(`<li lay-id="` + opts.id + `"` + (opts.id === 0 ? ' class="layui-this"' : '') + `>` + obj.alias + `</li>`);
-                opts.dom.find('[name="detail.limit.' + opts.id + '"]').attr('value', obj.limit);
-                opts.dom.find('[name="detail.method.' + opts.id + '"]>option[value=' + obj.method + ']').attr('selected', true);
-                opts.dom.find('[name="detail.attr_name.' + opts.id + '"]').attr('value', obj['attr_name']);
-                opts.dom.find('[name="detail.match.' + opts.id + '"]').attr('value', obj.match);
-                opts.dom.find('[name="detail.filter_dom.olds.' + opts.id + '"]').text(obj['filter_dom']['olds'].join('\n'));
-                opts.dom.find('[name="detail.filter_dom.news.' + opts.id + '"]').text(obj['filter_dom']['news'].join('\n'));
-                opts.dom.find('[name="detail.olds.' + opts.id + '"]').text(obj['olds'].join('\n'));
-                opts.dom.find('[name="detail.news.' + opts.id + '"]').text(obj['news'].join('\n'));
-                opts.dom.find('[name="detail.type.' + opts.id + '"]>option[value=' + obj.type + ']').attr('selected', true);
-                opts.dom.find('[name="detail.raw.' + opts.id + '"]').attr('checked', obj.raw);
-                if (obj.reg.length > 0) {
-                    opts.dom.find('[name="detail.reg.' + opts.id + '"]').text(obj.reg)
-                        .closest('.parse-method').removeClass('layui-hide');
-                    opts.dom.find('[name="detail.dom.' + opts.id + '"]')
-                        .closest('.parse-method').addClass('layui-hide');
-                } else {
-                    opts.dom.find('[name="detail.dom.' + opts.id + '"]').text(obj.dom)
-                        .closest('.parse-method').removeClass('layui-hide');
-                    opts.dom.find('[name="detail.reg.' + opts.id + '"]')
-                        .closest('.parse-method').addClass('layui-hide');
-                }
-                if (opts.id > 0) {
-                    opts.dom.removeClass('layui-show');
-                }
+            $.each(detailList, function (index, field) {
+                let opts = new utils.buildDetailItem(field, index);
+                titleDom.append(`<li lay-id="` + opts.id + `"` + (opts.id === 0 ? ' class="layui-this"' : '') + `>` + field.alias + `</li>`);
                 contentDom.append(opts.dom);
             })
         }
