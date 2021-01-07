@@ -1,3 +1,35 @@
+<style>
+    .step-content > div {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .step-content > div > i {
+        position: absolute;
+        cursor: pointer;
+        z-index: 1;
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        font-size: 28px;
+        line-height: 28px;
+        box-shadow: 1px 1px #888;
+        border-radius: 14px;
+        background-color: #F2F2F2;
+        color: #0a6e85;
+        top: 50px;
+        left: 42px;
+    }
+
+    .step-content > div > i:hover {
+        box-shadow: 2px 2px #888;
+        color: #03596d;
+    }
+
+    .step-content .layui-tab {
+        margin-top: 50px;
+    }
+</style>
 <div class="layui-card">
     <div class="layui-card-body step-header"></div>
     <div class="layui-card-body step-content">
@@ -6,7 +38,8 @@
                 <label class="layui-form-label" lay-tips="任务名称必须由中文、数字、字母、下划线组成 唯一">任务名称:</label>
                 <div class="layui-input-block">
                     <input type="hidden" name="id" value="{{.obj.Id}}" autocomplete="off" placeholder="本ID">
-                    <input type="text" name="name" value="{{.obj.Name}}" class="layui-input" required lay-verify="name"
+                    <input type="text" name="name" value="{{.obj.Name}}" class="layui-input" required
+                           lay-verify="name"
                            autocomplete="off" placeholder="采集名称">
                 </div>
             </div>
@@ -81,7 +114,8 @@
                                             </select>
                                         </div>
                                         <div class="layui-inline" lay-tips="删除该项">
-                                            <button class="layui-btn layui-btn-primary" style="border:none;color: red"
+                                            <button class="layui-btn layui-btn-primary"
+                                                    style="border:none;color: red"
                                                     lay-event="del-trans">
                                                 <i class="layui-icon layui-icon-delete"></i>
                                             </button>
@@ -90,7 +124,8 @@
                                 {{end -}}
                             </div>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add-trans"
-                                    style="margin: 10px 40px" lay-tips="新增一次翻译 则多翻译一次 例如：中文 -> 泰文 -> 英文 -> 中文 这样就翻译了3次">
+                                    style="margin: 10px 40px"
+                                    lay-tips="新增一次翻译 则多翻译一次 例如：中文 -> 泰文 -> 英文 -> 中文 这样就翻译了3次">
                                 <i class="layui-icon layui-icon-add-circle"></i>新增翻译引擎
                             </button>
                         </div>
@@ -136,9 +171,11 @@
                                     <div class="layui-input-block">
                                         <select name="charset">
                                             <option value="">自动</option>
-                                            <option value="utf-8"{{if eq .obj.Charset "utf-8"}} selected{{end}}>UTF-8
+                                            <option value="utf-8"{{if eq .obj.Charset "utf-8"}} selected{{end}}>
+                                                UTF-8
                                             </option>
-                                            <option value="gbk"{{if eq .obj.Charset "gbk"}} selected{{end}}>GBK</option>
+                                            <option value="gbk"{{if eq .obj.Charset "gbk"}} selected{{end}}>GBK
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -159,35 +196,26 @@
                 </div>
             </div>
         </div>
-        <div class="layui-row">
-            <div class="layui-col-md10 layui-col-md-offset1">
-                <button class="layui-btn layui-btn-sm layui-btn-radius"
-                        style="margin-bottom: -65px;margin-left: -35px" lay-event="addListRule" lay-tips="点击无限添加列表规则">+
-                </button>
-                <div class="layui-tab layui-tab-card" lay-filter="step-list" lay-allowclose="true">
-                    <ul class="layui-tab-title"></ul>
-                    <div class="layui-tab-content"></div>
-                </div>
-                <div class="layui-card-body">
-                    <button class="layui-hide" lay-submit lay-filter="testList"></button>
-                    <button class="layui-btn" data-event="testList">测试采集</button>
-                </div>
+        <div>
+            <i class="layui-icon layui-icon-addition" lay-event="addListRule" lay-tips="点击无限添加列表规则"></i>
+            <div class="layui-tab layui-tab-card" lay-filter="step-list" lay-allowclose="true">
+                <ul class="layui-tab-title"></ul>
+                <div class="layui-tab-content"></div>
+            </div>
+            <div class="layui-card-body">
+                <button class="layui-hide" lay-submit lay-filter="testList"></button>
+                <button class="layui-btn" data-event="testList">测试采集</button>
             </div>
         </div>
-        <div class="layui-row">
-            <div class="layui-col-md10 layui-col-md-offset1">
-                <button class="layui-btn layui-btn-sm layui-btn-radius"
-                        style="margin-bottom: -65px;margin-left: -35px"
-                        lay-event="addDetailRule" lay-tips="点击无限添加规则">+
-                </button>
-                <div class="layui-tab layui-tab-card" lay-filter="step-detail" lay-allowclose="true">
-                    <ul class="layui-tab-title"></ul>
-                    <div class="layui-tab-content"></div>
-                </div>
-                <div class="layui-card-body">
-                    <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
-                    <button class="layui-btn" data-event="testDetail">测试采集</button>
-                </div>
+        <div>
+            <i class="layui-icon layui-icon-addition" lay-event="addDetailRule" lay-tips="点击无限添加规则"></i>
+            <div class="layui-tab layui-tab-card" lay-filter="step-detail" lay-allowclose="true">
+                <ul class="layui-tab-title"></ul>
+                <div class="layui-tab-content"></div>
+            </div>
+            <div class="layui-card-body">
+                <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
+                <button class="layui-btn" data-event="testDetail">测试采集</button>
             </div>
         </div>
         <div>
