@@ -849,6 +849,9 @@
                                 .closest('.parse-method').removeClass('layui-hide');
                             dom.find('[name="detail.reg.' + id + '"]')
                                 .closest('.parse-method').addClass('layui-hide');
+                            if (field.method === 'html') {
+                                dom.find('[name="detail.raw.' + id + '"]').parent().removeClass('layui-hide');
+                            }
                         }
                         if (id > 0) {
                             dom.removeClass('layui-show');
