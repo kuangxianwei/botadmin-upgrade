@@ -4,26 +4,32 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin:/usr/loc
 export PATH
 [[ $(id -u) -ne 0 ]] && echo "Error: You must be root to run this script!" 1>&2 && exit 1
 APP_DIR=/data/botadmin
+# shellcheck disable=SC2034
 APP=$APP_DIR/botadmin
 test -d /data || mkdir /data
 pushd /data || exit 1
 
 #下载程序#
 Download_botadmin() {
-  test -d botadmin || {
-    if [ ! -f botadmin-master.zip ]; then
-      wget -cO botadmin-master.zip https://github.com/kuangxianwei/botadmin/archive/master.zip || exit 1
+  if test ! -d botadmin; then
+    if test -f botadmin-master.zip; then
+      \rm -rf botadmin-master.zip
     fi
-    command -v unzip || {
-      yum -y install unzip || exit 1
-    }
-    unzip -o botadmin-master.zip || {
-      rm -f botadmin.zip
+    if ! wget -cO botadmin-master.zip https://github.com/kuangxianwei/botadmin/archive/master.zip; then
+      echo "下载失败" 2>&1
+      \rm -rf botadmin-master.zip
       exit 1
-    }
-    mv botadmin-master botadmin || exit 1
-    rm -f botadmin.zip
-  }
+    fi
+    if ! command -v unzip; then
+      yum -y install unzip || exit 1
+    fi
+    if ! unzip -o botadmin-master.zip; then
+      \rm -f botadmin.zip
+      exit 1
+    fi
+    \mv botadmin-master botadmin || exit 1
+    \rm -f botadmin.zip
+  fi
 }
 
 #写入脚本#
@@ -121,7 +127,11 @@ uninstall)
   ;;
 esac
 EOF
-  [ $? -eq 0 ] || exit 1
+  # shellcheck disable=SC2181
+  if [ $? -ne 0 ]; then
+    echo "写入脚本 /etc/init.d/botadmin 失败" 2>&1
+    exit 1
+  fi
   chmod +x /etc/init.d/botadmin
   test -d "${APP_DIR}/data" || mkdir -p "${APP_DIR}/data"
   cat >"${APP_DIR}/data/.my.cnf" <<EOF
@@ -130,7 +140,11 @@ password=botadmin.cn
 port=3306
 socket=/tmp/mysql.sock
 EOF
-  [ $? -eq 0 ] || exit 1
+  # shellcheck disable=SC2181
+  if [ $? -ne 0 ]; then
+    echo "写入脚本 ${APP_DIR}/data/.my.cnf 失败" 2>&1
+    exit 1
+  fi
 }
 
 #下载解压程序#
