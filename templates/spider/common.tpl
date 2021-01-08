@@ -1,35 +1,3 @@
-<style>
-    .step-content > div {
-        width: 90%;
-        margin: 0 auto;
-    }
-
-    .step-content > div > i {
-        position: absolute;
-        cursor: pointer;
-        z-index: 1;
-        display: inline-block;
-        width: 28px;
-        height: 28px;
-        font-size: 28px;
-        line-height: 28px;
-        box-shadow: 1px 1px #888;
-        border-radius: 14px;
-        background-color: #F2F2F2;
-        color: #0a6e85;
-        top: 50px;
-        left: 42px;
-    }
-
-    .step-content > div > i:hover {
-        box-shadow: 2px 2px #888;
-        color: #03596d;
-    }
-
-    .step-content .layui-tab {
-        margin-top: 50px;
-    }
-</style>
 <div class="layui-card">
     <div class="layui-card-body step-header"></div>
     <div class="layui-card-body step-content">
