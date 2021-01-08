@@ -1,9 +1,10 @@
 .lay-step {
     font-size: 0;
-    min-width: 90%;
-    max-width: 100%;
+    margin: 6px auto;
+    overflow: visible;
+    white-space: nowrap;
     float: right;
-    margin: 6px;
+    width: 90%;
 }
 
 .step-item {
@@ -84,7 +85,6 @@
     margin: 0 auto;
 }
 
-
 .step-content > div {
     padding: 0;
     display: none;
@@ -114,7 +114,6 @@
     top: -8px;
     left: -22px;
 }
-
 
 .step-content > div > i:hover {
     box-shadow: 2px 2px #888;

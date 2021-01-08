@@ -1,162 +1,160 @@
-<div class="layui-card">
-    <div class="layui-card-body step-header"></div>
-    <div class="layui-card-body step-content">
-        <div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" lay-tips="任务名称必须由中文、数字、字母、下划线组成 唯一">任务名称:</label>
-                <div class="layui-input-block">
-                    <input type="hidden" name="id" value="{{.obj.Id}}" autocomplete="off" placeholder="本ID">
-                    <input type="text" name="name" value="{{.obj.Name}}" class="layui-input" required
-                           lay-verify="name"
-                           autocomplete="off" placeholder="采集名称">
-                </div>
+<div class="step-header"></div>
+<div class="step-content">
+    <div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" lay-tips="任务名称必须由中文、数字、字母、下划线组成 唯一">任务名称:</label>
+            <div class="layui-input-block">
+                <input type="hidden" name="id" value="{{.obj.Id}}" autocomplete="off" placeholder="本ID">
+                <input type="text" name="name" value="{{.obj.Name}}" class="layui-input" required
+                       lay-verify="name"
+                       autocomplete="off" placeholder="采集名称">
             </div>
-            <div class="layui-form-item">
-                <div class="layui-row layui-col-space10">
-                    <div class="layui-col-sm6">
-                        <label class="layui-form-label" lay-tips="一行一条 如: https://www.nfivf.com">初始种子:</label>
-                        <div class="layui-input-block">
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-row layui-col-space10">
+                <div class="layui-col-sm6">
+                    <label class="layui-form-label" lay-tips="一行一条 如: https://www.nfivf.com">初始种子:</label>
+                    <div class="layui-input-block">
                     <textarea name="seeds" class="layui-textarea" required
                               lay-verify="seeds">{{join .obj.Seeds "\n"}}</textarea>
-                        </div>
                     </div>
-                    <div class="layui-col-sm6">
-                        <label class="layui-form-label">备注:</label>
-                        <div class="layui-input-block">
-                            <textarea name="note" class="layui-textarea">{{.obj.Note}}</textarea>
-                        </div>
+                </div>
+                <div class="layui-col-sm6">
+                    <label class="layui-form-label">备注:</label>
+                    <div class="layui-input-block">
+                        <textarea name="note" class="layui-textarea">{{.obj.Note}}</textarea>
                     </div>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <div class="layui-collapse" lay-accordion>
-                    <div class="layui-colla-item">
-                        <h2 class="layui-colla-title">翻译处理</h2>
-                        <div class="layui-colla-content">
-                            <div id="trans-items">
-                                {{range $i,$v:=.obj.Trans -}}
-                                    <div class="layui-form-item">
-                                        <div class="layui-inline" style="top:-5px">
-                                            <input type="checkbox" name="trans.enabled.{{$i}}" lay-skin="switch"
-                                                   lay-text="启用|关闭" checked>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label-col">引擎:</label>
-                                        </div>
-                                        <div class="layui-inline width120">
-                                            <select name="trans.engine.{{$i}}" lay-filter="trans.engine.{{$i}}">
-                                                {{range $vv:=$.engines}}
-                                                    <option value="{{$vv.Name}}"{{if eq $vv.Name $v.Engine}} selected{{end}}>{{$vv.Alias}}</option>
-                                                {{end}}
-                                            </select>
-                                        </div>
-                                        <div class="layui-inline width120">
-                                            <select name="trans.source.{{$i}}" lay-search>
-                                                {{if $v.Source -}}
-                                                    <option value="{{$v.Source}}" selected>{{$v.Source}}</option>
-                                                {{end -}}
-                                            </select>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label-col" style="color: #009688;">
-                                                <i class="layui-icon layui-icon-spread-left"></i>
-                                            </label>
-                                        </div>
-                                        <div class="layui-inline width120">
-                                            <select name="trans.target.{{$i}}" lay-search>
-                                                {{if $v.Target -}}
-                                                    <option value="{{$v.Target}}" selected>{{$v.Target}}</option>
-                                                {{end -}}
-                                            </select>
-                                        </div>
-                                        <div class="layui-inline">
-                                            <label class="layui-form-label-col" style="color: #009688;">
-                                                <i class="layui-icon layui-icon-set-sm" lay-tips="选择翻译配置"></i>
-                                            </label>
-                                        </div>
-                                        <div class="layui-inline width120">
-                                            <select name="trans.cfg_id.{{$i}}" lay-search>
-                                                {{if ne $v.CfgId 0 -}}
-                                                    <option value="{{$v.CfgId}}" selected>{{$v.CfgId}}</option>
-                                                {{end -}}
-                                            </select>
-                                        </div>
-                                        <div class="layui-inline" lay-tips="删除该项">
-                                            <button class="layui-btn layui-btn-primary"
-                                                    style="border:none;color: red"
-                                                    lay-event="del-trans">
-                                                <i class="layui-icon layui-icon-delete"></i>
-                                            </button>
-                                        </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-collapse" lay-accordion>
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">翻译处理</h2>
+                    <div class="layui-colla-content">
+                        <div id="trans-items">
+                            {{range $i,$v:=.obj.Trans -}}
+                                <div class="layui-form-item">
+                                    <div class="layui-inline" style="top:-5px">
+                                        <input type="checkbox" name="trans.enabled.{{$i}}" lay-skin="switch"
+                                               lay-text="启用|关闭" checked>
                                     </div>
-                                {{end -}}
-                            </div>
-                            <button class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add-trans"
-                                    style="margin: 10px 40px"
-                                    lay-tips="新增一次翻译 则多翻译一次 例如：中文 -> 泰文 -> 英文 -> 中文 这样就翻译了3次">
-                                <i class="layui-icon layui-icon-add-circle"></i>新增翻译引擎
-                            </button>
-                        </div>
-                    </div>
-                    <div class="layui-colla-item">
-                        <h2 class="layui-colla-title">高级选项</h2>
-                        <div class="layui-colla-content">
-                            <div class="layui-form-item">
-                                <div class="layui-inline" style="width: 48%"
-                                     lay-tips="格式 key1=value1; key2=value2; 或者一行一条">
-                                    <label class="layui-form-label">cookies:</label>
-                                    <div class="layui-input-block">
-                                        <textarea name="cookies" class="layui-textarea">{{.obj.Cookies}}</textarea>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label-col">引擎:</label>
                                     </div>
-                                </div>
-                                <div class="layui-inline" style="width: 48%" lay-tips="允许的域名一行一条">
-                                    <label class="layui-form-label">允许域名:</label>
-                                    <div class="layui-input-block">
-                                        <textarea name="allow_domains"
-                                                  class="layui-textarea">{{.obj.AllowDomains}}</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <div class="layui-inline" style="width: 23%">
-                                    <label class="layui-form-label" lay-tips="原创度0-100 小于这个原创度的网站将丢弃">原创度:</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="original_rate" value="{{.obj.OriginalRate}}"
-                                               autocomplete="off" placeholder="70"
-                                               class="layui-input">
-                                    </div>
-                                </div>
-                                <div class="layui-inline" style="width: 23%"
-                                     lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">
-                                    <label class="layui-form-label">Delay:</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="delay" class="layui-input" value="{{.obj.Delay}}"
-                                               autocomplete="off" placeholder="10-20">
-                                    </div>
-                                </div>
-                                <div class="layui-inline" style="width: 23%" lay-tips="指定字符集">
-                                    <label class="layui-form-label">字符集:</label>
-                                    <div class="layui-input-block">
-                                        <select name="charset">
-                                            <option value="">自动</option>
-                                            <option value="utf-8"{{if eq .obj.Charset "utf-8"}} selected{{end}}>
-                                                UTF-8
-                                            </option>
-                                            <option value="gbk"{{if eq .obj.Charset "gbk"}} selected{{end}}>GBK
-                                            </option>
+                                    <div class="layui-inline width120">
+                                        <select name="trans.engine.{{$i}}" lay-filter="trans.engine.{{$i}}">
+                                            {{range $vv:=$.engines}}
+                                                <option value="{{$vv.Name}}"{{if eq $vv.Name $v.Engine}} selected{{end}}>{{$vv.Alias}}</option>
+                                            {{end}}
                                         </select>
                                     </div>
-                                </div>
-                                <div class="layui-inline" style="width: 23%" lay-tips="内容解码">
-                                    <label class="layui-form-label">解码:</label>
-                                    <div class="layui-input-block">
-                                        <select name="decode">
-                                            <option>无</option>
-                                            {{range .decodes -}}
-                                                <option value="{{.}}"{{if eq $.obj.Decode . }} selected{{end}}>{{.}}</option>
+                                    <div class="layui-inline width120">
+                                        <select name="trans.source.{{$i}}" lay-search>
+                                            {{if $v.Source -}}
+                                                <option value="{{$v.Source}}" selected>{{$v.Source}}</option>
                                             {{end -}}
                                         </select>
                                     </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label-col" style="color: #009688;">
+                                            <i class="layui-icon layui-icon-spread-left"></i>
+                                        </label>
+                                    </div>
+                                    <div class="layui-inline width120">
+                                        <select name="trans.target.{{$i}}" lay-search>
+                                            {{if $v.Target -}}
+                                                <option value="{{$v.Target}}" selected>{{$v.Target}}</option>
+                                            {{end -}}
+                                        </select>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label-col" style="color: #009688;">
+                                            <i class="layui-icon layui-icon-set-sm" lay-tips="选择翻译配置"></i>
+                                        </label>
+                                    </div>
+                                    <div class="layui-inline width120">
+                                        <select name="trans.cfg_id.{{$i}}" lay-search>
+                                            {{if ne $v.CfgId 0 -}}
+                                                <option value="{{$v.CfgId}}" selected>{{$v.CfgId}}</option>
+                                            {{end -}}
+                                        </select>
+                                    </div>
+                                    <div class="layui-inline" lay-tips="删除该项">
+                                        <button class="layui-btn layui-btn-primary"
+                                                style="border:none;color: red"
+                                                lay-event="del-trans">
+                                            <i class="layui-icon layui-icon-delete"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            {{end -}}
+                        </div>
+                        <button class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add-trans"
+                                style="margin: 10px 40px"
+                                lay-tips="新增一次翻译 则多翻译一次 例如：中文 -> 泰文 -> 英文 -> 中文 这样就翻译了3次">
+                            <i class="layui-icon layui-icon-add-circle"></i>新增翻译引擎
+                        </button>
+                    </div>
+                </div>
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">高级选项</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-form-item">
+                            <div class="layui-inline" style="width: 48%"
+                                 lay-tips="格式 key1=value1; key2=value2; 或者一行一条">
+                                <label class="layui-form-label">cookies:</label>
+                                <div class="layui-input-block">
+                                    <textarea name="cookies" class="layui-textarea">{{.obj.Cookies}}</textarea>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="width: 48%" lay-tips="允许的域名一行一条">
+                                <label class="layui-form-label">允许域名:</label>
+                                <div class="layui-input-block">
+                                        <textarea name="allow_domains"
+                                                  class="layui-textarea">{{.obj.AllowDomains}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" style="width: 23%">
+                                <label class="layui-form-label" lay-tips="原创度0-100 小于这个原创度的网站将丢弃">原创度:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="original_rate" value="{{.obj.OriginalRate}}"
+                                           autocomplete="off" placeholder="70"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="width: 23%"
+                                 lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">
+                                <label class="layui-form-label">Delay:</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="delay" class="layui-input" value="{{.obj.Delay}}"
+                                           autocomplete="off" placeholder="10-20">
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="width: 23%" lay-tips="指定字符集">
+                                <label class="layui-form-label">字符集:</label>
+                                <div class="layui-input-block">
+                                    <select name="charset">
+                                        <option value="">自动</option>
+                                        <option value="utf-8"{{if eq .obj.Charset "utf-8"}} selected{{end}}>
+                                            UTF-8
+                                        </option>
+                                        <option value="gbk"{{if eq .obj.Charset "gbk"}} selected{{end}}>GBK
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="width: 23%" lay-tips="内容解码">
+                                <label class="layui-form-label">解码:</label>
+                                <div class="layui-input-block">
+                                    <select name="decode">
+                                        <option>无</option>
+                                        {{range .decodes -}}
+                                            <option value="{{.}}"{{if eq $.obj.Decode . }} selected{{end}}>{{.}}</option>
+                                        {{end -}}
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -164,100 +162,100 @@
                 </div>
             </div>
         </div>
-        <div>
-            <i class="layui-icon layui-icon-addition" lay-event="addListRule" lay-tips="点击无限添加列表规则"></i>
-            <div class="layui-tab layui-tab-card" lay-filter="step-list" lay-allowclose="true">
-                <ul class="layui-tab-title"></ul>
-                <div class="layui-tab-content"></div>
+    </div>
+    <div>
+        <i class="layui-icon layui-icon-addition" lay-event="addListRule" lay-tips="点击无限添加列表规则"></i>
+        <div class="layui-tab layui-tab-card" lay-filter="step-list" lay-allowclose="true">
+            <ul class="layui-tab-title"></ul>
+            <div class="layui-tab-content"></div>
+        </div>
+        <div class="layui-card-body">
+            <button class="layui-hide" lay-submit lay-filter="testList"></button>
+            <button class="layui-btn" data-event="testList">测试采集</button>
+        </div>
+    </div>
+    <div>
+        <i class="layui-icon layui-icon-addition" lay-event="addDetailRule" lay-tips="点击无限添加规则"></i>
+        <div class="layui-tab layui-tab-card" lay-filter="step-detail" lay-allowclose="true">
+            <ul class="layui-tab-title"></ul>
+            <div class="layui-tab-content"></div>
+        </div>
+        <div class="layui-card-body">
+            <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
+            <button class="layui-btn" data-event="testDetail">测试采集</button>
+        </div>
+    </div>
+    <div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">绑定网站:</label>
+                <div class="layui-input-block">
+                    <select name="site_id" lay-filter="site_id" lay-search>
+                        <option value="">搜索...</option>
+                        {{range .sites -}}
+                            <option value="{{.Id}}"{{if eq .Id $.obj.SiteId}} selected{{end}}>{{.Vhost}}</option>
+                        {{end -}}
+                    </select>
+                </div>
             </div>
-            <div class="layui-card-body">
-                <button class="layui-hide" lay-submit lay-filter="testList"></button>
-                <button class="layui-btn" data-event="testList">测试采集</button>
+            <div class="layui-inline">
+                <label class="layui-form-label">绑定栏目:</label>
+                <div class="layui-input-block" lay-filter="class_id">
+                    {{.class_html}}
+                </div>
             </div>
         </div>
-        <div>
-            <i class="layui-icon layui-icon-addition" lay-event="addDetailRule" lay-tips="点击无限添加规则"></i>
-            <div class="layui-tab layui-tab-card" lay-filter="step-detail" lay-allowclose="true">
-                <ul class="layui-tab-title"></ul>
-                <div class="layui-tab-content"></div>
-            </div>
-            <div class="layui-card-body">
-                <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
-                <button class="layui-btn" data-event="testDetail">测试采集</button>
-            </div>
-        </div>
-        <div>
+        <fieldset class="layui-elem-field">
+            <legend>定时采集</legend>
             <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">绑定网站:</label>
-                    <div class="layui-input-block">
-                        <select name="site_id" lay-filter="site_id" lay-search>
-                            <option value="">搜索...</option>
-                            {{range .sites -}}
-                                <option value="{{.Id}}"{{if eq .Id $.obj.SiteId}} selected{{end}}>{{.Vhost}}</option>
-                            {{end -}}
-                        </select>
-                    </div>
+                <label class="layui-form-label">启用</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否"
+                            {{if .obj.CronEnabled}} checked{{end}}>
                 </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">绑定栏目:</label>
-                    <div class="layui-input-block" lay-filter="class_id">
-                        {{.class_html}}
-                    </div>
-                </div>
+                <div class="layui-form-mid layui-word-aux">是否启用定时采集</div>
             </div>
-            <fieldset class="layui-elem-field">
-                <legend>定时采集</legend>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">启用</label>
-                    <div class="layui-input-inline">
-                        <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否"
-                                {{if .obj.CronEnabled}} checked{{end}}>
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">是否启用定时采集</div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">分:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="minute" value="{{.obj.Minute}}"
+                           class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">分:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="minute" value="{{.obj.Minute}}"
-                               class="layui-input">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">0-59 *-,</div>
+                <div class="layui-form-mid layui-word-aux">0-59 *-,</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">时:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="hour" value="{{.obj.Hour}}"
+                           class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">时:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="hour" value="{{.obj.Hour}}"
-                               class="layui-input">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">0-23 *-,</div>
+                <div class="layui-form-mid layui-word-aux">0-23 *-,</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">天:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="day" value="{{.obj.Day}}"
+                           class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">天:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="day" value="{{.obj.Day}}"
-                               class="layui-input">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">1-31 *-,</div>
+                <div class="layui-form-mid layui-word-aux">1-31 *-,</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">月:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="month" value="{{.obj.Month}}"
+                           class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">月:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="month" value="{{.obj.Month}}"
-                               class="layui-input">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">1-12 *-,</div>
+                <div class="layui-form-mid layui-word-aux">1-12 *-,</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">周:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="week" value="{{.obj.Week}}"
+                           class="layui-input">
                 </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">周:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="week" value="{{.obj.Week}}"
-                               class="layui-input">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">0-6 *-,</div>
-                </div>
-            </fieldset>
-        </div>
+                <div class="layui-form-mid layui-word-aux">0-6 *-,</div>
+            </div>
+        </fieldset>
     </div>
 </div>
 <!--翻译列表-->
