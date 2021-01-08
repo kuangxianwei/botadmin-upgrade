@@ -816,18 +816,20 @@
                             method: '',
                             attr_name: '',
                             match: '',
-                            olds: [],
-                            news: [],
                             type: 0,
                             raw: false,
                             reg: '',
+                            filter_dom: null
                         }, field);
+                        field.olds = field.olds || [];
+                        field.news = field.news || [];
                         dom.find('[name="detail.limit.' + id + '"]').val(field.limit);
                         dom.find('[name="detail.method.' + id + '"]>option[value=' + field.method + ']').prop('selected', true);
                         dom.find('[name="detail.attr_name.' + id + '"]').val(field.attr_name);
                         dom.find('[name="detail.match.' + id + '"]').val(field.match);
                         if (field.filter_dom) {
-                            field.filter_dom = $.extend({olds: [], news: []}, field.filter_dom);
+                            field.filter_dom.olds = field.filter_dom.olds || [];
+                            field.filter_dom.news = field.filter_dom.news || [];
                             dom.find('[name="detail.filter_dom.olds.' + id + '"]').val(field.filter_dom.olds.join('\n'));
                             dom.find('[name="detail.filter_dom.news.' + id + '"]').val(field.filter_dom.news.join('\n'));
                         }
@@ -901,10 +903,10 @@
                             method: 'attr',
                             attr_name: '',
                             match: '',
-                            olds: [],
-                            news: [],
                             type: 0
                         }, field);
+                        field.olds = field.olds || [];
+                        field.news = field.news || [];
                         dom.find('[name="list.limit.' + id + '"]').val(field.limit);
                         if (field.reg.length > 0) {
                             dom.find('[name="list.reg.' + id + '"]').val(field.reg)
@@ -930,12 +932,12 @@
                                 method: '',
                                 attr_name: '',
                                 match: '',
-                                olds: [],
-                                news: [],
                                 type: 0,
                                 reg: '',
                                 dom: '',
                             }, field.page);
+                            field.page.olds = field.page.olds || [];
+                            field.page.news = field.page.news || [];
                             dom.find('[name="list.page.enabled.' + id + '"]').prop('checked', field.page.enabled);
                             dom.find('[name="list.page.limit.' + id + '"]').val(field.page.limit);
                             dom.find('[name="list.page.method.' + id + '"]>option[value=' + field.page.method + ']').prop('selected', true);
