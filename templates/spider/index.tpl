@@ -247,8 +247,11 @@
                     }
                 },
                 {
-                    field: 'site_id', title: "绑定", width: 80, sort: true,
+                    field: 'site_id', title: "绑定", sort: true,
                     event: 'site_id', style: 'cursor:pointer;color:#01aaed;', align: 'center',
+                    templet: function (d) {
+                        return d['vhost'] ? d['vhost'] : '未绑定';
+                    }
                 },
                 {field: 'note', title: '备注', minWidth: 100},
                 {field: 'updated', title: '时间', minWidth: 100, hide: true, sort: true},
@@ -336,8 +339,14 @@
                     });
                     break;
                 case 'site_id':
-                    $.get('/site/byid', {'id': data.site_id}, function (html) {
-                        layer.msg(html);
+                    $.get(url + '/bind', {'id': data.id}, function (html) {
+                        main.popup({
+                            title: '绑定网站',
+                            content: html,
+                            url: url + '/bind',
+                            area: ['700px', '300px'],
+                            ending: 'table-list',
+                        });
                     });
                     break;
                 case 'log':

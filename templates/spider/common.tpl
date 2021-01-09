@@ -760,6 +760,8 @@
                 /*绑定栏目*/
                 bindClass: function (id, classId) {
                     if (isNaN(parseInt(id))) {
+                        $('select[name=class_id]').replaceWith(`<select name="class_id" lay-search><option value="">搜索...</option></select>`);
+                        form.render('select');
                         return false
                     }
                     if (typeof classes[id] === 'string' && classes[id].length > 10) {
@@ -1056,9 +1058,7 @@
             data: [{title: '基本设置'}, {title: '列表规则'},
                 {title: '详情页'}, {title: '定时采集'}]
         });
-        if (currentId > 0) {
-            utils.bindClass($('select[name=site_id]').val(), $('select[name=class_id]').val());
-        } else {
+        if (currentId < 1) {
             /*初始化默认列表规则*/
             utils.initList();
             /*初始化默认详情规则*/
