@@ -344,7 +344,7 @@
                             title: '绑定网站',
                             content: html,
                             url: url + '/bind',
-                            area: ['700px', '300px'],
+                            area: ['750px', '300px'],
                             ending: 'table-list',
                         });
                     });
