@@ -407,16 +407,16 @@
                                 form.render();
                                 form.on('submit(setupSubmit)', function () {
                                     let field = main.formData(dom.selector);
-                                    if (field.durations instanceof Array) {
-                                        field.durations = field.durations.join();
-                                    }
                                     field.cols = Array();
                                     dom.find('[name]').each(function () {
                                         field.cols.push(this.name);
                                     });
-                                    if (field.cols instanceof Array) {
-                                        field.cols = field.cols.join();
+                                    if (field.durations instanceof Array) {
+                                        field.durations = field.durations.join();
+                                    } else if (dom.find('[lay-filter="duration"]').length > 0) {
+                                        field.cols.push('durations');
                                     }
+                                    field.cols = field.cols.join();
                                     main.req({
                                         url: url + '/setup',
                                         data: field,
