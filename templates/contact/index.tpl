@@ -55,15 +55,20 @@
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {
-                    field: 'enabled', title: '启用', align: 'center', width: 92, unresize: true, event: 'enabled',
+                    field: 'pc_enabled', title: 'PC', align: 'center', width: 92, unresize: true, event: 'pc_enabled',
                     templet: function (d) {
-                        let msg = '<input username="' + d.username + '" type="checkbox" name="enabled" lay-skin="switch" lay-text="是|否" lay-filter="toggleEnabled"';
-                        if (d.enabled) {
-                            msg += ' checked>';
-                        } else {
-                            msg += '>';
-                        }
-                        return msg;
+                        return '<input username="' + d.username + '" type="checkbox" name="pc_enabled" lay-skin="switch" lay-text="启用|关闭" lay-filter="togglePcEnabled"' + (d['pc_enabled'] ? ' checked>' : '>');
+                    }
+                },
+                {
+                    field: 'mobile_enabled',
+                    title: 'Mobile',
+                    align: 'center',
+                    width: 92,
+                    unresize: true,
+                    event: 'mobile_enabled',
+                    templet: function (d) {
+                        return '<input username="' + d.username + '" type="checkbox" name="mobile_enabled" lay-skin="switch" lay-text="启用|关闭" lay-filter="toggleMobileEnabled"' + (d['mobile_enabled'] ? ' checked>' : '>');
                     }
                 },
                 {field: 'username', title: '用户名', minWidth: 100},
@@ -211,7 +216,8 @@
                     break;
             }
         });
-        form.on('switch(toggleEnabled)', function (obj) {
+        // 切换PC端
+        form.on('switch(togglePcEnabled)', function (obj) {
             let username = $(this).attr('username'),
                 checked = this.checked;
             if (!username) {
@@ -220,7 +226,22 @@
             }
             main.req({
                 url: url + '/toggle/enable',
-                data: {username: username, enabled: checked},
+                data: {username: username, pc_enabled: checked},
+                ending: 'table-list',
+            });
+            return false;
+        });
+        // 切换移动端
+        form.on('switch(toggleMobileEnabled)', function (obj) {
+            let username = $(this).attr('username'),
+                checked = this.checked;
+            if (!username) {
+                layer.tips('ID为空，无法操作！', obj.othis);
+                return false;
+            }
+            main.req({
+                url: url + '/toggle/enable',
+                data: {username: username, mobile_enabled: checked},
                 ending: 'table-list',
             });
             return false;

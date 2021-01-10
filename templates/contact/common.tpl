@@ -2,10 +2,17 @@
     <div class="layui-card-body layui-form">
         <div class="layui-row">
             <div class="layui-col-md2">
-                <label class="layui-form-label">启用:</label>
+                <label class="layui-form-label">启用PC:</label>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="enabled" lay-skin="switch"
-                           lay-text="是|否"{{if .obj.Enabled}} checked{{end}}/>
+                    <input type="checkbox" name="pc_enabled" lay-skin="switch"
+                           lay-text="是|否"{{if .obj.PcEnabled}} checked{{end}}/>
+                </div>
+            </div>
+            <div class="layui-col-md2">
+                <label class="layui-form-label">启用Mobile:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="mobile_enabled" lay-skin="switch"
+                           lay-text="是|否"{{if .obj.MobileEnabled}} checked{{end}}/>
                 </div>
             </div>
             <div class="layui-col-md4">
@@ -18,13 +25,12 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-col">
-                <label class="layui-form-label">排序:</label>
+            <div class="layui-col-md4">
+                <label class="layui-form-label" lay-tips="值越大越排后面">排序:</label>
                 <div class="layui-input-inline">
                     <input type="text" name="sort" value="{{.obj.Sort}}" autocomplete="off" placeholder="0"
                            class="layui-input">
                 </div>
-                <div class="layui-form-mid layui-word-aux">值越大越排后面</div>
             </div>
         </div>
         <div class="layui-form-item"></div>
@@ -199,7 +205,7 @@
                         showSearch: true,
                     });
                 },
-                done: function (dom) {
+                done: function () {
                     let cityData = transfer.getData('cityData'),
                         cities = Array();
                     $.each(cityData, function (i, v) {
