@@ -410,10 +410,18 @@
                                     if (field.durations instanceof Array) {
                                         field.durations = field.durations.join();
                                     }
+                                    field.cols = Array();
+                                    dom.find('[name]').each(function () {
+                                        field.cols.push(this.name);
+                                    });
+                                    if (field.cols instanceof Array) {
+                                        field.cols = field.cols.join();
+                                    }
                                     main.req({
                                         url: url + '/setup',
                                         data: field,
                                         index: layerIndex,
+                                        ending: 'table-list'
                                     });
                                 });
                             }

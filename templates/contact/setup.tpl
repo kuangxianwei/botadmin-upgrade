@@ -1,11 +1,22 @@
 <style>
-    .layui-form i.layui-icon-delete {
+    .layui-form i.layui-icon.layui-icon-delete {
         color: red;
         cursor: pointer;
+        display: inline-block;
     }
 </style>
 <div class="layui-card">
     <div class="layui-card-body layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">启用PC:</label>
+            <input type="checkbox" name="pc_enabled" lay-skin="switch" lay-text="是|否" checked/>
+            <i class="layui-icon layui-icon-delete" lay-event="del"></i>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">启用Mobile:</label>
+            <input type="checkbox" name="mobile_enabled" lay-skin="switch" lay-text="是|否" checked/>
+            <i class="layui-icon layui-icon-delete" lay-event="del"></i>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
             <button class="layui-btn" lay-event="cities">选择城市</button>
@@ -87,7 +98,7 @@
                         showSearch: true,
                     });
                 },
-                done: function (dom) {
+                done: function () {
                     let cityData = transfer.getData('cityData'),
                         cities = Array();
                     $.each(cityData, function (i, v) {
