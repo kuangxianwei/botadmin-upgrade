@@ -519,6 +519,7 @@
                             url: url + '/image',
                             title: '添加图片',
                             content: html,
+                            area: ['800px', '350px'],
                         });
                         form.render();
                     });

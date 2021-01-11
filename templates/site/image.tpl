@@ -2,37 +2,52 @@
     <div class="layui-card-header">下载图片 {{.pic_dir}} 已经存在
         <a target="_blank" href="/file?path=data/pic/{{.pic_dirname}}">{{.pic_count}}</a> 张图片
     </div>
-    <div class="layui-card-body">
-        <div class="layui-form">
-            <div class="layui-form-item">
-                <label class="layui-form-label" lay-tips="填写正则表达式：开始特征码([\s\S]*?)结束特征码">范围:</label>
-                <div class="layui-input-block">
-                    <input type="text" name="limit" value="" class="layui-input"/>
+    <div class="layui-card-body layui-form">
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <label class="layui-form-label">引擎:</label>
+                <div class="layui-input-inline">
+                    <select name="engine" lay-filter="engine">
+                        {{range $engine:=.engines -}}
+                            <option value="{{$engine.Name}}">{{$engine.Alias}}</option>
+                        {{end -}}
+                    </select>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" lay-tips="填写正则表达式：src=&quot;(.*?)&quot; 默认有 baidu|google">匹配规则:</label>
+            <div class="layui-col-md6">
+                <label class="layui-form-label" lay-tips="关键词列表 一行一条">关键词:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="match" value="" class="layui-input"/>
+                    <textarea name="keywords" class="layui-textarea" required lay-verify="required">试管婴儿</textarea>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" lay-tips="一行一条 http://www.nfivf.com<=>匹配规则">URL列表:</label>
-                <div class="layui-input-block">
-                    <textarea name="origins" class="layui-textarea" rows="4"></textarea>
+            <div class="layui-col-md3">
+                <label class="layui-form-label" lay-tips="开始页">开始:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="begin" value="0" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label" lay-tips="直接填写源码">源码:</label>
-                <div class="layui-input-block">
-                    <textarea name="source" class="layui-textarea" rows="10"></textarea>
+            <div class="layui-col-md3">
+                <label class="layui-form-label" lay-tips="结束页">结束:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="end" value="5" class="layui-input">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <input type="hidden" name="pic_dir" value="{{.pic_dir}}">
-                <input type="hidden" name="id" value="{{.id}}">
-                <button class="layui-hide" lay-submit lay-filter="submit">立即提交</button>
+            <div class="layui-col-md3">
+                <label class="layui-form-label" lay-tips="每页显示量默认30个">页数量:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="limit" value="30" class="layui-input">
+                </div>
             </div>
+            <div class="layui-col-md3">
+                <label class="layui-form-label" lay-tips="延迟时间秒">延迟:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="delay" value="0" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-hide">
+            <input type="hidden" name="id" value="{{.id}}">
+            <button class="layui-hide" lay-submit lay-filter="submit">立即提交</button>
         </div>
     </div>
 </div>
