@@ -322,7 +322,8 @@
     <div class="layui-card">
         <div class="layui-card-body layui-form">
             <div class="layui-hide">
-                <input name="ids" value="">
+                <input type="text" name="ids" value="">
+                <input type="text" name="cols" value="">
                 <button lay-submit>提交</button>
             </div>
         </div>
@@ -705,6 +706,15 @@
                                         formDom.find('i[lay-event=del]').on('click', function () {
                                             $(this).parent().remove();
                                         });
+                                    },
+                                    yes: function (index, dom) {
+                                        let cols = Array();
+                                        dom.find('.layui-form [name]').each(function (i, v) {
+                                            if (v.name && v.name !== 'cols') {
+                                                cols.push(v.name);
+                                            }
+                                        });
+                                        dom.find('.layui-form [name="cols"]').val(cols.join());
                                     },
                                     ending: 'table-list',
                                 });
