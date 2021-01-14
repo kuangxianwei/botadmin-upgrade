@@ -79,7 +79,6 @@
                 {field: 'weight', title: '权重', hide: true},
                 {field: 'done', title: '完成', minWidth: 100},
                 {field: 'style_id', title: '样式', hide: true},
-                {field: 'other', title: '其他', hide: true},
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
