@@ -133,7 +133,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="layui-tab-item layui-form">
                     {{.serverHtml}}
                     <div class="layui-form-item">
@@ -205,15 +204,9 @@
                                     data-tip="违禁设置恢复到出厂设置?">恢复出厂设置
                             </button>
                             <button class="layui-btn" data-event="ban-test">测试</button>
-                            <button class="layui-btn layui-btn-small layui-btn-normal" data-event="edit-deny">编辑黑名单
-                            </button>
-                            <button class="layui-btn layui-btn-small layui-btn-normal" data-event="edit-allow">编辑白名单
+                            <button class="layui-btn layui-btn-small layui-btn-normal" data-event="edit-ban">编辑禁词
                             </button>
                         </div>
-                    </div>
-                    <div class="layui-form-item" id="test-ban">
-                        <textarea class="layui-textarea layui-bg-black layui-hide" name="content" rows="10"
-                                  style="color: white;"></textarea>
                     </div>
                 </div>
                 <div class="layui-tab-item layui-form">
@@ -412,27 +405,18 @@
                         title: '测试违禁词',
                         url: url + '/test/ban',
                         area: ['70%', '70%'],
-                        ending: function (res) {
-                            $('#test-ban>textarea').removeClass('layui-hide').text(res.msg);
+                        tips: function (res) {
+                            main.msg(`<textarea class="layui-textarea layui-bg-black" name="content" rows="10" style="color: white;">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});
                         },
                         content: '<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea layui-bg-black" name="content" rows="15" style="color: white;">输入需要检查的内容...</textarea></div><div class="layui-hide"><button class="layui-btn" lay-submit lay-filter="submit"></button></div></div></div>'
                     });
                     break;
-                case 'edit-deny':
-                    $.get('/config/edit', {name: 'deny'}, function (html) {
+                case 'edit-ban':
+                    $.get('/config/ban/data', function (html) {
                         main.popup({
-                            title: '编辑黑名单',
+                            title: '编辑禁词',
                             content: html,
-                            url: '/config/edit'
-                        });
-                    });
-                    break
-                case 'edit-allow':
-                    $.get('/config/edit', {name: 'allow'}, function (html) {
-                        main.popup({
-                            title: '编辑白名单',
-                            content: html,
-                            url: '/config/edit'
+                            url: '/config/ban/data'
                         });
                     });
                     break
