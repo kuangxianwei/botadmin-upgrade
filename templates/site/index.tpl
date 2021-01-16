@@ -472,7 +472,7 @@
                     });
                     break;
                 case 'del':
-                    layer.confirm('确定删除此条日志？', function (index) {
+                    layer.confirm('确定删除此网站？不可恢复!', function (index) {
                         main.req({
                             url: url + '/del',
                             data: data,

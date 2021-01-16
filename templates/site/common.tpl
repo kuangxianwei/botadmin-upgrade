@@ -71,15 +71,6 @@
                         <div class="layui-form-mid layui-word-aux">多个请用英文逗号","分隔</div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">站点目录:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="webroot_path" value="{{.obj.WebrootPath}}" autocomplete="off"
-                                   class="layui-input"
-                                   placeholder="留空将使用域名为目录" {{if gt .obj.Status 0}} disabled{{end}}>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">可指定目录/home/wwwroot，网站文件上传至public_html目录下</div>
-                    </div>
-                    <div class="layui-form-item">
                         <label class="layui-form-label">默认首页:</label>
                         <div class="layui-input-inline">
                             <input type="text" name="indexes" class="layui-input" value="{{join .obj.Indexes ","}}"
