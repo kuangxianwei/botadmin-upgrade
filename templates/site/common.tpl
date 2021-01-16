@@ -625,6 +625,17 @@
                         </div>
                         <div class="layui-form-mid layui-word-aux">发布后马上从数据库中删除该文章</div>
                     </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">发布顺序:</label>
+                        <div class="layui-input-inline">
+                            <select name="order" class="layui-select">
+                                <option value="0"{{if eq .obj.Order 0}} selected{{end}}>最新采集</option>
+                                <option value="1"{{if eq .obj.Order 1}} selected{{end}}>最旧采集</option>
+                                <option value="2"{{if eq .obj.Order 2}} selected{{end}}>随机</option>
+                            </select>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">发布文章顺序</div>
+                    </div>
                     <fieldset class="layui-elem-field">
                         <legend>推送</legend>
                         <div class="layui-form-item" style="padding-left: 2%;padding-right: 2%;">
