@@ -37,9 +37,14 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="upload" id="upload" lay-tips="上传tag.gz 格式的压缩文件">
-            <i class="layui-icon layui-icon-upload"></i>
+        <button class="layui-btn layui-btn-sm" lay-event="import" id="import" lay-tips="导入 tag.gz|.zip 格式的压缩文件">
+            <i class="layui-icon iconfont icon-import"></i>
         </button>
+        <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出文章">
+            <i class="layui-icon iconfont icon-export"></i>
+        </button>
+    </div>
+    <div class="layui-btn-group">
         <button class="layui-btn layui-btn-sm" lay-event="recover" id="LAY_layer_iframe_recover"
                 lay-tips="把所有已经发布的文章恢复到未发布">
             <i class="layui-icon layui-icon-refresh-3"></i>恢复
@@ -159,8 +164,8 @@
             done: function () {
                 upload.render({
                     headers: {'X-CSRF-Token':{{.csrf_token}}},
-                    elem: '#upload',
-                    url: url + '/upload',
+                    elem: '#import',
+                    url: url + '/import',
                     accept: 'file',
                     done: function (res) {
                         table.reload('table-list');
@@ -311,6 +316,9 @@
                             ending: 'table-list'
                         });
                     });
+                    break;
+                case 'export':
+                    window.open(encodeURI(url + '/export?ids=' + ids.join()));
                     break;
             }
         });
