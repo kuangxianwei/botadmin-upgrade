@@ -1,3 +1,20 @@
+<style>
+    .cron .layui-input-inline {
+        width: 50%;
+    }
+
+    .cron .layui-inline {
+        width: 18%;
+    }
+
+    .cron .layui-input-block {
+        margin-left: 80px;
+    }
+
+    .cron .layui-form-label {
+        width: auto;
+    }
+</style>
 <div class="step-header"></div>
 <div class="step-content">
     <div>
@@ -116,8 +133,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline" style="width: 23%">
+                        <div class="layui-form-item cron">
+                            <div class="layui-inline">
+                                <label class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
+                                <div class="layui-input-block">
+                                    <select name="order" class="layui-select">
+                                        <option value="0"{{if eq .obj.Order 0}} selected{{end}}>正序</option>
+                                        <option value="1"{{if eq .obj.Order 1}} selected{{end}}>倒序</option>
+                                        <option value="2"{{if eq .obj.Order 2}} selected{{end}}>URL升序</option>
+                                        <option value="2"{{if eq .obj.Order 3}} selected{{end}}>URL降序</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
                                 <label class="layui-form-label" lay-tips="原创度0-100 小于这个原创度的网站将丢弃">原创度:</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="original_rate" value="{{.obj.OriginalRate}}"
@@ -125,31 +153,30 @@
                                            class="layui-input">
                                 </div>
                             </div>
-                            <div class="layui-inline" style="width: 23%"
-                                 lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">
-                                <label class="layui-form-label">Delay:</label>
+                            <div class="layui-inline">
+                                <label class="layui-form-label"
+                                       lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="delay" class="layui-input" value="{{.obj.Delay}}"
                                            autocomplete="off" placeholder="10-20">
                                 </div>
                             </div>
-                            <div class="layui-inline" style="width: 23%" lay-tips="指定字符集">
-                                <label class="layui-form-label">字符集:</label>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" lay-tips="指定字符集">字符集:</label>
                                 <div class="layui-input-block">
-                                    <select name="charset">
+                                    <select name="charset" class="layui-select">
                                         <option value="">自动</option>
-                                        <option value="utf-8"{{if eq .obj.Charset "utf-8"}} selected{{end}}>
-                                            UTF-8
+                                        <option value="utf-8"{{if eq .obj.Charset "utf-8"}} selected{{end}}>UTF-8
                                         </option>
                                         <option value="gbk"{{if eq .obj.Charset "gbk"}} selected{{end}}>GBK
                                         </option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="layui-inline" style="width: 23%" lay-tips="内容解码">
-                                <label class="layui-form-label">解码:</label>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" lay-tips="内容解码">解码:</label>
                                 <div class="layui-input-block">
-                                    <select name="decode">
+                                    <select name="decode" class="layui-select">
                                         <option>无</option>
                                         {{range .decodes -}}
                                             <option value="{{.}}"{{if eq $.obj.Decode . }} selected{{end}}>{{.}}</option>
@@ -208,52 +235,50 @@
         <fieldset class="layui-elem-field">
             <legend>定时采集</legend>
             <div class="layui-form-item">
-                <label class="layui-form-label">启用</label>
-                <div class="layui-input-inline">
-                    <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否"
-                            {{if .obj.CronEnabled}} checked{{end}}>
+                <div class="layui-row cron">
+                    <div class="layui-col-md2">
+                        <label class="layui-form-label">启用:</label>
+                        <div class="layui-input-inline">
+                            <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否"
+                                    {{if .obj.CronEnabled}} checked{{end}}>
+                        </div>
+                    </div>
+                    <div class="layui-col-md2">
+                        <label class="layui-form-label" lay-tips="0-59 *-,">分:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="minute" value="{{.obj.Minute}}"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-md2">
+                        <label class="layui-form-label" lay-tips="0-23 *-,">时:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="hour" value="{{.obj.Hour}}"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-md2">
+                        <label class="layui-form-label" lay-tips="1-31 *-,">天:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="day" value="{{.obj.Day}}"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-md2">
+                        <label class="layui-form-label" lay-tips="1-12 *-,">月:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="month" value="{{.obj.Month}}"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-md2">
+                        <label class="layui-form-label" lay-tips="0-6 *-,">周:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="week" value="{{.obj.Week}}"
+                                   class="layui-input">
+                        </div>
+                    </div>
                 </div>
-                <div class="layui-form-mid layui-word-aux">是否启用定时采集</div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">分:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="minute" value="{{.obj.Minute}}"
-                           class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">0-59 *-,</div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">时:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="hour" value="{{.obj.Hour}}"
-                           class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">0-23 *-,</div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">天:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="day" value="{{.obj.Day}}"
-                           class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">1-31 *-,</div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">月:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="month" value="{{.obj.Month}}"
-                           class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">1-12 *-,</div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">周:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="week" value="{{.obj.Week}}"
-                           class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">0-6 *-,</div>
             </div>
         </fieldset>
     </div>

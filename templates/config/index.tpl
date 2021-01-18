@@ -245,11 +245,11 @@
                             <tbody>
                             <tr>
                                 <th rowspan="2"><label class="layui-form-label">定时:</label></th>
-                                <th align="center">分:0-59 *-,</th>
-                                <th align="center">时:0-23 *-,</th>
-                                <th align="center">天:1-31 *-,</th>
-                                <th align="center">月:1-12 *-,</th>
-                                <th align="center">周:0-6 *-,</th>
+                                <th style="text-align: center">分:0-59 *-,</th>
+                                <th style="text-align: center">时:0-23 *-,</th>
+                                <th style="text-align: center">天:1-31 *-,</th>
+                                <th style="text-align: center">月:1-12 *-,</th>
+                                <th style="text-align: center">周:0-6 *-,</th>
                             </tr>
                             <tr>
                                 <td>
