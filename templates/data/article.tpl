@@ -192,7 +192,7 @@
                 case 'modify':
                     $.get(url + '/modify', data, function (html) {
                         main.popup({
-                            title: '修改FTP',
+                            title: '修改文章',
                             url: url + '/modify',
                             content: html,
                             ending: 'table-list',
