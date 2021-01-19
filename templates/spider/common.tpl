@@ -133,6 +133,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" lay-tips="模拟UserAgent 默认为谷歌浏览器">UserAgent:</label>
+                            <div class="layui-input-block">
+                                <input name="user_agent" class="layui-input" value="{{.obj.UserAgent}}">
+                            </div>
+                        </div>
                         <div class="layui-form-item cron">
                             <div class="layui-inline">
                                 <label class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
