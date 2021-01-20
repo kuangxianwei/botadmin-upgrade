@@ -1,3 +1,25 @@
+<style>
+    div[lay-filter="monitor"] i.layui-icon-delete {
+        color: red;
+        cursor: pointer;
+    }
+
+    .cron .layui-input-inline {
+        width: 50%;
+    }
+
+    .cron .layui-inline {
+        width: 18%;
+    }
+
+    .cron .layui-input-block {
+        margin-left: 80px;
+    }
+
+    .cron .layui-form-label {
+        width: auto;
+    }
+</style>
 <div class="layui-card">
     <div class="layui-card-body">
         <div class="layui-tab layui-tab-card">
@@ -210,75 +232,69 @@
                     </div>
                 </div>
                 <div class="layui-tab-item layui-form">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">Nginx:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="nginx_enabled" lay-skin="switch"
-                                   lay-text="打开|关闭"{{if .monitor.NginxEnabled}} checked{{end}}>
+                    <fieldset class="layui-elem-field">
+                        <legend>定时设置</legend>
+                        <div class="layui-form-item">
+                            <div class="layui-row cron">
+                                <div class="layui-col-md2">
+                                    <label class="layui-form-label">启用:</label>
+                                    <div class="layui-input-inline">
+                                        <input type="checkbox" name="enabled"
+                                               lay-skin="switch" lay-text="启用|关闭"{{if .monitor.Enabled}} checked{{end}}>
+                                    </div>
+                                </div>
+                                <div class="layui-col-md2">
+                                    <label class="layui-form-label" lay-tips="0-59 *-,">分:</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="minute" value="{{.monitor.Minute}}"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-md2">
+                                    <label class="layui-form-label" lay-tips="0-23 *-,">时:</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="hour" value="{{.monitor.Hour}}"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-md2">
+                                    <label class="layui-form-label" lay-tips="1-31 *-,">天:</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="day" value="{{.monitor.Day}}"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-md2">
+                                    <label class="layui-form-label" lay-tips="1-12 *-,">月:</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="month" value="{{.monitor.Month}}"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-col-md2">
+                                    <label class="layui-form-label" lay-tips="0-6 *-,">周:</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="week" value="{{.monitor.Week}}"
+                                               class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <span class="text-danger">开启监控NGINX</span>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">MySQL:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="mysql_enabled" lay-skin="switch"
-                                   lay-text="打开|关闭"{{if .monitor.MysqlEnabled}} checked{{end}}>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <span class="text-danger">开启监控MySQL</span>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">PHP:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="php_enabled" lay-skin="switch"
-                                   lay-text="打开|关闭"{{if .monitor.PhpEnabled}} checked{{end}}>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <span class="text-danger">开启监控PHP</span>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <table>
-                            <tbody>
-                            <tr>
-                                <th rowspan="2"><label class="layui-form-label">定时:</label></th>
-                                <th style="text-align: center">分:0-59 *-,</th>
-                                <th style="text-align: center">时:0-23 *-,</th>
-                                <th style="text-align: center">天:1-31 *-,</th>
-                                <th style="text-align: center">月:1-12 *-,</th>
-                                <th style="text-align: center">周:0-6 *-,</th>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="text" name="minute" value="{{.monitor.Minute}}"
-                                           class="layui-input">
-                                </td>
-                                <td style="padding-left: 2%;">
-                                    <input type="text" name="hour" value="{{.monitor.Hour}}" class="layui-input">
-                                </td>
-                                <td style="padding-left: 2%;">
-                                    <input type="text" name="day" value="{{.monitor.Day}}" class="layui-input">
-                                </td>
-                                <td style="padding-left: 2%;">
-                                    <input type="text" name="month" value="{{.monitor.Month}}" class="layui-input">
-                                </td>
-                                <td style="padding-left: 2%;">
-                                    <input type="text" name="week" value="{{.monitor.Week}}" class="layui-input">
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    </fieldset>
+                    <fieldset class="layui-elem-field">
+                        <legend>监控服务设置</legend>
+                        <div lay-filter="monitor"></div>
+                    </fieldset>
                     <div class="layui-form-item">
                         <label class="layui-form-label"></label>
                         <div class="layui-btn-group">
+                            <button class="layui-btn layui-btn-primary" lay-event="add" lay-tips="添加监控服务">
+                                <i class="layui-icon layui-icon-addition"></i>
+                            </button>
                             <button class="layui-btn" lay-submit lay-filter="submit-monitor">立即提交
                             </button>
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="monitor"
-                                    data-tip="违禁设置恢复到出厂设置?">恢复出厂设置
+                                    data-tip="监控设置恢复到出厂设置?">恢复出厂设置
                             </button>
                             <button class="layui-btn" data-event="status" data-name="monitor"
                                     data-tip="查看定时状态">查看状态
@@ -290,14 +306,76 @@
         </div>
     </div>
 </div>
+<script type="text/html" id="monitor">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">服务名称:</label>
+            <div class="layui-input-inline">
+                <input name="services.name." class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">运行特征:</label>
+            <div class="layui-input-inline">
+                <input name="services.run_mark." class="layui-input" value="">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">停止特征:</label>
+            <div class="layui-input-inline">
+                <input name="services.stop_mark." class="layui-input" value="">
+            </div>
+        </div>
+        <i class="layui-icon layui-icon-delete" lay-tips="删除该条服务监控"></i>
+    </div>
+</script>
 {{template "JS" -}}
 <script>
     JS.use(['index', 'main'], function () {
-        let layer = layui.layer,
+        let $ = layui.$,
+            layer = layui.layer,
             main = layui.main,
             form = layui.form,
-            url = {{.current_uri}};
-
+            services = {{.monitor.Services}},
+            url = {{.current_uri}},
+            del = function () {
+                $('[lay-filter="monitor"] i.layui-icon-delete').click(function () {
+                    $(this).parent().remove();
+                })
+            },
+            getIndex = function () {
+                let index = 0;
+                $('[lay-filter="monitor"] [name^="services.name."]').each(function (i, dom) {
+                    i = parseInt(dom.name.split('.')[2]);
+                    if (!isNaN(i) && i > index) {
+                        index = i;
+                    }
+                });
+                return index + 1;
+            },
+            addService = function (index, option) {
+                index = index || getIndex();
+                option = option || {};
+                let dom = $($('#monitor').html());
+                dom.find('[name]').each(function () {
+                    $(this).attr('name', this.name + index);
+                });
+                $.each(option, function (k, v) {
+                    dom.find('[name^="services.' + k + '."]').val(v);
+                });
+                $('div[lay-filter="monitor"]').append(dom);
+            };
+        if (services) {
+            $.each(services, function (index, v) {
+                addService(0, v);
+            });
+            form.render();
+            del();
+        }
+        $('[lay-event="add"]').click(function () {
+            addService();
+            del();
+        });
         form.on('submit(submit-base)', function (obj) {
             main.req({
                 url: url + '/base',
