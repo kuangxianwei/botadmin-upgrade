@@ -274,7 +274,15 @@
 {{template "JS" -}}
 <script>
     JS.use(['index', 'main', 'sample'], function () {
-        let main = layui.main;
+        let main = layui.main, layer = layui.layer;
+        {{if .reminded -}}
+        layer.open({
+            type: 1,
+            shade: false,
+            title: false, //不显示标题
+            content: `<div class="layui-card"><div class="layui-card-body" style="background-color: #0a6e85;color: #F2F2F2;line-height: 2rem"><h2>本服务器储存剩余空间不足5%, 请扩充储存空间,<a lay-href="/resource/disk" style="color: #F2F2F2">详情查看</a></h2></div></div>`,
+        });
+        {{end -}}
         $('li[data-reboot]').click(function () {
             let act = $(this).data("reboot");
             main.req({
