@@ -763,6 +763,7 @@
                                 data: obj.field,
                                 index: index,
                                 tips: function (res) {
+                                    console.log(res);
                                     main.msg(res.msg);
                                 }
                             });
