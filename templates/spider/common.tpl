@@ -134,9 +134,13 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label" lay-tips="模拟UserAgent 默认为谷歌浏览器">UserAgent:</label>
-                            <div class="layui-input-block">
-                                <input name="user_agent" class="layui-input" value="{{.obj.UserAgent}}">
+                            <label class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
+                            <div class="layui-input-inline">
+                                <select name="user_agent" class="layui-select">
+                                    {{range .userAgents -}}
+                                        <option value="{{.Value}}"{{if eq $.obj.UserAgent .Value}} selected{{end}}>{{.Alias}}</option>
+                                    {{end -}}
+                                </select>
                             </div>
                         </div>
                         <div class="layui-form-item cron">
