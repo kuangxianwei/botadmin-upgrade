@@ -1,5 +1,5 @@
 <div class="layui-card">
-    <div class="layui-card-body layui-form">
+    <div class="layui-card-body layui-form" id="tencent">
         <div class="layui-form-item">
             <label class="layui-form-label">启用:</label>
             <div class="layui-input-block">
@@ -63,5 +63,50 @@
             <input type="hidden" name="id" value="{{.obj.Id}}">
             <button lay-submit>提交</button>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <button class="layui-btn layui-btn-radius" lay-filter="test">测试</button>
+        </div>
     </div>
 </div>
+{{template "tanslatorTest.tpl" .}}
+<script>
+    JS.use(['index', 'main'], function () {
+        let main = layui.main;
+        $('[lay-filter="test"]').click(function () {
+            let data = main.formData("#tencent");
+            if (!data.app_id || !data.token) {
+                main.error('AppId或者token为空');
+                return false;
+            }
+            layer.open({
+                type: 1,
+                shadeClose: true,
+                scrollbar: false,
+                btnAlign: 'c',
+                shade: 0.8,
+                fixed: false,
+                maxmin: true,
+                btn: ['提交', '取消'],
+                title: "测试翻译",
+                content: $('#test').html(),
+                area: ["60%", "60%"],
+                yes: function (index, dom) {
+                    data.query = dom.find('[name=query]').val();
+                    if (!data.query) {
+                        main.error('翻译的字符为空');
+                        return false;
+                    }
+                    main.req({
+                        url: '/trans/tencent/test',
+                        data: data,
+                        tips: function (res) {
+                            main.msg(res.msg);
+                        },
+                        index: index
+                    });
+                }
+            });
+        });
+    })
+</script>

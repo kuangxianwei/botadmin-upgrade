@@ -238,10 +238,9 @@
                             <dd data-name="translate">
                                 <a href="javascript:">翻译配置</a>
                                 <dl class="layui-nav-child">
-                                    <dd><a lay-href="/trans/baidu">百度翻译</a></dd>
-                                    <dd><a lay-href="/trans/tencent">腾讯翻译</a></dd>
-                                    <dd><a lay-href="/trans/google">谷歌翻译</a></dd>
-                                    <dd><a lay-href="/trans/youdao">有道翻译</a></dd>
+                                    {{range .trans -}}
+                                        <dd><a lay-href="/trans/{{.Name}}">{{.Alias}}</a></dd>
+                                    {{end -}}
                                 </dl>
                             </dd>
                         </dl>

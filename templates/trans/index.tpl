@@ -77,7 +77,6 @@
                 {{end -}}
                 {field: 'token', title: 'Token', minWidth: 100},
                 {field: 'delay', title: '延时', width: 100, align: 'center'},
-                {field: 'updated', title: '时间', minWidth: 100, sort: true},
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,

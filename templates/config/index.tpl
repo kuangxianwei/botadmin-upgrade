@@ -27,7 +27,6 @@
                 <li class="layui-this">基本设置</li>
                 <li>环境设置</li>
                 <li>采集设置</li>
-                <li>翻译设置</li>
                 <li>违禁设置</li>
                 <li>监控服务</li>
             </ul>
@@ -172,7 +171,7 @@
                     </div>
                 </div>
                 <div class="layui-tab-item layui-form">
-                    {{.spiderHtml}}
+                    {{.spiderHtml -}}
                     <div class="layui-form-item">
                         <label class="layui-form-label"></label>
                         <div class="layui-btn-group">
@@ -185,43 +184,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="layui-tab-item">
-                    <div class="layui-fluid">
-                        <div class="layui-row layui-col-space10">
-                            <div class="layui-col-sm3">
-                                <fieldset class="layui-elem-field layui-form">
-                                    <legend>百度翻译</legend>
-                                    {{.transBaiduHtml}}
-                                </fieldset>
-                            </div>
-                            <div class="layui-col-sm3">
-                                <fieldset class="layui-elem-field layui-form">
-                                    <legend>腾讯翻译</legend>
-                                    {{.transTencentHtml}}
-                                </fieldset>
-                            </div>
-                            <div class="layui-col-sm3">
-                                <fieldset class="layui-elem-field layui-form">
-                                    <legend>有道翻译</legend>
-                                    {{.transYoudaoHtml}}
-                                </fieldset>
-                            </div>
-                            <div class="layui-col-sm3">
-                                <fieldset class="layui-elem-field layui-form">
-                                    <legend>谷歌翻译</legend>
-                                    {{.transGoogleHtml}}
-                                </fieldset>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="layui-tab-item layui-form">
-                    {{.banHtml}}
+                    {{.banHtml -}}
                     <div class="layui-form-item">
                         <label class="layui-form-label"></label>
                         <div class="layui-btn-group">
-                            <button class="layui-btn" lay-submit lay-filter="submit-ban">立即提交
-                            </button>
+                            <button class="layui-btn" lay-submit lay-filter="submit-ban">立即提交</button>
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="ban"
                                     data-tip="违禁设置恢复到出厂设置?">恢复出厂设置
                             </button>
@@ -407,34 +375,6 @@
         form.on('submit(submit-data)', function (obj) {
             main.req({
                 url: url + '/data',
-                data: obj.field,
-            });
-            return false;
-        });
-        form.on('submit(submit-google)', function (obj) {
-            main.req({
-                url: url + '/google',
-                data: obj.field,
-            });
-            return false;
-        });
-        form.on('submit(submit-baidu)', function (obj) {
-            main.req({
-                url: url + '/baidu',
-                data: obj.field,
-            });
-            return false;
-        });
-        form.on('submit(submit-youdao)', function (obj) {
-            main.req({
-                url: url + '/youdao',
-                data: obj.field,
-            });
-            return false;
-        });
-        form.on('submit(submit-tencent)', function (obj) {
-            main.req({
-                url: url + '/tencent',
                 data: obj.field,
             });
             return false;
