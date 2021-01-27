@@ -2,13 +2,6 @@
     <div class="layui-card-header layuiadmin-card-header-auto layui-form">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                {{if .hide -}}
-                    <input type="text" name="token" placeholder="输入Token" autocomplete="off" class="layui-input">
-                {{else -}}
-                    <input type="text" name="app_id" placeholder="输入AppId" autocomplete="off" class="layui-input">
-                {{end -}}
-            </div>
-            <div class="layui-input-inline">
                 <select name="status" lay-filter="status">
                     <option value="">全部</option>
                     <option value="enabled">已启用</option>
