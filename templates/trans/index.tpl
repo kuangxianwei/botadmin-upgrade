@@ -17,6 +17,7 @@
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
+<div class="layui-hide" id="import"></div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
         <div class="layui-btn-group">
@@ -30,6 +31,13 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" lay-event="enabled">开启</button>
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="disabled">关闭</button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
+                <i class="layui-icon iconfont icon-export"></i></button>
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入配置">
+                <i class="layui-icon iconfont icon-import"></i>
+            </button>
         </div>
     </div>
 </script>
@@ -49,6 +57,26 @@
             table = layui.table,
             main = layui.main,
             url = {{.current_uri}};
+        //渲染上传配置
+        layui.upload.render({
+            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            elem: '#import',
+            url: '/trans/import',
+            accept: 'file',
+            exts: 'txt|conf|json',
+            before: function () {
+                layer.load(); //上传loading
+            },
+            done: function (res) {
+                layer.closeAll('loading'); //关闭loading
+                if (res.code === 0) {
+                    layer.msg(res.msg);
+                    table.reload('table-list');
+                } else {
+                    layer.alert(res.msg, {icon: 2});
+                }
+            },
+        });
         //日志管理
         table.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},
@@ -58,6 +86,7 @@
             url: {{.current_uri}},
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
+                {field: 'engine', title: '引擎', hide: true},
                 {field: 'id', title: 'ID', width: 80, align: 'center', sort: true},
                 {
                     field: 'enabled', title: '启用', width: 100, align: 'center',
@@ -77,7 +106,6 @@
             limits: [10, 30, 100, 500, 1000],
             text: '对不起，加载出现异常！'
         });
-
         //监听工具条
         table.on('tool(table-list)', function (obj) {
             let data = obj.data;
@@ -178,6 +206,16 @@
                         data: {ids: ids.join(), enabled: false},
                         ending: 'table-list'
                     });
+                    break;
+                case 'export':
+                    if (ids.length === 0) {
+                        layer.msg("未选中", {icon: 2});
+                        return false;
+                    }
+                    window.open(encodeURI('/trans/export?engine=' + data[0].engine + '&ids=' + ids.join()));
+                    break;
+                case 'import':
+                    $('#import').click();
                     break;
             }
         });

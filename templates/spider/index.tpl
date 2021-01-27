@@ -471,7 +471,7 @@
                     });
                     break;
                 case 'export':
-                    window.open(encodeURI('spider/export?ids=' + ids.join()));
+                    window.open(encodeURI('/spider/export?ids=' + ids.join()));
                     break;
                 case 'import':
                     layer.open({
