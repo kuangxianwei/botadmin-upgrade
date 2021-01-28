@@ -16,7 +16,7 @@
                         <div class="layui-inline">
                             <div class="layui-input-inline">
                                 <select name="status" lay-filter="select_status">
-                                    <option value="-1">全部</option>
+                                    <option value="">全部</option>
                                     <option value="0">采集前</option>
                                     <option value="1">采集中</option>
                                     <option value="2">采集后</option>
@@ -503,8 +503,17 @@
         });
         //监控搜索
         form.on('submit(search)', function (obj) {
+            let field = obj.field, cols = Array();
+            $.each(field, function (k, v) {
+                if (v === "") {
+                    delete field[k];
+                } else {
+                    cols.push(k);
+                }
+            });
+            field.cols = cols.join();
             table.reload('table-list', {
-                where: obj.field,
+                where: field,
                 page: {curr: 1}
             });
             return false;

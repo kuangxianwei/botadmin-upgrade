@@ -11,7 +11,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">类型</label>
                 <div class="layui-input-inline">
-                    <select name="search_type">
+                    <select name="search_type" lay-filter="search_type">
                         <option value="" selected>未指定</option>
                         <option value="file">文件</option>
                         <option value="folder">目录</option>
@@ -321,7 +321,15 @@
 
         //转到
         form.on('submit(submit-goto)', function (obj) {
-            let field = obj.field;
+            let field = obj.field, cols = Array();
+            $.each(field, function (k, v) {
+                if (v === '') {
+                    delete field[k];
+                } else {
+                    cols.push(k);
+                }
+            });
+            field.cols = cols.join();
             field.path = current_path;
             table.reload('table-list', {
                 url: url,
@@ -332,9 +340,15 @@
 
         // 监听搜索
         form.on('submit(search)', function (obj) {
-            // 执行重载
-            $("#form-search :input").val("").removeAttr("checked").remove("selected");
-            let field = obj.field;
+            let field = obj.field, cols = Array();
+            $.each(field, function (k, v) {
+                if (v === '') {
+                    delete field[k];
+                } else {
+                    cols.push(k);
+                }
+            });
+            field.cols = cols.join();
             field.path = current_path;
             table.reload('table-list', {
                 url: url,
@@ -384,6 +398,10 @@
                     }
                 });
             }
+            return false;
+        });
+        form.on('select(search_type)', function () {
+            $('[lay-filter="search"]').click();
             return false;
         });
     });

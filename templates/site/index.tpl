@@ -10,8 +10,8 @@
             <div class="layui-inline">
                 <label class="layui-form-label">状态</label>
                 <div class="layui-input-inline">
-                    <select name="status">
-                        <option value="-1">无</option>
+                    <select name="status" lay-filter="select-status">
+                        <option value="">无</option>
                         {{range $i,$v:=.status -}}
                             <option value="{{$i}}">{{$v}}</option>
                         {{end -}}
@@ -436,7 +436,6 @@
                 },
                 {title: '操作', width: 260, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
-            where: {status: -1},
             page: true,
             limit: 10,
             limits: [10, 20, 100, 300, 500],
@@ -656,11 +655,11 @@
                                     title: '批量修改配置',
                                     url: url + '/modify',
                                     content: $('#edit-html').html(),
-                                    success: function (dom, index) {
+                                    success: function (dom) {
                                         let formDom = dom.find('.layui-form');
                                         formDom.find('input[name=ids]').val(field.ids);
                                         delete field.ids;
-                                        $.each(field, function (k, v) {
+                                        $.each(field, function (k) {
                                             switch (k) {
                                                 case 'ad':
                                                     formDom.append(`<div class="layui-form-item"><label class="layui-form-label">广告代码:</label><div class="layui-input-inline"><textarea name="ad" class="layui-textarea"></textarea></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
@@ -1027,13 +1026,24 @@
 
         //监听搜索
         form.on('submit(search)', function (data) {
-            let field = data.field;
-            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
+            let field = data.field, cols = Array();
+            $.each(field, function (k, v) {
+                if (v === '') {
+                    delete field[k];
+                } else {
+                    cols.push(k);
+                }
+            });
+            field.cols = cols.join();
             //执行重载
             table.reload('table-list', {
                 where: field,
                 page: {curr: 1}
             });
+            return false;
+        });
+        form.on('select()', function () {
+            $('[lay-filter=search]').click();
             return false;
         });
     });

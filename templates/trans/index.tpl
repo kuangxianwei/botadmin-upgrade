@@ -8,7 +8,7 @@
                     <option value="disabled">未启用</option>
                 </select>
             </div>
-            <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
+            <button class="layui-hide" data-type="reload" lay-submit lay-filter="search">
                 <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
         </div>
@@ -223,8 +223,11 @@
         //监听搜索
         form.on('submit(search)', function (data) {
             let field = data.field;
-            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
-            //执行重载
+            if (field.status === '') {
+                field.cols = '';
+            } else {
+                field.cols = 'status';
+            }
             table.reload('table-list', {
                 where: field,
                 page: {curr: 1}

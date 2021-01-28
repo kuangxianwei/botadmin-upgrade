@@ -180,10 +180,16 @@
         });
         //监听搜索
         form.on('submit(search)', function (data) {
-            let field = data.field;
-            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
+            let field = data.field, cols = Array();
+            $.each(field, function (k, v) {
+                if (v === "") {
+                    delete field[k];
+                } else {
+                    cols.push(k);
+                }
+            });
+            field.cols = cols.join();
             //执行重载
-            field.act = "show";
             table.reload('table-list', {
                 where: field,
                 page: {curr: 1}

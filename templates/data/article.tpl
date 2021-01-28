@@ -1,84 +1,97 @@
 <div class="layui-card">
     <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-row">
-            <div class="layui-col-md3">
-                <label class="layui-form-label" lay-tips="输入标题的部分或者全部">标题:</label>
-                <div class="layui-input-inline">
-                    <input class="layui-input" type="text" name="title" placeholder="请输入标题" autocomplete="off">
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <label class="layui-form-label" lay-tips="显示原创度小于这个这个的文章">原创度:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="original_rate" placeholder="70.00" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-col-md4">
-                <label class="layui-form-label" lay-tips="选择指定网站的文章">网站:</label>
-                <div class="layui-input-inline">
-                    <select name="site_id" lay-filter="select_site_id" lay-search>
-                        <option value="0">搜索...</option>
-                        {{range .sites -}}
-                            <option value="{{.Id}}">{{.Vhost}}</option>
-                        {{end -}}
-                    </select>
-                </div>
-            </div>
-            <div class="layui-col-md1">
-                <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
-                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                </button>
-            </div>
+        <div class="layui-input-inline">
+            <input class="layui-input" type="text" name="title" placeholder="请输入标题部分或全部" autocomplete="off">
         </div>
+        <div class="layui-input-inline" style="width: 80px" lay-tips="原创度 例如:70.00">
+            <input type="text" name="original_rate" placeholder="70.00" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <select name="site_id" lay-filter="select_site_id" lay-search>
+                <option value="">指定网站的文章...</option>
+                {{range .sites -}}
+                    <option value="{{.Id}}">{{.Vhost}}</option>
+                {{end -}}
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="used" lay-filter="select_used" lay-search>
+                <option value="">是否使用...</option>
+                <option value="true">已使用</option>
+                <option value="false">未使用</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="trans_failed" lay-filter="select_trans_failed" lay-search>
+                <option value="">翻译是否出错...</option>
+                <option value="true">已出错</option>
+                <option value="false">未出错</option>
+            </select>
+        </div>
+        <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
+            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+        </button>
     </div>
     <div class="layui-card-body">
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
 <script type="text/html" id="toolbar">
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="import" id="import" lay-tips="导入 tag.gz|.zip 格式的压缩文件">
-            <i class="layui-icon iconfont icon-import"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出文章">
-            <i class="layui-icon iconfont icon-export"></i>
-        </button>
-    </div>
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="recover" id="LAY_layer_iframe_recover"
-                lay-tips="把所有已经发布的文章恢复到未发布">
-            <i class="layui-icon layui-icon-refresh-3"></i>恢复
-        </button>
-        <button class="layui-btn layui-btn-sm" lay-event="original" id="LAY_layer_iframe_original"
-                lay-tips="检查原创度 不勾选则检测全部">
-            <i class="layui-icon layui-icon-vercode"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm" lay-event="ban" id="LAY_layer_iframe_ban"
-                lay-tips="过滤违禁词 不勾选则选择全部">
-            <i class="layui-icon layui-icon-find-fill"></i>
-        </button>
-    </div>
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" id="LAY_layer_iframe_del"
-                lay-tips="删除选中的文章列表">
-            <i class="layui-icon layui-icon-delete"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm  layui-btn-danger" lay-event="delused"
-                id="LAY_layer_iframe_delused" lay-tips="删除所有已经发布过的文章">
-            <i class="layui-icon layui-icon-delete"></i>已发布
-        </button>
-        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate"
-                id="LAY_layer_iframe_truncate" lay-tips="清空所有的文章数据，不可恢复！">
-            <i class="layui-icon layui-icon-delete"></i>清空
-        </button>
-    </div>
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="case" id="LAY_layer_iframe_case"
-                lay-tips="查看采集文章范本">范
-        </button>
-        <button class="layui-btn layui-btn-sm" lay-event="translate" id="LAY_layer_iframe_translate"
-                lay-tips="翻译成指定的语言">译
-        </button>
+    <div class="layui-btn-container">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="import" id="import" lay-tips="导入 tag.gz|.zip 格式的压缩文件">
+                <i class="layui-icon iconfont icon-import"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出文章">
+                <i class="layui-icon iconfont icon-export"></i>
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="recover" id="LAY_layer_iframe_recover"
+                    lay-tips="把所有已经发布的文章恢复到未发布">
+                <i class="layui-icon layui-icon-refresh-3"></i>恢复
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="original" id="LAY_layer_iframe_original"
+                    lay-tips="检查原创度 不勾选则检测全部">
+                <i class="layui-icon layui-icon-vercode"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="ban" id="LAY_layer_iframe_ban"
+                    lay-tips="过滤违禁词 不勾选则选择全部">
+                <i class="layui-icon layui-icon-find-fill"></i>
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" id="LAY_layer_iframe_del"
+                    lay-tips="删除选中的文章列表">
+                <i class="layui-icon layui-icon-delete"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm  layui-btn-danger" lay-event="delUsed"
+                    id="LAY_layer_iframe_delUsed" lay-tips="删除所有已经发布过的文章">
+                <i class="layui-icon layui-icon-delete"></i>已发布
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate"
+                    id="LAY_layer_iframe_truncate" lay-tips="清空所有的文章数据，不可恢复！">
+                <i class="layui-icon layui-icon-delete"></i>清空
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="transFailed-true"
+                    id="LAY_layer_iframe_transFailed-true"
+                    lay-tips="翻译改为已出错">翻译->ERR
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="transFailed-false"
+                    id="LAY_layer_iframe_transFailed-false"
+                    lay-tips="翻译改为未出错">翻译->OK
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="case" id="LAY_layer_iframe_case"
+                    lay-tips="查看采集文章范本">范
+            </button>
+            <button class="layui-btn layui-btn-sm" lay-event="translate" id="LAY_layer_iframe_translate"
+                    lay-tips="翻译成指定的语言">译
+            </button>
+        </div>
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
@@ -90,7 +103,8 @@
             <i class="layui-icon layui-icon-delete"></i>
         </button>
         <button class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">
-            <i class="layui-icon layui-icon-log"></i></button>
+            <i class="layui-icon layui-icon-log"></i>
+        </button>
     </div>
 </script>
 {{template "JS" -}}
@@ -134,26 +148,47 @@
                 {
                     field: 'used', title: '使用', align: 'center', width: 92, unresize: true, event: 'used',
                     templet: function (d) {
-                        let msg = '<input id="' + d.id + '" type="checkbox" name="used" lay-skin="switch" lay-text="是|否" lay-filter="switchUsed"';
+                        let msg = '<input id="' + d.id + '" type="checkbox" name="used" lay-skin="switch" lay-text="是|否" lay-filter="used"';
                         if (d.used) {
                             msg += ' checked>';
                         } else {
                             msg += '>';
                         }
                         return msg;
-                    }
+                    },
+                    sort: true
                 },
                 {
                     field: 'ban_vetted', title: '过滤违禁', align: 'center', width: 92, unresize: true, event: 'ban_vetted',
                     templet: function (d) {
-                        let msg = '<input id="' + d.id + '" type="checkbox" name="ban_vetted" lay-skin="switch" lay-text="是|否" lay-filter="switchBanVetted"';
+                        let msg = '<input id="' + d.id + '" type="checkbox" name="ban_vetted" lay-skin="switch" lay-text="是|否" lay-filter="banVetted"';
                         if (d.ban_vetted) {
                             msg += ' checked>';
                         } else {
                             msg += '>';
                         }
                         return msg;
-                    }
+                    },
+                    sort: true,
+                    hide: true
+                },
+                {
+                    field: 'trans_failed',
+                    title: '译错',
+                    align: 'center',
+                    width: 92,
+                    unresize: true,
+                    event: 'trans_failed',
+                    templet: function (d) {
+                        let msg = '<input id="' + d.id + '" type="checkbox" name="trans_failed" lay-skin="switch" lay-text="是|否" lay-filter="transFailed"';
+                        if (d.trans_failed) {
+                            msg += ' checked>';
+                        } else {
+                            msg += '>';
+                        }
+                        return msg;
+                    },
+                    sort: true
                 },
                 {field: 'updated', title: '时间', align: 'center', width: 180, sort: true},
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
@@ -308,10 +343,10 @@
                         form.render();
                     });
                     break;
-                case 'delused':
+                case 'delUsed':
                     layer.confirm('删除所有已经发布是文章列表？', function (index) {
                         main.req({
-                            url: url + '/delused',
+                            url: url + '/del/used',
                             index: index,
                             ending: 'table-list'
                         });
@@ -320,18 +355,55 @@
                 case 'export':
                     window.open(encodeURI(url + '/export?ids=' + ids.join()));
                     break;
+                case 'transFailed-true':
+                    if (isEmpty) {
+                        layer.msg('请勾选数据', {icon: 2});
+                        return false;
+                    }
+                    layer.confirm('选中的修改为翻译已出错状态?', function (index) {
+                        main.req({
+                            url: url + '/toggle',
+                            index: index,
+                            data: {trans_failed: true, ids: ids.join()},
+                            ending: 'table-list'
+                        });
+                    });
+                    break;
+                case 'transFailed-false':
+                    if (isEmpty) {
+                        layer.msg('请勾选数据', {icon: 2});
+                        return false;
+                    }
+                    layer.confirm('选中的修改为翻译未出错状态?', function (index) {
+                        main.req({
+                            url: url + '/toggle',
+                            index: index,
+                            data: {trans_failed: false, ids: ids.join()},
+                            ending: 'table-list'
+                        });
+                    });
+                    break;
             }
         });
         //监听搜索
         form.on('submit(search)', function (data) {
-            let field = data.field;
+            let field = data.field, cols = Array();
+            $.each(field, function (k, v) {
+                if (v === '') {
+                    delete field[k];
+                } else {
+                    cols.push(k);
+                }
+            });
+            field.cols = cols.join();
             table.reload('table-list', {
                 where: field,
                 page: {curr: 1}
             });
             return false;
         });
-        form.on('switch(switchUsed)', function (obj) {
+        // 切换是否已经使用
+        form.on('switch(used)', function (obj) {
             let id = this.id,
                 checked = this.checked;
             if (!id) {
@@ -339,13 +411,14 @@
                 return false;
             }
             main.req({
-                url: url + '/used',
+                url: url + '/toggle',
                 data: {'id': id, "used": checked},
                 ending: 'table-list',
             });
             return false;
         });
-        form.on('switch(switchBanVetted)', function (obj) {
+        // 切换翻译错误
+        form.on('switch(transFailed)', function (obj) {
             let id = this.id,
                 checked = this.checked;
             if (!id) {
@@ -353,7 +426,22 @@
                 return false;
             }
             main.req({
-                url: url + '/banvet',
+                url: url + '/toggle',
+                data: {'id': id, "trans_failed": checked},
+                ending: 'table-list',
+            });
+            return false;
+        });
+        // 切换过滤
+        form.on('switch(banVetted)', function (obj) {
+            let id = this.id,
+                checked = this.checked;
+            if (!id) {
+                layer.tips('ID为空，无法操作！', obj.othis);
+                return false;
+            }
+            main.req({
+                url: url + '/toggle',
                 data: {'id': id, "ban_vetted": checked},
                 ending: 'table-list',
             });
@@ -361,6 +449,14 @@
         });
         //监控选择site id
         form.on('select(select_site_id)', function () {
+            $('button[lay-filter=search]').click();
+            return false;
+        });
+        form.on('select(select_used)', function () {
+            $('button[lay-filter=search]').click();
+            return false;
+        });
+        form.on('select(select_trans_failed)', function () {
             $('button[lay-filter=search]').click();
             return false;
         });
