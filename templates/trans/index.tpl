@@ -98,7 +98,12 @@
                 {field: 'app_id', title: 'AppId', minWidth: 100, align: 'center', sort: true},
                 {{end -}}
                 {field: 'token', title: 'Token', minWidth: 100},
-                {field: 'delay', title: '延时', width: 100, align: 'center'},
+                {field: 'delay', title: '延时', width: 100, align: 'center', hide: true},
+                {
+                    field: 'created', title: '创建时间', width: 160, align: 'center', sort: true, templet: function (d) {
+                        return main.timestampFormat(d['created']);
+                    }
+                },
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
