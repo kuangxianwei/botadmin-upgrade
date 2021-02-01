@@ -86,7 +86,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     if (rows < 8) {
                         rows = 8
                     }
-                    res.msg = '<textarea class="layui-textarea" rows="' + (rows > 12 ? 12 : rows) + '" style="width:500px;">' + res.msg + '</textarea>';
+                    res.msg = '<textarea class="layui-textarea" rows="' + (rows > 12 ? 12 : rows) + '" style="width:500px;height:100%">' + res.msg + '</textarea>';
                 } else {
                     let reg = new RegExp('\n', 'g');
                     res.msg = res.msg.replace(reg, '<br/>');

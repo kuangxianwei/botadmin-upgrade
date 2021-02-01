@@ -767,8 +767,15 @@
                                 data: obj.field,
                                 index: index,
                                 tips: function (res) {
-                                    console.log(res);
-                                    main.msg(res.msg);
+                                    layer.open({
+                                        type: 1,
+                                        title: '测试详情页结果',
+                                        content: res.msg,
+                                        area: ['80%', '80%'],
+                                        btn: false,
+                                        maxmin: true,
+                                        shadeClose: true,
+                                    });
                                 }
                             });
                         });
@@ -897,7 +904,7 @@
                                 dom.find('[name="detail.method.' + id + '"]>option[value=text]').prop('selected', true);
                                 break;
                             case 'tags':
-                                dom.find('[name="detail.dom.' + id + '"]').val('.tags');
+                                dom.find('[name="detail.dom.' + id + '"]').val('.tags a');
                                 dom.find('[name="detail.method.' + id + '"]>option[value=text]').prop('selected', true);
                                 break;
                             case 'content':
