@@ -48,6 +48,9 @@
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
+        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i>
+        </button>
     </div>
 </script>
 {{template "JS" -}}
@@ -151,6 +154,15 @@
                             area: ['70%', '90%'],
                             content: html,
                             ending: 'table-list',
+                        });
+                    });
+                    break;
+                case 'log':
+                    $.get('/trans/record', data, function (html) {
+                        main.popup({
+                            title: '日志',
+                            content: html,
+                            url: '/trans/record',
                         });
                     });
                     break;
