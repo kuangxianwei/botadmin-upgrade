@@ -59,14 +59,43 @@
                     lay-tips="把所有已经发布的文章恢复到未发布">
                 <i class="layui-icon layui-icon-refresh-3"></i>恢复
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="original" id="LAY_layer_iframe_original"
-                    lay-tips="检查原创度 不勾选则检测全部">
-                <i class="layui-icon layui-icon-vercode"></i>
-            </button>
             <button class="layui-btn layui-btn-sm" lay-event="ban" id="LAY_layer_iframe_ban"
                     lay-tips="过滤违禁词 不勾选则选择全部">
                 <i class="layui-icon layui-icon-find-fill"></i>
             </button>
+        </div>
+        <div class="layui-btn-group">
+            <ul class="layui-nav layui-bg-green botadmin-nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:" lay-tips="文章原创监控设置" lay-direction="2">
+                        <i class="layui-icon layui-icon-vercode"></i>
+                        <cite>原创</cite>
+                        <span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
+                                    lay-event="originality" value="0">->不检测
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
+                                    lay-event="originality" value="1">->未检测
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
+                                    lay-event="originality" value="2">->已检测
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
+                                    lay-event="originality-exec">检测原创
+                            </button>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" id="LAY_layer_iframe_del"
@@ -143,7 +172,14 @@
                     sort: true,
                     width: 120,
                     templet: function (d) {
-                        return (d['originality_rate'] * 100).toFixed(2)+'%';
+                        let val = (d['originality_rate'] * 100).toFixed(2) + '%';
+                        if (d['originality_rate'] < 0.35) {
+                            return '<b style="color: red">' + val + '</b>';
+                        }
+                        if (d['originality_rate'] > 0.69) {
+                            return '<b style="color:#01aaed;">' + val + '</b>';
+                        }
+                        return val;
                     },
                 },
                 {field: 'description', title: '描述', hide: true},
@@ -200,7 +236,7 @@
             ]],
             page: true,
             limit: 10,
-            limits: [10, 15, 20, 25, 30, 200],
+            limits: [10, 50, 200, 500, 900],
             done: function () {
                 upload.render({
                     headers: {'X-CSRF-Token':{{.csrf_token}}},
@@ -212,6 +248,7 @@
                         layer.msg(res.msg);
                     }
                 });
+                element.render();
             },
             text: '对不起，加载出现异常！'
         });
@@ -302,10 +339,26 @@
                         });
                     });
                     break;
-                case 'original':
+                case 'originality-exec':
+                    if (isEmpty) {
+                        layer.msg('请勾选数据', {icon: 2});
+                        return false;
+                    }
                     main.req({
                         url: url + '/original',
                         data: {ids: ids.join()},
+                        ending: 'table-list'
+                    });
+                    break;
+                case 'originality':
+                    if (isEmpty) {
+                        layer.msg('请勾选数据', {icon: 2});
+                        return false;
+                    }
+                    let val = this.value;
+                    main.req({
+                        url: url + '/original',
+                        data: {ids: ids.join(), originality: val},
                         ending: 'table-list'
                     });
                     break;
