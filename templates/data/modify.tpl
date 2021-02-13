@@ -62,16 +62,25 @@
                 <input type="text" class="layui-input" name="source" value="{{.obj.Source}}">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">原创率:</label>
+            <div class="layui-input-block">
+                <input type="radio" name="originality" value="0"
+                       title="不检验"{{if eq .obj.Originality 0}} checked{{end}}>
+                <input type="radio" name="originality" value="1"
+                       title="未检验"{{if eq .obj.Originality 1}} checked{{end}}>
+                <input type="radio" name="originality" value="2"
+                       title="已检验"{{if eq .obj.Originality 2}} checked{{end}}>
+            </div>
+        </div>
         <div class="layui-form-item layui-hide">
             <input type="hidden" name="id" value="{{.obj.Id}}">
-            <input type="hidden" name="ban_vetted" value="{{.obj.BanVetted}}">
-            <input type="hidden" name="original_rate" value="{{.obj.OriginalRate}}">
             <button class="layui-btn layui-btn-small" lay-submit>提交</button>
         </div>
     </div>
 </div>
 <script>
-    JS.use(function () {
+    JS.use([], function () {
         let form = layui.form,
             class_id = $('select[name=class_id]').val();
         form.on('select(site_id)', function (obj) {

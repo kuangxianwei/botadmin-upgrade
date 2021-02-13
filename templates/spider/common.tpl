@@ -134,13 +134,26 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
-                            <div class="layui-input-inline">
-                                <select name="user_agent" class="layui-select">
-                                    {{range .userAgents -}}
-                                        <option value="{{.Value}}"{{if eq $.obj.UserAgent .Value}} selected{{end}}>{{.Alias}}</option>
-                                    {{end -}}
-                                </select>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
+                                <div class="layui-input-inline">
+                                    <select name="user_agent" class="layui-select">
+                                        {{range .userAgents -}}
+                                            <option value="{{.Value}}"{{if eq $.obj.UserAgent .Value}} selected{{end}}>{{.Alias}}</option>
+                                        {{end -}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">原创率:</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="originality" value="0"
+                                           title="不检验"{{if eq .obj.Originality 0}} checked{{end}}>
+                                    <input type="radio" name="originality" value="1"
+                                           title="未检验"{{if eq .obj.Originality 1}} checked{{end}}>
+                                    <input type="radio" name="originality" value="2"
+                                           title="已检验"{{if eq .obj.Originality 2}} checked{{end}}>
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item cron">
@@ -153,14 +166,6 @@
                                         <option value="2"{{if eq .obj.Order 2}} selected{{end}}>URL升序</option>
                                         <option value="2"{{if eq .obj.Order 3}} selected{{end}}>URL降序</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label" lay-tips="原创度0-100 小于这个原创度的网站将丢弃">原创度:</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="original_rate" value="{{.obj.OriginalRate}}"
-                                           autocomplete="off" placeholder="70"
-                                           class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">

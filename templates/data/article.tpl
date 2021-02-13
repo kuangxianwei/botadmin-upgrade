@@ -4,7 +4,7 @@
             <input class="layui-input" type="text" name="title" placeholder="请输入标题部分或全部" autocomplete="off">
         </div>
         <div class="layui-input-inline" style="width: 80px" lay-tips="原创度 例如:70.00">
-            <input type="text" name="original_rate" placeholder="70.00" autocomplete="off" class="layui-input">
+            <input type="text" name="originality_rate" placeholder="70.00" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline">
             <select name="site_id" lay-filter="select_site_id" lay-search>
@@ -26,6 +26,14 @@
                 <option value="">翻译是否出错...</option>
                 <option value="true">已出错</option>
                 <option value="false">未出错</option>
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="originality" lay-filter="select_originality">
+                <option value="">原创状态...</option>
+                <option value="0">不检验</option>
+                <option value="1">未检验</option>
+                <option value="2">已检验</option>
             </select>
         </div>
         <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
@@ -129,17 +137,14 @@
                 {field: 'id', title: 'ID', hide: true},
                 {field: 'title', title: '标题', event: 'modify', style: 'cursor:pointer;color:#01aaed;font-weight:bold'},
                 {
-                    field: 'original_rate',
-                    title: '原创度',
+                    field: 'originality_rate',
+                    title: '原创率',
                     align: 'center',
                     sort: true,
                     width: 120,
                     templet: function (d) {
-                        if (d.original_rate < 70) {
-                            return '<strong style="color:red;">' + d.original_rate.toFixed(2) + '%</strong>';
-                        }
-                        return '<strong style="color:#00a6ff;">' + d.original_rate.toFixed(2) + '%</strong>';
-                    }
+                        return (d['originality_rate'] * 100).toFixed(2);
+                    },
                 },
                 {field: 'description', title: '描述', hide: true},
                 {field: 'tags', title: 'Tags', hide: true},
@@ -298,14 +303,10 @@
                     });
                     break;
                 case 'original':
-                    content = '<div class="layui-card">\n<div class="layui-card-body layui-form">\n<div class="layui-form-item">\n<label class="layui-form-label">线程:</label>\n<div class="layui-input-inline">\n<input type="text" name="thread" value="thread" class="layui-input"/>\n</div>\n</div>\n<div class="layui-form-item">\n<label class="layui-form-label">强制:</label>\n<div class="layui-input-inline">\n<input type="checkbox" name="force" lay-skin="switch" lay-text="打开|关闭">\n</div>\n<div class="layui-form-mid layui-word-aux">不过滤已经检测过的</div>\n</div>\n<div class="layui-form-item">\n<div class="layui-hide">\n<input type="text" name="ids" value="ids" class="layui-input"/>\n<button class="layui-btn" lay-submit lay-filter="submit">立即提交</button>\n</div>\n</div>\n</div>\n</div>';
-                    content = content.replace(/ value="thread"/, ' value="' + thread + '"');
-                    content = content.replace(/ value="ids"/, ' value="' + ids.join() + '"');
-                    main.popup({
-                        title: '批量检测原创度',
-                        content: content,
+                    main.req({
                         url: url + '/original',
-                        area: ['400px', '280px'],
+                        data: {ids: ids.join()},
+                        ending: 'table-list'
                     });
                     break;
                 case 'ban':
@@ -449,6 +450,10 @@
         });
         //监控选择site id
         form.on('select(select_site_id)', function () {
+            $('button[lay-filter=search]').click();
+            return false;
+        });
+        form.on('select(select_originality)', function () {
             $('button[lay-filter=search]').click();
             return false;
         });

@@ -97,7 +97,7 @@
                                 </a>
                             </dd>
                             <dd data-name="set-data">
-                                <a lay-href="/config/sitedata" lay-tips="资料设置" lay-direction="2">
+                                <a lay-href="/config/site/data" lay-tips="资料设置" lay-direction="2">
                                     <i class="iconfont icon-data"></i>
                                     <cite>资料</cite>
                                 </a>

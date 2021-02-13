@@ -557,6 +557,16 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
+                        <label class="layui-form-label">原创度:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="originality_rate" value="{{.obj.OriginalityRate}}"
+                                   class="layui-input"/>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            大于或等于这个值才发布最大100%
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label">插图阈值:</label>
                         <div class="layui-input-inline">
                             <input type="text" name="insert_pic_deg" value="{{.obj.InsertPicDeg}}" class="layui-input"/>
