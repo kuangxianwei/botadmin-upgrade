@@ -143,7 +143,7 @@
                     sort: true,
                     width: 120,
                     templet: function (d) {
-                        return (d['originality_rate'] * 100).toFixed(2);
+                        return (d['originality_rate'] * 100).toFixed(2)+'%';
                     },
                 },
                 {field: 'description', title: '描述', hide: true},
