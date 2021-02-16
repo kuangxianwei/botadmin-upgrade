@@ -406,8 +406,10 @@
                                 form.on('submit(setupSubmit)', function () {
                                     let field = main.formData(dom.selector);
                                     field.cols = Array();
-                                    dom.find('[name]').each(function () {
-                                        field.cols.push(this.name);
+                                    dom.find('.layui-form [name]').each(function (i, v) {
+                                        if (v.disabled === false && v.name && v.name !== 'cols' && field.cols.indexOf(v.name) === -1) {
+                                            field.cols.push(v.name);
+                                        }
                                     });
                                     if (field.durations instanceof Array) {
                                         field.durations = field.durations.join();
@@ -432,7 +434,6 @@
         //监听搜索
         form.on('submit(search)', function (data) {
             let field = data.field;
-            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
             //执行重载
             table.reload('table-list', {
                 where: field,
