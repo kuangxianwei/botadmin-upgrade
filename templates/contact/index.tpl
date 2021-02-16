@@ -17,16 +17,14 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="setup">
-            <i class="layui-icon layui-icon-set"></i>批量配置
-        </button>
-    </div>
-    <div class="layui-btn-group">
         <button class="layui-btn layui-btn-sm" lay-event="add">
             <i class="layui-icon layui-icon-addition"></i>添加
         </button>
         <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>删除
+        </button>
+        <button class="layui-btn layui-btn-sm" lay-event="setup">
+            <i class="layui-icon layui-icon-set"></i>
         </button>
     </div>
 </script>

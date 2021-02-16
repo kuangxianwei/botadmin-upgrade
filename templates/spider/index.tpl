@@ -69,14 +69,14 @@
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="addrule">
+            <button class="layui-btn layui-btn-sm" lay-event="addRule">
                 <i class="layui-icon layui-icon-add-circle"></i>添加
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="status">
-                <i class="layui-icon layui-icon-star"></i>状态
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="exec">
                 <i class="layui-icon iconfont icon-spider"></i>采集
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="configure">
+                <i class="layui-icon layui-icon-set"></i>
             </button>
         </div>
         <div class="layui-btn-group">
@@ -96,11 +96,6 @@
                         <dd>
                             <button class="layui-btn layui-btn-sm layui-btn-fluid layui-btn-primary"
                                     lay-event="recordDel">清除记录
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid layui-btn-primary"
-                                    lay-event="disable-page">关闭分页
                             </button>
                         </dd>
                     </dl>
@@ -381,7 +376,7 @@
                         });
                     });
                     break;
-                case 'addrule':
+                case 'addRule':
                     $.get(url + '/add', {}, function (html) {
                         main.popup({
                             title: '添加规则',
@@ -392,18 +387,18 @@
                         });
                     });
                     break;
-                case 'status':
+                case 'configure':
                     if (ids.length === 0) {
                         return layer.msg('请选择数据');
                     }
-                    let othis = $($('#table-status').html());
-                    othis.find('div.layui-form:first').prepend('<input type="hidden" name="ids" value="' + ids.join() + '">');
-                    main.popup({
-                        title: '修改状态',
-                        content: othis.html(),
-                        area: ['240px', '300px'],
-                        url: url + '/status',
-                        ending: 'table-list',
+                    $.get(url + '/configure', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            title: '批量修改配置',
+                            content: html,
+                            area: ['800px', '450px'],
+                            url: url + '/configure',
+                            ending: 'table-list',
+                        });
                     });
                     break;
                 case 'exec':
@@ -429,16 +424,6 @@
                             url: url + '/record/del',
                             data: {ids: ids.join()},
                             index: index
-                        });
-                    });
-                    break;
-                case "disable-page":
-                    layer.confirm('确定关闭选中规则的分页采集？', function (index) {
-                        main.req({
-                            url: url + '/disable/page',
-                            data: {ids: ids.join()},
-                            index: index,
-                            ending: 'table-list',
                         });
                     });
                     break;

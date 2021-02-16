@@ -35,7 +35,7 @@
                 <label class="layui-form-label">网站ID:</label>
                 <div class="layui-input-inline">
                     <select name="site_id" lay-search lay-filter="site_id">
-                        <option value="0">搜索...</option>
+                        <option value="">搜索...</option>
                         {{range .sites -}}
                             <option value="{{.Id}}"{{if eq $.obj.SiteId .Id}} selected{{end}}>{{.Vhost}}</option>
                         {{end -}}
@@ -85,6 +85,8 @@
             class_id = $('select[name=class_id]').val();
         form.on('select(site_id)', function (obj) {
             if (obj.value === 0 || obj.value === "") {
+                $('div[lay-filter=class_id]').html('<select name="class_id"><option value="">无...</option></select>');
+                form.render();
                 return false;
             }
             $.get('/site/class', {'id': obj.value, 'class_id': class_id}, function (res) {

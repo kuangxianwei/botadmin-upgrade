@@ -28,6 +28,7 @@
         .layui-input,.layui-textarea {display:inline-block !important;}
         .layui-elem-field {padding:revert !important;}
         .layui-transfer-box {overflow:hidden !important;}
+        i.layui-icon[lay-event="del"] {color: red;cursor: pointer;}
     </style>
     <script>
         var _hmt = _hmt || [];

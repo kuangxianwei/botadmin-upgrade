@@ -53,49 +53,18 @@
             <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出文章">
                 <i class="layui-icon iconfont icon-export"></i>
             </button>
+            <button class="layui-btn layui-btn-sm" lay-event="configure" lay-tips="批量修改配置">
+                <i class="layui-icon layui-icon-set"></i>
+            </button>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="recover" id="LAY_layer_iframe_recover"
-                    lay-tips="把所有已经发布的文章恢复到未发布">
-                <i class="layui-icon layui-icon-refresh-3"></i>恢复
-            </button>
             <button class="layui-btn layui-btn-sm" lay-event="ban" id="LAY_layer_iframe_ban"
-                    lay-tips="过滤违禁词 不勾选则选择全部">
-                <i class="layui-icon layui-icon-find-fill"></i>
+                    lay-tips="过滤违禁词">
+                <i class="layui-icon layui-icon-find-fill"></i>检违禁
             </button>
-        </div>
-        <div class="layui-btn-group">
-            <ul class="layui-nav layui-bg-green botadmin-nav">
-                <li class="layui-nav-item">
-                    <a href="javascript:" lay-tips="文章原创监控设置" lay-direction="2">
-                        <i class="layui-icon layui-icon-vercode"></i>
-                        <cite>原创</cite>
-                        <span class="layui-nav-more"></span>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
-                                    lay-event="originality" value="0">->不检测
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
-                                    lay-event="originality" value="1">->未检测
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
-                                    lay-event="originality" value="2">->已检测
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid"
-                                    lay-event="originality-exec">检测原创
-                            </button>
-                        </dd>
-                    </dl>
-                </li>
-            </ul>
+            <button class="layui-btn layui-btn-sm" lay-event="originality-exec">
+                <i class="layui-icon layui-icon-vercode"></i>检原创
+            </button>
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" id="LAY_layer_iframe_del"
@@ -109,16 +78,6 @@
             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate"
                     id="LAY_layer_iframe_truncate" lay-tips="清空所有的文章数据，不可恢复！">
                 <i class="layui-icon layui-icon-delete"></i>清空
-            </button>
-        </div>
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="transFailed-true"
-                    id="LAY_layer_iframe_transFailed-true"
-                    lay-tips="翻译改为已出错">翻译->ERR
-            </button>
-            <button class="layui-btn layui-btn-sm" lay-event="transFailed-false"
-                    id="LAY_layer_iframe_transFailed-false"
-                    lay-tips="翻译改为未出错">翻译->OK
             </button>
         </div>
         <div class="layui-btn-group">
@@ -187,7 +146,7 @@
                 {field: 'site_id', title: '绑定网站ID', hide: true},
                 {field: 'class_id', title: '文章ID', hide: true},
                 {
-                    field: 'used', title: '使用', align: 'center', width: 92, unresize: true, event: 'used',
+                    field: 'used', title: '已使用', align: 'center', width: 92, unresize: true, event: 'used',
                     templet: function (d) {
                         let msg = '<input id="' + d.id + '" type="checkbox" name="used" lay-skin="switch" lay-text="是|否" lay-filter="used"';
                         if (d.used) {
@@ -294,7 +253,6 @@
             let data = table.checkStatus(obj.config.id).data,
                 isEmpty = data.length === 0,
                 thread = isEmpty ? 10 : data.length,
-                content = '',
                 ids = Array();
             for (let i = 0; i < data.length; i++) {
                 ids[i] = data[i].id;
@@ -329,16 +287,20 @@
                         });
                     });
                     break;
-                case 'recover':
-                    layer.confirm('把所有已经发布的文章更改为未发布？', function (index) {
-                        main.req({
-                            url: url + '/recover',
-                            ids: ids.join(),
-                            index: index,
-                            ending: 'table-list'
+                case 'configure':
+                    if (isEmpty) {
+                        layer.msg('请勾选数据', {icon: 2});
+                        return false;
+                    }
+                    $.get(url + '/configure', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            title: "批量修改配置",
+                            content: html,
+                            url: url + '/configure',
+                            ending: 'table-list',
                         });
                     });
-                    break;
+                    return;
                 case 'originality-exec':
                     if (isEmpty) {
                         layer.msg('请勾选数据', {icon: 2});
@@ -408,34 +370,6 @@
                     break;
                 case 'export':
                     window.open(encodeURI(url + '/export?ids=' + ids.join()));
-                    break;
-                case 'transFailed-true':
-                    if (isEmpty) {
-                        layer.msg('请勾选数据', {icon: 2});
-                        return false;
-                    }
-                    layer.confirm('选中的修改为翻译已出错状态?', function (index) {
-                        main.req({
-                            url: url + '/toggle',
-                            index: index,
-                            data: {trans_failed: true, ids: ids.join()},
-                            ending: 'table-list'
-                        });
-                    });
-                    break;
-                case 'transFailed-false':
-                    if (isEmpty) {
-                        layer.msg('请勾选数据', {icon: 2});
-                        return false;
-                    }
-                    layer.confirm('选中的修改为翻译未出错状态?', function (index) {
-                        main.req({
-                            url: url + '/toggle',
-                            index: index,
-                            data: {trans_failed: false, ids: ids.join()},
-                            ending: 'table-list'
-                        });
-                    });
                     break;
             }
         });

@@ -828,7 +828,6 @@
                     break;
             }
         });
-
         //监控系统选择
         form.on('select(system)', function (obj) {
             $.get('/site/admin', {system: obj.value}, function (html) {
@@ -841,12 +840,8 @@
                 $('#theme').empty();
                 if (tplName) {
                     $.get('/site/theme', {system: $('select[name=system]').val(), tpl_name: tplName}, function (res) {
-                        if (res.code === 0) {
-                            if (res.data.Face) {
-                                $('#theme').html('<img width="100%" height="100%" alt="' + res.data.Alias + '" src="' + res.data.Face + '" title="' + res.data.Readme + '">');
-                            }
-                        } else {
-                            console.log(res.msg);
+                        if (res.code === 0 && res.data['Face']) {
+                            $('#theme').html('<img width="100%" height="100%" alt="' + res.data['Alias'] + '" src="' + res.data['Face'] + '" title="' + res.data['Readme'] + '">');
                         }
                     });
                 }

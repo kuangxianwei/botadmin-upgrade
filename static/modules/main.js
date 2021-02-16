@@ -213,10 +213,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             data: obj.field,
                             index: index,
                             ending: options.ending,
-                        };
+                        }, cols = Array();
                         if (typeof options.tips === 'function') {
                             reqOptions.tips = options.tips;
                         }
+                        dom.find('.layui-form [name]').each(function (i, v) {
+                            if (v.disabled === false && v.name && v.name !== 'cols' && cols.indexOf(v.name) === -1) {
+                                cols.push(v.name);
+                            }
+                        });
+                        reqOptions.data.cols = cols.join();
                         req(reqOptions);
                         return false;
                     });
@@ -335,5 +341,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 };
             }
         }(),
+        onDel: function () {
+            $('i[lay-event="del"]').click(function () {
+                $(this).closest('.layui-form-item').remove();
+            });
+        },
     });
 });

@@ -66,8 +66,8 @@
             <button class="layui-btn layui-btn-sm" lay-event="batch" lay-tips="批量添加网站">
                 <i class="layui-icon iconfont icon-batchadd"></i>
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="edit" lay-tips="批量修改网站">
-                <i class="layui-icon layui-icon-edit"></i>
+            <button class="layui-btn layui-btn-sm" lay-event="edit" lay-tips="批量修改配置">
+                <i class="layui-icon layui-icon-set"></i>
             </button>
         </div>
         <div class="layui-btn-group">
@@ -289,32 +289,24 @@
     <div class="layui-card">
         <div class="layui-card-body layui-form">
             <div class="layui-form-item">
-                <label class="layui-form-label">选择修改项:</label>
-                <div class="layui-input-block">
-                    <input type="checkbox" name="ad" title="广告代码" checked>
-                    <input type="checkbox" name="replaces" title="灰词替换">
-                    <input type="checkbox" name="contact" title="联系方式">
-                    <input type="checkbox" name="insert_pic_deg" title="插图阈值">
-                    <input type="checkbox" name="pub_deg" title="发布阈值">
-                    <input type="checkbox" name="content_deg" title="内容阈值">
-                    <input type="checkbox" name="link_deg" title="内链阀值">
-                    <input type="checkbox" name="out_link_deg" title="外链阀值">
-                    <input type="checkbox" name="title_tag_deg" title="标题阀值">
-                    <input type="checkbox" name="pub_self" title="指定发布">
-                    <input type="checkbox" name="cron_enabled" title="定时发布">
-                    <input type="checkbox" name="push_config" title="推送配置">
-                </div>
+                <input type="checkbox" name="ad" title="广告代码" checked>
+                <input type="checkbox" name="replaces" title="灰词替换">
+                <input type="checkbox" name="contact" title="联系方式">
+                <input type="checkbox" name="insert_pic_deg" title="插图阈值">
+                <input type="checkbox" name="pub_deg" title="发布阈值">
+                <input type="checkbox" name="content_deg" title="内容阈值">
+                <input type="checkbox" name="link_deg" title="内链阀值">
+                <input type="checkbox" name="out_link_deg" title="外链阀值">
+                <input type="checkbox" name="title_tag_deg" title="标题阀值">
+                <input type="checkbox" name="pub_self" title="指定发布">
+                <input type="checkbox" name="cron_enabled" title="定时发布">
+                <input type="checkbox" name="push_config" title="推送配置">
             </div>
         </div>
     </div>
 </script>
 <script type="text/html" id="edit-html">
     <style>
-        .layui-form i.layui-icon-delete {
-            color: red;
-            cursor: pointer;
-        }
-
         .layui-form .layui-input-inline {
             min-width: 500px;
         }
@@ -629,7 +621,7 @@
                         btnAlign: 'c',
                         shade: 0.8,
                         fixed: false,
-                        area: ['500px', '300px'],
+                        area: ['520px', '250px'],
                         maxmin: true,
                         zIndex: 200000,
                         btn: ['确定', '取消'],
