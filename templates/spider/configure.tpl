@@ -23,6 +23,17 @@
             <i class="layui-icon layui-icon-delete" lay-event="del"></i>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
+            <div class="layui-input-inline">
+                <select name="user_agent" class="layui-select" lay-search>
+                    {{range .userAgents -}}
+                        <option value="{{.Value}}">{{.Alias}}</option>
+                    {{end -}}
+                </select>
+            </div>
+            <i class="layui-icon layui-icon-delete" lay-event="del"></i>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
             <div class="layui-input-inline">
                 <input type="text" name="delay" class="layui-input" value="" autocomplete="off" placeholder="10-20">

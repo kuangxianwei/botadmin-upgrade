@@ -137,7 +137,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
                                 <div class="layui-input-inline">
-                                    <select name="user_agent" class="layui-select">
+                                    <select name="user_agent" class="layui-select" lay-search>
                                         {{range .userAgents -}}
                                             <option value="{{.Value}}"{{if eq $.obj.UserAgent .Value}} selected{{end}}>{{.Alias}}</option>
                                         {{end -}}
