@@ -557,16 +557,6 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">原创度:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="originality_rate" value="{{.obj.OriginalityRate}}"
-                                   class="layui-input"/>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            大于或等于这个值才发布最大100%
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
                         <label class="layui-form-label">插图阈值:</label>
                         <div class="layui-input-inline">
                             <input type="text" name="insert_pic_deg" value="{{.obj.InsertPicDeg}}" class="layui-input"/>
@@ -586,6 +576,14 @@
                             <input type="text" name="content_deg" value="{{.obj.ContentDeg}}" class="layui-input"/>
                         </div>
                         <div class="layui-form-mid layui-word-aux">内容内随机插入关键词数量</div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">原创度:</label>
+                        <div class="layui-input-inline" style="margin-top:18px;">
+                            <div id="originality_rate"></div>
+                            <input type="hidden" name="originality_rate" value="{{$.obj.OriginalityRate}}">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">大于或等于这个值才发布</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">属性阀值:</label>
@@ -795,9 +793,7 @@
     JS.use(['main'], function () {
         let main = layui.main,
             form = layui.form,
-            layer = layui.layer,
-            //获取模板目录名称
-            tpl_name = $('select[name=tpl_name]').val();
+            layer = layui.layer;
         $('[lay-event]').click(function () {
             switch ($(this).attr('lay-event')) {
                 case 'valid-title':
@@ -828,23 +824,17 @@
                     break;
             }
         });
+        main.render.tpl();
         //监控系统选择
         form.on('select(system)', function (obj) {
             $.get('/site/admin', {system: obj.value}, function (html) {
                 $('input[name=admin_dir]').val(html);
             });
-            $.get('/site/tpl', {system: obj.value, tpl_name: tpl_name}, function (html) {
+            $.get('/site/tpl', {system: obj.value, tpl_name: $('select[name=tpl_name]').val()}, function (html) {
                 $('div[lay-filter=tpl_name]').html(html);
                 form.render();
-                let tplName = $('select[name=tpl_name]').val();
                 $('#theme').empty();
-                if (tplName) {
-                    $.get('/site/theme', {system: $('select[name=system]').val(), tpl_name: tplName}, function (res) {
-                        if (res.code === 0 && res.data['Face']) {
-                            $('#theme').html('<img width="100%" height="100%" alt="' + res.data['Alias'] + '" src="' + res.data['Face'] + '" title="' + res.data['Readme'] + '">');
-                        }
-                    });
-                }
+                main.render.tpl();
             });
             if (obj.value === 'dedecms') {
                 $('select[name=rewrite]>option').prop('selected', false);
@@ -856,6 +846,7 @@
         //滑块控制
         main.slider(
             {elem: '#pub_attr_deg', value: {{$.obj.PubAttrDeg}}},
+            {elem: '#originality_rate', value: {{$.obj.OriginalityRate}}, max: 100},
             {elem: '#link_deg', value: {{$.obj.LinkDeg}}},
             {elem: '#out_link_deg', value: {{$.obj.OutLinkDeg}}},
             {elem: '#title_tag_deg', value: {{$.obj.TitleTagDeg}}},
@@ -867,15 +858,7 @@
         form.on('select(tpl_name)', function (obj) {
             $('#theme').empty();
             if (obj.value) {
-                $.get('/site/theme', {system: $('select[name=system]').val(), tpl_name: obj.value}, function (res) {
-                    if (res.code === 0) {
-                        if (res.data.face) {
-                            $('#theme').html('<img width="100%" height="100%" alt="' + res.data.alias + '" src="' + res.data.face + '" title="' + res.data.readme + '">');
-                        }
-                    } else {
-                        console.log(res.msg);
-                    }
-                });
+                main.render.tpl(obj.value);
             }
         });
     });

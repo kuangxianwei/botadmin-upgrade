@@ -346,5 +346,18 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 $(this).closest('.layui-form-item').remove();
             });
         },
+        render: {
+            tpl: function (tplName) {
+                // 渲染模板图片
+                tplName = tplName || $('select[name=tpl_name]').val();
+                if (tplName) {
+                    $.get('/site/theme', {system: $('select[name=system]').val(), tpl_name: tplName}, function (res) {
+                        if (res.code === 0 && res.data.face) {
+                            $('#theme').html('<img width="100%" height="100%" alt="' + res.data.alias + '" src="' + res.data.face + '" title="' + res.data.readme + '">');
+                        }
+                    });
+                }
+            }
+        },
     });
 });
