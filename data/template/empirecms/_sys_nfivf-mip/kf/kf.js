@@ -1,3 +1,0 @@
-document.writeln("<link href=\'http://nfivf.com/skin/custom/kf/css/kf.css\' rel=\'stylesheet\' type=\'text/css\'>");
-document.writeln("<script type=\'text/javascript\' src=\'http://nfivf.com/skin/custom/kf/js/jquery-1.8.3.min.js\'></script>");
-document.writeln("<script>$(function() {$(\'.btn_top\').hide();$(\'.btn_top\').live(\'click\',function(){$(\'html, body\').animate({scrollTop: 0},300);return false;});$(window).bind(\'scroll resize\',function(){if($(window).scrollTop()<=300){$(\'.btn_top\').hide();}else{$(\'.btn_top\').show();}})});</script>");
