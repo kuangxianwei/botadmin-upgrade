@@ -191,11 +191,12 @@
                         <div class="layui-btn-group">
                             <button class="layui-btn" lay-submit lay-filter="submit-ban">立即提交</button>
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="ban"
-                                    data-tip="违禁设置恢复到出厂设置?">恢复出厂设置
+                                    data-tip="违禁设置恢复到出厂设置?">恢复默认
                             </button>
                             <button class="layui-btn" data-event="ban-test">测试</button>
                             <button class="layui-btn layui-btn-small layui-btn-normal" data-event="edit-ban">编辑禁词
                             </button>
+                            <button class="layui-btn" data-event="ban-update" lay-tips="远程更新禁词">更新禁词</button>
                         </div>
                     </div>
                 </div>
@@ -262,7 +263,7 @@
                             <button class="layui-btn" lay-submit lay-filter="submit-monitor">立即提交
                             </button>
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="monitor"
-                                    data-tip="监控设置恢复到出厂设置?">恢复出厂设置
+                                    data-tip="监控设置恢复到出厂设置?">恢复默认
                             </button>
                             <button class="layui-btn" data-event="status" data-name="monitor"
                                     data-tip="查看定时状态">查看状态
@@ -384,6 +385,11 @@
                 event = othis.data('event'),
                 tip, name;
             switch (event) {
+                case 'ban-update':
+                    main.req({
+                        url: url + '/ban/update',
+                    });
+                    break;
                 case 'status':
                     name = othis.data('name');
                     tip = othis.data('tip');
@@ -421,7 +427,7 @@
                 case 'ban-test':
                     main.popup({
                         title: '测试违禁词',
-                        url: url + '/test/ban',
+                        url: url + '/ban/test',
                         area: ['70%', '70%'],
                         tips: function (res) {
                             main.msg(`<textarea class="layui-textarea layui-bg-black" name="content" rows="10" style="color: white;">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});
