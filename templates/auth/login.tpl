@@ -3,8 +3,7 @@
     <div class="layadmin-user-login-main">
         <div class="layadmin-user-login-box layadmin-user-login-header">
             <h2>{{.server_name}}</h2>
-            <p>联系QQ: 38050123</p>
-            <p>电话: 13724184818</p>
+            <p>电话/微信: 13724184818</p>
         </div>
         <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
             <div class="layui-form-item">

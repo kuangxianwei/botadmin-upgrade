@@ -14,7 +14,7 @@
                 <input type="text" name="username" lay-verify="required" autocomplete="off"
                        class="layui-input" placeholder="邮箱用户名" value="{{.obj.Username}}">
             </div>
-            <div class="layui-form-mid layui-word-aux">38050123@qq.com</div>
+            <div class="layui-form-mid layui-word-aux">88364809@qq.com</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码:</label>
