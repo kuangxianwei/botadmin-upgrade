@@ -1,4 +1,9 @@
 @charset "utf-8";
+/*
+BotAdmin-站掌门 AI智能站群系统
+www.botadmin.cn
+QQ:38050123
+*/
 @media screen and (min-width: 640px) {
     .tools-1, .tools-2 {border-radius:25px;height: 491px; width: 950px;font-size: 14px;line-height: 18px;margin: 0 auto;border: #ccc solid 1px;position: relative;}
     /*收费计算开始*/

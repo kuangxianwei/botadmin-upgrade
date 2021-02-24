@@ -13,8 +13,8 @@
         </div>
         <blockquote class="layui-elem-quote">
             链接一行一条<br/>
-            试管婴儿=>https://www.nfivf.com<br/>
-            南方39=>https://www.nfivf.com
+            试管婴儿=>http://www.botadmin.cn<br/>
+            南方39=>http://www.botadmin.cn
         </blockquote>
     </div>
 </div>

@@ -1,4 +1,9 @@
-﻿@charset "utf-8";
+@charset "utf-8";
+/*
+BotAdmin-站掌门 AI智能站群系统
+www.botadmin.cn
+QQ:38050123
+*/﻿
 @media screen and (min-width: 1024px) and (max-width: 1140px) {
 .topbox, nav, .wrapper, .footer { width: 96%; }
 #starlist li { width: 80px }

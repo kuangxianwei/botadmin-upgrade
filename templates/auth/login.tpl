@@ -37,9 +37,9 @@
         </div>
     </div>
     <div class="layui-trans layadmin-user-login-footer">
-        <p>© 2018 <a href="https://www.nfivf.com/" target="_blank">nfivf.com</a></p>
+        <p>© 2018 <a href="http://www.botadmin.cn/" target="_blank">站掌门BotAdmin</a></p>
         <p>
-            <span><a href="https://www.nfivf.com/" target="_blank">前往官网</a></span>
+            <span><a href="http://www.botadmin.cn/" target="_blank">前往官网</a></span>
         </p>
     </div>
 </div>

@@ -710,7 +710,7 @@
                         <div class="layui-col-md6">
                             <div class="layui-form-item">
                                 <label class="layui-form-label"
-                                       lay-tips="内链列表 关键词=>URL 例如：试管婴儿=>https://www.nfivf.com/">内链列表:</label>
+                                       lay-tips="内链列表 关键词=>URL 例如：试管婴儿=>http://www.botadmin.cn/">内链列表:</label>
                                 <div class="layui-input-block">
                             <textarea name="links" class="layui-textarea"
                                       rows="5">{{ join .obj.Links "\n"}}</textarea>
@@ -720,7 +720,7 @@
                         <div class="layui-col-md6">
                             <div class="layui-form-item">
                                 <label class="layui-form-label"
-                                       lay-tips="外链列表 关键词=>URL 例如：试管婴儿=>https://www.nfivf.com/">外链列表:</label>
+                                       lay-tips="外链列表 关键词=>URL 例如：试管婴儿=>http://www.botadmin.cn/">外链列表:</label>
                                 <div class="layui-input-block">
                             <textarea name="out_links" class="layui-textarea"
                                       rows="5">{{ join .obj.OutLinks "\n"}}</textarea>

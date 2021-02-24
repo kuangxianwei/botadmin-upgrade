@@ -30,7 +30,7 @@
         <div class="layui-form-item">
             <div class="layui-row layui-col-space10">
                 <div class="layui-col-sm6">
-                    <label class="layui-form-label" lay-tips="一行一条 如: https://www.nfivf.com">初始种子:</label>
+                    <label class="layui-form-label" lay-tips="一行一条 如: http://www.botadmin.cn">初始种子:</label>
                     <div class="layui-input-block">
                     <textarea name="seeds" class="layui-textarea" required
                               lay-verify="seeds">{{join .obj.Seeds "\n"}}</textarea>

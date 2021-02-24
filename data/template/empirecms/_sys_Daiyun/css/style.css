@@ -1,4 +1,9 @@
 @charset "utf-8";
+/*
+BotAdmin-站掌门 AI智能站群系统
+www.botadmin.cn
+QQ:38050123
+*/
 *{padding:0;margin:0;}
 a{transition: all .5s;}
 a:hover{text-decoration:none;}
@@ -727,7 +732,3 @@ ul,li,ol,li{list-style-type:none;}
     .tel-box {display: block;position:fixed;bottom:60px;left:0px;right:0px;width:200px;padding:15px 0;margin-left:auto;margin-right:auto;background-color:rgba(241,153,13,0.86);border-radius:20px;text-align:center;z-index:10000;}
     .tel-box a {color:#fff;display:inline-block;width:100%;font-size:16px;}
 }
-
-
-
-

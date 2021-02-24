@@ -1,4 +1,9 @@
-﻿@charset "utf-8";
+@charset "utf-8";
+/*
+BotAdmin-站掌门 AI智能站群系统
+www.botadmin.cn
+QQ:38050123
+*/﻿
 /* css */
 * { margin: 0; padding: 0 }
 body { font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif; color: #333; line-height: 1.5; overflow-x: hidden; background: #f7f5f5; }
@@ -439,4 +444,3 @@ about
 .pagelist.mt20 { margin-top: 20px; }
 .hezuo.whitebg img {margin: auto;}
 .entry-copyright {margin-top: 30px;margin-bottom: 20px;padding: 15px;font-size: 12px;line-height: 1.6;color: #999;border: 1px solid #efefef;background: #fbfbfb;border-radius: 2px;}
-

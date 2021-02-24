@@ -10,7 +10,7 @@
             <label class="layui-form-label">网站:</label>
             <div class="layui-input-inline">
                 <input type="text" name="expect" required lay-verify="required" autocomplete="off"
-                       class="layui-input" placeholder="www.nfivf.com">
+                       class="layui-input" placeholder="www.botadmin.cn">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <strong style="color:red;">*</strong>

@@ -11,7 +11,7 @@
                 <div class="layui-input-inline">
                     <textarea name="address" class="layui-textarea" rows="3"></textarea>
                 </div>
-                <div class="layui-form-mid layui-word-aux">https://www.nfivf.com 一行一条</div>
+                <div class="layui-form-mid layui-word-aux">http://www.botadmin.cn 一行一条</div>
             {{end -}}
         </div>
         <div class="layui-form-item">
