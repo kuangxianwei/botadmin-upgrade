@@ -1050,7 +1050,6 @@ $listtemp=$headtit.'
                 </div>
                 <div class="copyright">
                     Copyright &copy; 2019 <?=$public_r['sitename']?> 版权所有
-                    <br>投诉邮箱:38050123
                 </div>
             </div>
         </div>

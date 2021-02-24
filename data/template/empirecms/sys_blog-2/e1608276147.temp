@@ -1113,7 +1113,7 @@ $listtemp=$headtit.'
 </header><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record--->2<!---ecms.field--->footer<!---ecms.field--->页面尾部<!---ecms.field---><footer class="footer">
     <div class="main container">
         <div class="f-about">
-            <small><span>Copyright © 2019 <a href="[!--news.url--]"><?=$public_r['add_title_suffix']?></a>本站素材如有侵权请联系我们！联系QQ:38050123. <a href="http://www.beian.miit.gov.cn" target="_blank" rel="nofollow">闽ICP备20003584号-1</a></span></small> </div>
+            <small><span>Copyright © 2019 <a href="[!--news.url--]"><?=$public_r['add_title_suffix']?></a>本站素材如有侵权请联系我们！. <a href="http://www.beian.miit.gov.cn" target="_blank" rel="nofollow">闽ICP备20003584号-1</a></span></small> </div>
         <div class="clear"></div>
     </div>
     <div id="toolbar" class="toolbar ">

@@ -1095,7 +1095,7 @@ $listtemp=$headtit.'
 </header>
 <!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record--->2<!---ecms.field--->footer<!---ecms.field--->页面尾部<!---ecms.field---><footer>
   <div class="footer">
-    <div class="other"> <span>Copyright &copy; 2016-2021. <a href="[!--news.url--]" style="color:#FFF"><?=$public_r['add_title_suffix']?></a>. All rights reserved  联系QQ：38050123</span>
+    <div class="other"> <span>Copyright &copy; 2016-2021. <a href="[!--news.url--]" style="color:#FFF"><?=$public_r['add_title_suffix']?></a>. All rights reserved </span>
       <a href="https://beian.miit.gov.cn/#/Integrated/index" style="color:#FFF" rel="nofollow">粤ICP备2020105635号</a>
       
   </div>

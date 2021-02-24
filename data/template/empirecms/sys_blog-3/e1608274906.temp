@@ -980,7 +980,7 @@ $listtemp=$headtit.'
         </div>
         <div class="endnav">
             <p>文增多来自于网络</p>
-            <p>如有侵犯您的版权，请联系我们删除 联系QQ:38050123 </p>
+            <p>如有侵犯您的版权，请联系我们删除</p>
             <p>Copyright (C) <?=$public_r['add_title_suffix']?> .<a href="http://www.beian.miit.gov.cn" target="_blank" rel="nofollow">闽ICP备18021900号-8</a>
         </div>
     </div>
