@@ -37,9 +37,6 @@
     </div>
     <div class="layui-trans layadmin-user-login-footer">
         <p>© 2018 <a href="http://www.botadmin.cn/" target="_blank">站掌门BotAdmin</a></p>
-        <p>
-            <span><a href="http://www.botadmin.cn/" target="_blank">前往官网</a></span>
-        </p>
     </div>
 </div>
 {{template "JS" -}}
