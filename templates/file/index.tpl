@@ -213,9 +213,9 @@
                         }
                     });
                     break;
-                case 'uncompress':
+                case 'decompress':
                     main.req({
-                        url: url + '/uncompress',
+                        url: url + '/decompress',
                         data: {'name': d.path},
                         ending: function () {
                             table.reload('table-list', {

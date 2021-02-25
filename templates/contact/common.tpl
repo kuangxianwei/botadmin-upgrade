@@ -66,7 +66,7 @@
                     <label class="layui-form-label">手机号:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="phone" value="{{.obj.Phone}}" lay-verify="phone"
-                               autocomplete="off" placeholder="13922352985" class="layui-input">
+                               autocomplete="off" placeholder="13724184818" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">填写手机号码</div>
                 </div>
@@ -76,7 +76,7 @@
                     <label class="layui-form-label">微信号:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="wechat" value="{{.obj.Wechat}}"
-                               autocomplete="off" placeholder="13922352985" class="layui-input">
+                               autocomplete="off" placeholder="13724184818" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">留空默认为手机号码</div>
                 </div>
