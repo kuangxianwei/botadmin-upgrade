@@ -301,6 +301,7 @@
                 <input type="checkbox" name="pub_self" title="指定发布">
                 <input type="checkbox" name="cron_enabled" title="定时发布">
                 <input type="checkbox" name="push_config" title="推送配置">
+                <input type="checkbox" name="originality_rate" title="原创阀值">
             </div>
         </div>
     </div>
@@ -691,6 +692,10 @@
                                                     break;
                                                 case 'push_config':
                                                     formDom.append(`<div class="layui-form-item"><label class="layui-form-label">推送配置:</label><div class="layui-input-inline"><textarea name="push_config" class="layui-textarea"></textarea></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    break;
+                                                case 'originality_rate':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">原创阀值:</label><div class="layui-input-inline" style="margin-top:18px;"><div id="originality_rate"></div><input type="hidden" name="originality_rate" value="0"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">大于或等于这个值才发布</div></div>`);
+                                                    main.slider({elem: '#originality_rate', value: 0});
                                                     break;
                                             }
                                         });
