@@ -143,7 +143,7 @@
                         <label class="layui-form-label">数据编码</label>
                         <div class="layui-input-inline">
                             <select name="db_charset">
-                                <option value="utf8"{{if eq .obj.DbCharset "utf8" -}}
+                                <option value="utf8mb4"{{if eq .obj.DbCharset "utf8mb4" -}}
                                 selected{{end -}}>UTF8
                                 </option>
                                 <option value="gbk"{{if eq .obj.DbCharset "gbk" -}}

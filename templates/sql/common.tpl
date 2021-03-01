@@ -42,8 +42,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">数据库编码:</label>
             <div class="layui-input-block">
-                <input type="radio" name="charset" value="utf8"
-                       title="utf8"{{if eq .obj.Charset "utf8"}} checked{{end}}>
+                <input type="radio" name="charset" value="utf8mb4"
+                       title="utf8mb4"{{if eq .obj.Charset "utf8mb4"}} checked{{end}}>
                 <input type="radio" name="charset" value="gbk"
                        title="gbk"{{if eq .obj.Charset "gbk"}} checked{{end}}>
                 <input type="radio" name="charset" value="latin1"
