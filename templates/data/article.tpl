@@ -65,6 +65,9 @@
             <button class="layui-btn layui-btn-sm" lay-event="originality-exec">
                 <i class="layui-icon layui-icon-vercode"></i>检原创
             </button>
+            <button class="layui-btn layui-btn-sm" lay-event="conversion-exec">
+                转换简繁体
+            </button>
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" id="LAY_layer_iframe_del"
@@ -312,6 +315,22 @@
                         ending: 'table-list'
                     });
                     break;
+                case 'conversion-exec':
+                    if (isEmpty) {
+                        layer.msg('请勾选数据', {icon: 2});
+                        return false;
+                    }
+                    $.get(url + '/convert', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            title: '简繁体转换',
+                            content: html,
+                            url: url + '/convert',
+                            area: ['280px', '400px'],
+                            ending: 'table-list'
+                        });
+                        form.render();
+                    });
+                    break;
                 case 'originality':
                     if (isEmpty) {
                         layer.msg('请勾选数据', {icon: 2});
@@ -399,7 +418,7 @@
                 return false;
             }
             main.req({
-                url: url + '/toggle',
+                url: url + '/configure',
                 data: {'id': id, "used": checked},
                 ending: 'table-list',
             });
@@ -414,7 +433,7 @@
                 return false;
             }
             main.req({
-                url: url + '/toggle',
+                url: url + '/configure',
                 data: {'id': id, "trans_failed": checked},
                 ending: 'table-list',
             });

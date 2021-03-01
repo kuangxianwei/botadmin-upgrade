@@ -65,6 +65,18 @@
             </div>
             <i class="layui-icon layui-icon-delete" lay-event="del"></i>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" lay-tips="繁体简体转换">繁简转换:</label>
+            <div class="layui-input-inline">
+                <select name="conversion" class="layui-select" lay-search>
+                    <option>无...</option>
+                    {{range .conversions -}}
+                        <option value="{{.Name}}">{{.Alias}}</option>
+                    {{end -}}
+                </select>
+            </div>
+            <i class="layui-icon layui-icon-delete" lay-event="del"></i>
+        </div>
         <div class="layui-hide">
             <input type="hidden" name="ids" value="{{.ids}}">
             <button class="layui-btn" lay-submit lay-filter="submit">提交</button>

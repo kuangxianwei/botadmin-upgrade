@@ -118,22 +118,6 @@
                     <h2 class="layui-colla-title">高级选项</h2>
                     <div class="layui-colla-content">
                         <div class="layui-form-item">
-                            <div class="layui-inline" style="width: 48%"
-                                 lay-tips="格式 key1=value1; key2=value2; 或者一行一条">
-                                <label class="layui-form-label">cookies:</label>
-                                <div class="layui-input-block">
-                                    <textarea name="cookies" class="layui-textarea">{{.obj.Cookies}}</textarea>
-                                </div>
-                            </div>
-                            <div class="layui-inline" style="width: 48%" lay-tips="允许的域名一行一条">
-                                <label class="layui-form-label">允许域名:</label>
-                                <div class="layui-input-block">
-                                        <textarea name="allow_domains"
-                                                  class="layui-textarea">{{.obj.AllowDomains}}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
                                 <div class="layui-input-inline">
@@ -156,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="layui-form-item cron">
+                        <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
                                 <div class="layui-input-block">
@@ -188,6 +172,8 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label" lay-tips="内容解码">解码:</label>
                                 <div class="layui-input-block">
@@ -197,6 +183,33 @@
                                             <option value="{{.}}"{{if eq $.obj.Decode . }} selected{{end}}>{{.}}</option>
                                         {{end -}}
                                     </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label" lay-tips="繁体中文和简体中文转换">繁简转换:</label>
+                                <div class="layui-input-block">
+                                    <select name="conversion" class="layui-select">
+                                        <option>无...</option>
+                                        {{range .conversions -}}
+                                            <option value="{{.Name}}"{{if eq $.obj.Conversion .Name }} selected{{end}}>{{.Alias}}</option>
+                                        {{end -}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-inline" style="width: 48%"
+                                 lay-tips="格式 key1=value1; key2=value2; 或者一行一条">
+                                <label class="layui-form-label">cookies:</label>
+                                <div class="layui-input-block">
+                                    <textarea name="cookies" class="layui-textarea">{{.obj.Cookies}}</textarea>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="width: 48%" lay-tips="允许的域名一行一条">
+                                <label class="layui-form-label">允许域名:</label>
+                                <div class="layui-input-block">
+                                        <textarea name="allow_domains"
+                                                  class="layui-textarea">{{.obj.AllowDomains}}</textarea>
                                 </div>
                             </div>
                         </div>

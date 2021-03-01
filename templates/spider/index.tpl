@@ -395,7 +395,7 @@
                         main.popup({
                             title: '批量修改配置',
                             content: html,
-                            area: ['800px', '450px'],
+                            area: ['800px', '550px'],
                             url: url + '/configure',
                             ending: 'table-list',
                         });
