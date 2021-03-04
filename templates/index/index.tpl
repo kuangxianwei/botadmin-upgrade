@@ -259,6 +259,10 @@
                                 <a lay-href="/monitor" lay-tips="网站监控"
                                    lay-direction="2"><cite>网站监控</cite></a>
                             </dd>
+                            <dd data-name="monitor">
+                                <a lay-href="/monitor" lay-tips="网站监控"
+                                   lay-direction="2"><cite>网站监控</cite></a>
+                            </dd>
                         </dl>
                     </li>
                     <li data-name="file" class="layui-nav-item">
