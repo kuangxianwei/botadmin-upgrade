@@ -440,45 +440,38 @@
     });
 </script>
 <script>
-    console.log(window.WebSocket);
-    var webSocket = new WebSocket('ws://10.211.55.10:8080/ws');
+    var messageTxt = document.getElementById("messageTxt");
+    var messages = document.getElementById("messages");
+    var sendBtn = document.getElementById("sendBtn")
 
-    webSocket.onerror = function(event) {
-        onError(event)
+    w = new WebSocket("ws://10.211.55.10/ws");
+    w.onopen = function () {
+        console.log("Websocket connection enstablished");
+    };
+    w.onclose = function () {
+        appendMessage("<div><center><h3>Disconnected</h3></center></div>");
+    };
+    w.onmessage = function (message) {
+        appendMessage("<div>" + message.data + "</div>");
     };
 
-    webSocket.onopen = function(event) {
-        onOpen(event)
+    sendBtn.onclick = function () {
+        myText = messageTxt.value;
+        messageTxt.value = "";
+
+        appendMessage("<div style='color: red'> me: " + myText + "</div>");
+        w.send(myText);
     };
 
-    /* webSocket.onclose = function(event){
-        alert("要离开了？");
-    }; */
+    messageTxt.addEventListener("keyup", function (e) {
+        if (e.keyCode === 13) {
+            e.preventDefault();
 
-    webSocket.onmessage = function(event) {
-        onMessage(event)
-    };
+            sendBtn.click();
+        }
+    });
 
-    function onMessage(event) {
-        document.getElementById('messages').innerHTML += '<br />'
-            + event.data;
-    }
-
-    function onOpen(event) {
-        document.getElementById('messages').innerHTML = 'Connection established';
-    }
-
-    function onError(event) {
-        alert(event.data);
-    }
-
-    function start() {
-        webSocket.send('hello');
-        return false;
-    }
-
-    function stop() {
-        webSocket.send('bye bye!');
-        webSocket.close();
+    function appendMessage(messageDivHTML) {
+        messages.insertAdjacentHTML('afterbegin', messageDivHTML);
     }
 </script>
