@@ -439,3 +439,46 @@
         });
     });
 </script>
+<script>
+    console.log(window.WebSocket);
+    var webSocket = new WebSocket('ws://10.211.55.10:8080/ws');
+
+    webSocket.onerror = function(event) {
+        onError(event)
+    };
+
+    webSocket.onopen = function(event) {
+        onOpen(event)
+    };
+
+    /* webSocket.onclose = function(event){
+        alert("要离开了？");
+    }; */
+
+    webSocket.onmessage = function(event) {
+        onMessage(event)
+    };
+
+    function onMessage(event) {
+        document.getElementById('messages').innerHTML += '<br />'
+            + event.data;
+    }
+
+    function onOpen(event) {
+        document.getElementById('messages').innerHTML = 'Connection established';
+    }
+
+    function onError(event) {
+        alert(event.data);
+    }
+
+    function start() {
+        webSocket.send('hello');
+        return false;
+    }
+
+    function stop() {
+        webSocket.send('bye bye!');
+        webSocket.close();
+    }
+</script>
