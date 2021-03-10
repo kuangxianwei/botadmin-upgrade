@@ -227,6 +227,8 @@
         <div class="layui-card-body">
             <button class="layui-hide" lay-submit lay-filter="testList"></button>
             <button class="layui-btn" data-event="testList">测试采集</button>
+            <button class="layui-hide" lay-submit lay-filter="sourceCode"></button>
+            <button class="layui-btn" data-event="sourceCode">源码</button>
         </div>
     </div>
     <div>
@@ -238,6 +240,7 @@
         <div class="layui-card-body">
             <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
             <button class="layui-btn" data-event="testDetail">测试采集</button>
+            <button class="layui-btn" data-event="sourceCode">源码</button>
         </div>
     </div>
     <div>
@@ -788,6 +791,40 @@
                                     layer.open({
                                         type: 1,
                                         title: '测试详情页结果',
+                                        content: res.msg,
+                                        area: ['80%', '80%'],
+                                        btn: false,
+                                        maxmin: true,
+                                        shadeClose: true,
+                                    });
+                                }
+                            });
+                        });
+                    });
+                    /*测试源码*/
+                    $('button[data-event=sourceCode]').click(function () {
+                        $('.step-content').addClass('layui-form');
+                        $('button[lay-filter=sourceCode]').click();
+                    });
+                    form.on('submit(sourceCode)', function (obj) {
+                        $('.step-content').removeClass('layui-form');
+                        if (seeds.length === 0) {
+                            seeds = obj.field.seeds.split("\n")
+                        }
+                        layer.prompt({
+                            formType: 0,
+                            value: seeds[0],
+                            title: '请输入完整的URL地址 http 开头'
+                        }, function (value, index) {
+                            obj.field.detail_url = value;
+                            main.req({
+                                url: '/spider/test/source',
+                                data: obj.field,
+                                index: index,
+                                tips: function (res) {
+                                    layer.open({
+                                        type: 1,
+                                        title: '源码详情结果',
                                         content: res.msg,
                                         area: ['80%', '80%'],
                                         btn: false,
