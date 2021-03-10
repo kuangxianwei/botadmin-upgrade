@@ -225,10 +225,12 @@
             <div class="layui-tab-content"></div>
         </div>
         <div class="layui-card-body">
-            <button class="layui-hide" lay-submit lay-filter="testList"></button>
-            <button class="layui-btn" data-event="testList">测试采集</button>
-            <button class="layui-hide" lay-submit lay-filter="sourceCode"></button>
-            <button class="layui-btn" data-event="sourceCode">源码</button>
+            <div class="layui-btn-group" style="float: right">
+                <button class="layui-hide" lay-submit lay-filter="testList"></button>
+                <button class="layui-btn" data-event="testList">测试</button>
+                <button class="layui-hide" lay-submit lay-filter="sourceCode"></button>
+                <button class="layui-btn" data-event="sourceCode">源码</button>
+            </div>
         </div>
     </div>
     <div>
@@ -238,9 +240,46 @@
             <div class="layui-tab-content"></div>
         </div>
         <div class="layui-card-body">
-            <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
-            <button class="layui-btn" data-event="testDetail">测试采集</button>
-            <button class="layui-btn" data-event="sourceCode">源码</button>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <div class="parse-method">
+                        <div class="layui-inline">
+                            <label class="layui-form-label-col" lay-tips="DOM匹配下一篇文章URL">NextLink:</label>
+                        </div>
+                        <div class="layui-inline" style="width: 280px">
+                            <input class="layui-input" type="text" name="next_dom" value="{{.obj.NextDom}}"
+                                   autocomplete="off" placeholder="div.next > a">
+                        </div>
+                        <div class="layui-inline" lay-tips="属性名称 默认为 href" style="width: 100px">
+                            <input class="layui-input" type="text" name="next_attr_name" value="{{.obj.NextAttrName}}"
+                                   autocomplete="off" placeholder="href">
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-radius" parse-method="" id="next-dom-toggle">转为正则解析
+                            </button>
+                        </div>
+                    </div>
+                    <div class="parse-method layui-hide">
+                        <div class="layui-inline">
+                            <label class="layui-form-label-col" lay-tips="正则匹配下一篇文章URL">NextLink:</label>
+                        </div>
+                        <div class="layui-inline" style="width: 390px">
+                            <input class="layui-input" type="text" name="next_reg" value="{{.obj.NextReg}}"
+                                   autocomplete="off" placeholder="<a href='(.*?)'">
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-radius" parse-method="">转为DOM解析</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-inline" style="float: right">
+                    <div class="layui-btn-group">
+                        <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
+                        <button class="layui-btn" data-event="testDetail">测试</button>
+                        <button class="layui-btn" data-event="sourceCode">源码</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div>
@@ -761,7 +800,7 @@
                                 main.msg(res.msg);
                             },
                             success: function (res) {
-                                if (res.code === 0) {
+                                if (res.code === 0 && res.data) {
                                     seeds = res.data;
                                 }
                             }
@@ -1164,5 +1203,8 @@
         }
         /*小工具渲染*/
         utils.render();
+        if ($('input[name="next_reg"]').val()) {
+            $('#next-dom-toggle').click();
+        }
     });
 </script>
