@@ -43,6 +43,11 @@
             <i class="layui-icon iconfont icon-work"></i>
         </button>
     </div>
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record">
+            清空日志
+        </button>
+    </div>
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
@@ -131,20 +136,17 @@
                         element.render();
                     });
                     break;
-                case 'log':
-                    $.get(url + '/log', data, function (html) {
-                        main.popup({
-                            title: '日志',
-                            content: html,
-                            url: url + '/log',
-                        });
-                    });
+                case 'monitor':
+                    main.displayLog('site.' + data.id);
                     break;
                 case 'test':
                     main.req({
                         url: url + '/test',
                         data: data
                     });
+                    break;
+                case 'log':
+                    main.displayLog('monitor.' + data.id);
                     break;
             }
         });
@@ -218,6 +220,16 @@
                         tips: function (res) {
                             main.msg(res.msg);
                         },
+                    });
+                    break;
+                case 'reset-record':
+                    let keys = Array();
+                    $.each(ids, function (i, id) {
+                        keys[i] = 'monitor.' + id
+                    })
+                    main.req({
+                        url: '/record/reset',
+                        data: {keys: keys.join()},
                     });
                     break;
             }

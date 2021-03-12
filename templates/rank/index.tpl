@@ -54,6 +54,11 @@
                 <i class="layui-icon layui-icon-delete"></i>删除
             </button>
         </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="reset-record">
+                清空日志
+            </button>
+        </div>
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
@@ -154,13 +159,7 @@
                     });
                     break;
                 case 'log':
-                    $.get('/rank/log', data, function (html) {
-                        main.popup({
-                            title: '日志',
-                            content: html,
-                            url: '/rank/log',
-                        });
-                    });
+                    main.displayLog('rank.' + data.id);
                     break;
             }
         });
@@ -212,6 +211,16 @@
                             index: index,
                             ending: 'table-list',
                         });
+                    });
+                    break;
+                case 'reset-record':
+                    let keys = Array();
+                    for (let i = 0; i < data.length; i++) {
+                        keys[i] = "rank." + data[i].id;
+                    }
+                    main.req({
+                        url: '/record/reset',
+                        data: {keys: keys.join()},
                     });
                     break;
                 case 'exec':

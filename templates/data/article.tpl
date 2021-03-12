@@ -91,6 +91,11 @@
                     lay-tips="翻译成指定的语言">译
             </button>
         </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record">
+                清空日志
+            </button>
+        </div>
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
@@ -240,13 +245,7 @@
                     });
                     break;
                 case 'log':
-                    $.get(url + '/log', data, function (html) {
-                        main.popup({
-                            title: '日志',
-                            url: url + '/log',
-                            content: html,
-                        });
-                    });
+                    main.displayLog('article.' + data.id);
                     break;
             }
         });
@@ -376,6 +375,16 @@
                             area: ['750px', '400px'],
                         });
                         form.render();
+                    });
+                    break;
+                case 'reset-record':
+                    let keys = Array();
+                    $.each(ids, function (i, id) {
+                        keys[i] = 'article.' + id
+                    })
+                    main.req({
+                        url: '/record/reset',
+                        data: {keys: keys.join()},
                     });
                     break;
                 case 'delUsed':

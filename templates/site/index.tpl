@@ -180,7 +180,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="jobs">查看全部任务
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="jobs">查看任务
                             </button>
                         </dd>
                         <dd>
@@ -196,7 +196,11 @@
                     </dl>
                 </li>
             </ul>
-
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record">
+                清空日志
+            </button>
         </div>
     </div>
 </script>
@@ -562,13 +566,7 @@
                         });
                     break;
                 case 'log':
-                    $.get('/site/log', data, function (html) {
-                        main.popup({
-                            title: '日志',
-                            content: html,
-                            url: '/site/log',
-                        });
-                    });
+                    main.displayLog('site.' + data.id);
                     break;
                 case 'clipboard':
                     othis = $(this);
@@ -920,6 +918,16 @@
                         url: url + '/cron/switch',
                         data: {ids: ids.join(), cron_enabled: false},
                         ending: 'table-list'
+                    });
+                    break;
+                case 'reset-record':
+                    let keys = Array();
+                    $.each(ids, function (i, id) {
+                        keys[i] = 'site.' + id
+                    })
+                    main.req({
+                        url: '/record/reset',
+                        data: {keys: keys.join()},
                     });
                     break;
                 case 'export':

@@ -172,6 +172,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     popupThis.remove();
                 }
             });
+        },
+        ws = function () {
+            return new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws');
         };
     exports('main', {
         tidyObj: tidyObj,
@@ -359,5 +362,30 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
             }
         },
+        ws: ws,
+        displayLog: function (name) {
+            if (!name) {
+                return
+            }
+            pop({
+                confirm: false,
+                scroll: false,
+                content: '<textarea class="layui-textarea layui-bg-black" style="color: white;height: 100%" id="display-log"></textarea>',
+                area: ['75%', '75%'],
+                success: function (dom) {
+                    let w = ws();
+                    w.onopen = function () {
+                        name = 'record.' + name;
+                        w.send(name);
+                        setInterval(function () {
+                            w.send(name);
+                        }, 1000);
+                    };
+                    w.onmessage = function (e) {
+                        dom.find('#display-log').val(e.data.substring(8));
+                    };
+                }
+            });
+        }
     });
 });

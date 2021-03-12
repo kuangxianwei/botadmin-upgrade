@@ -144,6 +144,11 @@
                 <i class="layui-icon iconfont icon-import"></i>
             </button>
         </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record">
+                清空日志
+            </button>
+        </div>
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
@@ -345,13 +350,7 @@
                     });
                     break;
                 case 'log':
-                    $.get(url + '/log', {'id': data.id}, function (html) {
-                        main.popup({
-                            title: '日志',
-                            content: html,
-                            url: url + '/log',
-                        });
-                    });
+                    main.displayLog('spider.' + data.id);
                     break;
             }
         });
@@ -483,6 +482,16 @@
                         }
                     });
                     form.render();
+                    break;
+                case 'reset-record':
+                    let keys = Array();
+                    $.each(ids, function (i, id) {
+                        keys[i] = 'spider.' + id
+                    })
+                    main.req({
+                        url: '/record/reset',
+                        data: {keys: keys.join()},
+                    });
                     break;
             }
         });
