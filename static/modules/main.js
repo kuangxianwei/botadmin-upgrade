@@ -378,12 +378,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 area: ['75%', '75%'],
                 success: function (dom) {
                     w.onopen = function () {
-                        name = 'record.' + name;
                         w.send(name);
                     };
                     w.onmessage = function (e) {
                         let el = dom.find('#display-log');
-                        el.val(el.val() + e.data);
+                        el.val(el.val() + e.data).focus().scrollTop(el[0].scrollHeight);
                     };
                 },
                 always: function () {
