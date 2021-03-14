@@ -159,7 +159,7 @@
                     });
                     break;
                 case 'log':
-                    main.displayLog('rank.' + data.id);
+                    main.ws.log('rank.' + data.id);
                     break;
             }
         });

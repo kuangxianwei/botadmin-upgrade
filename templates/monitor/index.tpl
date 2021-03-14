@@ -137,7 +137,7 @@
                     });
                     break;
                 case 'monitor':
-                    main.displayLog('site.' + data.id);
+                    main.ws.log('site.' + data.id);
                     break;
                 case 'test':
                     main.req({
@@ -146,7 +146,7 @@
                     });
                     break;
                 case 'log':
-                    main.displayLog('monitor.' + data.id);
+                    main.ws.log('monitor.' + data.id);
                     break;
             }
         });

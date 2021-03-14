@@ -566,7 +566,7 @@
                         });
                     break;
                 case 'log':
-                    main.displayLog('site.' + data.id);
+                    main.ws.log('site.' + data.id);
                     break;
                 case 'clipboard':
                     othis = $(this);

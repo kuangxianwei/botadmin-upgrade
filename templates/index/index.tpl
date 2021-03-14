@@ -259,6 +259,10 @@
                                 <a lay-href="/monitor" lay-tips="网站监控"
                                    lay-direction="2"><cite>网站监控</cite></a>
                             </dd>
+                            <dd data-name="collect">
+                                <a lay-href="/collect" lay-tips="数据采集"
+                                   lay-direction="2"><cite>数据采集</cite></a>
+                            </dd>
                             <dd data-name="push">
                                 <a lay-href="/push" lay-tips="广告推送"
                                    lay-direction="2"><cite>广告推送</cite></a>

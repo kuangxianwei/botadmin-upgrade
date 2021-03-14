@@ -350,7 +350,7 @@
                     });
                     break;
                 case 'log':
-                    main.displayLog('spider.' + data.id);
+                    main.ws.log('spider.' + data.id);
                     break;
             }
         });

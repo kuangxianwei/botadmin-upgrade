@@ -245,7 +245,7 @@
                     });
                     break;
                 case 'log':
-                    main.displayLog('article.' + data.id);
+                    main.ws.log('article.' + data.id);
                     break;
             }
         });
