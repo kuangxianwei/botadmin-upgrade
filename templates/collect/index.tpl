@@ -18,13 +18,17 @@
             <div class="layui-col-md9">
                 <div class="layui-form-item">
                     <label class="layui-form-label">结果<i class="layui-icon layui-icon-down"></i></label>
+                    <label class="layui-form-label" id="collect-status" style="min-width: 100px">状态:
+                        <strong style="color: red" title="0">未运行</strong></label>
                     <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="reset-record">清空记录<i class="layui-icon layui-icon-delete"></i></label>
-                    <textarea rows="10" class="layui-textarea layui-bg-black" id="display-result"></textarea>
+                    <textarea rows="10" class="layui-textarea layui-bg-black" id="collect-display"></textarea>
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <button class="layui-btn" lay-submit lay-filter="submit">开始采集</button>
+            <button class="layui-btn" lay-submit lay-filter="submit-start">
+                <i class="layui-icon layui-icon-play"></i>开始
+            </button>
         </div>
     </div>
 </div>
@@ -35,19 +39,36 @@
         let form = layui.form,
             main = layui.main,
             url = {{.current_uri}};
-        form.on('submit(submit)', function (obj) {
+        form.on('submit(submit-start)', function (obj) {
             main.req({
                 url: url,
                 data: obj.field,
             });
         });
-        main.ws.display('#display-result', 'collect');
+        form.on('submit(submit-stop)', function () {
+            main.req({url: url + '/stop'});
+        });
+        main.ws.display({
+            name: 'collect',
+            displaySelector: '#collect-display',
+            statusSelector: '#collect-status'
+        }, function (status) {
+            if (status === '0') {
+                $('[lay-submit]').attr('lay-filter', 'submit-start')
+                    .removeClass('layui-bg-red')
+                    .html('<i class="layui-icon layui-icon-play"></i>开始');
+            } else {
+                $('[lay-submit]').attr('lay-filter', 'submit-stop')
+                    .addClass('layui-bg-red')
+                    .html('<i class="layui-icon layui-icon-pause"></i>停止');
+            }
+        });
         $('[lay-filter="reset-record"]').click(function () {
             main.req({
                 url: '/record/reset',
                 data: {keys: 'collect.0'},
                 ending: function () {
-                    $('#display-result').val('');
+                    $('#collect-display').val('');
                 }
             });
         });

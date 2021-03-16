@@ -188,25 +188,31 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         pop: pop,
         ws: {
             fn: websocket,
-            display: function (selector, name, statusSelector) {
-                if (!selector || !name) {
+            display: function (options, callback) {
+                options = $.extend({name: '', displaySelector: '#display', statusSelector: '#status'}, options || {});
+                if (!options.name) {
                     return false;
                 }
                 let w = websocket();
                 w.onopen = function () {
-                    w.send(name);
+                    w.send(options.name);
                 };
                 w.onmessage = function (e) {
                     if (e.data) {
-                        if (statusSelector) {
-                            if (e.data.substr(0, 1) === '0') {
-                                $(statusSelector).html('状态: <strong style="color: red">未运行</strong>');
+                        let status = e.data.substr(0, 1),// 状态码
+                            data = e.data.substr(1);// 内容
+                        if (options.statusSelector) {
+                            if (status === '0') {
+                                $(options.statusSelector).html('状态: <strong style="color: red" title="' + status + '">未运行</strong>');
                             } else {
-                                $(statusSelector).html('状态: <strong style="color: #22849b">运行中...</strong>');
+                                $(options.statusSelector).html('状态: <strong style="color: #22849b" title="' + status + '">运行中...</strong>');
                             }
                         }
-                        let el = $(selector);
-                        el.val(el.val() + e.data.substr(1)).focus().scrollTop(el[0].scrollHeight);
+                        let el = $(options.displaySelector);
+                        el.val(el.val() + data).focus().scrollTop(el[0].scrollHeight);
+                        if (typeof callback === 'function') {
+                            callback(status, data);
+                        }
                     }
                 };
             },
@@ -218,7 +224,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 pop({
                     confirm: false,
                     scroll: false,
-                    content: `<div style="position:fixed;padding:6px;top: -15px;background-color: #ffffff;border-radius: 8px 8px 0 0" id="log-status">状态: <strong style="color: red">未运行</strong></div><textarea class="layui-textarea layui-bg-black" style="color: white;height: 100%" id="log-display"></textarea>`,
+                    content: `<div style="position:fixed;padding:6px;top: -15px;background-color: #ffffff;border-radius: 8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div><textarea class="layui-textarea layui-bg-black" style="color: white;height: 100%" id="log-display"></textarea>`,
                     area: ['75%', '75%'],
                     success: function (dom) {
                         w.onopen = function () {
@@ -226,10 +232,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         };
                         w.onmessage = function (e) {
                             if (e.data) {
-                                if (e.data.substr(0, 1) === '0') {
-                                    dom.find('#log-status').html('状态: <strong style="color: red">未运行</strong>');
+                                let statusCode = e.data.substr(0, 1);
+                                if (statusCode === '0') {
+                                    dom.find('#log-status').html('状态: <strong style="color:red" title="' + statusCode + '">未运行</strong>');
                                 } else {
-                                    dom.find('#log-status').html('状态: <strong style="color: #22849b">运行中...</strong>');
+                                    dom.find('#log-status').html('状态: <strong style="color: #22849b" title="' + statusCode + '">运行中...</strong>');
                                 }
                                 let el = dom.find('#log-display');
                                 el.val(el.val() + e.data.substr(1)).focus().scrollTop(el[0].scrollHeight);

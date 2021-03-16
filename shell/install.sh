@@ -41,9 +41,6 @@ fi
 #下载程序#
 Download_botadmin() {
   if test ! -d botadmin; then
-    if test -f botadmin-master.zip; then
-      \rm -rf botadmin-master.zip
-    fi
     if ! wget -cO botadmin-master.zip https://github.com/kuangxianwei/botadmin/archive/master.zip; then
       echo "下载失败" 2>&1
       \rm -rf botadmin-master.zip
@@ -53,11 +50,11 @@ Download_botadmin() {
       yum -y install unzip || exit 1
     fi
     if ! unzip -o botadmin-master.zip; then
-      \rm -f botadmin.zip
+      \rm -rf botadmin-master.zip
       exit 1
     fi
     \mv botadmin-master botadmin || exit 1
-    \rm -f botadmin.zip
+    \rm -rf botadmin-master.zip
   fi
 }
 
