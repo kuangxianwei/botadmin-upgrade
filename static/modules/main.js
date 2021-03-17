@@ -312,13 +312,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         slider: function () {
             $.each(arguments, function (i, v) {
                 let obj = tidyObj(v);
-                if (typeof (obj.setTips) !== 'function') {
+                if (typeof obj.setTips !== 'function') {
                     obj.setTips = function (value) {
                         $('input[name=' + obj.elem.slice(1) + ']').val(value);
                         return value;
                     }
                 }
-                slider.render($.extend({value: 0, min: 0, max: 10}, obj));
+                slider.render($.extend({value: 0, min: 0, max: 10, input: true}, obj));
             });
         },
         timestampFormat: function (timestamp) {
