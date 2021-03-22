@@ -198,6 +198,9 @@
             </ul>
         </div>
         <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
+                <i class="layui-icon layui-icon-log"></i>
+            </button>
             <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record">
                 清空日志
             </button>
@@ -607,6 +610,9 @@
                 ids[i] = data[i].id;
             }
             switch (obj.event) {
+                case 'log':
+                    main.ws.log('site.0');
+                    break;
                 case 'edit':
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});

@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="/static/style/admin.css" media="all">
     <link rel="stylesheet" href="/static/layui/iconfont/iconfont.css" media="all">
     <style>
+        i[lay-event="del"]{color: red}
+        .layui-slider-input-txt{height: 96%}
         .layui-textarea {min-height:auto;}
         div.parse-method > div:nth-child(4) {width:80px;}
         div.parse-method > div:nth-child(2) {width:40%;}

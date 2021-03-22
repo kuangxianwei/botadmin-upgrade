@@ -263,8 +263,12 @@
                                 <a lay-href="/collect" lay-tips="数据采集"
                                    lay-direction="2"><cite>数据采集</cite></a>
                             </dd>
+                            <dd data-name="statistic">
+                                <a lay-href="/statistic" lay-tips="统计广告列表"
+                                   lay-direction="2"><cite>广告列表</cite></a>
+                            </dd>
                             <dd data-name="push">
-                                <a lay-href="/push" lay-tips="广告推送"
+                                <a lay-href="/push" lay-tips="广告推送设置"
                                    lay-direction="2"><cite>广告推送</cite></a>
                             </dd>
                         </dl>

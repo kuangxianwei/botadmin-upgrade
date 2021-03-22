@@ -88,7 +88,7 @@
         let main = layui.main,
             form = layui.form,
             class_id = $('select[name=class_id]').val();
-        main.onDel();
+        main.on.del();
         form.on('select(site_id)', function (obj) {
             if (obj.value === 0 || obj.value === "") {
                 $('div[lay-filter=class_id]').html('<select name="class_id"><option value="">无...</option></select>');

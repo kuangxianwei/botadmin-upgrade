@@ -1,23 +1,17 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-row">
-            <div class="layui-col-md6">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">搜索深度:</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="depth" value="{{$.obj.Depth}}" class="layui-input">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">百度搜索关键词的深度</div>
+            <div class="layui-col-md2">
+                <label class="layui-form-label" lay-tips="百度搜索关键词的深度">搜索深度:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="depth" value="{{$.obj.Depth}}" class="layui-input">
                 </div>
             </div>
-            <div class="layui-col-md6">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">多协程:</label>
-                    <div class="layui-input-inline" style="margin-top:18px;">
-                        <div id="thread"></div>
-                        <input type="hidden" name="thread" value="{{$.obj.Thread}}">
-                    </div>
-                    <div class="layui-form-mid layui-word-aux">协程太多会卡死服务器</div>
+            <div class="layui-col-md4">
+                <label class="layui-form-label" lay-tips="协程太多会卡死服务器">多协程:</label>
+                <div class="layui-input-block" style="margin-top:18px;">
+                    <div id="thread"></div>
+                    <input type="hidden" name="thread" value="{{$.obj.Thread}}">
                 </div>
             </div>
         </div>

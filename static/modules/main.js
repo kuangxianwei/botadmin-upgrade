@@ -410,10 +410,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 };
             }
         }(),
-        onDel: function () {
-            $('i[lay-event="del"]').click(function () {
-                $(this).closest('.layui-form-item').remove();
-            });
+        on: {
+            del: function () {
+                $('i[lay-event="del"]').click(function () {
+                    $(this).closest('.layui-form-item').remove();
+                });
+            },
         },
         render: {
             tpl: function (tplName) {

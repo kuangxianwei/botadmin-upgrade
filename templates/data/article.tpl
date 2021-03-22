@@ -92,6 +92,9 @@
             </button>
         </div>
         <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
+                <i class="layui-icon layui-icon-log"></i>
+            </button>
             <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record">
                 清空日志
             </button>
@@ -398,6 +401,9 @@
                     break;
                 case 'export':
                     window.open(encodeURI(url + '/export?ids=' + ids.join()));
+                    break;
+                case 'log':
+                    main.ws.log('article.0');
                     break;
             }
         });

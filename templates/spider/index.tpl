@@ -145,6 +145,9 @@
             </button>
         </div>
         <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
+                <i class="layui-icon layui-icon-log"></i>
+            </button>
             <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record">
                 清空日志
             </button>
@@ -362,6 +365,9 @@
                 ids[i] = item.id;
             });
             switch (obj.event) {
+                case 'log':
+                    main.ws.log('spider.0');
+                    break;
                 case 'del':
                     if (ids.length === 0) {
                         return layer.msg('请选择数据');
