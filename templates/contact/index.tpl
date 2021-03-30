@@ -114,7 +114,7 @@
                             maxmin: true,
                             btn: ['提交', '取消'],
                             area: ['95%', '95%'],
-                            zIndex: 200000,
+                            zIndex: main.zIndex(),
                             yes: function (index, dom) {
                                 if ($(dom.find('*[lay-submit]').click().context).find('input.layui-form-danger').length === 0) {
                                     if ($('[name=file]').val()) {
@@ -249,7 +249,7 @@
         table.on('toolbar(table-list)', function (obj) {
             let checkStatus = table.checkStatus(obj.config.id),
                 data = checkStatus.data,
-                usernames = Array();
+                usernames = [];
             for (let i = 0; i < data.length; i++) {
                 usernames[i] = data[i].username;
             }
@@ -269,7 +269,7 @@
                             maxmin: true,
                             btn: ['提交', '取消'],
                             area: ['95%', '95%'],
-                            zIndex: 200000,
+                            zIndex: main.zIndex(),
                             yes: function (index, dom) {
                                 if ($(dom.find('*[lay-submit]').click().context).find('input.layui-form-danger').length === 0) {
                                     if ($('[name=file]').val()) {
@@ -397,7 +397,7 @@
                             maxmin: true,
                             btn: ['提交', '取消'],
                             area: ['90%', '90%'],
-                            zIndex: 200000,
+                            zIndex: main.zIndex(),
                             yes: function (index, dom) {
                                 dom.find('*[lay-submit]').click();
                             },
@@ -405,7 +405,7 @@
                                 form.render();
                                 form.on('submit(setupSubmit)', function () {
                                     let field = main.formData(dom.selector);
-                                    field.cols = Array();
+                                    field.cols = [];
                                     dom.find('.layui-form [name]').each(function (i, v) {
                                         if (v.disabled === false && v.name && v.name !== 'cols' && field.cols.indexOf(v.name) === -1) {
                                             field.cols.push(v.name);

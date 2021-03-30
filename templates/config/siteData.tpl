@@ -182,7 +182,7 @@
         });
         form.on('submit(submit)', function (obj) {
             let cityData = transfer.getData('cityData'),
-                cities = Array();
+                cities = [];
             layui.each(cityData, function (i, v) {
                 cities[i] = v.title;
             });

@@ -9,7 +9,7 @@
             </div>
             <div class="layui-col-md4">
                 <label class="layui-form-label" lay-tips="协程太多会卡死服务器">多协程:</label>
-                <div class="layui-input-block" style="margin-top:18px;">
+                <div class="layui-input-block slider">
                     <div id="thread"></div>
                     <input type="hidden" name="thread" value="{{$.obj.Thread}}">
                 </div>

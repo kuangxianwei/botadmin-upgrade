@@ -171,7 +171,7 @@
         table.on('toolbar(table-list)', function (obj) {
             let checkStatus = table.checkStatus(obj.config.id),
                 data = checkStatus.data,
-                ids = Array();
+                ids = [];
             layui.each(data, function (i, item) {
                 ids[i] = item.id;
             });
@@ -206,7 +206,7 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        let ids = Array();
+                        let ids = [];
                         for (let i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }
@@ -237,7 +237,7 @@
                     main.ws.log('statistic.0');
                     break;
                 case 'reset-record':
-                    let keys = Array();
+                    let keys = [];
                     $.each(ids, function (i, id) {
                         keys[i] = 'statistic.' + id
                     })

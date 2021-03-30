@@ -96,7 +96,7 @@
             <div class="layui-col-md6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">权重:</label>
-                    <div class="layui-input-inline" style="margin-top:18px;">
+                    <div class="layui-input-inline slider">
                         <div id="weight"></div>
                         <input type="hidden" name="weight" value="{{$.obj.Weight}}" lay-verify="number">
                     </div>
@@ -207,7 +207,7 @@
                 },
                 done: function () {
                     let cityData = transfer.getData('cityData'),
-                        cities = Array();
+                        cities = [];
                     $.each(cityData, function (i, v) {
                         cities[i] = v.value;
                     });

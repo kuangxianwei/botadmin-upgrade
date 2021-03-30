@@ -360,7 +360,7 @@
         table.on('toolbar(table-list)', function (obj) {
             let checkStatus = table.checkStatus(obj.config.id),
                 data = checkStatus.data,
-                ids = Array();
+                ids = [];
             layui.each(data, function (i, item) {
                 ids[i] = item.id;
             });
@@ -387,6 +387,7 @@
                             title: '添加规则',
                             content: html,
                             url: url + '/add',
+                            btn: ['上一步', "下一步", "取消"],
                             submit: 'stepSubmit',
                             ending: 'table-list'
                         });
@@ -490,7 +491,7 @@
                     form.render();
                     break;
                 case 'reset-record':
-                    let keys = Array();
+                    let keys = [];
                     $.each(ids, function (i, id) {
                         keys[i] = 'spider.' + id
                     })
@@ -503,7 +504,7 @@
         });
         //监控搜索
         form.on('submit(search)', function (obj) {
-            let field = obj.field, cols = Array();
+            let field = obj.field, cols = [];
             $.each(field, function (k, v) {
                 if (v === "") {
                     delete field[k];

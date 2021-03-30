@@ -89,7 +89,7 @@
         table.on('toolbar(table-list)', function (obj) {
             let checkStatus = table.checkStatus(obj.config.id),
                 data = checkStatus.data,
-                ids = Array();
+                ids = [];
             for (let i = 0; i < data.length; i++) {
                 ids[i] = data[i].id;
             }

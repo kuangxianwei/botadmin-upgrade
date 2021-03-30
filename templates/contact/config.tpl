@@ -207,7 +207,7 @@
                 },
                 done: function (dom) {
                     let cityData = transfer.getData('cityData'),
-                        cities = Array();
+                        cities = [];
                     $.each(cityData, function (i, v) {
                         cities[i] = v.value;
                     });

@@ -1,9 +1,4 @@
 <style>
-    div[lay-filter="monitor"] i.layui-icon-delete {
-        color: red;
-        cursor: pointer;
-    }
-
     .cron .layui-input-inline {
         width: 50%;
     }
@@ -270,6 +265,490 @@
                             </button>
                         </div>
                     </div>
+
+
+                    <div id="layui-laydate1" class="layui-laydate layui-laydate-range" style="left: 0px; top: 0px;">
+                        <div class="layui-laydate-main laydate-main-list-0 laydate-time-show">
+                            <div class="layui-laydate-header">
+                                <i class="layui-icon laydate-icon laydate-prev-y"></i><i class="layui-icon laydate-icon laydate-prev-m"></i>
+                                <div class="laydate-set-ym">
+                                    <span lay-ym="2021-3" lay-type="year">2021年</span><span lay-ym="2021-3" lay-type="month">3月</span><span class="laydate-time-text">开始时间</span>
+                                </div>
+                                <i class="layui-icon laydate-icon laydate-next-m"></i><i class="layui-icon laydate-icon laydate-next-y"></i>
+                            </div>
+                            <div class="layui-laydate-content">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>日</th>
+                                        <th>一</th>
+                                        <th>二</th>
+                                        <th>三</th>
+                                        <th>四</th>
+                                        <th>五</th>
+                                        <th>六</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="laydate-day-prev" lay-ymd="2021-2-28">28</td>
+                                        <td lay-ymd="2021-3-1" class="">1</td>
+                                        <td lay-ymd="2021-3-2" class="">2</td>
+                                        <td lay-ymd="2021-3-3" class="">3</td>
+                                        <td lay-ymd="2021-3-4" class="">4</td>
+                                        <td lay-ymd="2021-3-5" class="">5</td>
+                                        <td lay-ymd="2021-3-6" class="">6</td>
+                                    </tr>
+                                    <tr>
+                                        <td lay-ymd="2021-3-7" class="">7</td>
+                                        <td lay-ymd="2021-3-8" class="">8</td>
+                                        <td lay-ymd="2021-3-9" class="">9</td>
+                                        <td lay-ymd="2021-3-10" class="">10</td>
+                                        <td lay-ymd="2021-3-11" class="">11</td>
+                                        <td lay-ymd="2021-3-12" class="">12</td>
+                                        <td lay-ymd="2021-3-13" class="">13</td>
+                                    </tr>
+                                    <tr>
+                                        <td lay-ymd="2021-3-14" class="">14</td>
+                                        <td lay-ymd="2021-3-15" class="">15</td>
+                                        <td lay-ymd="2021-3-16" class="">16</td>
+                                        <td lay-ymd="2021-3-17" class="">17</td>
+                                        <td lay-ymd="2021-3-18" class="">18</td>
+                                        <td lay-ymd="2021-3-19" class="">19</td>
+                                        <td lay-ymd="2021-3-20" class="">20</td>
+                                    </tr>
+                                    <tr>
+                                        <td lay-ymd="2021-3-21" class="">21</td>
+                                        <td lay-ymd="2021-3-22" class="">22</td>
+                                        <td lay-ymd="2021-3-23" class="">23</td>
+                                        <td lay-ymd="2021-3-24" class="">24</td>
+                                        <td lay-ymd="2021-3-25" class="">25</td>
+                                        <td lay-ymd="2021-3-26" class="">26</td>
+                                        <td lay-ymd="2021-3-27" class="">27</td>
+                                    </tr>
+                                    <tr>
+                                        <td lay-ymd="2021-3-28" class="">28</td>
+                                        <td lay-ymd="2021-3-29" class="">29</td>
+                                        <td lay-ymd="2021-3-30" class="">30</td>
+                                        <td lay-ymd="2021-3-31" class="">31</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-1">1</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-2">2</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-3">3</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-4">4</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-5">5</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-6">6</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-7">7</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-8">8</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-9">9</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-4-10">10</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <ul class="layui-laydate-list laydate-time-list">
+                                    <li><p>时</p>
+                                        <ol>
+                                            <li class="layui-this">00</li>
+                                            <li class="">01</li>
+                                            <li class="">02</li>
+                                            <li class="">03</li>
+                                            <li class="">04</li>
+                                            <li class="">05</li>
+                                            <li class="">06</li>
+                                            <li class="">07</li>
+                                            <li class="">08</li>
+                                            <li class="">09</li>
+                                            <li class="">10</li>
+                                            <li class="">11</li>
+                                            <li class="">12</li>
+                                            <li class="">13</li>
+                                            <li class="">14</li>
+                                            <li class="">15</li>
+                                            <li class="">16</li>
+                                            <li class="">17</li>
+                                            <li class="">18</li>
+                                            <li class="">19</li>
+                                            <li class="">20</li>
+                                            <li class="">21</li>
+                                            <li class="">22</li>
+                                            <li class="">23</li>
+                                        </ol>
+                                    </li>
+                                    <li><p>分</p>
+                                        <ol>
+                                            <li class="layui-this">00</li>
+                                            <li class="">01</li>
+                                            <li class="">02</li>
+                                            <li class="">03</li>
+                                            <li class="">04</li>
+                                            <li class="">05</li>
+                                            <li class="">06</li>
+                                            <li class="">07</li>
+                                            <li class="">08</li>
+                                            <li class="">09</li>
+                                            <li class="">10</li>
+                                            <li class="">11</li>
+                                            <li class="">12</li>
+                                            <li class="">13</li>
+                                            <li class="">14</li>
+                                            <li class="">15</li>
+                                            <li class="">16</li>
+                                            <li class="">17</li>
+                                            <li class="">18</li>
+                                            <li class="">19</li>
+                                            <li class="">20</li>
+                                            <li class="">21</li>
+                                            <li class="">22</li>
+                                            <li class="">23</li>
+                                            <li class="">24</li>
+                                            <li class="">25</li>
+                                            <li class="">26</li>
+                                            <li class="">27</li>
+                                            <li class="">28</li>
+                                            <li class="">29</li>
+                                            <li class="">30</li>
+                                            <li class="">31</li>
+                                            <li class="">32</li>
+                                            <li class="">33</li>
+                                            <li class="">34</li>
+                                            <li class="">35</li>
+                                            <li class="">36</li>
+                                            <li class="">37</li>
+                                            <li class="">38</li>
+                                            <li class="">39</li>
+                                            <li class="">40</li>
+                                            <li class="">41</li>
+                                            <li class="">42</li>
+                                            <li class="">43</li>
+                                            <li class="">44</li>
+                                            <li class="">45</li>
+                                            <li class="">46</li>
+                                            <li class="">47</li>
+                                            <li class="">48</li>
+                                            <li class="">49</li>
+                                            <li class="">50</li>
+                                            <li class="">51</li>
+                                            <li class="">52</li>
+                                            <li class="">53</li>
+                                            <li class="">54</li>
+                                            <li class="">55</li>
+                                            <li class="">56</li>
+                                            <li class="">57</li>
+                                            <li class="">58</li>
+                                            <li class="">59</li>
+                                        </ol>
+                                    </li>
+                                    <li><p>秒</p>
+                                        <ol>
+                                            <li class="layui-this">00</li>
+                                            <li class="">01</li>
+                                            <li class="">02</li>
+                                            <li class="">03</li>
+                                            <li class="">04</li>
+                                            <li class="">05</li>
+                                            <li class="">06</li>
+                                            <li class="">07</li>
+                                            <li class="">08</li>
+                                            <li class="">09</li>
+                                            <li class="">10</li>
+                                            <li class="">11</li>
+                                            <li class="">12</li>
+                                            <li class="">13</li>
+                                            <li class="">14</li>
+                                            <li class="">15</li>
+                                            <li class="">16</li>
+                                            <li class="">17</li>
+                                            <li class="">18</li>
+                                            <li class="">19</li>
+                                            <li class="">20</li>
+                                            <li class="">21</li>
+                                            <li class="">22</li>
+                                            <li class="">23</li>
+                                            <li class="">24</li>
+                                            <li class="">25</li>
+                                            <li class="">26</li>
+                                            <li class="">27</li>
+                                            <li class="">28</li>
+                                            <li class="">29</li>
+                                            <li class="">30</li>
+                                            <li class="">31</li>
+                                            <li class="">32</li>
+                                            <li class="">33</li>
+                                            <li class="">34</li>
+                                            <li class="">35</li>
+                                            <li class="">36</li>
+                                            <li class="">37</li>
+                                            <li class="">38</li>
+                                            <li class="">39</li>
+                                            <li class="">40</li>
+                                            <li class="">41</li>
+                                            <li class="">42</li>
+                                            <li class="">43</li>
+                                            <li class="">44</li>
+                                            <li class="">45</li>
+                                            <li class="">46</li>
+                                            <li class="">47</li>
+                                            <li class="">48</li>
+                                            <li class="">49</li>
+                                            <li class="">50</li>
+                                            <li class="">51</li>
+                                            <li class="">52</li>
+                                            <li class="">53</li>
+                                            <li class="">54</li>
+                                            <li class="">55</li>
+                                            <li class="">56</li>
+                                            <li class="">57</li>
+                                            <li class="">58</li>
+                                            <li class="">59</li>
+                                        </ol>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="layui-laydate-main laydate-main-list-1 laydate-time-show">
+                            <div class="layui-laydate-header">
+                                <i class="layui-icon laydate-icon laydate-prev-y"></i><i class="layui-icon laydate-icon laydate-prev-m"></i>
+                                <div class="laydate-set-ym">
+                                    <span lay-ym="2021-4" lay-type="year">2021年</span><span lay-ym="2021-4" lay-type="month">4月</span><span class="laydate-time-text">结束时间</span>
+                                </div>
+                                <i class="layui-icon laydate-icon laydate-next-m"></i><i class="layui-icon laydate-icon laydate-next-y"></i>
+                            </div>
+                            <div class="layui-laydate-content">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>日</th>
+                                        <th>一</th>
+                                        <th>二</th>
+                                        <th>三</th>
+                                        <th>四</th>
+                                        <th>五</th>
+                                        <th>六</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="laydate-day-prev" lay-ymd="2021-3-28">28</td>
+                                        <td class="laydate-day-prev" lay-ymd="2021-3-29">29</td>
+                                        <td class="laydate-day-prev" lay-ymd="2021-3-30">30</td>
+                                        <td class="laydate-day-prev" lay-ymd="2021-3-31">31</td>
+                                        <td lay-ymd="2021-4-1" class="">1</td>
+                                        <td lay-ymd="2021-4-2" class="">2</td>
+                                        <td lay-ymd="2021-4-3" class="">3</td>
+                                    </tr>
+                                    <tr>
+                                        <td lay-ymd="2021-4-4" class="">4</td>
+                                        <td lay-ymd="2021-4-5" class="">5</td>
+                                        <td lay-ymd="2021-4-6" class="">6</td>
+                                        <td lay-ymd="2021-4-7" class="">7</td>
+                                        <td lay-ymd="2021-4-8" class="">8</td>
+                                        <td lay-ymd="2021-4-9" class="">9</td>
+                                        <td lay-ymd="2021-4-10" class="">10</td>
+                                    </tr>
+                                    <tr>
+                                        <td lay-ymd="2021-4-11" class="">11</td>
+                                        <td lay-ymd="2021-4-12" class="">12</td>
+                                        <td lay-ymd="2021-4-13" class="">13</td>
+                                        <td lay-ymd="2021-4-14" class="">14</td>
+                                        <td lay-ymd="2021-4-15" class="">15</td>
+                                        <td lay-ymd="2021-4-16" class="">16</td>
+                                        <td lay-ymd="2021-4-17" class="">17</td>
+                                    </tr>
+                                    <tr>
+                                        <td lay-ymd="2021-4-18" class="">18</td>
+                                        <td lay-ymd="2021-4-19" class="">19</td>
+                                        <td lay-ymd="2021-4-20" class="">20</td>
+                                        <td lay-ymd="2021-4-21" class="">21</td>
+                                        <td lay-ymd="2021-4-22" class="">22</td>
+                                        <td lay-ymd="2021-4-23" class="">23</td>
+                                        <td lay-ymd="2021-4-24" class="">24</td>
+                                    </tr>
+                                    <tr>
+                                        <td lay-ymd="2021-4-25" class="">25</td>
+                                        <td lay-ymd="2021-4-26" class="">26</td>
+                                        <td lay-ymd="2021-4-27" class="">27</td>
+                                        <td lay-ymd="2021-4-28" class="">28</td>
+                                        <td lay-ymd="2021-4-29" class="">29</td>
+                                        <td lay-ymd="2021-4-30" class="">30</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-5-1">1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="laydate-day-next" lay-ymd="2021-5-2">2</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-5-3">3</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-5-4">4</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-5-5">5</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-5-6">6</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-5-7">7</td>
+                                        <td class="laydate-day-next" lay-ymd="2021-5-8">8</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <ul class="layui-laydate-list laydate-time-list">
+                                    <li><p>时</p>
+                                        <ol>
+                                            <li class="layui-this">00</li>
+                                            <li class="">01</li>
+                                            <li class="">02</li>
+                                            <li class="">03</li>
+                                            <li class="">04</li>
+                                            <li class="">05</li>
+                                            <li class="">06</li>
+                                            <li class="">07</li>
+                                            <li class="">08</li>
+                                            <li class="">09</li>
+                                            <li class="">10</li>
+                                            <li class="">11</li>
+                                            <li class="">12</li>
+                                            <li class="">13</li>
+                                            <li class="">14</li>
+                                            <li class="">15</li>
+                                            <li class="">16</li>
+                                            <li class="">17</li>
+                                            <li class="">18</li>
+                                            <li class="">19</li>
+                                            <li class="">20</li>
+                                            <li class="">21</li>
+                                            <li class="">22</li>
+                                            <li class="">23</li>
+                                        </ol>
+                                    </li>
+                                    <li><p>分</p>
+                                        <ol>
+                                            <li class="layui-this">00</li>
+                                            <li class="">01</li>
+                                            <li class="">02</li>
+                                            <li class="">03</li>
+                                            <li class="">04</li>
+                                            <li class="">05</li>
+                                            <li class="">06</li>
+                                            <li class="">07</li>
+                                            <li class="">08</li>
+                                            <li class="">09</li>
+                                            <li class="">10</li>
+                                            <li class="">11</li>
+                                            <li class="">12</li>
+                                            <li class="">13</li>
+                                            <li class="">14</li>
+                                            <li class="">15</li>
+                                            <li class="">16</li>
+                                            <li class="">17</li>
+                                            <li class="">18</li>
+                                            <li class="">19</li>
+                                            <li class="">20</li>
+                                            <li class="">21</li>
+                                            <li class="">22</li>
+                                            <li class="">23</li>
+                                            <li class="">24</li>
+                                            <li class="">25</li>
+                                            <li class="">26</li>
+                                            <li class="">27</li>
+                                            <li class="">28</li>
+                                            <li class="">29</li>
+                                            <li class="">30</li>
+                                            <li class="">31</li>
+                                            <li class="">32</li>
+                                            <li class="">33</li>
+                                            <li class="">34</li>
+                                            <li class="">35</li>
+                                            <li class="">36</li>
+                                            <li class="">37</li>
+                                            <li class="">38</li>
+                                            <li class="">39</li>
+                                            <li class="">40</li>
+                                            <li class="">41</li>
+                                            <li class="">42</li>
+                                            <li class="">43</li>
+                                            <li class="">44</li>
+                                            <li class="">45</li>
+                                            <li class="">46</li>
+                                            <li class="">47</li>
+                                            <li class="">48</li>
+                                            <li class="">49</li>
+                                            <li class="">50</li>
+                                            <li class="">51</li>
+                                            <li class="">52</li>
+                                            <li class="">53</li>
+                                            <li class="">54</li>
+                                            <li class="">55</li>
+                                            <li class="">56</li>
+                                            <li class="">57</li>
+                                            <li class="">58</li>
+                                            <li class="">59</li>
+                                        </ol>
+                                    </li>
+                                    <li><p>秒</p>
+                                        <ol>
+                                            <li class="layui-this">00</li>
+                                            <li class="">01</li>
+                                            <li class="">02</li>
+                                            <li class="">03</li>
+                                            <li class="">04</li>
+                                            <li class="">05</li>
+                                            <li class="">06</li>
+                                            <li class="">07</li>
+                                            <li class="">08</li>
+                                            <li class="">09</li>
+                                            <li class="">10</li>
+                                            <li class="">11</li>
+                                            <li class="">12</li>
+                                            <li class="">13</li>
+                                            <li class="">14</li>
+                                            <li class="">15</li>
+                                            <li class="">16</li>
+                                            <li class="">17</li>
+                                            <li class="">18</li>
+                                            <li class="">19</li>
+                                            <li class="">20</li>
+                                            <li class="">21</li>
+                                            <li class="">22</li>
+                                            <li class="">23</li>
+                                            <li class="">24</li>
+                                            <li class="">25</li>
+                                            <li class="">26</li>
+                                            <li class="">27</li>
+                                            <li class="">28</li>
+                                            <li class="">29</li>
+                                            <li class="">30</li>
+                                            <li class="">31</li>
+                                            <li class="">32</li>
+                                            <li class="">33</li>
+                                            <li class="">34</li>
+                                            <li class="">35</li>
+                                            <li class="">36</li>
+                                            <li class="">37</li>
+                                            <li class="">38</li>
+                                            <li class="">39</li>
+                                            <li class="">40</li>
+                                            <li class="">41</li>
+                                            <li class="">42</li>
+                                            <li class="">43</li>
+                                            <li class="">44</li>
+                                            <li class="">45</li>
+                                            <li class="">46</li>
+                                            <li class="">47</li>
+                                            <li class="">48</li>
+                                            <li class="">49</li>
+                                            <li class="">50</li>
+                                            <li class="">51</li>
+                                            <li class="">52</li>
+                                            <li class="">53</li>
+                                            <li class="">54</li>
+                                            <li class="">55</li>
+                                            <li class="">56</li>
+                                            <li class="">57</li>
+                                            <li class="">58</li>
+                                            <li class="">59</li>
+                                        </ol>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="layui-laydate-footer">
+                            <div class="laydate-footer-btns"><span lay-type="clear" class="laydate-btns-clear">清空</span><span lay-type="confirm" class="laydate-btns-confirm">确定</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -295,7 +774,7 @@
                 <input name="services.stop_mark." class="layui-input" value="">
             </div>
         </div>
-        <i class="layui-icon layui-icon-delete" lay-tips="删除该条服务监控"></i>
+        <i class="layui-icon layui-icon-delete" lay-event="del" lay-tips="删除该条服务监控"></i>
     </div>
 </script>
 {{template "JS" -}}
@@ -307,23 +786,7 @@
             form = layui.form,
             services = {{.monitor.Services}},
             url = {{.current_uri}},
-            del = function () {
-                $('[lay-filter="monitor"] i.layui-icon-delete').click(function () {
-                    $(this).parent().remove();
-                })
-            },
-            getIndex = function () {
-                let index = 0;
-                $('[lay-filter="monitor"] [name^="services.name."]').each(function (i, dom) {
-                    i = parseInt(dom.name.split('.')[2]);
-                    if (!isNaN(i) && i > index) {
-                        index = i;
-                    }
-                });
-                return index + 1;
-            },
             addService = function (index, option) {
-                index = index || getIndex();
                 option = option || {};
                 let dom = $($('#monitor').html());
                 dom.find('[name]').each(function () {
@@ -336,14 +799,20 @@
             };
         if (services) {
             $.each(services, function (index, v) {
-                addService(0, v);
+                addService(index + 1, v);
             });
             form.render();
-            del();
+            main.on.del();
         }
-        $('[lay-event="add"]').click(function () {
-            addService();
-            del();
+        main.on.add(function () {
+            let name = $('[lay-filter="monitor"] [name^="services.name."]').last().attr('name'),
+                names = [],
+                index = 0;
+            if (name) {
+                names = name.split('.');
+                index = parseInt(names[names.length - 1]) || 0;
+            }
+            addService(index + 1);
         });
         form.on('submit(submit-base)', function (obj) {
             main.req({

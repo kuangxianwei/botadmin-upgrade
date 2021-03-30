@@ -168,7 +168,7 @@
         table.on('toolbar(table-list)', function (obj) {
             let checkStatus = table.checkStatus(obj.config.id),
                 data = checkStatus.data,
-                tokens = Array();
+                tokens = [];
             switch (obj.event) {
                 case 'add':
                     $.get('/rank/add', data, function (html) {
@@ -214,7 +214,7 @@
                     });
                     break;
                 case 'reset-record':
-                    let keys = Array();
+                    let keys = [];
                     for (let i = 0; i < data.length; i++) {
                         keys[i] = "rank." + data[i].id;
                     }

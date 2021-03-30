@@ -161,7 +161,7 @@
                 'mobile_text': '移动端文字',
             },
             getId = function () {
-                let ids = Array(), id = 0;
+                let ids = [], id = 0;
                 $('#menu-items').find('*[name]').each(function (i, v) {
                     let names = $(v).attr('name').split('.'),
                         id = parseInt(names.slice(names.length - 1, names.length));

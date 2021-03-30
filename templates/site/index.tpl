@@ -605,7 +605,7 @@
         //头工具栏事件
         table.on('toolbar(table-list)', function (obj) {
             let data = table.checkStatus(obj.config.id).data,
-                ids = Array();
+                ids = [];
             for (let i = 0; i < data.length; i++) {
                 ids[i] = data[i].id;
             }
@@ -628,7 +628,7 @@
                         fixed: false,
                         area: ['520px', '250px'],
                         maxmin: true,
-                        zIndex: 200000,
+                        zIndex: main.zIndex(),
                         btn: ['确定', '取消'],
                         content: $('#edit-options-html').html(),
                         success: function (dom, index) {
@@ -677,15 +677,15 @@
                                                     formDom.append(`<div class="layui-form-item"><label class="layui-form-label">内容阈值:</label><div class="layui-input-inline"><input type="text" name="content_deg" value="1-3" class="layui-input"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
                                                     break;
                                                 case 'link_deg':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">内链阀值:</label><div class="layui-input-inline" style="margin-top:18px;"><div id="link_deg"></div><input type="hidden" name="link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入内链</div></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">内链阀值:</label><div class="layui-input-inline slider"><div id="link_deg"></div><input type="hidden" name="link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入内链</div></div>`);
                                                     main.slider({elem: '#link_deg', value: 3});
                                                     break;
                                                 case 'out_link_deg':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">外链阀值:</label><div class="layui-input-inline" style="margin-top:18px;"><div id="out_link_deg"></div><input type="hidden" name="out_link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入外链</div></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">外链阀值:</label><div class="layui-input-inline slider"><div id="out_link_deg"></div><input type="hidden" name="out_link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入外链</div></div>`);
                                                     main.slider({elem: '#out_link_deg', value: 3});
                                                     break;
                                                 case 'title_tag_deg':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">标题阀值:</label><div class="layui-input-inline" style="margin-top:18px;"><div id="title_tag_deg"></div><input type="hidden" name="title_tag_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">标题插入tag 值越高 几率越高</div></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">标题阀值:</label><div class="layui-input-inline slider"><div id="title_tag_deg"></div><input type="hidden" name="title_tag_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">标题插入tag 值越高 几率越高</div></div>`);
                                                     main.slider({elem: '#title_tag_deg', value: 3});
                                                     break;
                                                 case 'pub_self':
@@ -698,7 +698,7 @@
                                                     formDom.append(`<div class="layui-form-item"><label class="layui-form-label">推送配置:</label><div class="layui-input-inline"><textarea name="push_config" class="layui-textarea"></textarea></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
                                                     break;
                                                 case 'originality_rate':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">原创阀值:</label><div class="layui-input-inline" style="margin-top:18px;"><div id="originality_rate"></div><input type="hidden" name="originality_rate" value="0"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">大于或等于这个值才发布</div></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">原创阀值:</label><div class="layui-input-inline slider"><div id="originality_rate"></div><input type="hidden" name="originality_rate" value="0"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">大于或等于这个值才发布</div></div>`);
                                                     main.slider({elem: '#originality_rate', max: 100, value: 0});
                                                     break;
                                             }
@@ -708,7 +708,7 @@
                                         });
                                     },
                                     yes: function (index, dom) {
-                                        let cols = Array();
+                                        let cols = [];
                                         dom.find('.layui-form [name]').each(function (i, v) {
                                             if (v.name && v.name !== 'cols') {
                                                 cols.push(v.name);
@@ -927,7 +927,7 @@
                     });
                     break;
                 case 'reset-record':
-                    let keys = Array();
+                    let keys = [];
                     $.each(ids, function (i, id) {
                         keys[i] = 'site.' + id
                     })
@@ -1037,7 +1037,7 @@
 
         //监听搜索
         form.on('submit(search)', function (data) {
-            let field = data.field, cols = Array();
+            let field = data.field, cols = [];
             $.each(field, function (k, v) {
                 if (v === '') {
                     delete field[k];

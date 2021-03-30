@@ -180,7 +180,7 @@
         });
         //监听搜索
         form.on('submit(search)', function (data) {
-            let field = data.field, cols = Array();
+            let field = data.field, cols = [];
             $.each(field, function (k, v) {
                 if (v === "") {
                     delete field[k];

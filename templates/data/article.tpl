@@ -258,7 +258,7 @@
             let data = table.checkStatus(obj.config.id).data,
                 isEmpty = data.length === 0,
                 thread = isEmpty ? 10 : data.length,
-                ids = Array();
+                ids = [];
             for (let i = 0; i < data.length; i++) {
                 ids[i] = data[i].id;
             }
@@ -381,7 +381,7 @@
                     });
                     break;
                 case 'reset-record':
-                    let keys = Array();
+                    let keys = [];
                     $.each(ids, function (i, id) {
                         keys[i] = 'article.' + id
                     })
@@ -409,7 +409,7 @@
         });
         //监听搜索
         form.on('submit(search)', function (data) {
-            let field = data.field, cols = Array();
+            let field = data.field, cols = [];
             $.each(field, function (k, v) {
                 if (v === '') {
                     delete field[k];

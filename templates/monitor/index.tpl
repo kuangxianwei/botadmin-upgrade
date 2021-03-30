@@ -155,7 +155,7 @@
         table.on('toolbar(table-list)', function (obj) {
             let checkStatus = table.checkStatus(obj.config.id),
                 data = checkStatus.data,
-                ids = Array();
+                ids = [];
             switch (obj.event) {
                 case 'add':
                     $.get(url + '/add', {}, function (html) {
@@ -174,7 +174,7 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        let ids = Array();
+                        let ids = [];
                         for (let i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }
@@ -190,7 +190,7 @@
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
-                    ids = Array();
+                    ids = [];
                     for (let i = 0; i < data.length; i++) {
                         ids[i] = data[i].id;
                     }
@@ -204,7 +204,7 @@
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
-                    ids = Array();
+                    ids = [];
                     for (let i = 0; i < data.length; i++) {
                         ids[i] = data[i].id;
                     }
@@ -223,7 +223,7 @@
                     });
                     break;
                 case 'reset-record':
-                    let keys = Array();
+                    let keys = [];
                     $.each(ids, function (i, id) {
                         keys[i] = 'monitor.' + id
                     })

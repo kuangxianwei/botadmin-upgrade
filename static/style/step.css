@@ -45,7 +45,8 @@
     color: #009688;
     border: 1px solid #009688;
     border-radius: 50%;
-    background: #fff
+    background: #fff;
+    cursor: pointer;
 }
 
 .step-item-head.step-item-head-active {

@@ -321,7 +321,7 @@
 
         //转到
         form.on('submit(submit-goto)', function (obj) {
-            let field = obj.field, cols = Array();
+            let field = obj.field, cols = [];
             $.each(field, function (k, v) {
                 if (v === '') {
                     delete field[k];
@@ -340,7 +340,7 @@
 
         // 监听搜索
         form.on('submit(search)', function (obj) {
-            let field = obj.field, cols = Array();
+            let field = obj.field, cols = [];
             $.each(field, function (k, v) {
                 if (v === '') {
                     delete field[k];
@@ -360,7 +360,7 @@
         // 监听操作
         form.on('submit(submit-acts)', function (obj) {
             let checkData = table.checkStatus('table-list').data, // 得到选中的数据
-                names = Array();
+                names = [];
             if (checkData.length === 0) {
                 return layer.msg('请选择数据');
             }
