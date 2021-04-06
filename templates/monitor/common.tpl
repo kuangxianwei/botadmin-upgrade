@@ -49,42 +49,27 @@
                        lay-text="是|否"{{if .obj.Detailed}} checked{{end}}>
             </div>
         </div>
-        <div class="layui-form-item" style="padding-left: 3%;">
-            <table>
-                <tr>
-                    <th align="center" style="margin-right: 2%;">启用定时</th>
-                    <th align="center">分:0-59 *-,</th>
-                    <th align="center">时:0-23 *-,</th>
-                    <th align="center">天:1-31 *-,</th>
-                    <th align="center">月:1-12 *-,</th>
-                    <th align="center">周:0-6 *-,</th>
-                </tr>
-                <tr>
-                    <td style="padding-left: 2%;">
+        <fieldset class="layui-elem-field">
+            <legend>定时设置</legend>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">启用:</label>
+                    <div class="layui-input-inline">
                         <input type="checkbox" name="cron_enabled" lay-skin="switch"
                                lay-text="是|否"{{if .obj.CronEnabled}} checked{{end}}>
-                    </td>
-                    <td style="padding-left: 4%;">
-                        <input type="text" name="minute" value="{{.obj.Minute}}" class="layui-input">
-                    </td>
-                    <td style="padding-left: 2%;">
-                        <input type="text" name="hour" value="{{.obj.Hour}}" class="layui-input">
-                    </td>
-                    <td style="padding-left: 2%;">
-                        <input type="text" name="day" value="{{.obj.Day}}" class="layui-input">
-                    </td>
-                    <td style="padding-left: 2%;">
-                        <input type="text" name="month" value="{{.obj.Month}}" class="layui-input">
-                    </td>
-                    <td style="padding-left: 2%;">
-                        <input type="text" name="week" value="{{.obj.Week}}" class="layui-input">
-                    </td>
-                </tr>
-            </table>
-        </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" name="spec" value="{{.obj.Spec}}" class="layui-input">
+                </div>
+            </div>
+        </fieldset>
         <div class="layui-form-item layui-hide">
             <input name="id" value="{{.obj.Id}}">
             <button lay-submit>提交</button>
         </div>
     </div>
 </div>
+<script>
+    layui.main.cron('[name="spec"]');
+</script>

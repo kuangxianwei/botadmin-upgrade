@@ -15,8 +15,6 @@ html #layuicss-cron {
 
 /* 主体结构 */
 .layui-cron {
-    position: absolute;
-    z-index: 1000;
     margin: 5px 0;
     border-radius: 2px;
     font-size: 14px;
@@ -34,7 +32,6 @@ html #layuicss-cron {
 }
 
 @-webkit-keyframes cron-up {
-
     /* 微微往上滑入 */
     from {
         -webkit-transform: translate3d(0, 20px, 0);
@@ -60,7 +57,7 @@ html #layuicss-cron {
 }
 
 /* tabs */
-.layui-cron>.layui-tab {
+.layui-cron > .layui-tab {
     margin: 0;
     box-shadow: none;
     border: none;
@@ -77,34 +74,8 @@ html #layuicss-cron {
     margin: 10px;
 }
 
-.cron-box+.cron-box {
+.cron-box + .cron-box {
     margin-top: 0;
-}
-
-/* 按钮 */
-.cron-footer-btn {
-    text-align: right;
-}
-
-.cron-footer-btn span {
-    height: 26px;
-    line-height: 26px;
-    margin: 0 0 0 -1px;
-    padding: 0 10px;
-    border: 1px solid #C9C9C9;
-    background-color: #fff;
-    white-space: nowrap;
-    vertical-align: top;
-    border-radius: 2px;
-    display: inline-block;
-    cursor: pointer;
-    font-size: 12px;
-    box-sizing: border-box;
-    color: #666;
-}
-
-.cron-footer-btn span:hover {
-    color: #5FB878;
 }
 
 
@@ -140,7 +111,7 @@ html #layuicss-cron {
     height: 28px;
     line-height: 28px;
     box-sizing: border-box;
-    width: 80px;
+    width: 40px;
     -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
@@ -164,15 +135,18 @@ html #layuicss-cron {
     padding-left: 22px;
     margin-top: 5px;
 }
+
 .layui-cron input[type=number] {
-    -moz-appearance:textfield;
+    -moz-appearance: textfield;
 }
+
 .layui-cron input[type=number]::-webkit-inner-spin-button,
 .layui-cron input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-.cron-tips{
+
+.cron-tips {
     color: grey;
     line-height: 28px;
     height: 28px;

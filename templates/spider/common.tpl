@@ -248,48 +248,17 @@
         <fieldset class="layui-elem-field">
             <legend>定时采集</legend>
             <div class="layui-form-item">
-                <div class="layui-row cron">
-                    <div class="layui-col-md2">
-                        <label class="layui-form-label">启用:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否"
-                                    {{if .obj.CronEnabled}} checked{{end}}>
-                        </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">启用:</label>
+                    <div class="layui-input-inline">
+                        <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否"
+                                {{if .obj.CronEnabled}} checked{{end}}>
                     </div>
-                    <div class="layui-col-md2">
-                        <label class="layui-form-label" lay-tips="0-59 *-,">分:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="minute" value="{{.obj.Minute}}"
-                                   class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-col-md2">
-                        <label class="layui-form-label" lay-tips="0-23 *-,">时:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="hour" value="{{.obj.Hour}}"
-                                   class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-col-md2">
-                        <label class="layui-form-label" lay-tips="1-31 *-,">天:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="day" value="{{.obj.Day}}"
-                                   class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-col-md2">
-                        <label class="layui-form-label" lay-tips="1-12 *-,">月:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="month" value="{{.obj.Month}}"
-                                   class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-col-md2">
-                        <label class="layui-form-label" lay-tips="0-6 *-,">周:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="week" value="{{.obj.Week}}"
-                                   class="layui-input">
-                        </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">Spec:</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="spec" value="{{.obj.Spec}}" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -298,6 +267,7 @@
 </div>
 <!--自定义-->
 <script>
+    layui.main.cron('[name="spec"]');
     JS.use(['step'], function () {
         let step = layui.step,
             engines = {{.engines}},// 翻译引擎列表

@@ -63,7 +63,7 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="backroll" lay-tips="上一层目录">
+        <button class="layui-btn layui-btn-sm" lay-event="rollback" lay-tips="上一层目录">
             <i class="layui-icon layui-icon-up"></i>
         </button>
         <button class="layui-btn layui-btn-sm" lay-event="back_root" lay-tips="用户目录">
@@ -234,9 +234,9 @@
         //监听工具栏
         table.on('toolbar(table-list)', function (obj) {
             switch (obj.event) {
-                case 'backroll':
+                case 'rollback':
                     table.reload('table-list', {
-                        url: url + '/backroll',
+                        url: url + '/rollback',
                         where: {'path': current_path}
                     });
                     break;
