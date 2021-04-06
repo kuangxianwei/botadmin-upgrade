@@ -302,6 +302,13 @@
                             title: '修改规则',
                             content: html,
                             url: url + '/modify',
+                            btn: ['提交', '上一步', '下一步', '取消'],
+                            btn2: function () {
+                                return false;
+                            },
+                            btn3: function () {
+                                return false;
+                            },
                             submit: 'stepSubmit',
                             ending: 'table-list',
                         });
@@ -387,7 +394,13 @@
                             title: '添加规则',
                             content: html,
                             url: url + '/add',
-                            btn: ['上一步', "下一步", "取消"],
+                            btn: ['提交', '上一步', '下一步', '取消'],
+                            btn2: function () {
+                                return false;
+                            },
+                            btn3: function () {
+                                return false;
+                            },
                             submit: 'stepSubmit',
                             ending: 'table-list'
                         });
@@ -494,7 +507,7 @@
                     let keys = [];
                     $.each(ids, function (i, id) {
                         keys[i] = 'spider.' + id
-                    })
+                    });
                     main.req({
                         url: '/record/reset',
                         data: {keys: keys.join()},
@@ -518,7 +531,7 @@
                 page: {curr: 1}
             });
             return false;
-        })
+        });
         //监控选择site id
         form.on('select(select_site_id)', function () {
             $('button[lay-filter=search]').click();

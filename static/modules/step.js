@@ -71,7 +71,7 @@ layui.define(['form'], function (exports) {
                 id = 0;
             }
         }
-        id++
+        id++;
         return id;
     };
     // 添加翻译
@@ -112,7 +112,7 @@ layui.define(['form'], function (exports) {
     <i class="layui-icon layui-icon-delete" lay-event="del" lay-tips="删除该项"></i>
 </div>`);
         if (!data) {
-            console.log("翻译数据为空");
+            console.error("翻译数据为空");
             return false;
         }
         // 全部name 加上序号
@@ -199,7 +199,7 @@ layui.define(['form'], function (exports) {
                 form.render('select');
             }
         });
-    }
+    };
     // 渲染翻译
     Class.prototype.render = function (items) {
         let othis = this;
@@ -243,7 +243,7 @@ layui.define(['form'], function (exports) {
         }
         id = parseInt($('[lay-filter=step-list]>.layui-tab-title>li[lay-id]').last().attr('lay-id'));
         if (!isNaN(id)) {
-            id++
+            id++;
             return id;
         }
         return 0;
@@ -555,7 +555,7 @@ layui.define(['form'], function (exports) {
         }
         id = parseInt($('[lay-filter=step-detail]>.layui-tab-title>li[lay-id]').last().attr('lay-id'));
         if (!isNaN(id)) {
-            id++
+            id++;
             return id;
         }
         return 0;
@@ -872,6 +872,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         $(this.elem).html(stepDiv);
         // 计算每一个条目的宽度
         $('.step-item').css('width', (100 / this.stepItems.length) + '%');
+        // 监控点击转到
         $('.step-item-head').click(function () {
             let index = parseInt($(this).parent().attr('data-step-item-index'));
             othis.position = isNaN(index) ? othis.position : index;
@@ -882,63 +883,53 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
     Class.prototype.renderGoto = function () {
         let next = this.position + 1,
             pre = this.position - 1,
-            stepItemsLen = this.stepItems.length,
-            btn = '';
-        if (stepItemsLen < 1) {
-            return false;
-        }
+            contentDom=$('.step-content').first(),
+            domAll = $('div.layui-layer-btn>a'),
+            dom0 = $('div.layui-layer-btn>.layui-layer-btn0'),
+            dom2 = $('div.layui-layer-btn>.layui-layer-btn2');
         switch (true) {
-            case stepItemsLen === 1:
-                btn = '<a data-step-submit="' + this.position + '" style="background: #009688;color: #FFF">提交</a>';
-                break;
             case pre < 0:
-                btn = '<a data-step-next="' + next + '" style="background: #009688;color: #FFF">下一步</a>';
+                domAll.removeClass('layui-hide');
+                $('div.layui-layer-btn>.layui-layer-btn0,div.layui-layer-btn>.layui-layer-btn1').addClass('layui-hide');
+                contentDom.removeClass('layui-form');
                 break;
-            case next >= stepItemsLen:
-                btn = '<a data-step-pre="' + pre + '">上一步</a><a data-step-submit="' + this.position + '" style="background: #009688;color: #FFF">提交</a>';
+            case next >= this.stepItems.length:
+                domAll.removeClass('layui-hide');
+                dom2.addClass('layui-hide');
+                contentDom.addClass('layui-form');
                 break;
             default:
-                btn = '<a data-step-pre="' + pre + '">上一步</a><a data-step-next="' + next + '" style="background: #009688;color: #FFF">下一步</a>';
+                domAll.removeClass('layui-hide');
+                dom0.addClass('layui-hide');
+                contentDom.removeClass('layui-form');
+                break;
         }
-        $('div.layui-layer-btn').html(btn + '<a data-step-close>取消</a>');
     };
     // 转到指定 position
     Class.prototype.goto = function () {
         //显示当前块
-        $('.step-content>div').removeAttr('style').eq(this.position).css({'display': 'block'});
+        this.showThis();
         //渲染头部
         this.renderHeader();
         //渲染 上下步
         this.renderGoto();
-        //监控事件
-        this.on();
     };
     /* 监测 事件 */
-    Class.prototype.on = function () {
+    Class.prototype.events = function () {
         let othis = this;
-        // 监控关闭
-        $('a[data-step-close]').click(function () {
-            $(this).parent().prev().find('.layui-layer-ico.layui-layer-close').click();
-            window.location.reload();
-        });
         //监控上一步
-        $('a[data-step-pre]').click(function () {
-            othis.position--
+        $('div.layui-layer-btn>.layui-layer-btn1').click(function () {
+            othis.position--;
             othis.goto();
         });
         //监控下一步
-        $('a[data-step-next]').click(function () {
+        $('div.layui-layer-btn>.layui-layer-btn2').click(function () {
             $('.step-content:first').removeClass('layui-form');
             $('a[data-step=' + othis.position + ']').click();
         });
-        //监控提交
-        $('a[data-step-submit]').click(function () {
-            $('.step-content:first').addClass('layui-form');
-            $('[lay-filter=stepSubmit]').click();
-        });
-        // 验证提交
+        // 验证下一步
         form.on('submit(stepNext)', function () {
-            othis.position++
+            othis.position++;
             othis.goto();
         });
     };
@@ -992,16 +983,21 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         $('div.step-content>div').addClass('layui-form').each(function (i) {
             $(this).children().eq(0).before('<a class="layui-hide" lay-submit lay-filter="stepNext" data-step="' + i + '"></a>');
         });
+        // 添加提交按钮
         $('div.step-content>div:first').before('<a class="layui-hide" lay-submit lay-filter="stepSubmit"></a>');
         // 渲染 上下步
         this.renderGoto();
-        // 监控事件
-        this.on();
+        // 按钮添加样式
+        $('div.layui-layer-btn>.layui-layer-btn0,div.layui-layer-btn>.layui-layer-btn2').css({
+            background: '#009688', color: '#FFF'
+        });
         /* 验证爬虫名称和种子 */
         form.verify({
             name: [/^.{2,}/, '爬虫名称必须2个字符以上！'],
             seeds: [/^\s*https?:\/\//i, '必须以http:// 或者 https:// 开头']
         });
+        // 监控事件
+        this.events();
     };
     // 导出接口
     exports('step', function (options) {
@@ -1030,6 +1026,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
             $('.step-content').addClass('layui-form');
             $('button[lay-filter=testList]').click();
         });
+        // 监控测试
         form.on('submit(testList)', function (obj) {
             $('.step-content').removeClass('layui-form');
             main.req({
@@ -1084,6 +1081,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
             $('.step-content').addClass('layui-form');
             $('button[lay-filter=sourceCode]').click();
         });
+        /*提交测试源码*/
         form.on('submit(sourceCode)', function (obj) {
             $('.step-content').removeClass('layui-form');
             if (stepObj.seeds.length === 0) {
@@ -1115,20 +1113,5 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         });
         layui.element.render();
         form.render();
-        let currentId = parseInt($('input[name=id]').val()) || 0;
-        //验证提交
-        form.on('submit(stepSubmit)', function (obj) {
-            main.req({
-                url: currentId > 0 ? '/spider/modify' : '/spider/add',
-                data: obj.field,
-                index: stepObj.currentIndex,
-                ending: function () {
-                    if (!stepObj.currentIndex) {
-                        layer.closeAll();
-                    }
-                    window.location.reload();
-                }
-            });
-        });
     });
 });

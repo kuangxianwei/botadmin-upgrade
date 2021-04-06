@@ -1,20 +1,3 @@
-<style>
-    .cron .layui-input-inline {
-        width: 50%;
-    }
-
-    .cron .layui-inline {
-        width: 18%;
-    }
-
-    .cron .layui-input-block {
-        margin-left: 80px;
-    }
-
-    .cron .layui-form-label {
-        width: auto;
-    }
-</style>
 <div class="step-header"></div>
 <div class="step-content">
     <div>
@@ -23,8 +6,7 @@
             <div class="layui-input-block">
                 <input type="hidden" name="id" value="{{.obj.Id}}" autocomplete="off" placeholder="本ID">
                 <input type="text" name="name" value="{{.obj.Name}}" class="layui-input" required
-                       lay-verify="name"
-                       autocomplete="off" placeholder="采集名称">
+                       lay-verify="name" autocomplete="off" placeholder="采集名称">
             </div>
         </div>
         <div class="layui-form-item">
