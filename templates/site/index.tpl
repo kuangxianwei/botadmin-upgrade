@@ -253,9 +253,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">数量:</label>
                 <div class="layui-input-inline">
-                    <input name="count" value="0">
-                    <div class="layui-form-mid layui-word-aux">推送最后发布的N篇文章</div>
+                    <input name="count" value="0" class="layui-input">
                 </div>
+                <div class="layui-form-mid layui-word-aux">推送最后发布的N篇文章</div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" lay-tips="本网站的完整URL一行一条">Urls:</label>
@@ -584,7 +584,7 @@
                             othis.attr('data-clipboard-text', data['auth_code']);
                             break;
                         default:
-                            layer.alert('出错了', {icon: 2})
+                            layer.alert('出错了', {icon: 2});
                             return false;
                     }
                     let clipboard = new ClipboardJS('a[data-clipboard-text]');
@@ -796,9 +796,6 @@
                     main.req({
                         url: url + '/setup',
                         data: {'ids': ids.join()},
-                        tips: function (res) {
-                            main.msg(res.msg);
-                        },
                         ending: 'table-list',
                     });
                     break;
@@ -817,30 +814,19 @@
                                 url: url + '/publish',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: function (res) {
-                                    main.msg(res.msg);
-                                },
                                 ending: 'table-list',
                             });
                         });
                     break;
                 case 'reload_nginx':
-                    layer.prompt({
-                            formType: 0,
-                            value: data.length,
-                            title: '更新选中网站的NGINX配置，请输入线程数量 太多会卡死'
+                    main.req({
+                        url: url + '/reload/nginx',
+                        data: {'ids': ids.join()},
+                        ending: 'table-list',
+                        tips: function (res) {
+                            main.msg(res.msg);
                         },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/reload/nginx',
-                                data: {'ids': ids.join(), 'thread': value},
-                                index: index,
-                                tips: function (res) {
-                                    main.msg(res.msg);
-                                },
-                                ending: 'table-list',
-                            });
-                        });
+                    });
                     break;
                 case 'reload_website_setup':
                     if (ids.length === 0) {
@@ -850,13 +836,10 @@
                     let contentObj = $($("#reload-setup").html());
                     contentObj.find('*[name=ids]').attr('value', ids.join());
                     main.popup({
-                        title: '重载Nginx',
+                        title: '重新设置网站后台',
                         content: contentObj.prop('outerHTML'),
                         url: url + '/reload/website/setup',
                         area: ['400px', '300px'],
-                        tips: function (res) {
-                            main.msg(res.msg);
-                        },
                     });
                     break;
                 case 'update_website':
@@ -870,9 +853,6 @@
                                 url: url + '/update/website',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: function (res) {
-                                    main.msg(res.msg);
-                                },
                                 ending: 'table-list',
                             });
                         });
@@ -898,9 +878,6 @@
                                 url: url + '/pull/config',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: function (res) {
-                                    main.msg(res.msg);
-                                },
                             });
                         });
                     break;
@@ -909,7 +886,7 @@
                         url: url + '/jobs',
                         tips: function (res) {
                             main.msg(res.msg);
-                        },
+                        }
                     });
                     break;
                 case 'cron-enable':
@@ -930,7 +907,8 @@
                     let keys = [];
                     $.each(ids, function (i, id) {
                         keys[i] = 'site.' + id
-                    })
+                    });
+                    keys.push('site.0');
                     main.req({
                         url: '/record/reset',
                         data: {keys: keys.join()},

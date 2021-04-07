@@ -353,12 +353,11 @@
                         <div class="layui-form-mid layui-word-aux">随机插入图片数量</div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">发布阈值:</label>
-                        <div class="layui-input-inline slider">
+                        <label class="layui-form-label" lay-tips="随机发布1至3篇文章数量">发布阈值:</label>
+                        <div class="layui-input-inline slider" style="min-width: 80%">
                             <div id="pub_deg"></div>
                             <input type="hidden" name="pub_deg" value="{{.obj.PubDeg}}"/>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">随机发布1至3篇文章数量</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">内容阈值:</label>
@@ -622,7 +621,7 @@
         //滑块控制
         main.slider(
             {elem: '#insert_pic_deg', range: true},
-            {elem: '#pub_deg', range: true},
+            {elem: '#pub_deg', range: true, max: 100},
             {elem: '#content_deg', range: true},
             {elem: '#originality_rate', value: {{$.obj.OriginalityRate}}, max: 100},
             {elem: '#pub_attr_deg', value: {{$.obj.PubAttrDeg}}},

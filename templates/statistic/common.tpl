@@ -25,6 +25,7 @@
             <input name="id" value="{{.obj.Id}}">
             <button lay-submit=""></button>
         </div>
+        <input type="hidden" name="controls">
     </div>
 </div>
 <script type="text/html" id="control">
