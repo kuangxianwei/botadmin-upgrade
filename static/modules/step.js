@@ -883,7 +883,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
     Class.prototype.renderGoto = function () {
         let next = this.position + 1,
             pre = this.position - 1,
-            contentDom=$('.step-content').first(),
+            contentDom = $('.step-content').first(),
             domAll = $('div.layui-layer-btn>a'),
             dom0 = $('div.layui-layer-btn>.layui-layer-btn0'),
             dom2 = $('div.layui-layer-btn>.layui-layer-btn2');
