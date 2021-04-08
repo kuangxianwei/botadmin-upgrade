@@ -520,6 +520,9 @@
                             title: '添加图片',
                             content: html,
                             area: ['800px', '350px'],
+                            tips: function () {
+                                main.ws.log('site.' + data.id);
+                            }
                         });
                         form.render();
                     });
@@ -796,6 +799,9 @@
                     main.req({
                         url: url + '/setup',
                         data: {'ids': ids.join()},
+                        tips: function () {
+                            main.ws.log('site.0');
+                        },
                         ending: 'table-list',
                     });
                     break;
@@ -815,6 +821,9 @@
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
                                 ending: 'table-list',
+                                tips: function () {
+                                    main.ws.log('site.0');
+                                }
                             });
                         });
                     break;
@@ -840,6 +849,9 @@
                         content: contentObj.prop('outerHTML'),
                         url: url + '/reload/website/setup',
                         area: ['400px', '300px'],
+                        tips: function () {
+                            main.ws.log('site.0');
+                        }
                     });
                     break;
                 case 'update_website':
@@ -854,6 +866,9 @@
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
                                 ending: 'table-list',
+                                tips: function () {
+                                    main.ws.log('site.0');
+                                }
                             });
                         });
                     break;
@@ -878,6 +893,9 @@
                                 url: url + '/pull/config',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
+                                tips: function () {
+                                    main.ws.log('site.0');
+                                }
                             });
                         });
                     break;

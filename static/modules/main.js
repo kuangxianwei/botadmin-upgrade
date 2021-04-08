@@ -165,7 +165,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         } else {
                             layer.msg(res.msg, {
                                 icon: 1,
-                                time: 2000,
                                 shade: [0.6, '#000', true]
                             });
                         }
