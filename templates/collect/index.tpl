@@ -9,8 +9,8 @@
             </div>
             <div class="layui-col-md4">
                 <label class="layui-form-label" lay-tips="协程太多会卡死服务器">多协程:</label>
-                <div class="layui-input-block slider">
-                    <div id="thread"></div>
+                <div class="layui-input-block">
+                    <div id="thread" class="slider"></div>
                     <input type="hidden" name="thread" value="{{$.obj.Thread}}">
                 </div>
             </div>
@@ -40,9 +40,9 @@
     </div>
 </div>
 <script src="/static/modules/clipboard.min.js"></script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let form = layui.form,
             main = layui.main,
             url = {{.current_uri}};

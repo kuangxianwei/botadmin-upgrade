@@ -1,7 +1,6 @@
 {{template "file/modify.tpl" .}}
-{{template "JS" -}}
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let form = layui.form,
             main = layui.main,
             index = parent.layer.getFrameIndex(window.name),

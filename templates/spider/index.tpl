@@ -187,10 +187,10 @@
         </div>
     </div>
 </script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
     let url = {{.current_uri}};
-    JS.extend({step: 'step'}).use(['index', 'main'], function () {
+    layui.extend({step: 'step'}).use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
             upload = layui.upload,

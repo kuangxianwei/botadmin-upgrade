@@ -103,9 +103,9 @@
 <script type="text/html" id="table-content-name">
     {{ html .file_name }}
 </script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
             main = layui.main,

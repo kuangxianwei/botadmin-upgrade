@@ -17,9 +17,9 @@
         </div>
     </div>
 </div>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let url = '/system/time';
         $("#ntpdate").click(function () {
             layer.confirm("确定要同步时间？", function () {

@@ -87,9 +87,9 @@
         <button class="layui-hide" lay-submit lay-filter="submit">提交</button>
     </div>
 </script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let main = layui.main,
             flow = layui.flow,
             upload = layui.upload,

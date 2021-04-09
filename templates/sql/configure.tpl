@@ -21,9 +21,9 @@
         </div>
     </div>
 </div>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let main = layui.main,
             url = {{.current_uri}};
         $('button[lay-event]').click(function () {

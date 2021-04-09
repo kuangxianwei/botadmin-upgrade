@@ -271,9 +271,9 @@
         </div>
     </div>
 </div>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main', 'sample'], function () {
+    layui.use(['index', 'main', 'sample'], function () {
         let main = layui.main, layer = layui.layer;
         {{if .reminded -}}
         layer.open({

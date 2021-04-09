@@ -330,9 +330,9 @@
     </div>
 </script>
 <script src="/static/modules/clipboard.min.js"></script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
             upload = layui.upload,
@@ -519,7 +519,7 @@
                             url: url + '/image',
                             title: '添加图片',
                             content: html,
-                            area: ['800px', '350px'],
+                            area: ['800px', '380px'],
                             tips: function () {
                                 main.ws.log('site.' + data.id);
                             }

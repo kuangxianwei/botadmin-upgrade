@@ -96,8 +96,8 @@
             <div class="layui-col-md6">
                 <div class="layui-form-item">
                     <label class="layui-form-label">权重:</label>
-                    <div class="layui-input-inline slider">
-                        <div id="weight"></div>
+                    <div class="layui-input-inline">
+                        <div id="weight" class="slider"></div>
                         <input type="hidden" name="weight" value="{{$.obj.Weight}}" lay-verify="number">
                     </div>
                     <div class="layui-form-mid layui-word-aux">值越高 几率越高</div>
@@ -166,7 +166,7 @@
     </div>
 </div>
 <script>
-    JS.use(['main'], function () {
+    layui.use(['main'], function () {
         let main = layui.main,
             layDate = layui.laydate,
             transfer = layui.transfer,

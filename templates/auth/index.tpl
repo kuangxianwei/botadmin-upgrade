@@ -28,9 +28,9 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del"><i
                 class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
             main = layui.main,
@@ -55,7 +55,6 @@
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
-
             limit: 10,
             limits: [10, 15, 20, 25, 30],
             text: '对不起，加载出现异常！'

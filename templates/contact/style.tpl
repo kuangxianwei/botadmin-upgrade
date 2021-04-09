@@ -150,7 +150,7 @@
     </div>
 </div>
 <script>
-    JS.use(['main'], function () {
+    layui.use(['main'], function () {
         let main = layui.main,
             colorpicker = layui.colorpicker,
             submenus = {{.obj.Submenu}},

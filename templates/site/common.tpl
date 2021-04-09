@@ -558,63 +558,63 @@
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">插图阈值:</label>
-                        <div class="layui-input-inline slider">
-                            <div id="insert_pic_deg"></div>
+                        <div class="layui-input-inline">
+                            <div id="insert_pic_deg" class="slider"></div>
                             <input type="hidden" name="insert_pic_deg" value="{{.obj.InsertPicDeg}}"/>
                         </div>
                         <div class="layui-form-mid layui-word-aux">随机插入图片数量</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label" lay-tips="随机发布指定数量的文章">发布阈值:</label>
-                        <div class="layui-input-inline slider" style="min-width: 80%">
-                            <div id="pub_deg"></div>
+                        <div class="layui-input-block">
+                            <div id="pub_deg" class="slider"></div>
                             <input type="hidden" name="pub_deg" value="{{.obj.PubDeg}}"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">内容阈值:</label>
-                        <div class="layui-input-inline slider">
-                            <div id="content_deg"></div>
+                        <div class="layui-input-inline">
+                            <div id="content_deg" class="slider"></div>
                             <input type="hidden" name="content_deg" value="{{.obj.ContentDeg}}"/>
                         </div>
                         <div class="layui-form-mid layui-word-aux">内容内随机插入关键词数量</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">原创度:</label>
-                        <div class="layui-input-inline slider">
-                            <div id="originality_rate"></div>
+                        <div class="layui-input-inline">
+                            <div id="originality_rate" class="slider"></div>
                             <input type="hidden" name="originality_rate" value="{{$.obj.OriginalityRate}}">
                         </div>
                         <div class="layui-form-mid layui-word-aux">大于或等于这个值才发布</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">属性阀值:</label>
-                        <div class="layui-input-inline slider">
-                            <div id="pub_attr_deg"></div>
+                        <div class="layui-input-inline">
+                            <div id="pub_attr_deg" class="slider"></div>
                             <input type="hidden" name="pub_attr_deg" value="{{$.obj.PubAttrDeg}}">
                         </div>
                         <div class="layui-form-mid layui-word-aux">值越高 几率越高</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">内链阀值:</label>
-                        <div class="layui-input-inline slider">
-                            <div id="link_deg"></div>
+                        <div class="layui-input-inline">
+                            <div id="link_deg" class="slider"></div>
                             <input type="hidden" name="link_deg" value="{{$.obj.LinkDeg}}">
                         </div>
                         <div class="layui-form-mid layui-word-aux">随机插入内链</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">外链阀值:</label>
-                        <div class="layui-input-inline slider">
-                            <div id="out_link_deg"></div>
+                        <div class="layui-input-inline">
+                            <div id="out_link_deg" class="slider"></div>
                             <input type="hidden" name="out_link_deg" value="{{$.obj.OutLinkDeg}}">
                         </div>
                         <div class="layui-form-mid layui-word-aux">随机插入外链</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">标题阀值:</label>
-                        <div class="layui-input-inline slider">
-                            <div id="title_tag_deg"></div>
+                        <div class="layui-input-inline">
+                            <div id="title_tag_deg" class="slider"></div>
                             <input type="hidden" name="title_tag_deg" value="{{$.obj.TitleTagDeg}}">
                         </div>
                         <div class="layui-form-mid layui-word-aux">标题插入tag 值越高 几率越高</div>
@@ -774,7 +774,7 @@
     </div>
 </div>
 <script>
-    JS.use(['main'], function () {
+    layui.use(['main'], function () {
         let main = layui.main,
             form = layui.form,
             layer = layui.layer;

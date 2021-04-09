@@ -54,7 +54,7 @@
     </div>
 </div>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let main = layui.main,
             form = layui.form,
             class_id = $('select[name=class_id]').val();

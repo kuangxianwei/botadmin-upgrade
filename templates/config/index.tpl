@@ -262,9 +262,9 @@
         <i class="layui-icon layui-icon-delete" lay-event="del" lay-tips="删除该条服务监控"></i>
     </div>
 </script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let $ = layui.$,
             layer = layui.layer,
             main = layui.main,

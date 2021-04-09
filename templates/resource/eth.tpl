@@ -9,9 +9,9 @@
         </blockquote>
     </div>
 </div>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let table = layui.table;
 
         //规则管理

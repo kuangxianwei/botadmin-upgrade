@@ -58,9 +58,9 @@
     </div>
 </script>
 <script src="/static/modules/clipboard.min.js"></script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
             main = layui.main,

@@ -62,7 +62,7 @@
     </div>
 </div>
 <script>
-    JS.use(['main'], function () {
+    layui.use(['main'], function () {
         let main = layui.main,
             layDate = layui.laydate,
             transfer = layui.transfer,

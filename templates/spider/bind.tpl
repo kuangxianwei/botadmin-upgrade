@@ -24,7 +24,7 @@
     </div>
 </div>
 <script>
-    JS.use([], function () {
+    layui.use([], function () {
         let $ = layui.$,
             form = layui.form,
             main = layui.main,

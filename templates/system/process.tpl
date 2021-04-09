@@ -13,9 +13,9 @@
 <script type="text/html" id="table-toolbar">
     <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="kill">停止</button>
 </script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
             url = {{.current_uri}},

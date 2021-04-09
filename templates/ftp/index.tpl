@@ -26,9 +26,9 @@
         </button>
     </div>
 </script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
             element = layui.element,

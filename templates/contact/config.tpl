@@ -98,9 +98,9 @@
     </div>
 </div>
 <script src="/static/modules/clipboard.min.js"></script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let main = layui.main,
             upload = layui.upload,
             transfer = layui.transfer,

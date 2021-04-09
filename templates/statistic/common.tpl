@@ -50,7 +50,7 @@
     </div>
 </script>
 <script>
-    JS.use(['main'], function () {
+    layui.use(['main'], function () {
         let main = layui.main,
             form = layui.form,
             controls = {{.obj.Controls}};

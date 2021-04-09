@@ -38,9 +38,9 @@
         <button class="layui-btn layui-btn-xs" lay-event="test">测试</button>
     </div>
 </script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
             element = layui.element,

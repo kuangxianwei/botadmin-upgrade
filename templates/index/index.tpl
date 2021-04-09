@@ -267,8 +267,8 @@
                                 <a lay-href="/statistic" lay-tips="统计广告列表"
                                    lay-direction="2"><cite>广告列表</cite></a>
                             </dd>
-                            <dd data-name="push">
-                                <a lay-href="/push" lay-tips="广告推送设置"
+                            <dd data-name="pushAd">
+                                <a lay-href="/pushAd" lay-tips="广告推送设置"
                                    lay-direction="2"><cite>广告推送</cite></a>
                             </dd>
                         </dl>
@@ -437,9 +437,9 @@
         <div class="layadmin-body-shade" layadmin-event="shade"></div>
     </div>
 </div>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index'], function () {
+    layui.use(['index'], function () {
         $('dd[data-event=logout]').click(function () {
             layui.view.exit(function () {
                 location.href = '/auth/logout';

@@ -250,7 +250,7 @@
 <!--自定义-->
 <script>
     layui.main.cron('[name="spec"]');
-    JS.use(['step'], function () {
+    layui.use(['step'], function () {
         let step = layui.step,
             engines = {{.engines}},// 翻译引擎列表
             transList =   {{.obj.Trans}},// 翻译列表

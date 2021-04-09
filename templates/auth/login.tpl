@@ -39,9 +39,9 @@
         <p>© 2018 <a href="http://www.botadmin.cn/" target="_blank">站掌门BotAdmin</a></p>
     </div>
 </div>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let main = layui.main,
             form = layui.form,
             url = {{.current_uri}},
@@ -68,14 +68,12 @@
                     return '用户名不能全为数字';
                 }
             },
-
             //我们既支持上述函数式的方式，也支持下述数组的形式
             //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
             pass: [
                 /^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'
             ]
         });
-
         //提交
         form.on('submit(login-submit)', function (obj) {
             main.req({

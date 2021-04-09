@@ -3,7 +3,6 @@
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
-<div class="layui-hide" id="import"></div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-sm" lay-event="add">
@@ -11,14 +10,6 @@
         </button>
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="configure">
             <i class="layui-icon layui-icon-set"></i>
-        </button>
-    </div>
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
-            <i class="layui-icon iconfont icon-export"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入配置">
-            <i class="layui-icon iconfont icon-import"></i>
         </button>
     </div>
     <div class="layui-btn-group">
@@ -31,6 +22,8 @@
         </button>
     </div>
     <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="jobs">查看任务
+        </button>
         <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
         </button>
@@ -66,41 +59,20 @@
         </div>
     </div>
 </script>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let main = layui.main,
             table = layui.table,
             form = layui.form,
-            upload = layui.upload,
             url = {{.current_uri}};
-        url = url || '';
-        upload.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
-            elem: '#import',
-            url: url + '/import',
-            accept: 'file',
-            exts: 'conf|json|tar.gz|zip',
-            before: function () {
-                layer.load(); //上传loading
-            },
-            done: function (res) {
-                layer.closeAll('loading'); //关闭loading
-                if (res.code === 0) {
-                    layer.msg(res.msg);
-                    table.reload('table-list');
-                } else {
-                    layer.alert(res.msg, {icon: 2});
-                }
-            },
-        });
 
         //日志管理
         table.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},
             method: 'post',
             elem: '#table-list',
-            url: url,
+            url: url || "",
             toolbar: '#toolbar',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
@@ -111,13 +83,8 @@
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|关闭"' + (d.enabled ? ' checked' : '') + '>';
                     }
                 },
-                {field: 'origin', title: '源'},
-                {field: 'title', title: '标题', hide: true},
-                {
-                    field: 'controls', title: '控制列表', align: 'center', templet: function (d) {
-                        return JSON.stringify(d.controls);
-                    }, hide: true
-                },
+                {field: 'range', title: '范围'},
+                {field: 'spec', title: '定时'},
                 {field: 'updated', title: '时间', align: 'center', sort: true},
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
@@ -181,7 +148,7 @@
                         main.popup({
                             title: '添加',
                             url: url + '/add',
-                            area: ['800px', '500px'],
+                            area: ['800px', '400px'],
                             content: html,
                             ending: 'table-list',
                         });
@@ -227,23 +194,25 @@
                         });
                     });
                     break;
-                case 'export':
-                    window.open(encodeURI('/statistic/export?ids=' + ids.join()));
-                    break;
-                case 'import':
-                    $('#import').click();
-                    break;
                 case 'log':
-                    main.ws.log('statistic.0');
+                    main.ws.log('push_id.0');
                     break;
                 case 'reset-record':
                     let keys = [];
                     $.each(ids, function (i, id) {
                         keys[i] = 'statistic.' + id
-                    })
+                    });
                     main.req({
                         url: '/record/reset',
                         data: {keys: keys.join()},
+                    });
+                    break;
+                case 'jobs':
+                    main.req({
+                        url: url + '/jobs',
+                        tips: function (res) {
+                            main.msg(res.msg);
+                        }
                     });
                     break;
             }

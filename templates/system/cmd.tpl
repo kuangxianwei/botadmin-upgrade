@@ -21,9 +21,9 @@
         </div>
     </div>
 </div>
-{{template "JS" -}}
+<script src="/static/layui/layui.js"></script>
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         layui.form.on('submit(execute)', function (obj) {
             $('.layui-textarea').text("");
             $.ajax({

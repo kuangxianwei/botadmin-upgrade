@@ -80,7 +80,7 @@
     </div>
 </div>
 <script>
-    JS.use([], function () {
+    layui.use([], function () {
         let form = layui.form,
             class_id = $('select[name=class_id]').val();
         form.on('select(site_id)', function (obj) {

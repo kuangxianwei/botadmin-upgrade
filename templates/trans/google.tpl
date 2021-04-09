@@ -53,7 +53,7 @@
 </div>
 {{template "tanslatorTest.tpl" .}}
 <script>
-    JS.use(['index', 'main'], function () {
+    layui.use(['index', 'main'], function () {
         let main = layui.main;
         $('[lay-filter="test"]').click(function () {
             let data = main.formData("#google");
