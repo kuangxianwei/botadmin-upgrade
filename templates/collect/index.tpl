@@ -10,7 +10,7 @@
             <div class="layui-col-md4">
                 <label class="layui-form-label" lay-tips="协程太多会卡死服务器">多协程:</label>
                 <div class="layui-input-block">
-                    <div id="thread" class="slider"></div>
+                    <div id="thread" class="slider-block"></div>
                     <input type="hidden" name="thread" value="{{$.obj.Thread}}">
                 </div>
             </div>

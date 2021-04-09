@@ -9,7 +9,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="指定执行任务范围">范围:</label>
             <div class="layui-input-block">
-                <div id="range" class="slider"></div>
+                <div id="range" class="slider-block"></div>
                 <input type="hidden" name="range" class="layui-input" value="{{.obj.Range}}">
             </div>
         </div>

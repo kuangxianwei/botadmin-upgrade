@@ -97,7 +97,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">权重:</label>
                     <div class="layui-input-inline">
-                        <div id="weight" class="slider"></div>
+                        <div id="weight" class="slider-inline"></div>
                         <input type="hidden" name="weight" value="{{$.obj.Weight}}" lay-verify="number">
                     </div>
                     <div class="layui-form-mid layui-word-aux">值越高 几率越高</div>
