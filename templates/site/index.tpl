@@ -700,10 +700,10 @@
                                                     formDom.append(`<div class="layui-form-item"><label class="layui-form-label">定时发布:</label><div class="layui-input-inline"><input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否" checked></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
                                                     break;
                                                 case 'pic_save':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">保存远图:</label><div class="layui-input-inline"><input type="checkbox" name="pic_save" lay-skin="switch" lay-text="是|否"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">保存远图:</label><div class="layui-input-inline"><input type="checkbox" name="pic_save" lay-skin="switch" lay-text="是|否" checked></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
                                                     break;
                                                 case 'pic_mark':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">图片水印:</label><div class="layui-input-inline"><input type="checkbox" name="pic_mark" lay-skin="switch" lay-text="是|否"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">图片水印:</label><div class="layui-input-inline"><input type="checkbox" name="pic_mark" lay-skin="switch" lay-text="是|否" checked></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
                                                     break;
                                                 case 'push_config':
                                                     formDom.append(`<div class="layui-form-item"><label class="layui-form-label">推送配置:</label><div class="layui-input-inline"><textarea name="push_config" class="layui-textarea"></textarea></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
