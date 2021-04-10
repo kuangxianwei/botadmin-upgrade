@@ -439,7 +439,7 @@
                     style: 'cursor:pointer;',
                     hide: true,
                     templet: function () {
-                        return '<i class="layui-icon iconfont icon-sql"></i>';
+                        return '<i class="layui-icon iconfont icon-sql" lay-tips="导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？"></i>';
                     }
                 },
                 {
@@ -557,12 +557,14 @@
                     });
                     break;
                 case 'importSQL':
-                    main.req({
-                        data: data,
-                        url: url + '/import/sql',
-                        tips: function () {
-                            main.ws.log('site.' + data.id);
-                        }
+                    layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
+                        main.req({
+                            data: data,
+                            url: url + '/import/sql',
+                            tips: function () {
+                                main.ws.log('site.' + data.id);
+                            }
+                        });
                     });
                     break;
                 case 'push':
