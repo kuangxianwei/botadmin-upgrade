@@ -560,6 +560,7 @@
                     layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
                         main.req({
                             data: data,
+                            index: index,
                             url: url + '/import/sql',
                             tips: function () {
                                 main.ws.log('site.' + data.id);
