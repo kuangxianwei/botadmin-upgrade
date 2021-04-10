@@ -432,6 +432,18 @@
                 {field: 'updated', title: '时间', sort: true, hide: true},
                 {
                     field: 'id',
+                    title: '导入SQL',
+                    width: 80,
+                    event: 'importSQL',
+                    align: 'center',
+                    style: 'cursor:pointer;',
+                    hide: true,
+                    templet: function () {
+                        return '<i class="layui-icon iconfont icon-sql"></i>';
+                    }
+                },
+                {
+                    field: 'id',
                     title: '删除',
                     width: 80,
                     event: 'del',
@@ -442,7 +454,7 @@
                         return '<i class="layui-icon layui-icon-delete"></i>';
                     }
                 },
-                {title: '操作', width: 260, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', width: 280, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
             limit: 10,
@@ -539,6 +551,15 @@
                     main.req({
                         data: data,
                         url: url + '/mysqldump',
+                        tips: function () {
+                            main.ws.log('site.' + data.id);
+                        }
+                    });
+                    break;
+                case 'importSQL':
+                    main.req({
+                        data: data,
+                        url: url + '/import/sql',
                         tips: function () {
                             main.ws.log('site.' + data.id);
                         }
