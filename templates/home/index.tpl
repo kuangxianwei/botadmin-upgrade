@@ -288,8 +288,8 @@
             let act = $(this).data("reboot");
             main.req({
                 url: '/system/reboot',
-                tips: function (res) {
-                    main.msg(res.msg);
+                tips: function () {
+                    main.ws.log('reboot');
                 },
                 data: {act: act},
             });

@@ -136,6 +136,9 @@
             <button class="layui-btn layui-btn-sm" lay-event="import" lay-tips="导入配置">
                 <i class="layui-icon iconfont icon-import"></i>
             </button>
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="mysqldump" lay-tips="备份数据库">
+                <i class="layui-icon iconfont icon-sql"></i>
+            </button>
             <button class="layui-btn layui-btn-sm" lay-event="vhosts" lay-tips="获取全部主机列表">
                 <i class="layui-icon layui-icon-fonts-code"></i>
             </button>
@@ -241,6 +244,9 @@
         </a>
         <a class="layui-btn layui-btn-xs layui-bg-red" lay-event="del_link" lay-tips="删除友链">
             删<i class="layui-icon layui-icon-link"></i>
+        </a>
+        <a class="layui-btn layui-btn-xs" lay-event="mysqldump" lay-tips="备份数据库">
+            <i class="layui-icon iconfont icon-sql"></i>
         </a>
         <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
@@ -529,7 +535,16 @@
                         form.render();
                     });
                     break;
-                case "push":
+                case 'mysqldump':
+                    main.req({
+                        data: data,
+                        url: url + '/mysqldump',
+                        tips: function () {
+                            main.ws.log('site.' + data.id);
+                        }
+                    });
+                    break;
+                case 'push':
                     let pushHtml = $('#push').html();
                     othis = $(pushHtml);
                     othis.find('input[name=id]').val(data.id);
@@ -539,7 +554,7 @@
                         content: othis.html()
                     });
                     break;
-                case "ftp":
+                case 'ftp':
                     if (data.status === 4) {
                         layer.msg("外部网站不允许编辑FTP", {icon: 2});
                         return false;
@@ -556,7 +571,7 @@
                             element.render();
                         });
                     break;
-                case "sql":
+                case 'sql':
                     if (data.status === 4) {
                         layer.msg("外部网站不允许编辑数据库", {icon: 2});
                         return false;
@@ -968,6 +983,19 @@
                         }
                     });
                     form.render();
+                    break;
+                case 'mysqldump':
+                    if (ids.length === 0) {
+                        layer.msg("请选择数据!", {icon: 2});
+                        return false;
+                    }
+                    main.req({
+                        data: {ids: ids.join()},
+                        url: url + '/mysqldump',
+                        tips: function () {
+                            main.ws.log('site.0');
+                        }
+                    });
                     break;
                 case 'rank':
                     if (ids.length === 0) {
