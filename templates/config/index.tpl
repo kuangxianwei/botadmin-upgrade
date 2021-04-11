@@ -92,6 +92,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="layui-col-md2">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label" lay-tips="开启性能监测">Pprof:</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="pprof"
+                                           lay-skin="switch" lay-text="打开|关闭"{{if .base.Pprof}} checked{{end}}>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">登录限制:</label>
