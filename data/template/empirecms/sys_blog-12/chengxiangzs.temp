@@ -291,7 +291,7 @@ if (isset($_GET['tagname'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <link rel="shortcut icon" href="[!--news.url--]skin/custom/favicon.ico" type="image/x-icon" />
-    <title><?=$title?>[!--pagetitle--]-<?=$public_r[add_title_suffix]?></title>
+    <title>[!--pagetitle--]-<?=$public_r[add_title_suffix]?></title>
     <meta name="keywords" content="[!--pagekey--]">
     <meta name="description" content="[!--pagedes--]">      
     <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/v1/mip.css">
@@ -449,7 +449,7 @@ if (isset($_GET['tagname'])) {
                 <section class="col-lg-6">
                     <section class="mip-box">
                         <section class="mip-box-heading">
-                            <h3><?=$bqsr['classname']?></h3>
+                            <h3><?=$class_r[1]['classname']?></h3>
                         </section>
                         <section class="mip-box-body">
                             <ul class="list-unstyled clearfix">
@@ -467,7 +467,7 @@ if (isset($_GET['tagname'])) {
                 <section class="col-lg-6">
                     <section class="mip-box">
                         <section class="mip-box-heading">
-                            <h3><?=$bqsr['classname']?></h3>
+                            <h3><?=$class_r[2]['classname']?></h3>
                         </section>
                         <section class="mip-box-body">
                             <ul class="list-unstyled clearfix">
@@ -485,7 +485,7 @@ if (isset($_GET['tagname'])) {
                 <section class="col-lg-6">
                     <section class="mip-box">
                         <section class="mip-box-heading">
-                            <h3><?=$bqsr['classname']?></h3>
+                            <h3><?=$class_r[3]['classname']?></h3>
                         </section>
                         <section class="mip-box-body">
                             <ul class="list-unstyled clearfix">
@@ -503,7 +503,7 @@ if (isset($_GET['tagname'])) {
                 <section class="col-lg-6">
                     <section class="mip-box">
                         <section class="mip-box-heading">
-                            <h3><?=$bqsr['classname']?></h3>
+                            <h3><?=$class_r[4]['classname']?></h3>
                         </section>
                         <section class="mip-box-body">
                             <ul class="list-unstyled clearfix">
@@ -521,7 +521,7 @@ if (isset($_GET['tagname'])) {
                  <section class="col-lg-6">
                     <section class="mip-box">
                         <section class="mip-box-heading">
-                            <h3><?=$bqsr['classname']?></h3>
+                            <h3><?=$class_r[5]['classname']?></h3>
                         </section>
                         <section class="mip-box-body">
                             <ul class="list-unstyled clearfix">
@@ -539,7 +539,7 @@ if (isset($_GET['tagname'])) {
                  <section class="col-lg-6">
                     <section class="mip-box">
                         <section class="mip-box-heading">
-                            <h3><?=$bqsr['classname']?></h3>
+                            <h3><?=$class_r[6]['classname']?></h3>
                         </section>
                         <section class="mip-box-body">
                             <ul class="list-unstyled clearfix">
