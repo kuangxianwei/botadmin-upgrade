@@ -138,10 +138,10 @@
                                     <cite>服务重启</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
-                                <a lay-event="resetRecord">
+                            <li class="layui-col-xs3" style="cursor: pointer">
+                                <a lay-event="record">
                                     <i class="layui-icon layui-icon-log"></i>
-                                    <cite>清空日志</cite>
+                                    <cite>日志</cite>
                                 </a>
                             </li>
                         </ul>
@@ -192,10 +192,6 @@
             <div class="layui-card-header">服务器信息</div>
             <div class="layui-card-body">
                 <table class="layui-table" lay-even="" lay-skin="nob">
-                    <colgroup>
-                        <col width="105">
-                        <col>
-                    </colgroup>
                     <tbody>
                     <tr>
                         <td>管理系统:</td>
@@ -248,7 +244,7 @@
         <div class="layui-card">
             <div class="layui-card-header">最新资讯</div>
             <div class="layui-card-body">
-                <iframe id="iframeSRC" src="" scrolling="no" frameborder="0"
+                <iframe id="iframeSRC" src="" frameborder="0"
                         height="440px" width="100%"></iframe>
             </div>
         </div>
@@ -296,8 +292,8 @@
         });
         $('[lay-event]').click(function () {
             switch ($(this).attr('lay-event')) {
-                case 'resetRecord':
-                    main.req({url: '/config/reset/record'});
+                case 'record':
+                    main.ws.info();
                     break;
                 case 'update-templates':
                     main.req({url: '/home/update/templates'});

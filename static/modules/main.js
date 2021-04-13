@@ -1054,6 +1054,30 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
             });
         },
+        info: function (name) {
+            name = name || "show";
+            let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log');
+            main.pop({
+                confirm: false,
+                scroll: false,
+                content: `<textarea class="layui-textarea layui-bg-black" style="color: white;height: 100%" id="log-display"></textarea>`,
+                area: ['75%', '75%'],
+                success: function (dom) {
+                    w.onopen = function () {
+                        w.send(name);
+                    };
+                    w.onmessage = function (e) {
+                        if (e.data) {
+                            let el = dom.find('#log-display');
+                            el.val(el.val() + e.data.substr(1)).focus().scrollTop(el[0].scrollHeight);
+                        }
+                    };
+                },
+                always: function () {
+                    w.close();
+                }
+            });
+        },
     };
     // 定时任务规则
     main.cron = function () {
