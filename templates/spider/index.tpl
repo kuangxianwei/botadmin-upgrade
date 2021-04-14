@@ -1,26 +1,19 @@
 <div class="layui-fluid" id="spider-tabs">
     <div class="layui-row">
         <div class="layui-col-md12">
-            <div class="layui-card">
+            <div class="layui-card" lay-event="search">
                 <div class="layui-card-header layuiadmin-card-header-auto layui-form">
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <div class="layui-input-inline">
-                                <input type="text" name="name" value="" class="layui-input" autocomplete="off"
-                                       placeholder="模糊匹配名称">
+                                <input type="text" name="ids" value="" class="layui-input" autocomplete="off"
+                                       placeholder="IDS 多个用逗号分开">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label-col">状态:</label>
-                        </div>
-                        <div class="layui-inline">
                             <div class="layui-input-inline">
-                                <select name="status" lay-filter="select_status">
-                                    <option value="">全部</option>
-                                    <option value="0">采集前</option>
-                                    <option value="1">采集中</option>
-                                    <option value="2">采集后</option>
-                                </select>
+                                <input type="text" name="name" value="" class="layui-input" autocomplete="off"
+                                       placeholder="模糊匹配名称">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -112,12 +105,6 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid layui-btn-primary"
-                                    lay-event="syncCron">
-                                同步任务
-                            </button>
-                        </dd>
-                        <dd>
                             <button class="layui-btn layui-btn-sm layui-btn-fluid"
                                     lay-event="jobs">查看任务
                             </button>
@@ -171,22 +158,6 @@
         </button>
     </div>
 </script>
-<script type="text/html" id="table-status">
-    <div class="layui-card">
-        <div class="layui-card-body layui-form">
-            <div class="layui-form-item">
-                <div class="layui-input-inline">
-                    <select name="status">
-                        <option value="0">采集前</option>
-                        <option value="1">采集中</option>
-                        <option value="2">采集后</option>
-                    </select>
-                </div>
-                <button class="layui-hide" lay-submit lay-filter="subStatus"></button>
-            </div>
-        </div>
-    </div>
-</script>
 <script src="/static/layui/layui.js"></script>
 <script>
     let url = {{.current_uri}};
@@ -224,30 +195,17 @@
             url: {{.current_uri}},
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
+                {field: 'id', width: 80, title: 'ID'},
                 {
                     field: 'cron_enabled', title: '定时任务', width: 100, align: 'center',
                     event: 'cron_switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|关闭"' + (d.cron_enabled ? ' checked' : '') + '>';
                     }
                 },
-                {field: 'id', width: 80, title: 'ID', hide: true},
                 {field: 'seeds', title: '种子', hide: true},
                 {
                     field: 'name', title: '规则名称', width: 200,
                     event: 'modify', style: 'cursor:pointer;color:#01aaed;',
-                },
-                {
-                    field: 'status', title: '状态', width: 100, align: 'center',
-                    event: 'status', style: 'cursor:pointer;color:#01aaed;',
-                    templet: function (d) {
-                        let text = '采集前';
-                        if (d.status === 1) {
-                            text = "采集中";
-                        } else if (d.status === 2) {
-                            text = "采集后";
-                        }
-                        return text;
-                    }
                 },
                 {
                     field: 'site_id', title: "绑定", sort: true,
@@ -329,23 +287,12 @@
                         main.req({
                             url: url + '/exec',
                             data: {id: data.id, thread: 1},
+                            tips: function () {
+                                main.ws.log("spider." + data.id);
+                            },
                             index: index,
                             ending: 'table-list',
                         });
-                    });
-                    break;
-                case 'status':
-                    othis = $($('#table-status').html());
-                    othis.find('div.layui-form:first').prepend('<input type="hidden" name="id" value="' + data.id + '">');
-                    othis.find('select[name=status]:first>option[value=' + data.status + ']').attr("selected", true);
-                    main.popup({
-                        title: '修改状态',
-                        content: othis.html(),
-                        area: ['240px', '300px'],
-                        url: url + '/status',
-                        ending: function (res) {
-                            obj.update({status: res.status});
-                        },
                     });
                     break;
                 case 'site_id':
@@ -446,12 +393,6 @@
                         });
                     });
                     break;
-                case 'syncCron':
-                    main.req({
-                        url: url + '/sync/cron',
-                        ending: 'table-list',
-                    });
-                    break;
                 case 'jobs':
                     main.req({
                         url: url + '/jobs',
@@ -537,10 +478,11 @@
             $('button[lay-filter=search]').click();
             return false;
         });
-        //监控选择状态
-        form.on('select(select_status)', function () {
-            $('button[lay-filter=search]').click();
-            return false;
+        // enter 搜索
+        $('[lay-event=search] input').keydown(function (event) {
+            if (event.keyCode === 13) {
+                $('[lay-filter="search"]').click();
+            }
         });
     });
 </script>

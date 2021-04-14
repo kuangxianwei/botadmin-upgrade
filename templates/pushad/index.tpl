@@ -195,7 +195,7 @@
                     });
                     break;
                 case 'log':
-                    main.ws.log('push_id.0');
+                    main.ws.log('push_ad.0');
                     break;
                 case 'reset-record':
                     let keys = [];

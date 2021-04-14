@@ -1069,7 +1069,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     w.onmessage = function (e) {
                         if (e.data) {
                             let el = dom.find('#log-display');
-                            el.val(el.val() + e.data.substr(1)).focus().scrollTop(el[0].scrollHeight);
+                            el.val(e.data).focus().scrollTop(el[0].scrollHeight);
                         }
                     };
                 },

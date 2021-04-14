@@ -115,10 +115,6 @@
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_cron">定时任务
-                            </button>
-                        </dd>
-                        <dd>
                             <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="pull_config">拉取配置
                             </button>
                         </dd>
@@ -918,12 +914,6 @@
                                 }
                             });
                         });
-                    break;
-                case 'reload_cron':
-                    main.req({
-                        url: url + '/reload/cron',
-                        ending: 'table-list',
-                    });
                     break;
                 case 'pull_config':
                     if (data.length < 1) {
