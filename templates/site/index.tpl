@@ -1,10 +1,16 @@
 <div class="layui-card">
     <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item" id="form-search">
+        <div class="layui-form-item" id="form-search" lay-event="search">
             <div class="layui-inline">
-                <label class="layui-form-label">域名</label>
+                <label class="layui-form-label">IDS</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="vhost" placeholder="请输入" autocomplete="off" class="layui-input">
+                    <input type="text" name="ids" placeholder="1,2,4,5" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">域名:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="vhost" placeholder="模糊匹配域名" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -1099,9 +1105,15 @@
             });
             return false;
         });
-        form.on('select()', function () {
-            $('[lay-filter=search]').click();
-            return false;
+        // 监控选择
+        form.on('select(select-status)', function (data) {
+            $('[lay-filter="search"]').click();
+        });
+        // enter 搜索
+        $('[lay-event=search] input').keydown(function (event) {
+            if (event.keyCode === 13) {
+                $('[lay-filter="search"]').click();
+            }
         });
     });
 </script>
