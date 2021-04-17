@@ -55,6 +55,18 @@
                 return unescape(next)
             }();
         form.render();
+        $('[name="username"]').focus().keydown(function (event) {
+            if (event.keyCode === 13 && this.value) {
+                $('[name="password"]').focus();
+            }
+        });
+        $('[name="password"]').focus(function () {
+            $('[name="password"]').keydown(function (event) {
+                if (event.keyCode === 13 && this.value) {
+                    $('[lay-filter="login-submit"]').click();
+                }
+            });
+        });
         //自定义验证
         form.verify({
             nickname: function (value) { //value：表单的值、item：表单的DOM对象
