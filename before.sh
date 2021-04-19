@@ -1,3 +1,3 @@
 # ${RootPath} 程序根目录
-
-#\rm -rf "${RootPath}/static"
+\rm -rf ${RootPath}/data/template/empirecms
+rm -rf ${RootPath}/data/template/empirecms
