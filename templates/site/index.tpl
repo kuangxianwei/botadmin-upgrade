@@ -1090,10 +1090,10 @@
         form.on('submit(search)', function (data) {
             let field = data.field, cols = [];
             $.each(field, function (k, v) {
-                if (v === '') {
-                    delete field[k];
-                } else {
+                if (v) {
                     cols.push(k);
+                } else {
+                    delete field[k];
                 }
             });
             field.cols = cols.join();

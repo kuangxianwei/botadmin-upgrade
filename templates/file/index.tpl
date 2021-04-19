@@ -323,10 +323,10 @@
         form.on('submit(submit-goto)', function (obj) {
             let field = obj.field, cols = [];
             $.each(field, function (k, v) {
-                if (v === '') {
-                    delete field[k];
-                } else {
+                if (v) {
                     cols.push(k);
+                } else {
+                    delete field[k];
                 }
             });
             field.cols = cols.join();
@@ -342,10 +342,10 @@
         form.on('submit(search)', function (obj) {
             let field = obj.field, cols = [];
             $.each(field, function (k, v) {
-                if (v === '') {
-                    delete field[k];
-                } else {
+                if (v) {
                     cols.push(k);
+                } else {
+                    delete field[k];
                 }
             });
             field.cols = cols.join();

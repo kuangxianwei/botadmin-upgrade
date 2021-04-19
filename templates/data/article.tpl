@@ -1,5 +1,5 @@
 <div class="layui-card">
-    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+    <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-event="search">
         <div class="layui-input-inline">
             <input class="layui-input" type="text" name="title" placeholder="请输入标题部分或全部" autocomplete="off">
         </div>
@@ -411,10 +411,10 @@
         form.on('submit(search)', function (data) {
             let field = data.field, cols = [];
             $.each(field, function (k, v) {
-                if (v === '') {
-                    delete field[k];
-                } else {
+                if (v) {
                     cols.push(k);
+                } else {
+                    delete field[k];
                 }
             });
             field.cols = cols.join();
@@ -485,6 +485,13 @@
         form.on('select(select_trans_failed)', function () {
             $('button[lay-filter=search]').click();
             return false;
+        });
+
+        // enter 搜索
+        $('[lay-event=search] input').keydown(function (event) {
+            if (event.keyCode === 13) {
+                $('[lay-filter="search"]').click();
+            }
         });
     });
 </script>
