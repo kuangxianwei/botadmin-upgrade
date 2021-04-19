@@ -1097,6 +1097,7 @@
                 }
             });
             field.cols = cols.join();
+            console.log(field);
             //执行重载
             table.reload('table-list', {
                 where: field,
