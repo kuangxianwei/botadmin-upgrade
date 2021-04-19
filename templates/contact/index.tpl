@@ -114,7 +114,6 @@
                             maxmin: true,
                             btn: ['提交', '取消'],
                             area: ['95%', '95%'],
-                            zIndex: main.zIndex(),
                             yes: function (index, dom) {
                                 if ($(dom.find('*[lay-submit]').click().context).find('input.layui-form-danger').length === 0) {
                                     if ($('[name=file]').val()) {
@@ -269,7 +268,6 @@
                             maxmin: true,
                             btn: ['提交', '取消'],
                             area: ['95%', '95%'],
-                            zIndex: main.zIndex(),
                             yes: function (index, dom) {
                                 if ($(dom.find('*[lay-submit]').click().context).find('input.layui-form-danger').length === 0) {
                                     if ($('[name=file]').val()) {
@@ -397,7 +395,6 @@
                             maxmin: true,
                             btn: ['提交', '取消'],
                             area: ['90%', '90%'],
-                            zIndex: main.zIndex(),
                             yes: function (index, dom) {
                                 dom.find('*[lay-submit]').click();
                             },

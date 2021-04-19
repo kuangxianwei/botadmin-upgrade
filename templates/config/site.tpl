@@ -170,7 +170,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">FTP端口</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="ftp_port" value="{{.obj.FtpPort}}"
+                            <input type="number" name="ftp_port" value="{{.obj.FtpPort}}"
                                    class="layui-input">
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                             </div>
                             <div class="layui-input-inline">
                                 <input type="text" name="redirects_url" value="{{.obj.RedirectsUrl}}"
-                                       class="layui-input">
+                                       class="layui-input" autocomplete="off" placeholder="http://www.botadmin.cn">
                             </div>
                             <div class="layui-form-mid layui-word-aux">跳转URL，如: http://www.webrobot.cn</div>
                         </div>
@@ -513,7 +513,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">使用端口</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="port" value="{{.obj.Port}}" class="layui-input">
+                            <input type="number" name="port" value="{{.obj.Port}}" class="layui-input" autocomplete="off" placeholder="80">
                         </div>
                         <div class="layui-form-mid layui-word-aux">
                             只在需要使用非80端口时使用，否则请使用默认值。可在系统设置里设置或增加端口
@@ -522,15 +522,15 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">IP并发数</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="conn" class="layui-input" value="{{.obj.Conn}}">
+                            <input type="number" name="conn" class="layui-input" value="{{.obj.Conn}}" placeholder="0">
                         </div>
                         <div class="layui-form-mid layui-word-aux">默认为0，即不限制 每IP的并发连接数</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">线程速度</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="conn_speed" class="layui-input"
-                                   value="{{.obj.ConnSpeed}}">
+                            <input type="number" name="conn_speed" class="layui-input"
+                                   value="{{.obj.ConnSpeed}}" placeholder="0">
                         </div>
                         <div class="layui-form-mid layui-word-aux">默认为0，即不限制 每个连接线程的速度，单位KB/S</div>
                     </div>
@@ -538,9 +538,9 @@
                         <label class="layui-form-label">Tags</label>
                         <div class="layui-input-inline">
                             <input type="text" name="tags" class="layui-input"
-                                   value="{{join .obj.Tags ","}}">
+                                   value="{{join .obj.Tags ","}}" autocomplete="off" placeholder="Tag1,Tag2,Tag3">
                         </div>
-                        <div class="layui-form-mid layui-word-aux">tag1,tag2,tag3</div>
+                        <div class="layui-form-mid layui-word-aux">Tag1,Tag2,Tag3</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">栏目列表</label>
@@ -560,7 +560,8 @@
                         <label class="layui-form-label">广告代码</label>
                         <div class="layui-input-inline">
                             <input type="text" name="ad" class="layui-input"
-                                   value="{{.obj.Ad}}">
+                                   value="{{.obj.Ad}}" autocomplete="off"
+                                   placeholder="这里输入javascript广告代码">
                         </div>
                         <div class="layui-form-mid layui-word-aux">这里是放广告代码 主要是javascript 代码</div>
                     </div>

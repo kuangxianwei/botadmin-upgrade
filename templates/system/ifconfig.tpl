@@ -156,7 +156,6 @@
                         content: $("#formAddIP").html(),
                         btn: ['保存', '取消'],
                         area: ['700px', '500px'],
-                        zIndex: main.zIndex(),
                         yes: function (index, obj) {
                             obj.find('button[lay-filter=submitAddIP]').click();
                         },

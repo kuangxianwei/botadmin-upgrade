@@ -21,7 +21,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">Tags:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" name="tags" value="{{join .obj.Tags ","}}">
+                <input class="layui-input" type="text" name="tags" value="{{join .obj.Tags ","}}" autocomplete="off" placeholder="Tag1,Tag2,Tag3">
             </div>
         </div>
         <div class="layui-form-item">

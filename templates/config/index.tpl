@@ -27,79 +27,66 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show layui-form">
-                    <div class="layui-row">
-                        <div class="layui-col-md3">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">用户名:</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="username" value="{{.base.Username}}" class="layui-input">
-                                </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">用户名:</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="username" value="{{.base.Username}}" class="layui-input" autocomplete="off" placeholder="用户名">
                             </div>
                         </div>
-                        <div class="layui-col-md3">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">Host:</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="addr" value="{{.base.Addr}}" class="layui-input">
-                                </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">Host:</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="addr" value="{{.base.Addr}}" class="layui-input" autocomplete="off" placeholder="localhost">
                             </div>
                         </div>
-                        <div class="layui-col-md3">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">端口:</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="port" value="{{.base.Port}}" class="layui-input">
-                                </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">端口:</label>
+                            <div class="layui-input-block">
+                                <input type="number" name="port" value="{{.base.Port}}" class="layui-input" autocomplete="off" placeholder="8080">
                             </div>
                         </div>
                     </div>
-                    <div class="layui-row">
-                        <div class="layui-col-md3">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">运行模式:</label>
-                                <div class="layui-input-block">
-                                    <input type="radio" name="run_mode" value="prod"
-                                           title="正常"{{if eq .base.RunMode "prod"}} checked{{end}}>
-                                    <input type="radio" name="run_mode" value="dev"
-                                           title="调试"{{if eq .base.RunMode "dev"}} checked{{end}}>
-                                </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">运行模式:</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="run_mode" value="prod"
+                                       title="正常"{{if eq .base.RunMode "prod"}} checked{{end}}>
+                                <input type="radio" name="run_mode" value="dev"
+                                       title="调试"{{if eq .base.RunMode "dev"}} checked{{end}}>
                             </div>
                         </div>
-                        <div class="layui-col-md2">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">Gzip:</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="gzip_enabled"
-                                           lay-skin="switch" lay-text="打开|关闭"{{if .base.GzipEnabled}} checked{{end}}>
-                                </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">Gzip:</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="gzip_enabled"
+                                       lay-skin="switch" lay-text="打开|关闭"{{if .base.GzipEnabled}} checked{{end}}>
                             </div>
                         </div>
-                        <div class="layui-col-md2">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">CSRF:</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="csrf_enabled"
-                                           lay-skin="switch" lay-text="打开|关闭"{{if .base.CsrfEnabled}} checked{{end}}>
-                                </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">CSRF:</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="csrf_enabled"
+                                       lay-skin="switch" lay-text="打开|关闭"{{if .base.CsrfEnabled}} checked{{end}}>
                             </div>
                         </div>
-                        <div class="layui-col-md2">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">广告缓存:</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="ad_cached"
-                                           lay-skin="switch" lay-text="打开|关闭"{{if .base.AdCached}} checked{{end}}>
-                                </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">广告缓存:</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="ad_cached"
+                                       lay-skin="switch" lay-text="打开|关闭"{{if .base.AdCached}} checked{{end}}>
                             </div>
                         </div>
-                        <div class="layui-col-md2">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label" lay-tips="开启性能监测">Pprof:</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="pprof"
-                                           lay-skin="switch" lay-text="打开|关闭"{{if .base.Pprof}} checked{{end}}>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" lay-tips="开启性能监测">Pprof:</label>
+                        <div class="layui-input-inline">
+                            <input type="checkbox" name="pprof"
+                                   lay-skin="switch" lay-text="打开|关闭"{{if .base.Pprof}} checked{{end}}>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            仅调试启用(开发人员<a lay-href="/debug/pprof" lay-text="pprof">查看性能</a>)
                         </div>
                     </div>
                     <div class="layui-form-item">

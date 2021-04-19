@@ -4,7 +4,7 @@
             <input class="layui-input" type="text" name="title" placeholder="请输入标题部分或全部" autocomplete="off">
         </div>
         <div class="layui-input-inline" style="width: 80px" lay-tips="原创度 例如:70.00">
-            <input type="text" name="originality_rate" placeholder="70.00" autocomplete="off" class="layui-input">
+            <input type="number" name="originality_rate" placeholder="70.00" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline">
             <select name="site_id" lay-filter="select_site_id" lay-search>

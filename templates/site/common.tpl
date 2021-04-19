@@ -747,7 +747,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">使用端口:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="port" value="{{.obj.Port}}" class="layui-input">
+                            <input type="number" name="port" value="{{.obj.Port}}" class="layui-input" autocomplete="off" placeholder="80">
                         </div>
                         <div class="layui-form-mid layui-word-aux">只在需要使用非80端口时使用，否则请使用默认值。可在系统设置里设置或增加端口</div>
                     </div>
@@ -766,14 +766,14 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">IP并发数:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="conn" class="layui-input" value="{{.obj.Conn}}">
+                            <input type="number" name="conn" class="layui-input" value="{{.obj.Conn}}" placeholder="0">
                         </div>
                         <div class="layui-form-mid layui-word-aux">每IP的并发连接数 默认为0，即不限制</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">线程速度:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="conn_speed" class="layui-input" value="{{.obj.ConnSpeed}}">
+                            <input type="number" name="conn_speed" class="layui-input" value="{{.obj.ConnSpeed}}" placeholder="0">
                         </div>
                         <div class="layui-form-mid layui-word-aux">默认为0，即不限制 每个连接线程的速度，单位KB/S</div>
                     </div>

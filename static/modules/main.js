@@ -2,8 +2,6 @@
 layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     class Class {
         constructor() {
-            // 获取最大index
-            this.zIndex = zIndex;
             // 整理对象
             this.tidyObj = function (obj) {
                 return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
@@ -196,11 +194,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             });
         }
 
-        // websocket
-        websocket() {
-            return new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws');
-        }
-
         // 弹窗
         popup(options) {
             let othis = this;
@@ -350,11 +343,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         form = layui.form,
         table = layui.table,
         slider = layui.slider,
-        zIndex = function () {
-            let arr = Array.from(document.querySelectorAll('*')).map(e => parseInt(window.getComputedStyle(e).zIndex) || 0),
-                zIndex = (arr.length ? Math.max.apply(null, arr) : 0) + 1;
-            return zIndex < 2147483647 ? zIndex : 2147483647;
-        },
         // 范围
         range = function (a, b, min, max) {
             if (a > max) {
@@ -926,20 +914,25 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         this.scroll = true;
         this.confirm = true;
         this.area = ['auto', 'auto'];
-        this.zIndex = zIndex();
+        this.zIndex = 2147483000;
     };
+    // 渲染dom后执行
     Pop.prototype.success = function () {
         return true;
     };
+    // 完成后执行
     Pop.prototype.done = function () {
         return true;
     };
+    // 无人如何都要执行
     Pop.prototype.always = function (dom) {
     };
+    // 关闭
     Pop.prototype.close = function (dom) {
         this.id = null;
         dom.remove();
     };
+    // 渲染
     Pop.prototype.render = function () {
         if ($('#layuicss-pop').length > 0) {
             return;
@@ -951,11 +944,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         }
         let dom = $('<div id="layuicss-pop"></div>');
         insertElem.append(dom);
-        dom.append('<style>.shade{z-index:' + this.zIndex + ';position:fixed;visibility:visible;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,' + this.opacity + ')}.shade>div{min-width:150px;min-height:100px;width:' + this.area[0] + ';height:' + this.area[1] + ';position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);padding:1.5em;background:#fff;border-radius:10px;box-shadow:-2px 2px 2px #888}.shade>div>div{overflow:' + (this.scroll ? 'scroll' : 'hidden') + ';height:100%;width:100%}.shade>div>.shade-cancel,.shade>div>.shade-confirm{z-index:' + this.zIndex + 1 + ';height:28px;width:28px;line-height:28px;text-align:center;border-radius:14px;position:absolute}.shade>div>.shade-cancel{top:-17px;right:-17px;background-color:rgba(0,0,0,.8);box-shadow:-2px 2px 2px 2px #888}.shade>div>.shade-confirm{bottom:-30px;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);background-color:#0a6e85;box-shadow:-2px -2px 2px 2px #888}</style>');
-        dom.append('<div class="shade"><div><a href="#" title="Cancel" class="shade-cancel"><svg viewBox="0 0 1024 1024"  xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M810.666667 273.493333L750.506667 213.333333 512 451.84 273.493333 213.333333 213.333333 273.493333 451.84 512 213.333333 750.506667 273.493333 810.666667 512 572.16 750.506667 810.666667 810.666667 750.506667 572.16 512z" fill="#fff"></path></svg></a>' + (this.confirm ? '<a href="#" title="Confirm" class="shade-confirm"><svg viewBox="0 0 1024 1024"  xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M448 864a32 32 0 0 1-18.88-6.08l-320-234.24a32 32 0 1 1 37.76-51.52l292.16 213.44 397.76-642.56a32 32 0 0 1 54.4 33.92l-416 672a32 32 0 0 1-21.12 14.4L448 864z" fill="#fff"></path></svg></a>' : '') + '<div>' + this.content + '</div></div></div>');
+        dom.append('<style>.pop-container{z-index:' + (this.zIndex + 1) + ';min-width:150px;min-height:100px;width:' + this.area[0] + ';height:' + this.area[1] + ';position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);padding:1.5em;background:#fff;border-radius:10px;box-shadow:-2px 2px 2px #888}.pop-container>div{overflow:' + (this.scroll ? 'scroll' : 'hidden') + ';height:100%;width:100%}.pop-container>.shade-cancel,.pop-container>.shade-confirm{z-index:' + (this.zIndex + 2) + ';height:28px;width:28px;line-height:28px;text-align:center;border-radius:14px;position:absolute}.pop-container>.shade-cancel{top:-17px;right:-17px;background-color:rgba(0,0,0,.8);box-shadow:-2px 2px 2px 2px #888}.pop-container>.shade-confirm{bottom:-30px;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);background-color:#0a6e85;box-shadow:-2px -2px 2px 2px #888}</style>');
+        dom.append('<div class="layui-layer-shade" style="z-index:' + this.zIndex + ';background-color:rgb(0, 0, 0);opacity:' + this.opacity + ';"></div>');
+        dom.append('<div class="pop-container"><a href="#" title="Cancel" class="shade-cancel"><svg viewBox="0 0 1024 1024"  xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M810.666667 273.493333L750.506667 213.333333 512 451.84 273.493333 213.333333 213.333333 273.493333 451.84 512 213.333333 750.506667 273.493333 810.666667 512 572.16 750.506667 810.666667 810.666667 750.506667 572.16 512z" fill="#fff"></path></svg></a>' + (this.confirm ? '<a href="#" title="Confirm" class="shade-confirm"><svg viewBox="0 0 1024 1024"  xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M448 864a32 32 0 0 1-18.88-6.08l-320-234.24a32 32 0 1 1 37.76-51.52l292.16 213.44 397.76-642.56a32 32 0 0 1 54.4 33.92l-416 672a32 32 0 0 1-21.12 14.4L448 864z" fill="#fff"></path></svg></a>' : '') + '<div>' + this.content + '</div></div>');
         this.success(dom);
         let othis = this;
-        dom.find('.shade-cancel').click(function () {
+        dom.find('.shade-cancel,.layui-layer-shade').click(function () {
             othis.always(dom);
             othis.close(dom);
         });
@@ -993,13 +987,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // websocket
     main.ws = {
-        fn: main.websocket,
         display: function (options, callback) {
             options = $.extend({name: '', displaySelector: '#display', statusSelector: '#status'}, options || {});
             if (!options.name) {
                 return false;
             }
-            let w = main.websocket();
+            let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log');
             w.onopen = function () {
                 w.send(options.name);
             };
@@ -1024,13 +1017,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         },
         log: function (name) {
             if (!name) {
-                return
+                return false;
             }
-            let w = main.websocket();
+            let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log');
             main.pop({
                 confirm: false,
                 scroll: false,
-                content: `<div style="position:fixed;padding:6px;top: -15px;background-color: #ffffff;border-radius: 8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div><textarea class="layui-textarea layui-bg-black" style="color: white;height: 100%" id="log-display"></textarea>`,
+                content: '<div style="position:fixed;padding:6px;top:-15px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div><textarea class="layui-textarea layui-bg-black" style="color:white;height:100%" id="log-display"></textarea>',
                 area: ['75%', '75%'],
                 success: function (dom) {
                     w.onopen = function () {
@@ -1056,11 +1049,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         },
         info: function (name) {
             name = name || "show";
-            let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log');
+            let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log/info');
             main.pop({
                 confirm: false,
                 scroll: false,
-                content: `<textarea class="layui-textarea layui-bg-black" style="color: white;height: 100%" id="log-display"></textarea>`,
+                content: '<textarea class="layui-textarea layui-bg-black" style="color:white;height:100%" id="log-display"></textarea>',
                 area: ['75%', '75%'],
                 success: function (dom) {
                     w.onopen = function () {

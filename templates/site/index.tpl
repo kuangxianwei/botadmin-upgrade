@@ -674,7 +674,6 @@
                         fixed: false,
                         area: ['520px', '300px'],
                         maxmin: true,
-                        zIndex: main.zIndex(),
                         btn: ['确定', '取消'],
                         content: $('#edit-options-html').html(),
                         success: function (dom, index) {
@@ -1106,7 +1105,7 @@
             return false;
         });
         // 监控选择
-        form.on('select(select-status)', function (data) {
+        form.on('select(select-status)', function () {
             $('[lay-filter="search"]').click();
         });
         // enter 搜索
