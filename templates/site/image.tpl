@@ -45,7 +45,7 @@
                 <div class="layui-col-md3">
                     <label class="layui-form-label" lay-tips="延迟时间秒">延迟:</label>
                     <div class="layui-input-inline" style="width: 60px">
-                        <input type="number" name="delay" value="{{.obj.Delay}}" class="layui-input">
+                        <input type="number" name="delay" value="{{print .obj.Delay}}" class="layui-input">
                     </div>
                 </div>
             </div>

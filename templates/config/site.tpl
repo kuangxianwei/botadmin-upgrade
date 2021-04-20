@@ -348,7 +348,7 @@
                         <label class="layui-form-label">插图阈值:</label>
                         <div class="layui-input-inline">
                             <div id="insert_pic_deg" class="slider-inline"></div>
-                            <input type="hidden" name="insert_pic_deg" value="{{.obj.InsertPicDeg}}"/>
+                            <input type="hidden" name="insert_pic_deg" value="{{print .obj.InsertPicDeg}}"/>
                         </div>
                         <div class="layui-form-mid layui-word-aux">随机插入图片数量</div>
                     </div>
@@ -356,14 +356,14 @@
                         <label class="layui-form-label" lay-tips="随机发布1至3篇文章数量">发布阈值:</label>
                         <div class="layui-input-block">
                             <div id="pub_deg" class="slider-block"></div>
-                            <input type="hidden" name="pub_deg" value="{{.obj.PubDeg}}"/>
+                            <input type="hidden" name="pub_deg" value="{{print .obj.PubDeg}}"/>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">内容阈值:</label>
                         <div class="layui-input-inline">
                             <div id="content_deg" class="slider-inline"></div>
-                            <input type="hidden" name="content_deg" value="{{.obj.ContentDeg}}"/>
+                            <input type="hidden" name="content_deg" value="{{print .obj.ContentDeg}}"/>
                         </div>
                         <div class="layui-form-mid layui-word-aux">内容内随机插入关键词数量</div>
                     </div>

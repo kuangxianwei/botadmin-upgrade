@@ -98,10 +98,10 @@
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
-    {{ html .operation }}
+    {{html .operation}}
 </script>
 <script type="text/html" id="table-content-name">
-    {{ html .file_name }}
+    {{html .file_name}}
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>

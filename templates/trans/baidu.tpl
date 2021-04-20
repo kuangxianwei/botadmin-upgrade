@@ -53,7 +53,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">延时:</label>
             <div class="layui-input-inline">
-                <input type="text" name="delay" value="{{.obj.Delay}}" autocomplete="off" placeholder="输入秒"
+                <input type="text" name="delay" value="{{print .obj.Delay}}" autocomplete="off" placeholder="输入秒"
                        class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">每次请求间隔多少秒</div>

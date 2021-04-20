@@ -81,7 +81,7 @@
                                 <label class="layui-form-label"
                                        lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="delay" class="layui-input" value="{{.obj.Delay}}"
+                                    <input type="text" name="delay" class="layui-input" value="{{print .obj.Delay}}"
                                            autocomplete="off" placeholder="10-20">
                                 </div>
                             </div>
