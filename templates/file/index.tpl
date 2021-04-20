@@ -330,6 +330,9 @@
                 }
             });
             field.cols = cols.join();
+            if (!field.cols) {
+                return location.reload();
+            }
             field.path = current_path;
             table.reload('table-list', {
                 url: url,
@@ -349,6 +352,9 @@
                 }
             });
             field.cols = cols.join();
+            if (!field.cols) {
+                return location.reload();
+            }
             field.path = current_path;
             table.reload('table-list', {
                 url: url,

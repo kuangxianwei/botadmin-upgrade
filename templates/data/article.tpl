@@ -376,6 +376,9 @@
                             content: html,
                             url: url + '/translate',
                             area: ['750px', '400px'],
+                            tips: function () {
+                                main.ws.log('article.0');
+                            },
                         });
                         form.render();
                     });
@@ -418,6 +421,9 @@
                 }
             });
             field.cols = cols.join();
+            if (!field.cols) {
+                return location.reload();
+            }
             table.reload('table-list', {
                 where: field,
                 page: {curr: 1}

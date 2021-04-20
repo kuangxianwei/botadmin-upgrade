@@ -467,6 +467,9 @@
                 }
             });
             field.cols = cols.join();
+            if (!field.cols) {
+                return location.reload();
+            }
             table.reload('table-list', {
                 where: field,
                 page: {curr: 1}
