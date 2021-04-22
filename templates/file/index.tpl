@@ -145,6 +145,11 @@
                 window.scrollTo(0, 0);
                 if (res.path) {
                     current_path = res.path;
+                    $('input[name="goto"]').keydown(function (event) {
+                        if (event.keyCode === 13 && this.value) {
+                            $('[lay-filter="submit-goto"]').click();
+                        }
+                    });
                 }
                 $('#currentpath').text(current_path);
                 if (this.where) {
@@ -409,6 +414,11 @@
         form.on('select(search_type)', function () {
             $('[lay-filter="search"]').click();
             return false;
+        });
+        $('input[name="goto"]').keydown(function (event) {
+            if (event.keyCode === 13 && this.value) {
+                $('[lay-filter="submit-goto"]').click();
+            }
         });
     });
 </script>

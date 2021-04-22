@@ -1,17 +1,26 @@
+<style>
+    .layui-slider-input {
+        top: 0;
+    }
+</style>
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-row">
             <div class="layui-col-md2">
-                <label class="layui-form-label" lay-tips="百度搜索关键词的深度">搜索深度:</label>
-                <div class="layui-input-block">
-                    <input type="text" name="depth" value="{{$.obj.Depth}}" class="layui-input">
+                <div class="layui-form-item">
+                    <label class="layui-form-label" lay-tips="百度搜索关键词的深度">搜索深度:</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="depth" value="{{$.obj.Depth}}" class="layui-input">
+                    </div>
                 </div>
             </div>
-            <div class="layui-col-md4">
-                <label class="layui-form-label" lay-tips="协程太多会卡死服务器">多协程:</label>
-                <div class="layui-input-block">
-                    <div id="thread" class="slider-block"></div>
-                    <input type="hidden" name="thread" value="{{$.obj.Thread}}">
+            <div class="layui-col-md10">
+                <div class="layui-form-item">
+                    <label class="layui-form-label" lay-tips="协程太多会卡死服务器">多协程:</label>
+                    <div class="layui-input-block">
+                        <div id="thread" class="slider-block"></div>
+                        <input type="hidden" name="thread" value="{{$.obj.Thread}}">
+                    </div>
                 </div>
             </div>
         </div>
@@ -19,7 +28,7 @@
             <div class="layui-col-md3">
                 <div class="layui-form-item">
                     <label class="layui-form-label">种子<i class="layui-icon layui-icon-down"></i></label>
-                    <textarea rows="10" name="seeds" class="layui-textarea">{{join .obj.Seeds "\n"}}</textarea>
+                    <textarea rows="20" name="seeds" class="layui-textarea">{{join .obj.Seeds "\n"}}</textarea>
                 </div>
             </div>
             <div class="layui-col-md9">
@@ -28,7 +37,7 @@
                     <label class="layui-form-label" id="collect-status" style="min-width: 100px">状态:
                         <strong style="color: red" title="0">未运行</strong></label>
                     <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="reset-record">清空记录<i class="layui-icon layui-icon-delete"></i></label>
-                    <textarea rows="10" class="layui-textarea layui-bg-black" id="collect-display"></textarea>
+                    <textarea rows="20" class="layui-textarea layui-bg-black" id="collect-display"></textarea>
                 </div>
             </div>
         </div>
