@@ -44,8 +44,8 @@
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record">
-            清空日志
+        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record" lay-tips="重置日志">
+            <i class="layui-icon iconfont icon-reset"></i>Log
         </button>
     </div>
 </script>
