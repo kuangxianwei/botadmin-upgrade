@@ -948,6 +948,15 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         dom.append('<div class="layui-layer-shade" style="z-index:' + this.zIndex + ';background-color:rgb(0, 0, 0);opacity:' + this.opacity + ';"></div>');
         dom.append('<div class="pop-container"><a href="#" title="Cancel" class="shade-cancel"><svg viewBox="0 0 1024 1024"  xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M810.666667 273.493333L750.506667 213.333333 512 451.84 273.493333 213.333333 213.333333 273.493333 451.84 512 213.333333 750.506667 273.493333 810.666667 512 572.16 750.506667 810.666667 810.666667 750.506667 572.16 512z" fill="#fff"></path></svg></a>' + (this.confirm ? '<a href="#" title="Confirm" class="shade-confirm"><svg viewBox="0 0 1024 1024"  xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M448 864a32 32 0 0 1-18.88-6.08l-320-234.24a32 32 0 1 1 37.76-51.52l292.16 213.44 397.76-642.56a32 32 0 0 1 54.4 33.92l-416 672a32 32 0 0 1-21.12 14.4L448 864z" fill="#fff"></path></svg></a>' : '') + '<div>' + this.content + '</div></div>');
         this.success(dom);
+        $(document).scroll(function () {
+            let windowElem = $(window),
+                documentElem = $(document),
+                top = (windowElem.height() - dom.height()) / 2,
+                left = (windowElem.width() - dom.width()) / 2,
+                scrollTop = documentElem.scrollTop(),
+                scrollLeft = documentElem.scrollLeft();
+            dom.css({position: 'absolute', 'top': top + scrollTop, left: left + scrollLeft});
+        });
         let othis = this;
         dom.find('.shade-cancel,.layui-layer-shade').click(function () {
             othis.always(dom);
