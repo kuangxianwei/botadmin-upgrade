@@ -211,8 +211,6 @@
                 });
             },
         });
-        $(window).resize(function (obj) {
-            console.log(obj);
-        });
+            console.log(document.documentElement.clientHeight);
     });
 </script>
