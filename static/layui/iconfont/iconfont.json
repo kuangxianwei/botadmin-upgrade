@@ -6,6 +6,34 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "6805277",
+      "name": "Reset-Settings",
+      "font_class": "reset-settings",
+      "unicode": "e93a",
+      "unicode_decimal": 59706
+    },
+    {
+      "icon_id": "7685239",
+      "name": "reset_password",
+      "font_class": "reset-password",
+      "unicode": "e728",
+      "unicode_decimal": 59176
+    },
+    {
+      "icon_id": "20434768",
+      "name": "Reset",
+      "font_class": "reset",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "1278182",
+      "name": "查看",
+      "font_class": "view",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
       "icon_id": "312590",
       "name": "tree",
       "font_class": "tree",

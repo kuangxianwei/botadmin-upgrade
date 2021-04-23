@@ -27,7 +27,9 @@
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="jobs">查看任务
+        <button class="layui-btn layui-btn-sm" lay-event="jobs">
+            <i class="iconfont icon-view"></i>
+            查看任务
         </button>
         <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>

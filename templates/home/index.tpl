@@ -144,6 +144,12 @@
                                     <cite>日志</cite>
                                 </a>
                             </li>
+                            <li class="layui-col-xs3" style="cursor: pointer">
+                                <a lay-href="{{.p_url}}" lay-text="探针">
+                                    <i class="layui-icon layui-icon-chart"></i>
+                                    <cite>探针</cite>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -246,23 +252,6 @@
             <div class="layui-card-body">
                 <iframe id="iframeSRC" src="" frameborder="0"
                         height="440px" width="100%"></iframe>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md12">
-        <div class="layui-card">
-            <div class="layui-card-header">探针</div>
-            <div class="layui-card-body">
-                <a href="{{.p_url}}" target="_blank">查看探针详情</a>
-            </div>
-        </div>
-    </div>
-    <div class="layui-col-md12">
-        <div class="layui-card">
-            <div class="layui-card-header">OCP</div>
-            <div class="layui-card-body">
-                <iframe id="iframeOCP" src="{{.ocp_url}}" frameborder="0"
-                        height="150px" width="100%" scrolling="no"></iframe>
             </div>
         </div>
     </div>
