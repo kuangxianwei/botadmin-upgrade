@@ -215,5 +215,8 @@
         console.log($(window).height());
         console.log($(document.body).outerHeight(true));
         console.log($(document).scrollTop());
+        $(document).scroll(function (obj){
+            console.log($(document).scrollTop());
+        });
     });
 </script>
