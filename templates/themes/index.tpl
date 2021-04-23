@@ -214,7 +214,7 @@
 
         //让指定的DIV始终显示在屏幕正中间
         function letDivCenter() {
-            let targetElem = $('#layuicss-pop>.pop-container'),
+            let targetElem = $('#layuicss-pop'),
                 windowElem = $(window),
                 documentElem = $(document),
                 top = (windowElem.height() - targetElem.height()) / 2,
@@ -223,6 +223,7 @@
                 scrollLeft = documentElem.scrollLeft();
             targetElem.css({position: 'absolute', 'top': top + scrollTop, left: left + scrollLeft}).show();
         }
+
         $(document).scroll(function () {
             letDivCenter();
         });
