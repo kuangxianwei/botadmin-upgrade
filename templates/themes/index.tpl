@@ -211,5 +211,8 @@
                 });
             },
         });
+        $(window).resize(function (obj) {
+            console.log(obj);
+        });
     });
 </script>
