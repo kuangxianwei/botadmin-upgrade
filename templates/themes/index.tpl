@@ -211,6 +211,8 @@
                 });
             },
         });
-            console.log(document.documentElement.clientHeight);
+        console.log(document.documentElement.clientHeight);
+        console.log($(window).height());
+        console.log($(document.body).outerHeight(true));
     });
 </script>
