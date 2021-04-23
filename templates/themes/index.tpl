@@ -216,7 +216,7 @@
         console.log($(document.body).outerHeight(true));
         console.log($(document).scrollTop());
         $(document).scroll(function (obj) {
-            console.log(obj.scrollTop());
+            console.log(obj);
         });
     });
 </script>
