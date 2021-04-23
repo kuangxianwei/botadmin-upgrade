@@ -1108,7 +1108,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 ids.push(prefix + '.0');
             }
             let tokens = ids.join();
-            layer.confirm('清空日志记录?' + tokens, function (index) {
+            layer.confirm('清空日志记录? Tokens: <br/>' + tokens, function (index) {
                 main.req($.extend({
                     url: '/record/reset',
                     data: {tokens: tokens},
