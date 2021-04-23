@@ -211,13 +211,20 @@
                 });
             },
         });
-        console.log(document.documentElement.clientHeight);
-        console.log($(window).height());
-        console.log($(document.body).outerHeight(true));
-        console.log($(document).scrollTop());
+
+        //让指定的DIV始终显示在屏幕正中间
+        function letDivCenter() {
+            let targetElem = $('#layuicss-pop>.pop-container'),
+                windowElem = $(window),
+                documentElem = $(document),
+                top = (windowElem.height() - targetElem.height()) / 2,
+                left = (windowElem.width() - targetElem.width()) / 2,
+                scrollTop = documentElem.scrollTop(),
+                scrollLeft = documentElem.scrollLeft();
+            targetElem.css({position: 'absolute', 'top': top + scrollTop, left: left + scrollLeft}).show();
+        }
         $(document).scroll(function () {
-            $('#layuicss-pop>.pop-container').css('top', $(document).scrollTop()+100);
-            console.log($(document).scrollTop() );
+            letDivCenter();
         });
     });
 </script>
