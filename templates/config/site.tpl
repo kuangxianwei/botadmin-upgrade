@@ -588,7 +588,7 @@
         <div class="layui-card-body layui-form-item">
             <div class="layui-btn-group">
                 <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
-                <button class="layui-btn" data-event="reset">恢复默认</button>
+                <button class="layui-btn" data-event="reset"><i class="layui-icon iconfont icon-reset"></i>默认</button>
             </div>
         </div>
     </div>

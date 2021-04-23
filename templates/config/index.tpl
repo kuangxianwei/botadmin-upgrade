@@ -140,7 +140,8 @@
                         <label class="layui-form-label"></label>
                         <div class="layui-btn-group">
                             <button class="layui-btn" lay-submit lay-filter="submit-base">立即提交</button>
-                            <button class="layui-btn" data-event="reset" data-name="base" data-tip="Base 恢复出厂设置?">恢复默认
+                            <button class="layui-btn" data-event="reset" data-name="base" data-tip="Base 恢复出厂设置?">
+                                <i class="layui-icon iconfont icon-reset"></i>默认
                             </button>
                         </div>
                     </div>
@@ -153,7 +154,7 @@
                             <button class="layui-btn" lay-submit lay-filter="submit-server">立即提交
                             </button>
                             <button class="layui-btn" data-event="reset" data-name="server" data-tip="Server 恢复出厂设置?">
-                                恢复默认
+                                <i class="layui-icon iconfont icon-reset"></i>默认
                             </button>
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="app"
                                     data-tip="抹去本程序所有数据?包括所建的网站等...">重置App
@@ -182,7 +183,8 @@
                         <div class="layui-btn-group">
                             <button class="layui-btn" lay-submit lay-filter="submit-ban">立即提交</button>
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="ban"
-                                    data-tip="违禁设置恢复到出厂设置?">恢复默认
+                                    data-tip="违禁设置恢复到出厂设置?">
+                                <i class="layui-icon iconfont icon-reset"></i>默认
                             </button>
                             <button class="layui-btn" data-event="ban-test">测试</button>
                             <button class="layui-btn layui-btn-small layui-btn-normal" data-event="edit-ban">编辑禁词
@@ -223,7 +225,8 @@
                             <button class="layui-btn" lay-submit lay-filter="submit-monitor">立即提交
                             </button>
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="monitor"
-                                    data-tip="监控设置恢复到出厂设置?">恢复默认
+                                    data-tip="监控设置恢复到出厂设置?">
+                                <i class="layui-icon iconfont icon-reset"></i>默认
                             </button>
                             <button class="layui-btn" data-event="status" data-name="monitor"
                                     data-tip="查看定时状态">查看状态
