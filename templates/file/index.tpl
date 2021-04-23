@@ -196,7 +196,7 @@
                         });
                     } else {
                         let loadIndex = layer.load(1, {shade: [0.6, '#000', true]});
-                        $.get(url + '/editor', {'path': d.path, 'hide': true}, function (html) {
+                        $.get(url + '/editor', {path: d.path, hide: true}, function (html) {
                             layui.layer.close(loadIndex);
                             main.popup({
                                 title: '编辑文件',

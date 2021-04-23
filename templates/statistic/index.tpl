@@ -154,7 +154,7 @@
                     });
                     break;
                 case 'modify':
-                    $.get(url + '/modify', data, function (html) {
+                    $.get(url + '/modify', {id: data.id}, function (html) {
                         main.popup({
                             title: '修改',
                             url: url + '/modify',

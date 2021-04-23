@@ -89,7 +89,7 @@
                 form.render();
                 return false;
             }
-            $.get('/site/class', {'id': obj.value, 'class_id': class_id}, function (res) {
+            $.get('/site/class', {id: obj.value, class_id: class_id}, function (res) {
                 switch (res.code) {
                     case -1:
                         layer.alert(res.msg, {icon: 2});

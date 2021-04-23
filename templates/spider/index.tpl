@@ -296,7 +296,7 @@
                     });
                     break;
                 case 'site_id':
-                    $.get(url + '/bind', {'id': data.id}, function (html) {
+                    $.get(url + '/bind', {id: data.id}, function (html) {
                         main.popup({
                             title: '绑定网站',
                             content: html,

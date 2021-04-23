@@ -13,6 +13,11 @@
         </button>
     </div>
     <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="exec" id="LAY_layer_iframe_exec">
+            <i class="layui-icon layui-icon-play"></i>执行
+        </button>
+    </div>
+    <div class="layui-btn-group">
         <button class="layui-btn  layui-btn-danger layui-btn-sm" lay-event="del" id="LAY_layer_iframe_del">
             <i class="layui-icon layui-icon-delete"></i>删除
         </button>
@@ -39,6 +44,9 @@
         </button>
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
+        </button>
+        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i>
         </button>
     </div>
 </script>
@@ -121,7 +129,7 @@
                     });
                     break;
                 case 'modify':
-                    $.get(url + '/modify', data, function (html) {
+                    $.get(url + '/modify', {id: data.id}, function (html) {
                         main.popup({
                             title: '修改',
                             url: url + '/modify',
@@ -130,6 +138,9 @@
                             ending: 'table-list',
                         });
                     });
+                    break;
+                case 'log':
+                    main.ws.log('push_ad.' + data.id);
                     break;
             }
         });
@@ -168,7 +179,6 @@
                     });
                     break;
                 case 'del':
-                    let data = checkStatus.data;
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
@@ -184,6 +194,23 @@
                             ending: 'table-list'
                         });
                     });
+                    break;
+                case 'exec':
+                    if (data.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.prompt(
+                        {formType: 0, value: data.length, title: '执行推送广告,请输入线程数量 太多会卡死'},
+                        function (value, index) {
+                            main.req({
+                                url: url + '/exec',
+                                data: {ids: ids.join(), thread: value},
+                                index: index,
+                                tips: function () {
+                                    main.ws.log('push_ad.0');
+                                }
+                            });
+                        });
                     break;
                 case 'truncate':
                     layer.confirm('清空全部数据，确定清空？', function (index) {

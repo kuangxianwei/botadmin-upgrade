@@ -129,7 +129,7 @@
             let data = obj.data;
             switch (obj.event) {
                 case 'modify':
-                    $.get('/rank/modify', data, function (html) {
+                    $.get('/rank/modify', {id: data.id}, function (html) {
                         main.popup({
                             title: '修改',
                             content: html,
@@ -171,7 +171,7 @@
                 tokens = [];
             switch (obj.event) {
                 case 'add':
-                    $.get('/rank/add', data, function (html) {
+                    $.get('/rank/add', {id: data.id}, function (html) {
                         main.popup({
                             title: '添加',
                             content: html,

@@ -147,7 +147,7 @@
                     });
                     break;
                 case 'modify':
-                    $.get(url + '/modify', data, function (html) {
+                    $.get(url + '/modify', {id: data.id}, function (html) {
                         main.popup({
                             title: '修改翻译配置',
                             url: url + '/modify',
@@ -158,7 +158,7 @@
                     });
                     break;
                 case 'log':
-                    $.get('/trans/record', data, function (html) {
+                    $.get('/trans/record', {id: data.id}, function (html) {
                         main.popup({
                             title: '日志',
                             content: html,

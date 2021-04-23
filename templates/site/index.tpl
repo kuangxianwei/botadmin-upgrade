@@ -503,7 +503,7 @@
                     });
                     break;
                 case 'modify':
-                    $.get(url + '/modify', data, function (html) {
+                    $.get(url + '/modify', {id: data.id}, function (html) {
                         main.popup({
                             url: url + '/modify',
                             title: '修改网站设置',
@@ -514,7 +514,7 @@
                     });
                     break;
                 case 'link':
-                    $.get(url + '/link', data, function (html) {
+                    $.get(url + '/link', {id: data.id}, function (html) {
                         main.popup({
                             url: url + '/link',
                             title: '添改友链',
@@ -525,7 +525,7 @@
                     });
                     break;
                 case 'del_link':
-                    $.get(url + '/link', data, function (html) {
+                    $.get(url + '/link', {id: data.id}, function (html) {
                         main.popup({
                             url: url + '/del/link',
                             title: '删除友链',
@@ -536,7 +536,7 @@
                     });
                     break;
                 case 'pic_dir':
-                    $.get(url + '/image', data, function (html) {
+                    $.get(url + '/image', {id: data.id}, function (html) {
                         main.popup({
                             url: url + '/image',
                             title: '添加图片',

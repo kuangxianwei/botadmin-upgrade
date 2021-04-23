@@ -100,7 +100,7 @@
                     });
                     break;
                 case 'modify':
-                    $.get(url + "/modify", data, function (html) {
+                    $.get(url + "/modify", {username: data.username}, function (html) {
                         layer.open({
                             url: url + '/modify',
                             title: '修改客服',
