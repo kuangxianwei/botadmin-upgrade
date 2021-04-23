@@ -445,14 +445,7 @@
                     form.render();
                     break;
                 case 'reset-record':
-                    let keys = [];
-                    $.each(ids, function (i, id) {
-                        keys[i] = 'spider.' + id
-                    });
-                    main.req({
-                        url: '/record/reset',
-                        data: {keys: keys.join()},
-                    });
+                    main.reset.log('spider', ids);
                     break;
             }
         });

@@ -964,15 +964,7 @@
                     });
                     break;
                 case 'reset-record':
-                    let keys = [];
-                    $.each(ids, function (i, id) {
-                        keys[i] = 'site.' + id
-                    });
-                    keys.push('site.0');
-                    main.req({
-                        url: '/record/reset',
-                        data: {keys: keys.join()},
-                    });
+                    main.reset.log('site', ids);
                     break;
                 case 'export':
                     window.open(encodeURI('site/export?ids=' + ids.join()));

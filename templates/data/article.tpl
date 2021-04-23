@@ -384,14 +384,7 @@
                     });
                     break;
                 case 'reset-record':
-                    let keys = [];
-                    $.each(ids, function (i, id) {
-                        keys[i] = 'article.' + id
-                    })
-                    main.req({
-                        url: '/record/reset',
-                        data: {keys: keys.join()},
-                    });
+                    main.reset.log('article', ids);
                     break;
                 case 'delUsed':
                     layer.confirm('删除所有已经发布是文章列表？', function (index) {

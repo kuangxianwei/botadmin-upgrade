@@ -237,14 +237,7 @@
                     main.ws.log('statistic.0');
                     break;
                 case 'reset-record':
-                    let keys = [];
-                    $.each(ids, function (i, id) {
-                        keys[i] = 'statistic.' + id
-                    })
-                    main.req({
-                        url: '/record/reset',
-                        data: {keys: keys.join()},
-                    });
+                    main.reset.log('statistic', ids);
                     break;
             }
         });

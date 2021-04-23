@@ -225,14 +225,7 @@
                     main.ws.log('push_ad.0');
                     break;
                 case 'reset-record':
-                    let keys = [];
-                    $.each(ids, function (i, id) {
-                        keys[i] = 'statistic.' + id
-                    });
-                    main.req({
-                        url: '/record/reset',
-                        data: {keys: keys.join()},
-                    });
+                    main.reset.log('push_ad', ids);
                     break;
                 case 'jobs':
                     main.req({

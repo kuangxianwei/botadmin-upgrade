@@ -1095,6 +1095,24 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
         });
     };
+    main.reset = {
+        log: function (prefix, ids) {
+            if (!prefix) {
+                return;
+            }
+            ids = ids || [];
+            for (let i = 0; i < ids.length; i++) {
+                ids[i] = prefix + '.' + ids[i];
+            }
+            if (ids.length === 0) {
+                ids.push(prefix + '.0');
+            }
+            main.req({
+                url: '/record/reset',
+                data: {tokens: ids.join()},
+            });
+        },
+    };
     exports('main', main);
 });
 

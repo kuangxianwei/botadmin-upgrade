@@ -82,7 +82,7 @@
         $('[lay-filter="reset-record"]').click(function () {
             main.req({
                 url: '/record/reset',
-                data: {keys: 'collect.0'},
+                data: {tokens: 'collect.0'},
                 ending: function () {
                     $('#collect-display').val('');
                 }

@@ -214,14 +214,11 @@
                     });
                     break;
                 case 'reset-record':
-                    let keys = [];
+                    let ids = [];
                     for (let i = 0; i < data.length; i++) {
-                        keys[i] = "rank." + data[i].id;
+                        ids[i] = data[i].id;
                     }
-                    main.req({
-                        url: '/record/reset',
-                        data: {keys: keys.join()},
-                    });
+                    main.reset.log('rank', ids);
                     break;
                 case 'exec':
                     if (data.length === 0) {

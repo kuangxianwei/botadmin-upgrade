@@ -223,14 +223,7 @@
                     });
                     break;
                 case 'reset-record':
-                    let keys = [];
-                    $.each(ids, function (i, id) {
-                        keys[i] = 'monitor.' + id
-                    })
-                    main.req({
-                        url: '/record/reset',
-                        data: {keys: keys.join()},
-                    });
+                    main.reset.log('monitor', ids);
                     break;
             }
         });
