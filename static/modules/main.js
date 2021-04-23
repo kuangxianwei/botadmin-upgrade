@@ -1096,7 +1096,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         });
     };
     main.reset = {
-        log: function (prefix, ids) {
+        log: function (prefix, ids, options) {
             if (!prefix) {
                 return;
             }
@@ -1107,9 +1107,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             if (ids.length === 0) {
                 ids.push(prefix + '.0');
             }
-            main.req({
-                url: '/record/reset',
-                data: {tokens: ids.join()},
+            let tokens = ids.join();
+            layer.confirm('清空日志记录?' + tokens, function (index) {
+                main.req($.extend({
+                    url: '/record/reset',
+                    data: {tokens: tokens},
+                }, options || {}));
             });
         },
     };

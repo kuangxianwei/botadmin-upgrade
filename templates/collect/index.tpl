@@ -80,13 +80,11 @@
             }
         });
         $('[lay-filter="reset-record"]').click(function () {
-            main.req({
-                url: '/record/reset',
-                data: {tokens: 'collect.0'},
+            main.reset.log('collect', [0], {
                 ending: function () {
                     $('#collect-display').val('');
                 }
-            });
+            })
         });
         main.slider({elem: '#thread', value: {{$.obj.Thread}}, max: 100});
     });
