@@ -6,6 +6,13 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "18109977",
+      "name": "reset",
+      "font_class": "reset",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
       "icon_id": "6805277",
       "name": "Reset-Settings",
       "font_class": "reset-settings",
@@ -22,7 +29,7 @@
     {
       "icon_id": "20434768",
       "name": "Reset",
-      "font_class": "reset",
+      "font_class": "reset-big",
       "unicode": "e63c",
       "unicode_decimal": 58940
     },
