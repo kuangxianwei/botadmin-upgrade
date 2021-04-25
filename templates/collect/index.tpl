@@ -97,10 +97,15 @@
                 layer.msg("关键词列表为空");
                 return false;
             }
-            let vals = val.split("\n");
-            console.log(vals);
+            let vals = val.split("\n"), result = [];
+            vals.map(function (i, v) {
+                console.log(i, v);
+            });
+            return false;
             for (let i = 0; i < vals.length; i++) {
-                console.log(/^相关搜索词:(.*?)$/.exec(vals[i])[1].trim());
+                let vs = /^相关搜索词:(.*?)$/.exec(vals[i]) && vs[1];
+
+                console.log(/^相关搜索词:(.*?)$/.exec(vals[i]));
             }
 
             return false;
