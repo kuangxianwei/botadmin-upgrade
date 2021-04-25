@@ -92,11 +92,14 @@
             })
         });
         $('[lay-filter="copy-keywords"]').click(function () {
-            let val = $('#collect-display').val(), values = val.split("\n"), result = [],reg=/^相关搜索词:(.*?)$/;
+            let val = $('#collect-display').val(), values = val.split("\n"), result = [], reg = /^相关搜索词:(.*?)$/;
             for (let i = 0; i < values.length; i++) {
                 let rs = reg.exec(values[i]);
                 if (rs) {
-                    result.push(rs[1].trim());
+                    let keyword = rs[1].trim();
+                    if (result.indexOf(keyword) === -1) {
+                        result.push(keyword);
+                    }
                 }
             }
             if (!result) {
@@ -108,11 +111,14 @@
             });
         });
         $('[lay-filter="copy-urls"]').click(function () {
-            let val = $('#collect-display').val(), values = val.split("\n"), result = [], reg = /^(https?:\/\/\S+)/;
+            let val = $('#collect-display').val(), values = val.split("\n"), result = [], reg = /(https?:\/\/\S+)/;
             for (let i = 0; i < values.length; i++) {
                 let rs = reg.exec(values[i]);
                 if (rs) {
-                    result.push(rs[1].trim());
+                    let host = rs[1].trim();
+                    if (result.indexOf(host) === -1) {
+                        result.push(host);
+                    }
                 }
             }
             if (!result) {
