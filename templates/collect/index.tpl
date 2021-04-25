@@ -91,7 +91,7 @@
                 }
             })
         });
-        main.copy.on('[lay-filter="copy-keywords"]',"dddddddddddd",function () {
+        main.copy.on('[lay-filter="copy-keywords"]', "333333333", function () {
             layer.msg("复制成功");
         });
 
