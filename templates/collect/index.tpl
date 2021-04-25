@@ -37,8 +37,10 @@
                     <label class="layui-form-label" id="collect-status" style="min-width: 100px">状态:
                         <strong style="color: red" title="0">未运行</strong></label>
                     <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="reset-record">清空记录<i class="layui-icon layui-icon-delete"></i></label>
-                    <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="reset-record">清空记录<i class="layui-icon layui-icon-delete"></i></label>
-                    <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="reset-record">清空记录<i class="layui-icon layui-icon-delete"></i></label>
+                    <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="copy-urls">
+                        <i class="layui-icon iconfont icon-copy"></i>复制URL列表</label>
+                    <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="copy-keywords">
+                        <i class="layui-icon iconfont icon-copy"></i>复制关键词列表</label>
                     <textarea rows="20" class="layui-textarea layui-bg-black" id="collect-display"></textarea>
                 </div>
             </div>
