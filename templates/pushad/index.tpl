@@ -16,6 +16,9 @@
         <button class="layui-btn layui-btn-sm" lay-event="exec" id="LAY_layer_iframe_exec">
             <i class="layui-icon layui-icon-play"></i>执行
         </button>
+        <button class="layui-btn layui-btn-sm" lay-event="excludes" id="LAY_layer_iframe_excludes">
+            <i class="layui-icon layui-icon-edit"></i>排除
+        </button>
     </div>
     <div class="layui-btn-group">
         <button class="layui-btn  layui-btn-danger layui-btn-sm" lay-event="del" id="LAY_layer_iframe_del">
