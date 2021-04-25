@@ -99,9 +99,9 @@
             }
             let vals = val.split("\n");
             console.log(vals);
-            // for (let i = 0; i < vals.length; i++) {
-            //     console.log(/^相关搜索词:(.*?)$/.exec(content)[1].trim());
-            // }
+            for (let i = 0; i < vals.length; i++) {
+                console.log(/^相关搜索词:(.*?)$/.exec(vals[i])[1].trim());
+            }
 
             return false;
 
