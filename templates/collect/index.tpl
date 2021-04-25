@@ -91,8 +91,7 @@
                 }
             })
         });
-        let copy = main.copy();
-        copy.on('[lay-filter="copy-keywords"]',"dddddddddddd",function () {
+        main.copy.on('[lay-filter="copy-keywords"]',"dddddddddddd",function () {
             layer.msg("复制成功");
         });
 
