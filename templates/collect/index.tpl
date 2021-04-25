@@ -93,25 +93,18 @@
         });
         $('[lay-filter="copy-keywords"]').click(function () {
             let val = $('#collect-display').val();
-            if (!val) {
+            let vals=val.split("\n"),result=[];
+            for (let i=0;i<vals.length;i++){
+                let vs = /^相关搜索词:(.*?)$/.exec(vals[i]);
+                if (vs) {
+                    result.push(vs[1].trim());
+                }
+            }
+            if (!result) {
                 layer.msg("关键词列表为空");
                 return false;
             }
-            let vals = val.split("\n"), result = [];
-            vals.map(function (i, v) {
-                console.log(i, v);
-            });
-            return false;
-            for (let i = 0; i < vals.length; i++) {
-                let vs = /^相关搜索词:(.*?)$/.exec(vals[i]) && vs[1];
-
-                console.log(/^相关搜索词:(.*?)$/.exec(vals[i]));
-            }
-
-            return false;
-
-
-            main.copy.exec('[lay-filter="copy-keywords"]', "333333333", function () {
+            main.copy.exec('[lay-filter="copy-keywords"]', result.join("\n"), function () {
                 layer.msg("复制成功");
             });
         });
