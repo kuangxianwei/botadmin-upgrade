@@ -216,6 +216,12 @@
                             });
                         });
                     break;
+                case 'excludes':
+                    main.popup({
+                        title:'排除列表',
+                        content:'<textarea class="layui-textarea"></textarea>',
+                    });
+                    break;
                 case 'truncate':
                     layer.confirm('清空全部数据，确定清空？', function (index) {
                         main.req({
