@@ -91,13 +91,25 @@
                 }
             })
         });
-        main.copy.on('[lay-filter="copy-keywords"]', "333333333", function () {
-            layer.msg("复制成功");
-        });
+        $('[lay-filter="copy-keywords"]').click(function () {
+            let val = $('#collect-display').val();
+            if (!val) {
+                layer.msg("关键词列表为空");
+                return false;
+            }
+            let vals = val.split("\n");
+            console.log(vals);
+            // for (let i = 0; i < vals.length; i++) {
+            //     console.log(/^相关搜索词:(.*?)$/.exec(content)[1].trim());
+            // }
 
-        // $('[lay-filter="copy-keywords"]').click(function () {
-        //     main.copy();
-        // });
+            return false;
+
+
+            main.copy.exec('[lay-filter="copy-keywords"]', "333333333", function () {
+                layer.msg("复制成功");
+            });
+        });
         main.slider({elem: '#thread', value: {{$.obj.Thread}}, max: 100});
     });
 </script>
