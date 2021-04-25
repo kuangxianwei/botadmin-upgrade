@@ -79,48 +79,46 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
             };
             // 复制
-            this.copy = function () {
-                return new function () {
-                    this.exec = function (value, callback) {
-                        let flag, textarea = document.createElement("textarea"),
-                            currentFocus = document.activeElement,
-                            body = document.getElementsByTagName("body")[0];
-                        body.appendChild(textarea);
-                        textarea.value = value;
-                        textarea.readonly = "readonly";
-                        textarea.focus({preventScroll: true});
-                        if (textarea.setSelectionRange) {
-                            textarea.setSelectionRange(0, textarea.value.length);
-                        } else {
-                            textarea.select();
-                        }
-                        try {
-                            flag = document.execCommand("copy");
-                        } catch (e) {
-                            console.log(e);
-                            flag = false;
-                        }
-                        body.removeChild(textarea);
-                        currentFocus.focus({preventScroll: true});
-                        if (flag && typeof callback === "function") {
-                            callback(value);
-                        }
-                        return flag;
-                    };
-                    this.on = function (selector, value, callback) {
-                        const self = document.querySelector(selector);
-                        if (typeof value === "undefined") {
-                            value = self.getAttribute("copy-text");
-                        } else if (typeof value === "function") {
-                            callback = value;
-                            value = self.getAttribute("copy-text");
-                        }
-                        self.addEventListener('click', () => {
-                            this.exec(value, callback);
-                        });
-                    };
-                };
-            }();
+            this.copy = {
+                exec: function (value, callback) {
+                    let flag, textarea = document.createElement("textarea"),
+                        currentFocus = document.activeElement,
+                        body = document.getElementsByTagName("body")[0];
+                    body.appendChild(textarea);
+                    textarea.value = value;
+                    textarea.readonly = "readonly";
+                    textarea.focus({preventScroll: true});
+                    if (textarea.setSelectionRange) {
+                        textarea.setSelectionRange(0, textarea.value.length);
+                    } else {
+                        textarea.select();
+                    }
+                    try {
+                        flag = document.execCommand("copy");
+                    } catch (e) {
+                        console.log(e);
+                        flag = false;
+                    }
+                    body.removeChild(textarea);
+                    currentFocus.focus({preventScroll: true});
+                    if (flag && typeof callback === "function") {
+                        callback(value);
+                    }
+                    return flag;
+                },
+                on: function (selector, value, callback) {
+                    const self = document.querySelector(selector);
+                    if (typeof value === "undefined") {
+                        value = self.getAttribute("copy-text");
+                    } else if (typeof value === "function") {
+                        callback = value;
+                        value = self.getAttribute("copy-text");
+                    }
+                    self.addEventListener('click', () => {
+                        this.exec(value, callback);
+                    });
+                },
+            };
         }
 
         // ajax 请求
