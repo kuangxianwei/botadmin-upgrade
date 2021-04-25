@@ -217,9 +217,9 @@
                         });
                     break;
                 case 'excludes':
-                    $.get(url+'/exclude',function (html) {
+                    $.get(url + '/exclude', function (html) {
                         main.popup({
-                            url:url+'/exclude',
+                            url: url + '/exclude',
                             title: '排除列表',
                             content: html,
                         });
