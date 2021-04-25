@@ -107,14 +107,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     return flag;
                 },
                 on: function (selector, value, callback) {
-                    const self = document.querySelector(selector);
+                    const elem = document.querySelector(selector);
                     if (typeof value === "undefined") {
-                        value = self.getAttribute("copy-text");
+                        value = elem.getAttribute("copy-text");
                     } else if (typeof value === "function") {
                         callback = value;
-                        value = self.getAttribute("copy-text");
+                        value = elem.getAttribute("copy-text");
                     }
-                    self.addEventListener('click', () => {
+                    elem.addEventListener('click', () => {
                         this.exec(value, callback);
                     });
                 },
