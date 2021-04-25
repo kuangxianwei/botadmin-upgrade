@@ -218,8 +218,8 @@
                     break;
                 case 'excludes':
                     main.popup({
-                        title:'排除列表',
-                        content:'<textarea class="layui-textarea"></textarea>',
+                        title: '排除列表',
+                        content: '<div class="layui-card layui-form"><div class="layui-card-body"><textarea name="excludes" class="layui-textarea"></textarea></div></div>',
                     });
                     break;
                 case 'truncate':
