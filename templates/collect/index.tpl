@@ -37,7 +37,7 @@
                     <label class="layui-form-label" id="collect-status" style="min-width: 100px">状态:
                         <strong style="color: red" title="0">未运行</strong></label>
                     <label class="layui-form-label" style="color:#22849b;cursor: pointer" lay-filter="copy-urls">
-                        <i class="layui-icon iconfont icon-copy"></i>域名</label>
+                        <i class="layui-icon iconfont icon-copy"></i>URL</label>
                     <label class="layui-form-label" style="color:#22849b;cursor: pointer" lay-filter="copy-keywords">
                         <i class="layui-icon iconfont icon-copy"></i>关键词</label>
                     <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="reset-record">
@@ -92,19 +92,34 @@
             })
         });
         $('[lay-filter="copy-keywords"]').click(function () {
-            let val = $('#collect-display').val();
-            let vals=val.split("\n"),result=[];
-            for (let i=0;i<vals.length;i++){
-                let vs = /^相关搜索词:(.*?)$/.exec(vals[i]);
-                if (vs) {
-                    result.push(vs[1].trim());
+            let val = $('#collect-display').val(), values = val.split("\n"), result = [],reg=/^相关搜索词:(.*?)$/;
+            for (let i = 0; i < values.length; i++) {
+                let rs = reg.exec(values[i]);
+                if (rs) {
+                    result.push(rs[1].trim());
                 }
             }
             if (!result) {
                 layer.msg("关键词列表为空");
                 return false;
             }
-            main.copy.exec('[lay-filter="copy-keywords"]', result.join("\n"), function () {
+            main.copy.exec(result.join("\n"), function () {
+                layer.msg("复制成功");
+            });
+        });
+        $('[lay-filter="copy-urls"]').click(function () {
+            let val = $('#collect-display').val(), values = val.split("\n"), result = [], reg = /^(https?:\/\/\S+)/;
+            for (let i = 0; i < values.length; i++) {
+                let rs = reg.exec(values[i]);
+                if (rs) {
+                    result.push(rs[1].trim());
+                }
+            }
+            if (!result) {
+                layer.msg("关键词列表为空");
+                return false;
+            }
+            main.copy.exec(result.join("\n"), function () {
                 layer.msg("复制成功");
             });
         });
