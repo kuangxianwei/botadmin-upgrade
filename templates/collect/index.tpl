@@ -91,6 +91,14 @@
                 }
             })
         });
+        let copy = main.copy();
+        copy.on('[lay-filter="copy-keywords"]',"dddddddddddd",function () {
+            layer.msg("复制成功");
+        });
+
+        // $('[lay-filter="copy-keywords"]').click(function () {
+        //     main.copy();
+        // });
         main.slider({elem: '#thread', value: {{$.obj.Thread}}, max: 100});
     });
 </script>
