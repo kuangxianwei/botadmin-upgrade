@@ -217,9 +217,12 @@
                         });
                     break;
                 case 'excludes':
-                    main.popup({
-                        title: '排除列表',
-                        content: '<div class="layui-card layui-form" style="height:90%"><div class="layui-card-body" style="height:100%"><textarea name="excludes" class="layui-textarea" style="height:100%;background-color:black;color:white"></textarea><button type="submit" class="layui-hide" lay-submit></button></div></div>',
+                    $.get(url+'/exclude',function (html) {
+                        main.popup({
+                            url:url+'/exclude',
+                            title: '排除列表',
+                            content: html,
+                        });
                     });
                     break;
                 case 'truncate':
