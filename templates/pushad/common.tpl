@@ -23,7 +23,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">来路:</label>
             <div class="layui-input-block">
-                <input type="text" name="referer" class="layui-input" value="{{.obj.Referer}}">
+                <input class="layui-input" type="text" name="referer" value="{{.obj.Referer}}"  autocomplete="off"
+                       placeholder="https://www.baidu.com/link?url=NoenN79vm4eBPSsCAWv-hjPlywSmVRQxEDDoc40JXbIcUD5qTtvXSQGvvXxiPy2E&wd=&eqid=e4e02e220005eb0500000006606fb94d" >
             </div>
         </div>
         <div class="layui-form-item layui-hide">
