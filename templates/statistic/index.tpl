@@ -47,6 +47,9 @@
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
+        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i>
+        </button>
     </div>
 </script>
 <script type="text/html" id="configure">
@@ -163,6 +166,9 @@
                             ending: 'table-list',
                         });
                     });
+                    break;
+                case 'log':
+                    main.ws.log('statistic.' + data.id);
                     break;
             }
         });
