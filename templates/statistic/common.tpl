@@ -13,6 +13,13 @@
                        class="layui-input" placeholder="http://www.botadmin.cn" value="{{.obj.Origin}}">
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题:</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" lay-verify="required" autocomplete="off"
+                       class="layui-input" placeholder="站掌门站群-免费站群系统_批量建站_自动采集程序CMS" value="{{.obj.Title}}">
+            </div>
+        </div>
         <fieldset class="layui-elem-field">
             <legend>控制列表</legend>
             <div lay-filter="controls"></div>

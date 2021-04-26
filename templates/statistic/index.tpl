@@ -1,4 +1,25 @@
 <div class="layui-card">
+    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item" id="form-search" lay-event="search">
+            <div class="layui-inline">
+                <label class="layui-form-label">域名:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="origin" placeholder="www.botadmin.cn" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">标题:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="title" placeholder="站掌门" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
+                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                </button>
+            </div>
+        </div>
+    </div>
     <div class="layui-card-body">
         <table id="table-list" lay-filter="table-list"></table>
     </div>
@@ -115,7 +136,7 @@
                     }
                 },
                 {field: 'origin', title: '源'},
-                {field: 'title', title: '标题', hide: true},
+                {field: 'title', title: '标题'},
                 {
                     field: 'controls', title: '控制列表', align: 'center', templet: function (d) {
                         return JSON.stringify(d.controls);
@@ -245,6 +266,34 @@
                 case 'reset-record':
                     main.reset.log('statistic', ids);
                     break;
+            }
+        });
+
+        //监听搜索
+        form.on('submit(search)', function (data) {
+            let field = data.field, cols = [];
+            $.each(field, function (k, v) {
+                if (v) {
+                    cols.push(k);
+                } else {
+                    delete field[k];
+                }
+            });
+            field.cols = cols.join();
+            if (!field.cols) {
+                return location.reload();
+            }
+            //执行重载
+            table.reload('table-list', {
+                where: field,
+                page: {curr: 1}
+            });
+            return false;
+        });
+        // enter 搜索
+        $('[lay-event=search] input').keydown(function (event) {
+            if (event.keyCode === 13) {
+                $('[lay-filter="search"]').click();
             }
         });
     });
