@@ -137,7 +137,7 @@
                         main.popup({
                             title: '修改',
                             url: url + '/modify',
-                            area: ['800px', '500px'],
+                            area: ['800px', 'auto'],
                             content: html,
                             ending: 'table-list',
                         });
@@ -163,7 +163,7 @@
                         main.popup({
                             title: '添加',
                             url: url + '/add',
-                            area: ['800px', '400px'],
+                            area: ['800px', 'auto'],
                             content: html,
                             ending: 'table-list',
                         });

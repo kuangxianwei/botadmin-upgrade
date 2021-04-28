@@ -14,17 +14,38 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">Cron:</label>
+            <label class="layui-form-label" lay-tips="定时规则">Cron:</label>
             <div class="layui-input-inline">
                 <input type="text" name="spec" class="layui-input" value="{{.obj.Spec}}">
             </div>
             <div class="layui-form-mid layui-word-aux">定时执行任务</div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">来路:</label>
+            <label class="layui-form-label" lay-tips="第三方来路页面，例如百度搜索来路">来路:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" name="referer" value="{{.obj.Referer}}"  autocomplete="off"
-                       placeholder="https://www.baidu.com/link?url=NoenN79vm4eBPSsCAWv-hjPlywSmVRQxEDDoc40JXbIcUD5qTtvXSQGvvXxiPy2E&wd=&eqid=e4e02e220005eb0500000006606fb94d" >
+                <input class="layui-input" type="text" name="referer" value="{{.obj.Referer}}" autocomplete="off"
+                       placeholder="https://www.baidu.com/link?url=NoenN79vm4eBPSsCAWv-hjPlywSmVRQxEDDoc40JXbIcUD5qTtvXSQGvvXxiPy2E&wd=&eqid=e4e02e220005eb0500000006606fb94d">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" lay-tips="搜索引擎搜索关键词">搜索词:</label>
+            <div class="layui-input-block">
+                <input class="layui-input" type="text" name="search_keyword" value="{{.obj.SearchKeyword}}" autocomplete="off"
+                       placeholder="站掌门">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" lay-tips="入口页面URL 默认为空">入口页面:</label>
+            <div class="layui-input-block">
+                <input class="layui-input" type="text" name="entrance" value="{{.obj.Entrance}}" autocomplete="off"
+                       placeholder="http://www.botadmin.cn/">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" lay-tips="后缀加广告词 默认为空">后缀广告:</label>
+            <div class="layui-input-block">
+                <input class="layui-input" type="text" name="suffix" value="{{.obj.Suffix}}" autocomplete="off"
+                       placeholder="站掌门站群">
             </div>
         </div>
         <div class="layui-form-item layui-hide">
