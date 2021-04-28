@@ -7,6 +7,13 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label" lay-tips="延迟时间秒">延迟:</label>
+            <div class="layui-input-block">
+                <div id="slow" class="slider-block"></div>
+                <input type="hidden" name="slow" class="layui-input" value="{{print .obj.Slow}}">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="指定执行任务范围">范围:</label>
             <div class="layui-input-block">
                 <div id="range" class="slider-block"></div>
@@ -59,6 +66,9 @@
         let main = layui.main,
             count ={{.count}};
         main.cron('[name="spec"]');
-        main.slider({elem: '#range', range: true, min: 1, max: count || 0});
+        main.slider(
+            {elem: '#range', range: true, min: 1, max: count || 0},
+            {elem: '#slow', range: true, min: 0, max: 100},
+        );
     });
 </script>
