@@ -28,11 +28,16 @@
             <div class="layui-form-mid layui-word-aux">定时执行任务</div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" lay-tips="第三方来路页面，例如百度搜索来路">来路:</label>
-            <div class="layui-input-block">
-                <input class="layui-input" type="text" name="referer" value="{{.obj.Referer}}" autocomplete="off"
-                       placeholder="https://www.baidu.com/link?url=NoenN79vm4eBPSsCAWv-hjPlywSmVRQxEDDoc40JXbIcUD5qTtvXSQGvvXxiPy2E&wd=&eqid=e4e02e220005eb0500000006606fb94d">
+            <label class="layui-form-label">搜索引擎:</label>
+            <div class="layui-input-inline">
+                <select class="layui-select" name="search_engine">
+                    <option value="">随机</option>
+                    {{range .searches -}}
+                        <option value="{{.Name}}"{{if eq .Name $.obj.SearchEngine}} selected{{end}}>{{.Alias}}</option>
+                    {{end -}}
+                </select>
             </div>
+            <div class="layui-form-mid layui-word-aux">第三方来路页面，例如百度搜索来路</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="搜索引擎搜索关键词">搜索词:</label>
@@ -44,7 +49,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="入口页面URL 默认为空">入口页面:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" name="entrance" value="{{.obj.Entrance}}" autocomplete="off"
+                <input class="layui-input" type="text" name="referer" value="{{.obj.Referer}}" autocomplete="off"
                        placeholder="http://www.botadmin.cn/">
             </div>
         </div>
