@@ -349,6 +349,7 @@
             element = layui.element,
             main = layui.main,
             url = {{.current_uri}},
+            status = {{.status}},
             //渲染上传配置
             importConfig = upload.render({
                 headers: {'X-CSRF-Token':{{.csrf_token}}},
@@ -397,19 +398,9 @@
                 },
                 {
                     field: 'status', title: '状态', sort: true, width: 100, templet: function (d) {
-                        switch (d.status) {
-                            case 0:
-                                return '准备就绪';
-                            case 1:
-                                return '创建完成';
-                            case 2:
-                                return '安装完成';
-                            case 3:
-                                return '本地-正常';
-                            case 4:
-                                return '外部-正常';
-                        }
-                        return '未知';
+                        status = status || [];
+                        let _status = status[d.status];
+                        return '<strong style="color:' + _status.color + '" lay-tips="' + _status.alias + '">' + _status.name + '</strong>';
                     }
                 },
                 {

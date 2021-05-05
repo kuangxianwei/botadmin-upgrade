@@ -104,9 +104,9 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">状态:</label>
                         <div class="layui-input-inline">
-                            <select name="status">
-                                {{range $i,$v:=.status}}
-                                    <option value="{{$i}}" {{if eq $.obj.Status $i}} selected{{end}}>{{$v}}</option>
+                            <select name="status" class="layui-select">
+                                {{range .status}}
+                                    <option value="{{.Index}}" {{if eq $.obj.Status .Index}} selected{{end}}>{{.Alias}}</option>
                                 {{end}}
                             </select>
                         </div>
