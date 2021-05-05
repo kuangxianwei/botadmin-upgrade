@@ -254,7 +254,7 @@ background: #2b2b2b !important;
 <span class="list-more"><a target="_blank" target="_blank" href="[!--titleurl--]">阅读全文</a></span>
 <span class="list-fenlei"><i class="am-icon-user"></i>[!--class.name--]</span>
 <span class="list-sj">发布日期:[!--newstime--]</span>
-<span>阅读10W+</span>
+<span>阅读[!--onclick--]</span>
 </div>
 </div>
 </li>
@@ -384,7 +384,7 @@ foreach($tags as $tag){?>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="shortcut icon" href="http://004.mipmb.cn/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="[!--news.url--]skin/custom/favicon.ico" type="image/x-icon" />
 <title>[!--pagetitle--]</title>
 <meta name="keywords" content="[!--pagekey--]">
 <meta name="description" content="[!--pagedes--]">
@@ -503,7 +503,7 @@ background: #2b2b2b !important;
 <span class="list-more"><a target="_blank" target="_blank" href="<?=$bqsr['titleurl']?>">阅读全文</a></span>
 <span class="list-fenlei"><i class="am-icon-user"></i><?= $bqsr['classname'] ?></span>
 <span class="list-sj">发布日期:<?= date('Y-m-d H:i:s', $bqr['newstime']) ?></span>
-<span>阅读10W+</span>
+<span>阅读<?=$bqr[onclick]?></span>
 </div>
 </div>
 </li>
@@ -1332,7 +1332,7 @@ background: #2b2b2b !important;
 <span class="list-more"><a target="_blank" target="_blank" href="<?=$bqsr['titleurl']?>">阅读全文</a></span>
 <span class="list-fenlei"><i class="am-icon-user"></i><?= $bqsr['classname'] ?></span>
 <span class="list-sj">发布日期:<?= date('Y-m-d H:i:s', $bqr['newstime']) ?></span>
-<span>阅读10W+</span>
+<span>阅读<?=$bqr[onclick]?></span>
 </div>
 </div>
 </li>

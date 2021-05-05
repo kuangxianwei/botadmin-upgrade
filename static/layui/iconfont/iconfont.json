@@ -6,6 +6,41 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "5747659",
+      "name": "Task Statistics",
+      "font_class": "statistic",
+      "unicode": "e72d",
+      "unicode_decimal": 59181
+    },
+    {
+      "icon_id": "20312928",
+      "name": "百度",
+      "font_class": "baidu-1",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "1491713",
+      "name": "广告管理",
+      "font_class": "ad-small",
+      "unicode": "e6b5",
+      "unicode_decimal": 59061
+    },
+    {
+      "icon_id": "6263314",
+      "name": "广告管理",
+      "font_class": "ad-big",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "19009793",
+      "name": "广告-advertisement",
+      "font_class": "ad",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
       "icon_id": "18109977",
       "name": "reset",
       "font_class": "reset",
