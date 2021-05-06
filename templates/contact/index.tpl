@@ -70,7 +70,7 @@
                     }
                 },
                 {field: 'username', title: '用户名', minWidth: 100},
-                {field: 'alias', title: '别名', hide: true},
+                {field: 'alias', title: '别名', minWidth: 100},
                 {field: 'wechat', title: '微信', minWidth: 100},
                 {field: 'phone', title: '手机', minWidth: 100},
                 {field: 'qr', title: '二维码', hide: true},
