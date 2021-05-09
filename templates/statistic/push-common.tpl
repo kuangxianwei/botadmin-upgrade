@@ -75,12 +75,19 @@
 <script>
     layui.use(['main'], function () {
         let main = layui.main,
-            count ={{.count}};
+            count ={{.count}},
+            custom_engine = {{.obj.CustomEngine}};
+            if (custom_engine){
+                $(".custom-engine").addClass("layui-show");
+            }else{
+                $(".custom-engine").addClass("layui-hide");
+            }
         main.cron('[name="spec"]');
         main.slider(
             {elem: '#range', range: true, min: 1, max: count || 0},
             {elem: '#slow', range: true, min: 0, max: 100},
         );
+
         layui.form.on('select(search-engine)', function (obj) {
             if (obj.value) {
                 $(".custom-engine").removeClass("layui-hide").addClass("layui-show").find('input').focus();
