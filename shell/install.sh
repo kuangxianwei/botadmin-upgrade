@@ -3,47 +3,76 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin:/usr/local/mysql/bin
 export PATH
 [[ $(id -u) -ne 0 ]] && echo "Error: You must be root to run this script!" 1>&2 && exit 1
+# 默认NGINX启用 第三方过滤替换模块 ngx_filter=off 为不启用
+Ngx_filter=on
+# 默认下载镜像源
+Mirror="https://github.com/kuangxianwei/botadmin/archive/master.zip"
+# app 安装目录
 APP_DIR=/data/botadmin
+# app 程序
 # shellcheck disable=SC2034
 APP=$APP_DIR/botadmin
 test -d /data || mkdir /data
 pushd /data || exit 1
-# 添加chromium 安装缺失的依赖库
-echo "添加chromium 安装缺失的依赖库"
-if ! yum install -y \
-  alsa-lib.x86_64 \
-  atk.x86_64 \
-  cups-libs.x86_64 \
-  GConf2.x86_64 \
-  gtk3.x86_64 \
-  ipa-gothic-fonts \
-  libXcomposite.x86_64 \
-  libXcursor.x86_64 \
-  libXdamage.x86_64 \
-  libXext.x86_64 \
-  libXi.x86_64 \
-  libXrandr.x86_64 \
-  libXScrnSaver.x86_64 \
-  libXtst.x86_64 \
-  pango.x86_64 \
-  wqy-unibit-fonts.noarch \
-  wqy-zenhei-fonts.noarch \
-  xorg-x11-fonts-100dpi \
-  xorg-x11-fonts-75dpi \
-  xorg-x11-fonts-cyrillic \
-  xorg-x11-fonts-misc \
-  xorg-x11-fonts-Type1 \
-  xorg-x11-utils; then
-  echo "安装chromium缺失的依赖库失败" 1>&2
-  exit 1
-fi
 
+Set_params() {
+  # 参数 mirror=cn 则下载国内的镜像
+  # 直接指定 mirror=https://github.com/kuangxianwei/botadmin/archive/master.zip
+  # 默认是Github下载
+  for param in "$@"; do
+    if [[ "$param" =~ ^mirror= ]]; then
+      case "${param#*=}" in
+      [cC][nN])
+        Mirror="http://download.botadmin.cn/master.zip"
+        ;;
+      http://* | https://*)
+        Mirror="${param#*=}"
+        ;;
+      esac
+    elif [[ "$param" =~ ^ngx_filter= ]]; then
+      Ngx_filter="${param#*=}"
+    fi
+  done
+}
+# 设置参数
+Set_params "$@"
+# 添加chromium 安装缺失的依赖库
+Install_chromium() {
+  echo "添加chromium 安装缺失的依赖库"
+  if ! yum install -y \
+    alsa-lib.x86_64 \
+    atk.x86_64 \
+    cups-libs.x86_64 \
+    GConf2.x86_64 \
+    gtk3.x86_64 \
+    ipa-gothic-fonts \
+    libXcomposite.x86_64 \
+    libXcursor.x86_64 \
+    libXdamage.x86_64 \
+    libXext.x86_64 \
+    libXi.x86_64 \
+    libXrandr.x86_64 \
+    libXScrnSaver.x86_64 \
+    libXtst.x86_64 \
+    pango.x86_64 \
+    wqy-unibit-fonts.noarch \
+    wqy-zenhei-fonts.noarch \
+    xorg-x11-fonts-100dpi \
+    xorg-x11-fonts-75dpi \
+    xorg-x11-fonts-cyrillic \
+    xorg-x11-fonts-misc \
+    xorg-x11-fonts-Type1 \
+    xorg-x11-utils; then
+    echo "安装chromium缺失的依赖库失败" 1>&2
+    return 1
+  fi
+}
 #下载程序#
 Download_botadmin() {
   if test ! -d botadmin; then
     if test ! -f botadmin-master.zip; then
       \rm -rf botadmin-master.zip
-      if ! wget -cO botadmin-master.zip https://github.com/kuangxianwei/botadmin/archive/master.zip; then
+      if ! wget -cO botadmin-master.zip $Mirror; then
         echo "下载失败" 2>&1
         \rm -rf botadmin-master.zip
         exit 1
@@ -175,7 +204,8 @@ EOF
     exit 1
   fi
 }
-
+# 添加chromium 安装缺失的依赖库
+Install_chromium
 #下载解压程序#
 Download_botadmin
 #写入脚本#
@@ -199,7 +229,7 @@ tar -jxvf ./ngx_http_substitutions_filter_module.tar.bz2 || exit 1
 tar -jxvf ./ngx_cache_purge-2.3.tar.bz2 || exit 1
 pushd "${APP_DIR}/shell/lnmp" || exit 1
 # NGINX 添加模块#
-if [ "$1" = "plus" ]; then
+if [ "$Ngx_filter" = "on" ]; then
   #lnmp 配置
   cat >"${APP_DIR}/shell/lnmp/lnmp.conf" <<EOF
 Download_Mirror='https://soft.vpser.net'
