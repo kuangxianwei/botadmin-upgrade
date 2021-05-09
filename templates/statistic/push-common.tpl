@@ -30,14 +30,20 @@
         <div class="layui-form-item">
             <label class="layui-form-label">搜索引擎:</label>
             <div class="layui-input-inline">
-                <select class="layui-select" name="search_engine">
+                <select class="layui-select" name="search_engine" lay-filter="search-engine">
                     {{range .searches -}}
                         <option value="{{.Name}}"{{if eq .Name $.obj.SearchEngine}} selected{{end}}>{{.Alias}}</option>
                     {{end -}}
-                    <option value="">随机</option>
+                    <option value="">自定义</option>
                 </select>
             </div>
             <div class="layui-form-mid layui-word-aux">第三方来路页面，例如百度搜索来路</div>
+        </div>
+        <div class="layui-form-item custom-engine">
+            <label class="layui-form-label">自定义引擎:</label>
+            <div class="layui-input-block">
+                <input type="text" name="custom_engine" class="layui-input" value="{{.obj.CustomEngine}}" placeholder="http://www.botadmin.cn/">
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="搜索引擎搜索关键词">搜索词:</label>
@@ -75,5 +81,8 @@
             {elem: '#range', range: true, min: 1, max: count || 0},
             {elem: '#slow', range: true, min: 0, max: 100},
         );
+        layui.form.on('select(search-engine)', function (value) {
+            console.log(value);
+        });
     });
 </script>
