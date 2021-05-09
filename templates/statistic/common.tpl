@@ -9,14 +9,14 @@
         <div class="layui-form-item">
             <label class="layui-form-label">源:</label>
             <div class="layui-input-block">
-                <input type="text" name="origin" lay-verify="required" autocomplete="off"
+                <input type="text" name="origin" lay-verify="required"
                        class="layui-input" placeholder="http://www.botadmin.cn" value="{{.obj.Origin}}">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">标题:</label>
             <div class="layui-input-block">
-                <input type="text" name="title" lay-verify="required" autocomplete="off"
+                <input type="text" name="title" lay-verify="required"
                        class="layui-input" placeholder="站掌门站群-免费站群系统_批量建站_自动采集程序CMS" value="{{.obj.Title}}">
             </div>
         </div>

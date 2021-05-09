@@ -31,19 +31,19 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">用户名:</label>
                             <div class="layui-input-block">
-                                <input type="text" name="username" value="{{.base.Username}}" class="layui-input" autocomplete="off" placeholder="用户名">
+                                <input type="text" name="username" value="{{.base.Username}}" class="layui-input" placeholder="用户名">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">Host:</label>
                             <div class="layui-input-block">
-                                <input type="text" name="addr" value="{{.base.Addr}}" class="layui-input" autocomplete="off" placeholder="localhost">
+                                <input type="text" name="addr" value="{{.base.Addr}}" class="layui-input" placeholder="localhost">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">端口:</label>
                             <div class="layui-input-block">
-                                <input type="number" name="port" value="{{.base.Port}}" class="layui-input" autocomplete="off" placeholder="8080">
+                                <input type="number" name="port" value="{{.base.Port}}" class="layui-input" placeholder="8080">
                             </div>
                         </div>
                     </div>
@@ -383,9 +383,9 @@
                         url: url + '/ban/test',
                         area: ['70%', '70%'],
                         tips: function (res) {
-                            main.msg(`<textarea class="layui-textarea layui-bg-black" name="content" rows="10" style="color: white;">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});
+                            main.msg(`<textarea class="layui-textarea" name="content" rows="10">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});
                         },
-                        content: '<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea layui-bg-black" name="content" rows="15" style="color: white;">输入需要检查的内容...</textarea></div><div class="layui-hide"><button class="layui-btn" lay-submit lay-filter="submit"></button></div></div></div>'
+                        content: '<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" name="content" rows="15" placeholder="输入需要检查的内容..."></textarea></div><div class="layui-hide"><button class="layui-btn" lay-submit lay-filter="submit"></button></div></div></div>'
                     });
                     break;
                 case 'edit-ban':

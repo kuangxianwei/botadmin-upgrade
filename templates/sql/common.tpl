@@ -4,14 +4,14 @@
             <label class="layui-form-label">用户名:</label>
             <div class="layui-input-inline">
                 <input type="text" name="username" value="{{.obj.Username}}" required lay-verify="required"
-                       class="layui-input" autocomplete="off"
+                       class="layui-input"
                        placeholder="6-15个字符，由字母、数字、下划线组成"{{if ne .obj.Id 0}} disabled{{end}}>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码:</label>
             <div class="layui-input-inline">
-                <input type="text" name="password" value="{{.obj.Password}}" autocomplete="off"
+                <input type="text" name="password" value="{{.obj.Password}}"
                        placeholder="6-15个字符，由字母、数字、下划线组成" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">留空为8位随机密码</div>
@@ -28,7 +28,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">数据库名:</label>
             <div class="layui-input-inline">
-                <input type="text" name="dbname" value="{{.obj.Dbname}}" autocomplete="off"
+                <input type="text" name="dbname" value="{{.obj.Dbname}}"
                        placeholder="留空为用户名" class="layui-input"{{if ne .obj.Id 0}} disabled{{end}}>
             </div>
         </div>
@@ -60,7 +60,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">备注:</label>
             <div class="layui-input-block">
-                <input type="text" name="note" value="{{.obj.Note}}" autocomplete="off"
+                <input type="text" name="note" value="{{.obj.Note}}"
                        placeholder="备注" class="layui-input">
             </div>
         </div>

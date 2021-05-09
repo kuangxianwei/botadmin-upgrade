@@ -21,7 +21,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">名称:</label>
             <div class="layui-input-inline">
-                <input type="text" name="name" value="{{.obj.Name}}" autocomplete="off" placeholder="名称"
+                <input type="text" name="name" value="{{.obj.Name}}" placeholder="名称"
                        class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">样式名称</div>

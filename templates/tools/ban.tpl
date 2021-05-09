@@ -1,8 +1,7 @@
 <div class="layui-card">
     <div class="layui-card-header layuiadmin-card-header-auto layui-form">
         <div class="layui-form-item">
-            <textarea class="layui-textarea layui-bg-black" name="content" rows="12"
-                      style="color: white;"></textarea>
+            <textarea class="layui-textarea" name="content" rows="12"></textarea>
         </div>
         <div class="layui-form-item">
             <div class="layui-btn-group">
@@ -11,8 +10,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <textarea class="layui-textarea layui-bg-black layui-hide" rows="12"
-                      style="color: white;" id="display"></textarea>
+            <textarea class="layui-textarea layui-hide" rows="12" id="display"></textarea>
         </div>
     </div>
 </div>

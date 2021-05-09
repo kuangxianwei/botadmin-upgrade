@@ -42,7 +42,7 @@
                         <i class="layui-icon iconfont icon-copy"></i>关键词</label>
                     <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="reset-record">
                         <i class="layui-icon layui-icon-delete"></i>记录</label>
-                    <textarea rows="20" class="layui-textarea layui-bg-black" id="collect-display"></textarea>
+                    <textarea rows="20" class="layui-textarea" id="collect-display"></textarea>
                 </div>
             </div>
         </div>

@@ -28,7 +28,7 @@
             <div class="layui-col-md4">
                 <label class="layui-form-label" lay-tips="值越大越排后面">排序:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="sort" value="{{.obj.Sort}}" autocomplete="off" placeholder="0"
+                    <input type="text" name="sort" value="{{.obj.Sort}}" placeholder="0"
                            class="layui-input">
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">别名:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="alias" value="{{.obj.Alias}}" autocomplete="off" placeholder="李谊"
+                        <input type="text" name="alias" value="{{.obj.Alias}}" placeholder="李谊"
                                class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">填写姓名</div>
@@ -127,7 +127,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">在线咨询:</label>
             <div class="layui-input-inline" style="width: 50%">
-                <input name="consult" value="{{.obj.Consult}}" autocomplete="off"
+                <input name="consult" value="{{.obj.Consult}}"
                        placeholder="http://p.qiao.baidu.com/cps/chat?siteId=15213845&userId=30737617&siteToken=b7387650dc45ac0bbeef7fc0f807ed9a"
                        class="layui-input">
             </div>

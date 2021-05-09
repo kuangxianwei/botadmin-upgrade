@@ -1,7 +1,7 @@
 <div class="layui-card-header layuiadmin-card-header-auto layui-form">
     <div class="layui-form-item">
         <div class="layui-input-inline">
-            <input type="text" name="addr" placeholder="输入目标地址" autocomplete="off" class="layui-input">
+            <input type="text" name="addr" placeholder="输入目标地址" class="layui-input">
         </div>
         <div class="layui-input-inline">
             <select name="email_id" lay-filter="email_id" lay-search>

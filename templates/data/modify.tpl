@@ -21,7 +21,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">Tags:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" name="tags" value="{{join .obj.Tags ","}}" autocomplete="off" placeholder="Tag1,Tag2,Tag3">
+                <input class="layui-input" type="text" name="tags" value="{{join .obj.Tags ","}}" placeholder="Tag1,Tag2,Tag3">
             </div>
         </div>
         <div class="layui-form-item">
@@ -52,8 +52,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">内容:</label>
             <div class="layui-input-block">
-                <textarea class="layui-textarea layui-bg-black" lay-verify="required" name="content"
-                          rows="15">{{.obj.Content}}</textarea>
+                <textarea class="layui-textarea" lay-verify="required" name="content"
+                          rows="15" placeholder="内容区域">{{.obj.Content}}</textarea>
             </div>
         </div>
         <div class="layui-form-item">

@@ -4,13 +4,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">IDS</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="ids" placeholder="1,2,4,5" autocomplete="off" class="layui-input">
+                    <input type="text" name="ids" placeholder="1,2,4,5" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">域名:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="vhost" placeholder="模糊匹配域名" autocomplete="off" class="layui-input">
+                    <input type="text" name="vhost" placeholder="模糊匹配域名" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">

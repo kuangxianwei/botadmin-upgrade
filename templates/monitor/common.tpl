@@ -4,7 +4,7 @@
             <label class="layui-form-label">目标地址:</label>
             {{if .obj.Addr -}}
                 <div class="layui-input-inline">
-                    <input type="text" name="addr" lay-verify="required" autocomplete="off"
+                    <input type="text" name="addr" lay-verify="required"
                            class="layui-input" placeholder="监控地址" value="{{.obj.Addr}}">
                 </div>
             {{else -}}

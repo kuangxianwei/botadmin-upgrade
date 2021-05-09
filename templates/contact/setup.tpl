@@ -38,7 +38,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">在线咨询:</label>
             <div class="layui-input-inline" style="width: 50%">
-                <input name="consult" value="" autocomplete="off"
+                <input name="consult" value=""
                        placeholder="http://p.qiao.baidu.com/cps/chat?siteId=15213845&userId=30737617&siteToken=b7387650dc45ac0bbeef7fc0f807ed9a"
                        class="layui-input">
             </div>

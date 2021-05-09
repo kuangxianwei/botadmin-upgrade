@@ -54,8 +54,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">站点域名:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="vhost" required lay-verify="required" autocomplete="off"
-                                   class="layui-input" placeholder="如:webrobot.cn"
+                            <input type="text" name="vhost" required lay-verify="required"
+                                   class="layui-input" placeholder="如:botadmin.cn" autofocus="autofocus"
                                    value="{{.obj.Vhost}}" {{if gt .obj.Status 0}} disabled{{end}}>
                         </div>
                         <div class="layui-form-mid layui-word-aux">
@@ -65,8 +65,8 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">绑定域名:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="binds" autocomplete="off" class="layui-input"
-                                   placeholder="如:blog.webrobot.cn,nfivf.com" value='{{join .obj.Binds ","}}'>
+                            <input type="text" name="binds" class="layui-input"
+                                   placeholder="如:blog.botadmin.cn,nfivf.com" value='{{join .obj.Binds ","}}'>
                         </div>
                         <div class="layui-form-mid layui-word-aux">多个请用英文逗号","分隔</div>
                     </div>
@@ -115,7 +115,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">备注信息:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="note" value="{{.obj.Note}}" autocomplete="off" class="layui-input"
+                            <input type="text" name="note" value="{{.obj.Note}}" class="layui-input"
                                    placeholder="可选">
                         </div>
                     </div>
@@ -128,14 +128,14 @@
                                 <div class="layui-col-sm6">
                                     <label class="layui-form-label" lay-tips="由3-15个字母或数字组成">用户名:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="web_user" value="{{.obj.WebUser}}" autocomplete="off"
+                                        <input type="text" name="web_user" value="{{.obj.WebUser}}"
                                                class="layui-input" placeholder="3-15个字符">
                                     </div>
                                 </div>
                                 <div class="layui-col-sm5">
                                     <label class="layui-form-label" lay-tips="由6-15个字符组成">密码:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="web_pwd" value="{{.obj.WebPwd}}" autocomplete="off"
+                                        <input type="text" name="web_pwd" value="{{.obj.WebPwd}}"
                                                class="layui-input" placeholder="6-15个字符">
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@
                                 <div class="layui-col-sm5">
                                     <label class="layui-form-label" lay-tips="多个Tag用英文逗号,隔开">Tags:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="tags" value='{{join .obj.Tags ","}}' autocomplete="off"
+                                        <input type="text" name="tags" value='{{join .obj.Tags ","}}'
                                                class="layui-input" placeholder="Tag1,tag2">
                                     </div>
                                 </div>
@@ -203,20 +203,22 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label"
-                                   lay-tips="[{&quot;name&quot;:&quot;栏目1&quot;,&quot;&quot;:[{&quot;name&quot;:&quot;子栏目1&quot;},{&quot;name&quot;:&quot;子栏目2&quot;}]},{&quot;name&quot;:&quot;栏目2&quot;}]">栏目名称:</label>
-                            <div class="layui-input-inline" style="width: 50%">
-                                <textarea name="classes" class="layui-textarea"
-                                          rows="7">{{jsonIndent .obj.Classes}}</textarea>
-                            </div>
-                            <div class="layui-input-inline" style="width: 30%">
-<textarea class="layui-textarea" rows="7">[
-    {"name": "栏目1", "classes": [
-        {"name": "子栏目1"},
-        {"name":"子栏目2"}
-    ]},
-    {"name": "栏目2"}
-]</textarea>
+                            <label class="layui-form-label" lay-tips="留空为智能填充,建议用其他编辑器编写好了再粘贴过来">栏目列表:</label>
+                            <div class="layui-input-block">
+                                {{$classesExample:=`顶级栏目1(一个栏目一行,一个栏目不可换行)
+---->二级栏目1
+---->二级栏目2
+-------->三级栏目
+顶级栏目2
+---->二级栏目
+顶级栏目3` -}}
+                                <div class="layui-form-mid layui-word-aux">
+                                    name=栏目名称 || alias=别名 || keywords=关键词1 || 关键词2 || 关键词3 || description=描述 ||
+                                    id=栏目ID || parent_id=父ID || parent_name=父栏目 || path=路径 || url=URL ||
+                                    hidden=false(隐藏栏目) || is_face=false(是封面) || level=0(几级栏目)
+                                </div>
+                                <textarea name="classes" class="layui-textarea" rows="7"
+                                          placeholder="{{$classesExample}}">{{print .obj.Classes }}</textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -225,14 +227,14 @@
                                     <label class="layui-form-label" lay-tips="网站后台登录认证码 15个字母或数字组成">认证码:</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="auth_code" class="layui-input"
-                                               value="{{.obj.AuthCode}}" autocomplete="off" placeholder="后台第二验证码">
+                                               value="{{.obj.AuthCode}}" placeholder="后台第二验证码">
                                     </div>
                                 </div>
                                 <div class="layui-col-sm5">
                                     <label class="layui-form-label" lay-tips="网站后台登录目录名称">后台目录:</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="admin_dir" class="layui-input"
-                                               value="{{.obj.AdminDir}}" autocomplete="off" placeholder="nfivf">
+                                               value="{{.obj.AdminDir}}" placeholder="nfivf">
                                     </div>
                                 </div>
                             </div>
@@ -243,7 +245,7 @@
                                     <label class="layui-form-label" lay-tips="一般栏目数量设置不超过10个">栏目数量:</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="class_num" class="layui-input"
-                                               value="{{.obj.ClassNum}}" autocomplete="off" placeholder="8">
+                                               value="{{.obj.ClassNum}}" placeholder="8">
                                     </div>
                                 </div>
                                 <div class="layui-col-sm5">
@@ -265,14 +267,16 @@
                                 <div class="layui-col-sm6">
                                     <label class="layui-form-label" lay-tips="网站广告代码一般为js代码">广告:</label>
                                     <div class="layui-input-block">
-                                        <textarea name="ad" class="layui-textarea">{{.obj.Ad}}</textarea>
+                                        <textarea name="ad" class="layui-textarea" placeholder="网站广告代码一般为js代码">{{.obj.Ad}}</textarea>
                                     </div>
                                 </div>
                                 <div class="layui-col-sm5">
                                     <label class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
                                     <div class="layui-input-block">
-                                        <textarea name="contact"
-                                                  class="layui-textarea">{{join .obj.Contact "\n"}}</textarea>
+                                        {{$contact:=`李谊:139-2235-2985
+韩晶:135-3983-5229`}}
+                                        <textarea name="contact" class="layui-textarea"
+                                                  placeholder="{{$contact}}">{{join .obj.Contact "\n"}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -302,7 +306,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">手机域名:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="wap_host" value="{{.obj.WapHost}}" autocomplete="off"
+                            <input type="text" name="wap_host" value="{{.obj.WapHost}}"
                                    placeholder="如:m.webrobot.cn" class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">请确定域名已经解析到服务器ip</div>
@@ -385,7 +389,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">用户名:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="ftp_user" value="{{.obj.FtpUser}}" autocomplete="off"
+                            <input type="text" name="ftp_user" value="{{.obj.FtpUser}}"
                                    class="layui-input" placeholder="3-12个字符">
                         </div>
                         <div class="layui-form-mid layui-word-aux">由字母、数字、下划线组成，且不可修改</div>
@@ -393,7 +397,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">密码:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="ftp_pwd" value="{{.obj.FtpPwd}}" autocomplete="off"
+                            <input type="text" name="ftp_pwd" value="{{.obj.FtpPwd}}"
                                    class="layui-input" placeholder="6-15个字符">
                         </div>
                         <div class="layui-form-mid layui-word-aux">由字母、数字、下划线组成</div>
@@ -429,7 +433,7 @@
                             </div>
                             <div class="layui-input-inline">
                                 <input type="text" name="redirects_url" value="{{.obj.RedirectsUrl}}"
-                                       class="layui-input" autocomplete="off" placeholder="http://www.botadmin.cn">
+                                       class="layui-input" placeholder="http://www.botadmin.cn">
                             </div>
                             <div class="layui-form-mid layui-word-aux">跳转URL，如: http://www.webrobot.cn</div>
                         </div>
@@ -465,32 +469,23 @@
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">防盗链类型</label>
-                            <div class="layui-input-inline">
+                            <div class="layui-input-block">
                                 <input type="text" name="safe_img_type" value="{{.obj.SafeImgType}}"
-                                       class="layui-input">
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">默认为空，则不启用
-                                如多个用英文逗号“,”分隔,如“jpg,gif,bmp”
+                                       class="layui-input" placeholder="jpg,gif,bmp">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">允许的域名</label>
-                            <div class="layui-input-inline">
+                            <div class="layui-input-block">
                                 <input type="text" name="allow_domains" value="{{.obj.AllowDomains}}"
-                                       class="layui-input">
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">
-                                此处可增加域名，如多个用英文逗号","分隔，不带http://，如botadmin.cn,botadmin.com
+                                       class="layui-input" placeholder="botadmin.cn,nfivf.com">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">盗链URL</label>
-                            <div class="layui-input-inline">
+                            <div class="layui-input-block">
                                 <input type="text" name="safe_img_src" value="{{.obj.SafeImgSrc}}"
-                                       class="layui-input">
-                            </div>
-                            <div class="layui-form-mid layui-word-aux">
-                                可访问的图片地址，完整URL，如http://www.webrobot.cn/images/logo.png
+                                       class="layui-input" placeholder="http://www.webrobot.cn/images/logo.png">
                             </div>
                         </div>
                     </fieldset>
@@ -664,7 +659,8 @@
                     <fieldset class="layui-elem-field">
                         <legend>推送</legend>
                         <div class="layui-form-item" style="padding-left: 2%;padding-right: 2%;">
-                            <textarea name="push_config" class="layui-textarea" rows="3">{{.push_config}}</textarea>
+                            <textarea name="push_config" class="layui-textarea" rows="3"
+                                      placeholder="http://data.zz.baidu.com/urls?site=&#123;&#123;site&#125;&#125;&token=zjoYZiTU6B1rgblL 百度普通推送 账号=username 密码=password">{{.push_config}}</textarea>
                         </div>
                     </fieldset>
                     <fieldset class="layui-elem-field">
@@ -692,8 +688,8 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label" lay-tips="登录百度后的cookies">百度 Cookies:</label>
                                 <div class="layui-input-block">
-                                    <textarea name="bd_cookies" class="layui-textarea"
-                                              rows="3">{{.obj.BdCookies}}</textarea>
+                                    <textarea name="bd_cookies" class="layui-textarea" rows="3"
+                                              placeholder="BAIDUID=9FB739ED7E70EF8247B81415058BCB64:FG=1; PSTM=1620359085; PSINO=6; BD_CK_SAM=1; delPer=0; BIDUPSID=5296CC5C149D53A3462999AA795C8824; BAIDUID_BFESS=9FB739ED7E70EF8247B81415058BCB64:FG=1; COOKIE_SESSION=0_0_0_0_1_0_0_0_0_0_0_0_0_0_2_0_1620359088_0_1620359086%7C1%230_0_1620359086%7C1; H_PS_PSSID=33985_33820_31253_34004_33756_33676_33607_26350_33996; BD_UPN=12314753; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; BDUSS_BFESS=25VMmJwNzhLMTlGb3FTeE01Wk9jd3N-QUJhaGlLc2ZuTktxU1ZwaC02VkN3cjVnSVFBQUFBJCQAAAAAAAAAAAEAAADCjSYT2vfPzc6wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEI1l2BCNZdgU; BDUSS=25VMmJwNzhLMTlGb3FTeE01Wk9jd3N-QUJhaGlLc2ZuTktxU1ZwaC02VkN3cjVnSVFBQUFBJCQAAAAAAAAAAAEAAADCjSYT2vfPzc6wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEI1l2BCNZdgU; sugstore=1; H_PS_645EC=9350iLs1RL31aIit5ml8QCIhe79p5iPmI8yBGI1Dgr768BQf7SW%2Btb1IoTo; BA_HECTOR=a100ah20al2k21a0181g9edaf0r; WWW_ST=1620522324302">{{.obj.BdCookies}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -701,18 +697,22 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label" lay-tips="忽略百度关键词列表">过滤:</label>
                                 <div class="layui-input-block">
-                            <textarea name="bd_ignores" class="layui-textarea"
-                                      rows="3">{{ join .obj.BdIgnores "\n"}}</textarea>
+                                    {{$bd_ignores:=`小姐
+代孕` -}}
+                                    <textarea name="bd_ignores" class="layui-textarea" rows="3"
+                                              placeholder="{{$bd_ignores}}">{{ join .obj.BdIgnores "\n"}}</textarea>
                                 </div>
                             </div>
                         </div>
+                        {{$links:=`试管婴儿=>http://www.nfivf.com/
+站掌门=>http://www.botadmin.cn/` -}}
                         <div class="layui-col-md6">
                             <div class="layui-form-item">
                                 <label class="layui-form-label"
                                        lay-tips="内链列表 关键词=>URL 例如：试管婴儿=>http://www.botadmin.cn/">内链列表:</label>
                                 <div class="layui-input-block">
-                            <textarea name="links" class="layui-textarea"
-                                      rows="5">{{ join .obj.Links "\n"}}</textarea>
+                            <textarea name="links" class="layui-textarea" rows="5"
+                                      placeholder="{{$links}}">{{ join .obj.Links "\n"}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -721,8 +721,8 @@
                                 <label class="layui-form-label"
                                        lay-tips="外链列表 关键词=>URL 例如：试管婴儿=>http://www.botadmin.cn/">外链列表:</label>
                                 <div class="layui-input-block">
-                            <textarea name="out_links" class="layui-textarea"
-                                      rows="5">{{ join .obj.OutLinks "\n"}}</textarea>
+                                    <textarea name="out_links" class="layui-textarea" rows="5"
+                                              placeholder="{{$links}}">{{ join .obj.OutLinks "\n"}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -747,7 +747,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">使用端口:</label>
                         <div class="layui-input-inline">
-                            <input type="number" name="port" value="{{.obj.Port}}" class="layui-input" autocomplete="off" placeholder="80">
+                            <input type="number" name="port" value="{{.obj.Port}}" class="layui-input" placeholder="80">
                         </div>
                         <div class="layui-form-mid layui-word-aux">只在需要使用非80端口时使用，否则请使用默认值。可在系统设置里设置或增加端口</div>
                     </div>

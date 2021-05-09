@@ -5,7 +5,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">输入命令</label>
                 <div class="layui-input-inline" style="width:794px">
-                    <input type="text" name="cmd" autocomplete="off" class="layui-input" required
+                    <input type="text" name="cmd" class="layui-input" required
                            lay-verify="required">
                 </div>
                 <button class="layui-btn layui-btn-primary layui-btn-small" lay-submit lay-filter="execute">运行

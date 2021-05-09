@@ -3,13 +3,13 @@
         <div class="layui-form-item">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="keyword" value="" class="layui-input" autocomplete="off"
+                    <input type="text" name="keyword" value="" class="layui-input"
                            placeholder="模糊匹配关键词">
                 </div>
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="expect" value="" class="layui-input" autocomplete="off"
+                    <input type="text" name="expect" value="" class="layui-input"
                            placeholder="模糊匹配网站">
                 </div>
             </div>

@@ -4,9 +4,9 @@
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="任务名称必须由中文、数字、字母、下划线组成 唯一">任务名称:</label>
             <div class="layui-input-block">
-                <input type="hidden" name="id" value="{{.obj.Id}}" autocomplete="off" placeholder="本ID">
+                <input type="hidden" name="id" value="{{.obj.Id}}" placeholder="本ID">
                 <input type="text" name="name" value="{{.obj.Name}}" class="layui-input" required
-                       lay-verify="name" autocomplete="off" placeholder="采集名称">
+                       lay-verify="name" placeholder="采集名称">
             </div>
         </div>
         <div class="layui-form-item">

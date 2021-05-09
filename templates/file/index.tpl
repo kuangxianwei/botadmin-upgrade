@@ -4,7 +4,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">文件名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="search_name" placeholder="请输入" autocomplete="off"
+                    <input type="text" name="search_name" placeholder="请输入"
                            class="layui-input">
                 </div>
             </div>
@@ -89,7 +89,7 @@
         <label>当前路径: <strong id="currentpath"></strong>&nbsp;&nbsp;&nbsp;</label>
         <i class="layui-icon layui-icon-right"></i>
         <div class="layui-input-inline">
-            <input type="text" name="goto" placeholder="/root" autocomplete="off"
+            <input type="text" name="goto" placeholder="/root"
                    class="layui-input" style="height: 30px" required lay-verify="required">
         </div>
         <button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit-goto" lay-tips="跳转到指定目录">

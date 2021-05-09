@@ -17,7 +17,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="翻译平台获取">Token:</label>
             <div class="layui-input-block">
-                <input type="text" name="token" value="{{.obj.Token}}" autocomplete="off"
+                <input type="text" name="token" value="{{.obj.Token}}"
                        placeholder="翻译平台获取" class="layui-input">
             </div>
         </div>

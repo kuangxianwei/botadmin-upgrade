@@ -12,8 +12,8 @@
     </div>
     <div class="layui-card-body">
         <div class="layui-form-item">
-                        <textarea class="layui-textarea layui-bg-black"
-                                  name="content" rows="20" style="color: white;">{{ .content }}</textarea>
+                        <textarea class="layui-textarea"
+                                  name="content" rows="20">{{ .content }}</textarea>
         </div>
         <div class="layui-form-item{{if .hide}} layui-hide{{end}}">
             <div class="layui-input-block">

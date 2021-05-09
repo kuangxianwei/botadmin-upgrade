@@ -10,7 +10,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">值</label>
             <div class="layui-input-block">
-                <input type="text" name="val" autocomplete="off" class="layui-input" placeholder="8080/tcp" required
+                <input type="text" name="val" class="layui-input" placeholder="8080/tcp" required
                        lay-verify="required">
             </div>
         </div>

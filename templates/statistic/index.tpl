@@ -4,13 +4,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">域名:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="origin" placeholder="www.botadmin.cn" autocomplete="off" class="layui-input">
+                    <input type="text" name="origin" placeholder="www.botadmin.cn" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">标题:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="title" placeholder="站掌门" autocomplete="off" class="layui-input">
+                    <input type="text" name="title" placeholder="站掌门" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">

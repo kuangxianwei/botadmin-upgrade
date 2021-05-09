@@ -4,12 +4,10 @@
             <div class="layui-col-md6" style="text-align: center"><b>编辑黑名单</b></div>
             <div class="layui-col-md6" style="text-align: center"><b>编辑白名单</b></div>
             <div class="layui-col-md6">
-                <textarea class="layui-textarea layui-bg-black" name="denies" rows="20"
-                          style="color: white;">{{join .ban.Denies "\n"}}</textarea>
+                <textarea class="layui-textarea" name="denies" rows="20">{{join .ban.Denies "\n"}}</textarea>
             </div>
             <div class="layui-col-md6">
-                <textarea class="layui-textarea layui-bg-black" name="allows" rows="20"
-                          style="color: white;">{{join .ban.Allows "\n"}}</textarea>
+                <textarea class="layui-textarea" name="allows" rows="20">{{join .ban.Allows "\n"}}</textarea>
             </div>
         </div>
         <div class="layui-hide">

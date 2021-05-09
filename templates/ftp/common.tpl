@@ -11,7 +11,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="password" value="{{.obj.Password}}" autocomplete="off"
+                <input type="password" name="password" value="{{.obj.Password}}"
                        placeholder="6-15个字符，由字母、数字、下划线组成" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">留空为随机密码</div>
@@ -19,7 +19,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">确认密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="password2" value="{{.obj.Password}}" autocomplete="off"
+                <input type="password" name="password2" value="{{.obj.Password}}"
                        placeholder="请再输入一次" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">留空为随机密码</div>
@@ -27,7 +27,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">目录</label>
             <div class="layui-input-inline">
-                <input type="text" name="dir" value="{{.obj.Dir}}" autocomplete="off"
+                <input type="text" name="dir" value="{{.obj.Dir}}"
                        placeholder="留空为用户名" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">可使用绝对路径，如/home/ftp</div>
@@ -35,7 +35,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">备注</label>
             <div class="layui-input-inline">
-                <input type="text" name="note" value="{{.obj.Note}}" autocomplete="off" placeholder="可选"
+                <input type="text" name="note" value="{{.obj.Note}}" placeholder="可选"
                        class="layui-input"/>
             </div>
         </div>
@@ -62,7 +62,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">上传带宽</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="ulbandwidth" value="{{.obj.Ulbandwidth}}" autocomplete="off"
+                            <input type="text" name="ulbandwidth" value="{{.obj.Ulbandwidth}}"
                                    placeholder="为0则不限制" class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">单位为K</div>
@@ -70,7 +70,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label ">下载带宽</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="dlbandwidth" value="{{.obj.Dlbandwidth}}" autocomplete="off"
+                            <input type="text" name="dlbandwidth" value="{{.obj.Dlbandwidth}}"
                                    placeholder="为0则不限制" class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">单位为K</div>

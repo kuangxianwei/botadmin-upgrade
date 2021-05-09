@@ -42,21 +42,21 @@
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="搜索引擎搜索关键词">搜索词:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" name="search_keyword" value="{{.obj.SearchKeyword}}" autocomplete="off"
+                <input class="layui-input" type="text" name="search_keyword" value="{{.obj.SearchKeyword}}"
                        placeholder="站掌门">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="入口页面URL 默认为空">入口页面:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" name="referer" value="{{.obj.Referer}}" autocomplete="off"
+                <input class="layui-input" type="text" name="referer" value="{{.obj.Referer}}"
                        placeholder="http://www.botadmin.cn/">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="后缀加广告词 默认为空">后缀广告:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" name="suffix" value="{{.obj.Suffix}}" autocomplete="off"
+                <input class="layui-input" type="text" name="suffix" value="{{.obj.Suffix}}"
                        placeholder="站掌门站群">
             </div>
         </div>

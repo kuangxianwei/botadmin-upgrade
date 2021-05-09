@@ -1,8 +1,7 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <textarea class="layui-textarea layui-bg-black" name="links" rows="10"
-                      style="color: white;">{{join .links "\n"}}</textarea>
+            <textarea class="layui-textarea" name="links" rows="10">{{join .links "\n"}}</textarea>
         </div>
         <div class="layui-form-item layui-hide">
             <div class="layui-input-block">
