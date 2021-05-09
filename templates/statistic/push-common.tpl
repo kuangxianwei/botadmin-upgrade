@@ -81,8 +81,12 @@
             {elem: '#range', range: true, min: 1, max: count || 0},
             {elem: '#slow', range: true, min: 0, max: 100},
         );
-        layui.form.on('select(search-engine)', function (value) {
-            console.log(value);
+        layui.form.on('select(search-engine)', function (obj) {
+            if (obj.value) {
+                $(".custom-engine").removeClass("layui-hide").addClass("layui-show");
+            }else{
+                $(".custom-engine").removeClass("layui-show").addClass("layui-hide");
+            }
         });
     });
 </script>
