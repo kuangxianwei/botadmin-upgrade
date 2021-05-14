@@ -61,7 +61,11 @@
                 {field: 'username', title: '用户名'},
                 {field: 'password', title: '密码', hide: true},
                 {field: 'to', title: '接收者'},
-                {field: 'updated', title: '时间', align: 'center', sort: true},
+                {
+                    field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
+                },
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
             page: true,

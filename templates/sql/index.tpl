@@ -82,7 +82,11 @@
                 {field: 'prefix', title: '前缀', hide: true},
                 {field: 'hosts', title: '访问地址', align: 'center', width: 90},
                 {field: 'site_id', title: '绑定站点', align: 'center'},
-                {field: 'updated', title: '时间', align: 'center', sort: true},
+                {
+                    field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
+                },
                 {field: 'note', title: '备注', align: 'center', hide: true},
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],

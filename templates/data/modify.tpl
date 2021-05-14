@@ -21,7 +21,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">Tags:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" name="tags" value="{{join .obj.Tags ","}}" placeholder="Tag1,Tag2,Tag3">
+                <textarea name="tags" class="layui-textarea" placeholder="TAG 一行一个">{{join .obj.Tags "\n"}}</textarea>
             </div>
         </div>
         <div class="layui-form-item">

@@ -530,12 +530,10 @@
                         <div class="layui-form-mid layui-word-aux">默认为0，即不限制 每个连接线程的速度，单位KB/S</div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">Tags</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="tags" class="layui-input"
-                                   value="{{join .obj.Tags ","}}" placeholder="Tag1,Tag2,Tag3">
+                        <label class="layui-form-label">Tags:</label>
+                        <div class="layui-input-block">
+                            <textarea name="tags" class="layui-textarea" placeholder="TAG 一行一个">{{join .obj.Tags "\n"}}</textarea>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">Tag1,Tag2,Tag3</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label" lay-tips="留空为智能填充,建议用其他编辑器编写好了再粘贴过来">栏目列表:</label>

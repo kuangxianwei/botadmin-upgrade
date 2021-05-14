@@ -57,13 +57,6 @@
             </div>
             <div class="layui-form-mid layui-word-aux">指定IP访问 10.211.55.2 一行一个</div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">备注:</label>
-            <div class="layui-input-block">
-                <input type="text" name="note" value="{{.obj.Note}}"
-                       placeholder="备注" class="layui-input">
-            </div>
-        </div>
         <div class="layui-form-item layui-hide">
             <input type="hidden" name="site_id" value="{{.obj.SiteId}}">
             <input type="hidden" name="id" value="{{.obj.Id}}">

@@ -285,7 +285,15 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 
         // 格式时间
         timestampFormat(timestamp) {
-            let d = new Date(timestamp);   //创建一个指定的日期对象
+            timestamp = timestamp.toString();
+            if (timestamp.length > 13) {
+                timestamp = timestamp.substring(0, 13)
+            } else {
+                while (timestamp.length < 13) {
+                    timestamp += '0'
+                }
+            }
+            let d = new Date(parseInt(timestamp));   //创建一个指定的日期对象
             return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
         }
 

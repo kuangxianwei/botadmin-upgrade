@@ -215,7 +215,9 @@
                     }
                 },
                 {field: 'note', title: '备注', minWidth: 100},
-                {field: 'updated', title: '时间', minWidth: 100, hide: true, sort: true},
+                {
+                    field: 'updated', title: '时间', minWidth: 100, hide: true, sort: true, templet: function (d) {return main.timestampFormat(d['updated']);}
+                },
                 {title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,

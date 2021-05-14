@@ -34,9 +34,15 @@
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
-                <i class="layui-icon iconfont icon-export"></i></button>
+                <i class="layui-icon iconfont icon-export"></i>
+            </button>
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入配置">
                 <i class="layui-icon iconfont icon-import"></i>
+            </button>
+        </div>
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="log" lay-tips="查看日志">
+                <i class="layui-icon layui-icon-log"></i>
             </button>
         </div>
     </div>
@@ -47,9 +53,6 @@
             <i class="layui-icon layui-icon-edit"></i></button>
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
-            <i class="layui-icon layui-icon-log"></i>
         </button>
     </div>
 </script>
@@ -107,7 +110,7 @@
                         return main.timestampFormat(d['created']);
                     }
                 },
-                {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
             limit: 10,
@@ -137,7 +140,7 @@
                     });
                     break;
                 case 'del':
-                    layer.confirm('确定删除此条日志？', function (index) {
+                    layer.confirm('确定删除此条配置？', function (index) {
                         main.req({
                             url: url + "/del",
                             data: {'id': data.id},
@@ -154,15 +157,6 @@
                             area: ['70%', '90%'],
                             content: html,
                             ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'log':
-                    $.get('/trans/record', {id: data.id}, function (html) {
-                        main.popup({
-                            title: '日志',
-                            content: html,
-                            url: '/trans/record',
                         });
                     });
                     break;
@@ -233,6 +227,9 @@
                     break;
                 case 'import':
                     $('#import').click();
+                    break;
+                case 'log':
+                    main.ws.log("trans." + data.engine + ".0");
                     break;
             }
         });

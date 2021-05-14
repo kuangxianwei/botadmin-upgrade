@@ -28,10 +28,11 @@
             </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
                 <li class="layui-nav-item" lay-unselect>
-                    <a lay-href="" layadmin-event="message" lay-text="消息中心">
+                    <a lay-href="/record" layadmin-event="message" lay-text="消息中心">
                         <i class="layui-icon layui-icon-notice"></i>
-                        <!-- 如果有新消息，则显示小圆点 -->
-                        <span class="layui-badge-dot"></span>
+                        {{if .latest -}}
+                            <span class="layui-badge-dot"></span>
+                        {{end -}}
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
@@ -100,6 +101,12 @@
                                 <a lay-href="/config/site/data" lay-tips="资料设置" lay-direction="2">
                                     <i class="iconfont icon-data"></i>
                                     <cite>资料</cite>
+                                </a>
+                            </dd>
+                            <dd data-name="collect-tags">
+                                <a lay-href="/tags" lay-tips="管理tags" lay-direction="2">
+                                    <i class="iconfont icon-tags-seo"></i>
+                                    <cite>Tags</cite>
                                 </a>
                             </dd>
                             <dd data-name="set-email">

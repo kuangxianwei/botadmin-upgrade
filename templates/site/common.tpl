@@ -112,13 +112,6 @@
                         </div>
                         <div class="layui-form-mid layui-word-aux">外部站只允许发布文章</div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">备注信息:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="note" value="{{.obj.Note}}" class="layui-input"
-                                   placeholder="可选">
-                        </div>
-                    </div>
                 </div>
                 <div class="layui-tab-item">
                     <fieldset class="layui-elem-field">
@@ -179,10 +172,9 @@
                                     </div>
                                 </div>
                                 <div class="layui-col-sm5">
-                                    <label class="layui-form-label" lay-tips="多个Tag用英文逗号,隔开">Tags:</label>
+                                    <label class="layui-form-label">Tags:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="tags" value='{{join .obj.Tags ","}}'
-                                               class="layui-input" placeholder="Tag1,tag2">
+                                        <textarea name="tags" class="layui-textarea" placeholder="TAG 一行一个">{{join .obj.Tags "\n"}}</textarea>
                                     </div>
                                 </div>
                             </div>

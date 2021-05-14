@@ -101,7 +101,11 @@
                 {field: 'addr', title: '目标地址', sort: true},
                 {field: 'email_id', title: '配置ID', width: 80, align: 'center'},
                 {field: 'to', title: '邮箱'},
-                {field: 'updated', title: '时间', align: 'center', sort: true},
+                {
+                    field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
+                },
                 {title: '操作', width: 160, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
             page: true,

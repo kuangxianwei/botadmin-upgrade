@@ -8,7 +8,6 @@
                 <li>描述</li>
                 <li>栏目</li>
                 <li>城市</li>
-                <li>Tags</li>
                 <li>IP</li>
                 <li>关于</li>
             </ul>
@@ -106,14 +105,6 @@
                     <div class="layui-form-item">
                         <div id="city" style="text-align: center;overflow: hidden;"></div>
                     </div>
-                </div>
-                <div class="layui-tab-item">
-                    <div class="layui-form-item">
-                        <textarea class="layui-textarea" name="tags" rows="15">{{join .obj.Tags "\n"}}</textarea>
-                    </div>
-                    <blockquote class="layui-elem-quote">
-                        一行一条
-                    </blockquote>
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">

@@ -422,7 +422,11 @@
                 {field: 'web_pwd', title: 'Pwd', align: 'center', hide: true},
                 {field: 'auth_code', title: 'Auth', align: 'center', hide: true},
                 {field: 'webroot_path', title: '网站路径', hide: true},
-                {field: 'updated', title: '时间', sort: true, hide: true},
+                {
+                    field: 'updated', title: '时间', sort: true, hide: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
+                },
                 {
                     field: 'id',
                     title: '导入SQL',

@@ -52,7 +52,11 @@
                 {field: 'quota_files', title: '文件数个', align: 'center', hide: true},
                 {field: 'ulbandwidth', title: '上传带宽K', align: 'center', hide: true},
                 {field: 'dlbandwidth', title: '下载带宽K', align: 'center', hide: true},
-                {field: 'updated', title: '时间', align: 'center', sort: true},
+                {
+                    field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
+                },
                 {field: 'node', title: '备注', align: 'center', hide: true},
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],

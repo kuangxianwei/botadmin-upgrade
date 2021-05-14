@@ -6,6 +6,34 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "10207070",
+      "name": "save",
+      "font_class": "save",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "8804859",
+      "name": "SEO TAGS",
+      "font_class": "tags-seo",
+      "unicode": "e8fa",
+      "unicode_decimal": 59642
+    },
+    {
+      "icon_id": "13253943",
+      "name": "tags-o",
+      "font_class": "tags",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "15378618",
+      "name": "nativescript",
+      "font_class": "nativescript",
+      "unicode": "ec2a",
+      "unicode_decimal": 60458
+    },
+    {
       "icon_id": "5747659",
       "name": "Task Statistics",
       "font_class": "statistic",

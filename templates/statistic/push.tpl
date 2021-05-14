@@ -97,7 +97,11 @@
                 },
                 {field: 'range', title: '范围'},
                 {field: 'spec', title: '定时'},
-                {field: 'updated', title: '时间', align: 'center', sort: true},
+                {
+                    field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
+                },
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
             page: true,

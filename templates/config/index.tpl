@@ -71,6 +71,19 @@
                                        lay-skin="switch" lay-text="打开|关闭"{{if .base.CsrfEnabled}} checked{{end}}>
                             </div>
                         </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">日志级别:</label>
+                            <div class="layui-input-inline">
+                                <select name="record_level" class="layui-select">
+                                    {{range $i,$v:=.record_levels -}}
+                                        <option value="{{$i}}"{{if eq $.base.RecordLevel $i}} selected{{end}}>{{$v.Name}}</option>
+                                    {{end -}}
+                                </select>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">重启App后生效</div>
+                        </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">广告缓存:</label>
                             <div class="layui-input-block">

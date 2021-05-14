@@ -51,7 +51,11 @@
                 {field: 'password', title: '密码', minWidth: 100},
                 {field: 'ip', title: 'IP', minWidth: 100},
                 {field: 'status', title: '状态', minWidth: 100},
-                {field: 'updated', title: '时间', minWidth: 100, sort: true},
+                {
+                    field: 'updated', title: '时间', minWidth: 100, sort: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
+                },
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,

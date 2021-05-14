@@ -201,7 +201,11 @@
                     },
                     sort: true
                 },
-                {field: 'updated', title: '时间', align: 'center', width: 180, sort: true},
+                {
+                    field: 'updated', title: '时间', align: 'center', width: 180, sort: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
+                },
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
             page: true,
