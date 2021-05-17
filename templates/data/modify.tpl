@@ -21,7 +21,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">Tags:</label>
             <div class="layui-input-block">
-                <textarea name="tags" class="layui-textarea" placeholder="TAG 一行一个">{{join .obj.Tags "\n"}}</textarea>
+                <input name="tags" class="layui-textarea" placeholder="多个TAG用英文逗号隔开 如:tag1,tag2,tag3" value="{{join .obj.Tags ","}}">
             </div>
         </div>
         <div class="layui-form-item">

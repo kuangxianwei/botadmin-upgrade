@@ -159,6 +159,7 @@
             <button class="layui-btn" lay-event="fill-other">填充默认</button>
         </div>
         <div class="layui-form-item layui-hide">
+            <input type="hidden" name="id" value="{{.obj.Id}}">
             <button lay-submit>提交</button>
             <button id="uploadSubmit"></button>
             <button id="submit"></button>
@@ -218,7 +219,7 @@
         // 添加时间段
         addObj.click(function () {
             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
-            layKey++
+            layKey++;
             $(this).parent().before('<div class="layui-input-inline"><input type="text" name="durations" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
             layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
             delObj.css('display', 'inline-block');
@@ -233,7 +234,7 @@
         });
         if (durations) {
             durations.forEach(function (item, index) {
-                index += 1
+                index += 1;
                 $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="durations" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
                 layDate.render({elem: '#date-' + index, type: 'time', range: true});
                 delObj.css('display', 'inline-block');

@@ -144,8 +144,7 @@
                     <i class="layui-icon layui-icon-add-circle"></i>子菜单
                 </a>
             </legend>
-            <div id="menu-items">
-            </div>
+            <div id="menu-items"></div>
         </fieldset>
     </div>
 </div>
@@ -174,7 +173,7 @@
                         id = i
                     }
                 });
-                id++
+                id++;
                 return id;
             },
             insertMenu = function (id, values) {
@@ -239,7 +238,7 @@
                                 $.each(data, function (index, obj) {
                                     let textObj = $(`<textarea class="layui-textarea" name="" style="width: 100%;height: 100%"></textarea>`);
                                     textObj.attr('name', obj.name).val(obj.value);
-                                    dom.find('div>div>div').first().append(textObj);
+                                    dom.find('.pop-container>div').first().append(textObj);
                                 });
                             },
                             done: function (dom) {
@@ -260,7 +259,7 @@
                                     name = slice.slice(slice.length - 1, slice.length).toString(),
                                     itemObj = $(`<div class="layui-form-item"><label class="layui-form-label">` + kv[name] + `:</label><div class="layui-input-block"><input type="text" name="" value="" class="layui-input"></div></div>`);
                                 itemObj.find('[name]').attr('name', name).val(obj.value);
-                                dom.find('div>div>div').first().append(itemObj);
+                                dom.find('.pop-container>div').first().append(itemObj);
                             });
                         },
                         done: function (dom) {
@@ -274,4 +273,3 @@
         });
     });
 </script>
-

@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="采集最多tag个数">最大:</label>
+                <label class="layui-form-label" lay-tips="采集最多tag个数">上限:</label>
                 <div class="layui-input-block">
                     <input type="number" name="max" max="5000" min="1" class="layui-input" value="{{.obj.Max}}" placeholder="500">
                 </div>

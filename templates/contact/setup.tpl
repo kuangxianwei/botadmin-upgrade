@@ -56,7 +56,7 @@
             <i class="layui-icon layui-icon-delete" lay-event="del"></i>
         </div>
         <div class="layui-form-item layui-hide">
-            <input name="usernames" value="{{.usernames}}">
+            <input name="ids" value="{{.ids}}">
             <button lay-submit lay-filter="setupSubmit">提交</button>
         </div>
     </div>

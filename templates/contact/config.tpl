@@ -19,20 +19,13 @@
                 <button class="layui-btn layui-btn-primary" data-clipboard-text="{{.jsCode}}">复制js代码</button>
             {{end -}}
         </div>
-        <div class="layui-row">
-            <div class="layui-col-md6">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">排序依据:</label>
-                    <div class="layui-input-block">
-                        {{range $k,$v:=.OrderBys -}}
-                            <input name="order_by" value="{{$k}}" type="radio"
-                                   title="{{$v}}"{{if eq $.obj.OrderBy $k}} checked{{end}}>
-                        {{end -}}
-                    </div>
-                </div>
-            </div>
-            <div class="layui-col-md6">
-                <button class="layui-btn layui-btn-primary" lay-event="reset-done">顺序归位</button>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序依据:</label>
+            <div class="layui-input-block">
+                {{range $k,$v:=.OrderBys -}}
+                    <input name="order_by" value="{{$k}}" type="radio"
+                           title="{{$v}}"{{if eq $.obj.OrderBy $k}} checked{{end}}>
+                {{end -}}
             </div>
         </div>
         <div class="layui-form-item">
@@ -115,9 +108,6 @@
         clipboard.on('success', function (e) {
             layer.msg('复制成功');
             e.clearSelection();
-        });
-        $('button[lay-event="reset-done"]').on('click', function () {
-            main.req({url: "/contact/reset/done"});
         });
         $('*[lay-submit][lay-filter="submit"]').click(function () {
             if ($('[name=host]').val() === '') {

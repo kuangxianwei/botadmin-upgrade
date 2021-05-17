@@ -319,6 +319,7 @@
                 <input type="checkbox" name="originality_rate" title="原创阀值">
                 <input type="checkbox" name="pic_save" title="保存远图">
                 <input type="checkbox" name="pic_mark" title="图片水印">
+                <input type="checkbox" name="order" title="发布顺序">
             </div>
         </div>
     </div>
@@ -717,15 +718,15 @@
                                                     formDom.append(`<div class="layui-form-item"><label class="layui-form-label">内容阈值:</label><div class="layui-input-inline"><input type="text" name="content_deg" value="1-3" class="layui-input"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
                                                     break;
                                                 case 'link_deg':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">内链阀值:</label><div class="layui-input-inline slider"><div id="link_deg"></div><input type="hidden" name="link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入内链</div></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">内链阀值:</label><div class="layui-input-inline slider"><div id="link_deg" class="slider-inline"></div><input type="hidden" name="link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入内链</div></div>`);
                                                     main.slider({elem: '#link_deg', value: 3});
                                                     break;
                                                 case 'out_link_deg':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">外链阀值:</label><div class="layui-input-inline slider"><div id="out_link_deg"></div><input type="hidden" name="out_link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入外链</div></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">外链阀值:</label><div class="layui-input-inline slider"><div id="out_link_deg" class="slider-inline"></div><input type="hidden" name="out_link_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">随机插入外链</div></div>`);
                                                     main.slider({elem: '#out_link_deg', value: 3});
                                                     break;
                                                 case 'title_tag_deg':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">标题阀值:</label><div class="layui-input-inline slider"><div id="title_tag_deg"></div><input type="hidden" name="title_tag_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">标题插入tag 值越高 几率越高</div></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">标题阀值:</label><div class="layui-input-inline slider"><div id="title_tag_deg" class="slider-inline"></div><input type="hidden" name="title_tag_deg" value="3"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">标题插入tag 值越高 几率越高</div></div>`);
                                                     main.slider({elem: '#title_tag_deg', value: 3});
                                                     break;
                                                 case 'pub_self':
@@ -744,8 +745,11 @@
                                                     formDom.append(`<div class="layui-form-item"><label class="layui-form-label">推送配置:</label><div class="layui-input-inline"><textarea name="push_config" class="layui-textarea"></textarea></div><i class="layui-icon layui-icon-delete" lay-event="del"></i></div>`);
                                                     break;
                                                 case 'originality_rate':
-                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">原创阀值:</label><div class="layui-input-inline slider"><div id="originality_rate"></div><input type="hidden" name="originality_rate" value="0"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">大于或等于这个值才发布</div></div>`);
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">原创阀值:</label><div class="layui-input-inline slider"><div id="originality_rate" class="slider-inline"></div><input type="hidden" name="originality_rate" value="0"></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">大于或等于这个值才发布</div></div>`);
                                                     main.slider({elem: '#originality_rate', max: 100, value: 0});
+                                                    break;
+                                                case 'order':
+                                                    formDom.append(`<div class="layui-form-item"><label class="layui-form-label">发布顺序:</label><div class="layui-input-inline"><select name="order" class="layui-select"><option value="0" selected>最新采集</option><option value="1">最旧采集</option><option value="2">随机</option></select></div><i class="layui-icon layui-icon-delete" lay-event="del"></i><div class="layui-form-mid layui-word-aux">发布文章顺序</div></div>`);
                                                     break;
                                             }
                                         });
