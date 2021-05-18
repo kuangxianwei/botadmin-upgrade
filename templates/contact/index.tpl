@@ -1,6 +1,6 @@
 <div class="layui-card">
     <div class="layui-card-body">
-        <div class="layui-form table-search" style="left: 360px">
+        <div class="layui-form table-search" style="left: 400px">
             <div class="layui-inline">
                 <input type="text" name="username" class="layui-input" placeholder="输入搜索...">
             </div>
@@ -21,6 +21,9 @@
         </button>
         <button class="layui-btn layui-btn-sm" lay-event="setup">
             <i class="layui-icon layui-icon-set"></i>
+        </button>
+        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="reset-token" lay-tips="重置Token">
+            <i class="iconfont icon-reset"></i>Token
         </button>
     </div>
     <div class="layui-btn-group">
@@ -86,6 +89,7 @@
                 {field: 'uv', title: 'UV', minWidth: 100},
                 {field: 'pv', title: 'PV', minWidth: 100},
                 {field: 'qr', title: '二维码', hide: true},
+                {field: 'token', title: 'Token', hide: true},
                 {field: 'weight', title: '权重', hide: true},
                 {field: 'style_id', title: '样式', hide: true},
                 {field: 'other', title: '其他', hide: true},
@@ -360,7 +364,7 @@
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
                         main.req({
                             url: url + '/del',
-                            data: {id: ids.join()},
+                            data: {ids: ids.join()},
                             index: index,
                             ending: 'table-list'
                         });
@@ -410,6 +414,19 @@
                                     });
                                 });
                             }
+                        });
+                    });
+                    break;
+                case 'reset-token':
+                    if (data.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.confirm('重置Token后会影响客服接待数据，确定重置？', function (index) {
+                        main.req({
+                            url: url + '/update',
+                            data: {ids: ids.join(), token: ''},
+                            index: index,
+                            ending: 'table-list'
                         });
                     });
                     break;

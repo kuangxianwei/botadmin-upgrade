@@ -11,13 +11,27 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">绑定域名:</label>
-            <div class="layui-input-inline" style="min-width: 50%">
-                <input type="text" name="host" value="{{.obj.Host}}" lay-verify="required" class="layui-input">
+            <div class="layui-inline">
+                <label class="layui-form-label">绑定域名:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="host" value="{{.obj.Host}}" lay-verify="required" class="layui-input">
+                </div>
             </div>
-            {{if .jsCode -}}
-                <button class="layui-btn layui-btn-primary" data-clipboard-text="{{.jsCode}}">复制js代码</button>
-            {{end -}}
+            <div class="layui-inline">
+                <label class="layui-form-label">指定客服:</label>
+                <div class="layui-input-block">
+                    <select name="waiter" class="layui-select">
+                        <option value="">全部</option>
+                        {{range .waiters -}}
+                            <option value="{{.Username}}">{{.Alias}}</option>
+                        {{end -}}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-hide" data-clipboard-text></button>
+                <button class="layui-btn layui-btn-primary" lay-event="copy-js">复制广告代码</button>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">排序依据:</label>
@@ -229,5 +243,10 @@
                 delObj.css('display', 'inline-block');
             });
         }
+        $('[lay-event="copy-js"]').click(function () {
+            $.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
+                $('[data-clipboard-text]').attr("data-clipboard-text", jsCode).click();
+            });
+        });
     });
 </script>
