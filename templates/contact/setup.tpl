@@ -18,6 +18,11 @@
             <i class="layui-icon layui-icon-delete" lay-event="del"></i>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">历史记录:</label>
+            <input type="checkbox" name="history_enabled" lay-skin="switch" lay-text="是|否"/>
+            <i class="layui-icon layui-icon-delete" lay-event="del"></i>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
             <button class="layui-btn" lay-event="cities">选择城市</button>
             <input type="hidden" name="cities" value="">

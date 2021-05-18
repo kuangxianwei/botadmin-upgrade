@@ -92,6 +92,7 @@
                 {field: 'token', title: 'Token', hide: true},
                 {field: 'weight', title: '权重', hide: true},
                 {field: 'style_id', title: '样式', hide: true},
+                {field: 'history_enabled', title: '历史记录', hide: true},
                 {field: 'other', title: '其他', hide: true},
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],

@@ -1,13 +1,22 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <label class="layui-form-label">样式:</label>
-            <div class="layui-input-inline">
-                <select name="style_id" class="layui-select">
-                    {{range $v:=.styles -}}
-                        <option value="{{$v.Id}}"{{if eq $v.Id $.obj.StyleId}} selected{{end}}>{{$v.Name}}</option>
-                    {{end -}}
-                </select>
+            <div class="layui-inline">
+                <label class="layui-form-label">样式:</label>
+                <div class="layui-input-inline">
+                    <select name="style_id" class="layui-select">
+                        {{range $v:=.styles -}}
+                            <option value="{{$v.Id}}"{{if eq $v.Id $.obj.StyleId}} selected{{end}}>{{$v.Name}}</option>
+                        {{end -}}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" lay-tips="开启历史记录功能比较耗内存">历史记录:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="history_enabled" lay-skin="switch"
+                           lay-text="是|否"{{if .obj.HistoryEnabled}} checked{{end}}/>
+                </div>
             </div>
         </div>
         <div class="layui-form-item">

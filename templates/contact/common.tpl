@@ -3,21 +3,21 @@
         <div class="layui-row">
             <div class="layui-col-md2">
                 <label class="layui-form-label">启用PC:</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="checkbox" name="pc_enabled" lay-skin="switch"
                            lay-text="是|否"{{if .obj.PcEnabled}} checked{{end}}/>
                 </div>
             </div>
             <div class="layui-col-md2">
                 <label class="layui-form-label">启用Mobile:</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="checkbox" name="mobile_enabled" lay-skin="switch"
                            lay-text="是|否"{{if .obj.MobileEnabled}} checked{{end}}/>
                 </div>
             </div>
-            <div class="layui-col-md4">
+            <div class="layui-col-md3">
                 <label class="layui-form-label">样式:</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <select name="style_id" class="layui-select">
                         {{range $v:=.styles -}}
                             <option value="{{$v.Id}}"{{if eq $v.Id $.obj.StyleId}} selected{{end}}>{{$v.Name}}</option>
@@ -25,11 +25,17 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-col-md4">
+            <div class="layui-col-md2">
                 <label class="layui-form-label" lay-tips="值越大越排后面">排序:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="sort" value="{{.obj.Sort}}" placeholder="0"
-                           class="layui-input">
+                <div class="layui-input-block">
+                    <input type="number" name="sort" value="{{.obj.Sort}}" min="0" max="100" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-col-md2">
+                <label class="layui-form-label" lay-tips="开启历史记录功能比较耗内存">历史记录:</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="history_enabled" lay-skin="switch"
+                           lay-text="是|否"{{if .obj.HistoryEnabled}} checked{{end}}/>
                 </div>
             </div>
         </div>
