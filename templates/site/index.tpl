@@ -132,7 +132,7 @@
             <button class="layui-btn layui-btn-sm" lay-event="publish" lay-tips="选中的网站发布文章">
                 <i class="layui-icon layui-icon-release"></i>
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出配置">
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
                 <i class="layui-icon iconfont icon-export"></i>
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="import" lay-tips="导入配置">
@@ -966,7 +966,7 @@
                     main.reset.log('site', ids);
                     break;
                 case 'export':
-                    window.open(encodeURI('site/export?ids=' + ids.join()));
+                    window.open(encodeURI(url + '/export?ids=' + ids.join()));
                     break;
                 case 'import':
                     layer.open({

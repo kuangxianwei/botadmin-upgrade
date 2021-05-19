@@ -1,6 +1,6 @@
 <div class="layui-card">
     <div class="layui-card-body">
-        <div class="layui-form table-search" style="left: 300px">
+        <div class="layui-form table-search" style="left: 400px">
             <div class="layui-inline">
                 <input type="text" name="value" class="layui-input" placeholder="输入搜索...">
             </div>
@@ -11,6 +11,7 @@
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
+<div class="layui-hide" id="import"></div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
         <a class="layui-btn layui-btn-sm" lay-href="/tags/collect" lay-text="定时采集Tags">
@@ -18,6 +19,14 @@
         </a>
         <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="add" lay-tips="手工添加Tags">
             <i class="layui-icon layui-icon-add-circle"></i>手工
+        </button>
+    </div>
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出Tags">
+            <i class="layui-icon iconfont icon-export"></i>
+        </button>
+        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入Tags">
+            <i class="layui-icon iconfont icon-import"></i>
         </button>
     </div>
     <div class="layui-btn-group">
@@ -38,6 +47,26 @@
             table = layui.table,
             main = layui.main,
             url = {{.current_uri}};
+        url = url || '';
+        layui.upload.render({
+            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            elem: '#import',
+            url: url + '/import',
+            accept: 'file',
+            exts: 'conf|txt',
+            before: function () {
+                layer.load(); //上传loading
+            },
+            done: function (res) {
+                layer.closeAll('loading'); //关闭loading
+                if (res.code === 0) {
+                    layer.msg(res.msg);
+                    table.reload('table-list');
+                } else {
+                    layer.alert(res.msg, {icon: 2});
+                }
+            },
+        });
 
         //日志管理
         table.render({
@@ -120,6 +149,12 @@
                             }
                         });
                     });
+                    break;
+                case 'export':
+                    window.open(encodeURI(url + '/export?ids=' + ids.join()));
+                    break;
+                case 'import':
+                    $('#import').click();
                     break;
             }
         });
