@@ -46,8 +46,7 @@
                     <label class="layui-form-label">用户名:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="username" value="{{.obj.Username}}" lay-verify="required"
-                               autocomplete="off" placeholder="liYi"
-                               class="layui-input"{{if .obj.Username}} disabled{{end}}>
+                               placeholder="liYi" class="layui-input"{{if .obj.Username}} disabled{{end}}>
                         {{if .obj.Username}}
                             <input type="hidden" name="username" value="{{.obj.Username}}" lay-verify="required">
                         {{end}}
@@ -71,8 +70,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">手机号:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="phone" value="{{.obj.Phone}}" lay-verify="phone"
-                               autocomplete="off" placeholder="13724184818" class="layui-input">
+                        <input type="text" name="phone" value="{{.obj.Phone}}" lay-verify="phone" placeholder="13724184818" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">填写手机号码</div>
                 </div>
@@ -81,8 +79,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">微信号:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="wechat" value="{{.obj.Wechat}}"
-                               autocomplete="off" placeholder="13724184818" class="layui-input">
+                        <input type="text" name="wechat" value="{{.obj.Wechat}}" placeholder="13724184818" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">留空默认为手机号码</div>
                 </div>
@@ -93,8 +90,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">最大限制:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="max" value="{{.obj.Max}}" lay-verify="number"
-                               autocomplete="on" placeholder="0" class="layui-input">
+                        <input type="number" name="max" value="{{.obj.Max}}"
+                               min="0" placeholder="0" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">0为不限制</div>
                 </div>
