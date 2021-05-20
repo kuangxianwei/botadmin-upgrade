@@ -1117,6 +1117,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             layer.confirm('清空日志记录? Tokens: <br/>' + tokens, function (index) {
                 main.req($.extend({
                     url: '/record/reset',
+                    index: index,
                     data: {tokens: tokens},
                 }, options || {}));
             });

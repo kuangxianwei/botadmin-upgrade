@@ -124,21 +124,19 @@
                     });
                     break;
                 case 'read':
+                    $.get(url + '/update', {'id': data.id, read: true}, function (res) {
+                        if (res.code !== 0) {
+                            layer.alert(res.msg, {icon: 2});
+                        } else {
+                            table.reload('table-list');
+                            table.reload('table-list-read');
+                        }
+                    });
                     main.pop({
                         confirm: false,
                         scroll: false,
                         content: '<textarea class="layui-textarea layui-bg-black" style="color:white;height:100%">' + obj.data.feedback + '</textarea>',
                         area: ['60%', '60%'],
-                        always: function () {
-                            main.req({
-                                url: url + '/update',
-                                data: {'id': data.id, read: true},
-                                ending: function () {
-                                    table.reload('table-list');
-                                    table.reload('table-list-read');
-                                }
-                            });
-                        }
                     });
                     break
             }
