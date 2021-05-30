@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <input type="text" name="entrance" class="layui-input" placeholder="搜索入口...">
+                <input type="text" name="entrance" class="layui-input" placeholder="自定义搜索...">
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
