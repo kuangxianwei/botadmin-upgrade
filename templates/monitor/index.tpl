@@ -1,23 +1,25 @@
-<div class="layui-card-header layuiadmin-card-header-auto layui-form">
-    <div class="layui-form-item">
-        <div class="layui-input-inline">
-            <input type="text" name="addr" placeholder="输入目标地址" class="layui-input">
-        </div>
-        <div class="layui-input-inline">
-            <select name="email_id" lay-filter="email_id" lay-search>
-                <option>搜索...</option>
-                {{range $v:=.emails}}
-                    <option value="{{$v.Id}}">{{$v.Username}}</option>
-                {{end}}
-            </select>
-        </div>
-        <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
-            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-        </button>
-    </div>
-</div>
 <div class="layui-card">
     <div class="layui-card-body">
+        <div class="layui-form table-search" style="left: 450px">
+            <button class="layui-hide" lay-submit lay-filter="search">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" name="addr" placeholder="输入目标地址" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="email_id" lay-filter="search-select" lay-search>
+                        <option>搜索...</option>
+                        {{range $v:=.emails}}
+                            <option value="{{$v.Id}}">{{$v.Username}}</option>
+                        {{end}}
+                    </select>
+                </div>
+            </div>
+        </div>
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
@@ -231,22 +233,8 @@
                     break;
             }
         });
-        //监听搜索
-        form.on('submit(search)', function (data) {
-            let field = data.field;
-            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
-            //执行重载
-            table.reload('table-list', {
-                where: field,
-                page: {curr: 1}
-            });
-            return false;
-        });
-        //监控选择状态
-        form.on('select(email_id)', function () {
-            $('button[lay-filter=search]').click();
-            return false;
-        });
+        // 监听搜索
+        main.onSearch();
         form.on('switch(switchCronEnabled)', function (obj) {
             let id = this.id,
                 checked = this.checked;

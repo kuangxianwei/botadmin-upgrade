@@ -88,6 +88,12 @@
                 {field: 'phone', title: '手机', minWidth: 100},
                 {field: 'uv', title: 'UV', minWidth: 100},
                 {field: 'pv', title: 'PV', minWidth: 100},
+                {
+                    title: '跟踪', width: 60, align: 'center',
+                    templet: function (d) {
+                        return '<a style="color:#01aaed;" lay-href="/trace?waiter_id=' + d.id + '" lay-text="跟踪-' + d.alias + '"><i class="iconfont icon-trace"></i></a>';
+                    }
+                },
                 {field: 'qr', title: '二维码', hide: true},
                 {field: 'token', title: 'Token', hide: true},
                 {field: 'weight', title: '权重', hide: true},
@@ -469,21 +475,7 @@
             });
             return false;
         });
-        //监听搜索
-        form.on('submit(search)', function (data) {
-            let field = data.field;
-            //执行重载
-            table.reload('table-list', {
-                where: field,
-                page: {curr: 1}
-            });
-            return false;
-        });
-        // enter 搜索
-        $('input[name=username]').keydown(function (event) {
-            if (event.keyCode === 13) {
-                $('[lay-filter="search"]').click();
-            }
-        });
+        // 监听搜索
+        main.onSearch();
     });
 </script>

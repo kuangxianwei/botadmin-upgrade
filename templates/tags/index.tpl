@@ -159,20 +159,7 @@
             }
         });
 
-        //监听搜索
-        form.on('submit(search)', function (data) {
-            //执行重载
-            table.reload('table-list', {
-                where: data.field,
-                page: {curr: 1}
-            });
-            return false;
-        });
-        // enter 搜索
-        $('input[name=value]').keydown(function (event) {
-            if (event.keyCode === 13) {
-                $('[lay-filter="search"]').click();
-            }
-        });
+        // 监听搜索
+        main.onSearch();
     });
 </script>

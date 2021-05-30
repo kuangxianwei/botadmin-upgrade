@@ -1123,6 +1123,39 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             });
         },
     };
+    // 监听搜索
+    main.onSearch = function (options) {
+        form.on('submit(search)', function (data) {
+            let field = data.field, cols = [];
+            $.each(field, function (k, v) {
+                if (v) {
+                    cols.push(k);
+                } else {
+                    delete field[k];
+                }
+            });
+            field.cols = cols.join();
+            if (!field.cols) {
+                return location.reload();
+            }
+            //执行重载
+            table.reload('table-list', {
+                where: $.extend(field, options || {}),
+                page: {curr: 1}
+            });
+            return false;
+        });
+        // 监控select
+        form.on('select(search-select)', function () {
+            $('[lay-filter=search]').click();
+        });
+        // 监控 input
+        $('.table-search input,[lay-event=search] input').keydown(function (event) {
+            if (event.keyCode === 13) {
+                $('[lay-filter=search]').click();
+            }
+        });
+    };
     exports('main', main);
 });
 

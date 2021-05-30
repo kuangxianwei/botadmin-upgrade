@@ -146,16 +146,7 @@
                     break;
             }
         });
-        //监听搜索
-        form.on('submit(search)', function (data) {
-            let field = data.field;
-            //$("#form-search :input").val("").removeAttr("checked").remove("selected");
-            //执行重载
-            table.reload('table-list', {
-                where: field,
-                page: {curr: 1}
-            });
-            return false;
-        });
+        // 监听搜索
+        main.onSearch();
     });
 </script>

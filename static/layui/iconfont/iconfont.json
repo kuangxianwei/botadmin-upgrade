@@ -6,6 +6,20 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "1249048",
+      "name": "跟踪定位",
+      "font_class": "trace",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "4465002",
+      "name": "跟踪",
+      "font_class": "trace-1",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
       "icon_id": "10207070",
       "name": "save",
       "font_class": "save",

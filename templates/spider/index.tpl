@@ -216,7 +216,9 @@
                 },
                 {field: 'note', title: '备注', minWidth: 100},
                 {
-                    field: 'updated', title: '时间', minWidth: 100, hide: true, sort: true, templet: function (d) {return main.timestampFormat(d['updated']);}
+                    field: 'updated', title: '时间', minWidth: 100, hide: true, sort: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
                 },
                 {title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
@@ -451,36 +453,12 @@
                     break;
             }
         });
-        //监控搜索
-        form.on('submit(search)', function (obj) {
-            let field = obj.field, cols = [];
-            $.each(field, function (k, v) {
-                if (v) {
-                    cols.push(k);
-                } else {
-                    delete field[k];
-                }
-            });
-            field.cols = cols.join();
-            if (!field.cols) {
-                return location.reload();
-            }
-            table.reload('table-list', {
-                where: field,
-                page: {curr: 1}
-            });
-            return false;
-        });
+        // 监听搜索
+        main.onSearch();
         //监控选择site id
         form.on('select(select_site_id)', function () {
             $('button[lay-filter=search]').click();
             return false;
-        });
-        // enter 搜索
-        $('[lay-event=search] input').keydown(function (event) {
-            if (event.keyCode === 13) {
-                $('[lay-filter="search"]').click();
-            }
         });
     });
 </script>

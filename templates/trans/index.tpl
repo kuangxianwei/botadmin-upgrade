@@ -1,19 +1,19 @@
 <div class="layui-card">
-    <div class="layui-card-header layuiadmin-card-header-auto layui-form">
-        <div class="layui-form-item">
-            <div class="layui-input-inline">
-                <select name="status" lay-filter="status">
-                    <option value="">全部</option>
-                    <option value="enabled">已启用</option>
-                    <option value="disabled">未启用</option>
-                </select>
-            </div>
-            <button class="layui-hide" data-type="reload" lay-submit lay-filter="search">
-                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-            </button>
-        </div>
-    </div>
     <div class="layui-card-body">
+        <div class="layui-form table-search" style="left: 380px">
+            <button class="layui-hide" lay-submit lay-filter="search">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select name="status" lay-filter="search-select" class="layui-select">
+                        <option value="">全部</option>
+                        <option value="enabled">已启用</option>
+                        <option value="disabled">未启用</option>
+                    </select>
+                </div>
+            </div>
+        </div>
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
@@ -233,23 +233,7 @@
                     break;
             }
         });
-
-        //监听搜索
-        form.on('submit(search)', function (data) {
-            let field = data.field;
-            if (field.status === '') {
-                field.cols = '';
-            } else {
-                field.cols = 'status';
-            }
-            table.reload('table-list', {
-                where: field,
-                page: {curr: 1}
-            });
-            return false;
-        });
-        form.on('select(status)', function () {
-            $('[lay-filter=search]').click();
-        });
+        // 监听搜索
+        main.onSearch();
     });
 </script>

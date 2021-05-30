@@ -1,33 +1,26 @@
 <div class="layui-card">
-    <div class="layui-card-header layuiadmin-card-header-auto layui-form">
-        <div class="layui-form-item">
+    <div class="layui-card-body">
+        <div class="layui-form table-search" style="left: 400px">
+            <button class="layui-hide" lay-submit lay-filter="search">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
             <div class="layui-inline">
-                <label class="layui-form-label">文件名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="search_name" placeholder="请输入"
+                    <input type="text" name="search_name" placeholder="完整或部分文件名称"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">类型</label>
                 <div class="layui-input-inline">
-                    <select name="search_type" lay-filter="search_type">
-                        <option value="" selected>未指定</option>
+                    <select name="search_type" lay-filter="search-select">
+                        <option value="" selected>全部类型</option>
                         <option value="file">文件</option>
                         <option value="folder">目录</option>
                         <option value="compress">压缩文件</option>
                     </select>
                 </div>
             </div>
-            <div class="layui-inline">
-                <button class="layui-btn" data-type="reload" lay-submit lay-filter="search"
-                        id="search">
-                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                </button>
-            </div>
         </div>
-    </div>
-    <div class="layui-card-body">
         <table class="layui-font" id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
@@ -345,29 +338,8 @@
             });
             return false;
         });
-
         // 监听搜索
-        form.on('submit(search)', function (obj) {
-            let field = obj.field, cols = [];
-            $.each(field, function (k, v) {
-                if (v) {
-                    cols.push(k);
-                } else {
-                    delete field[k];
-                }
-            });
-            field.cols = cols.join();
-            if (!field.cols) {
-                return location.reload();
-            }
-            field.path = current_path;
-            table.reload('table-list', {
-                url: url,
-                where: field
-            });
-            return false;
-        });
-
+        main.onSearch({path: current_path});
         // 监听操作
         form.on('submit(submit-acts)', function (obj) {
             let checkData = table.checkStatus('table-list').data, // 得到选中的数据
@@ -409,10 +381,6 @@
                     }
                 });
             }
-            return false;
-        });
-        form.on('select(search_type)', function () {
-            $('[lay-filter="search"]').click();
             return false;
         });
         $('input[name="goto"]').keydown(function (event) {

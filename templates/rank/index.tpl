@@ -238,14 +238,8 @@
                     break;
             }
         });
-        //监控搜索
-        form.on('submit(search)', function (obj) {
-            table.reload('table-list', {
-                where: obj.field,
-                page: {curr: 1}
-            });
-            return false;
-        })
+        // 监听搜索
+        main.onSearch();
 
         //监控选择
         form.on('select(select_engine)', function () {

@@ -139,6 +139,12 @@
                                             <cite>样式列表</cite>
                                         </a>
                                     </dd>
+                                    <dd data-name="trace-list">
+                                        <a lay-href="/trace" lay-tips="广告跟踪列表" lay-direction="2">
+                                            <i class="iconfont icon-trace"></i>
+                                            <cite>跟踪列表</cite>
+                                        </a>
+                                    </dd>
                                 </dl>
                             </dd>
                         </dl>

@@ -7,7 +7,7 @@
             <input type="number" name="originality_rate" placeholder="70.00" class="layui-input">
         </div>
         <div class="layui-input-inline">
-            <select name="site_id" lay-filter="select_site_id" lay-search>
+            <select name="site_id" lay-filter="search-select" lay-search>
                 <option value="">指定网站的文章...</option>
                 {{range .sites -}}
                     <option value="{{.Id}}">{{.Vhost}}</option>
@@ -15,21 +15,21 @@
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="used" lay-filter="select_used" lay-search>
+            <select name="used" lay-filter="search-select" lay-search>
                 <option value="">是否使用...</option>
                 <option value="true">已使用</option>
                 <option value="false">未使用</option>
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="trans_failed" lay-filter="select_trans_failed" lay-search>
+            <select name="trans_failed" lay-filter="search-select" lay-search>
                 <option value="">翻译是否出错...</option>
                 <option value="true">已出错</option>
                 <option value="false">未出错</option>
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="originality" lay-filter="select_originality">
+            <select name="originality" lay-filter="search-select">
                 <option value="">原创状态...</option>
                 <option value="0">不检验</option>
                 <option value="1">未检验</option>
@@ -407,26 +407,8 @@
                     break;
             }
         });
-        //监听搜索
-        form.on('submit(search)', function (data) {
-            let field = data.field, cols = [];
-            $.each(field, function (k, v) {
-                if (v) {
-                    cols.push(k);
-                } else {
-                    delete field[k];
-                }
-            });
-            field.cols = cols.join();
-            if (!field.cols) {
-                return location.reload();
-            }
-            table.reload('table-list', {
-                where: field,
-                page: {curr: 1}
-            });
-            return false;
-        });
+        // 监听搜索
+        main.onSearch();
         // 切换是否已经使用
         form.on('switch(used)', function (obj) {
             let id = this.id,
@@ -471,30 +453,6 @@
                 ending: 'table-list',
             });
             return false;
-        });
-        //监控选择site id
-        form.on('select(select_site_id)', function () {
-            $('button[lay-filter=search]').click();
-            return false;
-        });
-        form.on('select(select_originality)', function () {
-            $('button[lay-filter=search]').click();
-            return false;
-        });
-        form.on('select(select_used)', function () {
-            $('button[lay-filter=search]').click();
-            return false;
-        });
-        form.on('select(select_trans_failed)', function () {
-            $('button[lay-filter=search]').click();
-            return false;
-        });
-
-        // enter 搜索
-        $('[lay-event=search] input').keydown(function (event) {
-            if (event.keyCode === 13) {
-                $('[lay-filter="search"]').click();
-            }
         });
     });
 </script>

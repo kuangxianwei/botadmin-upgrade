@@ -97,6 +97,7 @@
                 <input type="hidden" name="menu.text" value="{{.obj.Menu.Text}}">
                 <input type="hidden" name="menu.mobile_text" value="{{.obj.Menu.MobileText}}">
                 <input type="hidden" name="menu.href" value="{{.obj.Menu.Href}}">
+                <input type="hidden" name="menu.trace" value="{{.obj.Menu.Trace}}">
             </li>
             <li class="layui-col-xs4" lay-event="phone">
                 <i class="layui-icon iconfont icon-phone"></i>
@@ -105,6 +106,7 @@
                 <input type="hidden" name="phone.text" value="{{.obj.Phone.Text}}">
                 <input type="hidden" name="phone.mobile_text" value="{{.obj.Phone.MobileText}}">
                 <input type="hidden" name="phone.href" value="{{.obj.Phone.Href}}">
+                <input type="hidden" name="phone.trace" value="{{.obj.Phone.Trace}}">
             </li>
             <li class="layui-col-xs4" lay-event="wechat">
                 <i class="layui-icon iconfont icon-wechat-full"></i>
@@ -113,6 +115,7 @@
                 <input type="hidden" name="wechat.text" value="{{.obj.Wechat.Text}}">
                 <input type="hidden" name="wechat.mobile_text" value="{{.obj.Wechat.MobileText}}">
                 <input type="hidden" name="wechat.href" value="{{.obj.Wechat.Href}}">
+                <input type="hidden" name="wechat.trace" value="{{.obj.Wechat.Trace}}">
             </li>
             <li class="layui-col-xs4" lay-event="consult">
                 <i class="layui-icon iconfont icon-consulting"></i>
@@ -121,6 +124,7 @@
                 <input type="hidden" name="consult.text" value="{{.obj.Consult.Text}}">
                 <input type="hidden" name="consult.mobile_text" value="{{.obj.Consult.MobileText}}">
                 <input type="hidden" name="consult.href" value="{{.obj.Consult.Href}}">
+                <input type="hidden" name="consult.trace" value="{{.obj.Consult.Trace}}">
             </li>
             <li class="layui-col-xs4" lay-event="pc-css">
                 <i class="layui-icon iconfont icon-pc"></i>
@@ -148,6 +152,19 @@
         </fieldset>
     </div>
 </div>
+<script type="text/html" id="insert-submenu">
+    <div class="layui-form-item">
+        <div class="layui-inline"><label class="layui-form-label-col">PC文本:</label></div>
+        <div class="layui-inline width120"><input name="pc" value="" class="layui-input"></div>
+        <div class="layui-inline"><label class="layui-form-label-col">Wap文本:</label></div>
+        <div class="layui-inline width120"><input name="mobile" value="" class="layui-input"></div>
+        <div class="layui-inline"><label class="layui-form-label-col">链接:</label></div>
+        <div class="layui-inline" style="min-width: 320px"><input name="href" value="" class="layui-input"></div>
+        <div class="layui-inline"><label class="layui-form-label-col">跟踪:</label></div>
+        <div class="layui-inline width120"><input name="trace" value="" class="layui-input"></div>
+        <i class="layui-icon layui-icon-delete" style="color: red" lay-tips="删除该项" data-event="del-menu"></i>
+    </div>
+</script>
 <script>
     layui.use(['main'], function () {
         let main = layui.main,
@@ -158,6 +175,7 @@
                 'href': '链接地址',
                 'text': 'PC端文字',
                 'mobile_text': '移动端文字',
+                'trace': '广告跟踪',
             },
             getId = function () {
                 let ids = [], id = 0;
@@ -177,19 +195,20 @@
                 return id;
             },
             insertMenu = function (id, values) {
-                let obj = $(`<div class="layui-form-item"><div class="layui-inline"><label class="layui-form-label-col">PC端文本:</label></div><div class="layui-inline width120"><input name="pc" value="" class="layui-input"></div><div class="layui-inline"><label class="layui-form-label-col">移动端文本:</label></div><div class="layui-inline width120"><input name="mobile" value="" class="layui-input"></div><div class="layui-inline"><label class="layui-form-label-col">链接:</label></div><div class="layui-inline" style="min-width: 320px"><input name="href" value="" class="layui-input"></div><i class="layui-icon layui-icon-delete" style="color: red" lay-tips="删除该项" data-event="del-menu"></i></div>`);
-                values = $.extend({pc: "", mobile: "", href: ""}, values || {});
-                obj.find('*[name=pc]').attr('name', 'submenu.text.' + id).val(values.pc);
-                obj.find('*[name=mobile]').attr('name', 'submenu.mobile_text.' + id).val(values.mobile);
-                obj.find('*[name=href]').attr('name', 'submenu.href.' + id).val(values.href);
-                $('#menu-items').append(obj);
+                let elem = $($('#insert-submenu').html());
+                values = $.extend({pc: "", mobile: "", href: "", trace: ""}, values || {});
+                elem.find('*[name=pc]').attr('name', 'submenu.text.' + id).val(values.pc);
+                elem.find('*[name=mobile]').attr('name', 'submenu.mobile_text.' + id).val(values.mobile);
+                elem.find('*[name=href]').attr('name', 'submenu.href.' + id).val(values.href);
+                elem.find('*[name=trace]').attr('name', 'submenu.trace.' + id).val(values.trace);
+                $('#menu-items').append(elem);
                 $('[data-event="del-menu"]').click(function () {
                     $(this).closest('div.layui-form-item').remove();
                 });
             };
         if (submenus) {
             submenus.forEach(function (v, i) {
-                insertMenu(i, {pc: v.text, mobile: v.mobile_text, href: v.href});
+                insertMenu(i, {pc: v.text, mobile: v.mobile_text, href: v.href, trace: v.trace});
             });
         }
         //表单赋值

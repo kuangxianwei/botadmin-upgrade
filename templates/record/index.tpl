@@ -233,8 +233,7 @@
                     break
             }
         });
-
-        //监听搜索
+        // 监听搜索
         form.on('submit(search)', function (data) {
             let tableFilter = $('.layui-tab-title>li:first.layui-this').length ? 'table-list' : 'table-list-read';
             //执行重载
@@ -245,9 +244,9 @@
             return false;
         });
         // enter 搜索
-        $('input[name=feedback]').keydown(function (event) {
+        $('.table-search input,[lay-event=search] input').keydown(function (event) {
             if (event.keyCode === 13) {
-                $('[lay-filter="search"]').click();
+                $('[lay-filter=search]').click();
             }
         });
     });

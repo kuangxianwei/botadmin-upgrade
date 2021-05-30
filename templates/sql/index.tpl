@@ -1,5 +1,5 @@
 <div class="layui-card">
-    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+    <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-event="search">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">用户名:</label>
@@ -14,7 +14,7 @@
                     <input type="text" name="dbname" placeholder="请输入数据库名称" class="layui-input">
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-hide">
                 <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
                     <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                 </button>
@@ -182,26 +182,7 @@
                     break;
             }
         });
-        //监听搜索
-        form.on('submit(search)', function (data) {
-            let field = data.field, cols = [];
-            $.each(field, function (k, v) {
-                if (v) {
-                    cols.push(k);
-                } else {
-                    delete field[k];
-                }
-            });
-            field.cols = cols.join();
-            if (!field.cols) {
-                return location.reload();
-            }
-            //执行重载
-            table.reload('table-list', {
-                where: field,
-                page: {curr: 1}
-            });
-            return false;
-        });
+        // 监听搜索
+        main.onSearch();
     });
 </script>

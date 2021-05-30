@@ -272,33 +272,7 @@
                     break;
             }
         });
-
-        //监听搜索
-        form.on('submit(search)', function (data) {
-            let field = data.field, cols = [];
-            $.each(field, function (k, v) {
-                if (v) {
-                    cols.push(k);
-                } else {
-                    delete field[k];
-                }
-            });
-            field.cols = cols.join();
-            if (!field.cols) {
-                return location.reload();
-            }
-            //执行重载
-            table.reload('table-list', {
-                where: field,
-                page: {curr: 1}
-            });
-            return false;
-        });
-        // enter 搜索
-        $('[lay-event=search] input').keydown(function (event) {
-            if (event.keyCode === 13) {
-                $('[lay-filter="search"]').click();
-            }
-        });
+        // 监听搜索
+        main.onSearch();
     });
 </script>

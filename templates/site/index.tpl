@@ -16,15 +16,15 @@
             <div class="layui-inline">
                 <label class="layui-form-label">状态</label>
                 <div class="layui-input-inline">
-                    <select name="status" lay-filter="select-status">
+                    <select name="status" lay-filter="search-select">
                         <option value="">无</option>
                         {{range $i,$v:=.status -}}
-                            <option value="{{$i}}">{{$v}}</option>
+                            <option value="{{$i}}">{{$v.Alias}}</option>
                         {{end -}}
                     </select>
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-hide">
                 <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
                     <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
                 </button>
@@ -414,7 +414,7 @@
                 },
                 {
                     field: 'admin_url', title: 'admin', align: 'center', event: 'login',
-                    style: 'cursor:pointer;color:#01aaed;', width: 80, templet() {
+                    style: 'cursor:pointer;color:#01aaed;', width: 80, templet: function () {
                         return '登录';
                     }
                 },
@@ -1076,37 +1076,7 @@
                     break;
             }
         });
-
-        //监听搜索
-        form.on('submit(search)', function (data) {
-            let field = data.field, cols = [];
-            $.each(field, function (k, v) {
-                if (v) {
-                    cols.push(k);
-                } else {
-                    delete field[k];
-                }
-            });
-            field.cols = cols.join();
-            if (!field.cols) {
-                return location.reload();
-            }
-            //执行重载
-            table.reload('table-list', {
-                where: field,
-                page: {curr: 1}
-            });
-            return false;
-        });
-        // 监控选择
-        form.on('select(select-status)', function () {
-            $('[lay-filter="search"]').click();
-        });
-        // enter 搜索
-        $('[lay-event=search] input').keydown(function (event) {
-            if (event.keyCode === 13) {
-                $('[lay-filter="search"]').click();
-            }
-        });
+        // 监听搜索
+        main.onSearch();
     });
 </script>

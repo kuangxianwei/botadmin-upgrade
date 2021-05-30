@@ -9,7 +9,7 @@
             <i class="layui-icon layui-icon-add-1"></i>添加用户
         </button>
         <button class="layui-btn  layui-btn-danger layui-btn-sm" lay-event="del" id="LAY_layer_iframe_del">
-            <i class="layui-icon layui-icon-delete"></i>批量删除用户
+            <i class="layui-icon layui-icon-delete"></i>删除
         </button>
         <button class="layui-btn layui-btn-sm" lay-event="sync" id="LAY_layer_iframe_sync">
             <i class="layui-icon layui-icon-refresh"></i>同步数据
