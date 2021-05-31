@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <input type="text" name="entrance" class="layui-input" placeholder="自定义搜索...">
+                <input type="text" name="entrance" class="layui-input" placeholder="geo=广州">
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
@@ -91,8 +91,20 @@
                         }
                     },
                     {
-                        title: '城市', minWidth: 100, templet: function (d) {
-                            return d['geo'].city;
+                        title: '区域', minWidth: 100, templet: function (d) {
+                            if (d['geo'].city) {
+                                return d['geo'].city
+                            }
+                            if (d['geo']['province']) {
+                                return d['geo']['province']
+                            }
+                            if (d['geo']['isp']) {
+                                return d['geo']['isp']
+                            }
+                            if (d['geo']['country']) {
+                                return d['geo']['country']
+                            }
+                            return '未知';
                         }
                     },
                     {
