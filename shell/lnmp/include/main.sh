@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-DB_Info=('MySQL 5.1.73' 'MySQL 5.5.62' 'MySQL 5.6.48' 'MySQL 5.7.30' 'MySQL 8.0.20' 'MariaDB 5.5.68' 'MariaDB 10.1.45' 'MariaDB 10.2.32' 'MariaDB 10.3.23' 'MariaDB 10.4.13')
-PHP_Info=('PHP 5.2.17' 'PHP 5.3.29' 'PHP 5.4.45' 'PHP 5.5.38' 'PHP 5.6.40' 'PHP 7.0.33' 'PHP 7.1.33' 'PHP 7.2.31' 'PHP 7.3.18' 'PHP 7.4.6')
-Apache_Info=('Apache 2.2.34' 'Apache 2.4.41')
+DB_Info=('MySQL 5.1.73' 'MySQL 5.5.62' 'MySQL 5.6.51' 'MySQL 5.7.34' 'MySQL 8.0.25' 'MariaDB 5.5.68' 'MariaDB 10.1.48' 'MariaDB 10.2.38' 'MariaDB 10.3.29' 'MariaDB 10.4.19')
+PHP_Info=('PHP 5.2.17' 'PHP 5.3.29' 'PHP 5.4.45' 'PHP 5.5.38' 'PHP 5.6.40' 'PHP 7.0.33' 'PHP 7.1.33' 'PHP 7.2.34' 'PHP 7.3.28' 'PHP 7.4.19' 'PHP 8.0.6')
+Apache_Info=('Apache 2.2.34' 'Apache 2.4.46')
 
 Database_Selection()
 {
@@ -135,7 +135,8 @@ PHP_Selection()
         echo "8: Install ${PHP_Info[7]}"
         echo "9: Install ${PHP_Info[8]}"
         echo "10: Install ${PHP_Info[9]}"
-        read -p "Enter your choice (1, 2, 3, 4, 5, 6, 7, 8, 9, 10): " PHPSelect
+        echo "11: Install ${PHP_Info[10]}"
+        read -p "Enter your choice (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11): " PHPSelect
     fi
 
     case "${PHPSelect}" in
@@ -172,6 +173,9 @@ PHP_Selection()
         ;;
     10)
         echo "You will install ${PHP_Info[9]}"
+        ;;
+    11)
+        echo "You will install ${PHP_Info[10]}"
         ;;
     *)
         echo "No input,You will install ${PHP_Info[4]}"
@@ -355,17 +359,20 @@ Get_Dist_Name()
     if grep -Eqi "CentOS" /etc/issue || grep -Eq "CentOS" /etc/*-release; then
         DISTRO='CentOS'
         PM='yum'
-    elif grep -Eqi "Red Hat Enterprise Linux" /etc/issue || grep -Eq "Red Hat Enterprise Linux" /etc/*-release; then
-        DISTRO='RHEL'
-        PM='yum'
-    elif grep -Eqi "Aliyun" /etc/issue || grep -Eq "Aliyun" /etc/*-release; then
+    elif grep -Eqi "Aliyun" /etc/issue || grep -Eq "Aliyun Linux" /etc/*-release; then
         DISTRO='Aliyun'
+        PM='yum'
+    elif grep -Eqi "Amazon Linux" /etc/issue || grep -Eq "Amazon Linux" /etc/*-release; then
+        DISTRO='Amazon'
         PM='yum'
     elif grep -Eqi "Fedora" /etc/issue || grep -Eq "Fedora" /etc/*-release; then
         DISTRO='Fedora'
         PM='yum'
-    elif grep -Eqi "Amazon Linux" /etc/issue || grep -Eq "Amazon Linux" /etc/*-release; then
-        DISTRO='Amazon'
+    elif grep -Eqi "Oracle Linux" /etc/issue || grep -Eq "Oracle Linux" /etc/*-release; then
+        DISTRO='Oracle'
+        PM='yum'
+    elif grep -Eqi "Red Hat Enterprise Linux" /etc/issue || grep -Eq "Red Hat Enterprise Linux" /etc/*-release; then
+        DISTRO='RHEL'
         PM='yum'
     elif grep -Eqi "Debian" /etc/issue || grep -Eq "Debian" /etc/*-release; then
         DISTRO='Debian'
@@ -555,13 +562,14 @@ Print_Sys_Info()
     echo "Memory is: ${MemTotal} MB "
     df -h
     openssl version
+    Check_WSL
 }
 
 StartUp()
 {
     init_name=$1
     echo "Add ${init_name} service at system startup..."
-    if command -v systemctl >/dev/null 2>&1 && [[ -s /etc/systemd/system/${init_name}.service || -s /lib/systemd/system/${init_name}.service || -s /usr/lib/systemd/system/${init_name}.service ]]; then
+    if [ "${isWSL}" = "n" ] && command -v systemctl >/dev/null 2>&1 && [[ -s /etc/systemd/system/${init_name}.service || -s /lib/systemd/system/${init_name}.service || -s /usr/lib/systemd/system/${init_name}.service ]]; then
         systemctl daemon-reload
         systemctl enable ${init_name}.service
     else
@@ -578,7 +586,7 @@ Remove_StartUp()
 {
     init_name=$1
     echo "Removing ${init_name} service at system startup..."
-    if command -v systemctl >/dev/null 2>&1 && [[ -s /etc/systemd/system/${init_name}.service || -s /lib/systemd/system/${init_name}.service || -s /usr/lib/systemd/system/${init_name}.service ]]; then
+    if [ "${isWSL}" = "n" ] && command -v systemctl >/dev/null 2>&1 && [[ -s /etc/systemd/system/${init_name}.service || -s /lib/systemd/system/${init_name}.service || -s /usr/lib/systemd/system/${init_name}.service ]]; then
         systemctl disable ${init_name}.service
     else
         if [ "$PM" = "yum" ]; then
@@ -590,17 +598,26 @@ Remove_StartUp()
     fi
 }
 
+Get_Country()
+{
+    country=`curl -sSk --connect-timeout 30 -m 60 https://ip.vpszt.com/country`
+    if [ $? -ne 0 ]; then
+        country=`curl -sSk --connect-timeout 30 -m 60 https://ip.vpser.net/country`
+    fi
+}
+
 Check_Mirror()
 {
     if ! command -v curl >/dev/null 2>&1; then
         if [ "$PM" = "yum" ]; then
             yum install -y curl
         elif [ "$PM" = "apt" ]; then
+            export DEBIAN_FRONTEND=noninteractive
             apt-get update
             apt-get install -y curl
         fi
     fi
-    country=`curl -sSk --connect-timeout 30 -m 60 https://ip.vpser.net/country`
+    Get_Country
     echo "Server Location: ${country}"
     if [ "${Download_Mirror}" = "https://soft.vpser.net" ]; then
         echo "Try http://soft.vpser.net ..."
@@ -647,6 +664,28 @@ Check_Mirror()
                     fi
                 fi
             fi
+        fi
+    fi
+}
+
+Check_CMPT()
+{
+    if [[ "${DBSelect}" = "5" ]]; then
+        if echo "${Ubuntu_Version}" | grep -Eqi "^1[0-7]\." || echo "${Debian_Version}" | grep -Eqi "^[4-8]" || echo "${Raspbian_Version}" | grep -Eqi "^[4-8]" || echo "${CentOS_Version}" | grep -Eqi "^[4-7]"  || echo "${RHEL_Version}" | grep -Eqi "^[4-7]" || echo "${Fedora_Version}" | grep -Eqi "^2[0-3]"; then
+            Echo_Red "MySQL 8.0 please use latest linux distributions!"
+            exit 1
+        fi
+    fi
+    if [[ "${PHPSelect}" == "10" ]]; then
+        if echo "${Ubuntu_Version}" | grep -Eqi "^1[0-7]\." || echo "${Debian_Version}" | grep -Eqi "^[4-8]" || echo "${Raspbian_Version}" | grep -Eqi "^[4-8]" || echo "${CentOS_Version}" | grep -Eqi "^[4-6]"  || echo "${RHEL_Version}" | grep -Eqi "^[4-6]" || echo "${Fedora_Version}" | grep -Eqi "^2[0-3]"; then
+            Echo_Red "PHP 7.4 please use latest linux distributions!"
+            exit 1
+        fi
+    fi
+    if [[ "${PHPSelect}" =~ ^[123456]$ ]]; then
+        if echo "${Ubuntu_Version}" | grep -Eqi "^19|2[0-7]\." || echo "${Debian_Version}" | grep -Eqi "^10" || echo "${Raspbian_Version}" | grep -Eqi "^10" || echo "${Deepin_Version}" | grep -Eqi "^2[0-9]" || echo "${Fedora_Version}" | grep -Eqi "^29|3[0-9]"; then
+            Echo_Red "Install lower than PHP 7.1 is not supported on very new linux versions such as Ubuntu 19+, Debian 10, Deepin 20+, Fedora 29+ etc."
+            exit 1
         fi
     fi
 }
@@ -753,5 +792,25 @@ TempMycnf_Clean()
     fi
     if [ -s /tmp/.mysql.tmp ]; then
         rm -f /tmp/.mysql.tmp
+    fi
+}
+
+StartOrStop()
+{
+    local action=$1
+    local service=$2
+    if [ "${isWSL}" = "n" ] && command -v systemctl >/dev/null 2>&1 && [[ -s /etc/systemd/system/${service}.service ]]; then
+        systemctl ${action} ${service}.service
+    else
+        /etc/init.d/${service} ${action}
+    fi
+}
+
+Check_WSL() {
+    if [[ "$(< /proc/sys/kernel/osrelease)" == *[Mm]icrosoft* ]]; then
+        echo "running on WSL"
+        isWSL="y"
+    else
+        isWSL="n"
     fi
 }

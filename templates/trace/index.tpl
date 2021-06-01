@@ -141,14 +141,13 @@
                     });
                     break;
                 case 'view':
-                    let msg = `<p>终端:\t` + (obj.data['is_mobile'] ? '手机端' : '电脑端') + `</p>`;
-                    msg += `<p>方式:\t` + obj.data['entrance'] + `</p>`;
-                    msg += `<p>接待ID:\t` + obj.data['waiter_id'] + `</p>`;
-                    msg += `<p>Geo:\t` + JSON.stringify(obj.data['geo']) + `</p>`;
-                    msg += `<p>当前访问:\t` + obj.data['visiting'] + `</p>`;
-                    msg += `<p>来路:\t` + obj.data['referer'] + `</p>`;
-                    msg += `<p>UserAgent:\t` + obj.data['user_agent'] + `</p>`;
-                    main.msg(msg);
+                    main.msg(`<textarea class="layui-textarea" style="width:100%;height:100%">终端: ` + (obj.data['is_mobile'] ? '手机端' : '电脑端') + `
+方式: ` + obj.data['entrance'] + `
+接待ID: ` + obj.data['waiter_id'] + `
+Geo: ` + JSON.stringify(obj.data['geo']) + `
+当前访问: ` + obj.data['visiting'] + `
+来路: ` + obj.data['referer'] + `
+UserAgent: ` + obj.data['user_agent'] + `</textarea>`, {area: ['80%', "80%"]});
                     break;
             }
         });

@@ -14,10 +14,21 @@ Install_ImageMagic()
 
     if [[ "${DISTRO}" = "CentOS" || "${DISTRO}" = "RHEL" || "${DISTRO}" = "Aliyun" || "${DISTRO}" = "Amazon" ]]; then
         yum install -y epel-release
+        Get_Dist_Version
+        Get_Country
+        if [ "${country}" = "CN" ]; then
+            if echo "${CentOS_Version}" | grep -Eqi "^8"  || echo "${RHEL_Version}" | grep -Eqi "^8"; then
+                sed -i "s@^#baseurl=https://download.fedoraproject.org/pub@baseurl=https://mirrors.aliyun.com@g" /etc/yum.repos.d/epel*.repo
+            else
+                sed -i "s@^#baseurl=http://download.fedoraproject.org/pub@baseurl=http://mirrors.aliyun.com@g" /etc/yum.repos.d/epel*.repo
+            fi
+            sed -i "s@^metalink@#metalink@g" /etc/yum.repos.d/epel*.repo
+        fi
     fi
     if [ "$PM" = "yum" ]; then
         yum install -y libwebp-devel
     elif [ "$PM" = "apt" ]; then
+        export DEBIAN_FRONTEND=noninteractive
         apt-get update
         apt-get install -y libwebp-dev
     fi
@@ -44,6 +55,15 @@ Install_ImageMagic()
     if echo "${Cur_PHP_Version}" | grep -Eqi '^5.2.';then
         Download_Files ${Download_Mirror}/web/imagick/imagick-3.1.2.tgz imagick-3.1.2.tgz
         Tar_Cd imagick-3.1.2.tgz imagick-3.1.2
+    elif echo "${Cur_PHP_Version}" | grep -Eqi '^8.0.';then
+        [[ -d "imagick-src" ]] && rm -rf "imagick-src"
+        if [ "${country}" = "CN" ]; then
+            git clone https://github.com.cnmpjs.org/Imagick/imagick imagick-src
+            cd imagick-src
+        else
+            git clone https://github.com/Imagick/imagick imagick-src
+            cd imagick-src
+        fi
     else
         Download_Files ${Download_Mirror}/web/imagick/${Imagick_Ver}.tgz ${Imagick_Ver}.tgz
         Tar_Cd ${Imagick_Ver}.tgz ${Imagick_Ver}
