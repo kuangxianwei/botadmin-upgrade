@@ -5,22 +5,19 @@ StartUp() {
   init_name=$1
   echo "Add ${init_name} service at system startup..."
   if command -v systemctl >/dev/null 2>&1 && [[ -s /etc/systemd/system/${init_name}.service || -s /lib/systemd/system/${init_name}.service || -s /usr/lib/systemd/system/${init_name}.service ]]; then
-    systemctl enable ${init_name}.service
+    systemctl enable "${init_name}.service"
   else
     if [ "$PM" = "yum" ]; then
-      chkconfig --add ${init_name}
-      chkconfig ${init_name} on
+      chkconfig --add "${init_name}"
+      chkconfig "${init_name}" on
     elif [ "$PM" = "apt" ]; then
-      update-rc.d -f ${init_name} defaults
+      update-rc.d -f "${init_name}" defaults
     fi
   fi
 }
 #编译安装#
 Make_Install() {
-  # shellcheck disable=SC2046
-  # shellcheck disable=SC2126
-  make -j $(grep 'processor' /proc/cpuinfo | wc -l)
-  if [ $? -ne 0 ]; then
+  if ! make -j "$(grep -c 'processor' /proc/cpuinfo)"; then
     make
   fi
   make install
@@ -30,13 +27,13 @@ Remove_StartUp() {
   init_name=$1
   echo "Removing ${init_name} service at system startup..."
   if command -v systemctl >/dev/null 2>&1 && [[ -s /etc/systemd/system/${init_name}.service || -s /lib/systemd/system/${init_name}.service || -s /usr/lib/systemd/system/${init_name}.service ]]; then
-    systemctl disable ${init_name}.service
+    systemctl disable "${init_name}.service"
   else
     if [ "$PM" = "yum" ]; then
-      chkconfig ${init_name} off
-      chkconfig --del ${init_name}
+      chkconfig "${init_name}" off
+      chkconfig --del "${init_name}"
     elif [ "$PM" = "apt" ]; then
-      update-rc.d -f ${init_name} remove
+      update-rc.d -f "${init_name}" remove
     fi
   fi
 }
