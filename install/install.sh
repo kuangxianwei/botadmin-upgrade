@@ -220,7 +220,7 @@ Write_botadmin_init
 
 #赋权限#
 pushd "$AppDir" || exit 1
-chmod +x -R ./$AppName ./shell/* || exit 1
+chmod +x -R ./$AppName ./install/* || exit 1
 test -d ./data/contact || mkdir -p ./data/contact
 chmod -R 0755 ./data
 echo "open_basedir=${AppDir}/data/contact:/tmp/:/proc/" >./data/contact/.user.ini
@@ -231,19 +231,19 @@ isEnabledBotadmin=$(systemctl is-enabled $AppName)
 test "$isEnabledBotadmin" = "disabled" && systemctl enable $AppName.service
 
 #进入安装 军哥的lnmp#
-pushd "${AppDir}/shell/lnmp/src" || exit 1
+pushd "${AppDir}/install/lnmp/src" || exit 1
 test -d ./ngx_http_substitutions_filter_module && rm -rf ./ngx_http_substitutions_filter_module
 test -d ./ngx_cache_purge-2.3 && rm -rf ./ngx_cache_purge-2.3
 tar -jxvf ./ngx_http_substitutions_filter_module.tar.bz2 || exit 1
 tar -jxvf ./ngx_cache_purge-2.3.tar.bz2 || exit 1
-pushd "${AppDir}/shell/lnmp" || exit 1
+pushd "${AppDir}/install/lnmp" || exit 1
 
 # NGINX 添加模块#
 if [ "$NgxFilter" = "on" ]; then
   #lnmp 配置
-  cat >"${AppDir}/shell/lnmp/lnmp.conf" <<EOF
+  cat >"${AppDir}/install/lnmp/lnmp.conf" <<EOF
 Download_Mirror='https://soft.vpser.net'
-Nginx_Modules_Options='--add-module=${AppDir}/shell/lnmp/src/ngx_http_substitutions_filter_module --add-module=${AppDir}/shell/lnmp/src/ngx_cache_purge-2.3'
+Nginx_Modules_Options='--add-module=${AppDir}/install/lnmp/src/ngx_http_substitutions_filter_module --add-module=${AppDir}/install/lnmp/src/ngx_cache_purge-2.3'
 PHP_Modules_Options=''
 ##MySQL/MariaDB database directory##
 MySQL_Data_Dir='/usr/local/mysql/var'
