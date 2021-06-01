@@ -157,20 +157,6 @@ Install_PHP() {
   Clean_PHP_Src_Dir
 }
 
-# 设置botAdmin开机启动 #
-Add_BotAdmin_Startup() {
-  systemctl unmask firewalld.service
-  systemctl enable firewalld.service
-  systemctl start firewalld.service
-  firewall-cmd --zone=public --add-port=8080/tcp --permanent
-  firewall-cmd --zone=public --add-port=443/tcp --permanent
-  firewall-cmd --zone=public --add-service=http --permanent
-  firewall-cmd --zone=public --add-service=mysql --permanent
-  systemctl restart firewalld.service
-  systemctl enable botadmin.service
-  systemctl start botadmin.service
-}
-
 LNMP_Stack() {
   Init_Install
   Install_PHP
