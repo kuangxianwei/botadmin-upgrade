@@ -101,7 +101,7 @@ Download_Botadmin() {
 
 # 写入开机启动
 Write_botadmin_init() {
-  #开机启动本程序#
+  # 写入init.d 开机启动本程序
   cat >"/etc/init.d/$AppName" <<EOF
 #!/bin/bash
 #
@@ -189,24 +189,32 @@ uninstall)
   ;;
 esac
 EOF
-  # shellcheck disable=SC2181
-  if [ $? -ne 0 ]; then
-    echo "写入脚本 /etc/init.d/$AppName 失败" 2>&1
-    exit 1
-  fi
   chmod +x "/etc/init.d/$AppName"
   test -d "${AppDir}/data" || mkdir -p "${AppDir}/data"
+   # systemctl服务
+   cat >"/etc/systemd/system/$AppName.service"<<EOF
+[Unit]
+Description=$AppName Server
+After=mysql.service
+
+[Service]
+Type=forking
+ExecStart=/etc/init.d/$AppName start
+ExecStop=/etc/init.d/$AppName stop
+ExecReload=/etc/init.d/$AppName restart
+Restart=no
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target
+EOF
+  # 写入Mysql数据库 配置信息
   cat >"${AppDir}/data/.my.cnf" <<EOF
 [client]
 password=botadmin.cn
 port=3306
 socket=/tmp/mysql.sock
 EOF
-  # shellcheck disable=SC2181
-  if [ $? -ne 0 ]; then
-    echo "写入脚本 ${AppDir}/data/.my.cnf 失败" 2>&1
-    exit 1
-  fi
 }
 
 # 添加chromium 安装缺失的依赖库

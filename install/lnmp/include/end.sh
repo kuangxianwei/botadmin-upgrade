@@ -12,7 +12,6 @@ Add_BotAdmin_Startup() {
   systemctl restart firewalld.service
   systemctl enable botadmin.service
   systemctl start botadmin.service
-  systemctl restart botadmin.service
 }
 
 Add_Iptables_Rules() {
