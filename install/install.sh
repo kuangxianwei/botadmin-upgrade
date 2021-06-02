@@ -123,12 +123,11 @@ Write_botadmin_init() {
 [ "\$NETWORKING" = "no" ] && exit 0
 
 # 锁文件
-lockfile="/var/lock/subsys/${AppName}"
-prog=$AppName
+lockfile="/var/lock/subsys/$AppName"
 cd $AppDir || exit 0
 
 start() {
-  echo -n "Starting \$prog: "
+  echo -n "Starting $AppName: "
   $App &
   echo_success
   retval=\$?
@@ -137,7 +136,7 @@ start() {
   return \$retval
 }
 stop() {
-  echo -n "Stopping \$prog: "
+  echo -n "Stopping $AppName: "
   killproc "\$AppName" >/dev/null 2>&1
   echo_success
   retval=\$?
@@ -154,11 +153,11 @@ restart() {
 uninstall() {
   stop
   rm -fr $AppDir
-  rm -f /etc/rc.d/init.d/${AppName}
+  rm -f /etc/rc.d/init.d/$AppName
 }
 
 rh_status() {
-  status \$prog
+  status $AppName
 }
 
 rh_status_q() {
@@ -189,10 +188,11 @@ uninstall)
   ;;
 esac
 EOF
-  chmod +x "/etc/init.d/$AppName"
-  test -d "${AppDir}/data" || mkdir -p "${AppDir}/data"
-   # systemctl服务
-   cat >"/etc/systemd/system/$AppName.service"<<EOF
+  chmod +x $App
+  chmod +x /etc/init.d/$AppName
+  test -d $AppDir/data || mkdir -p $AppDir/data
+  # systemctl服务
+  cat >/etc/systemd/system/$AppName.service <<EOF
 [Unit]
 Description=$AppName Server
 After=mysql.service
@@ -209,7 +209,7 @@ PrivateTmp=false
 WantedBy=multi-user.target
 EOF
   # 写入Mysql数据库 配置信息
-  cat >"${AppDir}/data/.my.cnf" <<EOF
+  cat >$AppDir/data/.my.cnf <<EOF
 [client]
 password=botadmin.cn
 port=3306
@@ -228,10 +228,10 @@ Write_botadmin_init
 
 #赋权限#
 pushd "$AppDir" || exit 1
-chmod +x -R ./$AppName ./install/* || exit 1
+chmod +x -R $App ./install/* || exit 1
 test -d ./data/contact || mkdir -p ./data/contact
 chmod -R 0755 ./data
-echo "open_basedir=${AppDir}/data/contact:/tmp/:/proc/" >./data/contact/.user.ini
+echo "open_basedir=$AppDir/data/contact:/tmp/:/proc/" >./data/contact/.user.ini
 command -v bzip2 || {
   yum -y install bzip2 || exit 1
 }
@@ -239,19 +239,19 @@ isEnabledBotadmin=$(systemctl is-enabled $AppName)
 test "$isEnabledBotadmin" = "disabled" && systemctl enable $AppName.service
 
 #进入安装 军哥的lnmp#
-pushd "${AppDir}/install/lnmp/src" || exit 1
+pushd $AppDir/install/lnmp/src || exit 1
 test -d ./ngx_http_substitutions_filter_module && rm -rf ./ngx_http_substitutions_filter_module
 test -d ./ngx_cache_purge-2.3 && rm -rf ./ngx_cache_purge-2.3
 tar -jxvf ./ngx_http_substitutions_filter_module.tar.bz2 || exit 1
 tar -jxvf ./ngx_cache_purge-2.3.tar.bz2 || exit 1
-pushd "${AppDir}/install/lnmp" || exit 1
+pushd $AppDir/install/lnmp || exit 1
 
 # NGINX 添加模块#
 if [ "$NgxFilter" = "on" ]; then
   #lnmp 配置
-  cat >"${AppDir}/install/lnmp/lnmp.conf" <<EOF
+  cat >"$AppDir/install/lnmp/lnmp.conf" <<EOF
 Download_Mirror='https://soft.vpser.net'
-Nginx_Modules_Options='--add-module=${AppDir}/install/lnmp/src/ngx_http_substitutions_filter_module --add-module=${AppDir}/install/lnmp/src/ngx_cache_purge-2.3'
+Nginx_Modules_Options='--add-module=$AppDir/install/lnmp/src/ngx_http_substitutions_filter_module --add-module=$AppDir/install/lnmp/src/ngx_cache_purge-2.3'
 PHP_Modules_Options=''
 ##MySQL/MariaDB database directory##
 MySQL_Data_Dir='/usr/local/mysql/var'
