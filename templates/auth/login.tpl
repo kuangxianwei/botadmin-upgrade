@@ -20,11 +20,9 @@
                 <input type="hidden" name="csrf.Token" value="{{.token}}">
             </div>
             <div class="layui-form-item">
-                <a href="#" class="layadmin-user-jump-change layadmin-link">忘记密码？</a>
-            </div>
-            <div class="layui-form-item">
                 <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="login-submit">登 入</button>
             </div>
+            <!--
             <div class="layui-trans layui-form-item layadmin-user-login-other">
                 <label>社交账号登入</label>
                 <a href="javascript:"><i class="layui-icon layui-icon-login-qq"></i></a>
@@ -33,6 +31,7 @@
                 <a href="http://bbs.botadmin.cn/member.php?mod=register" class="layadmin-user-jump-change layadmin-link"
                    target="_blank">注册帐号</a>
             </div>
+            -->
         </div>
     </div>
     <div class="layui-trans layadmin-user-login-footer">

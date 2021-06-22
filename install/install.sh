@@ -31,7 +31,7 @@ Set_Params() {
     if [[ "$param" =~ ^mirror= ]]; then
       case "${param#*=}" in
       [cC][nN])
-        Mirror="http://download.botadmin.cn/master.zip"
+        Mirror="http://auth.nfivf.com:9090/mirror/master.zip"
         ;;
       http://* | https://*)
         Mirror="${param#*=}"
@@ -123,7 +123,7 @@ Write_botadmin_init() {
 [ "\$NETWORKING" = "no" ] && exit 0
 
 # 锁文件
-lockfile="/var/lock/subsys/$AppName"
+lockfile=/var/lock/subsys/$AppName
 cd $AppDir || exit 0
 
 start() {
@@ -137,7 +137,7 @@ start() {
 }
 stop() {
   echo -n "Stopping $AppName: "
-  killproc "\$AppName" >/dev/null 2>&1
+  killproc $AppName >/dev/null 2>&1
   echo_success
   retval=\$?
   echo
@@ -183,11 +183,12 @@ uninstall)
   \$1
   ;;
 *)
-  echo \$"Usage: \$0 {start|stop|status|restart}"
+  echo "Usage: \$0 {start|stop|status|restart}"
   exit 2
   ;;
 esac
 EOF
+  chown root:root -R $AppDir
   chmod +x $App
   chmod +x /etc/init.d/$AppName
   test -d $AppDir/data || mkdir -p $AppDir/data
@@ -208,6 +209,7 @@ PrivateTmp=false
 [Install]
 WantedBy=multi-user.target
 EOF
+  systemctl daemon-reload
   # 写入Mysql数据库 配置信息
   cat >$AppDir/data/.my.cnf <<EOF
 [client]

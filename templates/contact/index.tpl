@@ -39,7 +39,7 @@
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="修改">
             <i class="layui-icon layui-icon-edit"></i></button>
-        <button class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del" lay-tips="删除该条">
+        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del" lay-tips="删除该条">
             <i class="layui-icon layui-icon-delete"></i></button>
         <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>

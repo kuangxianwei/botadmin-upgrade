@@ -16,7 +16,7 @@
 <script type="text/html" id="table-toolbar">
     <a class="layui-btn layui-btn-xs" lay-event="modify">
         <i class="layui-icon layui-icon-edit"></i>编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
         <i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 <script src="/static/layui/layui.js"></script>

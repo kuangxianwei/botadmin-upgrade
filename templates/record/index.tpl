@@ -39,14 +39,14 @@
         <button class="layui-btn layui-btn-sm" lay-event="read" lay-tips="设为已读状态">
             <i class="layui-icon layui-icon-read"></i>
         </button>
-        <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del" lay-tips="删除选中">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
     </div>
 </script>
 <script type="text/html" id="toolbar-read">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del" lay-tips="删除选中">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
         <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="reset" lay-tips="清空全部 已读和未读都会被清空">清空

@@ -69,7 +69,7 @@
         <a class="layui-btn layui-btn-xs" lay-event="exec">
             <i class="layui-icon layui-icon-play"></i>
         </a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del">
+        <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </a>
         <a class="layui-btn layui-btn-xs" lay-event="log" lay-tips="查看日志">

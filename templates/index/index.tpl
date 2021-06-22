@@ -23,7 +23,7 @@
                            layadmin-event="serach" lay-action="template/search.html?keywords=">
                 </li>
                 <li class="layui-nav-item" lay-unselect>
-                    {{.auth.Message}}
+                    {{.auth.Msg}}
                 </li>
             </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">

@@ -232,8 +232,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             reqOptions.tips = options.tips;
                         }
                         dom.find('.layui-form [name]').each(function (i, v) {
-                            if (v.disabled === false && v.name && v.name !== 'cols' && cols.indexOf(v.name) === -1) {
-                                cols.push(v.name);
+                            if (v.disabled === false && v.name) {
+                                let name = v.name.split('.')[0];
+                                if (name !== 'cols' && cols.indexOf(name) === -1) {
+                                    cols.push(name);
+                                }
                             }
                         });
                         reqOptions.data.cols = cols.join();
@@ -285,7 +288,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 
         // 格式时间
         timestampFormat(timestamp) {
-            timestamp = timestamp.toString();
+            timestamp = timestamp ? timestamp.toString() : '0';
             if (timestamp.length > 13) {
                 timestamp = timestamp.substring(0, 13)
             } else {
@@ -1129,7 +1132,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             let field = data.field, cols = [];
             $.each(field, function (k, v) {
                 if (v) {
-                    cols.push(k);
+                    cols.push(k.split('.')[0]);
                 } else {
                     delete field[k];
                 }

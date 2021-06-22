@@ -28,7 +28,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="add">
             <i class="layui-icon layui-icon-add-1"></i>添加
         </button>
-        <button class="layui-btn  layui-btn-danger layui-btn-sm" lay-event="del">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>删除
         </button>
     </div>
@@ -36,7 +36,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="enabled">
             <i class="layui-icon layui-icon-email"></i>启用
         </button>
-        <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="disabled">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="disabled">
             <i class="layui-icon layui-icon-email"></i>关闭
         </button>
     </div>

@@ -43,7 +43,7 @@
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn  layui-btn-danger layui-btn-sm" lay-event="del" id="LAY_layer_iframe_del">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" id="LAY_layer_iframe_del">
             <i class="layui-icon layui-icon-delete"></i>删除
         </button>
         <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate"

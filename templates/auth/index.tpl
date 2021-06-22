@@ -19,13 +19,13 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="batchdel">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>删除
         </button>
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
-    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-danger" lay-event="del"><i
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i
                 class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 <script src="/static/layui/layui.js"></script>
@@ -82,7 +82,7 @@
         table.on('toolbar(table-list)', function (obj) {
             let checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
-                case 'batchdel':
+                case 'del':
                     let data = checkStatus.data;
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
