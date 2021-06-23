@@ -6,6 +6,34 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "1393508",
+      "name": "feedback",
+      "font_class": "feedback",
+      "unicode": "e6b6",
+      "unicode_decimal": 59062
+    },
+    {
+      "icon_id": "627347",
+      "name": "order form",
+      "font_class": "form",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "2681975",
+      "name": "管理员",
+      "font_class": "admin",
+      "unicode": "e6fb",
+      "unicode_decimal": 59131
+    },
+    {
+      "icon_id": "3590935",
+      "name": "管理员",
+      "font_class": "admin-1",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
       "icon_id": "1249048",
       "name": "跟踪定位",
       "font_class": "trace",
