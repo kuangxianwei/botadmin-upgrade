@@ -203,7 +203,7 @@ if (isset($_GET['tagname'])) {
     [!--temp.header--]
     
 <div class="container">
-    <ul class="list-unstyled d-flex breadcrumb p-0 bg-transparent">[!--newsnav--]</ul>
+    <ul class="list-unstyled d-flex breadcrumb p-0 bg-transparent">[!--newsnav--]>列表</ul>
     <div class="row">
         <main class="col-lg-8">            
             <section class="mip-box mip-box-default">
@@ -272,7 +272,7 @@ if (isset($_GET['tagname'])) {
             <p><span>[!--newstime--]</span></p>
         </div>
     </div>
-</div><!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻内容模板<!---ecms.field--->0<!---ecms.field---><?php
+</div><!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻内容模板<!---ecms.field--->0<!---ecms.field---><?php
 $title='';
 if (isset($_GET['tagname'])) {
     $url = abs_url("/tag/{$_GET['tagname']}");
@@ -318,7 +318,7 @@ if (isset($_GET['tagname'])) {
     [!--temp.header--]
     
 <div class="container">
-    <ul class="list-unstyled d-flex breadcrumb p-0 bg-transparent">[!--newsnav--]</ul>
+    <ul class="list-unstyled d-flex breadcrumb p-0 bg-transparent">[!--newsnav--]>内容</ul>
     <div class="row">
         <main class="col-lg-8">
             <section class="mip-box mip-box-main">
@@ -327,7 +327,7 @@ if (isset($_GET['tagname'])) {
                     <div class="info clearfix">
                         <ul>
                             <li>时间:<time>[!--newstime--]</time></li>
-                            <li>浏览:<script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script></li>
+                            <li>浏览:<script src=[!--news.url--]e/public/ViewClick/?classid=[!--classid--]&id=[!--id--]&addclick=1></script>次</li>
                             <li>来源:<?=article_source()?></li>
                         </ul>
                     </div>
@@ -1307,7 +1307,7 @@ if (isset($_GET['tagname'])) {
     <link rel="shortcut icon" href="[!--news.url--]skin/custom/favicon.ico" type="image/x-icon" />
     <title><?=$title?>[!--pagetitle--]-<?=$public_r[add_title_suffix]?></title>
     <meta name="keywords" content="[!--pagekey--]">
-    <meta name="description" content="[!--pagedes--]">      
+    <meta name="description" content="[!--pagedes--]">
     <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/v1/mip.css">
     <link rel="stylesheet" href="[!--news.url--]skin/custom/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/mipcms.css">
@@ -1320,23 +1320,23 @@ if (isset($_GET['tagname'])) {
         .mipmb-default-search {
             margin-top: -4px;
         }
-                
+
         mip-fixed[type="top"] {
             overflow: initial;
         }
 
-    
+
     </style>
 </head>
 <body>
-    
-    <!--页面头部-->
-    [!--temp.header--]
-    
+
+<!--页面头部-->
+[!--temp.header--]
+
 <div class="container">
-    <ul class="list-unstyled d-flex breadcrumb p-0 bg-transparent">[!--newsnav--]</ul>
+    <ul class="list-unstyled d-flex breadcrumb p-0 bg-transparent">[!--newsnav--]>列表</ul>
     <div class="row">
-        <main class="col-lg-8">            
+        <main class="col-lg-8">
             <section class="mip-box mip-box-default">
                 <section class="mip-box-heading">
                     <h3>[!--class.name--]</h3>
@@ -1344,38 +1344,38 @@ if (isset($_GET['tagname'])) {
                 <section class="mip-box-body">
                     <!--调用封面栏目最新10条信息-->
                     [e:loop={'selfinfo',10,0,0}]
-                        <div class="mipui-widget-media-body mipui-category-list-001">
-                            <div class="mipui-category-list-item">
-                                <div class="item-media">
-                                    <a href="<?=$bqsr['titleurl']?>" class="item-link" data-type="mip" data-title="<?=$bqr['title']?>" title='<?=$bqr['title']?>'>
-                                        <mip-img layout="container" alt='<?=$bqr['title']?>' src="<?=$bqr['titlepic']?>"></mip-img>
-                                    </a>
-                                </div>
-                                <div class="item-content">
-                                    <h4><a href="<?=$bqsr['titleurl']?>" data-type="mip" data-title="<?=$bqr['title']?>" title='<?=$bqr['title']?>'><?=$bqr['title']?></a></h4>
-                                    <p class="description"><?=$bqr['smalltext']?>...</p>
-                                    <p><span><?=date('Y-m-d',$bqr['newstime'])?></span></p>
-                                </div>
+                    <div class="mipui-widget-media-body mipui-category-list-001">
+                        <div class="mipui-category-list-item">
+                            <div class="item-media">
+                                <a href="<?=$bqsr['titleurl']?>" class="item-link" data-type="mip" data-title="<?=$bqr['title']?>" title='<?=$bqr['title']?>'>
+                                <mip-img layout="container" alt='<?=$bqr['title']?>' src="<?=$bqr['titlepic']?>"></mip-img>
+                                </a>
+                            </div>
+                            <div class="item-content">
+                                <h4><a href="<?=$bqsr['titleurl']?>" data-type="mip" data-title="<?=$bqr['title']?>" title='<?=$bqr['title']?>'><?=$bqr['title']?></a></h4>
+                                <p class="description"><?=$bqr['smalltext']?>...</p>
+                                <p><span><?=date("Y-m-d H:i:s",$bqr[newstime])?></span></p>
                             </div>
                         </div>
+                    </div>
                     [/e:loop]
 
                     <!--调用分页-->
                     <!-- <div class="page-control"><ul class="pagination"> [!--show.listpage--]</ul></div> -->
                 </section>
         </main>
-        
-    <!--侧边栏-->
-    [!--temp.sidebar--]
-</div>
+
+        <!--侧边栏-->
+        [!--temp.sidebar--]
+    </div>
 </div>
 
 </main>
-    <footer class="mipui-footer">
-        <div class="container">
-            <p class="text-center mip-footer">&copy;2018-2021 <a data-type="mip" href="[!--news.url--]" data-title="<?=$public_r['sitename']?>"><?=$public_r['sitename']?></a> 备案号:<a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow">豫ICP备10007855号-1</a><a target="_blank" href="[!--news.url--]/sitemap.xml">网站地图</a><br class="visible-xs" /></p>
-            <!--站长自动推送-->
-            <script>
+<footer class="mipui-footer">
+    <div class="container">
+        <p class="text-center mip-footer">&copy;2018-2021 <a data-type="mip" href="[!--news.url--]" data-title="<?=$public_r['sitename']?>"><?=$public_r['sitename']?></a> 备案号:<a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow">豫ICP备10007855号-1</a><a target="_blank" href="[!--news.url--]/sitemap.xml">网站地图</a><br class="visible-xs" /></p>
+        <!--站长自动推送-->
+        <script>
             (function(){
                 var bp = document.createElement('script');
                 var curProtocol = window.location.protocol.split(':')[0];
@@ -1388,12 +1388,12 @@ if (isset($_GET['tagname'])) {
                 var s = document.getElementsByTagName("script")[0];
                 s.parentNode.insertBefore(bp, s);
             })();
-            </script> </p>
-        </div>
-    </footer>
-    <mip-fixed type="gototop">
-        <mip-gototop></mip-gototop>
-    </mip-fixed>
+        </script> </p>
+    </div>
+</footer>
+<mip-fixed type="gototop">
+    <mip-gototop></mip-gototop>
+</mip-fixed>
 
 <script src="[!--news.url--]skin/custom/v1/mip.js"></script>
 <script src="[!--news.url--]skin/custom/v1/mip-stats-baidu.js"></script>

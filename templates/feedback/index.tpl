@@ -84,9 +84,12 @@
                             return "电脑端";
                         }
                     },
-                    {field: 'entrance', title: '入口', minWidth: 100},
+                    {field: 'name', title: '昵称', minWidth: 100},
+                    {field: 'phone', title: '电话', minWidth: 100},
+                    {field: 'wechat', title: '微信', minWidth: 100},
+                    {field: 'message', title: '反馈', minWidth: 100},
                     {
-                        title: 'IP', minWidth: 100, templet: function (d) {
+                        title: 'IP', hide: true, templet: function (d) {
                             return d['geo'].ip;
                         }
                     },
@@ -147,7 +150,13 @@
 Geo: ` + JSON.stringify(obj.data['geo']) + `
 当前访问: ` + obj.data['visiting'] + `
 来路: ` + obj.data['referer'] + `
-UserAgent: ` + obj.data['user_agent'] + `</textarea>`, {area: ['80%', "80%"]});
+UserAgent: ` + obj.data['user_agent'] + `
+
+昵称: ` + obj.data['name'] + `
+电话: ` + obj.data['phone'] + `
+微信: ` + obj.data['wechat'] + `
+反馈: ` + obj.data['feedback'] + `</textarea>`,
+                        {area: ['80%', "80%"]});
                     break;
             }
         });
@@ -184,10 +193,10 @@ UserAgent: ` + obj.data['user_agent'] + `</textarea>`, {area: ['80%', "80%"]});
                     });
                     break;
                 case 'reset-record':
-                    main.reset.log('trace', ids);
+                    main.reset.log('feedback', ids);
                     break;
                 case 'log':
-                    main.ws.log('trace.0');
+                    main.ws.log('feedback.0');
                     break;
             }
         });
