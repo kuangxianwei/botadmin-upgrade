@@ -95,7 +95,7 @@
                         <label class="layui-form-label">泛域名支持:</label>
                         <div class="layui-input-inline">
                             <input type="checkbox" name="unlimited_bind" lay-skin="switch"
-                                   lay-text="打开|关闭" {{if .obj.UnlimitedBind}} checked{{end}}>
+                                   lay-text="打开|关闭"{{if .obj.UnlimitedBind}} checked{{end}}>
                         </div>
                         <div class="layui-form-mid layui-word-aux">
                             <span class="text-danger">对泛域名的支持，一般不需要开启</span>
