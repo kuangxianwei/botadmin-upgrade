@@ -58,14 +58,18 @@
                     main.req({
                         url: url + "/install",
                         data: {id: data.id},
-                        ending: main.log("plugin." + data.id)
+                        ending: main.ws.log("plugin." + data.id)
                     });
                     break;
                 case 'uninstall':
-                    layer.msg("uninstall");
+                    main.req({
+                        url: url + "/uninstall",
+                        data: {id: data.id},
+                        ending: main.ws.log("plugin." + data.id)
+                    });
                     break;
                 case 'log':
-                    layer.msg("log");
+                    main.ws.log("plugin." + data.id);
                     break;
             }
         });
