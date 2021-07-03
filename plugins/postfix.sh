@@ -71,6 +71,7 @@ Uninstall() {
   yum remove postfix -y
   rm -rf /etc/postfix
   systemctl disable postfix.service 2>/dev/null
+  exit 0
 }
 
 case "$1" in
