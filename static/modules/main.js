@@ -1038,7 +1038,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
             };
         },
-        log: function (name) {
+        log: function (name, callback) {
             if (!name) {
                 return false;
             }
@@ -1065,12 +1065,15 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         }
                     };
                 },
-                always: function () {
+                always: function (dom) {
                     w.close();
+                    if (typeof callback === 'function') {
+                        callback(dom);
+                    }
                 }
             });
         },
-        info: function (name) {
+        info: function (name, callback) {
             name = name || "show";
             let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log/info');
             main.pop({
@@ -1089,8 +1092,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         }
                     };
                 },
-                always: function () {
+                always: function (dom) {
                     w.close();
+                    if (typeof callback === 'function') {
+                        callback(dom);
+                    }
                 }
             });
         },
