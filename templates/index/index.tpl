@@ -85,6 +85,12 @@
                             <cite>默认设置</cite>
                         </a>
                         <dl class="layui-nav-child">
+                            <dd data-name="set-plugin">
+                                <a lay-href="/plugin" lay-tips="插件管理" lay-direction="2">
+                                    <i class="iconfont icon-plugin"></i>
+                                    <cite>插件</cite>
+                                </a>
+                            </dd>
                             <dd data-name="set-config">
                                 <a lay-href="/config" lay-tips="系统设置" lay-direction="2">
                                     <i class="iconfont icon-sys"></i>

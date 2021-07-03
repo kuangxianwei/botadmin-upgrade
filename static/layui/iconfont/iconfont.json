@@ -6,6 +6,13 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "5243982",
+      "name": "插件",
+      "font_class": "plugin",
+      "unicode": "e69c",
+      "unicode_decimal": 59036
+    },
+    {
       "icon_id": "3267400",
       "name": "留言",
       "font_class": "feedback-1",
