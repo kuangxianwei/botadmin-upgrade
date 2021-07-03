@@ -41,6 +41,9 @@
             <i class="layui-icon layui-icon-edit"></i></button>
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del" lay-tips="删除该条">
             <i class="layui-icon layui-icon-delete"></i></button>
+        <button class="layui-btn layui-btn-xs" lay-event="test-email" lay-tips="测试发送邮件">
+            <i class="layui-icon layui-icon-email"></i>
+        </button>
         <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
         </button>
@@ -237,6 +240,12 @@
                                 });
                             }
                         });
+                    });
+                    break;
+                case 'test-email':
+                    main.req({
+                        url: url + "/email/test",
+                        data: {id: data.id}
                     });
                     break;
                 case 'log':

@@ -85,12 +85,6 @@
                             <cite>默认设置</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="set-plugin">
-                                <a lay-href="/plugin" lay-tips="插件管理" lay-direction="2">
-                                    <i class="iconfont icon-plugin"></i>
-                                    <cite>插件</cite>
-                                </a>
-                            </dd>
                             <dd data-name="set-config">
                                 <a lay-href="/config" lay-tips="系统设置" lay-direction="2">
                                     <i class="iconfont icon-sys"></i>
@@ -305,9 +299,16 @@
                             <cite>常用工具</cite>
                         </a>
                         <dl class="layui-nav-child">
+                            <dd data-name="set-plugin">
+                                <a lay-href="/plugin" lay-tips="插件管理" lay-direction="2">
+                                    <i class="iconfont icon-plugin"></i>
+                                    <cite>插件</cite>
+                                </a>
+                            </dd>
                             <dd data-name="tools-ban">
-                                <a lay-href="/tools/ban" lay-tips="过滤违禁词"
-                                   lay-direction="2"><cite>过滤违禁词</cite></a>
+                                <a lay-href="/tools/ban" lay-tips="过滤违禁词" lay-direction="2">
+                                    <cite>过滤违禁词</cite>
+                                </a>
                             </dd>
                             <dd data-name="monitor">
                                 <a lay-href="/monitor" lay-tips="网站监控"

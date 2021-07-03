@@ -15,16 +15,6 @@
             {{end -}}
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">邮箱配置:</label>
-            <div class="layui-input-inline">
-                <select name="email_id" lay-search>
-                    {{range $v:=.emails}}
-                        <option value="{{$v.Id}}"{{if eq $.obj.EmailId $v.Id}} selected{{end}}>{{$v.Username}}</option>
-                    {{end}}
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
             <label class="layui-form-label">接收者:</label>
             <div class="layui-input-inline">
                 <textarea name="to" class="layui-textarea"

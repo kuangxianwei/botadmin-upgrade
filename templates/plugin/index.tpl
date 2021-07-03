@@ -32,6 +32,7 @@
                 },
                 {field: 'alias', title: '别名', hide: true},
                 {field: 'installed', title: '状态', hide: true},
+                {field: 'args', title: '参数', hide: true},
                 {field: 'intro', title: '简介说明', minWidth: 200},
                 {
                     title: '操作', width: 250, align: 'center', fixed: 'right', templet: function (d) {
@@ -55,12 +56,19 @@
             let data = obj.data;
             switch (obj.event) {
                 case 'install':
-                    main.req({
-                        url: url + "/install",
-                        data: {id: data.id},
-                        ending: main.ws.log("plugin." + data.id, function () {
-                            table.reload('table-list');
-                        })
+                    layer.prompt({
+                        title: '邮箱域名,必须解析到本服务器',
+                        formType: 0,
+                        value: 'mail.nfivf.com'
+                    }, function (args, index) {
+                        layer.close(index);
+                        main.req({
+                            url: url + "/install",
+                            data: {id: data.id, args: args},
+                            ending: main.ws.log("plugin." + data.id, function () {
+                                table.reload('table-list');
+                            })
+                        });
                     });
                     break;
                 case 'uninstall':

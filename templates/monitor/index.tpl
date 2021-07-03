@@ -9,16 +9,6 @@
                     <input type="text" name="addr" placeholder="输入目标地址" class="layui-input">
                 </div>
             </div>
-            <div class="layui-inline">
-                <div class="layui-input-inline">
-                    <select name="email_id" lay-filter="search-select" lay-search>
-                        <option>搜索...</option>
-                        {{range $v:=.emails}}
-                            <option value="{{$v.Id}}">{{$v.Username}}</option>
-                        {{end}}
-                    </select>
-                </div>
-            </div>
         </div>
         <table id="table-list" lay-filter="table-list"></table>
     </div>
@@ -101,7 +91,6 @@
                     }
                 },
                 {field: 'addr', title: '目标地址', sort: true},
-                {field: 'email_id', title: '配置ID', width: 80, align: 'center'},
                 {field: 'to', title: '邮箱'},
                 {
                     field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
@@ -148,7 +137,7 @@
                 case 'test':
                     main.req({
                         url: url + '/test',
-                        data: data
+                        data: {id: data.id}
                     });
                     break;
                 case 'log':

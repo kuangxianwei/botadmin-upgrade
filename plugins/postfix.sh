@@ -61,6 +61,13 @@ Install() {
     echo "启动postfix失败" 1>&2
     exit 1
   fi
+  if ! command -v mail; then
+    if ! yum install -y mailx; then
+      echo "安装 mailx 失败" 1>&2
+      Uninstall
+      exit 1
+    fi
+  fi
 }
 # 卸载
 Uninstall() {
@@ -71,6 +78,7 @@ Uninstall() {
   yum remove postfix -y
   rm -rf /etc/postfix
   systemctl disable postfix.service 2>/dev/null
+  yum remove mailx -y
   exit 0
 }
 

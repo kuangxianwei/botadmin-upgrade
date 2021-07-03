@@ -108,6 +108,13 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">电子邮箱:</label>
+            <div class="layui-input-inline">
+                <input type="email" name="email" value="{{.obj.Email}}" placeholder="38050123@qq.com" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">如开启了留言则发送到这个邮箱</div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-row">
                 <div class="layui-col-md4">
                     <label class="layui-form-label">二维码:</label>
