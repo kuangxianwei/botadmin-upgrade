@@ -59,7 +59,7 @@
                         url: url + "/install",
                         data: {id: data.id},
                         ending: main.ws.log("plugin." + data.id, function () {
-                            table.render("table-list");
+                            table.reload('table-list');
                         })
                     });
                     break;
@@ -68,7 +68,7 @@
                         url: url + "/uninstall",
                         data: {id: data.id},
                         ending: main.ws.log("plugin." + data.id, function () {
-                            table.render("table-list");
+                            table.reload('table-list');
                         })
                     });
                     break;
