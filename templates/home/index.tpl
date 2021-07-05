@@ -53,6 +53,12 @@
                     <div carousel-item>
                         <ul class="layui-row layui-col-space10">
                             <li class="layui-col-xs3">
+                                <a lay-href="/record/info" lay-text="全部日志概况">
+                                    <i class="layui-icon layui-icon-log"></i>
+                                    <cite>日志概况</cite>
+                                </a>
+                            </li>
+                            <li class="layui-col-xs3">
                                 <a lay-href="/site" lay-text="站点列表">
                                     <i class="layui-icon layui-icon-website"></i>
                                     <cite>创建站点</cite>
@@ -94,14 +100,14 @@
                                     <cite>流量查看</cite>
                                 </a>
                             </li>
+                        </ul>
+                        <ul class="layui-row layui-col-space10">
                             <li class="layui-col-xs3">
                                 <a lay-href="/system/service">
                                     <i class="layui-icon layui-icon-layer"></i>
                                     <cite>启动服务</cite>
                                 </a>
                             </li>
-                        </ul>
-                        <ul class="layui-row layui-col-space10">
                             <li class="layui-col-xs3">
                                 <a lay-href="/system/port">
                                     <i class="layui-icon layui-icon-set"></i>
@@ -136,12 +142,6 @@
                                 <a lay-href="/system/reboot">
                                     <i class="layui-icon iconfont icon-system"></i>
                                     <cite>服务重启</cite>
-                                </a>
-                            </li>
-                            <li class="layui-col-xs3" style="cursor: pointer">
-                                <a lay-event="record">
-                                    <i class="layui-icon layui-icon-log"></i>
-                                    <cite>日志</cite>
                                 </a>
                             </li>
                             <li class="layui-col-xs3" style="cursor: pointer">
