@@ -1,0 +1,293 @@
+/* swiper */
+.swiper-pagination{
+	text-align: right;
+	color: #fff;
+	padding-right: 12px;
+	box-sizing: border-box;
+	margin-bottom: 6px;
+}
+.swiper-button-prev::after,.swiper-button-next::after{
+	content: '';
+}
+.swiper-button-prev,.swiper-button-next{
+	width: 36px;
+	height: 36px;
+}
+/* swiper end */
+.top_title{
+	font-size: 36px;
+	color: #009899;
+	padding: 10px 0;
+}
+.banner{
+	height: 41.67%;
+}
+.banner img{
+	width: 100%;
+	height: 100%;
+}
+.describe{
+	margin-top: 24px;
+	color: #656565;
+	font-size: 16px;
+	line-height: 30px;
+}
+.title_box{
+	color: #000;
+	font-size: 26px;
+	margin-top: 30px;
+}
+.zytd,.cgal{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.zytd_box{
+	margin-top: 14px;
+	width: 204px;
+}
+.zytd_box img{
+	width: 204px;
+	height: 204px;
+}
+.zytd_box .p1{
+	color: #333;
+	font-size: 20px;
+	margin: 8px 0 6px;
+}
+.zytd_box .p2{
+	color: #999;
+	font-size: 16px;
+}
+.cgal_box{
+	width: 278px;
+	margin-top: 14px;
+}
+.cgal_box img{
+	width: 278px;
+	height: 200px;
+}
+.cgal_box .p1{
+	color: #333;
+	font-size: 20px;
+	margin: 8px 0 6px;
+}
+.cgal_box .p2{
+	color: #999;
+	font-size: 14px;
+}
+.bgBox{
+	background-image: url(images/yiyuan_bnt.png);
+	width: 100%;
+	height: 340px;
+	background-size: 100% 100%;
+	margin: 40px 0;
+	text-align: center;
+	padding-top: 58px;
+	box-sizing: border-box;
+}
+.bgBox .yuzx_btn{
+	display: inline-block;
+	width: 220px;
+	height: 60px;
+	text-align: center;
+	line-height: 60px;
+	border-radius: 30px;
+	background: #009799;
+	color: #fff;
+	font-size: 20px;
+	cursor: pointer;
+	margin-top: 60px;
+}
+.yyxq,.yyfb,.ylsb,.xgal,.sggl{
+	margin-top: 12px;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.yyxq .info_box{
+	width: 591px;
+	color: #656565;
+	font-size: 16px;
+	line-height: 30px;
+}
+.yyxq .img_box{
+	width: 558px;
+}
+.yyxq .img_box img{
+	width: 558px;
+	height: 428px;
+}
+.yyfb{
+	margin-top: 30px;
+}
+.yyfb div{
+	width: 25%;
+	text-align: center;
+}
+.yyfb div .p1{
+	color: #009799;
+	font-size: 18px;
+}
+.yyfb div .p1 span{
+	font-size: 36px;
+}
+.yyfb div .p2{
+	color: #333;
+	font-size: 16px;
+}
+.ylsb_parent{
+	margin-top: 40px;
+	background: #fafafa;
+	padding: 12px 0;
+}
+.ylsb div{
+	margin-bottom: 20px;
+}
+.ylsb div img{
+	width: 278px;
+	height: 200px;
+}
+.ylsb div .p1{
+	color: #333;
+	font-size: 18px;
+	margin: 8px 0 6px;
+}
+.xgal{
+	padding-bottom: 30px;
+}
+.xgal .xgal_box{
+	width: 49%;
+	display: flex;
+	margin-bottom: 24px;
+}
+.xgal .xgal_box>img{
+	width: 250px;
+	height: 260px;
+}
+.xgal .xgal_box div{
+	flex: 1;
+	padding: 20px;
+	box-shadow: 3px 3px 10px #c8c8c8;
+}
+.xgal .xgal_box div .p1{
+	color: #333;
+	border-bottom: 1px solid #EFEFEF;
+	font-size: 18px;
+	padding: 0 0 20px;
+}
+.xgal .xgal_box div .p2{
+	color: #999;
+	line-height: 28px;
+	margin-top: 20px;
+}
+.xgal .xgal_box div .p3{
+	color: #009799;
+	font-size: 18px;
+	margin-top: 30px;
+}
+.xgsggl{
+	background: #fafafa;
+	padding: 30px 0;
+}
+.sggl div{
+	width: 22%;
+}
+.sggl div p{
+	height: 60px;
+	line-height: 60px;
+	color: #e72d61;
+	border-bottom: 2px solid #f68ba7;
+	font-weight: 600;
+}
+.sggl a{
+	display: block;
+	overflow: hidden;
+	text-overflow:ellipsis;    
+	white-space: nowrap;
+	height: 60px;
+	line-height: 60px;
+	font-size: 16px;
+	color: #333;
+	border-bottom: 1px solid #E5E5E5;
+	
+}
+.sggl a:hover{
+	cursor: pointer;
+	color: #1198ff;
+	text-decoration: none;
+}
+
+.footer{
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+	background: #E6E6E6;
+	color: #656565;
+	font-size: 16px;
+}
+.footer a:hover{
+	color: #1198ff;
+}
+@media screen and (max-width: 1200px) {
+    .top_title{
+    	font-size: 24px;
+    	color: #009899;
+    	padding: 10px;
+    }
+	.swiper-button-prev,.swiper-button-next{
+		display: none;
+	}
+	.banner{
+		padding: 0;
+	}
+	.bgBox{
+		height: 200px;
+		padding-top: 20px;
+	}
+	.bgBox .yuzx_btn{
+		margin-top: 20px;
+	}
+	.yyfb div{
+		margin-bottom: 30px;
+		width: 50%;
+	}
+	.xgal .xgal_box{
+		width: 100%;
+	}
+	.sggl div{
+		width: 48%;
+	}
+}
+@media screen and (max-width: 750px) {
+	.bgBox .yuzx_btn{
+		margin-top: 4px;
+	}
+	.sggl div{
+		width: 100%;
+	}
+	.yyxq .img_box img{
+		width: 100%;
+		height: auto;
+	}
+	.xgal .xgal_box div{
+		padding: 6px 12px;
+	}
+	.xgal .xgal_box>img{
+		width: 144px;
+		height: auto;
+	}
+	.xgal .xgal_box div .p1{
+		padding-bottom: 4px;
+	}
+	.xgal .xgal_box div .p2{
+		margin-top: 4px;
+		line-height: 22px;
+	}
+	.xgal .xgal_box div .p3{
+		margin-top: 6px;
+	}
+	.footer{
+		font-size: 12px;
+	}
+}

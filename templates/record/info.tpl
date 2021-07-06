@@ -45,6 +45,13 @@
                     let elem = $('#table-list>tbody').empty();
                     for (let i = 0; i < field.data.length; i++) {
                         let item = field.data[i], trElem = '<tr>';
+                        if (typeof item.other === 'string') {
+                            item.other = item.other.toString();
+                        } else if (item.other instanceof Object) {
+                            item.other = JSON.stringify(item.other);
+                        } else if (!item.other) {
+                            item.other = '';
+                        }
                         trElem += '<td lay-event="view-log" style="cursor:pointer;color:#0a5b52" data-token="' + item.token + '">' + item.token + '</td>';
                         trElem += '<td align="center">' + (item.status === 0 ? '未运行' : '运行中') + '</td>';
                         trElem += '<td align="center">' + item.size + '</td>';

@@ -1,1 +1,1 @@
-www.puaoo.com
+cj.ip3q.com
