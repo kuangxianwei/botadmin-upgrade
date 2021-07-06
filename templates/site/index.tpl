@@ -340,7 +340,6 @@
         </div>
     </div>
 </script>
-<script src="/static/modules/clipboard.min.js"></script>
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
@@ -614,27 +613,20 @@
                     main.ws.log('site.' + data.id);
                     break;
                 case 'clipboard':
-                    othis = $(this);
-                    switch (othis.attr('data-type')) {
+                    switch ($(this).attr('data-type')) {
                         case 'user':
-                            othis.attr('data-clipboard-text', data['web_user']);
+                            main.copy.exec(data['web_user'], layer.msg('用户名复制成功'));
                             break;
                         case 'pwd':
-                            othis.attr('data-clipboard-text', data['web_pwd']);
+                            main.copy.exec(data['web_pwd'], layer.msg('密码复制成功'));
                             break;
                         case 'auth':
-                            othis.attr('data-clipboard-text', data['auth_code']);
+                            main.copy.exec(data['auth_code'], layer.msg('认证码复制成功'));
                             break;
                         default:
                             layer.alert('出错了', {icon: 2});
                             return false;
                     }
-                    let clipboard = new ClipboardJS('a[data-clipboard-text]');
-                    clipboard.on('success', function (e) {
-                        layer.msg('复制成功');
-                        clipboard.destroy();  //解决多次弹窗
-                        e.clearSelection();
-                    });
                     break;
                 case 'login':
                     window.open(data['admin_url'], '_blank');

@@ -38,7 +38,6 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <button class="layui-hide" data-clipboard-text></button>
                 <button class="layui-btn layui-btn-primary" lay-event="copy-js">复制广告代码</button>
             </div>
         </div>
@@ -113,7 +112,6 @@
         </div>
     </div>
 </div>
-<script src="/static/modules/clipboard.min.js"></script>
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
@@ -126,15 +124,10 @@
             citiesData = {{.cityData}},
             durations = {{.obj.Durations}},
             delObj = $('*[lay-event=del-duration]'),
-            addObj = $('*[lay-event=add-duration]'),
-            clipboard = new ClipboardJS('*[data-clipboard-text]');
-        clipboard.on('success', function (e) {
-            layer.msg('复制成功');
-            e.clearSelection();
-        });
+            addObj = $('*[lay-event=add-duration]');
         $('*[lay-submit][lay-filter="submit"]').click(function () {
             if ($('[name=host]').val() === '') {
-                layer.tips("Host 不能为空", '[name=host]', {tips: 1, time: 10000})
+                layer.tips("Host 不能为空", '[name=host]', {tips: 1, time: 10000});
                 return false;
             }
             if ($('[name=file]').val()) {
@@ -218,7 +211,7 @@
                         showSearch: true,
                     });
                 },
-                done: function (dom) {
+                done: function () {
                     let cityData = transfer.getData('cityData'),
                         cities = [];
                     $.each(cityData, function (i, v) {
@@ -231,7 +224,7 @@
         // 添加时间段
         addObj.click(function () {
             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
-            layKey++
+            layKey++;
             $(this).parent().before('<div class="layui-input-inline"><input type="text" name="durations" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
             layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
             delObj.css('display', 'inline-block');
@@ -246,7 +239,7 @@
         });
         if (durations) {
             durations.forEach(function (item, index) {
-                index += 1
+                index += 1;
                 $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="durations" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
                 layDate.render({elem: '#date-' + index, type: 'time', range: true});
                 delObj.css('display', 'inline-block');
@@ -254,7 +247,7 @@
         }
         $('[lay-event="copy-js"]').click(function () {
             $.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
-                $('[data-clipboard-text]').attr("data-clipboard-text", jsCode).click();
+                main.copy.exec(jsCode, layer.msg('广告JS代码复制成功'));
             });
         });
     });

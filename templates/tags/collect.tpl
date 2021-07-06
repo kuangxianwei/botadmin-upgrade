@@ -72,7 +72,6 @@
         </div>
     </div>
 </div>
-<script src="/static/modules/clipboard.min.js"></script>
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {

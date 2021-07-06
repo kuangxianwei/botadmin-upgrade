@@ -44,7 +44,6 @@
         <button class="layui-btn layui-btn-sm" lay-event="viewRoot">
             <i class="layui-icon  layui-icon-about"></i>复制密码
         </button>
-        <button class="layui-hide" data-clipboard-text=""></button>
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
@@ -57,7 +56,6 @@
         </button>
     </div>
 </script>
-<script src="/static/modules/clipboard.min.js"></script>
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
@@ -95,11 +93,6 @@
             limit: 10,
             limits: [10, 15, 20, 25, 30],
             text: '对不起，加载出现异常！'
-        });
-        let clipboard = new ClipboardJS('*[data-clipboard-text]');
-        clipboard.on('success', function (e) {
-            layer.msg('root密码复制成功');
-            e.clearSelection();
         });
 
         //监听工具条
@@ -165,8 +158,8 @@
                     });
                     break;
                 case 'viewRoot':
-                    $.get(url + '/view', {}, function (html) {
-                        $('*[data-clipboard-text]').attr('data-clipboard-text', html).click();
+                    $.get(url + '/view', {}, function (pwd) {
+                        main.copy.exec(pwd, layer.msg('root密码复制成功'));
                     });
                     break;
                 case 'sync':
