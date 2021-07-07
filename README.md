@@ -3,5 +3,5 @@
 ## 安装方法:
 ### wget http://auth.nfivf.com:9090/mirror/install.sh && sh ./install.sh
 ## 手动下载升级文件
-### wget http://auth.nfivf.com:9090/mirror/v1.9.0.tar.gz
-# v1.9.0
+### wget http://auth.nfivf.com:9090/mirror/v1.9.1.tar.gz
+# v1.9.1
