@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
-publicDir="$1" # 网站根目录
-if test -z "$publicDir"; then
-  echo "参数不正确" 1>&2
+if test -z "$1"; then
+  echo "必须输入路径" 1>&2
   exit 1
+fi
+remote="154.85.57.152" #远程服务器host
+
+if [ "${1::1}" = "/" ]; then
+  publicDir="$1"
+else
+  publicDir="/home/wwwroot/$1/public_html" # 网站根目录
 fi
 
 if ! cd "$publicDir"; then
@@ -16,7 +22,6 @@ for dir in $(ls); do
     arr+=("$dir")
   fi
 done
-
 if [ ${#arr[@]} -eq 0 ]; then
   echo "没有需要打包的文件夹" 1>&2
   exit 1
@@ -28,4 +33,6 @@ if ! tar -zcvf web.tar.gz "${arr[@]}"; then
   exit 1
 fi
 
-scp -prq web.tar.gz root@154.85.57.152:"$publicDir/web.tar.gz"
+scp -prq web.tar.gz root@$remote:"$publicDir/web.tar.gz"
+
+# ps -ef | grep -v grep | grep "scp.sh"
