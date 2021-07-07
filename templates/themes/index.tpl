@@ -66,12 +66,15 @@
                     <span class="readme">{{$theme.Readme}}</span>
                     <i class="layui-icon layui-icon-edit" data-event="readme"></i>
                 </h3>
-                <h4 class="layui-btn-group">
-                    <a class="layui-btn layui-btn-primary"
-                       lay-href="/file?path=data/template/{{$theme.System}}/{{$theme.Name}}"
-                       lay-text="{{$theme.Alias}}主题">主题<i class="layui-icon layui-icon-edit"></i></a>
-                    <button class="layui-btn layui-btn-primary" data-event="face">换封面</button>
-                    <button class="layui-btn layui-bg-red" data-event="del">删除</button>
+                <h4 class="layui-btn-group" style="margin: 0 auto;">
+                    <a class="layui-btn" lay-href="/file?path=data/template/{{$theme.System}}/{{$theme.Name}}"
+                       lay-text="{{$theme.Alias}}主题" lay-tips="编辑{{$theme.Alias}}主题">
+                        <i class="layui-icon layui-icon-theme"></i>
+                    </a>
+                    <button class="layui-btn layui-btn-normal" data-event="face">换封面</button>
+                    <button class="layui-btn layui-btn-danger" data-event="del" lay-tips="删除该主题">
+                        <i class="layui-icon layui-icon-delete"></i>
+                    </button>
                 </h4>
             </div>
         </div>
