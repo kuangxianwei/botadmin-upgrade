@@ -57,7 +57,7 @@
                     let elem = $('#table-list>tbody').empty(), display = localStorage.getItem('log_info');
                     for (let i = 0; i < field.data.length; i++) {
                         let item = field.data[i];
-                        if (display === "1" && item.size === 0) {
+                        if (display === "1" && item.size === 0&&!item.other) {
                             continue
                         }
                         let trElem = '<tr>';
