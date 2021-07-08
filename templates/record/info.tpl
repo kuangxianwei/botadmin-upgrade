@@ -1,9 +1,19 @@
 <div class="layui-card">
-    <div class="layui-card-header layuiadmin-card-header-auto">
-        <button class="layui-btn layui-btn-primary">总日志: <span id="count"></span>条</button>
-        <button class="layui-btn layui-btn-primary">运行中: <span id="active"></span>条</button>
-        <button class="layui-btn layui-btn-primary">总协程数: <span id="goroutine"></span></button>
-        <button class="layui-btn layui-btn-primary" lay-event="cron">定时任务: <span id="cron"></span>条</button>
+    <div class="layui-card-body">
+        <div class="layui-inline layui-form">
+            <div class="layui-input-inline">
+                <input type="radio" name="display" value="1" title="存在数据" lay-filter="display" checked>
+                <input type="radio" name="display" value="0" title="全部" lay-filter="display">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-primary">总日志: <span id="count"></span>条</button>
+                <button class="layui-btn layui-btn-primary">运行中: <span id="active"></span>条</button>
+                <button class="layui-btn layui-btn-primary">总协程数: <span id="goroutine"></span></button>
+                <button class="layui-btn layui-btn-primary" lay-event="cron">定时任务: <span id="cron"></span>条</button>
+            </div>
+        </div>
     </div>
     <div class="layui-card-body">
         <table id="table-list" lay-filter="table-list" class="layui-table">
@@ -33,6 +43,8 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main,
+            form = layui.form,
+            hasLocalStorage = typeof localStorage !== "undefined",
             url = {{.current_uri}},
             w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log/info');
         w.onopen = function () {
@@ -42,9 +54,13 @@
             let field = JSON.parse(e.data);
             if (field) {
                 if (field.data) {
-                    let elem = $('#table-list>tbody').empty();
+                    let elem = $('#table-list>tbody').empty(), display = localStorage.getItem('log_info');
                     for (let i = 0; i < field.data.length; i++) {
-                        let item = field.data[i], trElem = '<tr>';
+                        let item = field.data[i];
+                        if (display === "1" && item.size === 0) {
+                            continue
+                        }
+                        let trElem = '<tr>';
                         if (typeof item.other === 'string') {
                             item.other = item.other.toString();
                         } else if (item.other instanceof Object) {
@@ -77,5 +93,15 @@
                 }
             });
         });
+        form.on('radio(display)', function (obj) {
+            if (hasLocalStorage) {
+                localStorage.setItem('log_info', obj.value);
+                location.reload();
+            }
+        });
+        if (hasLocalStorage) {
+            $('input[type=radio][value="' + localStorage.getItem('log_info') + '"]').prop('checked', true);
+        }
+        form.render();
     });
 </script>
