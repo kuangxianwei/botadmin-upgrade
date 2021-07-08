@@ -54,10 +54,11 @@
             let field = JSON.parse(e.data);
             if (field) {
                 if (field.data) {
-                    let elem = $('#table-list>tbody').empty(), display = localStorage.getItem('log_info');
+                    let elem = $('#table-list>tbody').empty(),
+                        display = localStorage.getItem('log_info') || '1';
                     for (let i = 0; i < field.data.length; i++) {
                         let item = field.data[i];
-                        if (display === "1" && item.size === 0&&!item.other) {
+                        if (display === "1" && item.size === 0 && !item.other) {
                             continue
                         }
                         let trElem = '<tr>';
