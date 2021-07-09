@@ -1041,12 +1041,12 @@
                         content: $('#mysql-html').html(),
                         success: function (dom, index) {
                             let uuid = main.uuid(), elem = dom.find('.layui-form');
-                            elem.append('<button class="layui-hide" lay-submit lay-filter="' + uuid + '"></button>');
+                            elem.append(`<button class="layui-hide" lay-submit lay-filter="` + uuid + `"></button>`);
                             form.render();
                             form.on('submit(' + uuid + ')', function (obj) {
                                 let field = obj.field;
                                 field.id = data.id;
-                                field.ids = ids;
+                                field.ids = ids.join();
                                 main.req({
                                     url: url + "/mysql",
                                     data: field,
