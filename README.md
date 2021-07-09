@@ -4,4 +4,5 @@
 ### wget http://auth.nfivf.com:9090/mirror/install.sh && sh ./install.sh
 ## 手动下载升级文件
 ### wget http://auth.nfivf.com:9090/mirror/v1.9.2.tar.gz
+#### 覆盖到服务器的 /data/botadmin/
 # v1.9.2
