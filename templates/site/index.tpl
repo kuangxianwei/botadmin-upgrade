@@ -138,7 +138,7 @@
             <button class="layui-btn layui-btn-sm" lay-event="import" lay-tips="导入配置">
                 <i class="layui-icon iconfont icon-import"></i>
             </button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="mysqldump" lay-tips="备份数据库">
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="mysql" lay-tips="备份/还原数据库">
                 <i class="layui-icon iconfont icon-sql"></i>
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="vhosts" lay-tips="获取全部主机列表">
@@ -214,45 +214,45 @@
 </script>
 <script type="text/html" id="table-copy">
     <div class="layui-btn-group">
-        <a class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-           data-type="user" lay-tips="复制登录用户名到粘贴板">
+        <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
+                data-type="user" lay-tips="复制登录用户名到粘贴板">
             <i class="layui-icon layui-icon-username"></i>
-        </a>
-        <a class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-           data-type="pwd" lay-tips="复制登录密码到粘贴板">
+        </button>
+        <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
+                data-type="pwd" lay-tips="复制登录密码到粘贴板">
             <i class="layui-icon layui-icon-password"></i>
-        </a>
-        <a class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-           data-type="auth" lay-tips="复制登录认证码到粘贴板">
+        </button>
+        <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
+                data-type="auth" lay-tips="复制登录认证码到粘贴板">
             <i class="layui-icon layui-icon-auz"></i>
-        </a>
+        </button>
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
-        <a class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="编辑">
+        <button class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="编辑">
             <i class="layui-icon layui-icon-edit"></i>
-        </a>
-        <a class="layui-btn layui-btn-xs" lay-event="rank" lay-tips="获取关键词排名">
-            <i class="layui-icon layui-icon-layim-download"></i></a>
-        <a class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
+        </button>
+        <button class="layui-btn layui-btn-xs" lay-event="rank" lay-tips="获取关键词排名">
+            <i class="layui-icon layui-icon-layim-download"></i></button>
+        <button class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
             <i class="layui-icon layui-icon-export"></i>
-        </a>
-        <a class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dir" lay-tips="设置文章图片">
+        </button>
+        <button class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dir" lay-tips="设置文章图片">
             <i class="layui-icon layui-icon-picture"></i>
-        </a>
-        <a class="layui-btn layui-btn-xs" lay-event="link" lay-tips="添加友链">
+        </button>
+        <button class="layui-btn layui-btn-xs" lay-event="link" lay-tips="添加友链">
             加<i class="layui-icon layui-icon-link"></i>
-        </a>
-        <a class="layui-btn layui-btn-xs layui-bg-red" lay-event="del_link" lay-tips="删除友链">
+        </button>
+        <button class="layui-btn layui-btn-xs layui-bg-red" lay-event="del_link" lay-tips="删除友链">
             删<i class="layui-icon layui-icon-link"></i>
-        </a>
-        <a class="layui-btn layui-btn-xs" lay-event="mysqldump" lay-tips="备份数据库">
+        </button>
+        <button class="layui-btn layui-btn-xs" lay-event="mysql" lay-tips="备份/还原数据库">
             <i class="layui-icon iconfont icon-sql"></i>
-        </a>
-        <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
+        </button>
+        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
-        </a>
+        </button>
     </div>
 </script>
 <script type="text/html" id="push">
@@ -320,6 +320,18 @@
                 <input type="checkbox" name="pic_save" title="保存远图">
                 <input type="checkbox" name="pic_mark" title="图片水印">
                 <input type="checkbox" name="order" title="发布顺序">
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="mysql-html">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="radio" name="action" value="0" title="备份" lay-filter="mysql-action" checked>
+                    <input type="radio" name="action" value="1" title="还原" lay-filter="mysql-action">
+                </div>
             </div>
         </div>
     </div>
@@ -429,18 +441,6 @@
                 },
                 {
                     field: 'id',
-                    title: '导入SQL',
-                    width: 80,
-                    event: 'importSQL',
-                    align: 'center',
-                    style: 'cursor:pointer;',
-                    hide: true,
-                    templet: function () {
-                        return '<i class="layui-icon iconfont icon-sql" lay-tips="导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？"></i>';
-                    }
-                },
-                {
-                    field: 'id',
                     title: '删除',
                     width: 80,
                     event: 'del',
@@ -544,25 +544,63 @@
                         form.render();
                     });
                     break;
-                case 'mysqldump':
-                    main.req({
-                        data: data,
-                        url: url + '/mysqldump',
-                        tips: function () {
-                            main.ws.log('site.' + data.id);
-                        }
-                    });
-                    break;
-                case 'importSQL':
-                    layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
-                        main.req({
-                            data: data,
-                            index: index,
-                            url: url + '/import/sql',
-                            tips: function () {
-                                main.ws.log('site.' + data.id);
-                            }
-                        });
+                case 'mysql':
+                    layer.open({
+                        type: 1,
+                        title: '备份/还原MySQL',
+                        shadeClose: true,
+                        scrollbar: false,
+                        btnAlign: 'c',
+                        shade: 0.8,
+                        fixed: false,
+                        area: ['450px', '350px'],
+                        maxmin: true,
+                        btn: ['确定', '取消'],
+                        content: $('#mysql-html').html(),
+                        success: function (dom, index) {
+                            let uuid = main.uuid(), elem = dom.find('.layui-form');
+                            elem.append('<button class="layui-hide" lay-submit lay-filter="' + uuid + '"></button>');
+                            form.render();
+                            form.on('radio(mysql-action)', function (obj) {
+                                if (obj.value === '1') {
+                                    layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
+                                        layer.close(index);
+                                        $.get(url + "/sql/backup", {webroot_path: data['webroot_path']}, function (res) {
+                                            if (res.code !== 0) {
+                                                main.err(res.msg);
+                                                layer.close(index);
+                                            } else {
+                                                let selectElem = $('<div id="select-filename" class="layui-form-item"><label class="layui-form-label">选择备份:</label><div class="layui-input-block"><select name="filename" class="layui-select"></select></div></div>'),
+                                                    insertElem = selectElem.find('select');
+                                                for (let i = 0; i < res.data.length; i++) {
+                                                    insertElem.append('<option value="' + res.data[i] + '">' + res.data[i] + '</option>');
+                                                }
+                                                elem.append(selectElem);
+                                                form.render('select');
+                                            }
+                                        });
+                                    });
+                                } else {
+                                    elem.find('#select-filename').remove();
+                                }
+                            });
+                            form.on('submit(' + uuid + ')', function (obj) {
+                                let field = obj.field;
+                                field.id = data.id;
+                                main.req({
+                                    url: url + "/mysql",
+                                    data: field,
+                                    index: index,
+                                    tips: function () {
+                                        main.ws.log('site.' + data.id);
+                                    }
+                                });
+                                return false;
+                            });
+                        },
+                        yes: function (index, dom) {
+                            dom.find('button[lay-submit]').click();
+                        },
                     });
                     break;
                 case 'push':
@@ -677,7 +715,7 @@
                                     }
                                 }
                                 if (count < 2) {
-                                    main.error('最少选择其中一项');
+                                    main.err('最少选择其中一项');
                                     return false;
                                 }
                                 layer.close(index);
@@ -878,8 +916,7 @@
                     break;
                 case 'reload_website_setup':
                     if (ids.length === 0) {
-                        layer.msg('请选择数据', {icon: 2});
-                        return false
+                        return main.err('请选择数据');
                     }
                     let contentObj = $($("#reload-setup").html());
                     contentObj.find('*[name=ids]').attr('value', ids.join());
@@ -986,23 +1023,49 @@
                     });
                     form.render();
                     break;
-                case 'mysqldump':
+                case 'mysql':
                     if (ids.length === 0) {
-                        layer.msg("请选择数据!", {icon: 2});
-                        return false;
+                        return main.err('请选择数据');
                     }
-                    main.req({
-                        data: {ids: ids.join()},
-                        url: url + '/mysqldump',
-                        tips: function () {
-                            main.ws.log('site.0');
-                        }
+                    layer.open({
+                        type: 1,
+                        title: '备份/还原MySQL',
+                        shadeClose: true,
+                        scrollbar: false,
+                        btnAlign: 'c',
+                        shade: 0.8,
+                        fixed: false,
+                        area: ['450px', '350px'],
+                        maxmin: true,
+                        btn: ['确定', '取消'],
+                        content: $('#mysql-html').html(),
+                        success: function (dom, index) {
+                            let uuid = main.uuid(), elem = dom.find('.layui-form');
+                            elem.append('<button class="layui-hide" lay-submit lay-filter="' + uuid + '"></button>');
+                            form.render();
+                            form.on('submit(' + uuid + ')', function (obj) {
+                                let field = obj.field;
+                                field.id = data.id;
+                                field.ids = ids;
+                                main.req({
+                                    url: url + "/mysql",
+                                    data: field,
+                                    index: index,
+                                    tips: function () {
+                                        main.ws.log('site.0');
+                                    }
+                                });
+                                return false;
+                            });
+                        },
+                        yes: function (index, dom) {
+                            dom.find('button[lay-submit]').click();
+                        },
                     });
                     break;
                 case 'rank':
                     if (ids.length === 0) {
-                        layer.msg("请选择数据!", {icon: 2});
-                        return false;
+                        return main.err('请选择数据');
                     }
                     main.req({
                         url: '/site/rank',
@@ -1015,8 +1078,7 @@
                     break;
                 case 'del-rank':
                     if (ids.length === 0) {
-                        layer.msg("请选择数据!", {icon: 2});
-                        return false;
+                        return main.err('请选择数据');
                     }
                     layer.confirm('删除后需要重新下载，确定删除？', function (index) {
                         main.req({
@@ -1038,8 +1100,7 @@
                     break;
                 case 'links':
                     if (ids.length === 0) {
-                        layer.msg("请选择数据!", {icon: 2});
-                        return false;
+                        return main.err('请选择数据');
                     }
                     $.get(url + '/link', {ids: ids.join()}, function (html) {
                         main.popup({
@@ -1053,8 +1114,7 @@
                     break;
                 case 'del_links':
                     if (ids.length === 0) {
-                        layer.msg("请选择数据!", {icon: 2});
-                        return false;
+                        return main.err('请选择数据');
                     }
                     $.get(url + '/link', {ids: ids.join()}, function (html) {
                         main.popup({

@@ -193,7 +193,7 @@
             error: function (index) {
                 layer.close(index);
                 layer.close(loading);
-                main.error("网络错误");
+                main.err("网络错误");
             },
         });
         // 监控城市

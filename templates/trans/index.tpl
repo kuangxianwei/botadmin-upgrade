@@ -184,8 +184,7 @@
                     break;
                 case 'del':
                     if (ids.length === 0) {
-                        layer.msg("未选中", {icon: 2});
-                        return false;
+                        return main.err('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
                         main.req({
@@ -198,8 +197,7 @@
                     break;
                 case 'enabled':
                     if (ids.length === 0) {
-                        layer.msg("未选中", {icon: 2});
-                        return false;
+                        return main.err('请选择数据');
                     }
                     main.req({
                         url: url + '/switch',
@@ -209,8 +207,7 @@
                     break;
                 case 'disabled':
                     if (ids.length === 0) {
-                        layer.msg("未选中", {icon: 2});
-                        return false;
+                        return main.err('请选择数据');
                     }
                     main.req({
                         url: url + '/switch',
@@ -220,8 +217,7 @@
                     break;
                 case 'export':
                     if (ids.length === 0) {
-                        layer.msg("未选中", {icon: 2});
-                        return false;
+                        return main.err('请选择数据');
                     }
                     window.open(encodeURI('/trans/export?engine=' + data[0].engine + '&ids=' + ids.join()));
                     break;

@@ -73,7 +73,7 @@
         $('[lay-filter="test"]').click(function () {
             let data = main.formData("#youdao");
             if (!data.app_id || !data.token) {
-                main.error('AppId或者token为空');
+                main.err('AppId或者token为空');
                 return false;
             }
             layer.open({
@@ -91,7 +91,7 @@
                 yes: function (index, dom) {
                     data.query = dom.find('[name=query]').val();
                     if (!data.query) {
-                        main.error('翻译的字符为空');
+                        main.err('翻译的字符为空');
                         return false;
                     }
                     main.req({

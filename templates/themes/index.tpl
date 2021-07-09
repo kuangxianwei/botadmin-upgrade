@@ -167,7 +167,7 @@
                             if (res.code === 0) {
                                 return parentThis.find($('img')).attr('src', res.data.face);
                             }
-                            main.error(res.msg);
+                            main.err(res.msg);
                         },
                     });
                     $('#' + theme.name).click();
