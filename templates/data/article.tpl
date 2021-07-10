@@ -1,36 +1,39 @@
 <div class="layui-card">
     <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-event="search">
-        <div class="layui-input-inline">
+        <div class="layui-inline">
+            <input type="text" name="ids" placeholder="搜索ID:1,2,3" class="layui-input">
+        </div>
+        <div class="layui-inline">
             <input class="layui-input" type="text" name="title" placeholder="请输入标题部分或全部">
         </div>
-        <div class="layui-input-inline" style="width: 80px" lay-tips="原创度 例如:70.00">
+        <div class="layui-inline" style="width: 80px" lay-tips="原创度 例如:70.00">
             <input type="number" name="originality_rate" placeholder="70.00" class="layui-input">
         </div>
-        <div class="layui-input-inline">
+        <div class="layui-inline">
             <select name="site_id" lay-filter="search-select" lay-search>
-                <option value="">指定网站的文章...</option>
+                <option value="">隶属网站</option>
                 {{range .sites -}}
                     <option value="{{.Id}}">{{.Vhost}}</option>
                 {{end -}}
             </select>
         </div>
-        <div class="layui-input-inline">
+        <div class="layui-inline" style="width: 100px">
             <select name="used" lay-filter="search-select" lay-search>
-                <option value="">是否使用...</option>
+                <option value="">使用状态</option>
                 <option value="true">已使用</option>
                 <option value="false">未使用</option>
             </select>
         </div>
-        <div class="layui-input-inline">
+        <div class="layui-inline" style="width: 100px">
             <select name="trans_failed" lay-filter="search-select" lay-search>
-                <option value="">翻译是否出错...</option>
+                <option value="">翻译状态</option>
                 <option value="true">已出错</option>
                 <option value="false">未出错</option>
             </select>
         </div>
-        <div class="layui-input-inline">
+        <div class="layui-inline" style="width: 100px">
             <select name="originality" lay-filter="search-select">
-                <option value="">原创状态...</option>
+                <option value="">原创状态</option>
                 <option value="0">不检验</option>
                 <option value="1">未检验</option>
                 <option value="2">已检验</option>
