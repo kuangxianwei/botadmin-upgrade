@@ -28,16 +28,6 @@ function onMethod() {
 layui.define(['form'], function (exports) {
     let $ = layui.$,
         form = layui.form,
-        onDel = function (selector) {
-            $('i[lay-event="del"]').click(function () {
-                let othis = $(this);
-                layer.confirm('确定删除该项吗?', {icon: 3, btn: ['确定', '取消']},
-                    function (index) {
-                        layer.close(index);
-                        return selector ? $(othis).closest(selector).remove() : $(othis).parent().remove();
-                    });
-            });
-        },
         Class = function (engines) {
             this.engines = engines || [];
             this.data = {};
@@ -205,7 +195,7 @@ layui.define(['form'], function (exports) {
         let othis = this;
         $('[lay-event="add-trans"]').click(function () {
             othis.add();
-            onDel();
+            layui.main.on.del();
             othis.changed();
             form.render();
         });
@@ -213,7 +203,7 @@ layui.define(['form'], function (exports) {
             $.each(items, function (i, v) {
                 othis.add(v);
             });
-            onDel();
+            layui.main.on.del();
             othis.changed();
             form.render();
         }
@@ -883,7 +873,6 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
     Class.prototype.renderGoto = function () {
         let next = this.position + 1,
             pre = this.position - 1,
-            contentDom = $('.step-content').first(),
             domAll = $('div.layui-layer-btn>a'),
             dom0 = $('div.layui-layer-btn>.layui-layer-btn0'),
             dom2 = $('div.layui-layer-btn>.layui-layer-btn2');
@@ -891,17 +880,14 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
             case pre < 0:
                 domAll.removeClass('layui-hide');
                 $('div.layui-layer-btn>.layui-layer-btn0,div.layui-layer-btn>.layui-layer-btn1').addClass('layui-hide');
-                contentDom.removeClass('layui-form');
                 break;
             case next >= this.stepItems.length:
                 domAll.removeClass('layui-hide');
                 dom2.addClass('layui-hide');
-                contentDom.addClass('layui-form');
                 break;
             default:
                 domAll.removeClass('layui-hide');
                 dom0.addClass('layui-hide');
-                contentDom.removeClass('layui-form');
                 break;
         }
     };
@@ -924,7 +910,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         });
         //监控下一步
         $('div.layui-layer-btn>.layui-layer-btn2').click(function () {
-            $('.step-content:first').removeClass('layui-form');
+            $('.step-content>div').addClass('layui-form');
             $('a[data-step=' + othis.position + ']').click();
         });
         // 验证下一步
@@ -979,12 +965,12 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         $('.step-content').css('width', this.contentW);
         // 显示当前块
         this.showThis();
-        /* 给内容区 加上 layui-form 类和下一步标识*/
-        $('div.step-content>div').addClass('layui-form').each(function (i) {
+        /* 给内容区 加下一步标识*/
+        $('.step-content>div').each(function (i) {
             $(this).children().eq(0).before('<a class="layui-hide" lay-submit lay-filter="stepNext" data-step="' + i + '"></a>');
         });
         // 添加提交按钮
-        $('div.step-content>div:first').before('<a class="layui-hide" lay-submit lay-filter="stepSubmit"></a>');
+        $('.step-content>div:first').before('<a class="layui-hide" lay-submit lay-filter="stepSubmit"></a>');
         // 渲染 上下步
         this.renderGoto();
         // 按钮添加样式
@@ -993,8 +979,8 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         });
         /* 验证爬虫名称和种子 */
         form.verify({
-            name: [/^.{2,}/, '爬虫名称必须2个字符以上！'],
-            seeds: [/^\s*https?:\/\//i, '必须以http:// 或者 https:// 开头']
+            name: [/^.{2,}/, '第一步 爬虫名称必须2个字符以上！'],
+            seeds: [/^\s*https?:\/\//i, '第一步 必须以http:// 或者 https:// 开头']
         });
         // 监控事件
         this.events();
@@ -1023,32 +1009,31 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         });
         /*测试列表页*/
         $('button[data-event=testList]').click(function () {
-            $('.step-content').addClass('layui-form');
+            $('.step-content>div').removeClass('layui-form');
             $('button[lay-filter=testList]').click();
         });
-        // 监控测试
+        // 监控测试列表
         form.on('submit(testList)', function (obj) {
-            $('.step-content').removeClass('layui-form');
             main.req({
-                url: '/spider/test/list',
-                data: obj.field,
-                tips: function (res) {
-                    main.msg(res.msg);
-                },
-                success: function (res) {
-                    if (res.code === 0 && res.data) {
-                        stepObj.seeds = res.data;
+                    url: '/spider/test/list',
+                    data: obj.field,
+                    tips: function (res) {
+                        main.msg(res.msg);
+                    },
+                    success: function (res) {
+                        if (res.code === 0 && res.data) {
+                            stepObj.seeds = res.data;
+                        }
                     }
-                }
-            });
+                },
+                $(obj.elem).closest(".layui-form"));
         });
         /*测试详情页*/
         $('button[data-event=testDetail]').click(function () {
-            $('.step-content').addClass('layui-form');
+            $('.step-content>div').removeClass('layui-form');
             $('button[lay-filter=testDetail]').click();
         });
         form.on('submit(testDetail)', function (obj) {
-            $('.step-content').removeClass('layui-form');
             if (stepObj.seeds.length === 0) {
                 stepObj.seeds = obj.field.seeds.split("\n")
             }
@@ -1078,12 +1063,11 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         });
         /*测试源码*/
         $('button[data-event=sourceCode]').click(function () {
-            $('.step-content').addClass('layui-form');
+            $('.step-content>div').removeClass('layui-form');
             $('button[lay-filter=sourceCode]').click();
         });
         /*提交测试源码*/
         form.on('submit(sourceCode)', function (obj) {
-            $('.step-content').removeClass('layui-form');
             if (stepObj.seeds.length === 0) {
                 stepObj.seeds = obj.field.seeds.split("\n")
             }

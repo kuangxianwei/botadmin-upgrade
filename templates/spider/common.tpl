@@ -1,5 +1,5 @@
 <div class="step-header"></div>
-<div class="step-content">
+<div class="step-content layui-form">
     <div>
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="任务名称必须由中文、数字、字母、下划线组成 唯一">任务名称:</label>

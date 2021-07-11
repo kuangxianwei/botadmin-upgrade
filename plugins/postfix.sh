@@ -6,30 +6,14 @@
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 [[ $(id -u) -ne 0 ]] && echo "Error: You must be root to run this script!" 1>&2 && exit 1
+currentDir=$(dirname "$0")
+. "$currentDir/init.sh" || exit 1
+
 mailHostname="$2"
 # 安装
 Install() {
-  # 设置开机防火墙
-  if ! systemctl enable firewalld.service; then
-    echo "开机启动防火墙失败" 1>&2
-    exit 1
-  fi
-
-  # 设置启动防火墙
-  if ! systemctl start firewalld; then
-    echo "启动防火墙失败" 1>&2
-    exit 1
-  fi
-
-  # 开放25端口
-  if ! firewall-cmd --zone=public --list-ports | grep '25/tcp'; then
-    firewall-cmd --zone=public --add-port=25/tcp --permanent
-  fi
-  if ! firewall-cmd --zone=public --list-ports | grep '25/udp'; then
-    firewall-cmd --zone=public --add-port=25/udp --permanent
-  fi
-  firewall-cmd --reload
-
+  Check_Firewall
+  Firewall_Enable 25
   # 安装mail 服务器 postfix
   if ! command -v postfix; then
     if ! yum install postfix -y; then
@@ -50,13 +34,13 @@ Install() {
     fi
   fi
 
-  # 设置开机防火墙
+  # 设置开机
   if ! systemctl enable postfix.service; then
     echo "设置开机启动postfix失败" 1>&2
     exit 1
   fi
 
-  # 设置启动防火墙
+  # 设置启动
   if ! systemctl start postfix; then
     echo "启动postfix失败" 1>&2
     exit 1
@@ -72,9 +56,7 @@ Install() {
 # 卸载
 Uninstall() {
   # 关闭25端口
-  firewall-cmd --remove-port=25/tcp --permanent
-  firewall-cmd --remove-port=25/udp --permanent
-  firewall-cmd --reload
+  Firewall_Disable 25
   yum remove postfix -y
   rm -rf /etc/postfix
   systemctl disable postfix.service 2>/dev/null

@@ -2,6 +2,21 @@
 layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     class Class {
         constructor() {
+            this.setCols = function (data, dom) {
+                if (data && dom && !data.cols) {
+                    data.cols = [];
+                    $(dom).find('[name]').each(function (i, v) {
+                        if (!v.disabled && v.name) {
+                            let col = v.name.split('.')[0];
+                            if (data.cols.indexOf(col) === -1) {
+                                data.cols.push(col);
+                            }
+                        }
+                    });
+                    data.cols = data.cols.join(",");
+                }
+                return data;
+            }
             // 整理对象
             this.tidyObj = function (obj) {
                 return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
@@ -122,7 +137,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         }
 
         // ajax 请求
-        req(options) {
+        req(options, dom) {
             let othis = this;
             options = $.extend({type: 'POST', dataType: 'json'}, othis.tidyObj(options));
             if (typeof options.url !== 'string') {
@@ -134,6 +149,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             if (isPost) {
                 options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, othis.tidyObj(options.headers));
             }
+            othis.setCols(options.data, dom);
             let request = $.ajax(options);
             request.done(function (res) {
                 if (res.textarea === true && res.code === 0) {
@@ -222,25 +238,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     }
                     form.render();
                     form.on('submit(' + options.submit + ')', function (obj) {
-                        let reqOptions = {
+                        let opts = {
                             url: options.url || obj.field.url,
                             data: obj.field,
                             index: index,
                             ending: options.ending,
-                        }, cols = [];
+                        };
                         if (typeof options.tips === 'function') {
-                            reqOptions.tips = options.tips;
+                            opts.tips = options.tips;
                         }
-                        dom.find('.layui-form [name]').each(function (i, v) {
-                            if (v.disabled === false && v.name) {
-                                let name = v.name.split('.')[0];
-                                if (name !== 'cols' && cols.indexOf(name) === -1) {
-                                    cols.push(name);
-                                }
-                            }
-                        });
-                        reqOptions.data.cols = cols.join();
-                        othis.req(reqOptions);
+                        othis.req(opts, dom);
                         return false;
                     });
                 },
@@ -1110,13 +1117,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         form.on('submit(search)', function (data) {
             let field = data.field, cols = [];
             $.each(field, function (k, v) {
-                if (v) {
-                    cols.push(k.split('.')[0]);
+                let col = k.split('.')[0];
+                if (v && col !== 'cols' && cols.indexOf(col) === -1) {
+                    cols.push(col);
                 } else {
                     delete field[k];
                 }
             });
-            field.cols = cols.join();
+            field.cols = cols.join(",");
             if (!field.cols) {
                 return location.reload();
             }

@@ -794,7 +794,7 @@
                                                 cols.push(v.name);
                                             }
                                         });
-                                        dom.find('.layui-form [name="cols"]').val(cols.join());
+                                        dom.find('[name=cols]').val(cols.join());
                                     },
                                     ending: 'table-list',
                                 });

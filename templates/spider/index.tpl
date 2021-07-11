@@ -265,6 +265,9 @@
                             content: html,
                             url: url + '/modify',
                             btn: ['提交', '上一步', '下一步', '取消'],
+                            yes: function (index, dom) {
+                                dom.find('.step-content>div').removeClass('layui-form');
+                            },
                             btn2: function () {
                                 return false;
                             },
@@ -346,6 +349,9 @@
                             content: html,
                             url: url + '/add',
                             btn: ['提交', '上一步', '下一步', '取消'],
+                            yes: function (index, dom) {
+                                dom.find('.step-content>div').removeClass('layui-form');
+                            },
                             btn2: function () {
                                 return false;
                             },
