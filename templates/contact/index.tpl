@@ -410,24 +410,15 @@
                                 form.render();
                                 form.on('submit(setupSubmit)', function () {
                                     let field = main.formData(dom.selector);
-                                    field.cols = [];
-                                    dom.find('.layui-form [name]').each(function (i, v) {
-                                        if (v.disabled === false && v.name && v.name !== 'cols' && field.cols.indexOf(v.name) === -1) {
-                                            field.cols.push(v.name);
-                                        }
-                                    });
                                     if (field.durations instanceof Array) {
                                         field.durations = field.durations.join();
-                                    } else if (dom.find('[lay-filter="duration"]').length > 0) {
-                                        field.cols.push('durations');
                                     }
-                                    field.cols = field.cols.join();
                                     main.req({
                                         url: url + '/update',
                                         data: field,
                                         index: layerIndex,
                                         ending: 'table-list'
-                                    });
+                                    }, dom);
                                 });
                             }
                         });

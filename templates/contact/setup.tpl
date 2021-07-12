@@ -29,6 +29,7 @@
             <i class="layui-icon layui-icon-delete" lay-event="del"></i>
         </div>
         <div class="layui-form-item" lay-filter="duration">
+            <input type="hidden" name="durations">
             <label class="layui-form-label">时间范围:</label>
             <div class="layui-btn-group">
                 <button class="layui-btn" lay-event="add-duration">
@@ -43,9 +44,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">在线咨询:</label>
             <div class="layui-input-inline" style="width: 50%">
-                <input name="consult" value=""
-                       placeholder="http://p.qiao.baidu.com/cps/chat?siteId=15213845&userId=30737617&siteToken=b7387650dc45ac0bbeef7fc0f807ed9a"
-                       class="layui-input">
+                <input name="consult" value="" placeholder="https://domain.com" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">如QQ在线</div>
             <button class="layui-btn" lay-event="fill-consult">填充默认</button>
@@ -131,9 +130,7 @@
                 delObj.css('display', 'none');
             }
         });
-        $('.layui-form>.layui-form-item>i[lay-event=del]').on('click', function () {
-            $(this).parent().remove();
-        });
+        main.on.del();
     });
 </script>
 

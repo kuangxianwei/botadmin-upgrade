@@ -65,6 +65,7 @@
             <input type="hidden" name="cities" value="{{join .obj.Cities ","}}">
         </div>
         <div class="layui-form-item" lay-filter="duration">
+            <input type="hidden" name="durations">
             <label class="layui-form-label">时间范围:</label>
             <div class="layui-btn-group">
                 <button class="layui-btn" lay-event="add-duration">

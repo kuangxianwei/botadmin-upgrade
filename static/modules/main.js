@@ -76,7 +76,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             // 监控
             this.on = {
                 del: function (selector) {
-                    $('i[lay-event="del"]').click(function () {
+                    $('i[lay-event=del]').click(function () {
                         let othis = $(this);
                         layer.confirm('确定删除该项吗?', {icon: 3, btn: ['确定', '取消']},
                             function (index) {

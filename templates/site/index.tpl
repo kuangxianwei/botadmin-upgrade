@@ -783,18 +783,7 @@
                                                     break;
                                             }
                                         });
-                                        formDom.find('i[lay-event=del]').on('click', function () {
-                                            $(this).parent().remove();
-                                        });
-                                    },
-                                    yes: function (index, dom) {
-                                        let cols = [];
-                                        dom.find('.layui-form [name]').each(function (i, v) {
-                                            if (v.name && v.name !== 'cols') {
-                                                cols.push(v.name);
-                                            }
-                                        });
-                                        dom.find('[name=cols]').val(cols.join());
+                                        main.on.del();
                                     },
                                     ending: 'table-list',
                                 });
