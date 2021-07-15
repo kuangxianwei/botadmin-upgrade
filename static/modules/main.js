@@ -1147,23 +1147,25 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
         });
     };
-    $.get("/plugin/lnmp", {}, function (html) {
-        if (html) {
-            if (html === 'lnmp.0') {
-                main.ws.log("lnmp.0");
-                return false;
-            }
-            main.popup({
-                url: "/plugin/lnmp",
-                title: "安装web服务器",
-                content: html,
-                area: ['560px', 'auto'],
-                tips: function () {
+    main.checkLNMP = function () {
+        $.get("/plugin/lnmp", {}, function (html) {
+            if (html) {
+                if (html === 'lnmp.0') {
                     main.ws.log("lnmp.0");
+                    return false;
                 }
-            });
-        }
-    });
+                main.popup({
+                    url: "/plugin/lnmp",
+                    title: "安装web服务器",
+                    content: html,
+                    area: ['560px', 'auto'],
+                    tips: function () {
+                        main.ws.log("lnmp.0");
+                    }
+                });
+            }
+        });
+    }
     exports('main', main);
 });
 

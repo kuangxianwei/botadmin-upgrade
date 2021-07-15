@@ -274,5 +274,6 @@
         });
         // 监听搜索
         main.onSearch();
+        main.checkLNMP();
     });
 </script>

@@ -289,5 +289,6 @@
                     break;
             }
         });
+        main.checkLNMP();
     });
 </script>

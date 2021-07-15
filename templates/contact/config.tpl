@@ -251,5 +251,6 @@
                 main.copy.exec(jsCode, layer.msg('广告JS代码复制成功'));
             });
         });
+        main.checkLNMP();
     });
 </script>
