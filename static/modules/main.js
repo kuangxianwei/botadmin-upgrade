@@ -1113,26 +1113,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             });
         },
     };
-    // 检测是否安装了lnmp
-    main.checkLNMP = function () {
-        $.get("/plugin/lnmp", {}, function (html) {
-            if (html) {
-                if (html === 'lnmp.0') {
-                    main.ws.log("lnmp.0");
-                    return false;
-                }
-                main.popup({
-                    url: "/plugin/lnmp",
-                    title: "安装web服务器",
-                    content: html,
-                    area: ['560px', 'auto'],
-                    tips: function () {
-                        main.ws.log("lnmp.0");
-                    }
-                });
-            }
-        });
-    };
     // 监听搜索
     main.onSearch = function (options) {
         form.on('submit(search)', function (data) {
@@ -1167,6 +1147,23 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
         });
     };
+    $.get("/plugin/lnmp", {}, function (html) {
+        if (html) {
+            if (html === 'lnmp.0') {
+                main.ws.log("lnmp.0");
+                return false;
+            }
+            main.popup({
+                url: "/plugin/lnmp",
+                title: "安装web服务器",
+                content: html,
+                area: ['560px', 'auto'],
+                tips: function () {
+                    main.ws.log("lnmp.0");
+                }
+            });
+        }
+    });
     exports('main', main);
 });
 
