@@ -1,4 +1,44 @@
 <div class="layui-card">
+    <div class="layui-card-header layuiadmin-card-header-auto">
+        <!--
+        <div class="file_path_views">
+            <div class="file_path_upper" title="上一层">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+            </div>
+            <div class="file_path_input">
+                <div class="file_path_shadow"></div>
+                <div class="file_dir_view" data-width="121">
+                    <div class="file_dir_omit hide" title="展开已隐藏的目录">
+                        <span></span><i class="iconfont icon-zhixiang-zuo"></i>
+                        <div class="nav_down_list"></div>
+                    </div>
+                    <div class="file_dir_item" data-width="63"><span class="file_dir" title="/">根目录</span>
+                        <i class="iconfont icon-arrow-right"></i>
+                        <ul class="nav_down_list">
+                            <li data-path="*"><span>加载中</span></li>
+                        </ul>
+                    </div>
+                    <div class="file_dir_item" data-width="58"><span class="file_dir" title="/home">home</span>
+                        <i class="iconfont icon-arrow-right"></i>
+                        <ul class="nav_down_list">
+                            <li data-path="*"><span>加载中</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <input type="text" data-path="/home" data-backspace="" class="path_input" id="fileInputPath">
+            </div>
+            <div class="file_path_refresh" title="刷新列表"><i class="icon-file icon-file-refresh"></i></div>
+            <div class="search_path_views">
+                <input type="text" placeholder="搜索文件/目录" class="file_search_input">
+                <button type="submit" class="path_btn"><i class="iconfont icon-search"></i></button>
+                <div class="file_search_config">
+                    <div id="search_all" class="file_search_checked"></div>
+                    <label for="search_all">包含子目录</label>
+                </div>
+            </div>
+        </div>
+        -->
+    </div>
     <div class="layui-card-body">
         <div class="layui-form table-search" style="left: 400px">
             <button class="layui-hide" lay-submit lay-filter="search">
@@ -130,9 +170,9 @@
                 {field: 'mtime', title: '最后修改', minWidth: 100, sort: true},
                 {title: '操作', minWidth: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
-            page: false,
+            page: true,
             limit: 10,
-            limits: [10, 15, 20, 25, 30],
+            limits: [100, 200, 500, 1000],
             text: '对不起，加载出现异常！',
             done: function (res) {
                 window.scrollTo(0, 0);

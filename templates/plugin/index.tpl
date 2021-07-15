@@ -10,12 +10,20 @@
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
+<script type="text/html" id="install-html">
+    <div class="layui-card" style="padding: 20px 20px 0 20px">
+        <div class="layui-card-header">安装参数,多个参数空格隔开</div>
+        <div class="layui-card-body layui-form">
+            <input name="args" value="" class="layui-input" placeholder="参数1 参数2">
+            <button class="layui-hide" lay-submit></button>
+        </div>
+    </div>
+</script>
 <script>
     layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
             url = {{.current_uri}};
-
         //日志管理
         table.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},
@@ -27,7 +35,7 @@
                 {field: 'id', hide: true},
                 {
                     title: '名称', width: 150, align: "center", templet: function (d) {
-                        return '<img src="' + d['icon'] + '" title="' + d['alias'] + '"><br/>' + d['alias'];
+                        return '<img src="' + d['icon'] + '" title="' + d['alias'] + '" alt="' + d['alias'] + '"><br/>' + d['alias'];
                     }
                 },
                 {field: 'alias', title: '别名', hide: true},
@@ -48,7 +56,7 @@
             ],],
             page: true,
             limit: 10,
-            limits: [10, 15, 20, 25, 30],
+            limits: [10, 20, 30],
             text: '对不起，加载出现异常！'
         });
         //监听工具条
@@ -56,28 +64,44 @@
             let data = obj.data;
             switch (obj.event) {
                 case 'install':
-                    layer.prompt({
-                        title: '邮箱域名,必须解析到本服务器',
-                        formType: 0,
-                        value: 'mail.nfivf.com'
-                    }, function (args, index) {
-                        layer.close(index);
+                    if (data.args instanceof Array && data.args.length > 0) {
+                        main.popup({
+                            url: url + "/install",
+                            title: false,
+                            maxmin: false,
+                            content: $('#install-html').html(),
+                            area: ['350px', 'auto'],
+                            tips: function () {
+                                main.ws.log("plugin." + data.id, function () {
+                                    table.reload('table-list');
+                                });
+                            },
+                            success: function (dom) {
+                                dom.find('input[name="args"]').attr("placeholder", data.args.join(" "));
+                                dom.find('.layui-form').append('<input type="hidden" name="id" value="' + data.id + '">');
+                            }
+                        });
+                    } else {
                         main.req({
                             url: url + "/install",
-                            data: {id: data.id, args: args},
-                            ending: main.ws.log("plugin." + data.id, function () {
-                                table.reload('table-list');
-                            })
+                            data: {id: data.id},
+                            tips: function () {
+                                main.ws.log("plugin." + data.id, function () {
+                                    table.reload('table-list');
+                                });
+                            },
                         });
-                    });
+                    }
                     break;
                 case 'uninstall':
                     main.req({
                         url: url + "/uninstall",
                         data: {id: data.id},
-                        ending: main.ws.log("plugin." + data.id, function () {
-                            table.reload('table-list');
-                        })
+                        tips: function () {
+                            main.ws.log("plugin." + data.id, function () {
+                                table.reload('table-list');
+                            });
+                        },
                     });
                     break;
                 case 'log':
@@ -85,5 +109,6 @@
                     break;
             }
         });
+        main.checkLNMP();
     });
 </script>

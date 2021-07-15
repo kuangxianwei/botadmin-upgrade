@@ -3,17 +3,17 @@
 # Name:postfix
 # Alias:邮件服务器
 # Intro:Postfix 由源代码构建，可以在类 UNIX 系统上运行，包括 AIX、BSD、HP-UX、Linux、MacOS X、Solaris 等,官网:http://www.postfix.org/
+# Args:mail.nfivf.com
 
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-[[ $(id -u) -ne 0 ]] && echo "Error: You must be root to run this script!" 1>&2 && exit 1
-currentDir=$(dirname "$0")
-. "$currentDir/init.sh" || exit 1
-
-mailHostname="$2"
+# 插件名称
+# shellcheck disable=SC2034
+PLUGIN_NAME="邮件服务器"
+# 当前脚本目录
+CUR_DIR=$(dirname "$(readlink -f "$0")")
+. "$CUR_DIR/include/init.sh" || exit 1
 # 安装
 Install() {
-  Check_Firewall
-  Firewall_Enable 25
+  Firewall_Enable 25/tcp 25/udp
   # 安装mail 服务器 postfix
   if ! command -v postfix; then
     if ! yum install postfix -y; then
@@ -21,6 +21,7 @@ Install() {
       exit 1
     fi
   fi
+  local mailHostname=$1
   if [ -n "$mailHostname" ]; then
     if ! sed -r -i \
       -e "s/^#?myhostname\s*=\s*.*?$/myhostname = $mailHostname/" \
@@ -63,17 +64,5 @@ Uninstall() {
   yum remove mailx -y
   exit 0
 }
-
-case "$1" in
-"install")
-  echo "开始安装postfix"
-  Install
-  ;;
-"uninstall")
-  echo "开始卸载postfix"
-  Uninstall
-  ;;
-*)
-  echo "{install|uninstall} 例如:install mail.nfivf.com"
-  ;;
-esac
+# 执行安装或卸载
+Execute "$@"

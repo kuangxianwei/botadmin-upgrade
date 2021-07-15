@@ -3,11 +3,14 @@
 # Name:ssh
 # Alias:网页SSH
 # Intro:一个简单的 Web 应用程序，用作 ssh 客户端以连接到您的 ssh 服务器。它是用 Python 编写的，基于 tornado、paramiko 和 xterm.js
+# Args:
 
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-[[ $(id -u) -ne 0 ]] && echo "Error: You must be root to run this script!" 1>&2 && exit 1
-currentDir=$(dirname "$0")
-. "$currentDir/init.sh" || exit 1
+# 插件名称
+# shellcheck disable=SC2034
+PLUGIN_NAME="网页SSH"
+# 当前脚本目录
+CUR_DIR=$(dirname "$(readlink -f "$0")")
+. "$CUR_DIR/include/init.sh" || exit 1
 
 # 安装
 Install() {
@@ -37,25 +40,12 @@ Install() {
     echo "安装webssh失败" 1>&2
     exit 1
   fi
-  CheckFirewall
-  Firewall_Enable 8888
+  Firewall_Enable 8888/tcp
 }
 # 卸载
 Uninstall() {
   pip uninstall -y webssh
   Firewall_Disable 8888
 }
-
-case "$1" in
-"install")
-  echo "开始安装SSH"
-  Install
-  ;;
-"uninstall")
-  echo "开始卸载SSH"
-  Uninstall
-  ;;
-*)
-  echo "{install|uninstall} 例如:install"
-  ;;
-esac
+# 执行安装或卸载
+Execute "$@"

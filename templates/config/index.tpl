@@ -223,26 +223,24 @@
                                     <input type="text" name="spec" value="{{.monitor.Spec}}" class="layui-input">
                                 </div>
                             </div>
+                            <button class="layui-btn layui-btn-radius" lay-event="monitor-log">查看监控日志</button>
                         </div>
                     </fieldset>
                     <fieldset class="layui-elem-field">
                         <legend>监控服务设置</legend>
-                        <div lay-filter="monitor"></div>
+                        <div class="layui-form-item">
+                            <div id="monitor" style="text-align:center"></div>
+                        </div>
                     </fieldset>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label"></label>
+                    <div style="text-align: center">
                         <div class="layui-btn-group">
-                            <button class="layui-btn layui-btn-primary" lay-event="add" lay-tips="添加监控服务">
-                                <i class="layui-icon layui-icon-addition"></i>
-                            </button>
-                            <button class="layui-btn" lay-submit lay-filter="submit-monitor">立即提交
-                            </button>
+                            <button class="layui-btn" lay-submit lay-filter="submit-monitor">立即提交</button>
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="monitor"
                                     data-tip="监控设置恢复到出厂设置?">
                                 <i class="layui-icon iconfont icon-reset"></i>默认
                             </button>
                             <button class="layui-btn" data-event="status" data-name="monitor"
-                                    data-tip="查看定时状态">查看状态
+                                    data-tip="查看定时监控服务状态">查看状态
                             </button>
                         </div>
                     </div>
@@ -251,29 +249,6 @@
         </div>
     </div>
 </div>
-<script type="text/html" id="monitor">
-    <div class="layui-form-item">
-        <div class="layui-inline">
-            <label class="layui-form-label">服务名称:</label>
-            <div class="layui-input-inline">
-                <input name="services.name." class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">运行特征:</label>
-            <div class="layui-input-inline">
-                <input name="services.run_mark." class="layui-input" value="">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">停止特征:</label>
-            <div class="layui-input-inline">
-                <input name="services.stop_mark." class="layui-input" value="">
-            </div>
-        </div>
-        <i class="layui-icon layui-icon-delete" lay-event="del" lay-tips="删除该条服务监控"></i>
-    </div>
-</script>
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
@@ -281,35 +256,16 @@
             layer = layui.layer,
             main = layui.main,
             form = layui.form,
-            services = {{.monitor.Services}},
-            url = {{.current_uri}},
-            addService = function (index, option) {
-                option = option || {};
-                let dom = $($('#monitor').html());
-                dom.find('[name]').each(function () {
-                    $(this).attr('name', this.name + index);
-                });
-                $.each(option, function (k, v) {
-                    dom.find('[name^="services.' + k + '."]').val(v);
-                });
-                $('div[lay-filter="monitor"]').append(dom);
-            };
-        if (services) {
-            $.each(services, function (index, v) {
-                addService(index + 1, v);
-            });
-            form.render();
-            main.on.del();
-        }
-        main.on.add(function () {
-            let name = $('[lay-filter="monitor"] [name^="services.name."]').last().attr('name'),
-                names = [],
-                index = 0;
-            if (name) {
-                names = name.split('.');
-                index = parseInt(names[names.length - 1]) || 0;
-            }
-            addService(index + 1);
+            transfer = layui.transfer,
+            url = {{.current_uri}};
+        //显示
+        transfer.render({
+            id: 'monitorData',
+            elem: '#monitor',
+            title: ['全部服务', '监控服务'],
+            data: {{.serviceData}},
+            value: {{.serviceValue}},
+            showSearch: true
         });
         form.on('submit(submit-base)', function (obj) {
             main.req({
@@ -326,11 +282,17 @@
             return false;
         });
         form.on('submit(submit-monitor)', function (obj) {
+            let monitorData = transfer.getData('monitorData');
+            obj.field.services = [];
+            layui.each(monitorData, function (i, v) {
+                obj.field.services[i] = v.title;
+            });
+            obj.field.services = obj.field.services.join();
             main.req({
                 url: url + '/monitor',
                 data: obj.field,
+                multiple: true,
             });
-            return false;
         });
         form.on('submit(submit-ban)', function (obj) {
             main.req({
@@ -414,5 +376,8 @@
             return false;
         });
         main.cron('[name=reboot_spec]', '[name=rank_spec]', '[name=spec]');
+        $('[lay-event="monitor-log"]').click(function () {
+            main.ws.log("monitor_service.0");
+        });
     });
 </script>

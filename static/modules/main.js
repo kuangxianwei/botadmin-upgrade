@@ -58,6 +58,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 return layer.alert(content, $.extend({
                     skin: 'layui-layer-admin',
                     shadeClose: true,
+                    maxmin: false,
                     icon: 2,
                     btn: '',
                     shade: 0.7,
@@ -1111,6 +1112,26 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }, options || {}));
             });
         },
+    };
+    // 检测是否安装了lnmp
+    main.checkLNMP = function () {
+        $.get("/plugin/lnmp", {}, function (html) {
+            if (html) {
+                if (html === 'lnmp.0') {
+                    main.ws.log("lnmp.0");
+                    return false;
+                }
+                main.popup({
+                    url: "/plugin/lnmp",
+                    title: "安装web服务器",
+                    content: html,
+                    area: ['560px', 'auto'],
+                    tips: function () {
+                        main.ws.log("lnmp.0");
+                    }
+                });
+            }
+        });
     };
     // 监听搜索
     main.onSearch = function (options) {
