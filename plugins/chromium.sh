@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Name:chromium
 # Alias:Chromium
-# Intro:安装Chromium的依赖库和字体库
+# Intro:安装Chromium的依赖库和字体库 如果安装失败,请先升级软件包 yum -y upgrade
 # Args:
 
 # 插件名称
