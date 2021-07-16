@@ -95,7 +95,8 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-form-mid layui-word-aux">
-                安装时间大概是1个小时,安装成功后重启APP
+                安装时间大概是1个小时,安装成功后重启APP<br/>
+                卸载:在终端执行 cd /root/lnmp && sh uninstall.sh
             </div>
         </div>
     </div>
