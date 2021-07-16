@@ -1,0 +1,14 @@
+[Unit]
+Description=webSSH Server
+After=network.target syslog.target
+
+[Service]
+Type=forking
+ExecStart=/etc/init.d/webssh start
+ExecStop=/etc/init.d/webssh stop
+ExecReload=/etc/init.d/webssh restart
+Restart=no
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target
