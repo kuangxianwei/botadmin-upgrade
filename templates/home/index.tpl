@@ -215,6 +215,9 @@
                             <a class="layui-btn layui-btn-sm"
                                href="https://github.com/kuangxianwei/botadmin-upgrade/releases" target="_blank">更新日志
                             </a>
+                            <button class="layui-btn layui-btn-sm" lay-event="upgrade-app">升级到{{.version}}</button>
+                            <button class="layui-btn layui-btn-sm" lay-event="upgrade-app-log">
+                                <i class="layui-icon layui-icon-log"></i></button>
                             <button class="layui-btn layui-btn-sm" lay-event="update-templates">更新建站模板</button>
                         </td>
                     </tr>
@@ -263,6 +266,15 @@
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
+<script type="text/html" id="upgrade-app">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <button class="layui-hide" lay-submit></button>
+            <input type="radio" name="mirror" value="0" title="国外源" checked>
+            <input type="radio" name="mirror" value="1" title="国内源">
+        </div>
+    </div>
+</script>
 <script>
     layui.use(['index', 'main', 'sample'], function () {
         let main = layui.main, layer = layui.layer;
@@ -292,6 +304,21 @@
                     break;
                 case 'update-templates':
                     main.req({url: '/home/update/templates'});
+                    break;
+                case 'upgrade-app':
+                    main.popup({
+                        title: false,
+                        maxmin: false,
+                        url: '/home/upgrade',
+                        content: $('#upgrade-app').html(),
+                        area: ['220px', '100px'],
+                        tips: function () {
+                            main.ws.log("app_upgrade");
+                        }
+                    });
+                    break;
+                case 'upgrade-app-log':
+                    main.ws.log("app_upgrade");
                     break;
                 case 'terminal':
                     main.webssh();
