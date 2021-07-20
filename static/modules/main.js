@@ -1165,6 +1165,17 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 });
             }
         });
+    };
+    main.webssh = function (options) {
+        options = $.extend({id: 0, stdin: ""}, options);
+        layer.open({
+            type: 2,
+            shade: 0.8,
+            maxmin: true,
+            title: "连接ssh 执行cmd命令行",
+            area: ["800px", "500px"],
+            content: ["/webssh/tip?id=" + options.id + "&stdin=" + options.stdin, 'no'],
+        });
     }
     exports('main', main);
 });

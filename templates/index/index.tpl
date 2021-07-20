@@ -305,6 +305,12 @@
                                     <cite>插件</cite>
                                 </a>
                             </dd>
+                            <dd data-name="webssh">
+                                <a lay-href="/webssh" lay-tips="ssh管理" lay-direction="2">
+                                    <i class="iconfont icon-ssh"></i>
+                                    <cite>SSH</cite>
+                                </a>
+                            </dd>
                             <dd data-name="tools-ban">
                                 <a lay-href="/tools/ban" lay-tips="过滤违禁词" lay-direction="2">
                                     <cite>过滤违禁词</cite>
@@ -374,16 +380,10 @@
                                     <cite>IP设置</cite>
                                 </a>
                             </dd>
-                            <dd data-name="system-resolv">
-                                <a lay-href="/system/resolv" lay-tips="设置DNS" lay-direction="2">
+                            <dd data-name="system-resolve">
+                                <a lay-href="/system/resolve" lay-tips="设置DNS" lay-direction="2">
                                     <i class="iconfont icon-dns"></i>
                                     <cite>设置DNS</cite>
-                                </a>
-                            </dd>
-                            <dd data-name="system-cmd">
-                                <a lay-href="/system/cmd" lay-tips="运行命令" lay-direction="2">
-                                    <i class="iconfont icon-dns"></i>
-                                    <cite>运行命令</cite>
                                 </a>
                             </dd>
                             <dd data-name="system-reboot">
@@ -482,7 +482,10 @@
 </div>
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.use(['index'], function () {
+    layui.use(['index', 'main'], function () {
+        $('[lay-event="ssh-cmd"]').click(function () {
+            layui.main.webssh();
+        });
         $('dd[data-event=logout]').click(function () {
             layui.view.exit(function () {
                 location.href = '/auth/logout';

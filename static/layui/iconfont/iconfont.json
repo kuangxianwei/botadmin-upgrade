@@ -6,6 +6,69 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "1012097",
+      "name": "压缩文件",
+      "font_class": "compress",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "1160159",
+      "name": "js",
+      "font_class": "js",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "1200618",
+      "name": "iso",
+      "font_class": "iso",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "5634797",
+      "name": "php",
+      "font_class": "php",
+      "unicode": "f20e",
+      "unicode_decimal": 61966
+    },
+    {
+      "icon_id": "5729484",
+      "name": "css",
+      "font_class": "css",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "16793585",
+      "name": "img",
+      "font_class": "img",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "19450576",
+      "name": "HTML",
+      "font_class": "html",
+      "unicode": "eac7",
+      "unicode_decimal": 60103
+    },
+    {
+      "icon_id": "20452180",
+      "name": "file",
+      "font_class": "file",
+      "unicode": "e8fb",
+      "unicode_decimal": 59643
+    },
+    {
+      "icon_id": "348836",
+      "name": "terminal",
+      "font_class": "terminal",
+      "unicode": "ec24",
+      "unicode_decimal": 60452
+    },
+    {
       "icon_id": "5243982",
       "name": "插件",
       "font_class": "plugin",

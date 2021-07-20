@@ -52,99 +52,105 @@
                 <div class="layui-carousel layadmin-carousel layadmin-shortcut">
                     <div carousel-item>
                         <ul class="layui-row layui-col-space10">
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
+                                <a href="javascript:" lay-event="terminal" lay-text="打开终端">
+                                    <i class="layui-icon iconfont icon-cmd"></i>
+                                    <cite>终端</cite>
+                                </a>
+                            </li>
+                            <li class="layui-col-xs2">
                                 <a lay-href="/record/info" lay-text="全部日志概况">
                                     <i class="layui-icon layui-icon-log"></i>
                                     <cite>日志概况</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/site" lay-text="站点列表">
                                     <i class="layui-icon layui-icon-website"></i>
                                     <cite>创建站点</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/site/phps">
                                     <i class="layui-icon layui-icon-engine"></i>
                                     <cite>PHP版本</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/file?path={{.rewrite_path}}">
                                     <i class="layui-icon layui-icon-file"></i>
                                     <cite>伪静态规则</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/sql" lay-text="数据库列表">
                                     <i class="layui-icon iconfont icon-sql"></i>
                                     <cite>创建数据库</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a href="{{.obj.Phpmyadmin}}" target="_blank">
                                     <i class="layui-icon layui-icon-survey"></i>
                                     <cite>phpMyAdmin</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/ftp" lay-text="Ftp列表">
                                     <i class="layui-icon iconfont icon-ftp"></i>
                                     <cite>创建FTP</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/resource/eth">
                                     <i class="layui-icon layui-icon-chart-screen"></i>
                                     <cite>流量查看</cite>
                                 </a>
                             </li>
-                        </ul>
-                        <ul class="layui-row layui-col-space10">
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/system/service">
                                     <i class="layui-icon layui-icon-layer"></i>
                                     <cite>启动服务</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/system/port">
                                     <i class="layui-icon layui-icon-set"></i>
                                     <cite>端口检查</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/system/process">
                                     <i class="layui-icon layui-icon-engine"></i>
                                     <cite>进程管理</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                        </ul>
+                        <ul class="layui-row layui-col-space10">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/safe/firewall">
                                     <i class="layui-icon layui-icon-auz"></i>
                                     <cite>防火墙</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/safe/ping">
                                     <i class="layui-icon iconfont icon-resource"></i>
                                     <cite>开关ping</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/safe/ssh">
                                     <i class="layui-icon iconfont icon-ssh"></i>
                                     <cite>SSH管理</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3">
+                            <li class="layui-col-xs2">
                                 <a lay-href="/system/reboot">
                                     <i class="layui-icon iconfont icon-system"></i>
                                     <cite>服务重启</cite>
                                 </a>
                             </li>
-                            <li class="layui-col-xs3" style="cursor: pointer">
+                            <li class="layui-col-xs2">
                                 <a lay-href="{{.p_url}}" lay-text="探针">
                                     <i class="layui-icon layui-icon-chart"></i>
                                     <cite>探针</cite>
@@ -287,6 +293,8 @@
                 case 'update-templates':
                     main.req({url: '/home/update/templates'});
                     break;
+                case 'terminal':
+                    main.webssh();
             }
         });
         main.checkLNMP();

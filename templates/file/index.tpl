@@ -1,65 +1,77 @@
+<style>
+    .toolbar {
+    }
+
+    .toolbar input, #current-path {
+        background-color: #fff;
+        border-radius: 5px;
+        height: 30px;
+        border: 1px solid #d2d2d2;
+        line-height: 30px;
+    }
+
+    #current-path {
+        cursor: pointer;
+    }
+
+    #current-path > span {
+        padding-left: 3px;
+    }
+
+    #current-path > span:hover {
+        color: #0a5b52;
+        font-size: 1.1rem;
+    }
+
+    .toolbar input:hover, #current-path:hover {
+        border: 1px solid #009688 !important;
+    }
+
+    .toolbar .layui-input-inline {
+        width: 800px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+</style>
 <div class="layui-card">
-    <div class="layui-card-header layuiadmin-card-header-auto">
-        <!--
-        <div class="file_path_views">
-            <div class="file_path_upper" title="上一层">
-                <span class="glyphicon glyphicon-arrow-left"></span>
+    <div class="layui-card-body">
+        <div class="table-search" style="left:245px">
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="terminal" lay-tips="打开终端">
+                    <i class="layui-icon iconfont icon-terminal"></i>
+                </button>
+                <button class="layui-btn layui-btn-sm" lay-event="upload" id="upload" lay-tips="上传文件">
+                    <i class="layui-icon layui-icon-upload"></i>
+                </button>
             </div>
-            <div class="file_path_input">
-                <div class="file_path_shadow"></div>
-                <div class="file_dir_view" data-width="121">
-                    <div class="file_dir_omit hide" title="展开已隐藏的目录">
-                        <span></span><i class="iconfont icon-zhixiang-zuo"></i>
-                        <div class="nav_down_list"></div>
-                    </div>
-                    <div class="file_dir_item" data-width="63"><span class="file_dir" title="/">根目录</span>
-                        <i class="iconfont icon-arrow-right"></i>
-                        <ul class="nav_down_list">
-                            <li data-path="*"><span>加载中</span></li>
-                        </ul>
-                    </div>
-                    <div class="file_dir_item" data-width="58"><span class="file_dir" title="/home">home</span>
-                        <i class="iconfont icon-arrow-right"></i>
-                        <ul class="nav_down_list">
-                            <li data-path="*"><span>加载中</span></li>
-                        </ul>
+            <div class="layui-inline layui-form">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" name="search" placeholder="搜索文件/目录" class="layui-input">
                     </div>
                 </div>
-                <input type="text" data-path="/home" data-backspace="" class="path_input" id="fileInputPath">
-            </div>
-            <div class="file_path_refresh" title="刷新列表"><i class="icon-file icon-file-refresh"></i></div>
-            <div class="search_path_views">
-                <input type="text" placeholder="搜索文件/目录" class="file_search_input">
-                <button type="submit" class="path_btn"><i class="iconfont icon-search"></i></button>
-                <div class="file_search_config">
-                    <div id="search_all" class="file_search_checked"></div>
-                    <label for="search_all">包含子目录</label>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="checkbox" name="action" title="包含子目录">
+                    </div>
                 </div>
+                <button class="layui-btn layui-btn-sm layui-btn-primary" lay-submit lay-filter="search">
+                    <i class="layui-icon layui-icon-search"></i>
+                </button>
             </div>
         </div>
-        -->
-    </div>
-    <div class="layui-card-body">
-        <div class="layui-form table-search" style="left: 400px">
-            <button class="layui-hide" lay-submit lay-filter="search">
-                <i class="layui-icon layui-icon-search"></i>
+        <div class="table-search toolbar" style="left:32px;top:56px">
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="return-top" lay-tips="返回上层目录">
+                <i class="layui-icon layui-icon-return"></i>
             </button>
-            <div class="layui-inline">
-                <div class="layui-input-inline">
-                    <input type="text" name="search_name" placeholder="完整或部分文件名称"
-                           class="layui-input">
-                </div>
+            <div class="layui-input-inline layui-form">
+                <div id="current-path"></div>
+                <input type="hidden" name="goto" value="" class="layui-input" lay-verify="required">
+                <button class="layui-hide" lay-submit lay-filter="submit-goto"></button>
             </div>
-            <div class="layui-inline">
-                <div class="layui-input-inline">
-                    <select name="search_type" lay-filter="search-select">
-                        <option value="" selected>全部类型</option>
-                        <option value="file">文件</option>
-                        <option value="folder">目录</option>
-                        <option value="compress">压缩文件</option>
-                    </select>
-                </div>
-            </div>
+            <button class="layui-btn layui-btn-sm" lay-event="refresh" lay-tips="刷新当前目录">
+                <i class="layui-icon layui-icon-refresh"></i>
+            </button>
         </div>
         <table class="layui-font" id="table-list" lay-filter="table-list"></table>
     </div>
@@ -69,7 +81,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">操作:</label>
             <div class="layui-input-block">
-                <select name="act" lay-verify="" lay-search>
+                <select name="action" lay-verify="" lay-search>
                     <option value="compress" selected>打包</option>
                     <option value="del">删除</option>
                     <option value="move">移动/重命名</option>
@@ -83,7 +95,7 @@
         <div class="layui-inline">
             <label class="layui-form-label" lay-tips="打包名/权限值/用户名/组名/目标文件或目录名">值:</label>
             <div class="layui-input-block">
-                <input name="actname" type="text" class="layui-input layui-input-small"/>
+                <input name="value" type="text" class="layui-input layui-input-small"/>
             </div>
         </div>
         <div class="layui-inline">
@@ -96,9 +108,6 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="rollback" lay-tips="上一层目录">
-            <i class="layui-icon layui-icon-up"></i>
-        </button>
         <button class="layui-btn layui-btn-sm" lay-event="back_root" lay-tips="用户目录">
             <i class="layui-icon layui-icon-home"></i>
         </button>
@@ -111,30 +120,11 @@
         <button class="layui-btn layui-btn-sm" lay-event="new_file" lay-tips="在当前目录新建文件">
             <i class="layui-icon layui-icon-add-1"></i><i class="layui-icon layui-icon-file"></i>
         </button>
-        <button class="layui-btn layui-btn-sm" lay-event="upload" id="upload" lay-tips="上传文件">
-            <i class="layui-icon layui-icon-upload"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm" lay-event="refresh" lay-tips="刷新当前路径">
-            <i class="layui-icon layui-icon-refresh-3"></i>
-        </button>
     </div>
-    <div class="layui-form">
-        <label>当前路径: <strong id="currentpath"></strong>&nbsp;&nbsp;&nbsp;</label>
-        <i class="layui-icon layui-icon-right"></i>
-        <div class="layui-input-inline">
-            <input type="text" name="goto" placeholder="/root"
-                   class="layui-input" style="height: 30px" required lay-verify="required">
-        </div>
-        <button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit-goto" lay-tips="跳转到指定目录">
-            <i class="layui-icon layui-icon-triangle-r"></i>
-        </button>
-    </div>
+    <div class="layui-input-block"></div>
 </script>
 <script type="text/html" id="table-toolbar">
-    {{html .operation}}
-</script>
-<script type="text/html" id="table-content-name">
-    {{html .file_name}}
+    {{html .toolbar}}
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
@@ -143,74 +133,117 @@
             table = layui.table,
             main = layui.main,
             upload = layui.upload,
-            url = {{.current_uri}},
-            current_path = main.getParam('path') || "/home/wwwroot";
-        $('#currentpath').text(current_path);
+            url = "/file",
+            curPath = new CurPath();
+        curPath.data.path = main.getParam('path') || "/home/wwwroot";
+        // 初始化
+        curPath.init();
+        // 渲染上传组件
+        let uploaded = upload.render({
+            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            elem: '#upload',
+            url: url + '/upload',
+            data: {'path': curPath.data.path},
+            accept: 'file',
+            done: function (res) {
+                table.reload('table-list', {where: {'path': curPath.data.path}});
+                layer.msg(res.msg);
+            },
+        });
         // 列表管理
-        table.render({
+        let tabled = table.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},
             method: 'post',
             elem: '#table-list',
-            url: {{.current_uri}},
+            url: url,
             toolbar: '#toolbar',
-            where: {'path': current_path},
+            where: {'path': curPath.data.path},
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {
-                    field: 'name', minWidth: 100, title: '名称', sort: true,
-                    templet: '#table-content-name'
+                    field: 'name', minWidth: 100, title: '名称', sort: true, style: 'color:#0a6e85;cursor:pointer',
+                    event: 'name', templet: (d) => {
+                        let name;
+                        switch (d.type) {
+                            case 0:
+                                name = '<i class="iconfont icon-folder"></i> ' + d.name;
+                                break;
+                            case 1:
+                                name = '<i class="iconfont icon-file"></i> ' + d.name;
+                                break;
+                            case 2:
+                                name = '<i class="iconfont icon-compress"></i> ' + d.name;
+                                break;
+                            case 3:
+                                name = '<i class="iconfont icon-html"></i> ' + d.name;
+                                break;
+                            case 4:
+                                name = '<i class="iconfont icon-php"></i> ' + d.name;
+                                break;
+                            case 5:
+                                name = '<i class="iconfont icon-js"></i> ' + d.name;
+                                break;
+                            case 6:
+                                name = '<i class="iconfont icon-css"></i> ' + d.name;
+                                break;
+                            case 7:
+                                name = '<i class="iconfont icon-img"></i> ' + d.name;
+                                break;
+                            case 8:
+                                name = '<i class="iconfont icon-iso"></i> ' + d.name;
+                                break;
+                        }
+                        return '<b title="' + d.path + '">' + name + '</b>';
+                    }
                 },
-                {field: 'type', title: '类型', width: 100, sort: true},
+                {field: 'type', title: '类型', width: 100, hide: true},
                 {field: 'uname', title: '所有者', width: 80},
                 {field: 'gname', title: '所有组', width: 80},
                 {field: 'uid', title: '用户ID', hide: true},
                 {field: 'gid', title: '组ID', hide: true},
-                {field: 'size', title: '文件大小', width: 100, sort: true},
+                {
+                    field: 'size', title: 'Size', width: 100, sort: true, style: 'color:#0a6e85;cursor:pointer',
+                    event: "size", align: 'center', templet: (d) => {
+                        if (d.type === 0) {
+                            return "计算";
+                        }
+                        return d.size;
+                    }
+                },
                 {field: 'mode', title: '权限', width: 100},
-                {field: 'mtime', title: '最后修改', minWidth: 100, sort: true},
+                {field: 'mtime', title: '最后修改', width: 170, sort: true},
                 {title: '操作', minWidth: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
             page: true,
-            limit: 10,
+            limit: 100,
             limits: [100, 200, 500, 1000],
             text: '对不起，加载出现异常！',
             done: function (res) {
-                window.scrollTo(0, 0);
-                if (res.path) {
-                    current_path = res.path;
-                    $('input[name="goto"]').keydown(function (event) {
-                        if (event.keyCode === 13 && this.value) {
-                            $('[lay-filter="submit-goto"]').click();
-                        }
-                    });
-                }
-                $('#currentpath').text(current_path);
                 if (this.where) {
-                    delete this.where.search_name;
-                    delete this.where.search_type;
-                    delete this.where.goto;
+                    delete this.where.search
                 }
-                upload.render({
-                    headers: {'X-CSRF-Token':{{.csrf_token}}},
-                    elem: '#upload',
-                    url: url + '/upload',
-                    data: {'path': current_path},
-                    accept: 'file',
+                curPath.data = res;
+                curPath.data.path = curPath.data.path || "/";
+                window.scrollTo(0, 0);
+                curPath.render();
+                uploaded.reload({
+                    data: {'path': curPath.data.path},
                     done: function (res) {
-                        table.reload('table-list', {
-                            url: url,
-                            where: {'path': current_path}
-                        });
+                        tabled.reload({where: {path: curPath.data.path}});
                         layer.msg(res.msg);
                     },
                 });
             }
         });
-
         // 监听工具条
         table.on('tool(table-list)', function (obj) {
             let d = obj.data;
             switch (obj.event) {
+                case 'size':
+                    $.get(url + "/size", {path: d.path}, function (res) {
+                        $(obj.tr.selector + ' [data-field="size"]>div').text(res);
+                    });
+                    break;
                 case 'del':
                     layer.confirm('删除后不可恢复！确定删除 ' + d.path + ' ?', function (index) {
                         main.req({
@@ -221,22 +254,30 @@
                         });
                     });
                     break;
-                case 'filename':
-                    if (d.type === 'folder') {
-                        table.reload('table-list', {
-                            url: url,
-                            where: {'path': d.path}
-                        });
-                    } else {
-                        let loadIndex = layer.load(1, {shade: [0.6, '#000', true]});
-                        $.get(url + '/editor', {path: d.path, hide: true}, function (html) {
-                            layui.layer.close(loadIndex);
-                            main.popup({
-                                title: '编辑文件',
-                                content: html,
+                case "name":
+                    switch (d.type) {
+                        case 0:
+                            tabled.reload({where: {path: d.path}});
+                            break;
+                        case 2:
+                        case 7:
+                        case 8:
+                            layer.confirm('确定下载 ' + d.name + ' ?', function (index) {
+                                window.open(encodeURI(url + '/download?file=' + d.path));
+                                layer.close(index);
                             });
-                            table.render();
-                        });
+                            break;
+                        default:
+                            if (d.size > 1024 * 1024 * 3) {
+                                layer.msg("文件超大,不支持在线编辑", {icon: 5});
+                                return
+                            }
+                            let loadIndex = layer.load(1, {shade: [0.6, '#000', true]});
+                            $.get(url + '/editor', {path: d.path, hide: true}, function (html) {
+                                layui.layer.close(loadIndex);
+                                main.popup({title: '编辑文件', content: html});
+                                tabled.reload({where: {path: curPath.data.path}});
+                            });
                     }
                     break;
                 case 'compress':
@@ -244,10 +285,7 @@
                         url: url + '/compress',
                         data: {'name': d.path},
                         ending: function () {
-                            table.reload('table-list', {
-                                url: url,
-                                where: {'path': current_path}
-                            });
+                            tabled.reload({where: {path: curPath.data.path}});
                         }
                     });
                     break;
@@ -256,10 +294,7 @@
                         url: url + '/decompress',
                         data: {'name': d.path},
                         ending: function () {
-                            table.reload('table-list', {
-                                url: url,
-                                where: {'path': current_path}
-                            });
+                            tabled.reload({where: {path: curPath.data.path}});
                         }
                     });
                     break;
@@ -268,31 +303,17 @@
                     break;
             }
         });
-
         //监听工具栏
         table.on('toolbar(table-list)', function (obj) {
             switch (obj.event) {
                 case 'rollback':
-                    table.reload('table-list', {
-                        url: url + '/rollback',
-                        where: {'path': current_path}
-                    });
+                    tabled.reload({where: {path: curPath.data.path}});
                     break;
                 case 'back_www':
-                    table.reload('table-list', {
-                        url: url,
-                        where: {
-                            path: '/home/wwwroot'
-                        }
-                    });
+                    tabled.reload({where: {path: '/home/wwwroot'}});
                     break;
                 case 'back_root':
-                    table.reload('table-list', {
-                        url: url,
-                        where: {
-                            path: '/root'
-                        }
-                    });
+                    tabled.reload({where: {path: '/root'}});
                     break;
                 case 'new_folder':
                     layer.prompt(
@@ -303,19 +324,11 @@
                         },
                         function (value, index) {
                             main.req({
-                                url: url + '/newfolder',
-                                data: {
-                                    name: value,
-                                    path: current_path
-                                },
+                                url: url + '/new/folder',
+                                data: {name: value, path: curPath.data.path},
                                 index: index,
                                 ending: function () {
-                                    table.reload('table-list', {
-                                        url: url,
-                                        where: {
-                                            path: current_path
-                                        }
-                                    });
+                                    tabled.reload({where: {path: curPath.data.path}});
                                 }
                             });
                         });
@@ -329,57 +342,41 @@
                         },
                         function (value, index) {
                             main.req({
-                                url: url + '/newfile',
-                                data: {
-                                    name: value,
-                                    path: current_path
-                                },
+                                url: url + '/new/file',
+                                data: {name: value, path: curPath.data.path},
                                 index: index,
                                 ending: function () {
-                                    table.reload('table-list', {
-                                        url: url,
-                                        where: {
-                                            path: current_path
-                                        }
-                                    });
+                                    tabled.reload({where: {path: curPath.data.path}});
                                 }
                             });
                         }
                     );
                     break;
-                case "refresh":
-                    table.reload('table-list', {
-                        url: url,
-                        where: {
-                            path: current_path
-                        }
-                    });
             }
         });
-
         //转到
         form.on('submit(submit-goto)', function (obj) {
-            let field = obj.field, cols = [];
+            tabled.reload({where: {path: obj.field.goto}});
+        });
+        // 监听搜索
+        form.on('submit(search)', function (data) {
+            let field = data.field, cols = [];
             $.each(field, function (k, v) {
-                if (v) {
-                    cols.push(k);
+                let col = k.split('.')[0];
+                if (v && col !== 'cols' && cols.indexOf(col) === -1) {
+                    cols.push(col);
                 } else {
                     delete field[k];
                 }
             });
-            field.cols = cols.join();
+            field.cols = cols.join(",");
             if (!field.cols) {
                 return location.reload();
             }
-            field.path = current_path;
-            table.reload('table-list', {
-                url: url,
-                where: field,
-            });
-            return false;
+            field.path = curPath.data.path;
+            //执行重载
+            tabled.reload({where: field});
         });
-        // 监听搜索
-        main.onSearch({path: current_path});
         // 监听操作
         form.on('submit(submit-acts)', function (obj) {
             let checkData = table.checkStatus('table-list').data, // 得到选中的数据
@@ -394,39 +391,106 @@
             });
             let field = obj.field;
             field.name = names.join();
-            field.path = current_path;
-            if (field.act === 'del') {
+            field.path = curPath.data.path;
+            if (field.action === 'del') {
                 layer.confirm('删除后不可恢复，确定批量删除吗？', function (index) {
                     main.req({
                         url: url + '/del',
                         data: field,
                         index: index,
                         ending: function () {
-                            table.reload('table-list', {
-                                url: url,
-                                where: {path: current_path}
-                            });
+                            tabled.reload({where: {path: curPath.data.path}});
                         }
                     });
                 });
             } else {
                 main.req({
-                    url: url + '/' + field.act,
+                    url: url + '/' + field.action,
                     data: field,
                     ending: function () {
-                        table.reload('table-list', {
-                            url: url,
-                            where: {path: current_path}
-                        });
+                        tabled.reload({where: {path: curPath.data.path}});
                     }
                 });
             }
             return false;
         });
-        $('input[name="goto"]').keydown(function (event) {
-            if (event.keyCode === 13 && this.value) {
-                $('[lay-filter="submit-goto"]').click();
-            }
-        });
     });
+
+    class CurPath {
+        constructor() {
+            this.data = {};
+            this.init = () => {
+                this.render();
+                $('#current-path').click(function () {
+                    let elem = $('#current-path');
+                    elem.addClass("layui-hide");
+                    $('input[name=goto]').attr("type", "text").val(elem.attr("title"));
+                    layui.form.render("input");
+                });
+                let othis = this;
+                $('.toolbar [lay-event="return-top"]').click(function () {
+                    othis.goto(this);
+                });
+                $('.toolbar [lay-event=refresh]').click(function () {
+                    othis.goto(this);
+                });
+                $('[lay-event=terminal]').click(function () {
+                    layui.main.webssh({stdin: "cd " + othis.data.path});
+                });
+                $('input[name="goto"]').keydown(function (event) {
+                    if (event.keyCode === 13 && this.value) {
+                        $('[lay-filter="submit-goto"]').click();
+                    }
+                });
+                $('input[name="search"]').keydown(function (event) {
+                    if (event.keyCode === 13) {
+                        $('[lay-filter=search]').click();
+                    }
+                });
+            };
+            this.render = () => {
+                this.data.path = this.data.path || "/";
+                if (this.data.path.substring(0, 1) !== "/") {
+                    this.data.path = {{.app_root}}+"/" + this.data.path;
+                }
+                let curElem = $("#current-path");
+                curElem.attr("title", this.data.path).removeClass("layui-hide").parent().find("input").attr("type", "hidden");
+                let paths = this.data.path.split("/"), p = [],
+                    elem = `<span title="/">根目录</span><span title="/">></span>`;
+                for (let i = 1; i < paths.length; i++) {
+                    paths[i] = paths[i].trim();
+                    if (paths[i]) {
+                        p.push(paths[i]);
+                        let title = p.join("/");
+                        elem += `<span title="/` + title + `">` + paths[i] + `</span><span title="/` + title + `">></span>`;
+                    }
+                }
+                curElem.html(elem);
+                let othis = this;
+                $('#current-path>span').click(function () {
+                    othis.goto(this);
+                });
+                $('.toolbar [lay-event="return-top"]').attr("title", this.getTop(this.data.path));
+                $('.toolbar [lay-event="refresh"]').attr("title", this.data.path);
+            };
+            this.goto = (othis) => {
+                $('input[name=goto]').val(othis.title);
+                $('[lay-filter="submit-goto"]').click();
+            };
+            this.getTop = (path) => {
+                if (!path || path === "/") {
+                    return "/";
+                }
+                path = path.trim();
+                let paths = path.split("/"), p = "";
+                for (let i = 0; i < paths.length - 1; i++) {
+                    let name = paths[i].trim();
+                    if (name) {
+                        p += "/" + name
+                    }
+                }
+                return p || "/";
+            };
+        }
+    }
 </script>
