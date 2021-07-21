@@ -1,3 +1,0 @@
-# ${RootPath} 程序根目录
-# rm -rf "${RootPath}/data/template/empirecms"
-rm -rf "${RootPath}/plugins" "${RootPath}/templates" "${RootPath}/static"
