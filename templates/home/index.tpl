@@ -218,9 +218,6 @@
                                 </a>
                                 <button class="layui-btn layui-btn-sm" lay-event="upgrade-app">
                                     升级到:{{.remoteVersion}}</button>
-                                <button class="layui-btn layui-btn-sm" lay-event="upgrade-app-log">
-                                    <i class="layui-icon layui-icon-log"></i></button>
-                                <button class="layui-btn layui-btn-sm" lay-event="update-templates">更新模板</button>
                             </div>
                         </td>
                     </tr>
@@ -304,9 +301,6 @@
             switch ($(this).attr('lay-event')) {
                 case 'record':
                     main.ws.info();
-                    break;
-                case 'update-templates':
-                    main.req({url: '/home/update/templates'});
                     break;
                 case 'upgrade-app':
                     main.popup({

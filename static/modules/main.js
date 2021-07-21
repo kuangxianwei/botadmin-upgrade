@@ -1054,9 +1054,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             main.pop({
                 confirm: false,
                 scroll: false,
-                content: '<div style="position:fixed;padding:6px;top:-15px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div><textarea class="layui-textarea layui-bg-black" style="color:white;height:100%" id="log-display"></textarea>',
+                content: '<div style="position:fixed;padding:6px;top:-15px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div><textarea class="layui-textarea layui-bg-black" style="color:white;height:100%" id="log-display" readonly="readonly"></textarea>',
                 area: ['75%', '75%'],
                 success: function (dom) {
+                    let displayElem = dom.find('#log-display'),
+                        statusElem = dom.find('#log-status');
                     w.onopen = function () {
                         w.send(name);
                     };
@@ -1064,12 +1066,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         if (e.data) {
                             let statusCode = e.data.substr(0, 1);
                             if (statusCode === '0') {
-                                dom.find('#log-status').html('状态: <strong style="color:red" title="' + statusCode + '">未运行</strong>');
+                                statusElem.html('状态: <strong style="color:red" title="' + statusCode + '">未运行</strong>');
                             } else {
-                                dom.find('#log-status').html('状态: <strong style="color: #22849b" title="' + statusCode + '">运行中...</strong>');
+                                statusElem.html('状态: <strong style="color:#22849b" title="' + statusCode + '">运行中...</strong>');
                             }
-                            let el = dom.find('#log-display');
-                            el.val(el.val() + e.data.substr(1)).focus().scrollTop(el[0].scrollHeight);
+                            displayElem.focus().append(e.data.substr(1)).scrollTop(displayElem[0].scrollHeight);
                         }
                     };
                 },
