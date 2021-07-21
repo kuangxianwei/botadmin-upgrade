@@ -240,8 +240,13 @@
             let d = obj.data;
             switch (obj.event) {
                 case 'size':
+                    let elem = $(obj.tr.selector + ' [data-field="size"]>div');
+                    if (elem.find('img[src$=".svg"]').length > 0) {
+                        return false;
+                    }
+                    elem.html(`<img alt="等待计算结果" src="/theme/loading2.svg">`);
                     $.get(url + "/size", {path: d.path}, function (res) {
-                        $(obj.tr.selector + ' [data-field="size"]>div').text(res);
+                        elem.text(res);
                     });
                     break;
                 case 'del':
