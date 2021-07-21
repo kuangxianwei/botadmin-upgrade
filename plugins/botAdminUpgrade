@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+# 错误退出
+Error() {
+  test -n "$1" && echo "Error: $1" 1>&2
+  rm -rf "${@:2}"
+  exit 1
+}
+# 必须root权限运行
+if [ "$(id -u)" -ne 0 ]; then
+  Error "You must be root to run this script!"
+fi
+# 判断运行升级中
+if [ "$(pgrep -fc botAdminUpgrade$)" -gt 1 ]; then
+  Error "botAdmin 已经正在升级中"
+fi
+RootPath="$1" # 程序根目录
+Version="$2"  # 程序版本号
+Mirror="$3"   # 镜像源
+test -z "$RootPath" && Error "程序根目录为空"
+test -z "$Version" && Error "程序版本号为空"
+test -z "$Mirror" && Error "程序镜像源为空"
+UpgradeTmp="/tmp/botAdminUpgrade" # 升级文件临时目录
+rm -rf "$UpgradeTmp"
+mkdir -p "$UpgradeTmp" || Error "创建临时目录失败"
+cd "$UpgradeTmp" || Error "进入目录失败" "$UpgradeTmp"
+echo "根路径: ${RootPath}"
+echo "开始升级到版本: ${Version}"
+echo "开始下载镜像: $Mirror"
+if ! wget -c "$Mirror" -O botadmin.tar.gz; then
+  Error "下载失败" "$UpgradeTmp"
+fi
+echo "开始解压 botadmin.tar.gz"
+if ! tar -zxvf "botadmin.tar.gz"; then
+  Error "解压失败" "$UpgradeTmp"
+fi
+rm -rf ./botadmin.tar.gz || Error "删除botadmin.tar.gz失败" "$UpgradeTmp"
+# 进入到解压后的文件目录里面
+# shellcheck disable=SC2012
+cd "$(ls | head -n 1)" || Error "进入解压目录失败" "$UpgradeTmp"
+
+# 如果前期设置的shell脚本存在
+if test -s upgrade.before; then
+  echo "前期设置开始..."
+  chmod +x upgrade.before
+  . upgrade.before
+  echo "前期设置结束"
+fi
+
+echo "开始覆盖旧程序..."
+if ! cp -af ./. "${RootPath}/"; then
+  Error "覆盖旧程序失败" "$UpgradeTmp"
+fi
+# 赋予主程序执行权限
+chmod +x "${RootPath}/botadmin"
+
+# 如果存在则执行
+if test -s upgrade.after; then
+  echo "后期设置开始..."
+  chmod +x upgrade.after
+  . upgrade.after
+  echo "后期设置结束"
+fi
+
+rm -rf "$UpgradeTmp"
+echo "Success: 成功升级到 ${Version}"
+echo "重新启动服务..."
+systemctl restart botadmin.service
