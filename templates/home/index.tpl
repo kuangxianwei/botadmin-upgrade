@@ -215,7 +215,8 @@
                             <a class="layui-btn layui-btn-sm"
                                href="https://github.com/kuangxianwei/botadmin-upgrade/releases" target="_blank">更新日志
                             </a>
-                            <button class="layui-btn layui-btn-sm" lay-event="upgrade-app">升级到{{.version}}</button>
+                            <button class="layui-btn layui-btn-sm" lay-event="upgrade-app">
+                                升级到: {{.remoteVersion}}</button>
                             <button class="layui-btn layui-btn-sm" lay-event="upgrade-app-log">
                                 <i class="layui-icon layui-icon-log"></i></button>
                             <button class="layui-btn layui-btn-sm" lay-event="update-templates">更新建站模板</button>
