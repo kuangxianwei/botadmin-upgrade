@@ -10,6 +10,7 @@
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="current_uri" content="{{.current_uri}}">
     <meta name="csrf_token" content="{{.csrf_token}}">
+    <meta name="public_key" content="{{.public_key}}">
     <link rel="icon" href="/static/favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">

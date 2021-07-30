@@ -26,9 +26,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 if (typeof key !== 'string') {
                     return '';
                 }
-                if (typeof url !== 'string') {
-                    url = window.location.href;
-                }
+                url = typeof url === 'string' ? url : window.location.href;
                 let index = url.indexOf('?');
                 if (index === -1) {
                     return '';

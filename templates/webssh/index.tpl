@@ -78,6 +78,7 @@
     </div>
 </script>
 <script src="/static/layui/layui.js"></script>
+<script src="/static/modules/encrypt.min.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
         let table = layui.table,
@@ -118,9 +119,13 @@
                 {field: 'host', title: '主机'},
                 {field: 'port', title: '端口', hide: true},
                 {field: 'user', title: '用户名'},
+                {field: 'login_username', title: '登录名'},
+                {
+                    title: '登录', width: 70, event: "login", align: 'center', templet: function () {
+                        return `<button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-username"></i></button>`;
+                    }
+                },
                 {field: 'auth', title: "认证", hide: true},
-                {field: 'passwd', title: '密码', hide: true},
-                {field: 'ssh_key', title: '秘钥', hide: true},
                 {
                     field: 'created', title: '创建时间', width: 160, align: 'center', sort: true, templet: function (d) {
                         return main.timestampFormat(d['created']);
@@ -156,6 +161,13 @@
                             content: html,
                             ending: 'table-list',
                         });
+                    });
+                    break;
+                case 'login':
+                    $.get(url + '/login', {id: data.id}, function (link) {
+                        if (link) {
+                            window.open(link, "_blank");
+                        }
                     });
                     break;
                 case 'execute':

@@ -316,6 +316,11 @@
                                     <cite>过滤违禁词</cite>
                                 </a>
                             </dd>
+                            <dd data-name="tools-rsa">
+                                <a lay-href="/tools/rsa" lay-tips="生成RSA" lay-direction="2">
+                                    <cite>生成RSA</cite>
+                                </a>
+                            </dd>
                             <dd data-name="monitor">
                                 <a lay-href="/monitor" lay-tips="网站监控"
                                    lay-direction="2"><cite>网站监控</cite></a>

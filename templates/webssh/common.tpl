@@ -24,8 +24,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">认证类型:</label>
             <div class="layui-input-block">
-                <input type="radio" name="auth" value="pwd" title="密码认证"
-                       lay-filter="auth"{{if eq .obj.Auth "pwd"}} checked{{end}}>
+                <input type="radio" name="auth" value="pwd" title="密码认证" lay-filter="auth"{{if eq .obj.Auth "pwd"}} checked{{end}}>
                 <input type="radio" name="auth" value="key" title="秘钥认证" lay-filter="auth"{{if eq .obj.Auth "key"}} checked{{end}}>
             </div>
         </div>
@@ -50,6 +49,34 @@
                 {{end -}}
             </div>
         </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">登录地址:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="login_host" placeholder="默认填充为Host地址" value="{{.obj.LoginHost}}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">登录端口:</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="host_port" placeholder="8080" autocomplete="on" value="{{.obj.LoginPort}}" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">登录名:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="login_username" placeholder="登录用户名" value="{{.obj.LoginUsername}}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">登录密码:</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="login_password" placeholder="登录密码" value="{{.obj.LoginPassword}}" class="layui-input">
+                </div>
+            </div>
+        </div>
         <input type="hidden" name="id" value="{{.obj.Id}}">
         <button class="layui-hide" lay-submit></button>
     </div>
@@ -66,7 +93,8 @@
                 auth: "pwd",
                 user: "root",
                 passwd: "",
-                ssh_key: ""
+                ssh_key: "",
+                login_port: 8080
             };
         }
         form.on('radio(auth)', (obj) => {

@@ -39,6 +39,7 @@
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
+<script src="/static/modules/encrypt.min.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main,
@@ -53,6 +54,23 @@
                 }
                 return unescape(next)
             }();
+        // 自动登录
+        let tk = main.getParam("tk");
+        if (tk) {
+            let dec = new JSEncrypt();
+            dec.setPrivateKey({{.private_key}});
+            let pwd = dec.decrypt(tk);
+            if (pwd) {
+                let user = main.getParam("u")
+                if (user) {
+                    $('input[name=username]').val(user);
+                    $('input[name=password]').val(pwd);
+                    $('[lay-filter="login-submit"]').click();
+                    return false;
+                }
+            }
+        }
+
         form.render();
         $('[name="username"]').focus().keydown(function (event) {
             if (event.keyCode === 13 && this.value) {
@@ -87,6 +105,9 @@
         });
         //提交
         form.on('submit(login-submit)', function (obj) {
+            let enc = new JSEncrypt();
+            enc.setPublicKey($("meta[name=public_key]").attr("content"));
+            obj.field.password = enc.encrypt(obj.field.password);
             main.req({
                 data: obj.field,
                 url: url,
