@@ -78,7 +78,6 @@
     </div>
 </script>
 <script src="/static/layui/layui.js"></script>
-<script src="/static/modules/encrypt.min.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
         let table = layui.table,
@@ -118,7 +117,7 @@
                 {field: 'alias', title: '别名', sort: true},
                 {field: 'host', title: '主机'},
                 {field: 'port', title: '端口', hide: true},
-                {field: 'user', title: '用户名'},
+                {field: 'user', title: '用户名', hide: true},
                 {field: 'login_username', title: '登录名'},
                 {
                     title: '登录', width: 70, event: "login", align: 'center', templet: function () {
@@ -155,9 +154,9 @@
                 case 'modify':
                     $.get(url + '/modify', {id: data.id}, function (html) {
                         main.popup({
-                            title: '修改翻译配置',
+                            title: '修改SSH配置',
                             url: url + '/modify',
-                            area: ['700px', '420px'],
+                            area: ['700px', 'auto'],
                             content: html,
                             ending: 'table-list',
                         });
@@ -189,9 +188,9 @@
                 case 'add':
                     $.get(url + '/add', {}, function (html) {
                         main.popup({
-                            title: '添加翻译配置',
+                            title: '添加webSSH',
                             url: url + '/add',
-                            area: ['700px', '420px'],
+                            area: ['700px', 'auth'],
                             content: html,
                             ending: 'table-list',
                         });

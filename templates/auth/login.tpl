@@ -22,24 +22,14 @@
             <div class="layui-form-item">
                 <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="login-submit">登 入</button>
             </div>
-            <!--
-            <div class="layui-trans layui-form-item layadmin-user-login-other">
-                <label>社交账号登入</label>
-                <a href="javascript:"><i class="layui-icon layui-icon-login-qq"></i></a>
-                <a href="javascript:"><i class="layui-icon layui-icon-login-wechat"></i></a>
-                <a href="javascript:"><i class="layui-icon layui-icon-login-weibo"></i></a>
-                <a href="http://bbs.botadmin.cn/member.php?mod=register" class="layadmin-user-jump-change layadmin-link"
-                   target="_blank">注册帐号</a>
-            </div>
-            -->
         </div>
     </div>
     <div class="layui-trans layadmin-user-login-footer">
+        <p>版本:{{.version}}</p>
         <p>© 2018 <a href="http://www.botadmin.cn/" target="_blank">站掌门BotAdmin</a></p>
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
-<script src="/static/modules/encrypt.min.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main,
@@ -54,23 +44,6 @@
                 }
                 return unescape(next)
             }();
-        // 自动登录
-        let tk = main.getParam("tk");
-        if (tk) {
-            let dec = new JSEncrypt();
-            dec.setPrivateKey({{.private_key}});
-            let pwd = dec.decrypt(tk);
-            if (pwd) {
-                let user = main.getParam("u")
-                if (user) {
-                    $('input[name=username]').val(user);
-                    $('input[name=password]').val(pwd);
-                    $('[lay-filter="login-submit"]').click();
-                    return false;
-                }
-            }
-        }
-
         form.render();
         $('[name="username"]').focus().keydown(function (event) {
             if (event.keyCode === 13 && this.value) {
@@ -105,9 +78,6 @@
         });
         //提交
         form.on('submit(login-submit)', function (obj) {
-            let enc = new JSEncrypt();
-            enc.setPublicKey($("meta[name=public_key]").attr("content"));
-            obj.field.password = enc.encrypt(obj.field.password);
             main.req({
                 data: obj.field,
                 url: url,
@@ -117,5 +87,6 @@
             });
             return false;
         });
+        main.formData();
     });
 </script>

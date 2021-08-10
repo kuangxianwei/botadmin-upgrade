@@ -1,11 +1,24 @@
 /*导出基本操作*/
 layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
+    String.prototype.hasSuffix = function (suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    }
+
     class Class {
         constructor() {
+            // 判断是密码col
+            this.isPassword = function (colName) {
+                return colName.hasSuffix("password") || colName.hasSuffix("passwd")
+            }
+            // 设置cols
             this.setCols = function (data, dom) {
+                let othis = this;
                 if (data && dom && !data.cols) {
                     data.cols = [];
                     $(dom).find('[name]').each(function (i, v) {
+                        if (othis.isPassword(v.name) && !v.value) {
+                            return;
+                        }
                         if (!v.disabled && v.name) {
                             let col = v.name.split('.')[0];
                             if (data.cols.indexOf(col) === -1) {
@@ -121,6 +134,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     return flag;
                 },
                 on: function (selector, value, callback) {
+                    let othis = this;
                     const elem = document.querySelector(selector);
                     if (typeof value === "undefined") {
                         value = elem.getAttribute("copy-text");
@@ -128,8 +142,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         callback = value;
                         value = elem.getAttribute("copy-text");
                     }
-                    elem.addEventListener('click', () => {
-                        this.exec(value, callback);
+                    elem.addEventListener('click', function () {
+                        othis.exec(value, callback);
                     });
                 },
             };
@@ -149,6 +163,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, othis.tidyObj(options.headers));
             }
             othis.setCols(options.data, dom);
+            if (options.data) {
+                $.each(options.data, function (k, v) {
+                    if ((k.hasSuffix("password") || k.hasSuffix("passwd")) && v) {
+                        options.data[k] = encrypt.encrypt(v);
+                    }
+                });
+            }
             let request = $.ajax(options);
             request.done(function (res) {
                 if (res.textarea === true && res.code === 0) {
@@ -237,16 +258,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     }
                     form.render();
                     form.on('submit(' + options.submit + ')', function (obj) {
-                        let opts = {
+                        othis.req({
                             url: options.url || obj.field.url,
                             data: obj.field,
                             index: index,
                             ending: options.ending,
-                        };
-                        if (typeof options.tips === 'function') {
-                            opts.tips = options.tips;
-                        }
-                        othis.req(opts, dom);
+                            tips: options.tips,
+                        }, dom);
                         return false;
                     });
                 },
@@ -395,7 +413,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             return str !== undefined && str !== '';
         },
         main = new Class();
-
     // 定时规则spec
     let Cron = function (elem) {
         // 输入点例如：input[name=spec]
@@ -940,7 +957,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         return true;
     };
     // 无人如何都要执行
-    Pop.prototype.always = function (dom) {
+    Pop.prototype.always = function () {
     };
     // 关闭
     Pop.prototype.close = function (dom) {
@@ -1178,4 +1195,3 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     }
     exports('main', main);
 });
-

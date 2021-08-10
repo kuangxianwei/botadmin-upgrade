@@ -39,7 +39,7 @@
                 {{if eq .obj.Auth "pwd" -}}
                     <label class="layui-form-label">Passwd:</label>
                     <div class="layui-input-inline">
-                        <input type="password" name="passwd" placeholder="passwd" value="{{.obj.Passwd}}" class="layui-input" lay-verify="required">
+                        <input type="password" name="passwd" placeholder="{{if eq .obj.Id 0 -}}SSH密码{{else}}留空为不修改密码{{end}}" value="" class="layui-input">
                     </div>
                 {{else -}}
                     <label class="layui-form-label">SSH-KEY:</label>
@@ -59,7 +59,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">登录端口:</label>
                 <div class="layui-input-inline">
-                    <input type="number" name="host_port" placeholder="8080" autocomplete="on" value="{{.obj.LoginPort}}" class="layui-input">
+                    <input type="number" name="login_port" value="{{.obj.LoginPort}}" class="layui-input">
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">登录密码:</label>
                 <div class="layui-input-inline">
-                    <input type="password" name="login_password" placeholder="登录密码" value="{{.obj.LoginPassword}}" class="layui-input">
+                    <input type="password" name="login_password" placeholder="{{if eq .obj.Id 0 -}}控制台登录密码{{else}}留空为不修改密码{{end}}" value="" class="layui-input">
                 </div>
             </div>
         </div>
@@ -85,25 +85,13 @@
     layui.use(['index', 'main'], function () {
         let form = layui.form,
             defaultData ={{.obj}};
-        if (!defaultData) {
-            defaultData = {
-                alias: "本机",
-                host: "127.0.0.1",
-                port: 22,
-                auth: "pwd",
-                user: "root",
-                passwd: "",
-                ssh_key: "",
-                login_port: 8080
-            };
-        }
         form.on('radio(auth)', (obj) => {
             let authElem = $('#auth');
             authElem.empty();
             if (obj.value === "pwd") {
                 authElem.html(`<label class="layui-form-label">Passwd:</label>
                     <div class="layui-input-inline">
-                        <input type="password" name="passwd" placeholder="passwd" value="` + defaultData.passwd + `" class="layui-input" lay-verify="required">
+                        <input type="password" name="passwd" placeholder="` + (defaultData.id === 0 ? "SSH密码" : "留空为不修改密码") + `" value="" class="layui-input">
                     </div>`);
             } else {
                 authElem.html(`<label class="layui-form-label">SSH-KEY:</label>
