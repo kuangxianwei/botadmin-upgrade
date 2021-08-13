@@ -5,7 +5,6 @@
             <div class="layui-input-inline">
                 <input type="text" name="alias" placeholder="本机" value="{{.obj.Alias}}" class="layui-input">
             </div>
-            <div class="layui-form-mid layui-word-aux">留空自动填充为host</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
@@ -51,29 +50,15 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">登录地址:</label>
+                <label class="layui-form-label">控制台地址:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="login_host" placeholder="默认填充为Host地址" value="{{.obj.LoginHost}}" class="layui-input">
+                    <input type="text" name="control_host" placeholder="默认填充为Host地址" value="{{.obj.ControlHost}}" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">登录端口:</label>
+                <label class="layui-form-label">控制台端口:</label>
                 <div class="layui-input-inline">
-                    <input type="number" name="login_port" value="{{.obj.LoginPort}}" class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">登录名:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="login_username" placeholder="登录用户名" value="{{.obj.LoginUsername}}" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">登录密码:</label>
-                <div class="layui-input-inline">
-                    <input type="password" name="login_password" placeholder="{{if eq .obj.Id 0 -}}控制台登录密码{{else}}留空为不修改密码{{end}}" value="" class="layui-input">
+                    <input type="number" name="control_port" value="{{.obj.ControlPort}}" class="layui-input">
                 </div>
             </div>
         </div>

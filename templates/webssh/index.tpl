@@ -115,13 +115,20 @@
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},
                 {field: 'alias', title: '别名', sort: true},
-                {field: 'host', title: '主机'},
+                {field: 'host', title: '主机', width: 160},
                 {field: 'port', title: '端口', hide: true},
                 {field: 'user', title: '用户名', hide: true},
-                {field: 'login_username', title: '登录名'},
                 {
-                    title: '登录', width: 70, event: "login", align: 'center', templet: function () {
+                    title: '控制台', width: 90, event: "login", align: 'center', templet: function () {
                         return `<button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-username"></i></button>`;
+                    }
+                },
+                {
+                    title: '设为默认', width: 120, event: "is_default", align: 'center', templet: function (d) {
+                        if (d['is_default']) {
+                            return `<button class="layui-btn layui-btn-xs">默认</button>`;
+                        }
+                        return `<button class="layui-btn layui-btn-xs layui-btn-primary">设为默认</button>`;
                     }
                 },
                 {field: 'auth', title: "认证", hide: true},
@@ -139,7 +146,7 @@
         });
         //监听工具条
         table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
+            let data = obj.data, othis = $(this);
             switch (obj.event) {
                 case 'del':
                     layer.confirm('确定删除此条配置？', function (index) {
@@ -174,6 +181,13 @@
                     break;
                 case 'log':
                     main.ws.log("webssh." + data.id);
+                    break;
+                case 'is_default':
+                    main.req({
+                        url: url + "/default",
+                        data: {id: data.id},
+                        ending: 'table-list',
+                    });
                     break;
             }
         });

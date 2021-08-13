@@ -1190,7 +1190,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             maxmin: true,
             title: "连接ssh 执行cmd命令行",
             area: ["800px", "500px"],
-            content: ["/webssh/tip?id=" + options.id + "&stdin=" + options.stdin, 'no'],
+            content: ["/webssh/terminal?id=" + options.id + "&stdin=" + options.stdin, 'no'],
         });
     }
     exports('main', main);
