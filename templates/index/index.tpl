@@ -379,18 +379,6 @@
                                     <cite>进程管理</cite>
                                 </a>
                             </dd>
-                            <dd data-name="system-ifconfig">
-                                <a lay-href="/system/ifconfig" lay-tips="IP设置" lay-direction="2">
-                                    <i class="iconfont icon-ip"></i>
-                                    <cite>IP设置</cite>
-                                </a>
-                            </dd>
-                            <dd data-name="system-resolve">
-                                <a lay-href="/system/resolve" lay-tips="设置DNS" lay-direction="2">
-                                    <i class="iconfont icon-dns"></i>
-                                    <cite>设置DNS</cite>
-                                </a>
-                            </dd>
                             <dd data-name="system-reboot">
                                 <a lay-href="/system/reboot" lay-tips="服务重启" lay-direction="2">
                                     <i class="iconfont icon-reboot"></i>
