@@ -18,7 +18,7 @@
         </fieldset>
         <div class="layui-hide">
             <input name="ids" value="{{.ids}}">
-            <button lay-submit lay-filter="submit">提交</button>
+            <button lay-submit></button>
         </div>
     </div>
 </div>
@@ -220,4 +220,3 @@
         });
     });
 </script>
-

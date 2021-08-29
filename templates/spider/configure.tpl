@@ -1,3 +1,69 @@
+<div class="layui-card layui-form">
+    <div class="layui-card-body">
+        <fieldset class="layui-elem-field">
+            <legend>修改目标</legend>
+            <input type="checkbox" data-field="site_id" title="绑定网站" lay-filter="field">
+
+        </fieldset>
+        <fieldset class="layui-elem-field">
+            <legend>操作</legend>
+            <div id="field"></div>
+        </fieldset>
+        <div class="layui-hide">
+            <input name="ids" value="{{.ids}}">
+            <button lay-submit></button>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="site-id">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">网站ID:</label>
+            <div class="layui-input-inline">
+                <select name="site_id" lay-search lay-filter="site_id">
+                    <option value="">搜索...</option>
+                    {{range .sites -}}
+                        <option value="{{.Id}}">{{.Vhost}}</option>
+                    {{end -}}
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline" lay-tips="选择栏目ID">
+            <label class="layui-form-label">栏目ID:</label>
+            <div class="layui-input-block" lay-filter="class_id">
+                <select name="class_id">
+                    <option value="">无...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script>
+    layui.use(['main'], function () {
+        let main = layui.main,
+            layDate = layui.laydate,
+            form = layui.form,
+            transfer = layui.transfer,
+            citiesData = {{.cityData}},
+            fieldElem = $("#field");
+        form.on('checkbox(field)', function (obj) {
+            switch ($(this).attr('data-field')) {
+                case 'site_id':
+                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
+                        fieldElem.append($('#site-id').html());
+                        form.render('select');
+                    } else {
+                        fieldElem.find('[name=site_id]').closest('.layui-form-item').remove();
+                    }
+                    break;
+            }
+        });
+    });
+</script>
+
+
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
