@@ -4,15 +4,13 @@
             <div class="layui-col-md2">
                 <label class="layui-form-label">启用PC:</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="pc_enabled" lay-skin="switch"
-                           lay-text="是|否"{{if .obj.PcEnabled}} checked{{end}}/>
+                    <input type="checkbox" name="pc_enabled" lay-skin="switch" lay-text="是|否"{{if .obj.PcEnabled}} checked{{end}}/>
                 </div>
             </div>
             <div class="layui-col-md2">
                 <label class="layui-form-label">启用Mobile:</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="mobile_enabled" lay-skin="switch"
-                           lay-text="是|否"{{if .obj.MobileEnabled}} checked{{end}}/>
+                    <input type="checkbox" name="mobile_enabled" lay-skin="switch" lay-text="是|否"{{if .obj.MobileEnabled}} checked{{end}}/>
                 </div>
             </div>
             <div class="layui-col-md3">
@@ -34,8 +32,7 @@
             <div class="layui-col-md2">
                 <label class="layui-form-label" lay-tips="开启历史记录功能比较耗内存">历史记录:</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="history_enabled" lay-skin="switch"
-                           lay-text="是|否"{{if .obj.HistoryEnabled}} checked{{end}}/>
+                    <input type="checkbox" name="history_enabled" lay-skin="switch" lay-text="是|否"{{if .obj.HistoryEnabled}} checked{{end}}/>
                 </div>
             </div>
         </div>
@@ -58,8 +55,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">别名:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="alias" value="{{.obj.Alias}}" placeholder="李谊"
-                               class="layui-input">
+                        <input type="text" name="alias" value="{{.obj.Alias}}" placeholder="李谊" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">填写姓名</div>
                 </div>
@@ -90,8 +86,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">最大限制:</label>
                     <div class="layui-input-inline">
-                        <input type="number" name="max" value="{{.obj.Max}}"
-                               min="0" placeholder="0" class="layui-input">
+                        <input type="number" name="max" value="{{.obj.Max}}" min="0" placeholder="0" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">0为不限制</div>
                 </div>
@@ -137,9 +132,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">在线咨询:</label>
             <div class="layui-input-inline" style="width: 50%">
-                <input name="consult" value="{{.obj.Consult}}"
-                       placeholder="http://p.qiao.baidu.com/cps/chat?siteId=15213845&userId=30737617&siteToken=b7387650dc45ac0bbeef7fc0f807ed9a"
-                       class="layui-input">
+                <input name="consult" value="{{.obj.Consult}}" placeholder="填写在线咨询URL" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">如QQ在线</div>
             <button class="layui-btn" lay-event="fill-consult">填充默认</button>
@@ -169,11 +162,12 @@
             <div class="layui-form-mid layui-word-aux">例如百度统计客服代码</div>
             <button class="layui-btn" lay-event="fill-other">填充默认</button>
         </div>
-        <div class="layui-form-item layui-hide">
+        <div class="layui-hide">
             <input type="hidden" name="id" value="{{.obj.Id}}">
             <button lay-submit>提交</button>
             <button id="uploadSubmit"></button>
             <button id="submit"></button>
+            <input type="hidden" name="cols" value="pc_enabled,mobile_enabled,style_id,sort,history_enabled,alias,phone,wechat,max,weight,email,consult,cities,durations,other">
         </div>
     </div>
 </div>
@@ -231,7 +225,7 @@
         addObj.click(function () {
             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
             layKey++;
-            $(this).parent().before('<div class="layui-input-inline"><input type="text" name="durations" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
+            $(this).parent().before('<div class="layui-input-inline"><input type="text" name="duration" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
             layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
             delObj.css('display', 'inline-block');
         });
@@ -246,7 +240,7 @@
         if (durations) {
             durations.forEach(function (item, index) {
                 index += 1;
-                $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="durations" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
+                $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="duration" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
                 layDate.render({elem: '#date-' + index, type: 'time', range: true});
                 delObj.css('display', 'inline-block');
             });

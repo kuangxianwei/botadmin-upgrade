@@ -154,11 +154,8 @@
                                 let loading;
                                 dom.find('#submit').on('click', function () {
                                     let field = main.formData(dom.selector);
-                                    if (field.durations instanceof Array) {
-                                        field.durations = field.durations.join();
-                                    }
-                                    if (typeof field.durations === 'undefined') {
-                                        field.durations = '';
+                                    if (Array.isArray(field['duration'])) {
+                                        field.durations = field.duration.join();
                                     }
                                     main.req({
                                         url: url + '/modify',
@@ -179,11 +176,8 @@
                                     bindAction: '#uploadSubmit',
                                     before: function () {
                                         this.data = main.formData(dom.selector);
-                                        if (this.data.durations instanceof Array) {
-                                            this.data.durations = this.data.durations.join();
-                                        }
-                                        if (typeof this.data.durations === 'undefined') {
-                                            this.data.durations = '';
+                                        if (Array.isArray(this.data['duration'])) {
+                                            this.data.durations = this.data.duration.join();
                                         }
                                         loading = layer.load(1, {shade: [0.7, '#000', true]});
                                     },
@@ -291,8 +285,8 @@
                                 let loading;
                                 dom.find('#submit').on('click', function () {
                                     let field = main.formData(dom.selector);
-                                    if (field.durations instanceof Array) {
-                                        field.durations = field.durations.join();
+                                    if (Array.isArray(field['duration'])) {
+                                        field.durations = field.duration.join();
                                     }
                                     main.req({
                                         url: url + '/add',
@@ -313,8 +307,8 @@
                                     bindAction: '#uploadSubmit',
                                     before: function () {
                                         this.data = main.formData(dom.selector);
-                                        if (this.data.durations instanceof Array) {
-                                            this.data.durations = this.data.durations.join();
+                                        if (Array.isArray(this.data['duration'])) {
+                                            this.data.durations = this.data.duration.join();
                                         }
                                         loading = layer.load(1, {shade: [0.7, '#000', true]});
                                     },
@@ -391,36 +385,17 @@
                         return layer.msg('请选择数据');
                     }
                     $.get(url + '/setup', {ids: ids.join()}, function (html) {
-                        layer.open({
+                        main.popup({
                             title: '批量设置',
                             content: html,
-                            type: 1,
-                            shadeClose: true,
-                            scrollbar: false,
-                            btnAlign: 'c',
-                            shade: 0.8,
-                            fixed: false,
-                            maxmin: true,
-                            btn: ['提交', '取消'],
-                            area: ['90%', '90%'],
+                            url: url + '/update',
+                            ending: 'table-list',
                             yes: function (index, dom) {
-                                dom.find('*[lay-submit]').click();
+                                let field = main.formData(dom);
+                                if (Array.isArray(field['duration'])) {
+                                    dom.find('[name=durations]').val(field['duration'].join());
+                                }
                             },
-                            success: function (dom, layerIndex) {
-                                form.render();
-                                form.on('submit(setupSubmit)', function () {
-                                    let field = main.formData(dom.selector);
-                                    if (field.durations instanceof Array) {
-                                        field.durations = field.durations.join();
-                                    }
-                                    main.req({
-                                        url: url + '/update',
-                                        data: field,
-                                        index: layerIndex,
-                                        ending: 'table-list'
-                                    }, dom);
-                                });
-                            }
                         });
                     });
                     break;
