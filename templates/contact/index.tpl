@@ -19,7 +19,7 @@
         <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>删除
         </button>
-        <button class="layui-btn layui-btn-sm" lay-event="setup">
+        <button class="layui-btn layui-btn-sm" lay-event="configure">
             <i class="layui-icon layui-icon-set"></i>
         </button>
         <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="reset-token" lay-tips="重置Token">
@@ -380,15 +380,15 @@
                         });
                     });
                     break;
-                case 'setup':
+                case 'configure':
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
-                    $.get(url + '/setup', {ids: ids.join()}, function (html) {
+                    $.get(url + '/configure', {ids: ids.join()}, function (html) {
                         main.popup({
                             title: '批量设置',
                             content: html,
-                            url: url + '/update',
+                            url: url + '/configure',
                             ending: 'table-list',
                             yes: function (index, dom) {
                                 let field = main.formData(dom);

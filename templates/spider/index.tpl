@@ -68,7 +68,7 @@
             <button class="layui-btn layui-btn-sm" lay-event="exec">
                 <i class="layui-icon iconfont icon-spider"></i>采集
             </button>
-            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="configure">
+            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="configure" lay-tips="批量配置">
                 <i class="layui-icon layui-icon-set"></i>
             </button>
         </div>
