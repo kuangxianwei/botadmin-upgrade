@@ -465,7 +465,7 @@
         </div>
         <!-- 主体内容 -->
         <div class="layui-body" id="LAY_app_body">
-            <div class="layadmin-tabsbody-item layui-show">
+            <div class="layadmin-tabsbody-item layui-show" style="overflow-x: hidden">
                 <iframe src="/home" class="layadmin-iframe"></iframe>
             </div>
         </div>
