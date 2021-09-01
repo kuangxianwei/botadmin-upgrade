@@ -41,7 +41,7 @@
                 let init_width = 9,
                     init_height = 17,
                     windows_width = $(window).width() - 30,
-                    windows_height = $(window).height() - 20;
+                    windows_height = $(window).height() - 22;
                 return {
                     cols: Math.floor(windows_width / init_width),
                     rows: Math.floor(windows_height / init_height),
