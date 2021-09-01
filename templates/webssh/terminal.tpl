@@ -1,3 +1,6 @@
+<style>
+    .layui-layer-content{overflow: hidden !important;}
+</style>
 <link href="/static/webssh/xterm.css" rel="stylesheet">
 <link href="/static/webssh/toastr.min.css" rel="stylesheet">
 <div class="layui-card">
@@ -41,7 +44,7 @@
                 let init_width = 9,
                     init_height = 17,
                     windows_width = $(window).width() - 30,
-                    windows_height = $(window).height() - 8;
+                    windows_height = $(window).height() - 10;
                 return {
                     cols: Math.floor(windows_width / init_width),
                     rows: Math.floor(windows_height / init_height),
