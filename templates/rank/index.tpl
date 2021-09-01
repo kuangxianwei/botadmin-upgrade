@@ -134,7 +134,7 @@
                             title: '修改',
                             content: html,
                             url: '/rank/modify',
-                            area: ['450px', '450px'],
+                            area: ['450px', '400px'],
                             ending: 'table-list',
                         });
                     });
@@ -176,7 +176,7 @@
                             title: '添加',
                             content: html,
                             url: '/rank/add',
-                            area: ['450px', '80%'],
+                            area: '450px',
                             ending: 'table-list',
                         });
                     });

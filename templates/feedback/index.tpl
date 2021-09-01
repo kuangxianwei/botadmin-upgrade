@@ -155,7 +155,7 @@ UserAgent: ` + obj.data['user_agent'] + `
 电话: ` + obj.data['phone'] + `
 微信: ` + obj.data['wechat'] + `
 反馈: ` + obj.data['message'] + `</textarea>`,
-                        {area: ['80%', "80%"]});
+                        {area: ['80%', '95%']});
                     break;
             }
         });

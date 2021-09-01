@@ -81,13 +81,15 @@
     {{end -}}
 </div>
 <script type="text/html" id="edit">
-    <div class="layui-form">
-        <input name="alias" class="layui-input" value="">
-        <textarea class="layui-textarea" name="readme" rows="6" lay-verify="required"></textarea>
-        <input type="hidden" name="system" value="">
-        <input type="hidden" name="name" value="">
-        <input type="hidden" name="event" value="">
-        <button class="layui-hide" lay-submit lay-filter="submit">提交</button>
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <input name="alias" class="layui-input" value="">
+            <textarea class="layui-textarea" name="readme" rows="6" lay-verify="required"></textarea>
+            <input type="hidden" name="system" value="">
+            <input type="hidden" name="name" value="">
+            <input type="hidden" name="event" value="">
+            <button class="layui-hide" lay-submit lay-filter="submit">提交</button>
+        </div>
     </div>
 </script>
 <script src="/static/layui/layui.js"></script>
@@ -110,7 +112,7 @@
             };
         flow.lazyimg();
         $('.item>img').click(function () {
-            main.msg('<img src="' + this.src + '" width="100%" height="auto">', {area: ['80%', '80%']});
+            main.display({content: '<img src="' + this.src + '" width="100%" height="auto" alt="' + this.alt + '">'});
         });
         $('.item [data-event]').click(function () {
             let othis = $(this), event = othis.data('event'), parentThis = othis.closest('.item'),
@@ -118,9 +120,10 @@
             switch (event) {
                 case 'readme':
                     main.popup({
-                        title: '编辑说明',
+                        title: false,
                         url: '/themes/modify',
-                        area: ['400px', '250px'],
+                        area: '400px',
+                        maxmin: false,
                         content: editHtml,
                         success: function (dom) {
                             dom.find('[name=alias]').remove();
@@ -136,9 +139,10 @@
                     break;
                 case 'alias':
                     main.popup({
-                        title: '编辑名称',
+                        title: false,
                         url: '/themes/modify',
-                        area: ['200px', '150px'],
+                        area: '200px',
+                        maxmin: false,
                         content: editHtml,
                         success: function (dom) {
                             dom.find('[name=alias]').val(theme.alias);

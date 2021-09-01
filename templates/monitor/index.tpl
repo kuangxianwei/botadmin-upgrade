@@ -124,7 +124,7 @@
                         main.popup({
                             title: '修改监控',
                             url: url + '/modify',
-                            area: ['600px', '520px'],
+                            area: '600px',
                             content: html,
                             ending: 'table-list',
                         });
@@ -157,7 +157,7 @@
                         main.popup({
                             title: '添加邮箱',
                             url: url + '/add',
-                            area: ['600px', '520px'],
+                            area: '600px',
                             content: html,
                             ending: 'table-list',
                         });

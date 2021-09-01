@@ -104,7 +104,7 @@
                         main.popup({
                             title: '添加FTP',
                             url: url + '/add',
-                            area: ['70%', '80%'],
+                            area: ['70%', '95%'],
                             content: html,
                             ending: 'table-list',
                         });

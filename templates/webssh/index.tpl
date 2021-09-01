@@ -163,7 +163,7 @@
                         main.popup({
                             title: '修改SSH配置',
                             url: url + '/modify',
-                            area: ['700px', 'auto'],
+                            area: '700px',
                             content: html,
                             ending: 'table-list',
                         });
@@ -204,7 +204,7 @@
                         main.popup({
                             title: '添加webSSH',
                             url: url + '/add',
-                            area: ['700px', 'auth'],
+                            area: '700px',
                             content: html,
                             ending: 'table-list',
                         });
@@ -256,7 +256,7 @@
                                 }
                             });
                         },
-                        area: ["600px", "300px"],
+                        area: "600px",
                         tips: function () {
                             main.ws.log("webssh.0");
                         }

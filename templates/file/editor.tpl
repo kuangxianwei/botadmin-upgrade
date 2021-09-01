@@ -33,7 +33,6 @@
             });
         }
     }
-
     if (typeof layui === 'undefined') {
         loadJS('/static/layui/layui.js');
     } else {

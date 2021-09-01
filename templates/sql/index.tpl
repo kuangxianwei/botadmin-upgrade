@@ -120,7 +120,7 @@
                         main.popup({
                             title: '修改MySQL',
                             content: html,
-                            area: ['50%', '80%'],
+                            area: ['600px', '550px'],
                             url: url + '/modify',
                             ending: 'table-list',
                         });
@@ -137,7 +137,7 @@
                         main.popup({
                             title: '创建数据库',
                             content: html,
-                            area: ['50%', '80%'],
+                            area: ['600px', '550px'],
                             url: url + '/add',
                             ending: 'table-list',
                         });
@@ -149,7 +149,7 @@
                             title: '修改root密码',
                             content: html,
                             url: url + '/modifyroot',
-                            area: ['400px', '300px'],
+                            area: '400px',
                         });
                     });
                     break;
@@ -159,7 +159,7 @@
                             title: '重置root密码',
                             content: html,
                             url: url + '/resetroot',
-                            area: ['400px', '280px'],
+                            area: '400px',
                         });
                     });
                     break;

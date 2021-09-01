@@ -12,8 +12,7 @@
     </div>
     <div class="layui-card-body">
         <div class="layui-form-item">
-                        <textarea class="layui-textarea"
-                                  name="content" rows="20">{{ .content }}</textarea>
+            <textarea class="layui-textarea" name="content" rows="22">{{ .content }}</textarea>
         </div>
         <div class="layui-form-item{{if .hide}} layui-hide{{end}}">
             <div class="layui-input-block">

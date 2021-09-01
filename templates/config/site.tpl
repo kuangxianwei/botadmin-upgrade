@@ -643,10 +643,8 @@
             {elem: '#out_link_deg', value: {{$.obj.OutLinkDeg}}},
             {elem: '#title_tag_deg', value: {{$.obj.TitleTagDeg}}},
         );
-
-
         $('#theme').click(function () {
-            main.msg($('#theme').html(), {area: ["80%", "80%"]});
+            main.display({content: $('#theme').html()});
         });
         //改变模板
         form.on('select(tpl_name)', function (obj) {

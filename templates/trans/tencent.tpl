@@ -90,7 +90,7 @@
                 btn: ['提交', '取消'],
                 title: "测试翻译",
                 content: $('#test').html(),
-                area: ["60%", "60%"],
+                area: "60%",
                 yes: function (index, dom) {
                     data.query = dom.find('[name=query]').val();
                     if (!data.query) {

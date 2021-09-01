@@ -154,7 +154,7 @@
                         main.popup({
                             title: '修改翻译配置',
                             url: url + '/modify',
-                            area: ['70%', '90%'],
+                            area: '70%',
                             content: html,
                             ending: 'table-list',
                         });
@@ -176,7 +176,7 @@
                         main.popup({
                             title: '添加翻译配置',
                             url: url + '/add',
-                            area: ['70%', '80%'],
+                            area: '70%',
                             content: html,
                             ending: 'table-list',
                         });

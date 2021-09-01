@@ -136,7 +136,7 @@
                         confirm: false,
                         scroll: false,
                         content: '<textarea class="layui-textarea layui-bg-black" style="color:white;height:100%">' + obj.data.feedback + '</textarea>',
-                        area: ['60%', '60%'],
+                        area: ['60%', '200px'],
                     });
                     break
             }
@@ -193,7 +193,7 @@
                         confirm: false,
                         scroll: false,
                         content: '<textarea class="layui-textarea layui-bg-black" style="color:white;height:100%">' + obj.data.feedback + '</textarea>',
-                        area: ['60%', '60%']
+                        area: ['60%', '200px'],
                     });
                     break
             }

@@ -147,7 +147,7 @@
 Geo: ` + JSON.stringify(obj.data['geo']) + `
 当前访问: ` + obj.data['visiting'] + `
 来路: ` + obj.data['referer'] + `
-UserAgent: ` + obj.data['user_agent'] + `</textarea>`, {area: ['80%', "80%"]});
+UserAgent: ` + obj.data['user_agent'] + `</textarea>`, {area: '80%'});
                     break;
             }
         });

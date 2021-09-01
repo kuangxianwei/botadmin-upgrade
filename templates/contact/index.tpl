@@ -390,6 +390,7 @@
                             content: html,
                             url: url + '/configure',
                             ending: 'table-list',
+                            area: ['95%', '95%'],
                             yes: function (index, dom) {
                                 let field = main.formData(dom);
                                 if (Array.isArray(field['duration'])) {
@@ -405,8 +406,8 @@
                     }
                     layer.confirm('重置Token后会影响客服接待数据，确定重置？', function (index) {
                         main.req({
-                            url: url + '/update',
-                            data: {ids: ids.join(), token: ''},
+                            url: url + '/configure',
+                            data: {ids: ids.join(), token: '', cols: 'token'},
                             index: index,
                             ending: 'table-list'
                         });

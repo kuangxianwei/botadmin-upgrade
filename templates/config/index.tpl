@@ -356,7 +356,7 @@
                     main.popup({
                         title: '测试违禁词',
                         url: url + '/ban/test',
-                        area: ['70%', '70%'],
+                        area: '70%',
                         tips: function (res) {
                             main.msg(`<textarea class="layui-textarea" name="content" rows="10">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});
                         },

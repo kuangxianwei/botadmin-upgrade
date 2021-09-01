@@ -280,7 +280,7 @@
                             let loadIndex = layer.load(1, {shade: [0.6, '#000', true]});
                             $.get(url + '/editor', {path: d.path, hide: true}, function (html) {
                                 layui.layer.close(loadIndex);
-                                main.popup({title: '编辑文件', content: html});
+                                main.popup({title: false, content: html, maxmin: false, area: '95%'});
                                 tabled.reload({where: {path: curPath.data.path}});
                             });
                     }
@@ -308,7 +308,7 @@
                     break;
             }
         });
-        //监听工具栏
+        // 监听工具栏
         table.on('toolbar(table-list)', function (obj) {
             switch (obj.event) {
                 case 'rollback':
@@ -359,7 +359,7 @@
                     break;
             }
         });
-        //转到
+        // 转到
         form.on('submit(submit-goto)', function (obj) {
             tabled.reload({where: {path: obj.field.goto}});
         });

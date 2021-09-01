@@ -141,7 +141,7 @@
                         main.popup({
                             title: '修改',
                             url: url + '/modify',
-                            area: ['800px', 'auto'],
+                            area: '800px',
                             content: html,
                             ending: 'table-list',
                         });
@@ -167,7 +167,7 @@
                         main.popup({
                             title: '添加',
                             url: url + '/add',
-                            area: ['800px', 'auto'],
+                            area: '800px',
                             content: html,
                             ending: 'table-list',
                         });
@@ -177,7 +177,7 @@
                     main.popup({
                         title: '批量修改配置',
                         content: $('#configure').html(),
-                        area: ['400px', '200px'],
+                        area: '400px',
                         success: function (dom) {
                             dom.find('[name=ids]').val(ids.join());
                             main.on.del();

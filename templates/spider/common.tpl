@@ -73,7 +73,7 @@
                                         <option value="0"{{if eq .obj.Order 0}} selected{{end}}>正序</option>
                                         <option value="1"{{if eq .obj.Order 1}} selected{{end}}>倒序</option>
                                         <option value="2"{{if eq .obj.Order 2}} selected{{end}}>URL升序</option>
-                                        <option value="2"{{if eq .obj.Order 3}} selected{{end}}>URL降序</option>
+                                        <option value="3"{{if eq .obj.Order 3}} selected{{end}}>URL降序</option>
                                     </select>
                                 </div>
                             </div>

@@ -308,7 +308,7 @@
                             title: '绑定网站',
                             content: html,
                             url: url + '/bind',
-                            area: ['750px', '300px'],
+                            area: ['720px', '300px'],
                             ending: 'table-list',
                         });
                     });
@@ -371,7 +371,6 @@
                         main.popup({
                             title: '批量修改配置',
                             content: html,
-                            area: ['800px', '550px'],
                             url: url + '/configure',
                             ending: 'table-list',
                         });

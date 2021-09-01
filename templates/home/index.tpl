@@ -308,7 +308,7 @@
                         maxmin: false,
                         url: '/home/upgrade',
                         content: $('#upgrade-app').html(),
-                        area: ['280px', '120px'],
+                        area: '280px',
                         tips: function () {
                             main.ws.log("app_upgrade");
                         }

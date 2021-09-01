@@ -222,7 +222,7 @@
                     main.popup({
                         title: '批量修改配置',
                         content: $('#configure').html(),
-                        area: ['400px', '200px'],
+                        area: '400px',
                         success: function (dom) {
                             dom.find('[name=ids]').val(ids.join());
                             main.on.del();

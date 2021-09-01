@@ -92,7 +92,7 @@
                         main.popup({
                             title: '修改邮箱配置',
                             url: url + '/modify',
-                            area: ['500px', '500px'],
+                            area: '500px',
                             content: html,
                             ending: 'table-list',
                         });
@@ -120,7 +120,7 @@
                         main.popup({
                             title: '添加邮箱',
                             url: url + '/add',
-                            area: ['500px', '500px'],
+                            area: '500px',
                             content: html,
                             ending: 'table-list',
                         });

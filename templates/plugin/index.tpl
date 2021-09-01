@@ -70,7 +70,7 @@
                             title: false,
                             maxmin: false,
                             content: $('#install-html').html(),
-                            area: ['350px', 'auto'],
+                            area: '350px',
                             tips: function () {
                                 main.ws.log("plugin." + data.id, function () {
                                     table.reload('table-list');

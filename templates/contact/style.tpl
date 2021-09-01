@@ -266,7 +266,7 @@
             if (event.lastIndexOf('-css') !== -1) {
                 main.confirm('', {
                     scroll: false,
-                    area: ['60%', '60%'],
+                    area: ['80%', '60%'],
                     success: function (dom) {
                         let containerElem = dom.find('.pop-container>div').first();
                         containerElem.addClass('layui-form');

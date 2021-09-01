@@ -59,7 +59,7 @@
                         title: '添加规则',
                         content: html,
                         url: url + '/add',
-                        area: ["50%", "%80"],
+                        area: "50%",
                         ending: 'table-list',
                     });
                 });

@@ -248,7 +248,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 scrollbar: false,
                 btnAlign: 'c',
                 shade: 0.8,
-                fixed: false,
                 maxmin: true,
                 btn: ['提交', '取消'],
                 area: ['95%', '95%'],
@@ -368,6 +367,17 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             let obj = new Pop();
             $.extend(obj, options);
             obj.render();
+        }
+
+        // 弹出展示
+        // 默认不显示标题 不显示最大化和最小化 不显示按钮
+        display(options) {
+            main.popup($.extend({
+                title: false,
+                btn: false,
+                maxmin: false,
+                area: ['90%', '90%'],
+            }, options || {}));
         }
     }
 

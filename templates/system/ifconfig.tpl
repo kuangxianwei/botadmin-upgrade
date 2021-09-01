@@ -155,7 +155,7 @@
                         maxmin: true,
                         content: $("#formAddIP").html(),
                         btn: ['保存', '取消'],
-                        area: ['700px', '500px'],
+                        area: '700px',
                         yes: function (index, obj) {
                             obj.find('button[lay-filter=submitAddIP]').click();
                         },

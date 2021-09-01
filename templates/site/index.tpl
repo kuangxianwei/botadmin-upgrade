@@ -514,7 +514,7 @@
                             url: url + '/link',
                             title: '添改友链',
                             content: html,
-                            area: ['500px', '500px'],
+                            area: '500px',
                         });
                         form.render();
                     });
@@ -525,7 +525,7 @@
                             url: url + '/del/link',
                             title: '删除友链',
                             content: html,
-                            area: ['500px', '500px'],
+                            area: '500px',
                         });
                         form.render();
                     });
@@ -536,7 +536,7 @@
                             url: url + '/image',
                             title: '添加图片',
                             content: html,
-                            area: ['800px', '380px'],
+                            area: '800px',
                             tips: function () {
                                 main.ws.log('site.' + data.id);
                             }
@@ -553,7 +553,7 @@
                         btnAlign: 'c',
                         shade: 0.8,
                         fixed: false,
-                        area: ['450px', '350px'],
+                        area: '450px',
                         maxmin: true,
                         btn: ['确定', '取消'],
                         content: $('#mysql-html').html(),
@@ -698,7 +698,7 @@
                         btnAlign: 'c',
                         shade: 0.8,
                         fixed: false,
-                        area: ['520px', '300px'],
+                        area: '520px',
                         maxmin: true,
                         btn: ['确定', '取消'],
                         content: $('#edit-options-html').html(),
@@ -913,7 +913,7 @@
                         title: '重新设置网站后台',
                         content: contentObj.prop('outerHTML'),
                         url: url + '/reload/website/setup',
-                        area: ['400px', '300px'],
+                        area: '400px',
                         tips: function () {
                             main.ws.log('site.0');
                         }
@@ -1024,7 +1024,7 @@
                         btnAlign: 'c',
                         shade: 0.8,
                         fixed: false,
-                        area: ['450px', '350px'],
+                        area: '450px',
                         maxmin: true,
                         btn: ['确定', '取消'],
                         content: $('#mysql-html').html(),
@@ -1096,7 +1096,7 @@
                             url: url + '/link',
                             title: '添加友链',
                             content: html,
-                            area: ['500px', '500px'],
+                            area: '500px',
                         });
                         form.render();
                     });
@@ -1110,7 +1110,7 @@
                             url: url + '/del/link',
                             title: '删除友链',
                             content: html,
-                            area: ['500px', '500px'],
+                            area: '500px',
                         });
                         form.render();
                     });

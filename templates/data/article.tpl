@@ -334,7 +334,7 @@
                             title: '简繁体转换',
                             content: html,
                             url: url + '/convert',
-                            area: ['280px', '400px'],
+                            area: ['280px', '300px'],
                             ending: 'table-list'
                         });
                         form.render();
@@ -382,7 +382,7 @@
                             title: '翻译',
                             content: html,
                             url: url + '/translate',
-                            area: ['750px', '400px'],
+                            area: ['750px', '300px'],
                             tips: function () {
                                 main.ws.log('article.0');
                             },
