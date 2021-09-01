@@ -141,13 +141,17 @@
                     });
                     break;
                 case 'view':
-                    main.msg(`<textarea class="layui-textarea" style="width:100%;height:100%">终端: ` + (obj.data['is_mobile'] ? '手机端' : '电脑端') + `
+                    main.display({
+                        content: `<textarea class="layui-textarea" style="width:900px;height:300px;margin:10px">终端: ` + (obj.data['is_mobile'] ? '手机端' : '电脑端') + `
 方式: ` + obj.data['entrance'] + `
 接待ID: ` + obj.data['waiter_id'] + `
 Geo: ` + JSON.stringify(obj.data['geo']) + `
 当前访问: ` + obj.data['visiting'] + `
 来路: ` + obj.data['referer'] + `
-UserAgent: ` + obj.data['user_agent'] + `</textarea>`, {area: '80%'});
+UserAgent: ` + obj.data['user_agent'] +
+                            `</textarea>`,
+                        area: 'auto'
+                    });
                     break;
             }
         });

@@ -144,7 +144,8 @@
                     });
                     break;
                 case 'view':
-                    main.msg(`<textarea class="layui-textarea" style="width:100%;height:100%">终端: ` + (obj.data['is_mobile'] ? '手机端' : '电脑端') + `
+                    main.display({
+                        content: `<textarea class="layui-textarea" style="width:900px;height:300px;margin:10px">终端: ` + (obj.data['is_mobile'] ? '手机端' : '电脑端') + `
 接待ID: ` + obj.data['waiter_id'] + `
 Geo: ` + JSON.stringify(obj.data['geo']) + `
 当前访问: ` + obj.data['visiting'] + `
@@ -155,7 +156,8 @@ UserAgent: ` + obj.data['user_agent'] + `
 电话: ` + obj.data['phone'] + `
 微信: ` + obj.data['wechat'] + `
 反馈: ` + obj.data['message'] + `</textarea>`,
-                        {area: ['80%', '95%']});
+                        area: 'auto'
+                    });
                     break;
             }
         });
