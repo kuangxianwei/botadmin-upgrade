@@ -321,6 +321,11 @@
                                     <cite>生成RSA</cite>
                                 </a>
                             </dd>
+                            <dd data-name="tools-segment">
+                                <a lay-href="/tools/segment" lay-tips="分词" lay-direction="2">
+                                    <cite>分词</cite>
+                                </a>
+                            </dd>
                             <dd data-name="monitor">
                                 <a lay-href="/monitor" lay-tips="网站监控"
                                    lay-direction="2"><cite>网站监控</cite></a>
