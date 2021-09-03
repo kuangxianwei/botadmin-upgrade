@@ -217,10 +217,10 @@
                             <div class="layui-row">
                                 <div class="layui-col-sm6">
                                     <label class="layui-form-label" lay-tips="网站后台登录认证码 15个字母或数字组成">认证码:</label>
-                                    <div class="layui-input-block">
-                                        <input type="text" name="auth_code" class="layui-input"
-                                               value="{{.obj.AuthCode}}" placeholder="后台第二验证码">
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="auth_code" class="layui-input" value="{{.obj.AuthCode}}" placeholder="登录第二验证码">
                                     </div>
+                                    <button class="layui-btn" id="auth_code">随机</button>
                                 </div>
                                 <div class="layui-col-sm5">
                                     <label class="layui-form-label" lay-tips="网站后台登录目录名称">后台目录:</label>
@@ -278,8 +278,7 @@
                                 <div class="layui-col-sm6">
                                     <label class="layui-form-label" lay-tips="灰词=>替换成的是词 一行一条">灰词替换:</label>
                                     <div class="layui-input-block">
-                                        <textarea name="replaces"
-                                                  class="layui-textarea">{{join .obj.Replaces "\n"}}</textarea>
+                                        <textarea name="replaces" class="layui-textarea">{{join .obj.Replaces "\n"}}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -527,13 +526,31 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
+                        <label class="layui-form-label">发布模式:</label>
+                        <div class="layui-input-inline">
+                            <select name="publish_mode" class="layui-select">
+                                <option value="0"{{if eq .obj.PublishMode 0}} selected{{end}}>随机模式</option>
+                                <option value="1"{{if eq .obj.PublishMode 1}} selected{{end}}>正常模式</option>
+                                <option value="2"{{if eq .obj.PublishMode 2}} selected{{end}}>百科模式</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label">标题格式:</label>
                         <div class="layui-input-inline">
-                            <textarea name="title_formats" rows="3"
-                                      class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
+                            <textarea name="title_formats" rows="3" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
                         </div>
                         <div class="layui-form-mid layui-word-aux">
                             可用标签为&#123;&#123;tag&#125;&#125; &#123;&#123;title&#125;&#125; 标签为必须 一行一条
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">随机词汇:</label>
+                        <div class="layui-input-inline">
+                            <textarea name="words" class="layui-textarea">{{join .obj.Words "\n"}}</textarea>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            百科模式所用到的随机词汇 留空则使用资料库的<a lay-href="/config/site/data" style="color:green">随机词库</a>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -616,16 +633,14 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">保存图片:</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" name="pic_save" lay-skin="switch"
-                                   lay-text="是|否"{{if .obj.PicSave}} checked{{end}}>
+                            <input type="checkbox" name="pic_save" lay-skin="switch" lay-text="是|否"{{if .obj.PicSave}} checked{{end}}>
                         </div>
                         <div class="layui-form-mid layui-word-aux">是否保存远程图片</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">图片水印:</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" name="pic_mark" lay-skin="switch"
-                                   lay-text="是|否"{{if .obj.PicMark}} checked{{end}}>
+                            <input type="checkbox" name="pic_mark" lay-skin="switch" lay-text="是|否"{{if .obj.PicMark}} checked{{end}}>
                         </div>
                         <div class="layui-form-mid layui-word-aux">图片是否加水印</div>
                     </div>
@@ -661,8 +676,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">启用:</label>
                                 <div class="layui-input-inline">
-                                    <input type="checkbox" name="cron_enabled" lay-skin="switch"
-                                           lay-text="是|否" {{if .obj.CronEnabled}} checked{{end}}>
+                                    <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否" {{if .obj.CronEnabled}} checked{{end}}>
                                 </div>
                             </div>
                             <div class="layui-inline">
@@ -847,6 +861,9 @@
         );
         $('#theme').click(function () {
             main.display({content: $('#theme').html()});
+        });
+        $('#auth_code').click(function () {
+            $('input[name=auth_code]').val(main.uuid(15));
         });
         //改变模板
         form.on('select(tpl_name)', function (obj) {

@@ -10,6 +10,7 @@
                 <li>城市</li>
                 <li>IP</li>
                 <li>关于</li>
+                <li>随机词</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
@@ -94,8 +95,7 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
-                        <textarea class="layui-textarea" name="class_names"
-                                  rows="15">{{join .obj.ClassNames "\n"}}</textarea>
+                        <textarea class="layui-textarea" name="class_names" rows="15">{{join .obj.ClassNames "\n"}}</textarea>
                     </div>
                     <blockquote class="layui-elem-quote">
                         建站随机栏目列表
@@ -143,6 +143,14 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form-item">
+                        <textarea class="layui-textarea" name="words" rows="15">{{join .obj.Words "\n"}}</textarea>
+                    </div>
+                    <blockquote class="layui-elem-quote">
+                        发布文章时的随机词汇
+                    </blockquote>
                 </div>
             </div>
         </div>

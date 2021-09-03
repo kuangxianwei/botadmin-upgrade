@@ -1,6 +1,3 @@
-<style>
-    .layui-layer-content{overflow: hidden !important;}
-</style>
 <link href="/static/webssh/xterm.css" rel="stylesheet">
 <link href="/static/webssh/toastr.min.css" rel="stylesheet">
 <div class="layui-card">
