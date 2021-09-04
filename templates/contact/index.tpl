@@ -431,7 +431,7 @@
             }
             main.req({
                 url: url + '/configure',
-                data: {id: id, pc_enabled: checked},
+                data: {id: id, pc_enabled: checked, cols: 'pc_enabled'},
                 ending: 'table-list',
             });
             return false;
@@ -446,7 +446,7 @@
             }
             main.req({
                 url: url + '/configure',
-                data: {id: id, mobile_enabled: checked},
+                data: {id: id, mobile_enabled: checked, cols: 'mobile_enabled'},
                 ending: 'table-list',
             });
             return false;
