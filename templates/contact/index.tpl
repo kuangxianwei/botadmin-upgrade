@@ -430,7 +430,7 @@
                 return false;
             }
             main.req({
-                url: url + '/update',
+                url: url + '/configure',
                 data: {id: id, pc_enabled: checked},
                 ending: 'table-list',
             });
@@ -445,7 +445,7 @@
                 return false;
             }
             main.req({
-                url: url + '/update',
+                url: url + '/configure',
                 data: {id: id, mobile_enabled: checked},
                 ending: 'table-list',
             });
