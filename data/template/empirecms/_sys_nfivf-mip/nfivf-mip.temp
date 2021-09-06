@@ -3749,7 +3749,7 @@ if (empty($cr['bname'])) {
     <meta name="description" content="[!--pagedes--]">
     <link rel="stylesheet" type="text/css" href="https://c.mipcdn.com/static/v2/mip.css">
     <link rel="canonical" href="<?=abs_url($cr['classpath']).'/'?>">
-    <style mip-custom>[!--temp.css--]</style>
+    <style mip-custom>[!--temp.css--][!--temp.topcss--]</style>
 </head>
 <body>
 <!--头部开始-->
@@ -3796,10 +3796,7 @@ if (empty($cr['bname'])) {
     <meta name="description" content="[!--pagedes--]">
     <link rel="stylesheet" type="text/css" href="https://c.mipcdn.com/static/v2/mip.css">
     <link rel="canonical" href="<?=abs_url($cr['classpath']).'/'?>">
-    <style mip-custom>
-[!--temp.css--]
-[!--temp.topcss--]
-    </style>
+    <style mip-custom>[!--temp.css--][!--temp.topcss--]</style>
 </head>
 <body>
 [!--temp.header--]
@@ -4253,8 +4250,7 @@ if (empty($cr['bname'])) {
     <meta name="description" content="[!--pagedes--]">
     <link rel="stylesheet" type="text/css" href="https://c.mipcdn.com/static/v2/mip.css">
     <link rel="canonical" href="<?=abs_url($cr['classpath']).'/'?>">
-    <style mip-custom>[!--temp.css--]
-[!--temp.topcss--]</style>
+    <style mip-custom>[!--temp.css--][!--temp.topcss--]</style>
 </head>
 <body>
 <!--头部开始-->
@@ -4580,7 +4576,7 @@ if (empty($cr['bname'])) {
     <meta name="description" content="[!--pagedes--]">
     <link rel="stylesheet" type="text/css" href="https://c.mipcdn.com/static/v2/mip.css">
     <link rel="canonical" href="<?=abs_url($cr['classpath']).'/'?>">
-    <style mip-custom>[!--temp.css--]</style>
+    <style mip-custom>[!--temp.css--][!--temp.topcss--]</style>
 </head>
 <body>
 <!--头部开始-->
