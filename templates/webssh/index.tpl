@@ -56,6 +56,9 @@
             <button class="layui-btn layui-btn-sm" lay-event="execute" lay-tips="批量执行shell代码">
                 <i class="iconfont icon-terminal"></i>
             </button>
+            <button class="layui-btn layui-btn-sm layui-bg-cyan" lay-event="scan" lay-tips="批量检查控制台">
+                <i class="iconfont icon-scan"></i>
+            </button>
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="log" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
@@ -257,6 +260,18 @@
                             });
                         },
                         area: "600px",
+                        tips: function () {
+                            main.ws.log("webssh.0");
+                        }
+                    });
+                    break;
+                case 'scan':
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    main.req({
+                        url: url + "/scan",
+                        data: {ids: ids.join()},
                         tips: function () {
                             main.ws.log("webssh.0");
                         }

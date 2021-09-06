@@ -1,0 +1,867 @@
+﻿.cont {
+	overflow: hidden;
+	margin-top: 20px;
+	padding: 20px;
+	background: #fff;
+	zoom: 1;
+}/*幻灯片及右侧新闻*/
+.game_News {
+	overflow: hidden;
+	height: 331px;
+}
+.Slide {
+	position: relative;
+	overflow: hidden;
+	width: 58%;
+	height: 331px;
+}
+.slide-cont {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 331px;
+}
+.slide-item {
+	position: absolute;
+	left: -665px;
+	width: 100%;
+	height: 100%;
+}
+.slide-item a {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.slide-item img {
+	width: 100%;
+	height: 331px;
+}
+.slide-txt {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	width: 100%;
+	height: 54px;
+}
+.slide-txt .txt_bg {
+	width: 100%;
+	height: 54px;
+	background: #0f0f0f;
+	opacity: .7;
+	filter: alpha(opacity=70);
+}
+.slide-txt a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	overflow: hidden;
+	width: 100%;
+	height: 54px;
+	color: #fff;
+	font-size: 20px;
+	line-height: 54px;
+	text-indent: 2%;
+}
+.slide-nav {
+	position: absolute;
+	right: 20px;
+	bottom: 21px;
+	z-index: 2;
+	display: inline-block;
+	overflow: hidden;
+	width: auto;
+	height: 11px;
+}
+.slide-nav a {
+	float: left;
+	display: block;
+	overflow: hidden;
+	margin-left: 5px;
+	width: 11px;
+	height: 11px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #929292;
+	text-indent: -99em;
+	cursor: pointer;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+	-o-transition: all .5s ease;
+	transition: all .5s ease;
+	-ms-transition: all .5s ease;
+}
+.slide-nav .nownav {
+	width: 21px;
+	background: #ff4939;
+}
+#prev, #next {
+	position: absolute;
+	top: 129px;
+	display: none;
+	width: 57px;
+	height: 72px;
+	background: rgba(0, 0, 0, 0.2);
+	text-align: center;
+	line-height: 72px;
+}
+#prev {
+	left: 0
+}
+#next {
+	right: 0
+}
+#prev i, #next i {
+	font-size: 60px;
+	line-height: 72px;
+	color: rgba(0, 0, 0, 0.25);
+}
+#prev: hover, #next: hover {
+	background: #FF4939
+}
+#prev: hover i, #next: hover i {
+	color: #fff
+}
+.News_box {
+	float: right;
+	overflow: hidden;
+	width: 40%;
+	height: 331px;
+}
+.News_box .hd {
+	height: 120px;
+	border-bottom: 1px dotted #dcdcdc;
+}
+.News_box .hd_tit {
+	height: 60px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 60px;
+	overflow: hidden;
+}
+.News_box .hd_tit a {
+	color: #ff4939;
+}
+.News_box .hd_art {
+	overflow: hidden;
+	padding: 6px 0;
+	height: 48px;
+	color: #a6a6a6;
+	line-height: 24px;
+}
+.News_box .hd_art a {
+	color: #ff4939;
+	font-size: 12px;
+	margin-left: 10px;
+}
+.News_box .bd {
+	overflow: hidden;
+	padding-top: 12px;
+	font-size: 16px;
+	line-height: 34px;
+}
+.News_box .bd li {
+	float: left;
+	width: 100%;
+	overflow: hidden;
+	height: 34px;
+}
+.News_box .bd li em {
+	float: left;
+	display: block;
+	width: 42px;
+	height: 34px;
+	color: #ff4939;
+	cursor: default;
+}
+.News_box .bd li a {
+	float: left;
+	width: 77%;
+	overflow: hidden;
+}
+.News_box .bd li span {
+	float: right;
+	color: #a6a6a6;
+	font-size: 14px;
+}/*网页特效样式*/
+.texiaohd {
+	position: relative;
+	overflow: visible;
+	height: 35px;
+	border-bottom: 1px solid #e8e7ed;
+}
+.texiao_tab {
+	height: 30px;
+	color: #333;
+	line-height: 30px;
+}
+.texiao_tab li {
+	float: left;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 20px;
+	padding-right: 26px;
+}
+.texiao_tab li p {
+	cursor: pointer;
+}
+.texiao_tab li .on {
+	cursor: default;
+}
+.texiao_tab b.line {
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	display: block;
+	overflow: hidden;
+	width: 80px;
+	height: 2px;
+	background: #ff4939;
+}
+.texiao_tips {
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: #999;
+}
+.topic_list {
+	padding: 20px 0.3% 0 0.3%;
+	background: #fff;
+	overflow: hidden;
+}
+.tl_m {
+	width: 100%;
+	overflow: hidden;
+}
+.tl_box {
+	width: 23%;
+	margin: 0 1% 20px;
+	float: left;
+	background-color: #F9F9F9;
+}
+.tl_box h3 {
+	height: 45px;
+	padding: 0 8px;
+	line-height: 45px;
+	text-align: center;
+	font-size: 16px;
+	overflow: hidden;
+}
+.tlb_img {
+	position: relative;
+	overflow: hidden;
+}
+.bagua .tlb_img {
+	position: relative;
+	overflow: hidden;
+}
+.bagua .tlb_img img {
+	width: 100%;
+	height: 160px;
+	transition: all 2.5s linear;
+	-moz-transition: all 2.5s linear;
+	-webkit-transition: all 2.5s linear;
+	-o-transition: width all 2.5s linear;
+}
+.bagua .tlb_img img:hover {
+	opacity: 1;
+	transform: scale(1.09, 1.09);
+	-ms-transform: scale(1.09, 1.09);
+	-webkit-transform: scale(1.09, 1.09);
+	-o-transform: scale(1.09, 1.09);
+	-moz-transform: scale(1.09, 1.09);
+}
+.tlb_line {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 3px;
+	width: 100%;
+	overflow: hidden;
+}
+.tlb_line>div {
+	position: absolute;
+	left: -100%;
+	top: 0;
+	width: 100%;
+	height: 3px;
+	background: #ce2029;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+	-ms-transition: all .5s ease;
+	-o-transition: all .5s ease;
+	transition: all .5s ease;
+}
+.tlb_play {
+	position: absolute;
+	top: 33%;
+	left: 45%;
+	z-index: 10;
+	display: block;
+	margin-left: -6%;
+}
+.tlb_play i {
+	font-size: 46px;
+	color: rgba(0,0,0,0.5);
+}
+.tlb_art {
+	padding: 9px;
+	height: 84px;
+	line-height: 28px;
+	font-size: 14px;
+	color: #878787;
+	overflow: hidden;
+}
+.tlb_art em {
+	display: inline-block;
+	height: 18px;
+	background: #ff4939;
+	line-height: 18px;
+	color: #fff;
+	font-size: 14px;
+	padding: 1px 6px;
+}
+.tlb_art i {
+	display: inline-block;
+	font-size: 14px;
+	color: #ff4939;
+	margin-right: 6px;
+}/*1111*/
+.act-navspec {
+	width: 1200px;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-bottom: -8px
+}
+.act-navspec-list {
+	overflow: hidden;
+*zoom:1;
+	margin-left: -30px
+}
+.act-navspec-list li {
+	float: left;
+	display: inline;
+	margin-left: 30px
+}
+.act-navspec-list li a {
+	display: block;
+	width: 99px;
+	height: 89px;
+	overflow: hidden;
+	background: url(../images/nav-spec.png) no-repeat
+}
+.act-navspec-list li.item-1 a {
+	background-position: -96px -10px
+}
+.act-navspec-list li.item-1 a:hover {
+	background-position: -96px -116px
+}
+.act-navspec-list li.item-2 a {
+	background-position: -201px -10px
+}
+.act-navspec-list li.item-2 a:hover {
+	background-position: -201px -116px
+}
+.act-navspec-list li.item-3 a {
+	background-position: -306px -10px
+}
+.act-navspec-list li.item-3 a:hover {
+	background-position: -306px -116px
+}
+.act-navspec-list li.item-4 a {
+	background-position: -411px -10px
+}
+.act-navspec-list li.item-4 a:hover {
+	background-position: -411px -116px
+}
+.act-navspec-list li.item-5 a {
+	width: 164px;
+	background-position: -510px -10px
+}
+.act-navspec-list li.item-5 a:hover {
+	background-position: -510px -116px
+}
+.act-navspec-list li.item-6 a {
+	background-position: -674px -10px
+}
+.act-navspec-list li.item-6 a:hover {
+	background-position: -674px -116px
+}
+.act-navspec-list li.item-7 a {
+	background-position: -780px -10px
+}
+.act-navspec-list li.item-7 a:hover {
+	background-position: -780px -116px
+}
+.act-navspec-list li.item-8 a {
+	background-position: -886px -10px
+}
+.act-navspec-list li.item-8 a:hover {
+	background-position: -886px -116px
+}
+.act-navspec-list li.item-9 a {
+	background-position: -992px -10px
+}
+.act-navspec-list li.item-9 a:hover {
+	background-position: -992px -116px
+}/*1111*//*响应式重构（图片列表页部分）*/
+@media (max-width:1024px) {
+.tl_box {
+	width: 21%;
+	margin: 0 2% 30px;
+}
+.bagua .tlb_img img {
+	height: 120px;
+}
+}
+@media (max-width:920px) {
+.tl_box {
+	width: 21%;
+	margin: 0 2% 30px;
+}
+.bagua .tlb_img img {
+	height: 100px;
+}
+}
+@media (max-width:728px) {
+.tl_box {
+	width: 28%;
+	margin: 0 2% 30px;
+}
+.bagua .tlb_img img {
+	height: 100px;
+}
+}
+@media (max-width:480px) {
+.topic_list {
+	padding: 10px 2%;
+}
+.tl_box {
+	width: 100%;
+	margin: 0 0 10px 0;
+	float: left;
+}
+.bagua .tlb_img img {
+	height: auto;
+}
+.tlb_line, .tlb_play {
+	display: none
+}
+.tlb_art {
+	height: auto;
+}
+}/*下方四栏纯文字列表*/
+.game_top_box {
+	float: left;
+	overflow: hidden;
+	padding-right: 2%;
+	width: 23%;
+}
+.game_top_box .hd h3 {
+	color: #000;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 40px;
+}
+.game_top_box:nth-child(4) {
+	padding-right: 0;
+}
+.game_top_box .bd {
+	position: relative;
+	overflow: hidden;
+}
+.game_top_app {
+	position: relative;
+	overflow: hidden;
+	margin-top: -1px;
+}
+.top_app, .top_app2 {
+	position: relative;
+	overflow: hidden;
+	border-top: 1px solid #e8e7ed;
+}
+.top_app .sml, .top_app2 .sml {
+	overflow: hidden;
+	padding: 12px 0 13px;
+	height: 20px;
+}
+.top_app .p1, .top_app2 .p1 {
+	width: 24px;
+	float: left;
+	overflow: hidden;
+}
+.top_app .p1 em.r, .top_app2 .p1 em.r {
+	background: #ff4939;
+	margin-top: 3px;
+	display: block;
+	width: 15px;
+	height: 15px;
+	border-radius: 3px;
+	color: #fff;
+	text-align: center;
+	font-size: 14px;
+	line-height: 15px;
+}
+.top_app .sml .p2, .top_app2 .sml .p2 {
+	height: 20px;
+	line-height: 20px;
+	width: 87%;
+	float: left;
+	overflow: hidden;
+}/*友情链接*/
+.game_flink .hd {
+	position: relative;
+	overflow: visible;
+	height: 35px;
+	border-bottom: 1px solid #e8e7ed;
+}
+.flink_tab {
+	height: 30px;
+	color: #333;
+	line-height: 30px;
+}
+.flink_tab li {
+	float: left;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 20px;
+	padding-right: 26px;
+}
+.flink_tab li p {
+	cursor: pointer;
+}
+.flink_tab li .on {
+	cursor: default;
+}
+.flink_tab b.line {
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	display: block;
+	overflow: hidden;
+	width: 80px;
+	height: 2px;
+	background: #ff4939;
+}
+.flink_tips {
+	position: absolute;
+	top: 0;
+	right: 0;
+	color: #999;
+}
+.flink_con {
+	position: relative;
+	overflow: hidden;
+	padding-top: 10px;
+	width: 100%;
+}
+.flink_con ul {
+	margin-left: -0.9%;
+}
+.flink_con li {
+	float: left;
+	overflow: hidden;
+	height: 36px;
+}
+.flink_con li a {
+	display: inline-block;
+	overflow: hidden;
+	margin: 10px 0;
+	padding: 0 14px;
+	height: 16px;
+	border-left: 2px solid #d9d9d9;
+	line-height: 16px;
+}/*底部版权信息样式*/
+.pageFoot {
+	margin-top: 30px;
+	background: #333;
+}
+.foot_line {
+	position: relative;
+	overflow: hidden;
+	height: 7px;
+	background: #fd9536;
+}
+.line_o {
+	position: relative;
+	top: 0;
+	left: -50%;
+	height: 7px;
+	background: #ff4839;
+}
+.line_gw {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	z-index: 1;
+	margin-left: -600px;
+	width: 1200px;
+	height: 7px;
+}
+.l_g {
+	float: left;
+	width: 50%;
+	height: 7px;
+	background: #0fca93;
+}
+.l_w {
+	float: right;
+	width: 50%;
+	height: 7px;
+	background: #ffdc35;
+}
+.foot_link {
+	position: relative;
+	margin: 0 auto;
+	padding-top: 45px;
+	width: 95%;
+	height: 196px;
+	border-bottom: 1px solid #575757;
+}
+.foot_link dl {
+	float: left;
+	padding-right: 4%;
+	width: 13%;
+	height: 196px;
+}
+.foot_link dt {
+	overflow: hidden;
+	height: 40px;
+	border-bottom: 1px solid #575757;
+	color: #575757;
+	font-size: 12px;
+	line-height: 40px;
+	cursor: default;
+}
+.foot_link dt p {
+	position: relative;
+	top: -2px;
+	left: 0;
+	display: inline-block;
+	padding-right: 6px;
+	color: #b5b5b0;
+	font-weight: bold;
+	font-size: 16px;
+}
+.foot_link dd {
+	padding-top: 10px;
+	zoom: 1;
+}
+.foot_link dd a {
+	position: relative;
+	float: left;
+	display: block;
+	overflow: hidden;
+	width: 100%;
+	height: 30px;
+	color: #575757;
+	font-size: 16px;
+	line-height: 30px;
+}
+.foot_eq {
+	position: absolute;
+	top: 64px;
+	width: 106px;
+	height: 114px;
+}
+.weixin {
+	right: 5%;
+}
+.weixin i {
+	font-size: 51px;
+	color: #86C610;
+	background: #2C2C2C;
+	border-radius: 50px;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	line-height: 100px;
+}
+.foot_eq .eq {
+	position: absolute;
+	top: 0;
+	left: 4px;
+	display: none;
+	width: 100px;
+	height: 103px;
+	background-image: url(../images/qrcode.jpg);
+	background-size: 100px;
+	background-repeat: no-repeat;
+}
+.foot_eq p {
+	color: #535353;
+	text-align: center;
+	font-weight: bold;
+	line-height: 34px;
+}
+.foot_about {
+	overflow: hidden;
+	margin: 0 auto;
+	width: 95%;
+	height: 50px;
+	color: #575757;
+	line-height: 50px;
+}
+.foot_about ul.fl {
+	margin-left: -1%;
+	height: 50px;
+}
+.foot_about ul.fl li {
+	float: left;
+	height: 50px;
+}
+.foot_about ul.fl li a {
+	padding: 0 10px;
+	border-left: 2px solid #4e4e4e;
+	color: #575757;
+}/* 响应式重构（首页部分）*/
+@media (max-width: 1024px) {
+.column .bd .art h4, .zm_index li a {
+	font-size: 16px
+}
+.foot_about {
+	padding: 0 12px
+}
+.game_gonglue .bd .cc a, .column .bd .art span {
+	font-size: 14px;
+}
+.game_com_list li {
+	width: 8.7%
+}
+.column .bd .art h4 {
+	line-height: 26px;
+	height: 58px;
+}
+.column .bd .art span {
+	height: 49px
+}
+.video_A .icon {
+	margin-left: -3%
+}
+.video_B .big i {
+	margin-left: -7%
+}
+.game_top_box:nth-child(4) {
+	display: none
+}
+.game_top_box:nth-child(3) {
+	padding-right: 0;
+}
+.game_top_box {
+	width: 31.7%
+}
+.zm_index li {
+	margin-right: 0.9%;
+	width: 2.5%;
+}
+}
+@media (max-width: 960px) {
+.game_Commend, .ztbox, .game_newgonglue, .game_gonglue, .game_week, .cont7, .zmbox, .cont9 {
+	display: none
+}
+.zone_news .news dl, .foot_about .fr, .Slide, .News_box {
+	float: none;
+}
+.game_column, .Slide, .News_box, .game_zone, .game_package, .package.on .big {
+	width: 100%
+}
+.Slide, .game_News, .News_box, .game_package {
+	height: auto;
+}
+.game_News {
+	overflow: none;
+}
+.Slide {
+	display: block;
+}
+.News_box {
+	overflow: none;
+}
+.game_zone {
+	float: left;
+	padding-right: 0;
+}
+.zone_img, .column .bd .img {
+	width: 27%;
+}
+.zone_news {
+	width: 70%
+}
+.zone_news .btns a {
+	width: 16%
+}
+.package .big .l {
+	width: 12%
+}
+.column .bd .art {
+	width: 60%
+}
+.column .bd .art h4 {
+	font-size: 20px;
+	line-height: 28px;
+	height: 28px;
+}
+.game_package {
+	float: left;
+	padding-left: 0;
+	margin-top: 20px;
+}
+}
+@media (max-width: 920px) {
+.top_app2:nth-child(6), .top_app2:nth-child(7), .top_app2:nth-child(8), .top_app2:nth-child(9), .top_app2:nth-child(10) {
+	display: none
+}
+.game_top_box {
+	width: 100%;
+	margin-top: 20px;
+}
+.game_top_box:nth-child(1) {
+	margin-top: 0
+}
+}
+@media (max-width: 660px) {
+.slide-cont {
+	height: 200px;
+}
+.zone_img {
+	display: none;
+}
+.zone_news {
+	width: 100%;
+}
+.zone_news .btns a {
+	width: 22%;
+}
+.column .bd .img img {
+	height: 80px;
+}
+.slide-item img {
+	height: 200px;
+}
+.slide-nav, .tongji {
+	display: none
+}
+.slide-txt a {
+	font-size: 14px
+}
+.cont1 {
+	margin-top: 0
+}
+}
+.week_commend li {
+	height: 148px;
+	margin: 0px 3% 0 0;
+}
+.week_commend .game_app_img {
+	max-height: 72px;
+	max-width: 72px;
+	clear: both;
+	display: block;
+	margin: auto;
+}
+.week_commend .down-link {
+	display: block;
+}

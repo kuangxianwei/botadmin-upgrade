@@ -313,22 +313,27 @@
                             </dd>
                             <dd data-name="tools-ban">
                                 <a lay-href="/tools/ban" lay-tips="过滤违禁词" lay-direction="2">
-                                    <cite>过滤违禁词</cite>
+                                    <i class="iconfont icon-filter"></i>
+                                    <cite>禁词</cite>
                                 </a>
                             </dd>
                             <dd data-name="tools-rsa">
                                 <a lay-href="/tools/rsa" lay-tips="生成RSA" lay-direction="2">
-                                    <cite>生成RSA</cite>
+                                    <i class="iconfont icon-rsa"></i>
+                                    <cite>RSA</cite>
                                 </a>
                             </dd>
                             <dd data-name="tools-segment">
                                 <a lay-href="/tools/segment" lay-tips="分词" lay-direction="2">
+                                    <i class="iconfont icon-segment"></i>
                                     <cite>分词</cite>
                                 </a>
                             </dd>
                             <dd data-name="monitor">
-                                <a lay-href="/monitor" lay-tips="网站监控"
-                                   lay-direction="2"><cite>网站监控</cite></a>
+                                <a lay-href="/monitor" lay-tips="网站监控" lay-direction="2">
+                                    <i class="iconfont icon-monitor"></i>
+                                    <cite>监控</cite>
+                                </a>
                             </dd>
                         </dl>
                     </li>

@@ -1,0 +1,189 @@
+@charset "utf-8";
+ @media screen and (min-width: 1024px) and (max-width: 1140px) {
+.box, .topnav { width: 98% }
+#starlist li { margin-left: 0 }
+.home_text ul li i { padding: 10px 10px; }
+.liucheng li section { padding: 20px 10px 40px; }
+.youshi_pic li section { margin: 20px 10px; }
+.footer_info { margin-right: 30px; }
+.footer_nav { width: 30% }
+}
+ @media screen and (min-width: 769px) and (max-width: 1023px) {
+.box, .topnav { width: 98% }
+#starlist li { margin-left: 0 }
+#starlist li a { padding: 15px 10px; }
+#starlist ul.sub { left: -20px }
+.home_text ul li, .renqun { width: 33.3% }
+.liucheng li section { padding: 20px 10px 40px; }
+.youshi_pic li section { margin: 20px 5px; }
+.youshi_pic li h3 { font-size: 16px; }
+.youshi_pic li p { font-size: 12px }
+.news_right { width: 40%; }
+.footer_info { width: 100%; margin-right: 0 }
+.yiyuan_pic ul li { width: 190px; }
+.guanyu_text { width: 55% }
+.case_list, .zixun_list, .newsview_content { width: 60% }
+.case_list li { width: 100% }
+.sidebar { width: 38% }
+.hospital_list ul li img { width: 100% }
+.home_text ul li:nth-child(6) { display: block }
+}
+ @media only screen and (max-width: 768px) {
+.topnav, .box { width: 96%; }
+#mnavh { display: block; top: 35px; }
+#starlist { display: none }
+.showdline { z-index: 2 }
+.logo { margin-top: 0; }
+nav { width: 100%; margin-top: 0 }
+#starlist { margin-top: 20px }
+#starlist li { width: 100%; border-top: solid 1px #f0f4f7; }
+#starlist li a:hover, #starlist #selected, .selected > a, #starlist li:hover { background: none; color: #000 }
+#starlist li a { padding: 10px; width: 95%; text-align: left }
+#starlist li i { display: none }
+#starlist ul.sub {width: 100%;position: initial;box-shadow: none;display: block;}
+
+#starlist ul.sub li {width: 48%;background: #f9eee9;border-bottom: #ffffff 1px solid;border-right: #ffffff 1px solid;border-top: 0;line-height: 36px !important;height: 36px !important;font-size: 14px;}
+#starlist ul.sub li a { text-align: left; padding-left: 13px; color: #fff; }
+#starlist ul.sub:before {top: 40px;background: #f9eee9;border: none;left: 30px;}
+.sub a#selected { color: #fff !important; }
+#starlist li span { content: ""; display: inline-block; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #232323; left: 85px; top: 20px; position: absolute; }
+#starlist li a { color: #000 !important }
+#starlist ul.sub li a {color: #333 !important;}
+.yiyuan_pic ul li img { width: auto }
+.home_text ul li { width: 33.3% }
+.home_text ul li:nth-child(6) { display: block }
+.renqun { width: 33.3% }
+.liucheng li section { padding: 20px 10px 40px; }
+.feiyong_pic i { width: 100px; padding: 18px 0; }
+.feiyong_pic li section { margin: 10px; }
+.youshi_pic i { width: auto }
+.youshi_pic li section { margin: 5px 10px; }
+.youshi_pic li h3 { font-size: 15px; }
+.youshi_pic li p { font-size: 13px; height: auto; }
+.yiyuan_pic ul li { width: 190px; }
+.news_left, .news_right, .footer_info, .guanyu_text, .sidebar, .case_list, .zixun_list, .anli_newstime { width: 100% }
+.guanzhu { width: 45%; float: left; height: 360px }
+.side_lianxi { width: 45%; float: right; height: 360px }
+.side_lianxi li:nth-child(4) { margin-bottom: 0 }
+.sidebar_nav, .sidebar_nav_02 { display: none }
+.hospital_list ul li p { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; padding: 0 10px; }
+.hospital_list ul li img { width: 100% }
+.anli_tuijian { display: none }
+.newsview_content { width: 100% }
+.pcbanner { display: none }
+.mbanner { display: block }
+.sideqq { display: block; position: fixed; right: 20px; bottom: 50px; }
+.sideqq img { height: 32px }
+img.mlogo { height: 100px; margin: 20px auto; }
+p.mtext { text-align: center; font-size: 14px; color: #62656d; padding-right: 20px; padding-left: 20px; margin-bottom: 3rem!important; }
+a.mqq { padding-right: 2.25rem; padding-left: 2.25rem; background: #ea5b24; background: -webkit-linear-gradient(legacy-direction(to right), #ea5b24 0%, #FF9800 100%); background: -webkit-gradient(linear, left top, right top, from(#ea5b24), to(#FF9800)); background: -webkit-linear-gradient(left, #ea5b24 0%, #FF9800 100%); background: -o-linear-gradient(left, #ea5b24 0%, #FF9800 100%); background: linear-gradient(to right, #ea5b24 0%, #FF9800 100%); color: #ffffff; border-right-width: 0; border-left-width: 0; border-radius: 60px; -webkit-border-radius: 60px; padding: 0.75rem 2rem; font-size: 15px; display: inline-block; font-weight: 400; text-align: center; white-space: nowrap; vertical-align: middle; margin-bottom: 1rem!important; }
+.mfooter { text-align: center; display: block; background-color: #f8f9fa; overflow: hidden; }
+footer, .copyright { display: none }
+.yiyuan{ display: none }
+
+p.mtime { font-size: 12px; color: #9d9fa9; margin-bottom: 1rem!important; }
+p.mzixun { font-size: 14px;  margin-bottom: .25rem!important;
+color: #62656d; }
+@font-face { font-family: 'Oswald-Regular'; src: url('Oswald-Regular.eot'); /* IE9 Compat Modes */ src: url('Oswald-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */  url('Oswald-Regular.woff') format('woff'), /* Modern Browsers */  url('Oswald-Regular.ttf') format('truetype'), /* Safari, Android, iOS */  url('Oswald-Regular.svg#Oswald-Regular') format('svg'); /* Legacy iOS */ }
+p.myear { margin-top: 3rem; font-size: 12px; color: #333b55; font-family: 'Oswald-Regular', sans-serif; }
+p.mcopy { color: #9d9fa9; font-size: 12px; padding: 1rem 0; }
+.mcopy a { color: #9d9fa9; padding-right: 10px }
+p.mbanq { font-size: 12px; line-height: 26px; background-color: #f3f2f2; color: #797979; text-align: center;}
+}
+ @media only screen and (max-width: 480px) {
+#mnavh { top: 0px; }
+.tell, .search_text { display: none }
+.searchbox { right: 0; width: 100% }
+.search_open.search_bar .input { z-index: 9; background: #fafafa; width: 100% }
+.gdnotice { width: 80% }
+.search_open { width: 100% }
+.home_text ul { margin: 0 0 10px }
+.home_text ul li { width: 50% }
+.home_text ul li:last-child { width:100%}
+.home_text ul li i { padding: 10px; margin: 0 5px; height: auto }
+.home_text ul li p { font-size: 14px }
+p.t_info { padding: 0px 20px 5px; font-size: 13px; }
+.scrollbar { overflow: auto; }
+.renqun_box { width: 1140px; overflow-x: scroll }
+.renqun { width: 220px; float: left }
+.renqun section { margin: 8px 5px; }
+.renqun section a { margin-top: 10px }
+.liucheng li { width: 50%; }
+.liucheng li p { font-size: 13px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 3; line-height: 20px; height: 60px; }
+.liucheng li h3 { font-size: 16px; margin-bottom: 10px; }
+.liucheng li section { margin: 2px; padding: 10px; }
+.feiyong_pic li { width: 50%; margin-bottom: 0 }
+.youshi_pic ul { margin-bottom: 30px; overflow: hidden }
+.youshi_pic li { width: 50%; margin-bottom: 10px; }
+.anli_newstime li { width: 100% }
+.yiyuan_title { display: none; }
+.yiyuan_pic ul { width: 100% }
+.yiyuan_pic ul li { width: 33.3%; float: left; }
+.yiyuan_pic ul li a { height: auto; padding-top: 0; line-height: 74px; font-size: 14px; margin: 5px; border: 1px solid #f1f7fb; }
+.news_left section p { margin-top: 5px; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; height: 40px;}
+.news_left ul li i { height: auto }
+a.more.zixun { margin-top: 30px !important }
+.contact_rexian { text-align: center; padding-left: 0; background: 0; margin-right: 0; width: 100% }
+.contact_other { width: 100%; margin-top: 30px; text-align: center; }
+.contact_other ul li { float: none; display: inline-block }
+.footer_nav { width: 100%; margin-bottom: 40px; display: none }
+.footer_lxfs { float: none; clear: both; text-align: center; }
+.copyright p { padding: 5px 30px; line-height: 18px; }
+.guanzhu { width: auto; float: none; height: auto }
+.side_lianxi { width: auto; float: none; }
+.footer_info p { padding: 0 5px; color: #888; margin-bottom: 20px; }
+.guanyu_text h2 { text-align: center; font-size: 22px; padding-bottom: 1.5rem !important; }
+.case_list li { width: 100% }
+.hospital_list { margin-bottom: 20px }
+.hospital_list ul li { width: 48%; float: left; margin: 10px 0; padding-bottom: 10px; }
+.hospital_list ul li:nth-child(even) { float: right; }
+.hospital_list ul { overflow: hidden; padding-bottom: 10px }
+.newsview_content { width: 100% }
+.sidebg { margin: 10px; border-radius: 0.33rem !important; }
+.content.hide { padding-bottom: 0; }
+img.end_weixin { position: initial; margin: auto; width: 100%; }
+.zixun_list ul { padding: 0 10px; }
+.topline { display: none }
+.top { border-bottom: none; }
+.logo img { height: 44px; margin: 5px 0 5px 5px; }
+.liucheng ul { margin-top: 20px }
+.feiyong_pic i img { width: 32px; }
+.feiyong_pic i { width: 68px; }
+.feiyong_pic li h3 { margin: 10px; font-size: 16px }
+.feiyong_pic ul { margin-bottom: 20px; overflow: hidden }
+.youshi_pic i img { height: 33px; }
+.youshi_pic li:nth-child(6) { display: block }
+.youshi_pic li:nth-child(6) i img { height: 32px; }
+.anli_news { margin-bottom: 20px }
+.anli { padding-bottom: 30px; }
+.contact_box { width: 100% }
+.sidefloat, footer, .copyright { display: none }
+#weixin_num { display: none; position: fixed; left: 18%; bottom: 52px; color: #fff; font-size: 14px; background-color: #fa6500; background-clip: padding-box; border-radius: 4px; padding: 10px 20px; }
+#weixin_num:after { content: ""; display: inline-block; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid #fa6500; left: 40%; bottom: -10px; position: absolute }
+.wxopen { display: block !important }
+.mt50 { height: 30px }
+.place { padding-left: 10px; }
+.anli_newstime li:last-child { display: none }
+h2.t_tilte { font-size: 18px; padding: 15px 0 0; }
+span.t_en { margin: 5px 0 }
+.liucheng { padding-bottom: 20px; }
+.liucheng li p { color: #888; }
+.yiyuan_pic li:last-child a { box-shadow: none; border: none; }
+.news_left section h3 { margin-top: 0 }
+.news_right ul { padding: 0 10px }
+.footer_lxfs_list { width: 100%; text-align: center; }
+.footer_lxfs_list li { float: none; display: inline-block; }
+.footer_logo img { margin: auto; }
+.zixun_list h2 { font-size: 18px !important; margin-bottom: 1rem!important; }
+.zixun_list p { margin-bottom: 1rem!important; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; }
+.zixun_list li { padding-bottom: 1.5rem!important; }
+h1.con_title { font-size: 1.25rem; margin-bottom: .5rem!important;
+margin-top: 1.5rem!important; margin-left: 10px; margin-right: 10px; font-weight: 500; }
+.con_time { margin-top: 1rem!important; margin-left: 10px; margin-bottom: 1.5rem; }
+.content, .guanyu_content { margin: 10px; padding-right: 0; padding-top: 1.5rem; }
+.sidebar, .guanyu_text { float: none }
+.yiyuan_pic ul li img { width: 100% }
+.anli_newstime span, .case_list span { overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; display: -webkit-box; -webkit-line-clamp: 2; }
+}
+
+

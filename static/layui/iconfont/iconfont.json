@@ -6,6 +6,62 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "15282826",
+      "name": "扫描",
+      "font_class": "scan",
+      "unicode": "e6e3",
+      "unicode_decimal": 59107
+    },
+    {
+      "icon_id": "12600897",
+      "name": "rsa",
+      "font_class": "rsa",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "6376411",
+      "name": "Segmentation",
+      "font_class": "segmentation",
+      "unicode": "e733",
+      "unicode_decimal": 59187
+    },
+    {
+      "icon_id": "14465207",
+      "name": "segment",
+      "font_class": "segment",
+      "unicode": "e6a8",
+      "unicode_decimal": 59048
+    },
+    {
+      "icon_id": "954977",
+      "name": "我是医生",
+      "font_class": "medical",
+      "unicode": "e6d4",
+      "unicode_decimal": 59092
+    },
+    {
+      "icon_id": "1761501",
+      "name": "医生",
+      "font_class": "doctor",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "5387709",
+      "name": "检查",
+      "font_class": "check",
+      "unicode": "eb38",
+      "unicode_decimal": 60216
+    },
+    {
+      "icon_id": "399839",
+      "name": "login",
+      "font_class": "login",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
       "icon_id": "1012097",
       "name": "压缩文件",
       "font_class": "compress",
