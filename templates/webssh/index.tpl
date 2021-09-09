@@ -19,18 +19,24 @@
         <div class="layui-card-body layui-form">
             <button class="layui-hide" lay-submit></button>
             <div class="layui-form-item">
+                <label class="layui-form-label">协程:</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="thread" value="10" max="30" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">协程太多容易卡死或出错</div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">快捷:</label>
                 <div class="layui-input-block">
                     <input type="radio" name="action" value="restart-app" title="重启APP" lay-filter="action" checked>
                     <input type="radio" name="action" value="reboot" lay-filter="action" title="服务器重启">
                     <input type="radio" name="action" value="shutdown" lay-filter="action" title="服务器关机">
                     <input type="radio" name="action" value="restart-lnmp" lay-filter="action" title="LNMP重启">
-                    <input type="radio" name="action" value="custom-code" lay-filter="action" title="自定义代码">
+                    <input type="radio" name="action" value="scp" lay-filter="action" title="Scp">
+                    <input type="radio" name="action" value="ssh-code" lay-filter="action" title="自定义代码">
                 </div>
             </div>
-            <div class="layui-form-item layui-hide" id="stdin">
-                <textarea name="stdin" class="layui-textarea" rows="5" placeholder="ls -a"></textarea>
-            </div>
+            <div class="layui-form-item" id="stdin"></div>
         </div>
     </div>
 </script>
@@ -87,6 +93,7 @@
             main = layui.main,
             form = layui.form,
             url = {{.current_uri}};
+        url = url || '';
         //渲染上传配置
         layui.upload.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},
@@ -149,7 +156,7 @@
         });
         //监听工具条
         table.on('tool(table-list)', function (obj) {
-            let data = obj.data, othis = $(this);
+            let data = obj.data;
             switch (obj.event) {
                 case 'del':
                     layer.confirm('确定删除此条配置？', function (index) {
@@ -250,13 +257,21 @@
                             dom.find(".layui-form").append(`<input type="hidden" name="ids" value="` + ids.join() + `">`);
                             form.render();
                             form.on('radio(action)', function (obj) {
-                                if (obj.value === "custom-code") {
-                                    dom.find("#stdin").removeClass("layui-hide");
-                                    dom.find("#stdin>textarea").attr("lay-verify", "required")
-                                } else {
-                                    dom.find("#stdin").addClass("layui-hide");
-                                    dom.find("#stdin>textarea").removeAttr("lay-verify")
+                                switch (obj.value) {
+                                    case "ssh-code":
+                                        dom.find("#stdin").html(`<textarea name="stdin" class="layui-textarea" rows="5" placeholder="cd ~ && ls -a" lay-verify="required"></textarea>`).find("textarea").blur(function () {
+                                            localStorage.setItem("ssh-code", $(this).val());
+                                        }).val(localStorage.getItem("ssh-code") || "");
+                                        break;
+                                    case "scp":
+                                        dom.find("#stdin").html(`<div class="layui-input-block"><input type="text" name="stdin" placeholder="/本地路径 /远程路径" class="layui-input" lay-verify="required"></div>`);
+                                        break;
+                                    default:
+                                        dom.find("#stdin").empty();
                                 }
+                            });
+                            dom.find('[name=thread]').val(localStorage.getItem("ssh-thread") || 10).blur(function () {
+                                localStorage.setItem("ssh-thread", $(this).val());
                             });
                         },
                         area: "600px",
