@@ -1,0 +1,305 @@
+.content-box {
+  position: relative;
+  cursor: default;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+h2{
+    font-size: inherit;
+    font-weight: inherit;
+}
+/* 当前导航页 */
+
+.path-name {
+  height: 54px;
+  line-height: 54px;
+}
+
+.path-name span {
+  width: 84px;
+  height: 19px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.path-name span a {
+  color: rgba(102, 102, 102, 1);
+}
+
+.path-name .active a {
+  /* color: rgba(71, 171, 185, 1) */
+  color: rgba(102, 102, 102, 1);
+  /* color: rgba(102, 102, 102, 1); */
+}
+
+.path-name .active a:hover {
+  color: rgba(71, 171, 185, 1);
+}
+
+/* 列表 */
+
+.strategy_list {
+  flex: 0.8;
+}
+
+.strategy_list ul {
+  list-style: none;
+}
+
+.strategy_item img {
+  width: 260px;
+  height: 150px;
+}
+
+.content_wrapper {
+  display: inline-block;
+  width: calc(100% - 300px);
+  vertical-align: top;
+  margin-left: 10px;
+  /* height: 150px; */
+}
+
+.content_wrapper a {
+  text-decoration: none;
+}
+
+.content_wrapper .title {
+  font-size: 18px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgba(51, 51, 51, 1);
+  opacity: 1;
+}
+
+.content_wrapper .title:hover {
+  /* color: #08c; */
+  color: rgba(71, 171, 185, 1);
+}
+
+.content_wrapper .content {
+  height: 67px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgba(136, 136, 136, 1);
+  opacity: 1;
+  margin-top: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.strategy_item {
+  position: relative;
+}
+
+.position {
+  position: absolute;
+}
+
+.bottom {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  line-height: 24px;
+  color: rgba(153, 153, 153, 1);
+  opacity: 1;
+}
+
+.date {
+  bottom: 0;
+}
+
+.pageview {
+  bottom: 0;
+  right: 40px;
+}
+
+.unerline {
+  height: 1px;
+  background: rgba(234, 234, 234, 1);
+  opacity: 1;
+  margin: 14px 0 20px;
+}
+
+/* 文章列表 */
+
+.article_list {
+  margin-left: 20px;
+  flex: 0.2;
+}
+
+.article_list .img {
+  width: 120px;
+  height: 90px;
+  margin: 11px 14px;
+}
+
+.article_list .article_title {
+  width: 292px;
+  height: 46px;
+  line-height: 46px;
+  font-size: 18px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  opacity: 1;
+  background: rgba(238, 238, 238, 1);
+  color: black;
+  padding: 0 14px;
+}
+
+.article_list .hot_title {
+  background: rgba(71, 171, 185, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.article_list .hot_title a {
+  color: rgba(255, 255, 255, 1);
+}
+
+.article_list .article_title a {
+  display: inline-block;
+  font-size: 12px;
+  font-family: SimSun;
+  font-weight: 400;
+  margin-left: 180px;
+  opacity: 1;
+  float: right;
+}
+
+.article_title a img {
+  margin-bottom: -3px;
+}
+
+.article_list a {
+  font-size: 12px;
+  font-family: SimSun;
+  font-weight: 400;
+  text-decoration: none;
+  color: rgba(51, 51, 51, 1);
+  opacity: 1;
+}
+
+.article_list .title-a {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  opacity: 1;
+  white-space: nowrap;
+}
+
+.article_title a:hover {
+  color: rgba(71, 171, 185, 1);
+}
+
+.hot_title a:hover {
+  color: white;
+}
+
+.article_list .title-a:hover {
+  color: rgba(71, 171, 185, 1);
+}
+
+.shenglve {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float: right;
+  margin-right: 15px;
+  margin-top: 10px;
+  width: 154px;
+}
+
+.unLine {
+  height: 1px;
+  background: rgba(230, 230, 230, 1);
+}
+
+.articent_span a:hover {
+  color: rgba(71, 171, 185, 1);
+}
+
+.articent_span {
+  height: 34px;
+  line-height: 34px;
+  padding: 0 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.articent_span a {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+}
+
+.articent-span a {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+}
+
+.list_box {
+  display: flex;
+}
+
+.article_box {
+  border: 1px solid rgba(230, 230, 230, 1);
+  opacity: 1;
+  margin-bottom: 20px;
+}
+
+/* 分页 */
+
+.page_box ul {
+  list-style: none;
+}
+
+.page_box li {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid rgba(234, 234, 234, 1);
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  line-height: 19px;
+  color: rgba(153, 153, 153, 1);
+  opacity: 1;
+  margin-right: 10px;
+}
+
+.page_box ul a {
+  text-decoration: none;
+  color: rgba(153, 153, 153, 1);
+}
+
+.page_box .active {
+  color: white;
+  background: rgba(71, 171, 185, 1);
+}
+
+.page_box .active a {
+  color: white;
+}
+
+.text {
+  font-size: 12px;
+  font-family: SimSun;
+  font-weight: 400;
+  line-height: 18px;
+  color: rgba(136, 136, 136, 1);
+  opacity: 1;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

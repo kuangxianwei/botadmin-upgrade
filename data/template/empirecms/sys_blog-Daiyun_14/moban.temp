@@ -1,0 +1,2397 @@
+默认模板组 ,-- 7.5,UTF-8<!---ecms.temp--->1<!---ecms.field--->子栏目导航标签模板<!---ecms.field--->1<!---ecms.field--->| [!--empirenews.listtemp--]<!--list.var1-->[!--empirenews.listtemp--]<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><a href="[!--classurl--]">[!--classname--]</a> | <!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->2<!---ecms.field--->标题列表模板<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--]<!--list.var1-->[!--empirenews.listtemp--]<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><li><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a></li><!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->标题+简介<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--]<!--list.var1-->[!--empirenews.listtemp--]<!---ecms.field--->m-d<!---ecms.field---><li><p><strong><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a></strong>[!--smalltext--] </p></li><!---ecms.field--->60<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->4<!---ecms.field--->头条相关<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--]<!--list.var1-->　<!--list.var2-->[!--empirenews.listtemp--]<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><a href="[!--titleurl--]" title="[!--oldtitle--]">·[!--title--]</a><!---ecms.field--->0<!---ecms.field--->2<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->5<!---ecms.field--->图片+标题+简介<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--]
+<!--list.var1-->
+[!--empirenews.listtemp--]<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><table width="94%" border="0" align="center" cellpadding="0" cellspacing="6" class="picText">
+    <tr valign="top">
+        <td><a href="[!--titleurl--]" target="_blank"><img width="70" height="78" src="[!--titlepic--]" alt="[!--oldtitle--]" /></a></td>
+        <td><strong><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a></strong>[!--smalltext--]</td>
+    </tr>
+</table><!---ecms.field--->56<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->7<!---ecms.field--->循环子栏目标签<!---ecms.field--->1<!---ecms.field---><table width="100%" border="0" cellspacing="0" cellpadding="0" class="title">
+    <tr>
+        <td><strong>[!--the.classname--]</strong></td>
+        <td align="right"><a href="[!--the.classurl--]">更多&gt;&gt;</a></td>
+    </tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="box">
+    <tr>
+        <td><ul>
+            [!--empirenews.listtemp--]
+            <!--list.var1-->
+            [!--empirenews.listtemp--]
+        </ul>
+        </td>
+    </tr>
+</table><!---ecms.field--->Y-m-d<!---ecms.field---><li><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a> <span>[!--newstime--]</span></li><!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->8<!---ecms.field--->头条标题<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--]
+<!--list.var1-->
+[!--empirenews.listtemp--]<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><strong><a href="[!--titleurl--]">[!--title--]</a></strong>
+<p>　　[!--smalltext--]</p><!---ecms.field--->150<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->10<!---ecms.field--->排行列表<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--]<!--list.var1-->[!--empirenews.listtemp--]<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><li class="no[!--no.num--]"><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a></li><!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->11<!---ecms.field--->图片集分页模板<!---ecms.field--->1<!---ecms.field---><script type="text/javascript">
+    var photosr=new Array();
+    [!--photor--]
+    function GotoPhPage(page){
+        page=parseInt(page);
+        document.getElementById("showpagephoto").innerHTML=photosr[page];
+        document.ViewPhotoForm.thisphpage.value=page;
+        document.ViewPhotoForm.tothephpage.options[page-1].selected=true;
+    }
+    //上一页
+    function PriPhPage(){
+        var thispage=parseInt(document.ViewPhotoForm.thisphpage.value);
+        var num=photosr.length;
+        if(thispage<=1)
+        {
+            return false;
+        }
+        GotoPhPage(thispage-1);
+    }
+    //下一页
+    function NextPhPage(){
+        var thispage=parseInt(document.ViewPhotoForm.thisphpage.value);
+        var num=photosr.length;
+        if(thispage>=num-1)
+        {
+            return false;
+        }
+        GotoPhPage(thispage+1);
+    }
+    function PhAutoPlay(){
+        var sec=parseInt(document.ViewPhotoForm.autoplaysec.value);
+        var i;
+        var num=photosr.length;
+        for(i=1;i<=sec;i++)
+        {
+            if(document.ViewPhotoForm.autophstop.value==0)
+            {
+                window.setTimeout("PhAutoPlayExe("+i+","+sec+")",i*1000);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    function PhAutoPlayExe(num,sec){
+        var t;
+        if(document.ViewPhotoForm.autophstop.value==1)
+        {
+            return "";
+        }
+        if(num==sec)
+        {
+            t=NextPhPage();
+            if(t==false)
+            {
+                GotoPhPage(1);
+            }
+            PhAutoPlay();
+        }
+    }
+</script>
+
+<table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+    <tr>
+        <td height="25" id="showpagephoto" align="center">
+            <!--list.var1-->
+        </td>
+    </tr>
+    <form name="ViewPhotoForm" id="ViewPhotoForm" method="POST" action="">
+        <tr>
+            <td height="25"> <div align="center">
+                <input type="button" name="Submit" value="上一页" onclick="PriPhPage();">
+                &nbsp;&nbsp;
+                <select name="tothephpage" onchange="GotoPhPage(this.options[this.selectedIndex].value)">
+                    [!--select--]
+                </select>
+                &nbsp;&nbsp;
+                <input type="button" name="Submit2" value="下一页" onclick="NextPhPage();">
+                <input name="thisphpage" type="hidden" value="1">
+            </div></td>
+        </tr>
+        <tr>
+            <td height="25"><div align="center">
+                <select name="autoplaysec">
+                    <option value="1">1秒</option>
+                    <option value="2">2秒</option>
+                    <option value="3" selected>3秒</option>
+                    <option value="4">4秒</option>
+                    <option value="5">5秒</option>
+                    <option value="6">6秒</option>
+                    <option value="7">7秒</option>
+                    <option value="8">8秒</option>
+                    <option value="9">9秒</option>
+                    <option value="10">10秒</option>
+                </select>
+                <input name="autophstop" type="hidden" value="0">
+                <input type="button" name="Submit3" value="自动播放" onclick="document.ViewPhotoForm.autophstop.value=0;PhAutoPlay();">
+                &nbsp;<input type="button" name="Submit32" value="停止播放" onclick="document.ViewPhotoForm.autophstop.value=1;">
+            </div></td>
+        </tr>
+    </form>
+</table>
+<table width="500" border="0" align="center" cellpadding="3" cellspacing="1">
+    <tr><td>
+        <marquee  behavior=alternate ONMOUSEOUT="this.scrollDelay=1" ONMOUSEOVER="this.scrollDelay=600"  scrollamount=1  SCROLLDELAY=1  border=0  scrolldelay=70  width="100%"  align=middle>
+            [!--smalldh--]
+        </marquee>
+    </td></tr></table><!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><a href='#ecms' onclick='NextPhPage();' title='点击进入下一张图片'><img src='[!--picurl--]' alt='[!--picname--]' border=1 class='photoresize'></a><br><span style='line-height=18pt'>[!--picname--]</span><!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->12<!---ecms.field--->栏目tabs导航<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--]<!--list.var1-->[!--empirenews.listtemp--]<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><li id="tabnav_btn_[!--no--]" onmouseover="tabit(this)"><a href="[!--classurl--]">[!--classname--]</a></li><!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->13<!---ecms.field--->评论列表<!---ecms.field--->1<!---ecms.field--->[!--empirenews.listtemp--]
+<!--list.var1-->
+<table width="100%" cellspacing="1" cellpadding="3" border="0">
+    <tbody><tr>
+        <td background="[!--news.url--]skin/custom/images/plhrbg.gif"></td>
+    </tr>
+    </tbody></table>
+[!--empirenews.listtemp--]<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><table style="word-break:break-all; word-wrap:break-all;line-height: 32px; padding: 9px 9px 1px; margin-top: 22px; border-radius: 5px; border: 1px dotted rgb(221, 221, 221); font-size: 14px;border-collapse:separate;word-wrap:break-word;" width="98%" cellspacing="1" cellpadding="3" border="0" align="center">
+    <tbody><tr>
+        <td height="30"><span class="name1"> 
+
+            <font size="4" color="#b1b1b1"><img src="[!--userpic--]" border="0"> [!--username--]</font>  <font size="2" color="#d1d1d1">[!--pltime--]</font>
+                         </span></td>
+        <!--<td><div align="right"><font size="6" color="#e9e9e9"> 
+             </font> </div></td>-->
+    </tr>
+    <tr valign="top">
+        <td colspan="2" class="text" height="50">[!--pltext--]</td>
+    </tr>
+    <tr>
+        <td colspan="2"><div class="re" align="right"><a href="#tosaypl" onclick="javascript:document.saypl.saytext.value='[quote][!--plid--][/quote]';document.saypl.repid.value='[!--plid--]';document.saypl.saytext.focus();">回复</a>&nbsp;
+            <a href="JavaScript:makeRequest('[!--news.url--]e/pl/doaction.php?enews=DoForPl&plid=[!--plid--]&classid=[!--classid--]&id=[!--id--]&dopl=1&doajax=1&ajaxarea=zcpldiv[!--plid--]','EchoReturnedText','GET','');">支持</a>[<span id="zcpldiv[!--plid--]">[!--zcnum--]</span>]&nbsp;
+            <a href="JavaScript:makeRequest('[!--news.url--]e/pl/doaction.php?enews=DoForPl&plid=[!--plid--]&classid=[!--classid--]&id=[!--id--]&dopl=0&doajax=1&ajaxarea=fdpldiv[!--plid--]','EchoReturnedText','GET','');">反对</a>[<span id="fdpldiv[!--plid--]">[!--fdnum--]</span>]</div></td>
+    </tr>
+    </tbody></table>
+
+<!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认js模板<!---ecms.field--->[!--empirenews.listtemp--]<li><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a></li>[!--empirenews.listtemp--]<!---ecms.field--->0<!---ecms.field--->1<!---ecms.field--->m-d<!---ecms.field--->1<!---ecms.field--->0<!---ecms.field--->32<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻列表模板<!---ecms.field---><?php
+$title='';
+if (isset($_GET['tagname'])) {
+    $url = abs_url("/tag/{$_GET['tagname']}");
+}elseif (!empty($class_r[$navclassid][bname])){
+    $title = $class_r[$navclassid][bname] . '-';
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}else{
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}?><!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <title><?=$title?>[!--pagetitle--]-<?=$public_r[add_title_suffix]?></title>
+  <meta name="keywords" content="[!--pagekey--]">
+  <meta name="description" content="[!--pagedes--]">
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="[!--news.url--]skin/custom/images/favicon.ico">
+  <link rel="canonical" href="[!--news.url--]"><?=$public_r[add_ad]?>
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/base.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/animate.min.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/owl.carousel.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/responsive.css" />
+  <script src="[!--news.url--]skin/custom/js/jquery-1.11.0.min.js"></script>
+  <!--<script src="[!--news.url--]skin/custom/js/wow.min_1.js"></script>-->
+  <script src="[!--news.url--]skin/custom/js/owl.carousel.min.js"></script>
+  <script src="[!--news.url--]skin/custom/js/page.js"></script>
+</head>
+<body>
+<style>
+  @media screen and (max-width: 1600px){
+    .dh{display: none;}
+  }
+</style>
+[!--temp.header--]
+<!--header-->
+<div class="page">
+  <div class="rowFluid">
+    <div class="span12">
+      <div class="main">
+        <div class="z_banner support_z_banner">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <h3 class="z_banner_title"><?=$bqsr['classname']?></h3>
+                <div class="z_banner_input">
+                  <form  name="formsearch" action="#">
+                    <input type="hidden" name="kwtype" value="0" />
+                    <input type="text" name="q" id="search-keyword" value="" placeholder="<?=$public_r[sitename]?>" />
+                    <button type="submit" class="search-submit"> <img src="[!--news.url--]skin/custom/images/search.png" alt="查询"></button>
+                  </form>
+                </div>
+              </div>
+              <ul class="platform_advantage_bg_z">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 15px;font-size: 16px;margin-left: 15px;">您的位置:[!--newsnav--]>列表</a></p>
+        <div class="support_type">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="support_type_content">
+                  [e:loop={"select * from {$dbtbpre}enewstags order by rand() desc limit 5",0,24,0}]
+                  <div class="span2 col-xs-4"> <a href="<?= $public_r['newsurl'] . 'tag/' . $bqr['tagname'] ?>" target="_blank" title="<?= $bqr['tagname'] ?>" class="support_type_list normal"><?= esub($bqr['tagname'], 8) ?></a></div>
+                  [/e:loop]
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="technical_support">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="technical_support_content">
+                  <!--侧边栏开始-->
+                  <!--侧边栏开始-->
+                  <div class="span3 col-sm-12 wow fadeInLeft">
+                    <div class="technical_support_list">
+                      <div class="technical_support_type">
+                          <div class="title">试管百科分类<span><img src="[!--news.url--]skin/custom/images/page_right1.png" alt="试管百科" /></span></div>
+                        <ul id="left_menu">
+                          [e:loop={0,10,3,0}]
+                          <li class=""> <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=esub($bqr[title],40)?>...</a> </li>
+                          [/e:loop]
+                        </ul>
+                      </div>
+                      <div class="technical_support_type">
+                        <div class="title">三代试管攻略<span><img src="[!--news.url--]skin/custom/images/page_right1.png" alt="三代试管攻略" /></span></div>
+                        <ul id="left_menu">
+                          [e:loop={0,10,5,0}]
+                          <li class=""> <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=esub($bqr[title],40)?>...</a> </li>
+                          [/e:loop]
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!--侧边栏结束-->
+                  <!--侧边栏结束-->
+                  <div class="span9 col-sm-12 wow fadeInRight">
+                    <div class="technical_support_list">
+                      <div class="technical_support_box">
+                        <div class="title">[!--class.name--]</div>
+                        <ul>
+                          [!--empirenews.listtemp--]<!--list.var1--> [!--empirenews.listtemp--]
+                        </ul>
+                        <script type="text/javascript" src="[!--news.url--]skin/custom/js/mvcpager.js"></script>
+                      </div>
+                      <div class="kzf-mod-new-btn-more"><ul>[!--show.listpage--]</ul></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        [!--temp.footer--]
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field---><li>
+  <a href="[!--titleurl--]" title="[!--oldtitle--]" target="_blank">
+    <div class="text">[!--oldtitle--]...
+      <div style="float:right;">[!--newstime--]</div>
+    </div>
+  </a>
+</li><!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认新闻内容模板<!---ecms.field--->0<!---ecms.field---><?php
+$title='';
+if (isset($_GET['tagname'])) {
+    $url = abs_url("/tag/{$_GET['tagname']}");
+}elseif (!empty($class_r[$navclassid][bname])){
+    $title = $class_r[$navclassid][bname] . '-';
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}else{
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}?><!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <title>[!--pagetitle--]-<?=$public_r[add_title_suffix]?></title>
+  <meta name="keywords" content="[!--pagekey--]">
+  <meta name="description" content="[!--pagedes--]">
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="[!--news.url--]skin/custom/images/favicon.ico">
+  <link rel="canonical" href="[!--titleurl--]"><?=$public_r[add_ad]?>
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/base.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/animate.min.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/owl.carousel.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/responsive.css" />
+  <script src="[!--news.url--]skin/custom/js/jquery-1.11.0.min.js"></script>
+  <!--<script src="[!--news.url--]skin/custom/js/wow.min_1.js"></script>-->
+  <script src="[!--news.url--]skin/custom/js/owl.carousel.min.js"></script>
+  <script src="[!--news.url--]skin/custom/js/page.js"></script>
+</head>
+<body>
+<style>
+  @media screen and (max-width: 1600px){
+    .dh{display: none;}
+  }
+</style>
+[!--temp.header--]
+<!--header-->
+<div class="page">
+  <div class="rowFluid">
+    <div class="span12">
+      <div class="main">
+        <div class="z_banner support_z_banner">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <h3 class="z_banner_title"><?=$bqsr['classname']?></h3>
+                <div class="z_banner_input">
+                  <form  name="formsearch" action="#">
+                    <input type="hidden" name="kwtype" value="0" />
+                    <input type="text" name="q" id="search-keyword" value="" placeholder="<?=$public_r[sitename]?>" />
+                    <button type="submit" class="search-submit"> <img src="[!--news.url--]skin/custom/images/search.png" alt="查询"></button>
+                  </form>
+                </div>
+              </div>
+              <ul class="platform_advantage_bg_z">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 15px;font-size: 16px;margin-left: 15px;">您的位置:[!--newsnav--]>内容</a></p>
+        <div class="support_type">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="support_type_content">
+                  [e:loop={"select * from {$dbtbpre}enewstags order by rand() desc limit 5",0,24,0}]
+                  <div class="span2 col-xs-4"> <a href="<?= $public_r['newsurl'] . 'tag/' . $bqr['tagname'] ?>" target="_blank" title="<?= $bqr['tagname'] ?>" class="support_type_list normal"><?= esub($bqr['tagname'], 8) ?></a></div>
+                  [/e:loop]
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="technical_support">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="technical_support_content">
+                  <!--侧边栏开始-->
+                  <!--侧边栏开始-->
+                  <div class="span3 col-sm-12 wow fadeInLeft">
+                    <div class="technical_support_list">
+                      <div class="technical_support_type">
+                          <div class="title">试管百科分类<span><img src="[!--news.url--]skin/custom/images/page_right1.png" alt="试管百科" /></span></div>
+                        <ul id="left_menu">
+                          [e:loop={0,10,3,0}]
+                          <li class=""> <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=esub($bqr[title],40)?>...</a> </li>
+                          [/e:loop]
+                        </ul>
+                      </div>
+                      <div class="technical_support_type">
+                        <div class="title">三代试管攻略<span><img src="[!--news.url--]skin/custom/images/page_right1.png" alt="三代试管攻略" /></span></div>
+                        <ul id="left_menu">
+                          [e:loop={0,10,5,0}]
+                          <li class=""> <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=esub($bqr[title],40)?>...</a> </li>
+                          [/e:loop]
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!--侧边栏结束-->
+                  <!--侧边栏结束-->
+                  <div class="span9 col-sm-12 wow fadeInRight">
+                    <div class="technical_support_list">
+                      <div class="technical_support_box_z">
+                        <div class="technical_support_box_z_header">
+                          <div class="title"><h1>[!--title--]</h1></div>
+                          <ul>
+                            <li>作者:<?=article_source()?></li>
+                            <li>发表时间:[!--newstime--]</li>
+                            <li>阅读数:[!--onclick--]</li>
+                          </ul>
+                        </div>
+                        <div class="technical_support_box_z_info_box">
+                          [!--newstext--]
+                        </div>
+                        <div>
+                          <div>上一篇:[!--info.pre--]</div>
+                          <div>下一篇:[!--info.next--]</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        [!--temp.footer--]
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field---><!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <title>[!--pagetitle--]</title>
+  <meta name="keywords" content="[!--pagekey--]">
+  <meta name="description" content="[!--pagedes--]">
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="[!--news.url--]skin/custom/images/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/base.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/animate.min.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/owl.carousel.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/responsive.css" />
+  <link rel="canonical" href="[!--news.url--]"><?=$public_r[add_ad]?>
+  <script src="[!--news.url--]skin/custom/js/jquery-1.11.0.min.js"></script>
+  <!--<script src="[!--news.url--]skin/custom/js/wow.min_1.js"></script>-->
+  <script src="[!--news.url--]skin/custom/js/owl.carousel.min.js"></script>
+  <script src="[!--news.url--]skin/custom/js/page.js"></script>
+  <style>
+    @media screen and (max-width: 1600px){
+      .dh{display: none;}
+    }
+  </style>
+</head>
+<body>
+<!--head    开始-->
+[!--temp.header--]
+<div class="page">
+  <div class="rowFluid">
+    <div class="span12">
+      <div class="main">
+        <div class="banner">
+          <a href="#" rel="nofollow"  target="_blank"><div class="mszx"></div></a>
+        </div>
+        <div class="index_product">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="all_title1 wow fadeInDown">
+                  <h3 class="title"><?=$public_r[add_title_suffix]?>的服务</h3>
+                  <div class="text">OUR SERVICES</div>
+                </div>
+                <div class="rowFluid">
+                  <div class="index_product_content">
+                    <div class="span4 col-md-6 col-xs-12 wow fadeInDown">
+                      <a  class="index_product_list" title="第一,二,三代试管婴儿">
+                        <div class="list_backimg list_backimg1">
+                          <div class="list_img"> <img src="[!--news.url--]skin/custom/images/045.png" alt="第一,二,三代试管婴儿" /> </div>
+                          <div class="list_txt">
+                            <div class="list_title">第一,二,三代试管婴儿</div>
+                            <div class="list_text">THIRD GENERATION TEST TUBE BABY</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="span4 col-md-6 col-xs-12 wow flipInX">
+                      <a  class="index_product_list" title="试管助孕,双胞胎,龙凤胎">
+                        <div class="list_backimg list_backimg2">
+                          <div class="list_img"> <img src="[!--news.url--]skin/custom/images/046.png" alt="试管生男生女,双胞胎,龙凤胎" /> </div>
+                          <div class="list_txt">
+                            <div class="list_title">三代试管助孕,双胞胎,龙凤胎</div>
+                            <div class="list_text">TWINS IN VITRO</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="span4 col-md-6 col-xs-12 wow fadeInRight">
+                      <a  class="index_product_list" title="解决男,女不孕不育">
+                        <div class="list_backimg list_backimg3">
+                          <div class="list_img"> <img src="[!--news.url--]skin/custom/images/047.png" alt="解决男,女不孕不育" /> </div>
+                          <div class="list_txt">
+                            <div class="list_title">解决男,女不孕不育</div>
+                            <div class="list_text">SOLVING INFERTILITY</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="span4 col-md-6 col-xs-12 wow fadeInDown">
+                      <a  class="index_product_list" title="促排取卵取卵，试管移植">
+                        <div class="list_backimg list_backimg4">
+                          <div class="list_img"> <img src="[!--news.url--]skin/custom/images/048.png" alt="促排取卵取卵，试管移植" /> </div>
+                          <div class="list_txt">
+                            <div class="list_title">促排取卵取卵，试管移植</div>
+                            <div class="list_text">OOCYTE RETRIEVAL</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="span4 col-md-6 col-xs-12 wow flipInX">
+                      <a  class="index_product_list" title="孕前遗传基因检测">
+                        <div class="list_backimg list_backimg5">
+                          <div class="list_img"> <img src="[!--news.url--]skin/custom/images/049.png" alt="孕前遗传基因检测" /> </div>
+                          <div class="list_txt">
+                            <div class="list_title">孕前遗传基因检测</div>
+                            <div class="list_text">PRENATAL GENETIC TESTING</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="span4 col-md-6 col-xs-12 wow fadeInRight">
+                      <a  class="index_product_list" title="<?=$public_r[add_city]?>助孕">
+                        <div class="list_backimg list_backimg6">
+                          <div class="list_img"> <img src="[!--news.url--]skin/custom/images/050.png" alt="<?=$public_r[add_city]?>助孕" /> </div>
+                          <div class="list_txt">
+                            <div class="list_title"><?=$public_r[add_city]?>助孕直营</div>
+                            <div class="list_text">AMERICAN SURROGACY</div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="platform_advantage">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="all_title2 wow fadeInUp">
+                  <h3 class="title"><?=$public_r[add_title_suffix]?>的优势</h3>
+                  <div class="text">PLATFORM ADVANTAGE</div>
+                </div>
+                <div class="rowFluid">
+                  <div class="platform_advantage_content">
+                    <div class="span4 col-xm-6 col-xs-12 wow bounceInLeft">
+                      <div class="platform_advantage_list">
+                        <div class="platform_advantage_img"> <img src="[!--news.url--]skin/custom/images/008.png" alt="专业医学顾问指导" /> </div>
+                        <div class="platform_advantage_brief">
+                          <div class="brief_title">专业医学顾问指导</div>
+                          <div class="brief_text">医学顾问24小时待命<br>有问题，随时问！</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span4 col-xm-6 col-xs-12 wow bounceIn">
+                      <div class="platform_advantage_list">
+                        <div class="platform_advantage_img"> <img src="[!--news.url--]skin/custom/images/009.png" alt="私人定制独家授权" /> </div>
+                        <div class="platform_advantage_brief">
+                          <div class="brief_title">私人定制独家授权</div>
+                          <div class="brief_text">可根据患者情况定制<br>治疗方案医院独家授权</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span4 col-xm-6 col-xs-12 wow bounceInRight">
+                      <div class="platform_advantage_list">
+                        <div class="platform_advantage_img"> <img src="[!--news.url--]skin/custom/images/010.png" alt="医疗健康拓建者" /> </div>
+                        <div class="platform_advantage_brief">
+                          <div class="brief_title">医疗健康拓建者</div>
+                          <div class="brief_text">与医疗水平名列前茅的<br />医院集团建立深度合作关系</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span4 col-xm-6 col-xs-12 wow bounceInLeft">
+                      <div class="platform_advantage_list">
+                        <div class="platform_advantage_img"> <img src="[!--news.url--]skin/custom/images/011.png" alt="开设绿色贵宾通道" /> </div>
+                        <div class="platform_advantage_brief">
+                          <div class="brief_title">开设绿色贵宾通道</div>
+                          <div class="brief_text">为中国患者提供全面<br />权威、可靠的试管医疗旅程</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span4 col-xm-6 col-xs-12 wow bounceIn">
+                      <div class="platform_advantage_list">
+                        <div class="platform_advantage_img"> <img src="[!--news.url--]skin/custom/images/012.png" alt="医疗一站式服务" /> </div>
+                        <div class="platform_advantage_brief">
+                          <div class="brief_title">医疗一站式服务</div>
+                          <div class="brief_text">一站式医疗旅游服务平<br />台专家跨境远程会诊等</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span4 col-xm-6 col-xs-12 wow bounceInRight">
+                      <div class="platform_advantage_list">
+                        <div class="platform_advantage_img"> <img src="[!--news.url--]skin/custom/images/013.png" alt="质优的海外医疗服务" /> </div>
+                        <div class="platform_advantage_brief">
+                          <div class="brief_title">质优的海外医疗服务</div>
+                          <div class="brief_text">为您找到最好的医生和<br />最佳的试管婴儿方案</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ul class="platform_advantage_bg">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="know_more wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+          <div class="know_more_text">带您了解更多试管婴儿知识</div>
+          [e:loop={"select * from {$dbtbpre}enewstags order by rand() desc limit 40",0,24,0}]
+          <a href="<?= $public_r['newsurl'] . 'tag/' . $bqr['tagname'] ?>" target="_blank"
+             title="<?= $bqr['tagname'] ?>"><?= esub($bqr['tagname'], 4) ?></a>
+          [/e:loop]
+        </div>
+
+        <div class="advantage_project wow fadeInUp">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="all_title2">
+                  <h3 class="title"><?=$public_r[add_city]?>试管适合人群</h3>
+                  <div class="text">THE TEST TUBE IS SUITABLE FOR PEOPLE</div>
+                </div>
+                <div class="advantage_project_content">
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/084.png" alt="高龄二胎三胎" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">高龄二胎三胎</div>
+                          <div class="text">年纪大了,想生二胎三胎的人群</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/082.png" alt="多囊卵巢" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">多囊卵巢</div>
+                          <div class="text">多囊卵巢综合征是生育年龄妇女常见的一种复杂的内分泌及代谢异常所致的疾病</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/083.png" alt="卵巢早衰" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">卵巢早衰</div>
+                          <div class="text">卵巢早衰（POF）是指卵巢功能衰竭所导致的40岁之前即闭经的现象。</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/081.png" alt="子宫疾病" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">子宫疾病</div>
+                          <div class="text">子宫疾病是指子宫区域发生的各种病变，如炎症、损伤、肿瘤以及癌前病变等</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/089.png" alt="少精弱精" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">少精弱精</div>
+                          <div class="text">弱精症是指精子运动力差甚至无活动能力。在男性中，少精弱精症是造成男性不育或生育力下降的主要原因之一。</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/086.png" alt="卵巢疾病" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">卵巢疾病</div>
+                          <div class="text">常见的卵巢疾病，主要有卵巢肿瘤，还有卵巢炎症</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/088.png" alt="冻精冻卵" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">冻精冻卵</div>
+                          <div class="text">冻卵就是将卵子冷冻保存起来，这是一个冷冻过程</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/087.png" alt="输卵管堵塞" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">输卵管堵塞</div>
+                          <div class="text">输卵管堵塞主要导致女性不孕，占女性不孕的25%至35%</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/085.png" alt="染色体异常" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">染色体异常</div>
+                          <div class="text">染色体是组成细胞核的基本物质，是基因的载体。</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/090.png" alt="免疫性不孕" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">免疫性不孕</div>
+                          <div class="text">免疫性不孕是指因免疫性因素而导致的不孕。免疫性不孕症约占不孕症患者中的10-30%</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/091.png" alt="遗传病筛查" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">试管助孕，生男生女</div>
+                          <div class="text">试管助孕，生男生女，生双胞胎，满足孕妈需求。</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="span3 col-xm-6 col-xs-12">
+                    <div class="advantage_project_list">
+                      <div class="span3">
+                        <div class="advantage_project_list_img"><img src="[!--news.url--]skin/custom/images/092.png" alt="试管多次失败" /></div>
+                      </div>
+                      <div class="span9">
+                        <div class="advantage_project_list_brief">
+                          <div class="title">试管多次失败</div>
+                          <div class="text">根据你的情况，引起试管婴儿失败的原因很多，如子宫内膜问题，黄体酮缺乏等</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="partners">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="all_title1 wow fadeInUp">
+                  <h3 class="title"><?=$public_r[add_city]?>试管婴儿医院机构</h3>
+                  <div class="text">TEST TUBE HOSPITAL</div>
+                </div>
+                <div class="rowFluid">
+                  <div class="partners_content">
+                    <a href="[!--news.url--]" class="partners_content_list wow fadeInUp" data-wow-delay="0.2s" target="_blank"> <img src="[!--news.url--]skin/custom/images/026.png" alt="<?=$public_r[add_city]?>试管医院" /> </a>
+                    <a href="[!--news.url--]" class="partners_content_list wow fadeInUp" data-wow-delay="0.4s" target="_blank"> <img src="[!--news.url--]skin/custom/images/027.png" alt="第一代试管医院" /> </a>
+                    <a href="[!--news.url--]" class="partners_content_list wow fadeInUp" data-wow-delay="0.6s" target="_blank"> <img src="[!--news.url--]skin/custom/images/028_1.png" alt="第二代试管医院" /> </a>
+                    <a href="[!--news.url--]" class="partners_content_list wow fadeInUp" data-wow-delay="0.8s" target="_blank"> <img src="[!--news.url--]skin/custom/images/029.png" alt="第三代试管医院" /> </a>
+                    <a href="[!--news.url--]" class="partners_content_list wow fadeInUp" data-wow-delay="1s" target="_blank"> <img src="[!--news.url--]skin/custom/images/030.png" alt="第四代试管医院" /> </a>
+                    <a href="[!--news.url--]" class="partners_content_list wow fadeInUp" data-wow-delay="1s" target="_blank"> <img src="[!--news.url--]skin/custom/images/026.png" alt="私立试管医院" /> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="join_in">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="join_in_title wow fadeInUp">选择<?=$public_r[add_title_suffix]?>，<span>大型跨国医疗集团</span></div>
+                <div class="join_in_text wow fadeInLeft">了解前沿试管学术动态，<?=$public_r[add_title_suffix]?>海外医疗专家1V1权威诊断、答疑解惑、助力成功孕育新生。</div>
+                <a href="[!--news.url--]" rel="nofollow" class="all_button join_in_button wow fadeInUp" target="_blank">三代试管包成功</a> </div>
+            </div>
+          </div>
+        </div>
+        <div class="news_center">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="all_title1 wow fadeInUp">
+                  <h3 class="title">试管婴儿百科知识</h3>
+                  <div class="text">TEST TUBE ENCYCLOPEDIA</div>
+                </div>
+                <div class="rowFluid">
+                  <div class="news_center_content">
+                    <div class="span4 col-sm-12 wow fadeInDown" data-wow-delay="1.2s">
+                      <div class="news_center_list">
+                        <div class="news_center_list_img"><a href="[!--news.url--]" target="_blank"><img src="[!--news.url--]skin/custom/images/034.jpg" alt="试管婴儿攻略" /> </a></div>
+                        <div class="news_center_list_title"><a href="[!--news.url--]" target="_blank">试管婴儿攻略</a></div>
+                        <ul>
+                          [e:loop={0,10,3,0}]
+                          <li class="span12"> <a href="<?=$bqsr['titleurl']?>" class="span8" title="<?=$bqr['title']?>" target="_blank"><i class="fa fa-angle-right"></i><?=esub($bqr[title],40)?>...</a>
+                            <div style="font-size: 12px; color: #ccc; float: right; margin-top: 3px;"><?=date("Y-m-d H:i:s",$bqr[newstime])?></div>
+                          </li>
+                          [/e:loop]
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span4 col-sm-12 wow fadeInUp" data-wow-delay="0.7s">
+                      <div class="news_center_list">
+                        <div class="news_center_list_img"><a href="[!--news.url--]" target="_blank"><img src="[!--news.url--]skin/custom/images/035.jpg" alt="试管婴儿问答" /> </a></div>
+                        <div class="news_center_list_title"><a href="[!--news.url--]" target="_blank">试管婴儿问答</a></div>
+                        <ul>
+                          [e:loop={0,10,4,0}]
+                          <li class="span12"> <a href="<?=$bqsr['titleurl']?>" class="span8" title="<?=$bqr['title']?>" target="_blank"><i class="fa fa-angle-right"></i><?=esub($bqr[title],40)?>...</a>
+                            <div style="font-size: 12px; color: #ccc; float: right; margin-top: 3px;"><?=date("Y-m-d H:i:s",$bqr[newstime])?></div>
+                          </li>
+                          [/e:loop]
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="span4 col-sm-12 wow fadeInDown" data-wow-delay="1.3s">
+                      <div class="news_center_list">
+                        <div class="news_center_list_img"><a href="[!--news.url--]" target="_blank"> <img src="[!--news.url--]skin/custom/images/036.jpg" alt="第三代试管"/></a> </div>
+                        <div class="news_center_list_title"><a href="[!--news.url--]" target="_blank">第三代试管</a></div>
+                        <ul>
+                          [e:loop={0,10,5,0}]
+                          <li class="span12"> <a href="<?=$bqsr['titleurl']?>" class="span8" title="<?=$bqr['title']?>" target="_blank"><i class="fa fa-angle-right"></i><?=esub($bqr[title],40)?>...</a>
+                            <div style="font-size: 12px; color: #ccc; float: right; margin-top: 3px;"><?=date("Y-m-d H:i:s",$bqr[newstime])?></div>
+                          </li>
+                          [/e:loop]
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script src="[!--news.url--]skin/custom/js/effects.js"></script>
+        <!--foot底部开始-->
+        [!--temp.footer--]
+        <!--foot底部结束-->
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<!---ecms.field---><!---ecms.field---><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>[!--pagetitle--] -<?=$public_r[add_title_suffix]?></title>
+    <meta name="keywords" content="[!--pagekey--]" />
+    <meta name="description" content="[!--pagedes--]" />
+    <link href="[!--news.url--]skin/default/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="[!--news.url--]skin/default/js/tabs.js"></script>
+</head>
+<body class="listpage">
+[!--temp.dtheader--]
+<table width="100%" border="0" cellspacing="10" cellpadding="0">
+    <tr valign="top">
+        <td class="list_content"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="position">
+            <tr>
+                <td>现在的位置：[!--newsnav--]
+                </td>
+            </tr>
+        </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box">
+                <tr>
+                    <td width="300" valign="top">
+                        <?php
+		  $lguserid=intval(getcvar('mluserid'));//登陆用户ID
+		  $lgusername=RepPostVar(getcvar('mlusername'));//登陆用户
+		  $lggroupid=intval(getcvar('mlgroupid'));//会员组ID
+		  if($lggroupid)	//登陆会员显示菜单
+		  {
+		  ?>
+                        <table width="100%" border="0" cellpadding="3" cellspacing="1" class="tableborder">
+                            <tr class="header">
+                                <td height="20" bgcolor="#FFFFFF"> <div align="center"><strong><a href="[!--news.url--]e/member/cp/">功能菜单</a></strong></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/EditInfo/">修改资料</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/my/">帐号状态</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/msg/">站内信息</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/mspace/SetSpace.php">空间设置</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/DoInfo/">管理信息</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/fava/">收藏夹</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/payapi/">在线支付</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/friend/">我的好友</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/buybak/">消费记录</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/buygroup/">在线充值</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/card/">点卡充值</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="#ecms" onclick="window.open('[!--news.url--]e/ShopSys/buycar/','','width=680,height=500,scrollbars=yes,resizable=yes');">我的购物车</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/ShopSys/ListDd/">我的订单</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/login/">重新登陆</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/doaction.php?enews=exit" onclick="return confirm('确认要退出?');">退出登陆</a></div></td>
+                            </tr>
+                        </table>
+                        <?php
+			}
+			else	//游客显示菜单
+			{
+			?>
+                        <table width="100%" border="0" cellpadding="3" cellspacing="1" class="tableborder">
+                            <tr class="header">
+                                <td height="20" bgcolor="#FFFFFF"> <div align="center"><strong><a href="[!--news.url--]e/member/cp/">功能菜单</a></strong></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/login/">会员登陆</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/member/register/">注册帐号</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="[!--news.url--]e/DoInfo/">发布投稿</a></div></td>
+                            </tr>
+                            <tr>
+                                <td height="25" bgcolor="#FFFFFF" onmouseout="this.style.backgroundColor='#ffffff'" onmouseover="this.style.backgroundColor='#EBF3FC'"><div align="center"><a href="#ecms" onclick="window.open('[!--news.url--]e/ShopSys/buycar/','','width=680,height=500,scrollbars=yes,resizable=yes');">我的购物车</a></div></td>
+                            </tr>
+                        </table>
+                        <?php
+			}
+			?>
+                    </td>
+                    <td width="85%" valign="top">[!--empirenews.template--]</td>
+                </tr>
+            </table></td>
+    </tr>
+</table>
+[!--temp.footer--]
+</body>
+</html><!---ecms.field---><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>高级搜索 -<?=$public_r[add_title_suffix]?></title>
+    <link href="[!--news.url--]skin/default/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="[!--news.url--]skin/default/js/tabs.js"></script>
+    <script src="[!--news.url--]e/data/images/setday.js"></script>
+</head>
+<body class="listpage">
+[!--temp.dtheader--]
+<table width="100%" border="0" cellspacing="10" cellpadding="0">
+    <tr valign="top">
+        <td class="list_content"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="position">
+            <tr>
+                <td>现在的位置：[!--url--]</td>
+            </tr>
+        </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box">
+                <tr>
+                    <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><form action='[!--news.url--]e/search/index.php' method="post" name="search_news" id="search_news">
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td width="54%"><table width="100%" border="0" cellpadding="6" cellspacing="0">
+                                            <tr>
+                                                <td bgcolor="#F4F4F4"><strong>搜索范围</strong></td>
+                                            </tr>
+                                        </table></td>
+                                        <td width="46%"><table width="100%" border="0" cellpadding="6" cellspacing="0">
+                                            <tr>
+                                                <td bgcolor="#F4F4F4"><strong>搜索栏目</strong></td>
+                                            </tr>
+                                        </table></td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top"><table width="100%" border="0" cellpadding="6" cellspacing="0">
+                                            <tr>
+                                                <td><input type="radio" name="show" value="title" checked="checked" />
+                                                    标题
+                                                    <input type="radio" name="show" value="smalltext" />
+                                                    简介
+                                                    <input type="radio" name="show" value="newstext" />
+                                                    内容
+                                                    <input type="radio" name="show" value="writer" />
+                                                    作者
+                                                    <input name="show" type="radio" value="title,smalltext,newstext,writer" />
+                                                    不限</td>
+                                            </tr>
+                                        </table>
+                                            <br />
+                                            <table width="100%" border="0" cellpadding="6" cellspacing="0">
+                                                <tr bgcolor="#F4F4F4">
+                                                    <td><strong>时间限制</strong><font color="#666666">(0000-00-00为不限制)</font></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="30" valign="top">从
+                                                        <input name="starttime" type="text" value="0000-00-00" size="12" onclick="setday(this)" />
+                                                        到
+                                                        <input name="endtime" type="text" value="0000-00-00" size="12" onclick="setday(this)" />
+                                                        之间的数据</td>
+                                                </tr>
+                                                <tr>
+                                                    <td bgcolor="#F4F4F4"><strong>价格限制</strong><font color="#666666">(商城模型中有效,0为不限制)</font></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>从
+                                                        <input name="startprice" type="text" id="startprice" value="0" size="6" />
+                                                        到
+                                                        <input name="endprice" type="text" id="endprice" value="0" size="6" />
+                                                        元之间</td>
+                                                </tr>
+                                            </table></td>
+                                        <td valign="top"><table width="100%" border="0" cellspacing="6" cellpadding="0">
+                                            <tr>
+                                                <td><select name="classid" size="8" id="select2" style="width: 100%;height:112px">
+                                                    <option value="0" selected="selected">所有栏目</option>
+                                                    [!--class--]
+
+                                                </select></td>
+                                            </tr>
+                                        </table>
+                                            <table width="100%" border="0" cellpadding="6" cellspacing="0">
+                                                <tr>
+                                                    <td bgcolor="#F4F4F4"><strong>结果显示</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="30"><select name="orderby" id="select4">
+                                                        <option value="">按发布日期</option>
+                                                        <option value="id">信息ID</option>
+                                                        <option value="plnum">评论数</option>
+                                                        <option value="onclick">人气</option>
+                                                        <option value="totaldown">下载数</option>
+                                                    </select>
+                                                        <select name="myorder" id="select5">
+                                                            <option value="0">倒序排列</option>
+                                                            <option value="1">顺序排列</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </table></td>
+                                    </tr>
+                                </table>
+                                <table width="100%" border="0" cellpadding="4" cellspacing="0">
+                                    <tr>
+                                        <td>关键字：
+                                            <input name="keyboard" type="text" id="keyboard2" size="60" />
+                                            <input type="submit" name="Submit22" value="搜索" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form></td>
+                        </tr>
+                    </table></td>
+                </tr>
+            </table></td>
+    </tr>
+</table>
+[!--temp.footer--]
+</body>
+</html><!---ecms.field---><table border=0 cellpadding=3 cellspacing=1><form name=search_js1 method=post action='[!--news.url--]e/search/index.php' onsubmit='return search_check(document.search_js1);'><tr><td><div align=center>搜索: <select name=show><option value=title>标题</option><option value=smalltext>简介</option><option value=newstext>内容</option><option value=writer>作者</option><option value=title,smalltext,newstext,writer>搜索全部</option></select><select name=classid><option value=0>所有栏目</option>[!--class--]</select><input name=keyboard type=text size=13><input type=submit name=Submit value=搜索></div></td></tr></form></table><!---ecms.field---><table width=99% border=0 cellpadding=3 cellspacing=1><form name=search_js2 method=post action='[!--news.url--]e/search/index.php' onsubmit='return search_check(document.search_js2);'><tr><td height=25><div align=center>关键字: <input name=keyboard type=text size=13></div></td></tr><tr><td><div align=center>范围: <select name=show><option value=title>标题</option><option value=smalltext>简介</option><option value=newstext>内容</option><option value=writer>作者</option><option value=title,smalltext,newstext,writer>搜索全部</option></select></div></td></tr><tr><td><div align=center>栏目:<select name=classid><option value=0>所有栏目</option>[!--class--]</select></div></td></tr><tr><td><div align=center><input type=submit name=Submit value=搜索></div></td></tr></form></table><!---ecms.field--->[!--empirenews.listtemp--]<li><a href="[!--titleurl--]" title="[!--oldtitle--]">[!--title--]</a></li>[!--empirenews.listtemp--]<!---ecms.field---><!---ecms.field--->[ <a href="#ecms" onclick="window.open('[!--down.url--]','','width=300,height=300,resizable=yes');">[!--down.name--]</a> ]<!---ecms.field--->[ <a href="#ecms" onclick="window.open('[!--down.url--]','','width=300,height=300,resizable=yes');">[!--down.name--]</a> ]<!---ecms.field--->页次：[!--thispage--]/[!--pagenum--]&nbsp;每页[!--lencord--]&nbsp;总数[!--num--]&nbsp;&nbsp;&nbsp;&nbsp;[!--pagelink--]&nbsp;&nbsp;&nbsp;&nbsp;转到:[!--options--]<!---ecms.field---><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>留言板 -<?=$public_r[add_title_suffix]?></title>
+    <meta name="keywords" content="[!--bname--]" />
+    <meta name="description" content="[!--bname--]" />
+    <link href="[!--news.url--]skin/default/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="[!--news.url--]skin/default/js/tabs.js"></script>
+</head>
+<body class="listpage">
+[!--temp.dtheader--]
+<table width="100%" border="0" cellspacing="10" cellpadding="0">
+    <tr valign="top">
+        <td class="list_content"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="position">
+            <tr>
+                <td>现在的位置：<a href=../../../>首页</a>&nbsp;>&nbsp;[!--bname--]
+                </td>
+            </tr>
+        </table><table width="100%" border="0" cellspacing="0" cellpadding="0" class="box">
+            <tr>
+                <td><table width="100%" border="0" cellpadding="3" cellspacing="2">
+                    <tr>
+                        <td align="center" bgcolor="#E1EFFB"><strong>[!--bname--]</strong></td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top"><table width="100%" border="0" cellpadding="4" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                                <td height="100%" valign="top" bgcolor="#FFFFFF"> [!--empirenews.listtemp--]
+                                    <table width="92%" border="0" align="center" cellpadding="4" cellspacing="1" bgcolor="#F4F9FD" class="tableborder">
+                                        <tr class="header">
+                                            <td width="55%" height="23">发布者: [!--name--] </td>
+                                            <td width="45%">发布时间: [!--lytime--] </td>
+                                        </tr>
+                                        <tr bgcolor="#FFFFFF">
+                                            <td height="23" colspan="2"><table border="0" width="100%" cellspacing="1" cellpadding="8" bgcolor='#cccccc'>
+                                                <tr>
+                                                    <td width='100%' bgcolor='#FFFFFF' style='word-break:break-all'> [!--lytext--] </td>
+                                                </tr>
+                                            </table>
+                                                [!--start.regbook--]
+                                                <table width="100%" border="0" align="center" cellpadding="3" cellspacing="1">
+                                                    <tr>
+                                                        <td><img src="../../data/images/regb.gif" width="18" height="18" /><strong><font color="#FF0000">回复:</font></strong> [!--retext--] </td>
+                                                    </tr>
+                                                </table>
+                                                [!--end.regbook--] </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                    [!--empirenews.listtemp--]
+                                    <table width="92%" border="0" align="center" cellpadding="4" cellspacing="1">
+                                        <tr>
+                                            <td>分页: [!--listpage--]</td>
+                                        </tr>
+                                    </table>
+                                    <form action="../../enews/index.php" method="post" name="form1" id="form1">
+                                        <table width="92%" border="0" align="center" cellpadding="4" cellspacing="1"class="tableborder">
+                                            <tr class="header">
+                                                <td colspan="2" bgcolor="#F4F9FD"><strong>请您留言:</strong></td>
+                                            </tr>
+                                            <tr bgcolor="#FFFFFF">
+                                                <td width="20%">姓名:</td>
+                                                <td width="722" height="23"><input name="name" type="text" id="name" />
+                                                    *</td>
+                                            </tr>
+                                            <tr bgcolor="#FFFFFF">
+                                                <td>联系邮箱:</td>
+                                                <td height="23"><input name="email" type="text" id="email" />
+                                                    *</td>
+                                            </tr>
+                                            <tr bgcolor="#FFFFFF">
+                                                <td>联系电话:</td>
+                                                <td height="23"><input name="mycall" type="text" id="mycall" /></td>
+                                            </tr>
+                                            <tr bgcolor="#FFFFFF">
+                                                <td>留言内容(*):</td>
+                                                <td height="23"><textarea name="lytext" cols="60" rows="12" id="lytext"></textarea></td>
+                                            </tr>
+                                            <tr bgcolor="#FFFFFF">
+                                                <td height="23">&nbsp;</td>
+                                                <td height="23"><input type="submit" name="Submit3" value="提交" />
+                                                    <input type="reset" name="Submit22" value="重置" />
+                                                    <input name="enews" type="hidden" id="enews" value="AddGbook" /></td>
+                                            </tr>
+                                        </table>
+                                    </form></td>
+                            </tr>
+                        </table></td>
+                    </tr>
+                </table></td>
+            </tr>
+        </table></td>
+    </tr>
+</table>
+[!--temp.footer--]
+</body>
+</html><!---ecms.field---><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>登陆</title>
+    <LINK href="../../data/images/qcss.css" rel=stylesheet>
+</head>
+<body bgcolor="#ededed" topmargin="0">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <form name=login method=post action="../../member/doaction.php">
+        <input type=hidden name=enews value=login>
+        <input type=hidden name=prtype value=1>
+        <tr>
+            <td height="23" align="center">
+                <div align="left">
+                    用户名：<input name="username" type="text" size="8">&nbsp;
+                    密码：<input name="password" type="password" size="8">
+                    <select name="lifetime" id="lifetime">
+                        <option value="0">不保存</option>
+                        <option value="3600">一小时</option>
+                        <option value="86400">一天</option>
+                        <option value="2592000">一个月</option>
+                        <option value="315360000">永久</option>
+                    </select>&nbsp;
+                    <input type="submit" name="Submit" value="登陆">&nbsp;
+                    <input type="button" name="Submit2" value="注册" onclick="window.open('../register/');">
+                </div>
+            </td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>
+[!--empirenews.template--]
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>登陆</title>
+    <LINK href="../../data/images/qcss.css" rel=stylesheet>
+</head>
+<body bgcolor="#ededed" topmargin="0">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td height="23" align="center">
+            <div align="left">
+                &raquo;&nbsp;<font color=red><b>[!--username--]</b></font>&nbsp;&nbsp;<a href="../my/" target="_parent">[!--groupname--]</a>&nbsp;[!--havemsg--]&nbsp;<a href="[!--news.url--]e/space/?userid=[!--userid--]" target=_blank>我的空间</a>&nbsp;&nbsp;<a href="../msg/" target=_blank>短信息</a>&nbsp;&nbsp;<a href="../fava/" target=_blank>收藏夹</a>&nbsp;&nbsp;<a href="../cp/" target="_parent">控制面板</a>&nbsp;&nbsp;<a href="../../member/doaction.php?enews=exit&prtype=9" onclick="return confirm('确认要退出?');">退出</a>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html><!---ecms.field--->50<!---ecms.field--->Y-m-d H:i:s<!---ecms.field---><form name=login method=post action="[!--news.url--]e/member/doaction.php">
+    <input type=hidden name=enews value=login>
+    <input type=hidden name=ecmsfrom value=9>
+    用户名：<input name="username" type="text" class="inputText" size="16" />&nbsp;
+    密码：<input name="password" type="password" class="inputText" size="16" />&nbsp;
+    <input type="submit" name="Submit" value="登陆" class="inputSub" />&nbsp;
+    <input type="button" name="Submit2" value="注册" class="inputSub" onclick="window.open('[!--news.url--]e/member/register/');" />
+</form>
+[!--empirenews.template--]
+&raquo;&nbsp;<font color=red><b>[!--username--]</b></font>&nbsp;&nbsp;<a href="[!--news.url--]e/member/my/" target="_parent">[!--groupname--]</a>&nbsp;[!--havemsg--]&nbsp;<a href="[!--news.url--]e/space/?userid=[!--userid--]" target=_blank>我的空间</a>&nbsp;&nbsp;<a href="[!--news.url--]e/member/msg/" target=_blank>短信息</a>&nbsp;&nbsp;<a href="[!--news.url--]e/member/fava/" target=_blank>收藏夹</a>&nbsp;&nbsp;<a href="[!--news.url--]e/member/cp/" target="_parent">控制面板</a>&nbsp;&nbsp;<a href="[!--news.url--]e/member/doaction.php?enews=exit&ecmsfrom=9" onclick="return confirm('确认要退出?');">退出</a><!---ecms.field---><html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>[!--pagetitle--]</title>
+    <meta name="keywords" content="[!--pagekey--]">
+    <meta name="description" content="[!--pagedes--]">
+    <link href="../../data/images/qcss.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<table align="center" width="100%">
+    <tr>
+        <td height="32" align=center>
+            <a href="[!--down.url--]" title="[!--title--] －[!--down.name--]">
+                <img src="../../data/images/download.jpg" border=0>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align=center>(点击下载)</td>
+    </tr>
+</table>
+<br>
+</body>
+</html><!---ecms.field--->
+[!--empirenews.listtemp--]
+
+<table style="word-break:break-all; word-wrap:break-all;line-height: 32px; padding: 9px 9px 1px; margin-top: 22px; border-radius: 5px; border: 1px dotted rgb(221, 221, 221); font-size: 14px;border-collapse:separate;word-wrap:break-word;" width="98%" cellspacing="1" cellpadding="3" border="0" align="center">
+    <tbody><tr>
+        <td height="30"><span class="name1"> 
+
+            <font size="4" color="#b1b1b1"><img src="[!--userpic--]" border="0"> [!--username--]</font>  <font size="2" color="#d1d1d1">[!--pltime--]</font>
+                         </span></td>
+        <td><div align="right"><font size="6" color="#e9e9e9">
+            123 楼</font> </div></td>
+    </tr>
+    <tr valign="top">
+        <td colspan="2" class="text" height="50">[!--pltext--]</td>
+    </tr>
+    <tr>
+
+        <td colspan="2"><div class="re" align="right"><a href="#tosaypl" onclick="javascript:document.saypl.saytext.value='[quote][!--plid--][/quote]';document.saypl.repid.value='[!--plid--]';document.saypl.saytext.focus();">回复</a>&nbsp;
+            <a href="JavaScript:makeRequest('[!--news.url--]e/pl/doaction.php?enews=DoForPl&plid=[!--plid--]&classid=[!--classid--]&id=[!--id--]&dopl=1&doajax=1&ajaxarea=zcpldiv[!--plid--]','EchoReturnedText','GET','');">支持</a>[<span id="zcpldiv[!--plid--]">[!--zcnum--]</span>]&nbsp;
+            <a href="JavaScript:makeRequest('[!--news.url--]e/pl/doaction.php?enews=DoForPl&plid=[!--plid--]&classid=[!--classid--]&id=[!--id--]&dopl=0&doajax=1&ajaxarea=fdpldiv[!--plid--]','EchoReturnedText','GET','');">反对</a>[<span id="fdpldiv[!--plid--]">[!--fdnum--]</span>]</div></td>
+    </tr>
+    </tbody></table>
+
+
+<table width="100%" cellspacing="1" cellpadding="3" border="0">
+    <tbody><tr>
+        <td background="[!--news.url--]skin/custom/images/plhrbg.gif"></td>
+    </tr>
+    </tbody></table>
+[!--empirenews.listtemp--]<!---ecms.field---><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>搜索 -<?=$public_r[add_title_suffix]?></title>
+    <link href="[!--news.url--]skin/default/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="[!--news.url--]skin/default/js/tabs.js"></script>
+    <style type="text/css">
+        <!--
+        .r {
+            display:inline;
+            font-weight:normal;
+            margin:0;
+            font-size:16px;
+            margin-top:10px;
+        }
+        .a{color:green}
+        .fl{color:#77c}
+        -->
+    </style>
+</head>
+<body class="listpage">
+[!--temp.dtheader--]
+<table width="100%" border="0" cellspacing="10" cellpadding="0">
+    <tr valign="top">
+        <td class="list_content"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="position">
+            <tr>
+                <td>现在的位置：<a href="[!--news.url--]">首页</a>&nbsp;>&nbsp;搜索</td>
+            </tr>
+        </table>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="box">
+                <tr>
+                    <td><form action='index.php' method="GET" name="search_news" id="search_news">
+                        <table width="100%" border="0" cellspacing="6" cellpadding="0">
+                            <tr>
+                                <td height="32">关键字：
+                                    <input name="keyboard" type="text" id="keyboard" value="[!--keyboard--]" size="42" />
+                                    <select name="field" id="field">
+                                        <option value="1">全文</option>
+                                        <option value="2">标题</option>
+                                        <option value="3">内容</option>
+                                    </select>
+                                    <input type="submit" name="Submit22" value="搜索" />
+                                    <font color="#666666">(多个关键字请用&quot;空格&quot;隔开)</font> </td>
+                            </tr>
+                        </table>
+                    </form>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="6">
+                            <tr>
+                                <td>系统搜索到约有<strong>[!--num--]</strong>项符合<strong>[!--keyboard--]</strong>的查询结果</td>
+                            </tr>
+                        </table>
+                        [!--empirenews.listtemp--]
+                        <h2 class="r"><span>[!--no.num--].</span> <a class="l" href="[!--titleurl--]" target="_blank">[!--title--]</a></h2>
+                        <table width="80%" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr>
+                                <td>[!--smalltext--]</td>
+                            </tr>
+                            <tr>
+                                <td><span class="a">[!--titleurl--] - [!--newstime--]</span></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        [!--empirenews.listtemp--]
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="list_page">
+                            <tr>
+                                <td>[!--listpage--]</td>
+                            </tr>
+                        </table></td>
+                </tr>
+            </table></td>
+    </tr>
+</table>
+[!--temp.footer--]
+</body>
+</html><!---ecms.field--->120<!---ecms.field--->Y-m-d H:i:s<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认搜索模板<!---ecms.field--->[!--temp.head_list--]
+
+<body class="archive category  category-1">
+
+[!--temp.header--]
+
+<section class="container">
+    <div class="content-wrap">
+        <div class="content">
+
+            <div class="title">
+                <h3 style="font-size:20px;margin-top:10px;">搜索到<strong>[!--ecms.num--]</strong>项符合<strong>[!--keyboard--]</strong>的查询结果</h3>
+            </div>
+
+
+            [!--empirenews.listtemp--]
+            <!--list.var1-->
+            [!--empirenews.listtemp--]
+
+
+            <!--分页导航-->
+            <div class="pagination">
+                <ul>
+                    [!--show.page--]
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    [!--temp.sidebar_index--]
+
+</section>
+
+[!--temp.footer--]
+
+</body></html><!---ecms.field--->180<!---ecms.field--->1<!---ecms.field--->$headtit='<article class=\"excerpt excerpt-1\"><a href=\"[!--titleurl--]\" class=\"focus\" target=\"_blank\"><img alt=\"[!--title--]\" class=\"thumb lazy\" src=\"[!--titlepic--]\"></a>';
+
+if(empty($r[titlepic]))
+{
+$headtit='<article class=\"excerpt excerpt-1 listnopic\">';
+}
+
+
+$listtemp=$headtit.'
+<header> <a href=\"[!--this.classlink--]\" class=\"cat\" target=\"_blank\">[!--this.classname--]<i></i></a>
+    <h2><a href=\"[!--titleurl--]\" title=\"[!--title--]\" target=\"_blank\"><b>[!--title--]</b></a></h2>
+</header>
+<p class=\"meta\">
+    <time><i class=\"fa fa-clock-o\"></i><font>[!--newstime--]</font></time>
+    <span class=\"pv\"><i class=\"fa fa-eye\"></i>阅读([!--onclick--])</span> <span class=\"pc\"><i class=\"fa fa-comments-o\"></i>作者([!--username--])</span> </p>
+<p class=\"note\">[!--smalltext--]</p>
+</article>';<!---ecms.field--->1<!---ecms.field--->1<!---ecms.field--->Y-m-d<!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->header<!---ecms.field--->页面头部<!---ecms.field---><div class="header">
+  <div class="rowFluid">
+    <div class="span2 col-md-12">
+      <div class="logo">
+        <h2><a href="[!--news.url--]" title="<?=$public_r[sitename]?>"  target="_blank">
+          <img src="[!--news.url--]skin/custom/images/logo.png" alt="<?=$public_r[sitename]?>" /> </a></h2>
+      </div>
+    </div>
+    <div class="span8">
+      <div class="mobileMenuBtn"><span class="span1"></span><span class="span2"></span><span class="span3"></span></div>
+      <div class="mobileMenuBtn_shad"></div>
+      <div class="header_menu">
+        <ul id="menu">
+          <li><a href="[!--news.url--]"  class='active'  title="<?=$public_r[sitename]?>">首页</a></li>
+          [e:loop={"select classid,classname,classpath,bname,islast from {$dbtbpre}enewsclass where bclassid=0 and
+          showclass=0 order by myorder,classid ASC limit 10",0,24,0}]
+          <li >   <a href="<?=$bqsr['classurl']?>"<?=$navclassid==$bqr['classid']?'id="selected" ':''?>><?=$bqr['classname']?></a> </li>
+          [/e:loop]
+        </ul>
+      </div>
+    </div>
+    <div class="span2"> </div>
+  </div>
+</div><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->1<!---ecms.record--->2<!---ecms.field--->footer<!---ecms.field--->页面尾部<!---ecms.field---><div class="footer wow fadeInUp">
+  <div class="rowFluid">
+    <div class="span12">
+      <div class="container">
+        <div class="footer_content">
+          <div class="span4 col-xm-12">
+            <div class="footer_list">
+              <div class="span6 col-xm-12">
+                <div class="quick_navigation">
+                  <div class="quick_navigation_title">快速导航</div>
+                  <ul>
+                    [e:loop={"select classname,classpath from [!db.pre!]enewsclass where bclassid=0 order by classid ",0,24,0}]
+                    <a href="<?=$public_r[newsurl]?><?=$bqr[classpath]?>" title="<?=$bqr[classname]?>"><?=$bqr[classname]?>&nbsp;</a>
+                    [/e:loop]
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="span4 col-xm-6 col-xs-12">
+            <div class="footer_list">
+              <div class="footer_link">
+                <div class="footer_link_title">友情链接</div>
+                <ul id="frientLinks">
+                  [e:loop={'select * from [!db.pre!]enewslink where checked=1 order by lid',20,24,0}]
+                  <li><a href="<?= $bqr['lurl'] ?>" title="<?= $bqr['lname'] ?>" target='_blank'><?= $bqr['lname'] ?></a></li>
+                  [/e:loop]
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="span4 col-xm-6 col-xs-12">
+            <div class="footer_list">
+              <div class="footer_cotact">
+                <div class="footer_cotact_title">联系方式</div>
+                <ul>
+                  <li><span class="footer_cotact_type">地址:</span><span class="footer_cotact_content"><?=$public_r[province]?><?=$public_r[add_city]?>第三代试管婴儿机构</span></li>
+                  <li><span class="footer_cotact_type">网址:</span><span class="footer_cotact_content"><a href="[!--news.url--]" target='_blank' title="官网"><?=strtoupper(parse_host()['host']) ?></a></span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">Copyright © 2019-2021 <a href="[!--news.url--]" title="<?=$public_r['sitename']?>" target="_blank"><?=$public_r['sitename']?></a> Rights Reserved.
+        <a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow">闽ICP备2020018555号-2</a>
+        <a href="[!--news.url--]/sitemap.xml"  style="color: #8a8a8a;" target='_blank'>网站地图</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  (function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+</script><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record--->4<!---ecms.field--->sidebar<!---ecms.field--->侧边栏<!---ecms.field---><div class="toppic">   
+
+    [e:loop={0,2,4,1}]
+             <li><a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank"><img src="<?=$bqr['titlepic']?>" width="365" height="216" alt="<?=$bqr['title']?>"></a></i>
+    <h2><?=$bqr['title']?></h2>
+    <span><?=$bqsr['classname']?></span> </a> </li>
+    [/e:loop]
+            
+         </div>
+<div class="zhuanti">
+  <h2 class="hometitle">| 热门推荐</h2>
+  <ul>
+    [e:loop={0,2,5,1}]
+                    <li> <i><img src="<?=$bqr['titlepic']?>" width="304" height="224" alt="<?=$bqr['title']?>"></i>
+      <p><?=$bqr['title']?><span><a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank">阅读</a></span> </p>
+    </li>
+    [/e:loop]
+           
+                  </ul>
+</div>
+<div class="tuijian">
+  <h2 class="hometitle">| 精选文章</h2>
+  <ul class="tjpic">
+    [e:loop={0,2,5,1}]
+             <i><img src="<?=$bqr['titlepic']?>" width="304" height="170" alt="<?=$bqr['title']?>"></i>
+    <p><a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank"><?=$bqr['title']?></a></p>
+    [/e:loop]
+</ul>
+[e:loop={3,2,0,1,'','onclick DESC'}]
+       <ul class="sidenews">
+    <li> <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>"></i>
+      <p><a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank"><?=$bqr['title']?></a></p>
+      <span><?=date('Y-m-d',$bqr['newstime'])?></span> </li>
+  </ul>
+  [/e:loop]
+       
+         </div>
+  
+<div class="tuijian">
+  <h2 class="hometitle">| 点击排行</h2>
+  <ul class="tjpic">
+    [e:loop={0,1,4,1,'isgood=1'}]
+        <i><img src="<?=$bqr['titlepic']?>" width="304" height="170" alt="<?=$bqr['title']?>"></i>
+        <p><a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank"><?=$bqr['title']?></a></p>
+    [/e:loop]
+</ul>
+[e:loop={0,5,4,1,'firsttitle=1'}]
+    <ul class="sidenews">
+        <li> <i><img src="<?=$bqr['titlepic']?>" alt="<?=$bqr['title']?>"></i>
+        <p><a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank"><?=$bqr['title']?></a></p>
+        <span><?=date('Y-m-d',$bqr['newstime'])?></span> </li>
+    </ul>
+  [/e:loop] 
+         </div><!---ecms.field--->0<!---ecms.field--->0<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认投票模板<!---ecms.field---><table width=100% border=0 align=center cellpadding=3 cellspacing=0><form name=enewsvote method=POST action='[!--vote.action--]' target=_blank><tr><td><strong>[!--title--]</strong></td></tr><input type=hidden name=voteid value='[!--voteid--]'><input type=hidden name=enews value=AddVote>
+    [!--empirenews.listtemp--]
+    <tr><td>[!--vote.box--]&nbsp;[!--vote.name--]</td></tr>
+    [!--empirenews.listtemp--]
+    <tr><td align=center><input type=submit name=submit value=投票>&nbsp;&nbsp;<input type=button name=button value=查看结果 onclick=javascript:window.open('[!--vote.view--]','','width=[!--width--],height=[!--height--],scrollbars=yes');></td></tr></form></table><!---ecms.record--->2<!---ecms.field--->默认信息投票模板<!---ecms.field---><table width='100%' border=0 align=center cellpadding=3 cellspacing=0><form name=enewsvote method=POST action='[!--news.url--]e/enews/index.php' target=_blank><tr><td><strong>[!--title--]</strong></td></tr><input type=hidden name=id value='[!--id--]'><input type=hidden name=classid value='[!--classid--]'><input type=hidden name=enews value=AddInfoVote>
+    [!--empirenews.listtemp--]
+    <tr><td>[!--vote.box--]&nbsp;[!--vote.name--]</td></tr>
+    [!--empirenews.listtemp--]
+    <tr><td align=center><input type=submit name=submit value=投票>&nbsp;&nbsp;<input type=button name=button value=查看结果 onclick=javascript:window.open('[!--news.url--]e/public/vote/?classid=[!--classid--]&id=[!--id--]','','width=[!--width--],height=[!--height--],scrollbars=yes');></td></tr></form></table><!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->通用一级栏目模板<!---ecms.field---><?php
+$title='';
+if (isset($_GET['tagname'])) {
+    $url = abs_url("/tag/{$_GET['tagname']}");
+}elseif (!empty($class_r[$navclassid][bname])){
+    $title = $class_r[$navclassid][bname] . '-';
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}else{
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}?><!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <title><?=$title?>[!--pagetitle--]-<?=$public_r[add_title_suffix]?></title>
+  <meta name="keywords" content="[!--pagekey--]">
+  <meta name="description" content="[!--pagedes--]">
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="[!--news.url--]skin/custom/images/favicon.ico">
+  <link rel="canonical" href="[!--news.url--]"><?=$public_r[add_ad]?>
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/base.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/animate.min.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/owl.carousel.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/responsive.css" />
+  <script src="[!--news.url--]skin/custom/js/jquery-1.11.0.min.js"></script>
+  <!--<script src="[!--news.url--]skin/custom/js/wow.min_1.js"></script>-->
+  <script src="[!--news.url--]skin/custom/js/owl.carousel.min.js"></script>
+  <script src="[!--news.url--]skin/custom/js/page.js"></script>
+</head>
+<body>
+<style>
+  @media screen and (max-width: 1600px){
+    .dh{display: none;}
+  }
+</style>
+[!--temp.header--]
+<!--header-->
+<div class="page">
+  <div class="rowFluid">
+    <div class="span12">
+      <div class="main">
+        <div class="z_banner support_z_banner">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <h3 class="z_banner_title"><?=$bqsr['classname']?></h3>
+                <div class="z_banner_input">
+                  <form  name="formsearch" action="#">
+                    <input type="hidden" name="kwtype" value="0" />
+                    <input type="text" name="q" id="search-keyword" value="" placeholder="<?=$public_r[sitename]?>" />
+                    <button type="submit" class="search-submit"> <img src="[!--news.url--]skin/custom/images/search.png" alt="查询"></button>
+                  </form>
+                </div>
+              </div>
+              <ul class="platform_advantage_bg_z">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 15px;font-size: 16px;margin-left: 15px;">您的位置:[!--newsnav--]>列表</a></p>
+        <div class="support_type">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="support_type_content">
+                  [e:loop={"select * from {$dbtbpre}enewstags order by rand() desc limit 5",0,24,0}]
+                  <div class="span2 col-xs-4"> <a href="<?= $public_r['newsurl'] . 'tag/' . $bqr['tagname'] ?>" target="_blank" title="<?= $bqr['tagname'] ?>" class="support_type_list normal"><?= esub($bqr['tagname'], 8) ?></a></div>
+                  [/e:loop]
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="technical_support">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="technical_support_content">
+                  <!--侧边栏开始-->
+                  <!--侧边栏开始-->
+                  <div class="span3 col-sm-12 wow fadeInLeft">
+                    <div class="technical_support_list">
+                      <div class="technical_support_type">
+                          <div class="title">试管百科分类<span><img src="[!--news.url--]skin/custom/images/page_right1.png" alt="试管百科" /></span></div>
+                        <ul id="left_menu">
+                          [e:loop={0,10,3,0}]
+                          <li class=""> <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=esub($bqr[title],40)?>...</a> </li>
+                          [/e:loop]
+                        </ul>
+                      </div>
+                      <div class="technical_support_type">
+                        <div class="title">三代试管攻略<span><img src="[!--news.url--]skin/custom/images/page_right1.png" alt="三代试管攻略" /></span></div>
+                        <ul id="left_menu">
+                          [e:loop={0,10,5,0}]
+                          <li class=""> <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>"><?=esub($bqr[title],40)?>...</a> </li>
+                          [/e:loop]
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!--侧边栏结束-->
+                  <!--侧边栏结束-->
+                  <div class="span9 col-sm-12 wow fadeInRight">
+                    <div class="technical_support_list">
+                      <div class="technical_support_box">
+                        <div class="title">栏目更新</div>
+                        <ul>
+                          <li>
+                            <a href="<?=$bqsr['titleurl']?>" title="<?=$bqr['title']?>" target="_blank">
+                              <div class="text"><?=$bqr['title']?>...
+                                <div style="float:right;"><?=date("Y-m-d H:i:s",$bqr[newstime])?></div>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                        <script type="text/javascript" src="[!--news.url--]skin/custom/js/mvcpager.js"></script>
+                      </div>
+                      <div class="kzf-mod-new-btn-more"><ul>[!--show.listpage--]</ul></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        [!--temp.footer--]
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<!---ecms.field--->0<!---ecms.record--->2<!---ecms.field--->试管婴儿流程<!---ecms.field---><?php
+$title='';
+if (isset($_GET['tagname'])) {
+    $url = abs_url("/tag/{$_GET['tagname']}");
+}elseif (!empty($class_r[$navclassid][bname])){
+    $title = $class_r[$navclassid][bname] . '-';
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}else{
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}?><!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <title>三代试管婴儿流程_<?=$title?>[!--pagetitle--]-<?=$public_r[add_title_suffix]?></title>
+  <meta name="keywords" content="[!--pagekey--]">
+  <meta name="description" content="[!--pagedes--]">
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="[!--news.url--]skin/custom/images/favicon.ico">
+  <link rel="canonical" href="[!--news.url--]"><?=$public_r[add_ad]?>
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/base.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/animate.min.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/owl.carousel.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/responsive.css" />
+  <script src="[!--news.url--]skin/custom/js/jquery-1.11.0.min.js"></script>
+  <!--<script src="[!--news.url--]skin/custom/js/wow.min_1.js"></script>-->
+  <script src="[!--news.url--]skin/custom/js/owl.carousel.min.js"></script>
+  <script src="[!--news.url--]skin/custom/js/page.js"></script>
+</head>
+<body>
+<style>
+  @media screen and (max-width: 1600px){
+    .dh{display: none;}
+  }
+</style>
+[!--temp.header--]
+<!--在线客服结束-->
+<div class="page">
+  <div class="rowFluid">
+    <div class="span12">
+      <div class="main">
+        <div class="page">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="main">
+                <div class="z_banner support_z_banner">
+                  <div class="rowFluid">
+                    <div class="span12">
+                      <div class="container">
+                        <h1 class="z_banner_title"><?=$public_r[add_city]?>试管婴儿流程</h1>
+                        <div class="z_banner_text">十年好孕，专业有我《成功率行业领先，可高达80%》</div>
+                      </div>
+                      <ul class="platform_advantage_bg_z">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <p style="margin-top: 15px;font-size: 16px;margin-left: 15px;">您的位置:[!--newsnav--]>三代试管流程</a></p>
+                <div class="kzf-mod-product">
+                  <div class="rowFluid">
+                    <div class="container">
+                      <div class="kzf-mod-product-header wow fadeInUp">
+                        <h2 class="kzf-mod-product-title"><?=$public_r[add_city]?>试管医生</h2>
+                        <p class="kzf-mod-product-brief"><?=$public_r[add_title_suffix]?>国际医疗团队，提供360度全方位服务，为您的海外孕育保驾护航。</p>
+                      </div>
+                      <div class="kzf-mod-product-content">
+                        <div class="span3 col-sm-6">
+                          <div class="kzf-mod-product-list wow fadeInLeft"> <img src="[!--news.url--]skin/custom/images/mod-product01.png" alt="试管婴儿流程医院医生" />
+                            <div class="kzf-mod-product-list-title">主任医师</div>
+                            <p>北上广三甲医院</p>
+                            <p>宫腔镜诊治中心</p>
+                            <p>医学硕士</p>
+                            <p>宫腔镜冷刀手术</p>
+                            <p>妇科内分泌</p>
+                          </div>
+                        </div>
+                        <div class="span3 col-sm-6">
+                          <div class="kzf-mod-product-list wow fadeInUp"> <img src="[!--news.url--]skin/custom/images/mod-product02.png" alt="试管婴儿流程医院医生" />
+                            <div class="kzf-mod-product-list-title">主任医师 副教授</div>
+                            <p>北上广三甲医院</p>
+                            <p>计划生育与生殖医学科</p>
+                            <p>妇科内分泌</p>
+                            <p>生殖中心</p>
+                            <p>宫腔粘连、息肉、黏膜</p>
+                          </div>
+                        </div>
+                        <div class="span3 col-sm-6">
+                          <div class="kzf-mod-product-list wow fadeInUp"> <img src="[!--news.url--]skin/custom/images/mod-product03.png" alt="试管婴儿流程医院医生" />
+                            <div class="kzf-mod-product-list-title">主任医师 教授</div>
+                            <p>北上广三甲医院</p>
+                            <p>辅助生殖中心</p>
+                            <p>子宫畸形矫正</p>
+                            <p>辅助生殖技术</p>
+                            <p>妇科常见病</p>
+                          </div>
+                        </div>
+                        <div class="span3 col-sm-6">
+                          <div class="kzf-mod-product-list wow fadeInRight"> <img src="[!--news.url--]skin/custom/images/mod-product04.png" alt="试管婴儿流程医院医生" />
+                            <div class="kzf-mod-product-list-title">副主任医师 副教授</div>
+                            <p>北上广三甲医院</p>
+                            <p>妇产科</p>
+                            <p>不孕不育</p>
+                            <p>复发性流产的诊疗</p>
+                            <p>妇科常见病</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="kzf-mod-custom">
+                  <div class="rowFluid">
+                    <div class="container">
+                      <div class="kzf-mod-custom-header wow fadeInUp">
+                        <h2 class="kzf-mod-custom-title"><?=$public_r[add_city]?>三代试管流程</h2>
+                        <p class="kzf-mod-custom-brief">规划管理诊疗路径 定制个性化医疗方案</p>
+                      </div>
+                      <div class="kzf-mod-custom-content">
+                        <div class="col-xs-12">
+                          <div class="kzf-mod-custom-list wow fadeInUp"> <img src="[!--news.url--]skin/custom/images/mod-custom01.png" alt="术前检查" />
+                            <div class="kzf-mod-custom-list-title">术前检查</div>
+                            <p>一般包括双方的身体检查，生殖系统检查，传染系列检查以及遗传系列检查。</p>
+                          </div>
+                          <div class="kzf-mod-custom-list wow fadeInUp" style="animation-delay: 0.1s;"> <img src="[!--news.url--]skin/custom/images/mod-custom02.png" alt="降调节" />
+                            <div class="kzf-mod-custom-list-title">降调节</div>
+                            <p>为提高试管婴儿的成功率</p>
+                          </div>
+                          <div class="kzf-mod-custom-list wow fadeInUp" style="animation-delay: 0.2s;"> <img src="[!--news.url--]skin/custom/images/mod-custom03.png" alt="促排卵" />
+                            <div class="kzf-mod-custom-list-title">促排卵</div>
+                            <p>由于不是每个卵子都能受精，不是每个受精卵都能发育成有活力的胚胎</p>
+                          </div>
+                        </div>
+                        <div class="col-xs-12">
+                          <div class="kzf-mod-custom-list wow fadeInUp" style="animation-delay: 0.3s;"> <img src="[!--news.url--]skin/custom/images/mod-custom04.png" alt="取卵、取精" />
+                            <div class="kzf-mod-custom-list-title">取卵、取精</div>
+                            <p>医生在B超引导下应用特殊的取卵针经阴道穿刺成熟的卵泡，吸出卵子</p>
+                          </div>
+                          <div class="kzf-mod-custom-list wow fadeInUp" style="animation-delay: 0.4s;"> <img src="[!--news.url--]skin/custom/images/mod-custom05.png" alt="胚胎培养" />
+                            <div class="kzf-mod-custom-list-title">胚胎培养</div>
+                            <p>第一二三代试管婴儿技术是将精子和卵子在培养皿中自然授精</p>
+                          </div>
+                          <div class="kzf-mod-custom-list wow fadeInUp" style="animation-delay: 0.5s;"> <img src="[!--news.url--]skin/custom/images/mod-custom06.png" alt="胚胎移植" />
+                            <div class="kzf-mod-custom-list-title">胚胎移植</div>
+                            <p>培养成功胚胎或囊胚后，医生应用一个很细的胚胎移植管，通过阴道、子宫颈将胚胎移入母体子宫</p>
+                          </div>
+                        </div>
+                        <div class="kzf-mod-custom-list kzf-mod-custom-list-last wow fadeInUp " style="animation-delay: 0.6s;"> <img src="[!--news.url--]skin/custom/images/mod-custom07.png" alt="验孕" />
+                          <div class="kzf-mod-custom-list-title">验孕</div>
+                          <p>在胚胎移植后14天或者囊胚移植后12天抽血验孕，确定是否妊娠</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="kzf-mod-case-container">
+                  <div class="rowFluid">
+                    <div class="container">
+                      <div class="span12">
+                        <div class="kzf-mod-case-out">
+                          <div class="kzf-mod-so-title-box wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+                            <h3 class="kzf-so-title"><?=$public_r[add_city]?>三代试管医院</h3>
+                            <div class="kzf-so-text">国内与海外第三代试管婴儿为您的健康生育保驾护航</div>
+                          </div>
+                          <div class="kzf-mod-case-box">
+                            <div class="span6 col-sm-12">
+                              <a href="#" target="_blank">
+                                <div class="kzf-mod-wrap wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                                  <div class="kzf-mod-pic"> <img src="[!--news.url--]skin/custom/images/1-1610011559280-L.png" alt="<?=$public_r[province]?>生殖医学中心"> </div>
+                                  <div class="kzf-mod-title">
+                                    <p><?=$public_r[add_city]?>生殖医学中心</p>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div class="span6 col-sm-12">
+                              <a href="#"  target="_blank">
+                                <div class="kzf-mod-wrap wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                                  <div class="kzf-mod-pic"> <img src="[!--news.url--]skin/custom/images/1-1610011633480-L.png" alt="<?=$public_r[province]?>三代试管研究中心"> </div>
+                                  <div class="kzf-mod-title">
+                                    <p><?=$public_r[add_city]?> 三代试管研究中心</p>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div class="span6 col-sm-12">
+                              <a href="#"  target="_blank">
+                                <div class="kzf-mod-wrap wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                                  <div class="kzf-mod-pic"> <img src="[!--news.url--]skin/custom/images/1-1610011634040-L.png" alt="<?=$public_r[province]?>试管婴儿机构"> </div>
+                                  <div class="kzf-mod-title">
+                                    <p><?=$public_r[add_city]?> 试管婴儿机构</p>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div class="span6 col-sm-12">
+                              <a href="#"  target="_blank">
+                                <div class="kzf-mod-wrap wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
+                                  <div class="kzf-mod-pic"> <img src="[!--news.url--]skin/custom/images/1-1610011634200-L.png" alt="<?=$public_r[province]?>私立生育中心"> </div>
+                                  <div class="kzf-mod-title">
+                                    <p><?=$public_r[add_city]?> 私立生育中心</p>
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--底部开始-->
+                [!--temp.footer--]
+                <!--底部结束-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<!---ecms.field--->0<!---ecms.record--->3<!---ecms.field--->关于我们<!---ecms.field---><?php
+$title='';
+if (isset($_GET['tagname'])) {
+    $url = abs_url("/tag/{$_GET['tagname']}");
+}elseif (!empty($class_r[$navclassid][bname])){
+    $title = $class_r[$navclassid][bname] . '-';
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}else{
+    $url = sys_ReturnBqClassUrl($class_r[$navclassid]);
+}?><!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=yes">
+  <title>试管婴儿机构_<?=$title?>[!--pagetitle--]-<?=$public_r[add_title_suffix]?></title>
+  <meta name="keywords" content="[!--pagekey--]">
+  <meta name="description" content="[!--pagedes--]">
+  <meta name="renderer" content="webkit">
+  <link rel="shortcut icon" href="[!--news.url--]skin/custom/images/favicon.ico">
+  <link rel="canonical" href="[!--news.url--]"><?=$public_r[add_ad]?>
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/base.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/animate.min.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/owl.carousel.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/style.css" />
+  <link rel="stylesheet" type="text/css" href="[!--news.url--]skin/custom/css/responsive.css" />
+  <script src="[!--news.url--]skin/custom/js/jquery-1.11.0.min.js"></script>
+  <!--<script src="[!--news.url--]skin/custom/js/wow.min_1.js"></script>-->
+  <script src="[!--news.url--]skin/custom/js/owl.carousel.min.js"></script>
+  <script src="[!--news.url--]skin/custom/js/page.js"></script>
+</head>
+<body>
+<style>
+  @media screen and (max-width: 1600px){
+    .dh{display: none;}
+  }
+</style>
+<!--header1-->
+[!--temp.header--]
+<!--header2-->
+<div class="page">
+  <div class="rowFluid">
+    <div class="span12">
+      <div class="main">
+        <div class="z_banner">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <h3 class="z_banner_title"><?=$public_r[add_title_suffix]?> 全球试管首席专家</h3>
+                <div class="z_banner_text">技术有我们有，专业试管团队点燃您的孕育希望</div>
+              </div>
+              <ul class="platform_advantage_bg_z">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 15px;font-size: 16px;margin-left: 15px;">您的位置:[!--newsnav--]>关于我们</a></p>
+        <div class="introduce wow fadeInUp">
+          <div class="rowFluid">
+            <div class="span12">
+              <div class="container">
+                <div class="all_title1">
+                  <h3 class="title"><?=$public_r[add_title_suffix]?>试管婴儿公司简介</h3>
+                  <div class="text">Company Profile</div>
+                </div>
+                <div class="rowFluid">
+                  <div class="introduce_content">
+                    <div class="span6 col-xm-12">
+                      <div class="introduce_list">
+                        <div class="introduce_list_brief">
+                          <div class="introduce_list_title"><?=$public_r[add_title_suffix]?></div>
+                          <div class="introduce_list_text"><?=$public_r[add_title_suffix]?>医疗集团，是大型跨国生殖医疗集团，业务跨越美国、加拿大、俄罗斯、泰国、格鲁吉亚等国，同时设有服务团队，并在中国北京、上海、广州、深圳、香港等设有分公司，中外服务团队超百人。
+                            <?=$public_r[add_title_suffix]?>医疗集团是行业内唯一受邀CCTV、央广网专访，并成功走进北京会议中心、受邀参加全国母婴盛典的企业集团。 <?=$public_r[add_title_suffix]?>医疗集团作为大型跨国生殖医疗集团，始终以提供世界顶级生殖医疗技术为宗旨，积极参与世界试管婴儿技术研发、创新和人才交流，现已帮助世界15000个家庭收获好孕。</div>
+                        </div>
+                        <div class="introduce_list_brief">
+                          <div class="introduce_list_title"><?=$public_r[add_title_suffix]?>国内团队</div>
+                          <div class="introduce_list_text"><?=$public_r[add_title_suffix]?>医疗团队为您量身定制一站式海外孕育咨询服务方案。专业咨询服务团队提供1对1咨询，全方位、快速准确地提供个性化方案。直营服务，无任何隐形消费，让您海外孕育更安心。</div>
+                        </div>
+                        <div class="introduce_list_brief">
+                          <div class="introduce_list_title"><?=$public_r[add_title_suffix]?>海外团队</div>
+                          <div class="introduce_list_text"><?=$public_r[add_title_suffix]?>医疗精选全球生殖领域医院联合经营，配备全套世界先进实验室设备，聚合多位临床经验丰富、具有国际影响力生殖专家1V1亲诊，从前期身体检查、促排、移植、受孕到第三方辅助生殖，双语医疗翻译全程陪同。规范化诊疗、高精准诊断及用药指导，快速就诊绿色通道，节省40%时间，让您享受更优质海外医疗服务，行程更专业、高效。</div>
+                        </div>
+                        <div class="introduce_list_brief">
+                          <div class="introduce_list_title">六大直营公司：北京、上海、深圳、台湾、广州、香港</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="span6 col-xm-12">
+                      <div class="introduce_list">
+                        <div class="introduce_list_img"> <img src="[!--news.url--]skin/custom/images/075.png" alt="<?=$public_r[add_city]?>试管婴儿直营机构" /> </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="know_more wow fadeInUp">
+          <div class="know_more_text"><?=$public_r[add_title_suffix]?>带你了解更多试管婴儿攻略知识</div>
+          [e:loop={"select * from {$dbtbpre}enewstags order by rand() desc limit 40",0,24,0}]
+          <a href="<?= $public_r['newsurl'] . 'tag/' . $bqr['tagname'] ?>" target="_blank"
+             title="<?= $bqr['tagname'] ?>"><?= esub($bqr['tagname'], 4) ?></a>
+          [/e:loop]
+        </div>
+        <!--footer-->
+        [!--temp.footer--]
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<!---ecms.field--->0<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认评论列表模板<!---ecms.field---><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>[!--pagetitle--] -<?=$public_r[add_title_suffix]?></title>
+    <meta name="keywords" content="[!--pagekey--]" />
+    <meta name="description" content="[!--pagedes--]" />
+    <style type="text/css">
+        <!--
+        body,Table{ color: #222; font-size: 12px; }
+        a { color: #222; text-decoration: none; }
+        a:hover { color: #f00; text-decoration: underline; }
+        h1 { font-size:32px; font-weight: bold; }
+        h2 { color: #1e3a9e; font-size: 25px; font-weight: bold;  }
+        .you { color: #1f3a87; font-size: 14px; }
+        .text { font-size: 14px; padding-left: 5px; padding-right: 5px; line-height: 20px}
+        .re a { color: #1f3a87; }
+        .name { color: #1f3a87; }
+        .name a { color: #1f3a87; text-decoration: underline;}
+        .retext { background-color: #f3f3f3; width: 100%; float: left; padding-top: 22px; padding-bottom: 22px; border-top: 1px solid #ccc; }
+        .retext textarea { width: 535px; height: 130px; float: left; margin-left: 60px; border-top-style: inset; border-top-width: 2px; border-left-style: inset; border-left-width: 2px; }
+        .hrLine{BORDER-BOTTOM: #807d76 1px dotted;}
+
+        .ecomment {margin:0;padding:0;}
+        .ecomment {margin-bottom:12px;overflow-x:hidden;overflow-y:hidden;padding-bottom:3px;padding-left:3px;padding-right:3px;padding-top:3px;background:#FFFFEE;padding:3px;border:solid 1px #999;}
+        .ecommentauthor {float:left; color:#F96; font-weight:bold;}
+        .ecommenttext {clear:left;margin:0;padding:0;}
+        -->
+    </style>
+    <script src="[!--news.url--]e/data/js/ajax.js"></script>
+</head>
+
+<body topmargin="0">
+<table width="766" border="0" align="center" cellpadding="3" cellspacing="1">
+    <tr>
+        <td width="210"><a href="[!--news.url--]"><img src="[!--news.url--]skin/default/images/logo.gif" border="0" /></a></td>
+        <td><h1>网友评论</h1></td>
+        <td><div align="right"><a href="#tosaypl"><strong><font color="#FF0000">我也评两句</font></strong></a></div></td>
+    </tr>
+</table>
+<table width="766" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#222">
+    <tr>
+        <td height="2"></td>
+    </tr>
+</table>
+<table width="766" border="0" align="center" cellpadding="3" cellspacing="1">
+    <tr>
+        <td height="42">
+            <h2>评论：<a href="[!--titleurl--]" target="_blank"><font color="#1e3a9e">[!--title--]</font></a></h2></td>
+        <td><div align="right"><a href="[!--titleurl--]" target="_blank">查看原文</a></div></td>
+    </tr>
+</table>
+<hr align="center" width="766" size=1 class=hrline>
+<table width="766" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#384EA3">
+    <form action="../enews/index.php" method="post" name="infopfenform">
+        <input type="hidden" name="enews" value="AddInfoPfen" />
+        <input type="hidden" name="classid" value="[!--classid--]" />
+        <input type="hidden" name="id" value="[!--id--]" />
+        <tr>
+            <td width="50%" height="27" valign="middle"><font color="#FFFFFF">&nbsp;评分:
+                <input type="radio" name="fen" value="1">
+                1分
+                <input type="radio" name="fen" value="2">
+                2分
+                <input name="fen" type="radio" value="3" checked>
+                3分
+                <input type="radio" name="fen" value="4">
+                4分
+                <input type="radio" name="fen" value="5">
+                5分
+                <input type="submit" name="Submit" value="提交">
+            </font></td>
+            <td width="50%" valign="middle"><div align="center"><font color="#FFFFFF">平均得分:
+                <strong><span id="pfendiv">[!--pinfopfen--]</span></strong> 分，共有 <strong>[!--infopfennum--]</strong>
+                人参与评分</font></div></td>
+        </tr>
+    </form>
+</table>
+<table width="766" border="0" align="center" cellpadding="3" cellspacing="1" bgcolor="#CCCCCC">
+    <tr>
+        <td height="30" bgcolor="#FFFFFF">
+            <table width="100%" border="0" cellspacing="1" cellpadding="3">
+                <tr>
+                    <td width="17%">&nbsp;&nbsp;&nbsp;网友评论</td>
+                    <td width="83%"><div align="right">[!--listpage--]&nbsp;&nbsp;&nbsp;</div></td>
+                </tr>
+            </table></td>
+    </tr>
+    <tr>
+        <td bgcolor="#f8fcff"> [!--empirenews.listtemp--]
+            <table width="96%" border="0" align="center" cellpadding="3" cellspacing="1" style="word-break:break-all; word-wrap:break-all;">
+                <tr>
+                    <td height="30"><span class="name">本站网友 [!--username--]</span> <font color="#666666">ip:[!--plip--]</font></td>
+                    <td><div align="right"><font color="#666666">[!--pltime--] 发表</font></div></td>
+                </tr>
+                <tr valign="top">
+                    <td height="50" colspan="2" class="text">[!--pltext--]</td>
+                </tr>
+                <tr>
+                    <td height="30">&nbsp;</td>
+                    <td><div align="right" class="re"><a href="#tosaypl"[!--includelink--]>回复</a>&nbsp;
+                        <a href="JavaScript:makeRequest('../pl/doaction.php?enews=DoForPl&plid=[!--plid--]&classid=[!--classid--]&id=[!--id--]&dopl=1&doajax=1&ajaxarea=zcpldiv[!--plid--]','EchoReturnedText','GET','');">支持</a>[<span id="zcpldiv[!--plid--]">[!--zcnum--]</span>]&nbsp;
+                        <a href="JavaScript:makeRequest('../pl/doaction.php?enews=DoForPl&plid=[!--plid--]&classid=[!--classid--]&id=[!--id--]&dopl=0&doajax=1&ajaxarea=fdpldiv[!--plid--]','EchoReturnedText','GET','');">反对</a>[<span id="fdpldiv[!--plid--]">[!--fdnum--]</span>]
+                    </div></td>
+                </tr>
+            </table>
+            <table width="100%" border="0" cellspacing="1" cellpadding="3">
+                <tr>
+                    <td background="[!--news.url--]skin/default/images/plhrbg.gif"></td>
+                </tr>
+            </table>
+            [!--empirenews.listtemp--]
+            <div align="right"><br />
+                [!--listpage--]&nbsp;&nbsp;&nbsp;<br />
+                <br />
+                <font color="#FF0000">网友评论仅供网友表达个人看法，并不表明本站同意其观点或证实其描述&nbsp;&nbsp;&nbsp;</font><br><br> </div></td>
+    </tr>
+    <script>
+        function CheckPl(obj)
+        {
+            if(obj.saytext.value=="")
+            {
+                alert("错误，评论不能为空");
+                obj.saytext.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <form action="../pl/doaction.php" method="post" name="saypl" id="saypl" onsubmit="return CheckPl(document.saypl)">
+        <tr id="tosaypl">
+            <td bgcolor="#f8fcff"> <table width="100%" border="0" cellspacing="1" cellpadding="3">
+                <tr>
+                    <td width="13%" height="28">&nbsp;&nbsp;&nbsp;<span class="you">我也评两句</span></td>
+                    <td valign="middle">用户名：
+                        <input name="username" type="text" id="username" size="12" value="[!--lusername--]" />
+                        密码：
+                        <input name="password" type="password" id="password" size="12" value="[!--lpassword--]" />
+                        验证码：
+                        <input name="key" type="text" id="key" size="6" />
+                        <img src="[!--key.url--]" align="middle" name="plKeyImg" id="plKeyImg" onclick="plKeyImg.src='[!--news.url--]e/ShowKey/?v=pl&t='+Math.random()" title="看不清楚,点击刷新" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="[!--news.url--]e/member/register/" target="_blank">还没有注册？</a></td>
+                </tr>
+            </table></td>
+        </tr>
+        <tr>
+            <td bgcolor="#f8fcff"> <table width="100%" border="0" cellspacing="1" cellpadding="3" class="retext">
+                <tr>
+                    <td width="78%"><div align="center">
+                        <textarea name="saytext" cols="58" rows="6" id="saytext"></textarea>
+                    </div></td>
+                    <td width="22%" rowspan="2"> <div align="center">
+                        <input name="nomember" type="checkbox" id="nomember" value="1" checked="checked" />
+                        匿名发表<br>
+                        <br />
+                        <input name="imageField" type="submit" id="imageField" value=" 提 交 " />
+                    </div></td>
+                </tr>
+                <tr>
+                    <td><div align="center">
+                        <script src="[!--news.url--]d/js/js/plface.js"></script>
+                    </div></td>
+                </tr>
+            </table> </td>
+        </tr>
+        <input name="id" type="hidden" id="id" value="[!--id--]" />
+        <input name="classid" type="hidden" id="classid" value="[!--classid--]" />
+        <input name="enews" type="hidden" id="enews" value="AddPl" />
+        <input name="repid" type="hidden" id="repid" value="0" />
+    </form>
+</table>
+[!--temp.footer--]
+</body>
+</html><!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->1<!---ecms.field--->默认打印模板<!---ecms.field---><html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>[!--pagetitle--] -<?=$public_r[add_title_suffix]?></title>
+    <meta name="keywords" content="[!--pagekey--]" />
+    <meta name="description" content="[!--pagedes--]" />
+    <style>
+        body{font-family:宋体}td,.f12{font-size:12px}.f24 {font-size:24px;}.f14 {font-size:14px;}.title14 {font-size:14px;line-height:130%}.l17 {line-height:170%;}
+    </style>
+</head>
+<body bgcolor="#ffffff" topmargin=5 leftmargin=5 marginheight=5 marginwidth=5 onLoad='window.print()'>
+<center>
+    <table width=650 border=0 cellspacing=0 cellpadding=0>
+        <tr>
+            <td height=65 width=180><A href="http://www.phome.net/"><IMG src="../../skin/default/images/elogo.jpg" alt="帝国软件" width="180" height="65" border=0></A></td>
+            <td valign="bottom">[!--url--]</td>
+            <td width="83" align="right" valign="bottom"><a href='javascript:history.back()'>返回</a>　<a href='javascript:window.print()'>打印</a></td>
+        </tr>
+    </table>
+    <table width=650 border=0 cellpadding=0 cellspacing=20 bgcolor="#EDF0F5">
+        <tr>
+            <td>
+                <BR>
+                <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                    <TBODY>
+                    <TR>
+                        <TH class="f24"><FONT color=#05006c>[!--title--]</FONT></TH></TR>
+                    <TR>
+                        <TD>
+                            <HR SIZE=1 bgcolor="#d9d9d9">
+                        </TD>
+                    </TR>
+                    <TR>
+                        <TD align="middle" height=20><div align="center">[!--writer--]&nbsp;&nbsp;[!--newstime--]&nbsp;&nbsp;[!--befrom--]</div></TD>
+                    </TR>
+                    <TR>
+                        <TD height=15></TD>
+                    </TR>
+                    <TR>
+                        <TD class="l17">
+                            <FONT class="f14" id="zoom">
+                                <P>[!--newstext--]<br>
+                                    <BR clear=all>
+                                </P>
+                            </FONT>
+                        </TD>
+                    </TR>
+                    <TR height=10>
+                        <TD></TD>
+                    </TR>
+                    </TBODY>
+                </TABLE>
+                [!--titlelink--]
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html><!---ecms.field--->1<!---ecms.field--->Y-m-d H:i:s<!---ecms.field--->1<!---ecms.record---><!---ecms.temp--->
