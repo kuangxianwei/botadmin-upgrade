@@ -163,6 +163,12 @@
             </legend>
             <div id="menu-items"></div>
         </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">弹窗宣传语:</label>
+            <div class="layui-input-block">
+                <textarea name="tip_html" class="layui-textarea" placeholder="弹窗宣传语HTML代码">{{.obj.TipHtml}}</textarea>
+            </div>
+        </div>
     </div>
 </div>
 <script type="text/html" id="insert-submenu">

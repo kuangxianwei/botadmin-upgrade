@@ -155,6 +155,21 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" lay-tips="延时弹窗时间，单位为秒 0秒为关闭弹窗">延时弹窗:</label>
+                <div class="layui-input-inline" style="width:60px">
+                    <input type="number" name="tip_delay" value="{{.obj.TipDelay}}" min="0" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline" style="width:80px">
+                <input type="radio" name="tip_pure" value="false" title="非纯"{{if not .obj.TipPure}} checked{{end}}>
+                <input type="radio" name="tip_pure" value="true" title="纯净"{{if .obj.TipPure}} checked{{end}}>
+            </div>
+            <div class="layui-inline" style="width:650px">
+                <textarea name="tip_html" class="layui-textarea" rows="3" placeholder="弹窗广告宣传语HTML代码">{{.obj.TipHtml}}</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">其他:</label>
             <div class="layui-input-inline" style="width: 50%">
                 <textarea name="other" class="layui-textarea" rows="4">{{.obj.Other}}</textarea>
@@ -167,7 +182,7 @@
             <button lay-submit>提交</button>
             <button id="uploadSubmit"></button>
             <button id="submit"></button>
-            <input type="hidden" name="cols" value="pc_enabled,mobile_enabled,style_id,sort,history_enabled,alias,phone,wechat,max,weight,email,consult,cities,durations,other">
+            <input type="hidden" name="cols" value="pc_enabled,mobile_enabled,style_id,sort,history_enabled,alias,phone,wechat,max,weight,email,consult,cities,durations,tip_delay,tip_pure,tip_html,other">
         </div>
     </div>
 </div>
