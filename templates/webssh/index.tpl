@@ -95,8 +95,11 @@
         let table = layui.table,
             main = layui.main,
             form = layui.form,
-            url = {{.current_uri}};
+            url = {{.current_uri}},
+            version = {{.version}};
+        version = version || 'v0';
         url = url || '';
+        version = parseInt(version.replaceAll(/[v.]/g, ''));
         //渲染上传配置
         layui.upload.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},
@@ -133,7 +136,12 @@
                 {field: 'user', title: '用户名', hide: true},
                 {
                     title: '控制台', width: 120, event: "login", align: 'center', templet: function (d) {
-                        return '<button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-username"></i> ' + (d['control_version'] ? d['control_version'] : 'unknown') + '</button>';
+                        let controlVersion = d['control_version'] ? d['control_version'] : 'unknown',
+                            verInt = parseInt(controlVersion.replaceAll(/[v.]/g, ''));
+                        if (isNaN(verInt) || verInt < version) {
+                            return '<button class="layui-btn layui-btn-xs layui-bg-red"><i class="layui-icon layui-icon-username"></i> ' + controlVersion + '</button>';
+                        }
+                        return '<button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-username"></i> ' + controlVersion + '</button>';
                     }
                 },
                 {
@@ -153,8 +161,8 @@
                 {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
-            limit: 10,
-            limits: [10, 50, 100, 500, 1000],
+            limit: 20,
+            limits: [20, 50, 100, 500, 1000],
             text: '对不起，加载出现异常！'
         });
         //监听工具条
