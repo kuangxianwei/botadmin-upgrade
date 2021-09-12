@@ -65,6 +65,9 @@
             <button class="layui-btn layui-btn-sm layui-bg-cyan" lay-event="scan" lay-tips="批量检查控制台">
                 <i class="iconfont icon-scan"></i>
             </button>
+            <button class="layui-btn layui-btn-sm" lay-event="control-version" lay-tips="批量获取控制端版本">
+                <i class="iconfont layui-icon-vercode"></i>
+            </button>
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="log" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
@@ -129,8 +132,8 @@
                 {field: 'port', title: '端口', hide: true},
                 {field: 'user', title: '用户名', hide: true},
                 {
-                    title: '控制台', width: 90, event: "login", align: 'center', templet: function () {
-                        return `<button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-username"></i></button>`;
+                    title: '控制台', width: 120, event: "login", align: 'center', templet: function (d) {
+                        return '<button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-username"></i> ' + (d['control_version'] ? d['control_version'] : 'unknown') + '</button>';
                     }
                 },
                 {
@@ -290,6 +293,15 @@
                         tips: function () {
                             main.ws.log("webssh.0");
                         }
+                    });
+                    break;
+                case 'control-version':
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    main.req({
+                        url: url + "/version",
+                        data: {ids: ids.join()},
                     });
                     break;
             }
