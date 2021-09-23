@@ -184,7 +184,8 @@
                         // 填充咨询链接
                         $('[lay-event="fill-consult"]').on('click', function () {
                             main.req({
-                                url: '/contact/fill/consult', ending: function (res) {
+                                url: '/contact/fill/consult',
+                                ending: function (res) {
                                     $('[name="consult"]').val(res.data);
                                 }
                             });
@@ -207,7 +208,8 @@
                         // 填充其他百度统计啥的
                         $('[lay-event="fill-other"]').on('click', function () {
                             main.req({
-                                url: '/contact/fill/other', ending: function (res) {
+                                url: '/contact/fill/other',
+                                ending: function (res) {
                                     $('[name="other"]').val(res.data);
                                 }
                             });

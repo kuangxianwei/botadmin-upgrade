@@ -58,9 +58,6 @@
                 main.req({
                     url: url,
                     data: {'act': act},
-                    tips: function (res) {
-                        main.msg(res.msg);
-                    },
                     index: index
                 });
             });

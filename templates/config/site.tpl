@@ -47,6 +47,9 @@
                                      title="{{.theme.Readme}}">
                             {{end -}}
                         </div>
+                        <div class="layui-col">
+                            <a lay-href="/themes/shop?driver={{.obj.System}}" class="layui-btn layui-btn-primary" id="theme-shop"><i class="layui-icon iconfont icon-shop"></i>主题商店</a>
+                        </div>
                     </div>
                     <div class="layui-form-item"></div>
                     <div class="layui-form-item">
@@ -610,6 +613,7 @@
             url = {{.current_uri}};
         //改变模板目录列表
         form.on('select(system)', function (obj) {
+            $('#theme-shop').attr("lay-href", "/themes/shop?driver=" + obj.value);
             let tplUrl = '/site/tpl?system=' + obj.value;
             if (tplName) {
                 tplUrl = tplUrl + '&tpl_name=' + tplName;

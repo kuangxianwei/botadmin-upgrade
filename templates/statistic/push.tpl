@@ -214,8 +214,9 @@
                                 url: url + '/exec',
                                 data: {ids: ids.join(), thread: value},
                                 index: index,
-                                tips: function () {
+                                ending: function () {
                                     main.ws.log('statistic_push.0');
+                                    return false;
                                 }
                             });
                         });
@@ -246,10 +247,7 @@
                     break;
                 case 'jobs':
                     main.req({
-                        url: url + '/jobs',
-                        tips: function (res) {
-                            main.msg(res.msg);
-                        }
+                        url: url + '/jobs'
                     });
                     break;
             }

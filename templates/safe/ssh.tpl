@@ -134,6 +134,7 @@
                     data: {'act': 'create_key'},
                     ending: function () {
                         location.reload();
+                        return false;
                     },
                 });
             },

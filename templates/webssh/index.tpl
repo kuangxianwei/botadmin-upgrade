@@ -286,8 +286,9 @@
                             });
                         },
                         area: "600px",
-                        tips: function () {
+                        ending: function () {
                             main.ws.log("webssh.0");
+                            return false;
                         }
                     });
                     break;
@@ -298,8 +299,9 @@
                     main.req({
                         url: url + "/scan",
                         data: {ids: ids.join()},
-                        tips: function () {
+                        ending: function () {
                             main.ws.log("webssh.0");
+                            return false;
                         }
                     });
                     break;

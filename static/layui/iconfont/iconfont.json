@@ -6,6 +6,90 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "508909",
+      "name": "等级",
+      "font_class": "level",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "774449",
+      "name": "等级",
+      "font_class": "level-v",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "875659",
+      "name": "等级",
+      "font_class": "level-1",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "97241",
+      "name": "本地商家",
+      "font_class": "local-shop",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "2325623",
+      "name": "本地",
+      "font_class": "local",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "21516760",
+      "name": "本地用户",
+      "font_class": "local-user",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "7817220",
+      "name": "购物车",
+      "font_class": "shopping",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "19690997",
+      "name": "商店",
+      "font_class": "shop",
+      "unicode": "eb84",
+      "unicode_decimal": 60292
+    },
+    {
+      "icon_id": "21430332",
+      "name": "已审核",
+      "font_class": "vetted",
+      "unicode": "e6d1",
+      "unicode_decimal": 59089
+    },
+    {
+      "icon_id": "4360986",
+      "name": "审核",
+      "font_class": "ok",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "17815115",
+      "name": "审核中",
+      "font_class": "vetting",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "24254818",
+      "name": "审核",
+      "font_class": "vet",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
       "icon_id": "15282826",
       "name": "扫描",
       "font_class": "scan",

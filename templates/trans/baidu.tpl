@@ -115,9 +115,6 @@
                     main.req({
                         url: '/trans/baidu/test',
                         data: data,
-                        tips: function (res) {
-                            main.msg(res.msg);
-                        },
                         index: index
                     });
                 }

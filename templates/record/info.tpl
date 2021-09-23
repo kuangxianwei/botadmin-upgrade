@@ -89,9 +89,10 @@
         $("[lay-event=cron]").click(function () {
             main.req({
                 url: url + "/cron",
-                tips: function (res) {
+                ending: function (res) {
                     main.msg(res.msg);
-                }
+                    return false;
+                },
             });
         });
         form.on('radio(display)', function (obj) {

@@ -1,4 +1,4 @@
-<div class="layui-fluid" id="spider-tabs">
+<div id="spider-tabs">
     <div class="layui-row">
         <div class="layui-col-md12">
             <div class="layui-card" lay-event="search">
@@ -294,11 +294,13 @@
                         main.req({
                             url: url + '/exec',
                             data: {id: data.id, thread: 1},
-                            tips: function () {
-                                main.ws.log("spider." + data.id);
+                            ending: function () {
+                                main.ws.log("spider." + data.id, function () {
+                                    table.reload('table-list');
+                                });
+                                return false;
                             },
                             index: index,
-                            ending: 'table-list',
                         });
                     });
                     break;
@@ -405,9 +407,6 @@
                 case 'jobs':
                     main.req({
                         url: url + '/jobs',
-                        tips: function (res) {
-                            main.msg(res.msg);
-                        }
                     });
                     break;
                 case 'cron-enable':

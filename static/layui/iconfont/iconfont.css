@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 1228095 */
-  src: url('iconfont.woff2?t=1630892811468') format('woff2'),
-       url('iconfont.woff?t=1630892811468') format('woff'),
-       url('iconfont.ttf?t=1630892811468') format('truetype');
+  src: url('iconfont.woff2?t=1632312540844') format('woff2'),
+       url('iconfont.woff?t=1632312540844') format('woff'),
+       url('iconfont.ttf?t=1632312540844') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,54 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-level:before {
+  content: "\e62c";
+}
+
+.icon-level-v:before {
+  content: "\e661";
+}
+
+.icon-level-1:before {
+  content: "\e633";
+}
+
+.icon-local-shop:before {
+  content: "\e623";
+}
+
+.icon-local:before {
+  content: "\e626";
+}
+
+.icon-local-user:before {
+  content: "\e628";
+}
+
+.icon-shopping:before {
+  content: "\e622";
+}
+
+.icon-shop:before {
+  content: "\eb84";
+}
+
+.icon-vetted:before {
+  content: "\e6d1";
+}
+
+.icon-ok:before {
+  content: "\e61c";
+}
+
+.icon-vetting:before {
+  content: "\e625";
+}
+
+.icon-vet:before {
+  content: "\e665";
 }
 
 .icon-scan:before {

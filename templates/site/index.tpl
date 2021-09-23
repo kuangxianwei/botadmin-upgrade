@@ -441,10 +441,11 @@
                 case 'rank':
                     main.req({
                         url: '/site/rank',
-                        tips: function (res) {
+                        data: data,
+                        ending: function (res) {
                             main.msg(res.msg);
+                            return false;
                         },
-                        data: data
                     });
                     break;
                 case 'del':
@@ -497,8 +498,9 @@
                             title: '添加图片',
                             content: html,
                             area: '800px',
-                            tips: function () {
+                            ending: function () {
                                 main.ws.log('site.' + data.id);
+                                return false;
                             }
                         });
                         form.render();
@@ -551,8 +553,9 @@
                                     url: url + "/mysql",
                                     data: field,
                                     index: index,
-                                    tips: function () {
+                                    ending: function () {
                                         main.ws.log('site.' + data.id);
+                                        return false;
                                     }
                                 });
                                 return false;
@@ -701,10 +704,11 @@
                     main.req({
                         url: url + '/found',
                         data: {'ids': ids.join()},
-                        tips: function (res) {
+                        ending: function (res) {
+                            table.reload('table-list');
                             main.msg(res.msg);
+                            return false;
                         },
-                        ending: 'table-list',
                     });
                     break;
                 case 'install':
@@ -715,10 +719,11 @@
                     main.req({
                         url: url + '/install',
                         data: {'ids': ids.join()},
-                        tips: function (res) {
+                        ending: function (res) {
+                            table.reload('table-list');
                             main.msg(res.msg);
-                        },
-                        ending: 'table-list',
+                            return false;
+                        }
                     });
                     break;
                 case 'setup':
@@ -729,10 +734,12 @@
                     main.req({
                         url: url + '/setup',
                         data: {'ids': ids.join()},
-                        tips: function () {
-                            main.ws.log('site.0');
+                        ending: function () {
+                            main.ws.log('site.0', function () {
+                                table.reload('table-list');
+                            });
+                            return false;
                         },
-                        ending: 'table-list',
                     });
                     break;
                 case 'publish':
@@ -750,9 +757,11 @@
                                 url: url + '/publish',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                ending: 'table-list',
-                                tips: function () {
-                                    main.ws.log('site.0');
+                                ending: function () {
+                                    main.ws.log('site.0', function () {
+                                        table.reload('table-list');
+                                    });
+                                    return false;
                                 }
                             });
                         });
@@ -761,9 +770,10 @@
                     main.req({
                         url: url + '/reload/nginx',
                         data: {'ids': ids.join()},
-                        ending: 'table-list',
-                        tips: function (res) {
+                        ending: function (res) {
+                            table.reload('table-list');
                             main.msg(res.msg);
+                            return false;
                         },
                     });
                     break;
@@ -778,8 +788,9 @@
                         content: contentObj.prop('outerHTML'),
                         url: url + '/reload/website/setup',
                         area: '400px',
-                        tips: function () {
+                        ending: function () {
                             main.ws.log('site.0');
+                            return false;
                         }
                     });
                     break;
@@ -794,9 +805,11 @@
                                 url: url + '/update/website',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                ending: 'table-list',
-                                tips: function () {
-                                    main.ws.log('site.0');
+                                ending: function () {
+                                    main.ws.log('site.0', function () {
+                                        table.reload('table-list');
+                                    });
+                                    return false;
                                 }
                             });
                         });
@@ -816,8 +829,9 @@
                                 url: url + '/pull/config',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                tips: function () {
+                                ending: function () {
                                     main.ws.log('site.0');
+                                    return false;
                                 }
                             });
                         });
@@ -825,9 +839,10 @@
                 case 'jobs':
                     main.req({
                         url: url + '/jobs',
-                        tips: function (res) {
+                        ending: function (res) {
                             main.msg(res.msg);
-                        }
+                            return false;
+                        },
                     });
                     break;
                 case 'cron-enable':
@@ -904,8 +919,9 @@
                                     url: url + "/mysql",
                                     data: field,
                                     index: index,
-                                    tips: function () {
+                                    ending: function () {
                                         main.ws.log('site.0');
+                                        return false;
                                     }
                                 });
                                 return false;
@@ -923,9 +939,10 @@
                     main.req({
                         url: '/site/rank',
                         data: {'ids': ids.join()},
-                        ending: 'table-list',
-                        tips: function (res) {
+                        ending: function (res) {
+                            table.reload('table-list');
                             main.msg(res.msg);
+                            return false;
                         },
                     });
                     break;
@@ -946,8 +963,9 @@
                     main.req({
                         url: url + '/vhosts',
                         data: {ids: ids.join()},
-                        tips: function (res) {
+                        ending: function (res) {
                             main.msg(res.msg);
+                            return false;
                         },
                     });
                     break;

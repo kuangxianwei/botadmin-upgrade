@@ -59,7 +59,7 @@
                         <dd><a lay-href="/auth">登录日志</a></dd>
                         <dd><a lay-href="/safe/login">登录设置</a></dd>
                         <hr>
-                        <dd data-event="logout" style="text-align: center;"><a>退出</a></dd>
+                        <dd data-event="logout" style="text-align: center;"><a href="/auth/logout">退出</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
@@ -187,25 +187,47 @@
                                     </dd>
                                 </dl>
                             </dd>
-                            <dd data-name="theme">
-                                <a href="javascript:" lay-tips="主题管理" lay-direction="2">
-                                    <i class="iconfont icon-theme"></i>
-                                    <cite>主题</cite>
-                                </a>
-                                <dl class="layui-nav-child">
-                                    {{range $system:=.systems -}}
-                                        <dd data-name="site-{{$system.Name}}">
-                                            <a lay-href="/themes?system={{$system.Name}}" lay-tips="{{$system.Alias}}"
-                                               lay-direction="2"><cite>{{$system.Alias}}</cite></a>
-                                        </dd>
-                                    {{end -}}
-                                </dl>
-                            </dd>
                             <dd data-name="modify-hosts">
                                 <a lay-href="/file/editor?path=/etc/hosts" lay-tips="修改Hosts" lay-direction="2">
                                     <i class="iconfont icon-host"></i>
                                     <cite>Hosts</cite>
                                 </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li data-name="theme" class="layui-nav-item">
+                        <a href="javascript:" lay-tips="主题管理" lay-direction="2">
+                            <i class="layui-icon iconfont icon-theme"></i>
+                            <cite>主题管理</cite>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd data-name="local-theme">
+                                <a href="javascript:" lay-tips="已下载到本地主题" lay-direction="2">
+                                    <i class="layui-icon iconfont icon-local-shop"></i>
+                                    <cite>本地主题</cite>
+                                </a>
+                                <dl class="layui-nav-child">
+                                    {{range $system:=.systems -}}
+                                        <dd data-name="site-{{$system.Name}}">
+                                            <a lay-href="/themes?driver={{$system.Name}}" lay-tips="{{$system.Alias}}"
+                                               lay-direction="2"><cite>{{$system.Alias}}</cite></a>
+                                        </dd>
+                                    {{end -}}
+                                </dl>
+                            </dd>
+                            <dd data-name="remote-theme">
+                                <a href="javascript:" lay-tips="主题商店" lay-direction="2">
+                                    <i class="layui-icon iconfont icon-shop"></i>
+                                    <cite>主题商店</cite>
+                                </a>
+                                <dl class="layui-nav-child">
+                                    {{range $system:=.systems -}}
+                                        <dd data-name="site-{{$system.Name}}">
+                                            <a lay-href="/themes/shop?driver={{$system.Name}}" lay-tips="{{$system.Alias}}"
+                                               lay-direction="2"><cite>{{$system.Alias}}</cite></a>
+                                        </dd>
+                                    {{end -}}
+                                </dl>
                             </dd>
                         </dl>
                     </li>

@@ -110,22 +110,20 @@
             <div class="layui-form-mid layui-word-aux">如开启了留言则发送到这个邮箱</div>
         </div>
         <div class="layui-form-item">
-            <div class="layui-row">
-                <div class="layui-col-md4">
-                    <label class="layui-form-label">二维码:</label>
-                    <div class="layui-input-inline">
-                        <div class="layui-upload-drag" id="uploadFile">
-                            <i class="layui-icon layui-icon-upload-drag"></i>
-                            <p>点击上传文件，或将文件拖拽到此处！</p>
-                        </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">二维码:</label>
+                <div class="layui-input-inline">
+                    <div class="layui-upload-drag" id="uploadFile">
+                        <i class="layui-icon layui-icon-upload-drag"></i>
+                        <p>点击上传文件，或将文件拖拽到此处！</p>
                     </div>
                 </div>
-                <div class="layui-col-md4">
-                    <div class="layui-upload-list" id="uploadResult">
-                        {{if .obj.QR -}}
-                            <img height="130" width="130" alt="二维码" src="{{.obj.QR}}"/>
-                        {{end -}}
-                    </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-upload-list" id="uploadResult">
+                    {{if .obj.QR -}}
+                        <img height="130" width="130" alt="二维码" src="{{.obj.QR}}"/>
+                    {{end -}}
                 </div>
             </div>
         </div>

@@ -82,10 +82,11 @@
                     main.req({
                         url: '/trans/google/test',
                         data: data,
-                        tips: function (res) {
+                        index: index,
+                        ending: function (res) {
                             main.msg(res.msg);
+                            return false;
                         },
-                        index: index
                     });
                 }
             });

@@ -71,10 +71,11 @@
                             maxmin: false,
                             content: $('#install-html').html(),
                             area: '350px',
-                            tips: function () {
+                            ending: function () {
                                 main.ws.log("plugin." + data.id, function () {
                                     table.reload('table-list');
                                 });
+                                return false;
                             },
                             success: function (dom) {
                                 dom.find('input[name="args"]').attr("placeholder", data.args.join(" "));
@@ -85,10 +86,11 @@
                         main.req({
                             url: url + "/install",
                             data: {id: data.id},
-                            tips: function () {
+                            ending: function () {
                                 main.ws.log("plugin." + data.id, function () {
                                     table.reload('table-list');
                                 });
+                                return false;
                             },
                         });
                     }
@@ -97,10 +99,11 @@
                     main.req({
                         url: url + "/uninstall",
                         data: {id: data.id},
-                        tips: function () {
+                        ending: function () {
                             main.ws.log("plugin." + data.id, function () {
                                 table.reload('table-list');
                             });
+                            return false;
                         },
                     });
                     break;

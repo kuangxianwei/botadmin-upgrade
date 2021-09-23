@@ -314,9 +314,7 @@
                 tip, name;
             switch (event) {
                 case 'ban-update':
-                    main.req({
-                        url: url + '/ban/update',
-                    });
+                    main.req({url: url + '/ban/update'});
                     break;
                 case 'status':
                     name = othis.data('name');
@@ -329,8 +327,9 @@
                             url: url + '/status',
                             data: {name: name},
                             index: index,
-                            tips: function (res) {
+                            ending: function (res) {
                                 main.msg(res.msg);
+                                return false;
                             },
                         });
                     });
@@ -357,8 +356,9 @@
                         title: '测试违禁词',
                         url: url + '/ban/test',
                         area: '70%',
-                        tips: function (res) {
+                        ending: function (res) {
                             main.msg(`<textarea class="layui-textarea" name="content" rows="10">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});
+                            return false;
                         },
                         content: '<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" name="content" rows="15" placeholder="输入需要检查的内容..."></textarea></div><div class="layui-hide"><button class="layui-btn" lay-submit lay-filter="submit"></button></div></div></div>'
                     });

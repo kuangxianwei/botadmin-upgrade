@@ -4,8 +4,83 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         return this.indexOf(suffix, this.length - suffix.length) !== -1;
     }
 
+    // tags
+    class Tags {
+        constructor() {
+            // 操作input
+            this.controlElem = $('input[lay-event=tags]');
+            // 储存input
+            this.inputElem = $('input[name=tags]');
+            // 默认tag
+            this.value = this.inputElem.val();
+            // tag显示盒子
+            this.boxElem = $('#tags-box');
+            this.del = function (elem) {
+                let othis = this;
+                (elem ? elem.find('i.layui-icon-close-fill') : $('i.layui-icon-close-fill')).click(function () {
+                    let thisText = $(this).parent().text(),
+                        tagsVal = othis.inputElem.val();
+                    $(this).parent().remove();
+                    if (tagsVal) {
+                        let tags = tagsVal.split(','),
+                            newTags = [];
+                        for (let i = 0; i < tags.length; i++) {
+                            if (tags[i] !== thisText) {
+                                newTags.push(tags[i]);
+                            }
+                        }
+                        othis.inputElem.val(newTags.join(','));
+                    }
+                });
+            };
+            this.add = function (val) {
+                if (val) {
+                    let othis = this, tagsVal = othis.inputElem.val(),
+                        exists = tagsVal ? tagsVal.split(',') : [];
+                    if (tagsVal) {
+                        if ($.inArray(val, exists) !== -1) {
+                            $(this).val('');
+                            return false;
+                        }
+                        othis.inputElem.val(tagsVal + "," + val);
+                    } else {
+                        othis.inputElem.val(val);
+                    }
+                    let tagEle = $('<cite>' + val + '<i class="layui-icon layui-icon-close-fill" style="color:brown;cursor:pointer;"></i></cite>');
+                    othis.boxElem.append(tagEle);
+                    othis.del(tagEle);
+                }
+            };
+            this.render = function () {
+                let othis = this;
+                if (othis.value) {
+                    let arr = main.unique(othis.value.split(","));
+                    othis.inputElem.val(arr.join(","));
+                    othis.boxElem.empty();
+                    for (let i = 0; i < arr.length; i++) {
+                        othis.boxElem.append('<cite>' + arr[i] + '<i class="layui-icon layui-icon-close-fill" style="color:brown;cursor:pointer;"></i></cite>');
+                    }
+                }
+                othis.controlElem.keydown(function (event) {
+                    if (event.keyCode === 32) {
+                        othis.add(this.value.trim());
+                        $(this).val("");
+                    }
+                });
+                othis.controlElem.blur(function () {
+                    othis.add(this.value.trim());
+                    $(this).val("");
+                });
+                othis.del(othis.boxElem);
+            };
+        }
+    }
+
     class Class {
         constructor() {
+            this.isObject = function (obj) {
+                return Object.prototype.toString.call(obj) === '[object Object]';
+            }
             // 判断是密码col
             this.isPassword = function (colName) {
                 return colName.hasSuffix("password") || colName.hasSuffix("passwd")
@@ -32,7 +107,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
             // 整理对象
             this.tidyObj = function (obj) {
-                return Object.prototype.toString.call(obj) === '[object Object]' ? obj : {};
+                return this.isObject(obj) ? obj : {};
             };
             // 获取URL指定参数的值
             this.getParam = function (key, url) {
@@ -84,6 +159,19 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         });
                     }
                 }, options));
+            };
+            // 去除重复数组
+            this.unique = function (arr) {
+                if (Array.isArray(arr)) {
+                    let newArr = [];
+                    for (let i = 0; i < arr.length; i++) {
+                        if ($.inArray(arr[i], newArr) === -1) {
+                            newArr.push(arr[i]);
+                        }
+                    }
+                    return newArr;
+                }
+                return arr;
             };
             // 监控
             this.on = {
@@ -152,10 +240,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         // ajax 请求
         req(options, dom) {
             let othis = this;
-            options = $.extend({type: 'POST', dataType: 'json'}, othis.tidyObj(options));
+            options = $.extend({type: 'POST', dataType: 'json'}, options || {});
             if (typeof options.url !== 'string') {
                 options.url = $('meta[name=current_uri]').attr('content');
             }
+            let reloadOptions = $.extend({}, options);
             // 加载中...
             let loading = layer.load(1, {shade: [0.7, '#000', true]}),
                 isPost = options.type.toUpperCase() === 'POST';
@@ -189,17 +278,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         }
                         if (typeof options.ending === 'string' && options.ending !== '-') {
                             table.reload(options.ending, {page: {curr: 1}});
-                        } else if (typeof options.ending === 'function') {
-                            options.ending(res);
+                        } else if (typeof options.ending === 'function' && options.ending(res) === false) {
+                            return false;
                         }
-                        if (typeof options.tips === 'function') {
-                            options.tips(res);
-                        } else {
-                            layer.msg(res.msg, {
-                                icon: 1,
-                                shade: [0.6, '#000', true]
-                            });
-                        }
+                        layer.msg(res.msg, {icon: 1, shade: [0.6, '#000', true]});
                         break;
                     case 1001:
                     case 403:
@@ -210,8 +292,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         }
                         break;
                     default:
-                        if (typeof options.error === 'function') {
-                            options.error(res);
+                        if (typeof options.error === 'function' && options.error(res) === false) {
+                            return false;
                         }
                         return othis.err(res.msg);
                 }
@@ -226,6 +308,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             request.always(function () {
                 layer.close(loading);
             });
+            return {
+                dom: dom,
+                options: reloadOptions,
+                reload: function (options, dom) {
+                    return othis.req($.extend(true, this.options, options || {}), dom);
+                }
+            };
         }
 
         // 弹窗
@@ -252,10 +341,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 btn: ['提交', '取消'],
                 area: ['95%', '95%'],
                 success: function (dom, index) {
+                    form.render();
                     if (success(dom, index) === false) {
                         return false
                     }
-                    form.render();
                     form.on('submit(' + options.submit + ')', function (obj) {
                         othis.req({
                             url: options.url || obj.field.url,
@@ -378,6 +467,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 maxmin: false,
                 area: ['90%', '90%'],
             }, options || {}));
+        }
+
+        // tags
+        // options {value:"tag1,tag2",inputElem:$('input[name=tags]'),boxElem:$('#tags-box')}
+        tags(options) {
+            let tagClass = new Tags();
+            $.extend(tagClass, options);
+            tagClass.render();
         }
     }
 
@@ -1035,7 +1132,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     tpl_name: tplName
                 }, function (res) {
                     if (res.code === 0 && res.data.face) {
-                        $('#theme').html('<img width="100%" height="100%" alt="' + res.data.alias + '" src="' + res.data.face + '" title="' + res.data.readme + '">');
+                        $('#theme').html('<img width="100%" height="100%" alt="' + res.data.alias + '" src="' + res.data.face + '" title="' + res.data['readme'] + '">');
                     }
                 });
             }
@@ -1079,8 +1176,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             main.pop({
                 confirm: false,
                 scroll: false,
-                content: '<div style="position:fixed;padding:6px;top:-15px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div><textarea class="layui-textarea layui-bg-black" style="color:white;height:100%" id="log-display" readonly="readonly"></textarea>',
-                area: ['75%', '75%'],
+                content: '<div style="position:fixed;padding:6px;top:-15px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div><textarea rows="22" class="layui-textarea layui-bg-black" style="color:white;height:100%" id="log-display" readonly="readonly"></textarea>',
+                area: ['75%'],
                 success: function (dom) {
                     let displayElem = dom.find('#log-display'),
                         statusElem = dom.find('#log-status');

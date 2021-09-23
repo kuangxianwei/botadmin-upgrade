@@ -49,6 +49,9 @@
                                      title="{{.theme.Readme}}">
                             {{end -}}
                         </div>
+                        <div class="layui-col">
+                            <a lay-href="/themes/shop?driver={{.obj.System}}" class="layui-btn layui-btn-primary" id="theme-shop"><i class="layui-icon iconfont icon-shop"></i>主题商店</a>
+                        </div>
                     </div>
                     <div class="layui-form-item"></div>
                     <div class="layui-form-item">
@@ -832,6 +835,7 @@
         main.render.tpl();
         //监控系统选择
         form.on('select(system)', function (obj) {
+            $('#theme-shop').attr("lay-href", "/themes/shop?driver=" + obj.value);
             $.get('/site/admin', {system: obj.value}, function (html) {
                 $('input[name=admin_dir]').val(html);
             });

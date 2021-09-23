@@ -83,6 +83,7 @@
                 url: url,
                 ending: function () {
                     location.href = referer;
+                    return false;
                 }
             });
             return false;

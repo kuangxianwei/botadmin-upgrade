@@ -212,8 +212,9 @@
                 case 'jobs':
                     main.req({
                         url: url + '/jobs',
-                        tips: function (res) {
+                        ending: function (res) {
                             main.msg(res.msg);
+                            return false;
                         },
                     });
                     break;

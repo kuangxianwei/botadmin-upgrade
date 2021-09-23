@@ -97,8 +97,9 @@
                     main.req({
                         url: '/trans/youdao/test',
                         data: data,
-                        tips: function (res) {
+                        ending: function (res) {
                             main.msg(res.msg);
+                            return false;
                         },
                         index: index
                     });

@@ -63,7 +63,6 @@
             main.req({
                 url: url + '/enable',
                 data: {'name': name, "enabled": checked},
-                ending: '-',
                 error: function () {
                     table.reload('table-list');
                 }

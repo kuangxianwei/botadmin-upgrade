@@ -44,9 +44,6 @@
                     main.req({
                         url: '/system/reboot',
                         data: {act: 'mysql'},
-                        tips: function (res) {
-                            main.msg(res.msg);
-                        },
                     });
                     break;
             }

@@ -56,11 +56,13 @@
             table = layui.table,
             main = layui.main,
             upload = layui.upload,
+            csrfToken ={{.csrf_token}},
             url = {{.current_uri}};
+        csrfToken = csrfToken || '';
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
@@ -126,48 +128,17 @@
                     break;
                 case 'modify':
                     $.get(url + "/modify", {id: data.id}, function (html) {
-                        layer.open({
-                            url: url + '/modify',
-                            title: '修改客服',
+                        main.popup({
+                            title: "修改客服",
+                            url: url + "/modify",
                             content: html,
-                            type: 1,
-                            shadeClose: true,
-                            scrollbar: false,
-                            btnAlign: 'c',
-                            shade: 0.8,
-                            fixed: false,
-                            maxmin: true,
-                            btn: ['提交', '取消'],
                             area: ['95%', '95%'],
-                            yes: function (index, dom) {
-                                if ($(dom.find('*[lay-submit]').click().context).find('input.layui-form-danger').length === 0) {
-                                    if ($('[name=file]').val()) {
-                                        $('#uploadSubmit').click();
-                                    } else {
-                                        $('#submit').click();
-                                    }
-                                }
-                                return false;
-                            },
                             success: function (dom, layerIndex) {
-                                form.render();
                                 let loading;
-                                dom.find('#submit').on('click', function () {
-                                    let field = main.formData(dom.selector);
-                                    if (Array.isArray(field['duration'])) {
-                                        field.durations = field.duration.join();
-                                    }
-                                    main.req({
-                                        url: url + '/modify',
-                                        data: field,
-                                        index: layerIndex,
-                                        ending: 'table-list',
-                                    });
-                                });
                                 upload.render({
                                     elem: '#uploadFile',
                                     url: url + '/modify',
-                                    headers: {'X-CSRF-Token':{{.csrf_token}}},
+                                    headers: {'X-CSRF-Token': csrfToken},
                                     size: 1024 * 50,
                                     accept: 'images',
                                     acceptMime: 'image/jpg,image/png',
@@ -176,14 +147,11 @@
                                     bindAction: '#uploadSubmit',
                                     before: function () {
                                         this.data = main.formData(dom.selector);
-                                        if (Array.isArray(this.data['duration'])) {
-                                            this.data.durations = this.data.duration.join();
-                                        }
                                         loading = layer.load(1, {shade: [0.7, '#000', true]});
                                     },
                                     choose: function (obj) {
                                         obj.preview(function (index, file, result) {
-                                            $('#uploadResult').html('<img height="130" width="130" alt="二维码" src="' + result + '" title="' + file.name + '"/>');
+                                            $('#uploadResult').attr("data-filename", file.name).html('<img height="130" width="130" alt="二维码" src="' + result + '" title="' + file.name + '"/>');
                                         });
                                     },
                                     done: function (res, index) {
@@ -196,43 +164,32 @@
                                             });
                                             return false;
                                         }
-                                        layer.alert(res.msg, {
-                                            skin: 'layui-layer-admin',
-                                            shadeClose: true,
-                                            icon: 2,
-                                            btn: '',
-                                            closeBtn: false,
-                                            anim: 6,
-                                            success: function (o, index) {
-                                                let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                                                o.append(elemClose);
-                                                elemClose.on('click', function () {
-                                                    layer.close(index);
-                                                });
-                                            }
-                                        });
+                                        main.err(res.msg);
                                     },
                                     error: function (index) {
                                         layer.close(index);
                                         layer.close(loading);
-                                        layer.alert("网络错误", {
-                                            skin: 'layui-layer-admin',
-                                            shadeClose: true,
-                                            icon: 2,
-                                            btn: '',
-                                            closeBtn: false,
-                                            anim: 6,
-                                            success: function (o, index) {
-                                                let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                                                o.append(elemClose);
-                                                elemClose.on('click', function () {
-                                                    layer.close(index);
-                                                });
-                                            }
-                                        });
+                                        main.err("网络错误");
                                     },
                                 });
-                            }
+                            },
+                            yes: function (index, dom) {
+                                let arr = [];
+                                dom.find('input[name=duration]').each(function () {
+                                    let val = $(this).val();
+                                    if (val && arr.indexOf(val) === -1) {
+                                        arr.push(val);
+                                    }
+                                });
+                                if (arr) {
+                                    dom.find('input[name=durations]').val(arr.join(","));
+                                }
+                                if (dom.find('#uploadResult').data("filename")) {
+                                    dom.find('#uploadSubmit').click();
+                                    return false;
+                                }
+                            },
+                            ending: 'table-list'
                         });
                     });
                     break;
@@ -257,48 +214,17 @@
             switch (obj.event) {
                 case 'add':
                     $.get(url + '/add', {}, function (html) {
-                        layer.open({
-                            url: url + '/add',
-                            title: '添加客服',
+                        main.popup({
+                            title: "添加客服",
+                            url: url + "/add",
                             content: html,
-                            type: 1,
-                            shadeClose: true,
-                            scrollbar: false,
-                            btnAlign: 'c',
-                            shade: 0.8,
-                            fixed: false,
-                            maxmin: true,
-                            btn: ['提交', '取消'],
                             area: ['95%', '95%'],
-                            yes: function (index, dom) {
-                                if ($(dom.find('*[lay-submit]').click().context).find('input.layui-form-danger').length === 0) {
-                                    if ($('[name=file]').val()) {
-                                        $('#uploadSubmit').click();
-                                    } else {
-                                        $('#submit').click();
-                                    }
-                                }
-                                return false;
-                            },
                             success: function (dom, layerIndex) {
-                                form.render();
                                 let loading;
-                                dom.find('#submit').on('click', function () {
-                                    let field = main.formData(dom.selector);
-                                    if (Array.isArray(field['duration'])) {
-                                        field.durations = field.duration.join();
-                                    }
-                                    main.req({
-                                        url: url + '/add',
-                                        data: field,
-                                        index: layerIndex,
-                                        ending: 'table-list',
-                                    });
-                                });
                                 upload.render({
                                     elem: '#uploadFile',
                                     url: url + '/add',
-                                    headers: {'X-CSRF-Token':{{.csrf_token}}},
+                                    headers: {'X-CSRF-Token': csrfToken},
                                     size: 1024 * 50,
                                     accept: 'images',
                                     acceptMime: 'image/jpg,image/png',
@@ -307,14 +233,11 @@
                                     bindAction: '#uploadSubmit',
                                     before: function () {
                                         this.data = main.formData(dom.selector);
-                                        if (Array.isArray(this.data['duration'])) {
-                                            this.data.durations = this.data.duration.join();
-                                        }
                                         loading = layer.load(1, {shade: [0.7, '#000', true]});
                                     },
                                     choose: function (obj) {
                                         obj.preview(function (index, file, result) {
-                                            $('#uploadResult').html('<img height="130" width="130" alt="二维码" src="' + result + '" title="' + file.name + '"/>');
+                                            $('#uploadResult').attr("data-filename", file.name).html('<img height="130" width="130" alt="二维码" src="' + result + '" title="' + file.name + '"/>');
                                         });
                                     },
                                     done: function (res, index) {
@@ -327,43 +250,32 @@
                                             });
                                             return false;
                                         }
-                                        layer.alert(res.msg, {
-                                            skin: 'layui-layer-admin',
-                                            shadeClose: true,
-                                            icon: 2,
-                                            btn: '',
-                                            closeBtn: false,
-                                            anim: 6,
-                                            success: function (o, index) {
-                                                let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                                                o.append(elemClose);
-                                                elemClose.on('click', function () {
-                                                    layer.close(index);
-                                                });
-                                            }
-                                        });
+                                        main.err(res.msg);
                                     },
                                     error: function (index) {
                                         layer.close(index);
                                         layer.close(loading);
-                                        layer.alert("网络错误", {
-                                            skin: 'layui-layer-admin',
-                                            shadeClose: true,
-                                            icon: 2,
-                                            btn: '',
-                                            closeBtn: false,
-                                            anim: 6,
-                                            success: function (o, index) {
-                                                let elemClose = $('<i class="layui-icon" close>&#x1006;</i>');
-                                                o.append(elemClose);
-                                                elemClose.on('click', function () {
-                                                    layer.close(index);
-                                                });
-                                            }
-                                        });
+                                        main.err("网络错误");
                                     },
                                 });
-                            }
+                            },
+                            yes: function (index, dom) {
+                                let arr = [];
+                                dom.find('input[name=duration]').each(function () {
+                                    let val = $(this).val();
+                                    if (val && arr.indexOf(val) === -1) {
+                                        arr.push(val);
+                                    }
+                                });
+                                if (arr) {
+                                    dom.find('input[name=durations]').val(arr.join(","));
+                                }
+                                if (dom.find('#uploadResult').data("filename")) {
+                                    dom.find('#uploadSubmit').click();
+                                    return false;
+                                }
+                            },
+                            ending: 'table-list'
                         });
                     });
                     break;

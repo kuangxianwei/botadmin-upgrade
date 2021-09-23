@@ -9,6 +9,8 @@
 <script src="/static/webssh/bootbox.min.js"></script>
 <script src="/static/webssh/toastr.min.js"></script>
 <script>
+    $('body').removeClass('layui-fluid');
+
     // 增加刷新关闭提示属性
     function checkWindow() {
         event.returnValue = false;

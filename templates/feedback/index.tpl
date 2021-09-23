@@ -187,9 +187,7 @@ UserAgent: ` + obj.data['user_agent'] + `
                         main.req({
                             url: url + '/reset',
                             index: index,
-                            ending: function () {
-                                table.reload('table-list');
-                            }
+                            ending: 'table-list'
                         });
                     });
                     break;

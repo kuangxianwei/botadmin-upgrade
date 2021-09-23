@@ -21,7 +21,7 @@
 
     .item > h3 > span {
         display: inline-block;
-        width: 72%;
+        width: 65%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -32,7 +32,7 @@
         float: right;
     }
 
-    .item > h4 {
+    .item > footer {
         margin-top: 10px;
         text-align: center;
     }
@@ -50,35 +50,39 @@
         <button class="layui-btn" id="upload"><i class="layui-icon layui-icon-upload"></i>上传主题</button>
         只支持tar.gz 或者.zip 的压缩文件
     </div>
-</div>
-<div class="layui-row layui-col-space10">
-    {{range $theme:=.themes -}}
-        <div class="layui-col-md3">
-            <div class="item" data-theme="{{json $theme}}">
-                <img src="/theme/loading.svg" lay-src="{{$theme.Face}}" alt="{{$theme.Name}}" title="{{$theme.Alias}}">
-                <h3>
-                    <label>名称:</label>
-                    <span class="alias">{{$theme.Alias}}</span>
-                    <i class="layui-icon layui-icon-edit" data-event="alias"></i>
-                </h3>
-                <h3>
-                    <label>简介:</label>
-                    <span class="readme">{{$theme.Readme}}</span>
-                    <i class="layui-icon layui-icon-edit" data-event="readme"></i>
-                </h3>
-                <h4 class="layui-btn-group" style="margin: 0 auto;">
-                    <a class="layui-btn" lay-href="/file?path=data/template/{{$theme.System}}/{{$theme.Name}}"
-                       lay-text="{{$theme.Alias}}主题" lay-tips="编辑{{$theme.Alias}}主题">
-                        <i class="layui-icon layui-icon-theme"></i>
-                    </a>
-                    <button class="layui-btn layui-btn-normal" data-event="face">换封面</button>
-                    <button class="layui-btn layui-btn-danger" data-event="del" lay-tips="删除该主题">
-                        <i class="layui-icon layui-icon-delete"></i>
-                    </button>
-                </h4>
-            </div>
+    <div class="layui-card-body">
+        <div class="layui-row layui-col-space10">
+            {{range $theme:=.themes -}}
+                <div class="layui-col-md3">
+                    <div class="item" data-theme="{{json $theme}}">
+                        <img src="/theme/loading.svg" lay-src="{{$theme.Face}}" alt="{{$theme.Name}}" title="{{$theme.Alias}}">
+                        <h3>
+                            <label>名称:</label>
+                            <span class="alias" lay-tips="{{$theme.Alias}}">{{$theme.Alias}}</span>
+                            <i class="layui-icon layui-icon-edit" data-event="alias"></i>
+                        </h3>
+                        <h3>
+                            <label>简介:</label>
+                            <span class="readme" lay-tips="{{$theme.Readme}}">{{$theme.Readme}}</span>
+                            <i class="layui-icon layui-icon-edit" data-event="readme"></i>
+                        </h3>
+                        <footer>
+                            <div class="layui-btn-group">
+                                <a class="layui-btn" lay-href="/file?path=data/template/{{$theme.System}}/{{$theme.Name}}"
+                                   lay-text="{{$theme.Alias}}主题" lay-tips="编辑{{$theme.Alias}}主题">
+                                    <i class="layui-icon layui-icon-theme"></i>
+                                </a>
+                                <button class="layui-btn layui-btn-normal" data-event="face">换封面</button>
+                                <button class="layui-btn layui-btn-danger" data-event="del" lay-tips="删除该主题">
+                                    <i class="layui-icon layui-icon-delete"></i>
+                                </button>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            {{end -}}
         </div>
-    {{end -}}
+    </div>
 </div>
 <script type="text/html" id="edit">
     <div class="layui-card">
@@ -157,7 +161,8 @@
                     });
                     break;
                 case 'face':
-                    if ($('#' + theme.name).length === 0) {
+                    let ele = $('#' + theme.name);
+                    if (ele.length === 0) {
                         parentThis.append('<div class="layui-hide" id="' + theme.name + '"></div>');
                     }
                     //普通图片上传
@@ -174,7 +179,7 @@
                             main.err(res.msg);
                         },
                     });
-                    $('#' + theme.name).click();
+                    ele.click();
                     break;
                 case 'del':
                     layer.confirm('确定删除该主题?不可恢复', function (index) {

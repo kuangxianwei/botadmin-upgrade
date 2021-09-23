@@ -383,8 +383,9 @@
                             content: html,
                             url: url + '/translate',
                             area: ['750px', '300px'],
-                            tips: function () {
+                            ending: function () {
                                 main.ws.log('article.0');
+                                return false;
                             },
                         });
                         form.render();

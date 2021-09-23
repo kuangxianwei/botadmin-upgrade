@@ -100,8 +100,9 @@
                     main.req({
                         url: '/trans/tencent/test',
                         data: data,
-                        tips: function (res) {
+                        ending: function (res) {
                             main.msg(res.msg);
+                            return false;
                         },
                         index: index
                     });
