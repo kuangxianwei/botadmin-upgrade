@@ -24,8 +24,8 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <div class="layui-row layui-col-space5">
-                        <div class="layui-col-md3">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
                             <label class="layui-form-label">网站类型:</label>
                             <div class="layui-input-block">
                                 <select name="system" lay-filter="system" {{if gt .obj.Status 0}} disabled{{end}}>
@@ -35,23 +35,21 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="layui-col-md4">
+                        <div class="layui-inline">
                             <label class="layui-form-label">选择模板:</label>
-                            <div class="layui-input-inline" lay-filter="tpl_name">
+                            <div class="layui-input-block" lay-filter="tpl_name">
                                 {{.tpl_select}}
                             </div>
                         </div>
-                        <div class="layui-col" id="theme">
+                        <div class="layui-inline" id="theme">
                             {{if .theme.Face -}}
-                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.Face}}"
-                                     title="{{.theme.Readme}}">
+                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.Face}}" title="{{.theme.Readme}}">
                             {{end -}}
                         </div>
-                        <div class="layui-col">
-                            <a lay-href="/themes/shop?driver={{.obj.System}}" class="layui-btn layui-btn-primary" id="theme-shop"><i class="layui-icon iconfont icon-shop"></i>主题商店</a>
+                        <div class="layui-inline">
+                            <a lay-href="/themes/shop?driver={{.obj.System}}" class="layui-btn layui-btn-radius" id="theme-shop"><i class="layui-icon iconfont icon-shop"></i>主题商店</a>
                         </div>
                     </div>
-                    <div class="layui-form-item"></div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">默认目录</label>
                         <div class="layui-input-inline">
