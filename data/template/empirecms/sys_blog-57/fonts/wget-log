@@ -1,6 +1,0 @@
---2021-08-25 17:30:11--  https://cdn.staticfile.org/fonts/fontawesome-webfont.eot
-Resolving cdn.staticfile.org (cdn.staticfile.org)... 47.246.16.229, 47.246.16.225, 47.246.16.228, ...
-Connecting to cdn.staticfile.org (cdn.staticfile.org)|47.246.16.229|:443... connected.
-HTTP request sent, awaiting response... 404 ‘wget-log’
-2021-08-25 17:31:04 ERROR 404: Not Found.
-

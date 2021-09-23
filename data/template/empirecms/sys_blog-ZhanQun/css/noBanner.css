@@ -1,8 +1,0 @@
-.header {background-color:#0154BA;}
-@media (min-width:1000px)
-{
- body{padding-top:70px;}
-.header .nav ul li ul{background-color:#0154BA;padding-top:0px}
-.header .nav > ul > li ul::before {display:none}
-.header-small .nav ul li ul{background-color:rgba(0,0,0,.7);}
-}
