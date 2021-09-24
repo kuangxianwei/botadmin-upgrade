@@ -6,7 +6,7 @@
         padding: 6px;
         color: #ffffff;
         box-shadow: 1px 1px 1px 1px #888;
-        line-height: 25px;
+        line-height: 20px;
     }
 
     .layui-card-body > hr {
@@ -22,15 +22,15 @@
         cursor: pointer;
     }
 
-    .item > h3 > label {
+    .item > h4 > label {
         display: inline-block;
         overflow: hidden;
         margin-right: 5px;
     }
 
-    .item > h3 > span {
+    .item > h4 > span {
         display: inline-block;
-        width: 75%;
+        width: 80%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -63,32 +63,36 @@
                 <i class="layui-icon layui-icon-search"></i>
             </button>
         </div>
-        <h3 id="result-count" style="position:fixed;z-index:19821027;left:300px;top:2px;color:#bd2c00">
+        <h4 id="result-count" style="position:fixed;z-index:19821027;left:300px;top:2px;color:#bd2c00">
             结果: <cite></cite>
-        </h3>
+        </h4>
         <hr/>
         <div class="layui-row" id="theme-container"></div>
-        <h3 style="position:fixed;z-index:19821027;left:48%;bottom:10px;color: gray" id="down">
+        <h4 style="position:fixed;z-index:19821027;left:48%;bottom:10px;color: gray" id="down">
             <i class="layui-icon layui-icon-down"></i><cite>下拉加载更多</cite>
-        </h3>
+        </h4>
     </div>
 </div>
 <script type="text/html" id="item">
     <div class="layui-col-md3">
         <div class="item">
             <img src="/theme/loading.svg" alt="" lay-filter="face">
-            <h3>
+            <h4>
                 <label>名称:</label>
                 <span lay-filter="alias"></span>
-            </h3>
-            <h3>
+            </h4>
+            <h4>
                 <label>简介:</label>
                 <span lay-filter="intro"></span>
-            </h3>
-            <h3>
+            </h4>
+            <h4>
                 <label>Tags:</label>
                 <span lay-filter="tags"></span>
-            </h3>
+            </h4>
+            <h4>
+                <label>下载:</label>
+                <span lay-filter="downloads"></span>
+            </h4>
             <footer>
                 <button class="layui-btn layui-btn-sm layui-btn-primary" style="color:yellow">
                     <i class="layui-icon iconfont icon-level-1"></i><cite lay-filter="level">0</cite>
@@ -293,6 +297,9 @@
                             break;
                         case "tags":
                             obj.attr("lay-tips", d['tags']).text(d['tags']);
+                            break;
+                        case "downloads":
+                            obj.text(d['downloads'] + " 次");
                             break;
                         case "level":
                             obj.attr("lay-tips", levels[d['level']]).text(d['level']);
