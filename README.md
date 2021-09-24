@@ -3,6 +3,6 @@
 ## 安装方法:
 ### wget http://auth.nfivf.com:9090/mirror/install.sh && sh ./install.sh
 ## 手动下载升级文件
-### wget http://auth.nfivf.com:9090/mirror/v2.0.4.tar.gz
+### wget http://auth.nfivf.com:9090/mirror/v2.0.5.tar.gz
 #### 覆盖到服务器的 /data/botadmin/
-# v2.0.4
+# v2.0.5

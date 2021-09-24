@@ -6,7 +6,6 @@ protoPath=$(pwd)
 #转到APP程序根目录
 # shellcheck disable=SC2154
 cd "${RootPath}" || exit 1
-rm -rf ./data/template
 # 逻辑代码开始
 #sqlite3 /data/botadmin/data/db/config.db <<EOF
 #DROP TABLE monitor_cfg;
