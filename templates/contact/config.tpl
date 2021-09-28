@@ -125,7 +125,7 @@
             durations = {{.obj.Durations}},
             delObj = $('*[lay-event=del-duration]'),
             addObj = $('*[lay-event=add-duration]');
-        $('*[lay-submit][lay-filter="submit"]').off('click').on('click',function () {
+        $('*[lay-submit][lay-filter="submit"]').off('click').on('click', function () {
             if ($('[name=host]').val() === '') {
                 layer.tips("Host 不能为空", '[name=host]', {tips: 1, time: 10000});
                 return false;
@@ -137,7 +137,7 @@
             }
             return false;
         });
-        $('#submit').off('click').on('click',function () {
+        $('#submit').off('click').on('click', function () {
             let field = main.formData();
             if (field.durations instanceof Array) {
                 field.durations = field.durations.join();
@@ -197,7 +197,7 @@
             },
         });
         // 监控城市
-        $('*[lay-event=cities]').off('click').on('click',function () {
+        $('*[lay-event=cities]').off('click').on('click', function () {
             main.pop({
                 content: `<div id="cities"></div>`,
                 success: function (dom) {
@@ -222,19 +222,19 @@
             });
         });
         // 添加时间段
-        addObj.click(function () {
+        addObj.off('click').on('click', function () {
             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
             layKey++;
             $(this).parent().before('<div class="layui-input-inline"><input type="text" name="durations" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
             layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
-            delObj.css('display', 'inline-block');
+            delObj.show(200);
         });
         // 删除时间段
-        delObj.click(function () {
+        delObj.off('click').on('click', function () {
             $(this).parents('div.layui-form-item').find('input:last').parent().remove();
             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key');
             if (typeof layKey === 'undefined') {
-                delObj.css('display', 'none');
+                delObj.hide(200);
             }
         });
         if (durations) {
@@ -242,10 +242,10 @@
                 index += 1;
                 $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="durations" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
                 layDate.render({elem: '#date-' + index, type: 'time', range: true});
-                delObj.css('display', 'inline-block');
+                delObj.show(200);
             });
         }
-        $('[lay-event="copy-js"]').off('click').on('click',function () {
+        $('[lay-event="copy-js"]').off('click').on('click', function () {
             $.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
                 main.copy.exec(jsCode, layer.msg('广告JS代码复制成功'));
             });

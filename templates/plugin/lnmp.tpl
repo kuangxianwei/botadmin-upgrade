@@ -104,9 +104,9 @@
 <script>
     layui.form.on('radio(stack)', function (obj) {
         if (obj.value === "lnmp") {
-            $('#lnmpa').css("display", "none");
+            $('#lnmpa').hide(200);
         } else {
-            $('#lnmpa').css("display", "block");
+            $('#lnmpa').show(200);
         }
     });
 </script>

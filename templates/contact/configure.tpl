@@ -105,7 +105,7 @@
                     if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
                         fieldElem.append('<div class="layui-form-item"><label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label><button class="layui-btn" lay-event="cities">选择城市</button><input type="hidden" name="cities" value=""></div>');
                         // 监控城市
-                        $('*[lay-event="cities"]').off('click').on('click',function () {
+                        $('*[lay-event="cities"]').off('click').on('click', function () {
                             main.pop({
                                 content: `<div id="cities"></div>`,
                                 success: function (dom) {
@@ -150,20 +150,20 @@
                         let addElem = $('*[lay-event=add-duration]', fieldElem),
                             delElem = $('*[lay-event=del-duration]', fieldElem);
                         // 添加时间段
-                        addElem.click(function () {
+                        addElem.off('click').on('click', function () {
                             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
                             layKey++
                             $(this).parent().before('<div class="layui-input-inline"><input type="text" name="duration" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
                             layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
-                            delElem.css('display', 'inline-block');
+                            delElem.show(200);
                             form.render('input');
                         });
                         // 删除时间段
-                        delElem.click(function () {
+                        delElem.off('click').on('click', function () {
                             $(this).parents('div.layui-form-item').find('input:last').parent().remove();
                             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key');
                             if (typeof layKey === 'undefined') {
-                                delElem.css('display', 'none');
+                                delElem.hide(200);
                             }
                         });
                     } else {

@@ -78,9 +78,9 @@
             count ={{.count}},
             custom_engine = {{.obj.CustomEngine}};
         if (custom_engine) {
-            $(".custom-engine").addClass("layui-show");
+            $(".custom-engine").show(200);
         } else {
-            $(".custom-engine").addClass("layui-hide");
+            $(".custom-engine").hide(200);
         }
         main.cron('[name="spec"]');
         main.slider(
@@ -89,9 +89,9 @@
         );
         layui.form.on('select(search-engine)', function (obj) {
             if (obj.value) {
-                $(".custom-engine").removeClass("layui-show").addClass("layui-hide");
+                $(".custom-engine").hide(200);
             } else {
-                $(".custom-engine").removeClass("layui-hide").addClass("layui-show").find('input').focus();
+                $(".custom-engine").show(200).find('input').focus();
             }
         });
     });

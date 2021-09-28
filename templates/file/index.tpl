@@ -423,23 +423,20 @@
 
     class CurPath {
         constructor() {
+            this.currentPathElem = $('#current-path');
             this.data = {};
             this.init = () => {
+                let othis = this;
                 this.render();
-                $('#current-path').off('click').on('click',function () {
-                    let elem = $('#current-path');
-                    elem.addClass("layui-hide");
-                    $('input[name=goto]').attr("type", "text").val(elem.attr("title"));
+                othis.currentPathElem.off('click').on('click', function () {
+                    othis.currentPathElem.hide();
+                    $('input[name=goto]').attr("type", "text").val(othis.currentPathElem.attr("title"));
                     layui.form.render("input");
                 });
-                let othis = this;
-                $('.toolbar [lay-event="return-top"]').off('click').on('click',function () {
+                $('.toolbar [lay-event="return-top"],.toolbar [lay-event=refresh]').off('click').on('click', function () {
                     othis.goto(this);
                 });
-                $('.toolbar [lay-event=refresh]').off('click').on('click',function () {
-                    othis.goto(this);
-                });
-                $('[lay-event=terminal]').off('click').on('click',function () {
+                $('[lay-event=terminal]').off('click').on('click', function () {
                     layui.main.webssh({stdin: "cd " + othis.data.path});
                 });
                 $('input[name="goto"]').keydown(function (event) {
@@ -458,8 +455,7 @@
                 if (this.data.path.substring(0, 1) !== "/") {
                     this.data.path = {{.app_root}}+"/" + this.data.path;
                 }
-                let curElem = $("#current-path");
-                curElem.attr("title", this.data.path).removeClass("layui-hide").parent().find("input").attr("type", "hidden");
+                this.currentPathElem.attr("title", this.data.path).show().parent().find("input").attr("type", "hidden");
                 let paths = this.data.path.split("/"), p = [],
                     elem = `<span title="/">根目录</span><span title="/">></span>`;
                 for (let i = 1; i < paths.length; i++) {
@@ -470,9 +466,9 @@
                         elem += `<span title="/` + title + `">` + paths[i] + `</span><span title="/` + title + `">></span>`;
                     }
                 }
-                curElem.html(elem);
+                this.currentPathElem.html(elem);
                 let othis = this;
-                $('#current-path>span').off('click').on('click',function () {
+                $('#current-path>span').off('click').on('click', function () {
                     othis.goto(this);
                 });
                 $('.toolbar [lay-event="return-top"]').attr("title", this.getTop(this.data.path));

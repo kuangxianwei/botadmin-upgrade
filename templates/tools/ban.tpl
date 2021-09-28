@@ -30,13 +30,13 @@
                 url: '/tools/ban',
                 data: {content: content},
                 ending: function (res) {
-                    $('#display').removeClass('layui-hide').val(res.data);
+                    $('#display').show(200).val(res.data);
                 }
             });
         });
         //清空值并且聚焦
-        $('button[lay-event=reset]').off('click').on('click',function () {
-            $('#display').addClass('layui-hide').val('');
+        $('button[lay-event=reset]').off('click').on('click', function () {
+            $('#display').hide(200).val('');
             $('textarea[name=content]').val('').focus();
         });
     });

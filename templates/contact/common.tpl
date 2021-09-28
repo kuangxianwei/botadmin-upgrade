@@ -136,18 +136,18 @@
             <button class="layui-btn" lay-event="fill-consult">填充默认</button>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
-            <button class="layui-btn" lay-event="cities">选择城市</button>
+            <label class="layui-form-label" lay-tips="选中的区域则不显示联系信息">屏蔽区域:</label>
+            <button class="layui-btn layui-btn-radius layui-btn-primary" lay-event="cities">选择</button>
             <input type="hidden" name="cities" value="{{join .obj.Cities ","}}">
         </div>
         <div class="layui-form-item" lay-filter="duration">
             <input type="hidden" name="durations">
-            <label class="layui-form-label">时间范围:</label>
-            <div class="layui-btn-group">
-                <button class="layui-btn" lay-event="add-duration">
+            <label class="layui-form-label">开放时间:</label>
+            <div class="layui-btn-group" style="line-height: 38px">
+                <button class="layui-btn layui-btn-sm" lay-event="add-duration">
                     <i class="layui-icon layui-icon-add-circle"></i>
                 </button>
-                <button class="layui-btn layui-bg-red" lay-event="del-duration" style="display:none;">
+                <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="del-duration" style="display:none;">
                     <i class="layui-icon layui-icon-fonts-del"></i>
                 </button>
             </div>
@@ -195,14 +195,14 @@
             delObj = $('*[lay-event=del-duration]');
         //滑块控制
         main.slider({elem: '#weight', value: {{.obj.Weight}}, max: 100});
-        $('[lay-event="fill-consult"]').on('click', function () {
+        $('[lay-event="fill-consult"]').off('click').on('click', function () {
             main.req({
                 url: '/contact/fill/consult', ending: function (res) {
                     $('[name="consult"]').val(res.data);
                 }
             });
         });
-        $('[lay-event="fill-other"]').on('click', function () {
+        $('[lay-event="fill-other"]').off('click').on('click', function () {
             main.req({
                 url: '/contact/fill/other', ending: function (res) {
                     $('[name="other"]').val(res.data);
@@ -210,13 +210,13 @@
             });
         });
         // 监控城市
-        $('*[lay-event=cities]').off('click').on('click',function () {
+        $('*[lay-event=cities]').off('click').on('click', function () {
             main.pop({
                 content: `<div id="cities"></div>`,
                 success: function (dom) {
                     //显示城市搜索框
                     transfer.render({
-                        title: ['全部城市', '城市'],
+                        title: ['全部区域', '屏蔽区域'],
                         id: 'cityData',
                         elem: dom.find('#cities'),
                         data: citiesData,
@@ -235,19 +235,19 @@
             });
         });
         // 添加时间段
-        addObj.click(function () {
+        addObj.off('click').on('click', function () {
             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
             layKey++;
             $(this).parent().before('<div class="layui-input-inline"><input type="text" name="duration" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
             layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
-            delObj.css('display', 'inline-block');
+            delObj.show(200);
         });
         // 删除时间段
-        delObj.click(function () {
+        delObj.off('click').on('click', function () {
             $(this).parents('div.layui-form-item').find('input:last').parent().remove();
             let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key');
             if (typeof layKey === 'undefined') {
-                delObj.css('display', 'none');
+                delObj.hide(200);
             }
         });
         if (durations) {
@@ -255,7 +255,7 @@
                 index += 1;
                 $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="duration" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
                 layDate.render({elem: '#date-' + index, type: 'time', range: true});
-                delObj.css('display', 'inline-block');
+                delObj.show(200);
             });
         }
     });

@@ -88,14 +88,14 @@
                     .html('<i class="layui-icon layui-icon-pause"></i>停止');
             }
         });
-        $('[lay-filter="reset-record"]').off('click').on('click',function () {
+        $('[lay-filter="reset-record"]').off('click').on('click', function () {
             main.reset.log('statistic_collect', [0], {
                 ending: function () {
                     $('#collect-display').val('');
                 }
             })
         });
-        $('[lay-filter="copy-keywords"]').off('click').on('click',function () {
+        $('[lay-filter="copy-keywords"]').off('click').on('click', function () {
             let val = $('#collect-display').val(), values = val.split("\n"), result = [], reg = /^相关搜索词:(.*?)$/;
             for (let i = 0; i < values.length; i++) {
                 let rs = reg.exec(values[i]);
@@ -114,7 +114,7 @@
                 layer.msg("复制成功");
             });
         });
-        $('[lay-filter="copy-urls"]').off('click').on('click',function () {
+        $('[lay-filter="copy-urls"]').off('click').on('click', function () {
             let val = $('#collect-display').val(), values = val.split("\n"), result = [], reg = /(https?:\/\/\S+)/;
             for (let i = 0; i < values.length; i++) {
                 let rs = reg.exec(values[i]);
@@ -135,13 +135,13 @@
         });
         main.slider({elem: '#thread', value: {{$.obj.Thread}}, max: 100});
         if (isDirect) {
-            $('div.depth').addClass('layui-hide');
+            $('div.depth').hide(200);
         }
         form.on('radio(is_direct)', function (obj) {
             if (obj.value === 'true') {
-                $('div.depth').addClass('layui-hide');
+                $('div.depth').hide(200);
             } else {
-                $('div.depth').removeClass('layui-hide');
+                $('div.depth').show(200);
             }
         });
     });
