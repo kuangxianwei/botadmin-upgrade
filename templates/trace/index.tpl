@@ -63,10 +63,9 @@
     layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
-            url = url,
             searchWaiterId = main.getParam('waiter_id'),
             tableOptions = {
-                headers: {'X-CSRF-Token':csrfToken},
+                headers: {'X-CSRF-Token': csrfToken},
                 method: 'post',
                 elem: '#table-list',
                 url: url,

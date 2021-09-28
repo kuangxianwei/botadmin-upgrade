@@ -7,8 +7,8 @@
             <input type="checkbox" data-field="history_enabled" title="历史记录" lay-filter="field">
             <input type="checkbox" data-field="max" title="最大限制" lay-filter="field">
             <input type="checkbox" data-field="weight" title="权重" lay-filter="field">
-            <input type="checkbox" data-field="durations" title="时间段" lay-filter="field">
-            <input type="checkbox" data-field="cities" title="城市" lay-filter="field">
+            <input type="checkbox" data-field="durations" title="开放时间" lay-filter="field">
+            <input type="checkbox" data-field="cities" title="屏蔽区域" lay-filter="field">
             <input type="checkbox" data-field="consult" title="在线咨询" lay-filter="field">
             <input type="checkbox" data-field="other" title="其他" lay-filter="field">
         </fieldset>
@@ -111,7 +111,7 @@
                                 success: function (dom) {
                                     //显示城市搜索框
                                     transfer.render({
-                                        title: ['全部城市', '城市'],
+                                        title: ['全部区域', '屏蔽区域'],
                                         id: 'cityData',
                                         elem: dom.find('#cities'),
                                         data: citiesData,

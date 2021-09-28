@@ -203,7 +203,7 @@
                 success: function (dom) {
                     //显示城市搜索框
                     transfer.render({
-                        title: ['全部城市', '城市'],
+                        title: ['全部区域', '屏蔽区域'],
                         id: 'cityData',
                         elem: dom.find('#cities'),
                         data: citiesData,
