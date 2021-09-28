@@ -210,7 +210,7 @@
             });
         });
         // 监控城市
-        $('*[lay-event=cities]').click(function () {
+        $('*[lay-event=cities]').off('click').on('click',function () {
             main.pop({
                 content: `<div id="cities"></div>`,
                 success: function (dom) {

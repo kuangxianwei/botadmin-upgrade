@@ -115,17 +115,14 @@
             limits: [10, 30, 100, 500, 1000],
             text: '对不起，加载出现异常！'
         });
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case 'enabled':
+        let active = {
+                'enabled': function (obj) {
                     let othis = $(this),
                         enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
                     main.req({
                         url: url + "/switch",
                         data: {
-                            id: data.id,
+                            id: obj.data.id,
                             enabled: enabled
                         },
                         error: function () {
@@ -136,19 +133,19 @@
                             }
                         }
                     });
-                    break;
-                case 'del':
+                },
+                'del': function (obj) {
                     layer.confirm('确定删除此条配置？', function (index) {
                         main.req({
                             url: url + "/del",
-                            data: {'id': data.id},
+                            data: {'id': obj.data.id},
                             index: index,
                             ending: obj.del
                         });
                     });
-                    break;
-                case 'modify':
-                    $.get(url + '/modify', {id: data.id}, function (html) {
+                },
+                'modify': function (obj) {
+                    $.get(url + '/modify', {id: obj.data.id}, function (html) {
                         main.popup({
                             title: '修改翻译配置',
                             url: url + '/modify',
@@ -157,19 +154,10 @@
                             ending: 'table-list',
                         });
                     });
-                    break;
-            }
-        });
-
-        //头工具栏事件
-        table.on('toolbar(table-list)', function (obj) {
-            let data = table.checkStatus(obj.config.id).data,
-                ids = [];
-            layui.each(data, function (i, v) {
-                ids[i] = v.id;
-            });
-            switch (obj.event) {
-                case 'add':
+                },
+            },
+            activeBar = {
+                'add': function () {
                     $.get(url + '/add', {}, function (html) {
                         main.popup({
                             title: '添加翻译配置',
@@ -179,8 +167,8 @@
                             ending: 'table-list',
                         });
                     });
-                    break;
-                case 'del':
+                },
+                'del': function (obj, data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
@@ -192,8 +180,8 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'enabled':
+                },
+                'enabled': function (obj, data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
@@ -202,8 +190,8 @@
                         data: {ids: ids.join(), enabled: true},
                         ending: 'table-list'
                     });
-                    break;
-                case 'disabled':
+                },
+                'disabled': function (obj, data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
@@ -212,20 +200,33 @@
                         data: {ids: ids.join(), enabled: false},
                         ending: 'table-list'
                     });
-                    break;
-                case 'export':
+                },
+                'export': function (obj, data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
                     window.open(encodeURI('/trans/export?engine=' + data[0].engine + '&ids=' + ids.join()));
-                    break;
-                case 'import':
+                },
+                'import': function () {
                     $('#import').click();
-                    break;
-                case 'log':
+                },
+                'log': function (obj, data) {
                     main.ws.log("trans." + data.engine + ".0");
-                    break;
-            }
+                },
+            };
+        //监听工具条
+        table.on('tool(table-list)', function (obj) {
+            active[obj.event] && active[obj.event].call(this, obj);
+        });
+
+        //头工具栏事件
+        table.on('toolbar(table-list)', function (obj) {
+            let data = table.checkStatus(obj.config.id).data,
+                ids = [];
+            layui.each(data, function (i, v) {
+                ids[i] = v.id;
+            });
+            activeBar[obj.event] && activeBar[obj.event].call(this, obj, data, ids);
         });
         // 监听搜索
         main.onSearch();

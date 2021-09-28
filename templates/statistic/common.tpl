@@ -79,7 +79,7 @@
             });
         }
         main.on.del();
-        $('[lay-event="add-control"]').click(function () {
+        $('[lay-event="add-control"]').off('click').on('click',function () {
             let name = $('[lay-filter="controls"] [name]').last().attr("name"),
                 id = 0;
             if (name) {

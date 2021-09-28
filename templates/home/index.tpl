@@ -287,7 +287,7 @@
             content: `<div class="layui-card"><div class="layui-card-body" style="background-color: #0a6e85;color: #F2F2F2;line-height: 2rem"><a lay-href="/resource/disk" style="color: #F2F2F2"><h2>本服务器储存剩余空间不足5%, 请扩充储存空间,详情查看</h2></a></div></div>`,
         });
         {{end -}}
-        $('li[data-reboot]').click(function () {
+        $('li[data-reboot]').off('click').on('click',function () {
             let act = $(this).data("reboot");
             main.req({
                 url: '/system/reboot',
@@ -297,7 +297,7 @@
                 data: {act: act},
             });
         });
-        $('[lay-event]').click(function () {
+        $('[lay-event]').off('click').on('click',function () {
             switch ($(this).attr('lay-event')) {
                 case 'record':
                     main.ws.info();

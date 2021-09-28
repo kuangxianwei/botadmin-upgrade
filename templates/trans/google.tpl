@@ -55,7 +55,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main;
-        $('[lay-filter="test"]').click(function () {
+        $('[lay-filter="test"]').off('click').on('click',function () {
             let data = main.formData("#google");
             if (!data.token) {
                 main.err('AppId或者token为空');

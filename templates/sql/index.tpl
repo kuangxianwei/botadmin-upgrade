@@ -70,7 +70,7 @@
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             url: url,
@@ -98,23 +98,19 @@
             limits: [10, 15, 20, 25, 30],
             text: '对不起，加载出现异常！'
         });
-
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case 'del':
+        let active = {
+                'del': function (obj) {
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
                         main.req({
                             url: url + '/del',
-                            data: data,
+                            data: obj.data,
                             index: index,
                             ending: obj.del
                         });
                     });
-                    break;
-                case 'modify':
-                    $.get(url + '/modify', {id: data.id}, function (html) {
+                },
+                'modify': function (obj) {
+                    $.get(url + '/modify', {id: obj.data.id}, function (html) {
                         main.popup({
                             title: '修改MySQL',
                             content: html,
@@ -123,14 +119,10 @@
                             ending: 'table-list',
                         });
                     });
-                    break;
-            }
-        });
-
-        //监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            switch (obj.event) {
-                case 'add':
+                },
+            },
+            activeBar = {
+                'add': function () {
                     $.get(url + '/add', {}, function (html) {
                         main.popup({
                             title: '创建数据库',
@@ -140,8 +132,8 @@
                             ending: 'table-list',
                         });
                     });
-                    break;
-                case 'modifyroot':
+                },
+                'modifyroot': function () {
                     $.get(url + '/modifyroot', {}, function (html) {
                         main.popup({
                             title: '修改root密码',
@@ -150,8 +142,8 @@
                             area: '400px',
                         });
                     });
-                    break;
-                case 'resetroot':
+                },
+                'resetroot': function () {
                     $.get(url + '/resetroot', {}, function (html) {
                         main.popup({
                             title: '重置root密码',
@@ -160,13 +152,13 @@
                             area: '400px',
                         });
                     });
-                    break;
-                case 'viewRoot':
+                },
+                'viewRoot': function () {
                     $.get(url + '/view', {}, function (pwd) {
                         main.copy.exec(pwd, layer.msg('root密码复制成功'));
                     });
-                    break;
-                case 'sync':
+                },
+                'sync': function () {
                     layer.confirm('如无错误且无需同步，确定同步？', function (index) {
                         main.req({
                             url: url + '/sync',
@@ -174,10 +166,16 @@
                             ending: 'table-list',
                         });
                     });
-                    break;
-                default:
-                    break;
-            }
+                },
+            };
+        //监听工具条
+        table.on('tool(table-list)', function (obj) {
+            active[obj.event] && active[obj.event].call(this, obj);
+        });
+
+        //监听工具栏
+        table.on('toolbar(table-list)', function (obj) {
+            activeBar[obj.event] && activeBar[obj.event].call(this, obj);
         });
         // 监听搜索
         main.onSearch();

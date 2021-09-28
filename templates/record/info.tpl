@@ -75,7 +75,7 @@
                         trElem += '</tr>';
                         elem.append(trElem);
                     }
-                    $('[lay-event="view-log"]').click(function () {
+                    $('[lay-event="view-log"]').off('click').on('click',function () {
                         main.ws.log($(this).data('token'));
                     });
                 }
@@ -85,7 +85,7 @@
                 $('#cron').text(field.cron);
             }
         };
-        $("[lay-event=cron]").click(function () {
+        $("[lay-event=cron]").off('click').on('click',function () {
             main.req({
                 url: url + "/cron",
                 ending: function (res) {

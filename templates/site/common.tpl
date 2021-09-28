@@ -799,7 +799,7 @@
         let main = layui.main,
             form = layui.form,
             layer = layui.layer;
-        $('[lay-event]').click(function () {
+        $('[lay-event]').off('click').on('click',function () {
             switch ($(this).attr('lay-event')) {
                 case 'valid-title':
                     main.req({

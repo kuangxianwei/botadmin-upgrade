@@ -105,7 +105,7 @@
                     if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
                         fieldElem.append('<div class="layui-form-item"><label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label><button class="layui-btn" lay-event="cities">选择城市</button><input type="hidden" name="cities" value=""></div>');
                         // 监控城市
-                        $('*[lay-event="cities"]').click(function () {
+                        $('*[lay-event="cities"]').off('click').on('click',function () {
                             main.pop({
                                 content: `<div id="cities"></div>`,
                                 success: function (dom) {

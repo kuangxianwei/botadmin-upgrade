@@ -73,7 +73,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main;
-        $('[lay-filter="test"]').click(function () {
+        $('[lay-filter="test"]').off('click').on('click',function () {
             let data = main.formData("#tencent");
             if (!data.app_id || !data.token) {
                 main.err('AppId或者token为空');

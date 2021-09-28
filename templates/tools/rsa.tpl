@@ -24,7 +24,7 @@
     layui.use(['index', 'main'], function () {
         let form = layui.form,
             main = layui.main;
-        $("#reload").click(function () {
+        $("#reload").off('click').on('click',function () {
             main.req({
                 url: "/tools/rsa",
                 ending: function (res) {

@@ -303,7 +303,7 @@
     <button class="layui-btn" id="auth_code">随机</button>
 </div>`);
                         form.render('input');
-                        $('#auth_code').click(function () {
+                        $('#auth_code').off('click').on('click',function () {
                             $('input[name=auth_code]').val(main.uuid(15));
                         });
                         $('input[name=auth_code]').val(main.uuid(15));

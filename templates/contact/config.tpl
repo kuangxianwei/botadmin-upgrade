@@ -125,7 +125,7 @@
             durations = {{.obj.Durations}},
             delObj = $('*[lay-event=del-duration]'),
             addObj = $('*[lay-event=add-duration]');
-        $('*[lay-submit][lay-filter="submit"]').click(function () {
+        $('*[lay-submit][lay-filter="submit"]').off('click').on('click',function () {
             if ($('[name=host]').val() === '') {
                 layer.tips("Host 不能为空", '[name=host]', {tips: 1, time: 10000});
                 return false;
@@ -137,7 +137,7 @@
             }
             return false;
         });
-        $('#submit').click(function () {
+        $('#submit').off('click').on('click',function () {
             let field = main.formData();
             if (field.durations instanceof Array) {
                 field.durations = field.durations.join();
@@ -197,7 +197,7 @@
             },
         });
         // 监控城市
-        $('*[lay-event=cities]').click(function () {
+        $('*[lay-event=cities]').off('click').on('click',function () {
             main.pop({
                 content: `<div id="cities"></div>`,
                 success: function (dom) {
@@ -245,7 +245,7 @@
                 delObj.css('display', 'inline-block');
             });
         }
-        $('[lay-event="copy-js"]').click(function () {
+        $('[lay-event="copy-js"]').off('click').on('click',function () {
             $.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
                 main.copy.exec(jsCode, layer.msg('广告JS代码复制成功'));
             });

@@ -223,7 +223,7 @@
                 elem.find('*[name=href]').attr('name', 'submenu.href.' + id).val(values.href);
                 elem.find('*[name=trace]').attr('name', 'submenu.trace.' + id).val(values.trace);
                 $('#menu-items').append(elem);
-                $('[data-event="del-menu"]').click(function () {
+                $('[data-event="del-menu"]').off('click').on('click',function () {
                     $(this).closest('div.layui-form-item').remove();
                 });
             };
@@ -261,7 +261,7 @@
                 $('*[name=hover_color]').val(color);
             }
         });
-        $('#custom-style [lay-event]').click(function () {
+        $('#custom-style [lay-event]').off('click').on('click',function () {
             let othis = $(this),
                 event = othis.attr('lay-event'),
                 data = othis.find('[name]').serializeArray(), elem;

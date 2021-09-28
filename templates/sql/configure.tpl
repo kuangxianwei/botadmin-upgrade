@@ -25,7 +25,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main;
-        $('button[lay-event]').click(function () {
+        $('button[lay-event]').off('click').on('click',function () {
             switch ($(this).attr('lay-event')) {
                 case 'edit-sql':
                     $.get('/file/editor?path={{.mycnf_path}}', {hide: true}, function (html) {

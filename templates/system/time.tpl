@@ -21,7 +21,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let url = '/system/time';
-        $("#ntpdate").click(function () {
+        $("#ntpdate").off('click').on('click',function () {
             layer.confirm("确定要同步时间？", function () {
                 let loading = layer.load(1, {shade: [0.5, '#000']});
                 window.location.replace(url + "?act=ntpdate", function () {

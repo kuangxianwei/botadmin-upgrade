@@ -507,10 +507,10 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        $('[lay-event="ssh-cmd"]').click(function () {
+        $('[lay-event="ssh-cmd"]').off('click').on('click',function () {
             layui.main.webssh();
         });
-        $('dd[data-event=logout]').click(function () {
+        $('dd[data-event=logout]').off('click').on('click',function () {
             layui.view.exit(function () {
                 location.href = '/auth/logout';
             });

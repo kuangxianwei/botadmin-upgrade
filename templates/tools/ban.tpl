@@ -35,7 +35,7 @@
             });
         });
         //清空值并且聚焦
-        $('button[lay-event=reset]').click(function () {
+        $('button[lay-event=reset]').off('click').on('click',function () {
             $('#display').addClass('layui-hide').val('');
             $('textarea[name=content]').val('').focus();
         });

@@ -426,20 +426,20 @@
             this.data = {};
             this.init = () => {
                 this.render();
-                $('#current-path').click(function () {
+                $('#current-path').off('click').on('click',function () {
                     let elem = $('#current-path');
                     elem.addClass("layui-hide");
                     $('input[name=goto]').attr("type", "text").val(elem.attr("title"));
                     layui.form.render("input");
                 });
                 let othis = this;
-                $('.toolbar [lay-event="return-top"]').click(function () {
+                $('.toolbar [lay-event="return-top"]').off('click').on('click',function () {
                     othis.goto(this);
                 });
-                $('.toolbar [lay-event=refresh]').click(function () {
+                $('.toolbar [lay-event=refresh]').off('click').on('click',function () {
                     othis.goto(this);
                 });
-                $('[lay-event=terminal]').click(function () {
+                $('[lay-event=terminal]').off('click').on('click',function () {
                     layui.main.webssh({stdin: "cd " + othis.data.path});
                 });
                 $('input[name="goto"]').keydown(function (event) {
@@ -472,7 +472,7 @@
                 }
                 curElem.html(elem);
                 let othis = this;
-                $('#current-path>span').click(function () {
+                $('#current-path>span').off('click').on('click',function () {
                     othis.goto(this);
                 });
                 $('.toolbar [lay-event="return-top"]').attr("title", this.getTop(this.data.path));

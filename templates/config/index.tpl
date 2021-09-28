@@ -375,7 +375,7 @@
             return false;
         });
         main.cron('[name=reboot_spec]', '[name=rank_spec]', '[name=spec]');
-        $('[lay-event="monitor-log"]').click(function () {
+        $('[lay-event="monitor-log"]').off('click').on('click',function () {
             main.ws.log("monitor_service.0");
         });
     });
