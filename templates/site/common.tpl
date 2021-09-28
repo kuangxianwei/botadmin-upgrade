@@ -31,8 +31,8 @@
                             <label class="layui-form-label">网站类型:</label>
                             <div class="layui-input-block">
                                 <select name="system" lay-filter="system" {{if gt .obj.Status 0}} disabled{{end}}>
-                                    {{range $system:=.systems -}}
-                                        <option value="{{$system.Name}}" {{if eq $.obj.System $system.Name}} selected{{end}}>{{$system.Alias}}</option>
+                                    {{range .drivers -}}
+                                        <option value="{{.Driver}}" {{if eq $.obj.System .Driver}} selected{{end}}>{{.Alias}}</option>
                                     {{end -}}
                                 </select>
                             </div>
@@ -219,9 +219,8 @@
                                 <div class="layui-col-sm6">
                                     <label class="layui-form-label" lay-tips="网站后台登录认证码 15个字母或数字组成">认证码:</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" name="auth_code" class="layui-input" value="{{.obj.AuthCode}}" placeholder="登录第二验证码">
+                                        <input type="text" name="auth_code" value="{{.obj.AuthCode}}" data-type="fill" class="layui-input" placeholder="登录第二验证码">
                                     </div>
-                                    <button class="layui-btn" id="auth_code">随机</button>
                                 </div>
                                 <div class="layui-col-sm5">
                                     <label class="layui-form-label" lay-tips="网站后台登录目录名称">后台目录:</label>
@@ -830,7 +829,12 @@
                     break;
             }
         });
+        // 渲染模板
         main.render.tpl();
+        // 自动填充
+        main.render.fill();
+        // 定时选择器
+        main.cron('[name="spec"]');
         //监控系统选择
         form.on('select(system)', function (obj) {
             $('#theme-shop').attr("lay-href", "/themes/shop?driver=" + obj.value);
@@ -861,12 +865,6 @@
             {elem: '#out_link_deg', value: {{$.obj.OutLinkDeg}}},
             {elem: '#title_tag_deg', value: {{$.obj.TitleTagDeg}}},
         );
-        $('#theme').click(function () {
-            main.display({content: $('#theme').html()});
-        });
-        $('#auth_code').click(function () {
-            $('input[name=auth_code]').val(main.uuid(15));
-        });
         //改变模板
         form.on('select(tpl_name)', function (obj) {
             $('#theme').empty();
@@ -874,6 +872,5 @@
                 main.render.tpl(obj.value);
             }
         });
-        main.cron('[name="spec"]');
     });
 </script>

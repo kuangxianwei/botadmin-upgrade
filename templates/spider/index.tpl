@@ -187,6 +187,223 @@
                     }
                 },
             });
+        let active = {
+                'cron_switch': function (data) {
+                    let $this = this;
+                    let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
+                    main.req({
+                        url: url + "/cron/switch",
+                        data: {
+                            id: data.id,
+                            cron_enabled: enabled
+                        },
+                        error: function () {
+                            $this.find('input[type=checkbox]').prop("checked", !enabled);
+                            form.render('checkbox');
+                            return false;
+                        }
+                    });
+                },
+                'del': function (data) {
+                    layer.confirm('确定删除此条日志？', function (index) {
+                        main.req({
+                            url: url + '/del',
+                            data: {id: data.id},
+                            index: index,
+                            ending: obj.del,
+                        });
+                    });
+                },
+                'modify': function (data) {
+                    $.get(url + '/modify', {id: data.id}, function (html) {
+                        main.popup({
+                            title: '修改规则',
+                            content: html,
+                            url: url + '/modify',
+                            btn: ['提交', '上一步', '下一步', '取消'],
+                            yes: function (index, dom) {
+                                dom.find('.step-content>div').removeClass('layui-form');
+                            },
+                            btn2: function () {
+                                return false;
+                            },
+                            btn3: function () {
+                                return false;
+                            },
+                            submit: 'stepSubmit',
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'copy': function (data) {
+                    layer.confirm('确定复制:' + data.name + '?', function (index) {
+                        main.req({
+                            url: url + '/copy',
+                            data: {id: data.id},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'exec': function (data) {
+                    layer.confirm('开始采集入库？', function (index) {
+                        main.req({
+                            url: url + '/exec',
+                            data: {id: data.id, thread: 1},
+                            ending: function () {
+                                main.ws.log("spider." + data.id, function () {
+                                    table.reload('table-list');
+                                });
+                                return false;
+                            },
+                            index: index,
+                        });
+                    });
+                },
+                'site_id': function (data) {
+                    $.get(url + '/bind', {id: data.id}, function (html) {
+                        main.popup({
+                            title: '绑定网站',
+                            content: html,
+                            url: url + '/bind',
+                            area: ['720px', '300px'],
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'log': function (data) {
+                    main.ws.log('spider.' + data.id);
+                },
+            },
+            activeBar = {
+                'log': function () {
+                    main.ws.log('spider.0');
+                },
+                'del': function (data, ids) {
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
+                        main.req({
+                            url: url + '/del',
+                            data: {ids: ids.join()},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'addRule': function () {
+                    $.get(url + '/add', {}, function (html) {
+                        main.popup({
+                            title: '添加规则',
+                            content: html,
+                            url: url + '/add',
+                            btn: ['提交', '上一步', '下一步', '取消'],
+                            yes: function (index, dom) {
+                                dom.find('.step-content>div').removeClass('layui-form');
+                            },
+                            btn2: function () {
+                                return false;
+                            },
+                            btn3: function () {
+                                return false;
+                            },
+                            submit: 'stepSubmit',
+                            ending: 'table-list'
+                        });
+                    });
+                },
+                'configure': function (data, ids) {
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    $.get(url + '/configure', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            title: '批量修改配置',
+                            content: html,
+                            url: url + '/configure',
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'exec': function (data, ids) {
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    layer.prompt({
+                        formType: 0,
+                        value: ids.length,
+                        title: '采集入库:输入线程数,太多会卡死'
+                    }, function (value, index) {
+                        main.req({
+                            url: url + '/exec',
+                            data: {ids: ids.join(), thread: value},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'recordDel': function (data, ids) {
+                    layer.confirm('确定清空采集记录?清空后可导致重复采集', function (index) {
+                        main.req({
+                            url: url + '/record/del',
+                            data: {ids: ids.join()},
+                            index: index
+                        });
+                    });
+                },
+                'jobs': function () {
+                    main.req({
+                        url: url + '/jobs',
+                    });
+                },
+                'cron-enable': function (data, ids) {
+                    main.req({
+                        url: url + '/cron/switch',
+                        data: {ids: ids.join(), cron_enabled: true},
+                        ending: 'table-list'
+                    });
+                },
+                'cron-disable': function (data, ids) {
+                    main.req({
+                        url: url + '/cron/switch',
+                        data: {ids: ids.join(), cron_enabled: false},
+                        ending: 'table-list'
+                    });
+                },
+                'export': function (data, ids) {
+                    window.open(encodeURI('/spider/export?ids=' + ids.join()));
+                },
+                'import': function () {
+                    layer.open({
+                        type: 1,
+                        title: "导入配置",
+                        btn: ['导入', '取消'],
+                        shadeClose: true,
+                        scrollbar: false,
+                        shade: 0.8,
+                        fixed: false,
+                        maxmin: true,
+                        btnAlign: 'c',
+                        content: $('#import-form').html(),
+                        yes: function (index, dom) {
+                            dom.find('.layui-form button[lay-submit]button[lay-filter=submit-import]').click();
+                            layer.close(index);
+                        },
+                        success: function () {
+                            form.on('submit(submit-import)', function (obj) {
+                                importConfig.reload({data: obj.field});
+                                $('#import').click();
+                                return false;
+                            });
+                        }
+                    });
+                    form.render();
+                },
+                'reset-record': function (data, ids) {
+                    main.reset.log('spider', ids);
+                },
+            };
         table.render({
             headers: {'X-CSRF-Token':{{.csrf_token}}},
             method: 'post',
@@ -231,94 +448,7 @@
             }
         });
         table.on('tool(table-list)', function (obj) {
-            let data = obj.data, othis = $(this);
-            switch (obj.event) {
-                case 'cron_switch':
-                    let enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
-                    main.req({
-                        url: url + "/cron/switch",
-                        data: {
-                            id: data.id,
-                            cron_enabled: enabled
-                        },
-                        error: function () {
-                            othis.find('input[type=checkbox]').prop("checked", !enabled);
-                            form.render('checkbox');
-                            return false;
-                        }
-                    });
-                    break;
-                case 'del':
-                    layer.confirm('确定删除此条日志？', function (index) {
-                        main.req({
-                            url: url + '/del',
-                            data: {id: data.id},
-                            index: index,
-                            ending: obj.del,
-                        });
-                    });
-                    break;
-                case 'modify':
-                    $.get(url + '/modify', {id: data.id}, function (html) {
-                        main.popup({
-                            title: '修改规则',
-                            content: html,
-                            url: url + '/modify',
-                            btn: ['提交', '上一步', '下一步', '取消'],
-                            yes: function (index, dom) {
-                                dom.find('.step-content>div').removeClass('layui-form');
-                            },
-                            btn2: function () {
-                                return false;
-                            },
-                            btn3: function () {
-                                return false;
-                            },
-                            submit: 'stepSubmit',
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'copy':
-                    layer.confirm('确定复制:' + data.name + '?', function (index) {
-                        main.req({
-                            url: url + '/copy',
-                            data: {id: data.id},
-                            index: index,
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'exec':
-                    layer.confirm('开始采集入库？', function (index) {
-                        main.req({
-                            url: url + '/exec',
-                            data: {id: data.id, thread: 1},
-                            ending: function () {
-                                main.ws.log("spider." + data.id, function () {
-                                    table.reload('table-list');
-                                });
-                                return false;
-                            },
-                            index: index,
-                        });
-                    });
-                    break;
-                case 'site_id':
-                    $.get(url + '/bind', {id: data.id}, function (html) {
-                        main.popup({
-                            title: '绑定网站',
-                            content: html,
-                            url: url + '/bind',
-                            area: ['720px', '300px'],
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'log':
-                    main.ws.log('spider.' + data.id);
-                    break;
-            }
+            active[obj.event] && active[obj.event].call($(this), obj.data);
         });
         table.on('toolbar(table-list)', function (obj) {
             let checkStatus = table.checkStatus(obj.config.id),
@@ -327,135 +457,7 @@
             layui.each(data, function (i, item) {
                 ids[i] = item.id;
             });
-            switch (obj.event) {
-                case 'log':
-                    main.ws.log('spider.0');
-                    break;
-                case 'del':
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
-                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
-                            url: url + '/del',
-                            data: {ids: ids.join()},
-                            index: index,
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'addRule':
-                    $.get(url + '/add', {}, function (html) {
-                        main.popup({
-                            title: '添加规则',
-                            content: html,
-                            url: url + '/add',
-                            btn: ['提交', '上一步', '下一步', '取消'],
-                            yes: function (index, dom) {
-                                dom.find('.step-content>div').removeClass('layui-form');
-                            },
-                            btn2: function () {
-                                return false;
-                            },
-                            btn3: function () {
-                                return false;
-                            },
-                            submit: 'stepSubmit',
-                            ending: 'table-list'
-                        });
-                    });
-                    break;
-                case 'configure':
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
-                    $.get(url + '/configure', {ids: ids.join()}, function (html) {
-                        main.popup({
-                            title: '批量修改配置',
-                            content: html,
-                            url: url + '/configure',
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'exec':
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
-                    layer.prompt({
-                        formType: 0,
-                        value: ids.length,
-                        title: '采集入库:输入线程数,太多会卡死'
-                    }, function (value, index) {
-                        main.req({
-                            url: url + '/exec',
-                            data: {ids: ids.join(), thread: value},
-                            index: index,
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'recordDel':
-                    layer.confirm('确定清空采集记录?清空后可导致重复采集', function (index) {
-                        main.req({
-                            url: url + '/record/del',
-                            data: {ids: ids.join()},
-                            index: index
-                        });
-                    });
-                    break;
-                case 'jobs':
-                    main.req({
-                        url: url + '/jobs',
-                    });
-                    break;
-                case 'cron-enable':
-                    main.req({
-                        url: url + '/cron/switch',
-                        data: {ids: ids.join(), cron_enabled: true},
-                        ending: 'table-list'
-                    });
-                    break;
-                case 'cron-disable':
-                    main.req({
-                        url: url + '/cron/switch',
-                        data: {ids: ids.join(), cron_enabled: false},
-                        ending: 'table-list'
-                    });
-                    break;
-                case 'export':
-                    window.open(encodeURI('/spider/export?ids=' + ids.join()));
-                    break;
-                case 'import':
-                    layer.open({
-                        type: 1,
-                        title: "导入配置",
-                        btn: ['导入', '取消'],
-                        shadeClose: true,
-                        scrollbar: false,
-                        shade: 0.8,
-                        fixed: false,
-                        maxmin: true,
-                        btnAlign: 'c',
-                        content: $('#import-form').html(),
-                        yes: function (index, dom) {
-                            dom.find('.layui-form button[lay-submit]button[lay-filter=submit-import]').click();
-                            layer.close(index);
-                        },
-                        success: function () {
-                            form.on('submit(submit-import)', function (obj) {
-                                importConfig.reload({data: obj.field});
-                                $('#import').click();
-                                return false;
-                            });
-                        }
-                    });
-                    form.render();
-                    break;
-                case 'reset-record':
-                    main.reset.log('spider', ids);
-                    break;
-            }
+            activeBar[obj.event] && activeBar[obj.event].call(this, data, ids);
         });
         // 监听搜索
         main.onSearch();

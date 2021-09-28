@@ -17,7 +17,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             this.boxElem = $('#tags-box');
             this.del = function (elem) {
                 let othis = this;
-                (elem ? elem.find('i.layui-icon-close-fill') : $('i.layui-icon-close-fill')).click(function () {
+                (elem ? elem.find('i.layui-icon-close-fill') : $('i.layui-icon-close-fill')).off('click').on('click', function () {
                     let thisText = $(this).parent().text(),
                         tagsVal = othis.inputElem.val();
                     $(this).parent().remove();
@@ -176,7 +176,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             // 监控
             this.on = {
                 del: function (selector) {
-                    $('i[lay-event=del]').click(function () {
+                    $('i[lay-event=del]').off('click').on('click', function () {
                         let othis = $(this);
                         layer.confirm('确定删除该项吗?', {icon: 3, btn: ['确定', '取消']},
                             function (index) {
@@ -187,7 +187,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 },
                 add: function (addFunc, delSelector) {
                     let othis = this;
-                    $('[lay-event="add"]').click(function () {
+                    $('[lay-event="add"]').off('click').on('click', function () {
                         addFunc();
                         othis.del(delSelector);
                     });
@@ -1102,11 +1102,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         $(document).scroll(function () {
             othis.display(dom);
         });
-        dom.find('.shade-cancel,.layui-layer-shade').click(function () {
+        dom.find('.shade-cancel,.layui-layer-shade').off('click').on('click', function () {
             othis.always(dom);
             othis.close(dom);
         });
-        dom.find('.shade-confirm').click(function () {
+        dom.find('.shade-confirm').off('click').on('click', function () {
             if (othis.done(dom) !== false) {
                 othis.always(dom);
                 othis.close(dom);
@@ -1123,6 +1123,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 渲染
     main.render = {
+        fill: function (options) {
+            options = $.extend({selector: "input[data-type=fill]", max: 15, text: "自动填充"}, options || {});
+            $(options.selector).each(function () {
+                let $this = $(this),
+                    elem = $('<button class="layui-btn layui-btn-radius">' + options.text + '</button>').on("click", function () {
+                        $this.val(main.uuid(options.max));
+                    });
+                $this.parent().after(elem);
+            });
+        },
         tpl: function (tplName) {
             // 渲染模板图片
             tplName = tplName || $('select[name=tpl_name]').val();
@@ -1132,7 +1142,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     tpl_name: tplName
                 }, function (res) {
                     if (res.code === 0 && res.data.face) {
-                        $('#theme').html('<img width="100%" height="100%" alt="' + res.data.alias + '" src="' + res.data.face + '" title="' + res.data['readme'] + '">');
+                        let ele = $('<img width="100%" height="100%" alt="" src="">').attr({
+                            src: res.data["small_face"], "data-src": res.data["face"],
+                            alt: res.data.alias, title: res.data["intro"],
+                        });
+                        ele.off("click").on("click", function () {
+                            let $this = $(this);
+                            $this.attr("src", $this.data("src"));
+                            main.display({content: $this.prop("outerHTML")});
+                        });
+                        $('#theme').html(ele);
                     }
                 });
             }

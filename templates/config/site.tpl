@@ -30,7 +30,7 @@
                             <div class="layui-input-block">
                                 <select name="system" lay-filter="system" {{if gt .obj.Status 0}} disabled{{end}}>
                                     {{range $system:=.systems -}}
-                                        <option value="{{$system.Name}}" {{if eq $.obj.System $system.Name}} selected{{end}}>{{$system.Alias}}</option>
+                                        <option value="{{$system.Driver}}" {{if eq $.obj.System $system.Driver}} selected{{end}}>{{$system.Alias}}</option>
                                     {{end -}}
                                 </select>
                             </div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="layui-inline" id="theme">
                             {{if .theme.Face -}}
-                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.Face}}" title="{{.theme.Readme}}">
+                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.SmallFace}}" data-src="{{.theme.Face}}" title="{{.theme.Intro}}">
                             {{end -}}
                         </div>
                         <div class="layui-inline">
@@ -655,9 +655,6 @@
             {elem: '#out_link_deg', value: {{$.obj.OutLinkDeg}}},
             {elem: '#title_tag_deg', value: {{$.obj.TitleTagDeg}}},
         );
-        $('#theme').click(function () {
-            main.display({content: $('#theme').html()});
-        });
         //改变模板
         form.on('select(tpl_name)', function (obj) {
             $('#theme').empty();
@@ -665,5 +662,6 @@
                 main.render.tpl(obj.value);
             }
         });
+        main.render.tpl();
     });
 </script>

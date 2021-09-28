@@ -1,6 +1,6 @@
 /*转换解析方法*/
 function onMethod() {
-    layui.$('button[parse-method]').click(function () {
+    layui.$('button[parse-method]').off('click').on('click', function () {
         let othis = $(this),
             parent = othis.closest('div.parse-method');
         parent.addClass('layui-hide');
@@ -193,7 +193,7 @@ layui.define(['form'], function (exports) {
     // 渲染翻译
     Class.prototype.render = function (items) {
         let othis = this;
-        $('[lay-event="add-trans"]').click(function () {
+        $('[lay-event="add-trans"]').off('click').on('click', function () {
             othis.add();
             layui.main.on.del();
             othis.changed();
@@ -516,7 +516,7 @@ layui.define(['form'], function (exports) {
             onMethod();
             $('[lay-filter="step-list"]>ul>li').first().click();
         }
-        $('[lay-event="add-rules"]').click(function () {
+        $('[lay-event="add-rules"]').off('click').on('click', function () {
             othis.add();
             element.render();
             form.render();
@@ -760,7 +760,7 @@ layui.define(['form'], function (exports) {
             onMethod();
             $('[lay-filter="step-detail"]>ul>li').first().click();
         }
-        $('[lay-event="add-detail"]').click(function () {
+        $('[lay-event="add-detail"]').off('click').on('click', function () {
             let names = [], aliases = [];
             $('[lay-filter="step-detail"] [name^="detail.name."]').each(function () {
                 names.push($(this).val());
@@ -863,7 +863,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         // 计算每一个条目的宽度
         $('.step-item').css('width', (100 / this.stepItems.length) + '%');
         // 监控点击转到
-        $('.step-item-head').click(function () {
+        $('.step-item-head').off('click').on('click', function () {
             let index = parseInt($(this).parent().attr('data-step-item-index'));
             othis.position = isNaN(index) ? othis.position : index;
             othis.goto();
@@ -904,12 +904,12 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
     Class.prototype.events = function () {
         let othis = this;
         //监控上一步
-        $('div.layui-layer-btn>.layui-layer-btn1').click(function () {
+        $('div.layui-layer-btn>.layui-layer-btn1').off('click').on('click', function () {
             othis.position--;
             othis.goto();
         });
         //监控下一步
-        $('div.layui-layer-btn>.layui-layer-btn2').click(function () {
+        $('div.layui-layer-btn>.layui-layer-btn2').off('click').on('click', function () {
             $('.step-content>div').addClass('layui-form');
             $('a[data-step=' + othis.position + ']').click();
         });
@@ -1008,7 +1008,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
             stepObj.bindClass(obj.value);
         });
         /*测试列表页*/
-        $('button[data-event=testList]').click(function () {
+        $('button[data-event=testList]').off('click').on('click', function () {
             $('.step-content>div').removeClass('layui-form');
             $('button[lay-filter=testList]').click();
         });
@@ -1017,8 +1017,9 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
             main.req({
                     url: '/spider/test/list',
                     data: obj.field,
-                    tips: function (res) {
+                    ending: function (res) {
                         main.msg(res.msg);
+                        return false;
                     },
                     success: function (res) {
                         if (res.code === 0 && res.data) {
@@ -1029,7 +1030,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                 $(obj.elem).closest(".layui-form"));
         });
         /*测试详情页*/
-        $('button[data-event=testDetail]').click(function () {
+        $('button[data-event=testDetail]').off('click').on('click', function () {
             $('.step-content>div').removeClass('layui-form');
             $('button[lay-filter=testDetail]').click();
         });
@@ -1047,7 +1048,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                     url: '/spider/test/detail',
                     data: obj.field,
                     index: index,
-                    tips: function (res) {
+                    ending: function (res) {
                         layer.open({
                             type: 1,
                             title: '测试详情页结果',
@@ -1057,12 +1058,13 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                             maxmin: true,
                             shadeClose: true,
                         });
+                        return false;
                     }
                 });
             });
         });
         /*测试源码*/
-        $('button[data-event=sourceCode]').click(function () {
+        $('button[data-event=sourceCode]').off('click').on('click', function () {
             $('.step-content>div').removeClass('layui-form');
             $('button[lay-filter=sourceCode]').click();
         });
@@ -1081,7 +1083,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                     url: '/spider/test/source',
                     data: obj.field,
                     index: index,
-                    tips: function (res) {
+                    ending: function (res) {
                         layer.open({
                             type: 1,
                             title: '源码详情结果',
@@ -1091,6 +1093,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                             maxmin: true,
                             shadeClose: true,
                         });
+                        return false;
                     }
                 });
             });

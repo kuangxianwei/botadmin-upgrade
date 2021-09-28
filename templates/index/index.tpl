@@ -58,7 +58,7 @@
                     <dl class="layui-nav-child">
                         <dd><a lay-href="/auth">登录日志</a></dd>
                         <dd><a lay-href="/safe/login">登录设置</a></dd>
-                        <hr>
+                        <hr/>
                         <dd data-event="logout" style="text-align: center;"><a href="/auth/logout">退出</a></dd>
                     </dl>
                 </li>
@@ -208,9 +208,8 @@
                                 </a>
                                 <dl class="layui-nav-child">
                                     {{range $system:=.systems -}}
-                                        <dd data-name="site-{{$system.Name}}">
-                                            <a lay-href="/themes?driver={{$system.Name}}" lay-tips="{{$system.Alias}}"
-                                               lay-direction="2"><cite>{{$system.Alias}}</cite></a>
+                                        <dd data-name="site-{{$system.Driver}}">
+                                            <a lay-href="/themes?driver={{$system.Driver}}" lay-tips="{{$system.Alias}}" lay-direction="2"><cite>{{$system.Alias}}</cite></a>
                                         </dd>
                                     {{end -}}
                                 </dl>
@@ -222,8 +221,8 @@
                                 </a>
                                 <dl class="layui-nav-child">
                                     {{range $system:=.systems -}}
-                                        <dd data-name="site-{{$system.Name}}">
-                                            <a lay-href="/themes/shop?driver={{$system.Name}}" lay-tips="{{$system.Alias}}"
+                                        <dd data-name="site-{{$system.Driver}}">
+                                            <a lay-href="/themes/shop?driver={{$system.Driver}}" lay-tips="{{$system.Alias}}"
                                                lay-direction="2"><cite>{{$system.Alias}}</cite></a>
                                         </dd>
                                     {{end -}}
