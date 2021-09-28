@@ -31,18 +31,16 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let form = layui.form,
-            table = layui.table,
-            main = layui.main,
-            url = {{.current_uri}};
+        let table = layui.table,
+            main = layui.main;
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', hide: true},

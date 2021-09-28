@@ -22,8 +22,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main,
-            form = layui.form,
-            url = {{.current_uri}};
+            form = layui.form;
 
         form.render();
         //监听开关

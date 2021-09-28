@@ -215,15 +215,15 @@
 <script type="text/html" id="table-copy">
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-                data-type="user" lay-tips="复制登录用户名到粘贴板">
+                data-type="web_user" lay-tips="复制登录用户名到粘贴板">
             <i class="layui-icon layui-icon-username"></i>
         </button>
         <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-                data-type="pwd" lay-tips="复制登录密码到粘贴板">
+                data-type="web_pwd" lay-tips="复制登录密码到粘贴板">
             <i class="layui-icon layui-icon-password"></i>
         </button>
         <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-                data-type="auth" lay-tips="复制登录认证码到粘贴板">
+                data-type="auth_code" lay-tips="复制登录认证码到粘贴板">
             <i class="layui-icon layui-icon-auz"></i>
         </button>
     </div>
@@ -320,11 +320,10 @@
             upload = layui.upload,
             element = layui.element,
             main = layui.main,
-            url = {{.current_uri}},
             status = {{.status}},
             //渲染上传配置
             importConfig = upload.render({
-                headers: {'X-CSRF-Token':{{.csrf_token}}},
+                headers: {'X-CSRF-Token': csrfToken},
                 elem: '#import',
                 url: '/site/import',
                 accept: 'file',
@@ -342,13 +341,561 @@
                     }
                 },
             });
+        let active = {
+                'cron_switch': function (obj) {
+                    let $this = this;
+                    let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
+                    main.req({
+                        url: url + "/cron/switch",
+                        data: {id: obj.data.id, cron_enabled: enabled},
+                        error: function () {
+                            $this.find('input[type=checkbox]').prop("checked", !enabled);
+                            form.render('checkbox');
+                            return false;
+                        }
+                    });
+                },
+                'rank': function (obj) {
+                    main.req({
+                        url: '/site/rank',
+                        data: obj.data,
+                        ending: function (res) {
+                            main.msg(res.msg);
+                            return false;
+                        },
+                    });
+                },
+                'del': function (obj) {
+                    layer.confirm('确定删除此网站？不可恢复!', function (index) {
+                        main.req({
+                            url: url + '/del',
+                            data: obj.data,
+                            ending: obj.del,
+                            index: index
+                        });
+                    });
+                },
+                'modify': function (obj) {
+                    $.get(url + '/modify', {id: obj.data.id}, function (html) {
+                        main.popup({
+                            url: url + '/modify',
+                            title: '修改网站设置',
+                            content: html,
+                            ending: 'table-list',
+                        });
+                        form.render();
+                    });
+                },
+                'link': function (obj) {
+                    $.get(url + '/link', {id: obj.data.id}, function (html) {
+                        main.popup({
+                            url: url + '/link',
+                            title: '添改友链',
+                            content: html,
+                            area: '500px',
+                        });
+                        form.render();
+                    });
+                },
+                'del_link': function (obj) {
+                    $.get(url + '/link', {id: obj.data.id}, function (html) {
+                        main.popup({
+                            url: url + '/del/link',
+                            title: '删除友链',
+                            content: html,
+                            area: '500px',
+                        });
+                        form.render();
+                    });
+                },
+                'pic_dir': function (obj) {
+                    $.get(url + '/image', {id: obj.data.id}, function (html) {
+                        main.popup({
+                            url: url + '/image',
+                            title: '添加图片',
+                            content: html,
+                            area: '800px',
+                            ending: function () {
+                                main.ws.log('site.' + obj.data.id);
+                                return false;
+                            }
+                        });
+                        form.render();
+                    });
+                },
+                'mysql': function () {
+                    layer.open({
+                        type: 1,
+                        title: '备份/还原MySQL',
+                        shadeClose: true,
+                        scrollbar: false,
+                        btnAlign: 'c',
+                        shade: 0.8,
+                        fixed: false,
+                        area: '450px',
+                        maxmin: true,
+                        btn: ['确定', '取消'],
+                        content: $('#mysql-html').html(),
+                        success: function (dom, index) {
+                            let uuid = main.uuid(), elem = dom.find('.layui-form');
+                            elem.append('<button class="layui-hide" lay-submit lay-filter="' + uuid + '"></button>');
+                            form.render();
+                            form.on('radio(mysql-action)', function (obj) {
+                                if (obj.value === '1') {
+                                    layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
+                                        layer.close(index);
+                                        $.get(url + "/sql/backup", {webroot_path: obj.data['webroot_path']}, function (res) {
+                                            if (res.code !== 0) {
+                                                main.err(res.msg);
+                                                layer.close(index);
+                                            } else {
+                                                let selectElem = $('<div id="select-filename" class="layui-form-item"><label class="layui-form-label">选择备份:</label><div class="layui-input-block"><select name="filename" class="layui-select"></select></div></div>'),
+                                                    insertElem = selectElem.find('select');
+                                                for (let i = 0; i < res.data.length; i++) {
+                                                    insertElem.append('<option value="' + res.data[i] + '">' + res.data[i] + '</option>');
+                                                }
+                                                elem.append(selectElem);
+                                                form.render('select');
+                                            }
+                                        });
+                                    });
+                                } else {
+                                    elem.find('#select-filename').remove();
+                                }
+                            });
+                            form.on('submit(' + uuid + ')', function (obj) {
+                                let field = obj.field;
+                                field.id = obj.data.id;
+                                main.req({
+                                    url: url + "/mysql",
+                                    data: field,
+                                    index: index,
+                                    ending: function () {
+                                        main.ws.log('site.' + obj.data.id);
+                                        return false;
+                                    }
+                                });
+                                return false;
+                            });
+                        },
+                        yes: function (index, dom) {
+                            dom.find('button[lay-submit]').click();
+                        },
+                    });
+                },
+                'push': function (obj) {
+                    let elem = $($('#push').html()).find('input[name=id]').val(obj.data.id);
+                    main.popup({
+                        url: '/site/push',
+                        title: "推送",
+                        content: elem.html()
+                    });
+                },
+                'ftp': function (obj) {
+                    if (obj.data.status === 4) {
+                        layer.msg("外部网站不允许编辑FTP", {icon: 2});
+                        return false;
+                    }
+                    $.get('/ftp/relationship',
+                        {'id': obj.data['ftp_id'], 'site_id': obj.data.id, 'username': obj.data.vhost},
+                        function (html) {
+                            main.popup({
+                                url: '/ftp/relationship',
+                                title: obj.data['ftp_id'] > 0 ? '选择FTP' : '添加FTP',
+                                content: html,
+                                ending: 'table-list',
+                            });
+                            element.render();
+                        });
+                },
+                'sql': function (obj) {
+                    if (obj.data.status === 4) {
+                        layer.msg("外部网站不允许编辑数据库", {icon: 2});
+                        return false;
+                    }
+                    $.get('/sql/relationship',
+                        {'id': obj.data['sql_id'], 'site_id': obj.data.id, 'username': obj.data.vhost},
+                        function (html) {
+                            let title = obj.data['sql_id'] > 0 ? '选择SQL' : '添加SQL';
+                            main.popup({
+                                url: '/sql/relationship',
+                                title: title,
+                                content: html,
+                                ending: 'table-list',
+                            });
+                        });
+                },
+                'log': function (obj) {
+                    main.ws.log('site.' + obj.data.id);
+                },
+                'clipboard': function (obj) {
+                    main.copy.exec(obj.data[this.data("type")], layer.msg('复制成功'));
+                },
+                'login': function (obj) {
+                    window.open(obj.data['admin_url'], '_blank');
+                },
+            },
+            activeBar = {
+                'log': function () {
+                    main.ws.log('site.0');
+                },
+                'configure': function (data, ids) {
+                    if (data.length === 0) {
+                        layer.msg("未选择", {icon: 2});
+                        return false;
+                    }
+                    $.get(url + '/configure', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            title: "批量修改配置",
+                            url: url + '/configure',
+                            content: html,
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'del': function (data, ids) {
+                    if (data.length === 0) {
+                        layer.msg("未选择", {icon: 2});
+                        return false;
+                    }
+                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
+                        main.req({
+                            url: url + '/del',
+                            data: {'ids': ids.join()},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'add': function () {
+                    $.get(url + '/add', {}, function (html) {
+                        main.popup({
+                            url: url + '/add',
+                            title: '添加网站',
+                            content: html,
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'batch': function () {
+                    $.get(url + '/batch', {}, function (html) {
+                        main.popup({
+                            url: url + '/batch',
+                            title: '批量添加网站',
+                            content: html,
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'found': function (data, ids) {
+                    if (data.length === 0) {
+                        layer.msg("未选择", {icon: 2});
+                        return false;
+                    }
+                    main.req({
+                        url: url + '/found',
+                        data: {'ids': ids.join()},
+                        ending: function (res) {
+                            table.reload('table-list');
+                            main.msg(res.msg);
+                            return false;
+                        },
+                    });
+                },
+                'install': function (data, ids) {
+                    if (data.length === 0) {
+                        layer.msg("未选择", {icon: 2});
+                        return false;
+                    }
+                    main.req({
+                        url: url + '/install',
+                        data: {'ids': ids.join()},
+                        ending: function (res) {
+                            table.reload('table-list');
+                            main.msg(res.msg);
+                            return false;
+                        }
+                    });
+                },
+                'setup': function (data, ids) {
+                    if (data.length === 0) {
+                        layer.msg("未选择", {icon: 2});
+                        return false;
+                    }
+                    main.req({
+                        url: url + '/setup',
+                        data: {'ids': ids.join()},
+                        ending: function () {
+                            main.ws.log('site.0', function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        },
+                    });
+                },
+                'publish': function (data, ids) {
+                    if (data.length === 0) {
+                        layer.msg("未选择", {icon: 2});
+                        return false;
+                    }
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '选中的网站发布文章，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index) {
+                            main.req({
+                                url: url + '/publish',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                ending: function () {
+                                    main.ws.log('site.0', function () {
+                                        table.reload('table-list');
+                                    });
+                                    return false;
+                                }
+                            });
+                        });
+                },
+                'reload_nginx': function (data, ids) {
+                    main.req({
+                        url: url + '/reload/nginx',
+                        data: {'ids': ids.join()},
+                        ending: function (res) {
+                            table.reload('table-list');
+                            main.msg(res.msg);
+                            return false;
+                        },
+                    });
+                },
+                'reload_website_setup': function (data, ids) {
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    let contentObj = $($("#reload-setup").html());
+                    contentObj.find('*[name=ids]').attr('value', ids.join());
+                    main.popup({
+                        title: '重新设置网站后台',
+                        content: contentObj.prop('outerHTML'),
+                        url: url + '/reload/website/setup',
+                        area: '400px',
+                        ending: function () {
+                            main.ws.log('site.0');
+                            return false;
+                        }
+                    });
+                },
+                'update_website': function (data, ids) {
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '更新选中网站的文章和目录，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index) {
+                            main.req({
+                                url: url + '/update/website',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                ending: function () {
+                                    main.ws.log('site.0', function () {
+                                        table.reload('table-list');
+                                    });
+                                    return false;
+                                }
+                            });
+                        });
+                },
+                'pull_config': function (data, ids) {
+                    if (data.length < 1) {
+                        layer.msg("未选择", {icon: 2});
+                        return false;
+                    }
+                    layer.prompt({
+                            formType: 0,
+                            value: data.length,
+                            title: '远程网站配置覆盖本地，请输入线程数量 太多会卡死'
+                        },
+                        function (value, index) {
+                            main.req({
+                                url: url + '/pull/config',
+                                data: {'ids': ids.join(), 'thread': value},
+                                index: index,
+                                ending: function () {
+                                    main.ws.log('site.0');
+                                    return false;
+                                }
+                            });
+                        });
+                },
+                'jobs': function () {
+                    main.req({
+                        url: url + '/jobs',
+                        ending: function (res) {
+                            main.msg(res.msg);
+                            return false;
+                        },
+                    });
+                },
+                'cron-enable': function (data, ids) {
+                    main.req({
+                        url: url + '/cron/switch',
+                        data: {ids: ids.join(), cron_enabled: true},
+                        ending: 'table-list'
+                    });
+                },
+                'cron-disable': function (data, ids) {
+                    main.req({
+                        url: url + '/cron/switch',
+                        data: {ids: ids.join(), cron_enabled: false},
+                        ending: 'table-list'
+                    });
+                },
+                'reset-record': function (data, ids) {
+                    main.reset.log('site', ids);
+                },
+                'export': function (data, ids) {
+                    window.open(encodeURI(url + '/export?ids=' + ids.join()));
+                },
+                'import': function () {
+                    layer.open({
+                        type: 1,
+                        title: "导入配置",
+                        btn: ['导入', '取消'],
+                        shadeClose: true,
+                        scrollbar: false,
+                        shade: 0.8,
+                        fixed: false,
+                        maxmin: true,
+                        btnAlign: 'c',
+                        content: $('#import-form').html(),
+                        yes: function (index, dom) {
+                            dom.find('.layui-form button[lay-submit]button[lay-filter=submit-import]').click();
+                            layer.close(index);
+                        },
+                        success: function () {
+                            form.on('submit(submit-import)', function (obj) {
+                                importConfig.reload({data: obj.field});
+                                $('#import').click();
+                                return false;
+                            });
+                        }
+                    });
+                    form.render();
+                },
+                'mysql': function (data, ids) {
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    layer.open({
+                        type: 1,
+                        title: '备份/还原MySQL',
+                        shadeClose: true,
+                        scrollbar: false,
+                        btnAlign: 'c',
+                        shade: 0.8,
+                        fixed: false,
+                        area: '450px',
+                        maxmin: true,
+                        btn: ['确定', '取消'],
+                        content: $('#mysql-html').html(),
+                        success: function (dom, index) {
+                            let uuid = main.uuid(), elem = dom.find('.layui-form');
+                            elem.append(`<button class="layui-hide" lay-submit lay-filter="` + uuid + `"></button>`);
+                            form.render();
+                            form.on('submit(' + uuid + ')', function (obj) {
+                                let field = obj.field;
+                                field.id = data.id;
+                                field.ids = ids.join();
+                                main.req({
+                                    url: url + "/mysql",
+                                    data: field,
+                                    index: index,
+                                    ending: function () {
+                                        main.ws.log('site.0');
+                                        return false;
+                                    }
+                                });
+                                return false;
+                            });
+                        },
+                        yes: function (index, dom) {
+                            dom.find('button[lay-submit]').click();
+                        },
+                    });
+                },
+                'rank': function (data, ids) {
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    main.req({
+                        url: '/site/rank',
+                        data: {'ids': ids.join()},
+                        ending: function (res) {
+                            table.reload('table-list');
+                            main.msg(res.msg);
+                            return false;
+                        },
+                    });
+                },
+                'del-rank': function (data, ids) {
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    layer.confirm('删除后需要重新下载，确定删除？', function (index) {
+                        main.req({
+                            url: '/site/del/rank',
+                            data: {'ids': ids.join()},
+                            index: index,
+                            ending: 'table-list',
+                        });
+                    });
+                },
+                'vhosts': function (data, ids) {
+                    main.req({
+                        url: url + '/vhosts',
+                        data: {ids: ids.join()},
+                        ending: function (res) {
+                            main.msg(res.msg);
+                            return false;
+                        },
+                    });
+                },
+                'links': function (data, ids) {
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    $.get(url + '/link', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            url: url + '/link',
+                            title: '添加友链',
+                            content: html,
+                            area: '500px',
+                        });
+                        form.render();
+                    });
+                },
+                'del_links': function (data, ids) {
+                    if (ids.length === 0) {
+                        return main.err('请选择数据');
+                    }
+                    $.get(url + '/link', {ids: ids.join()}, function (html) {
+                        main.popup({
+                            url: url + '/del/link',
+                            title: '删除友链',
+                            content: html,
+                            area: '500px',
+                        });
+                        form.render();
+                    });
+                },
+            };
         //列表管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', sort: true, width: 60, align: 'center', hide: true},
@@ -421,220 +968,9 @@
                 element.render();
             }
         });
-
         //监听工具条
         table.on('tool(table-list)', function (obj) {
-            let data = obj.data, othis = $(this);
-            switch (obj.event) {
-                case 'cron_switch':
-                    let enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
-                    main.req({
-                        url: url + "/cron/switch",
-                        data: {id: data.id, cron_enabled: enabled},
-                        error: function () {
-                            othis.find('input[type=checkbox]').prop("checked", !enabled);
-                            form.render('checkbox');
-                            return false;
-                        }
-                    });
-                    break;
-                case 'rank':
-                    main.req({
-                        url: '/site/rank',
-                        data: data,
-                        ending: function (res) {
-                            main.msg(res.msg);
-                            return false;
-                        },
-                    });
-                    break;
-                case 'del':
-                    layer.confirm('确定删除此网站？不可恢复!', function (index) {
-                        main.req({
-                            url: url + '/del',
-                            data: data,
-                            ending: obj.del,
-                            index: index
-                        });
-                    });
-                    break;
-                case 'modify':
-                    $.get(url + '/modify', {id: data.id}, function (html) {
-                        main.popup({
-                            url: url + '/modify',
-                            title: '修改网站设置',
-                            content: html,
-                            ending: 'table-list',
-                        });
-                        form.render();
-                    });
-                    break;
-                case 'link':
-                    $.get(url + '/link', {id: data.id}, function (html) {
-                        main.popup({
-                            url: url + '/link',
-                            title: '添改友链',
-                            content: html,
-                            area: '500px',
-                        });
-                        form.render();
-                    });
-                    break;
-                case 'del_link':
-                    $.get(url + '/link', {id: data.id}, function (html) {
-                        main.popup({
-                            url: url + '/del/link',
-                            title: '删除友链',
-                            content: html,
-                            area: '500px',
-                        });
-                        form.render();
-                    });
-                    break;
-                case 'pic_dir':
-                    $.get(url + '/image', {id: data.id}, function (html) {
-                        main.popup({
-                            url: url + '/image',
-                            title: '添加图片',
-                            content: html,
-                            area: '800px',
-                            ending: function () {
-                                main.ws.log('site.' + data.id);
-                                return false;
-                            }
-                        });
-                        form.render();
-                    });
-                    break;
-                case 'mysql':
-                    layer.open({
-                        type: 1,
-                        title: '备份/还原MySQL',
-                        shadeClose: true,
-                        scrollbar: false,
-                        btnAlign: 'c',
-                        shade: 0.8,
-                        fixed: false,
-                        area: '450px',
-                        maxmin: true,
-                        btn: ['确定', '取消'],
-                        content: $('#mysql-html').html(),
-                        success: function (dom, index) {
-                            let uuid = main.uuid(), elem = dom.find('.layui-form');
-                            elem.append('<button class="layui-hide" lay-submit lay-filter="' + uuid + '"></button>');
-                            form.render();
-                            form.on('radio(mysql-action)', function (obj) {
-                                if (obj.value === '1') {
-                                    layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
-                                        layer.close(index);
-                                        $.get(url + "/sql/backup", {webroot_path: data['webroot_path']}, function (res) {
-                                            if (res.code !== 0) {
-                                                main.err(res.msg);
-                                                layer.close(index);
-                                            } else {
-                                                let selectElem = $('<div id="select-filename" class="layui-form-item"><label class="layui-form-label">选择备份:</label><div class="layui-input-block"><select name="filename" class="layui-select"></select></div></div>'),
-                                                    insertElem = selectElem.find('select');
-                                                for (let i = 0; i < res.data.length; i++) {
-                                                    insertElem.append('<option value="' + res.data[i] + '">' + res.data[i] + '</option>');
-                                                }
-                                                elem.append(selectElem);
-                                                form.render('select');
-                                            }
-                                        });
-                                    });
-                                } else {
-                                    elem.find('#select-filename').remove();
-                                }
-                            });
-                            form.on('submit(' + uuid + ')', function (obj) {
-                                let field = obj.field;
-                                field.id = data.id;
-                                main.req({
-                                    url: url + "/mysql",
-                                    data: field,
-                                    index: index,
-                                    ending: function () {
-                                        main.ws.log('site.' + data.id);
-                                        return false;
-                                    }
-                                });
-                                return false;
-                            });
-                        },
-                        yes: function (index, dom) {
-                            dom.find('button[lay-submit]').click();
-                        },
-                    });
-                    break;
-                case 'push':
-                    let pushHtml = $('#push').html();
-                    othis = $(pushHtml);
-                    othis.find('input[name=id]').val(data.id);
-                    main.popup({
-                        url: '/site/push',
-                        title: "推送",
-                        content: othis.html()
-                    });
-                    break;
-                case 'ftp':
-                    if (data.status === 4) {
-                        layer.msg("外部网站不允许编辑FTP", {icon: 2});
-                        return false;
-                    }
-                    $.get('/ftp/relationship',
-                        {'id': data['ftp_id'], 'site_id': data.id, 'username': data.vhost},
-                        function (html) {
-                            main.popup({
-                                url: '/ftp/relationship',
-                                title: data['ftp_id'] > 0 ? '选择FTP' : '添加FTP',
-                                content: html,
-                                ending: 'table-list',
-                            });
-                            element.render();
-                        });
-                    break;
-                case 'sql':
-                    if (data.status === 4) {
-                        layer.msg("外部网站不允许编辑数据库", {icon: 2});
-                        return false;
-                    }
-                    $.get('/sql/relationship',
-                        {'id': data['sql_id'], 'site_id': data.id, 'username': data.vhost},
-                        function (html) {
-                            let title = data['sql_id'] > 0 ? '选择SQL' : '添加SQL';
-                            main.popup({
-                                url: '/sql/relationship',
-                                title: title,
-                                content: html,
-                                ending: 'table-list',
-                            });
-                        });
-                    break;
-                case 'log':
-                    main.ws.log('site.' + data.id);
-                    break;
-                case 'clipboard':
-                    switch ($(this).attr('data-type')) {
-                        case 'user':
-                            main.copy.exec(data['web_user'], layer.msg('用户名复制成功'));
-                            break;
-                        case 'pwd':
-                            main.copy.exec(data['web_pwd'], layer.msg('密码复制成功'));
-                            break;
-                        case 'auth':
-                            main.copy.exec(data['auth_code'], layer.msg('认证码复制成功'));
-                            break;
-                        default:
-                            layer.alert('出错了', {icon: 2});
-                            return false;
-                    }
-                    break;
-                case 'login':
-                    window.open(data['admin_url'], '_blank');
-                    break;
-                default:
-                    break;
-            }
+            active[obj.event] && active[obj.event].call($(this), obj);
         });
 
         //头工具栏事件
@@ -644,360 +980,7 @@
             for (let i = 0; i < data.length; i++) {
                 ids[i] = data[i].id;
             }
-            switch (obj.event) {
-                case 'log':
-                    main.ws.log('site.0');
-                    break;
-                case 'configure':
-                    if (data.length === 0) {
-                        layer.msg("未选择", {icon: 2});
-                        return false;
-                    }
-                    $.get(url + '/configure', {ids: ids.join()}, function (html) {
-                        main.popup({
-                            title: "批量修改配置",
-                            url: url + '/configure',
-                            content: html,
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'del':
-                    if (data.length === 0) {
-                        layer.msg("未选择", {icon: 2});
-                        return false;
-                    }
-                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
-                            url: url + '/del',
-                            data: {'ids': ids.join()},
-                            index: index,
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'add':
-                    $.get(url + '/add', {}, function (html) {
-                        main.popup({
-                            url: url + '/add',
-                            title: '添加网站',
-                            content: html,
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'batch':
-                    $.get(url + '/batch', {}, function (html) {
-                        main.popup({
-                            url: url + '/batch',
-                            title: '批量添加网站',
-                            content: html,
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'found':
-                    if (data.length === 0) {
-                        layer.msg("未选择", {icon: 2});
-                        return false;
-                    }
-                    main.req({
-                        url: url + '/found',
-                        data: {'ids': ids.join()},
-                        ending: function (res) {
-                            table.reload('table-list');
-                            main.msg(res.msg);
-                            return false;
-                        },
-                    });
-                    break;
-                case 'install':
-                    if (data.length === 0) {
-                        layer.msg("未选择", {icon: 2});
-                        return false;
-                    }
-                    main.req({
-                        url: url + '/install',
-                        data: {'ids': ids.join()},
-                        ending: function (res) {
-                            table.reload('table-list');
-                            main.msg(res.msg);
-                            return false;
-                        }
-                    });
-                    break;
-                case 'setup':
-                    if (data.length === 0) {
-                        layer.msg("未选择", {icon: 2});
-                        return false;
-                    }
-                    main.req({
-                        url: url + '/setup',
-                        data: {'ids': ids.join()},
-                        ending: function () {
-                            main.ws.log('site.0', function () {
-                                table.reload('table-list');
-                            });
-                            return false;
-                        },
-                    });
-                    break;
-                case 'publish':
-                    if (data.length === 0) {
-                        layer.msg("未选择", {icon: 2});
-                        return false;
-                    }
-                    layer.prompt({
-                            formType: 0,
-                            value: data.length,
-                            title: '选中的网站发布文章，请输入线程数量 太多会卡死'
-                        },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/publish',
-                                data: {'ids': ids.join(), 'thread': value},
-                                index: index,
-                                ending: function () {
-                                    main.ws.log('site.0', function () {
-                                        table.reload('table-list');
-                                    });
-                                    return false;
-                                }
-                            });
-                        });
-                    break;
-                case 'reload_nginx':
-                    main.req({
-                        url: url + '/reload/nginx',
-                        data: {'ids': ids.join()},
-                        ending: function (res) {
-                            table.reload('table-list');
-                            main.msg(res.msg);
-                            return false;
-                        },
-                    });
-                    break;
-                case 'reload_website_setup':
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
-                    let contentObj = $($("#reload-setup").html());
-                    contentObj.find('*[name=ids]').attr('value', ids.join());
-                    main.popup({
-                        title: '重新设置网站后台',
-                        content: contentObj.prop('outerHTML'),
-                        url: url + '/reload/website/setup',
-                        area: '400px',
-                        ending: function () {
-                            main.ws.log('site.0');
-                            return false;
-                        }
-                    });
-                    break;
-                case 'update_website':
-                    layer.prompt({
-                            formType: 0,
-                            value: data.length,
-                            title: '更新选中网站的文章和目录，请输入线程数量 太多会卡死'
-                        },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/update/website',
-                                data: {'ids': ids.join(), 'thread': value},
-                                index: index,
-                                ending: function () {
-                                    main.ws.log('site.0', function () {
-                                        table.reload('table-list');
-                                    });
-                                    return false;
-                                }
-                            });
-                        });
-                    break;
-                case 'pull_config':
-                    if (data.length < 1) {
-                        layer.msg("未选择", {icon: 2});
-                        return false;
-                    }
-                    layer.prompt({
-                            formType: 0,
-                            value: data.length,
-                            title: '远程网站配置覆盖本地，请输入线程数量 太多会卡死'
-                        },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/pull/config',
-                                data: {'ids': ids.join(), 'thread': value},
-                                index: index,
-                                ending: function () {
-                                    main.ws.log('site.0');
-                                    return false;
-                                }
-                            });
-                        });
-                    break;
-                case 'jobs':
-                    main.req({
-                        url: url + '/jobs',
-                        ending: function (res) {
-                            main.msg(res.msg);
-                            return false;
-                        },
-                    });
-                    break;
-                case 'cron-enable':
-                    main.req({
-                        url: url + '/cron/switch',
-                        data: {ids: ids.join(), cron_enabled: true},
-                        ending: 'table-list'
-                    });
-                    break;
-                case 'cron-disable':
-                    main.req({
-                        url: url + '/cron/switch',
-                        data: {ids: ids.join(), cron_enabled: false},
-                        ending: 'table-list'
-                    });
-                    break;
-                case 'reset-record':
-                    main.reset.log('site', ids);
-                    break;
-                case 'export':
-                    window.open(encodeURI(url + '/export?ids=' + ids.join()));
-                    break;
-                case 'import':
-                    layer.open({
-                        type: 1,
-                        title: "导入配置",
-                        btn: ['导入', '取消'],
-                        shadeClose: true,
-                        scrollbar: false,
-                        shade: 0.8,
-                        fixed: false,
-                        maxmin: true,
-                        btnAlign: 'c',
-                        content: $('#import-form').html(),
-                        yes: function (index, dom) {
-                            dom.find('.layui-form button[lay-submit]button[lay-filter=submit-import]').click();
-                            layer.close(index);
-                        },
-                        success: function () {
-                            form.on('submit(submit-import)', function (obj) {
-                                importConfig.reload({data: obj.field});
-                                $('#import').click();
-                                return false;
-                            });
-                        }
-                    });
-                    form.render();
-                    break;
-                case 'mysql':
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
-                    layer.open({
-                        type: 1,
-                        title: '备份/还原MySQL',
-                        shadeClose: true,
-                        scrollbar: false,
-                        btnAlign: 'c',
-                        shade: 0.8,
-                        fixed: false,
-                        area: '450px',
-                        maxmin: true,
-                        btn: ['确定', '取消'],
-                        content: $('#mysql-html').html(),
-                        success: function (dom, index) {
-                            let uuid = main.uuid(), elem = dom.find('.layui-form');
-                            elem.append(`<button class="layui-hide" lay-submit lay-filter="` + uuid + `"></button>`);
-                            form.render();
-                            form.on('submit(' + uuid + ')', function (obj) {
-                                let field = obj.field;
-                                field.id = data.id;
-                                field.ids = ids.join();
-                                main.req({
-                                    url: url + "/mysql",
-                                    data: field,
-                                    index: index,
-                                    ending: function () {
-                                        main.ws.log('site.0');
-                                        return false;
-                                    }
-                                });
-                                return false;
-                            });
-                        },
-                        yes: function (index, dom) {
-                            dom.find('button[lay-submit]').click();
-                        },
-                    });
-                    break;
-                case 'rank':
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
-                    main.req({
-                        url: '/site/rank',
-                        data: {'ids': ids.join()},
-                        ending: function (res) {
-                            table.reload('table-list');
-                            main.msg(res.msg);
-                            return false;
-                        },
-                    });
-                    break;
-                case 'del-rank':
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
-                    layer.confirm('删除后需要重新下载，确定删除？', function (index) {
-                        main.req({
-                            url: '/site/del/rank',
-                            data: {'ids': ids.join()},
-                            index: index,
-                            ending: 'table-list',
-                        });
-                    });
-                    break;
-                case 'vhosts':
-                    main.req({
-                        url: url + '/vhosts',
-                        data: {ids: ids.join()},
-                        ending: function (res) {
-                            main.msg(res.msg);
-                            return false;
-                        },
-                    });
-                    break;
-                case 'links':
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
-                    $.get(url + '/link', {ids: ids.join()}, function (html) {
-                        main.popup({
-                            url: url + '/link',
-                            title: '添加友链',
-                            content: html,
-                            area: '500px',
-                        });
-                        form.render();
-                    });
-                    break;
-                case 'del_links':
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
-                    $.get(url + '/link', {ids: ids.join()}, function (html) {
-                        main.popup({
-                            url: url + '/del/link',
-                            title: '删除友链',
-                            content: html,
-                            area: '500px',
-                        });
-                        form.render();
-                    });
-                    break;
-            }
+            activeBar[obj.event] && activeBar[obj.event].call(obj, data, ids);
         });
         // 监听搜索
         main.onSearch();

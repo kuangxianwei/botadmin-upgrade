@@ -58,16 +58,15 @@
     layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
-            form = layui.form,
-            url = {{.current_uri}};
+            form = layui.form;
 
         // 未读消息
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},
@@ -87,11 +86,11 @@
         });
         // 已读消息
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list-read',
             toolbar: '#toolbar-read',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},

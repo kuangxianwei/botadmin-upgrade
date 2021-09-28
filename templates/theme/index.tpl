@@ -74,8 +74,6 @@
             downEle = $('#down'),
             tagsEle = $('#tags'),
             themeEle = $('#theme-container'),
-            csrfToken = {{.csrf_token}},
-            url = {{.current_uri}},
             driver = {{.driver}};
 
         class Util {

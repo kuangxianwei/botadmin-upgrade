@@ -96,11 +96,9 @@
         let main = layui.main,
             table = layui.table,
             form = layui.form,
-            upload = layui.upload,
-            url = {{.current_uri}};
-        url = url || '';
+            upload = layui.upload;
         upload.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             elem: '#import',
             url: url + '/import',
             accept: 'file',
@@ -121,7 +119,7 @@
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list',
             url: url,

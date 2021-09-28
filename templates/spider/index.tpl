@@ -160,18 +160,16 @@
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
-    let url = {{.current_uri}};
     layui.extend({step: 'step'}).use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
             upload = layui.upload,
             main = layui.main,
-            url = {{.current_uri}},
             //渲染上传配置
             importConfig = upload.render({
-                headers: {'X-CSRF-Token':{{.csrf_token}}},
+                headers: {'X-CSRF-Token':csrfToken},
                 elem: '#import',
-                url: {{.current_uri}} +'/import',
+                url: url + '/import',
                 accept: 'file',
                 exts: 'txt|conf|json',
                 before: function () {
@@ -405,11 +403,11 @@
                 },
             };
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', width: 80, title: 'ID'},

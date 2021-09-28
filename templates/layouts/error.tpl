@@ -16,8 +16,7 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let main = layui.main,
-            url = {{.current_uri}};
+        let main = layui.main;
         {{.js}}
     });
 </script>

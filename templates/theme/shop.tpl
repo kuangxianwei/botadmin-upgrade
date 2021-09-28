@@ -72,8 +72,7 @@
             tagsEle = $('#tags'),
             admin = {{.admin}},
             driver = {{.driver}},
-            authHost = {{.authHost}},
-            url = {{.current_uri}};
+            authHost = {{.authHost}};
 
         class Util {
             constructor() {

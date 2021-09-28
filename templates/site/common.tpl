@@ -45,7 +45,7 @@
                         </div>
                         <div class="layui-inline" id="theme">
                             {{if .theme.Face -}}
-                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.Face}}" title="{{.theme.Readme}}">
+                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.SmallFace}}" data-src="{{.theme.Face}}" title="{{.theme.Readme}}">
                             {{end -}}
                         </div>
                         <div class="layui-inline">

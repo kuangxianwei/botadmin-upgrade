@@ -24,8 +24,7 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let main = layui.main,
-            url = {{.current_uri}};
+        let main = layui.main;
         $('button[lay-event]').click(function () {
             switch ($(this).attr('lay-event')) {
                 case 'edit-sql':

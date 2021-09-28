@@ -124,15 +124,14 @@
             main = layui.main,
             form = layui.form,
             upload = layui.upload,
-            element = layui.element,
-            url = {{.current_uri}};
+            element = layui.element;
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
-            url: {{.current_uri}},
+            url: url,
             toolbar: '#toolbar',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
@@ -216,7 +215,7 @@
             limits: [10, 50, 200, 500, 900],
             done: function () {
                 upload.render({
-                    headers: {'X-CSRF-Token':{{.csrf_token}}},
+                    headers: {'X-CSRF-Token': csrfToken},
                     elem: '#import',
                     url: url + '/import',
                     accept: 'file',
@@ -229,11 +228,8 @@
             },
             text: '对不起，加载出现异常！'
         });
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case 'del':
+        let active = {
+                'del': function (data) {
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
                         main.req({
                             url: url + '/del',
@@ -242,8 +238,8 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'modify':
+                },
+                'modify': function (data) {
                     $.get(url + '/modify', {id: data.id}, function (html) {
                         main.popup({
                             title: '修改文章',
@@ -253,44 +249,27 @@
                         });
                         element.render();
                     });
-                    break;
-                case 'log':
+                },
+                'log': function (data) {
                     main.ws.log('article.' + data.id);
-                    break;
-            }
-        });
-
-        //监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            let data = table.checkStatus(obj.config.id).data,
-                isEmpty = data.length === 0,
-                thread = isEmpty ? 10 : data.length,
-                ids = [];
-            for (let i = 0; i < data.length; i++) {
-                ids[i] = data[i].id;
-            }
-            switch (obj.event) {
-                case 'add':
-                    main.req({
-                        url: url + '/add',
-                        ending: 'table-list'
-                    });
-                    break;
-                case 'del':
-                    if (isEmpty) {
+                },
+            },
+            activeBar = {
+                del: function (obj, data) {
+                    if (data.length === 0) {
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
                     layer.confirm('删除后不可恢复，确定删除选中吗？', function (index) {
                         main.req({
                             url: url + '/del',
-                            data: {'ids': ids.join()},
+                            data: {'ids': obj.ids.join()},
                             index: index,
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'truncate':
+                },
+                truncate: function () {
                     layer.confirm('清空全部数据，确定清空？', function (index) {
                         main.req({
                             url: url + '/truncate',
@@ -298,13 +277,13 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'configure':
-                    if (isEmpty) {
+                },
+                configure: function (obj, data) {
+                    if (data.length === 0) {
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
-                    $.get(url + '/configure', {ids: ids.join()}, function (html) {
+                    $.get(url + '/configure', {ids: obj.ids.join()}, function (html) {
                         main.popup({
                             title: "批量修改配置",
                             content: html,
@@ -312,24 +291,27 @@
                             ending: 'table-list',
                         });
                     });
-                    return;
-                case 'originality-exec':
-                    if (isEmpty) {
+                },
+                'originality-exec': function (obj, data) {
+                    if (data.length === 0) {
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
                     main.req({
                         url: url + '/original',
-                        data: {ids: ids.join()},
-                        ending: 'table-list'
+                        data: {ids: obj.ids.join()},
+                        ending: function () {
+                            main.ws.log('article.0');
+                            return false;
+                        },
                     });
-                    break;
-                case 'conversion-exec':
-                    if (isEmpty) {
+                },
+                'conversion-exec': function (obj, data) {
+                    if (data.length === 0) {
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
-                    $.get(url + '/convert', {ids: ids.join()}, function (html) {
+                    $.get(url + '/convert', {ids: obj.ids.join()}, function (html) {
                         main.popup({
                             title: '简繁体转换',
                             content: html,
@@ -339,27 +321,34 @@
                         });
                         form.render();
                     });
-                    break;
-                case 'originality':
-                    if (isEmpty) {
+                },
+                originality: function (obj, data) {
+                    if (data.length === 0) {
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
                     let val = this.value;
                     main.req({
                         url: url + '/original',
-                        data: {ids: ids.join(), originality: val},
-                        ending: 'table-list'
+                        data: {ids: obj.ids.join(), originality: val},
+                        ending: "table-list"
                     });
-                    break;
-                case 'ban':
+                },
+                ban: function (obj, data) {
+                    if (data.length === 0) {
+                        layer.msg('请勾选数据', {icon: 2});
+                        return false;
+                    }
                     main.req({
                         url: url + '/ban',
-                        data: {thread: thread, ids: ids.join()},
-                        ending: 'table-list'
+                        data: {thread: obj.thread, ids: obj.ids.join()},
+                        ending: function () {
+                            main.ws.log('article.0');
+                            return false;
+                        }
                     });
-                    break;
-                case 'case':
+                },
+                case: function () {
                     $.get(url + '/case', {}, function (html) {
                         main.popup({
                             title: '采集范本',
@@ -371,13 +360,13 @@
                             },
                         });
                     });
-                    break;
-                case 'translate':
-                    if (isEmpty) {
+                },
+                translate: function (obj, data) {
+                    if (data.length === 0) {
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
-                    $.get(url + '/translate', {ids: ids.join()}, function (html) {
+                    $.get(url + '/translate', {ids: obj.ids.join()}, function (html) {
                         main.popup({
                             title: '翻译',
                             content: html,
@@ -390,11 +379,11 @@
                         });
                         form.render();
                     });
-                    break;
-                case 'reset-record':
-                    main.reset.log('article', ids);
-                    break;
-                case 'delUsed':
+                },
+                "reset-record": function (obj) {
+                    main.reset.log('article', obj.ids);
+                },
+                delUsed: function () {
                     layer.confirm('删除所有已经发布是文章列表？', function (index) {
                         main.req({
                             url: url + '/del/used',
@@ -402,14 +391,28 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'export':
-                    window.open(encodeURI(url + '/export?ids=' + ids.join()));
-                    break;
-                case 'log':
+                },
+                export: function (obj) {
+                    window.open(encodeURI(url + '/export?ids=' + obj.ids.join()));
+                },
+                log: function () {
                     main.ws.log('article.0');
-                    break;
+                }
+            };
+        //监听工具条
+        table.on('tool(table-list)', function (obj) {
+            active[obj.event] && active[obj.event].call(this, obj.data);
+        });
+
+        //监听工具栏
+        table.on('toolbar(table-list)', function (obj) {
+            let data = table.checkStatus(obj.config.id).data;
+            obj.ids = [];
+            obj.thread = data.length ? data.length : 10;
+            for (let i = 0; i < data.length; i++) {
+                obj.ids[i] = data[i].id;
             }
+            activeBar[obj.event] && activeBar[obj.event].call(this, obj, data);
         });
         // 监听搜索
         main.onSearch();

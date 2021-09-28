@@ -140,7 +140,7 @@
         curPath.init();
         // 渲染上传组件
         let uploaded = upload.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token': csrfToken},
             elem: '#upload',
             url: url + '/upload',
             data: {'path': curPath.data.path},
@@ -152,7 +152,7 @@
         });
         // 列表管理
         let tabled = table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             url: url,

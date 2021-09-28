@@ -45,11 +45,10 @@
     layui.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
-            main = layui.main,
-            url = {{.current_uri}};
+            main = layui.main;
         url = url || '';
         layui.upload.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             elem: '#import',
             url: url + '/import',
             accept: 'file',
@@ -70,11 +69,11 @@
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', hide: true},

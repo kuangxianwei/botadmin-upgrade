@@ -34,7 +34,6 @@
     layui.use(['index', 'main'], function () {
         let main = layui.main,
             form = layui.form,
-            url = {{.current_uri}},
             referer = function () {
                 let reg = new RegExp("(^|&)next=([^&]*)(&|$)"),
                     rs = window.location.search.substr(1).match(reg),

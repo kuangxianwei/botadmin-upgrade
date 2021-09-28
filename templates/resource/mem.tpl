@@ -20,10 +20,10 @@
         let table = layui.table;
         //规则管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {field: 'Sector', title: '扇区'},
                 {field: 'Total', title: '总内存', align: 'center'},

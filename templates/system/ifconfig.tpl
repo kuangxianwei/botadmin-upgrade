@@ -96,14 +96,13 @@
     layui.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
-            main = layui.main,
-            url = {{.current_uri}};
+            main = layui.main;
 
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list',
-            url: {{.current_uri}},
+            url: url,
             toolbar: '#toolbar',
             cols: [[
                 {type: 'numbers', width: 80, title: 'ID', align: 'center', sort: true},

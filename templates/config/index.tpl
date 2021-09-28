@@ -256,8 +256,7 @@
             layer = layui.layer,
             main = layui.main,
             form = layui.form,
-            transfer = layui.transfer,
-            url = {{.current_uri}};
+            transfer = layui.transfer;
         //显示
         transfer.render({
             id: 'monitorData',

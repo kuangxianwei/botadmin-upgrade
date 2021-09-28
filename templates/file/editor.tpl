@@ -9,8 +9,7 @@
             layui.use(['index', 'main'], function () {
                 let form = layui.form,
                     main = layui.main,
-                    index = parent.layer.getFrameIndex(window.name),
-                    url = {{.current_uri}};
+                    index = parent.layer.getFrameIndex(window.name);
                 form.render();
                 $('.layui-form button[lay-submit]').attr('lay-filter', 'submit');
                 form.on('submit(submit)', function (obj) {
@@ -33,14 +32,14 @@
             });
         }
     }
+
     if (typeof layui === 'undefined') {
         loadJS('/static/layui/layui.js');
     } else {
         layui.use(['index', 'main'], function () {
             let form = layui.form,
                 main = layui.main,
-                index = parent.layer.getFrameIndex(window.name),
-                url = {{.current_uri}};
+                index = parent.layer.getFrameIndex(window.name);
             form.render();
             $('.layui-form button[lay-submit]').attr('lay-filter', 'submit');
             form.on('submit(submit)', function (obj) {

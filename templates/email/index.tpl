@@ -43,16 +43,14 @@
     layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
-            element = layui.element,
-            form = layui.form,
-            url = {{.current_uri}};
+            element = layui.element;
 
         // 渲染表格
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
-            url: {{.current_uri}},
+            url: url,
             toolbar: '#toolbar',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},

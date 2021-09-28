@@ -55,10 +55,7 @@
         let form = layui.form,
             table = layui.table,
             main = layui.main,
-            upload = layui.upload,
-            csrfToken ={{.csrf_token}},
-            url = {{.current_uri}};
-        csrfToken = csrfToken || '';
+            upload = layui.upload;
 
         //日志管理
         table.render({
@@ -66,7 +63,7 @@
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},

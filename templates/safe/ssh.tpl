@@ -82,8 +82,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main,
-            form = layui.form,
-            url = {{.current_uri}};
+            form = layui.form;
 
         //修改端口号
         form.on('submit(port-submit)', function (obj) {

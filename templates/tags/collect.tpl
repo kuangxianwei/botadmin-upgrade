@@ -76,8 +76,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let form = layui.form,
-            main = layui.main,
-            url = {{.current_uri}};
+            main = layui.main;
         form.on('submit(submit-save)', function (obj) {
             main.req({
                 url: url,

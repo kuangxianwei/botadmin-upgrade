@@ -45,7 +45,6 @@
         let main = layui.main,
             form = layui.form,
             hasLocalStorage = typeof localStorage !== "undefined",
-            url = {{.current_uri}},
             w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log/info');
         w.onopen = function () {
             w.send("show");

@@ -65,17 +65,15 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let form = layui.form,
-            table = layui.table,
-            main = layui.main,
-            url = {{.current_uri}};
+        let table = layui.table,
+            main = layui.main;
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list',
-            url: {{.current_uri}},
+            url: url,
             toolbar: '#toolbar',
             cols: [[
                 {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},

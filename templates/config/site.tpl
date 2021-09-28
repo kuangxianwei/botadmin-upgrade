@@ -607,8 +607,7 @@
         let main = layui.main,
             form = layui.form,
             //获取模板目录名称
-            tplName = $('select[name=tpl_name]').val(),
-            url = {{.current_uri}};
+            tplName = $('select[name=tpl_name]').val();
         //改变模板目录列表
         form.on('select(system)', function (obj) {
             $('#theme-shop').attr("lay-href", "/themes/shop?driver=" + obj.value);

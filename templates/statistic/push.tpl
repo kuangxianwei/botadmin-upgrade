@@ -76,12 +76,11 @@
     layui.use(['index', 'main'], function () {
         let main = layui.main,
             table = layui.table,
-            form = layui.form,
-            url = {{.current_uri}};
+            form = layui.form;
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list',
             url: url || "",

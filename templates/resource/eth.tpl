@@ -16,10 +16,10 @@
 
         //规则管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token':csrfToken},
             method: 'post',
             elem: '#table-list',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {field: 'Face', title: '网卡', align: 'center'},
                 {field: 'Flow', title: '流向', align: 'center'},

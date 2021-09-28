@@ -19,15 +19,14 @@
     layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
-            url = {{.current_uri}},
             loadindex = layer.load(1, {shade: [0.5, '#000']});
 
         //规则管理
         table.render({
-            headers: {'X-CSRF-Token':{{.csrf_token}}},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
-            url: {{.current_uri}},
+            url: url,
             cols: [[
                 {type: 'numbers', width: 50, title: 'ID', sort: true},
                 {field: 'prot', title: '协议', sort: true},
@@ -47,17 +46,14 @@
 
         //监听工具条
         table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case "kill":
-                    data.act = 'kill';
-                    break;
-                default:
-                    return false
+            if (obj.event === "kill") {
+                obj.data.act = 'kill';
+            } else {
+                return false;
             }
             main.req({
                 url: url,
-                data: data,
+                data: obj.data,
                 ending: 'table-list'
             });
         });

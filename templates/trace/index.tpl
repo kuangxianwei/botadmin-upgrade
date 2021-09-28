@@ -63,13 +63,13 @@
     layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
-            url = {{.current_uri}},
+            url = url,
             searchWaiterId = main.getParam('waiter_id'),
             tableOptions = {
-                headers: {'X-CSRF-Token':{{.csrf_token}}},
+                headers: {'X-CSRF-Token':csrfToken},
                 method: 'post',
                 elem: '#table-list',
-                url: {{.current_uri}},
+                url: url,
                 toolbar: '#toolbar',
                 cols: [[
                     {type: 'checkbox', fixed: 'left'},

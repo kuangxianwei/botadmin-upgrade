@@ -31,7 +31,6 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main,
-            url = {{.current_uri}},
             active = {
                 BotAdmin: function () {
                     req("确定要重启本管理器？", 'botadmin');

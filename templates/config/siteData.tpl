@@ -168,8 +168,7 @@
     layui.use(['index', 'main'], function () {
         let main = layui.main,
             form = layui.form,
-            transfer = layui.transfer,
-            url = {{.current_uri}};
+            transfer = layui.transfer;
         //显示搜索框
         transfer.render({
             id: 'cityData',

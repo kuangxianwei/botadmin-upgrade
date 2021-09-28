@@ -121,7 +121,6 @@
             transfer = layui.transfer,
             layDate = layui.laydate,
             loading,
-            url = {{.current_uri}},
             citiesData = {{.cityData}},
             durations = {{.obj.Durations}},
             delObj = $('*[lay-event=del-duration]'),
@@ -147,8 +146,8 @@
         });
         upload.render({
             elem: '#uploadFile',
-            url: {{.current_uri}},
-            headers: {'X-CSRF-Token':{{.csrf_token}} },
+            url: url,
+            headers: {'X-CSRF-Token': csrfToken},
             size: 1024 * 50,
             accept: 'images',
             acceptMime: 'image/jpg,image/png',

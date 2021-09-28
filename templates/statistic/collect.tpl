@@ -63,8 +63,7 @@
     layui.use(['index', 'main'], function () {
         let form = layui.form,
             main = layui.main,
-            isDirect = {{.obj.IsDirect}},
-            url = {{.current_uri}};
+            isDirect = {{.obj.IsDirect}};
         form.on('submit(submit-start)', function (obj) {
             main.req({
                 url: url,
