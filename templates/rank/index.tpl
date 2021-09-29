@@ -55,7 +55,7 @@
             </button>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record" lay-tips="重置日志">
+            <button class="layui-btn layui-btn-xs layui-bg-red" lay-event="reset-record" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
             </button>
         </div>
@@ -86,7 +86,7 @@
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',

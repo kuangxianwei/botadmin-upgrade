@@ -24,13 +24,13 @@
     layui.use(['index', 'main'], function () {
         let form = layui.form,
             main = layui.main;
-        $("#reload").off('click').on('click',function () {
+        $("#reload").off('click').on('click', function () {
             main.req({
                 url: "/tools/rsa",
                 ending: function (res) {
                     $('[name="private_key"]').text(res.data.private_key);
                     $('[name="public_key"]').text(res.data.public_key);
-                    form.render();
+                    return false;
                 }
             });
         });

@@ -368,10 +368,6 @@
                                 <a lay-href="/file" lay-tips="文件管理"
                                    lay-direction="2"><cite>文件管理</cite></a>
                             </dd>
-                            <dd data-name="file-template">
-                                <a lay-href="/file?path=data/template" lay-tips="上传或者修改模板"
-                                   lay-direction="2"><cite>模板目录</cite></a>
-                            </dd>
                             <dd data-name="file-pic">
                                 <a lay-href="/file?path=data/pic" lay-tips="上传或者修改图片"
                                    lay-direction="2"><cite>图片目录</cite></a>
@@ -507,10 +503,10 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        $('[lay-event="ssh-cmd"]').off('click').on('click',function () {
+        $('[lay-event="ssh-cmd"]').off('click').on('click', function () {
             layui.main.webssh();
         });
-        $('dd[data-event=logout]').off('click').on('click',function () {
+        $('dd[data-event=logout]').off('click').on('click', function () {
             layui.view.exit(function () {
                 location.href = '/auth/logout';
             });

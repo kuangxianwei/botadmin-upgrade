@@ -1,9 +1,9 @@
 {{template "file/modify.tpl" .}}
 <script>
-    function loadJS(url) {
+    function loadJS(src) {
         let _doc = document.getElementsByTagName('head')[0], js = document.createElement('script');
         js.setAttribute('type', 'text/javascript');
-        js.setAttribute('src', url);
+        js.setAttribute('src', src);
         _doc.appendChild(js);
         js.onload = function () {
             layui.use(['index', 'main'], function () {

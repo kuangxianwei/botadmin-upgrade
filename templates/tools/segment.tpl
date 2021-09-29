@@ -47,6 +47,7 @@
                     if (Array.isArray(res.data)) {
                         $('#results').val(res.data.join("\n"));
                     }
+                    return false;
                 }
             });
         });

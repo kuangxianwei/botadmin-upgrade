@@ -86,9 +86,11 @@
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">广告缓存:</label>
-                            <div class="layui-input-block">
-                                <input type="checkbox" name="ad_cached"
-                                       lay-skin="switch" lay-text="打开|关闭"{{if .base.AdCached}} checked{{end}}>
+                            <div class="layui-input-inline">
+                                <input type="number" name="ad_cache" value="{{.base.AdCache}}" min="0" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">
+                                缓存过期时间(单位秒)
                             </div>
                         </div>
                     </div>
@@ -375,7 +377,7 @@
             return false;
         });
         main.cron('[name=reboot_spec]', '[name=rank_spec]', '[name=spec]');
-        $('[lay-event="monitor-log"]').off('click').on('click',function () {
+        $('[lay-event="monitor-log"]').off('click').on('click', function () {
             main.ws.log("monitor_service.0");
         });
     });

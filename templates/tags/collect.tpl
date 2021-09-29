@@ -53,10 +53,12 @@
                     <label class="layui-form-label">结果<i class="layui-icon layui-icon-down"></i></label>
                     <label class="layui-form-label" id="collect-status" style="min-width: 100px">状态:
                         <strong style="color: red" title="0">未运行</strong></label>
-                    <label class="layui-form-label" style="color:#22849b;cursor: pointer" lay-filter="copy-keywords">
+                    <label class="layui-form-label" style="color:#22849b;cursor:pointer" data-event="copy-keywords">
                         <i class="layui-icon iconfont icon-copy"></i>关键词</label>
-                    <label class="layui-form-label" style="color: red;cursor: pointer" lay-filter="reset-record">
+                    <label class="layui-form-label" style="color:red;cursor: pointer" data-event="reset-record">
                         <i class="layui-icon layui-icon-delete"></i>记录</label>
+                    <label class="layui-form-label" style="cursor:pointer" data-event="log">
+                        <i class="layui-icon layui-icon-log"></i>日志</label>
                     <textarea rows="16" class="layui-textarea" id="collect-display"></textarea>
                 </div>
             </div>
@@ -88,6 +90,10 @@
             main.req({
                 url: url,
                 data: obj.field,
+                ending: function () {
+                    main.ws.log("tags.0");
+                    return false;
+                }
             });
         });
         form.on('submit(submit-stop)', function () {
@@ -108,31 +114,41 @@
                     .html('<i class="layui-icon layui-icon-pause"></i>停止');
             }
         });
-        $('[lay-filter="reset-record"]').off('click').on('click',function () {
-            main.reset.log('tags_collect', [0], {
-                ending: function () {
-                    $('#collect-display').val('');
-                }
-            })
-        });
-        $('[lay-filter="copy-keywords"]').off('click').on('click',function () {
-            let val = $('#collect-display').val(), values = val.split("\n"), result = [], reg = /(?:入库成功|seed)=(.*?)$/;
-            for (let i = 0; i < values.length; i++) {
-                let rs = reg.exec(values[i]);
-                if (rs) {
-                    let keyword = rs[1].trim();
-                    if (result.indexOf(keyword) === -1) {
-                        result.push(keyword);
+        let active = {
+            "reset-record": function () {
+                main.reset.log('tags_collect', [0], {
+                    ending: function () {
+                        $('#collect-display').val('');
+                    }
+                })
+            },
+            "copy-keywords": function () {
+                let val = $('#collect-display').val(), values = val.split("\n"), result = [],
+                    reg = /(?:入库成功|seed)=(.*?)$/;
+                for (let i = 0; i < values.length; i++) {
+                    let rs = reg.exec(values[i]);
+                    if (rs) {
+                        let keyword = rs[1].trim();
+                        if (result.indexOf(keyword) === -1) {
+                            result.push(keyword);
+                        }
                     }
                 }
+                if (!result) {
+                    layer.msg("关键词列表为空");
+                    return false;
+                }
+                main.copy.exec(result.join("\n"), function () {
+                    layer.msg("复制成功");
+                });
+            },
+            "log": function () {
+                main.ws.log("tags.0");
             }
-            if (!result) {
-                layer.msg("关键词列表为空");
-                return false;
-            }
-            main.copy.exec(result.join("\n"), function () {
-                layer.msg("复制成功");
-            });
+        };
+        $('[data-event]').off('click').on('click', function () {
+            let $this = $(this), event = $this.data("event");
+            active[event] && active[event].call($this);
         });
         main.cron('[name=spec]');
     });
