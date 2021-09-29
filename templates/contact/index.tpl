@@ -68,7 +68,7 @@
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},
                 {
-                    field: 'pc_enabled', title: 'PC', align: 'center', width: 92, unresize: true, event: 'pc_enabled',
+                    field: 'pc_enabled', title: 'PC', align: 'center', width: 100, unresize: true, event: 'pc_enabled',
                     templet: function (d) {
                         return '<input data-id="' + d.id + '" type="checkbox" lay-skin="switch" lay-text="启用|关闭" lay-filter="togglePcEnabled"' + (d['pc_enabled'] ? ' checked>' : '>');
                     }
@@ -77,7 +77,7 @@
                     field: 'mobile_enabled',
                     title: 'Mobile',
                     align: 'center',
-                    width: 92,
+                    width: 100,
                     unresize: true,
                     event: 'mobile_enabled',
                     templet: function (d) {
