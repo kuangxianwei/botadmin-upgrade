@@ -43,19 +43,22 @@
             </h4>
             <footer>
                 <div class="layui-btn-group" data-type="btn-group">
+                    <button class="layui-btn layui-btn-sm" data-event="download" lay-tips="下载该主题">
+                        <i class="layui-icon layui-icon-download-circle"></i>
+                    </button>
                     <button class="layui-btn layui-btn-sm layui-btn-normal" data-event="modify" lay-tips="编辑该主题">
                         <i class="layui-icon layui-icon-edit"></i>
                     </button>
                     <a class="layui-btn layui-btn-sm" data-type="open-theme" lay-tips="转到主题目录">
                         <i class="layui-icon layui-icon-fonts-code"></i>
                     </a>
-                    <button class="layui-btn layui-btn-normal layui-btn-sm" data-type="face" lay-tips="替换该封面,只允许上传png格式图片">
-                        换封面
+                    <button class="layui-btn layui-btn-sm layui-btn-normal" data-type="face" lay-tips="替换该封面,只允许上传png格式图片">
+                        <i class="layui-icon layui-icon-picture"></i>
                     </button>
-                    <button class="layui-btn layui-btn-danger layui-btn-sm" data-event="del" lay-tips="删除该主题">
+                    <button class="layui-btn layui-btn-sm layui-btn-danger" data-event="del" lay-tips="删除该主题">
                         <i class="layui-icon layui-icon-delete"></i>
                     </button>
-                    <button class="layui-btn layui-btn-primary layui-btn-sm" data-event="log" lay-tips="查看日志">
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" data-event="log" lay-tips="查看日志">
                         <i class="layui-icon layui-icon-log"></i>
                     </button>
                 </div>
@@ -257,6 +260,13 @@
                                         return false;
                                     }
                                 },
+                                ending: function (res) {
+                                    if (res.data) {
+                                        othis.appendItem(res.data);
+                                        flow.lazyimg();
+                                    }
+                                    return false;
+                                }
                             });
                         });
                     },
@@ -355,6 +365,9 @@
                     },
                     "log": function () {
                         main.ws.log("theme." + driver + "." + this.data("id"));
+                    },
+                    "download": function () {
+                        window.open(encodeURI(url + "/download?driver=" + driver + "&id=" + this.data("id")), "blank");
                     },
                 }
                 this.buildItem = function (ele, d) {

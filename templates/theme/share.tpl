@@ -53,5 +53,9 @@
         #tags + button.layui-btn-primary {
             margin-left: 5px
         }
+
+        .item .layui-btn-sm {
+            padding: 0 6px;
+        }
     </style>
 {{end}}
