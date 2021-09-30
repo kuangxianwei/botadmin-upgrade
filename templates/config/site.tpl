@@ -455,8 +455,8 @@
                     <fieldset class="layui-elem-field">
                         <legend>推送</legend>
                         <div class="layui-form-item">
-                            <label class="layui-form-label"
-                                   lay-tips="api 别名 说明 一行一条 &#123;&#123;site&#125;&#125; 代表: http://www.botadmin.cn &#123;&#123;host&#125;&#125; 代表: www.botadmin.cn">推送设置</label>
+                            {{$pushTip:="api 别名 说明 一行一条<br> {{site}} 代表: http://www.botadmin.cn<br>{{host}} 代表: www.botadmin.cn<br>"}}
+                            <label class="layui-form-label" lay-tips="{{$pushTip}}">推送设置</label>
                             <div class="layui-input-block">
                                 <textarea name="push_config" class="layui-textarea" rows="3">{{.push_config}}</textarea>
                             </div>

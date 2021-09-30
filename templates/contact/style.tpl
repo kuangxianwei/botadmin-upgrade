@@ -1,3 +1,4 @@
+{{$tplTip:="{{phone}} 替换成手机号码<br>{{wechat}} 替换为微信号<br>{{alias}}  替换为别名<br>{{email}}  替换为电子邮箱<br>{{qr}}     替换为二维码图片地址<br>"}}
 <style>
     *[lay-event], *[data-event] {
         cursor: pointer;
@@ -164,9 +165,19 @@
             <div id="menu-items"></div>
         </fieldset>
         <div class="layui-form-item">
-            <label class="layui-form-label">弹窗宣传语:</label>
+            <label class="layui-form-label">宣传语:</label>
             <div class="layui-input-block">
                 <textarea name="tip_html" class="layui-textarea" placeholder="弹窗宣传语HTML代码">{{.obj.TipHtml}}</textarea>
+            </div>
+            <div class="layui-input-block" style="margin-top:-5px;">
+                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">填充默认
+                </button>
+                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="phone">插入手机号</button>
+                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">插入微信号</button>
+                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="alias">插入别名</button>
+                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="email">插入邮箱</button>
+                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">插入二维码</button>
+                <i class="layui-icon layui-icon-tips" lay-tips="{{$tplTip}}" style="color:coral"></i>
             </div>
         </div>
     </div>
@@ -223,7 +234,7 @@
                 elem.find('*[name=href]').attr('name', 'submenu.href.' + id).val(values.href);
                 elem.find('*[name=trace]').attr('name', 'submenu.trace.' + id).val(values.trace);
                 $('#menu-items').append(elem);
-                $('[data-event="del-menu"]').off('click').on('click',function () {
+                $('[data-event="del-menu"]').off('click').on('click', function () {
                     $(this).closest('div.layui-form-item').remove();
                 });
             };
@@ -261,7 +272,7 @@
                 $('*[name=hover_color]').val(color);
             }
         });
-        $('#custom-style [lay-event]').off('click').on('click',function () {
+        $('#custom-style [lay-event]').off('click').on('click', function () {
             let othis = $(this),
                 event = othis.attr('lay-event'),
                 data = othis.find('[name]').serializeArray(), elem;
@@ -337,6 +348,21 @@
                     }
                 }
             });
+        });
+        let tipHtmlElem = $("textarea[name=tip_html]");
+        $('[data-write]').off("click").on("click", function () {
+            let write = $(this).data("write"), val;
+            switch (write) {
+                case "qr":
+                    val = tipHtmlElem.val() + '<img src="{{"{{"}}qr{{"}}"}}" alt="" width="150" height="150">';
+                    break;
+                case "default":
+                    val = "{{"{{"}}alias{{"}}"}}很高兴为您服务，您可以拨打电话{{"{{"}}phone{{"}}"}}、加微信{{"{{"}}wechat{{"}}"}}或者邮箱{{"{{"}}email{{"}}"}}联系我们！"
+                    break;
+                default:
+                    val = tipHtmlElem.val() + "{{"{{"}}" + write + "{{"}}"}}";
+            }
+            tipHtmlElem.val(val).focus();
         });
     });
 </script>
