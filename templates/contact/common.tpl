@@ -167,7 +167,9 @@
             <div class="layui-inline" style="width:650px">
                 <textarea name="tip_html" class="layui-textarea" rows="3" placeholder="弹窗广告宣传语HTML代码">{{.obj.TipHtml}}</textarea>
                 <div class="layui-input-block" style="margin-top:-5px;margin-bottom:-10px">
-                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">填充默认</button>
+                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">
+                        填充默认
+                    </button>
                     <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="phone">插入手机号</button>
                     <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">插入微信号</button>
                     <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="alias">插入别名</button>
@@ -273,7 +275,7 @@
             let write = $(this).data("write"), val;
             switch (write) {
                 case "qr":
-                    val = tipHtmlElem.val() + '<img src="{{"{{"}}qr{{"}}"}}" alt="" width="150" height="150">';
+                    val = tipHtmlElem.val() + '<img src="{{"{{"}}qr{{"}}"}}" alt="微信号:{{"{{"}}wechat{{"}}"}}" width="150" height="150">';
                     break;
                 case "default":
                     val = "{{"{{"}}alias{{"}}"}}很高兴为您服务，您可以拨打电话{{"{{"}}phone{{"}}"}}、加微信{{"{{"}}wechat{{"}}"}}或者邮箱{{"{{"}}email{{"}}"}}联系我们！"
