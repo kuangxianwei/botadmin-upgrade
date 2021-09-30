@@ -44,12 +44,12 @@
                 return unescape(next)
             }();
         form.render();
-        $('[name="username"]').focus().keydown(function (event) {
+        $('[name=username]').focus().keydown(function (event) {
             if (event.keyCode === 13 && this.value) {
                 $('[name="password"]').focus();
             }
         });
-        $('[name="password"]').focus(function () {
+        $('[name=password]').focus(function () {
             $('[name="password"]').keydown(function (event) {
                 if (event.keyCode === 13 && this.value) {
                     $('[lay-filter="login-submit"]').click();
@@ -81,12 +81,17 @@
                 data: obj.field,
                 url: url,
                 ending: function () {
-                    location.href = referer;
+                    location.replace(referer);
                     return false;
+                },
+                fail: function () {
+                    location.reload();
+                },
+                error: function () {
+                    location.reload();
                 }
             });
             return false;
         });
-        main.formData();
     });
 </script>

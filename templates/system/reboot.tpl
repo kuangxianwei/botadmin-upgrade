@@ -1,28 +1,34 @@
-<div class="layui-row layui-col-space15">
-    <div class="layui-card">
-        <div class="layui-card-header">时间设置</div>
-        <div class="layui-card-body">
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn layui-btn-mini" data-type="BotAdmin">
-                        <i class="layui-icon iconfont icon-refresh"></i>重启BotAdmin
-                    </button>
-                    <button class="layui-btn layui-btn-mini" data-type="Nginx">
-                        <i class="layui-icon iconfont icon-refresh"></i>重启Nginx
-                    </button>
-                    <button class="layui-btn layui-btn-mini" data-type="MySQL">
-                        <i class="layui-icon iconfont icon-refresh"></i>重启MySQL
-                    </button>
-                    <button class="layui-btn layui-btn-mini" data-type="PureFtpd">
-                        <i class="layui-icon iconfont icon-refresh"></i>重启PureFtpd
-                    </button>
-                    <button class="layui-btn layui-btn-mini" data-type="SSH">
-                        <i class="layui-icon iconfont icon-refresh"></i>重启SSH
-                    </button>
-                    <button class="layui-btn layui-btn-mini" data-type="Reboot">
-                        <i class="layui-icon iconfont icon-refresh"></i>重启服务器
-                    </button>
-                </div>
+<div class="layui-card">
+    <div class="layui-card-header">服务重启</div>
+    <div class="layui-card-body">
+        <div class="layui-carousel layadmin-carousel layadmin-shortcut" lay-anim="" style="width: 100%; height: 280px;">
+            <div carousel-item="">
+                <ul class="layui-row layui-col-space10 layui-this">
+                    <li class="layui-col-xs4" data-reboot="lnmp restart">
+                        <i class="layui-icon layui-icon-website"></i>
+                        <cite>重启Web</cite>
+                    </li>
+                    <li class="layui-col-xs4" data-reboot="lnmp mysql restart">
+                        <i class="layui-icon iconfont icon-sql"></i>
+                        <cite>重启MySQL</cite>
+                    </li>
+                    <li class="layui-col-xs4" data-reboot="/etc/init.d/pureftpd restart">
+                        <i class="layui-icon iconfont icon-ftp"></i>
+                        <cite>重启FTP</cite>
+                    </li>
+                    <li class="layui-col-xs4" data-reboot="systemctl restart sshd">
+                        <i class="layui-icon iconfont icon-ssh"></i>
+                        <cite>重启SSH</cite>
+                    </li>
+                    <li class="layui-col-xs4" data-event="app">
+                        <i class="layui-icon layui-icon-app"></i>
+                        <cite>重启App</cite>
+                    </li>
+                    <li class="layui-col-xs4" data-event="service">
+                        <i class="layui-icon iconfont icon-resource"></i>
+                        <cite>重启服务器</cite>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -32,39 +38,19 @@
     layui.use(['index', 'main'], function () {
         let main = layui.main,
             active = {
-                BotAdmin: function () {
-                    req("确定要重启本管理器？", 'botadmin');
+                app: function () {
+                    main.reboot.app();
                 },
-                Nginx: function () {
-                    req("确定要重启Nginx？", 'nginx');
+                service: function () {
+                    main.reboot.service();
                 },
-                MySQL: function () {
-                    req("确定要重启MySQL？", 'mysql');
-                },
-                PureFtpd: function () {
-                    req("确定要重启PureFtpd？", 'pureftpd');
-                },
-                SSH: function () {
-                    req("确定要重启SSH？", 'ssh');
-                },
-                Reboot: function () {
-                    req("确定要重启服务器？", 'reboot');
-                }
             };
-
-        function req(msg, act) {
-            layer.confirm(msg, function (index) {
-                main.req({
-                    url: url,
-                    data: {'act': act},
-                    index: index
-                });
-            });
-        }
-
-        $(".layui-btn.layui-btn-mini").on("click", function () {
-            let type = $(this).data('type');
-            active[type] ? active[type].call(this) : '';
+        $('[data-reboot]').off('click').on('click', function () {
+            layui.main.webssh({stdin: $(this).data("reboot")});
+        });
+        $('[data-event]').on('click', function () {
+            let $this = $(this), event = $this.data("event");
+            active[event] && active[event].call($this);
         });
     });
 </script>

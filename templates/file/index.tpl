@@ -235,94 +235,87 @@
                 });
             }
         });
-        // 监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let d = obj.data;
-            switch (obj.event) {
-                case 'size':
+        let active = {
+                'size': function (obj) {
                     let elem = $(obj.tr.selector + ' [data-field="size"]>div');
                     if (elem.find('img[src$=".svg"]').length > 0) {
                         return false;
                     }
                     elem.html(`<img alt="等待计算结果" src="/theme/loading2.svg">`);
-                    $.get(url + "/size", {path: d.path}, function (res) {
+                    $.get(url + "/size", {path: obj.data.path}, function (res) {
                         elem.text(res);
                     });
-                    break;
-                case 'del':
-                    layer.confirm('删除后不可恢复！确定删除 ' + d.path + ' ?', function (index) {
+                },
+                'del': function (obj) {
+                    layer.confirm('删除后不可恢复！确定删除 ' + obj.data.path + ' ?', function (index) {
                         main.req({
                             url: url + '/del',
-                            data: {'name': d.path},
+                            data: {'name': obj.data.path},
                             index: index,
                             ending: obj.del,
                         });
                     });
-                    break;
-                case "name":
-                    switch (d.type) {
+                },
+                "name": function (obj) {
+                    switch (obj.data.type) {
                         case 0:
-                            tabled.reload({where: {path: d.path}});
+                            tabled.reload({where: {path: obj.data.path}});
                             break;
                         case 2:
                         case 7:
                         case 8:
-                            layer.confirm('确定下载 ' + d.name + ' ?', function (index) {
-                                window.open(encodeURI(url + '/download?file=' + d.path));
+                            layer.confirm('确定下载 ' + obj.data.name + ' ?', function (index) {
+                                window.open(encodeURI(url + '/download?file=' + obj.data.path));
                                 layer.close(index);
                             });
                             break;
                         default:
-                            if (d.size > 1024 * 1024 * 3) {
+                            if (obj.data.size > 1024 * 1024 * 3) {
                                 layer.msg("文件超大,不支持在线编辑", {icon: 5});
                                 return
                             }
                             let loadIndex = layer.load(1, {shade: [0.6, '#000', true]});
-                            $.get(url + '/editor', {path: d.path, hide: true}, function (html) {
+                            $.get(url + '/editor', {path: obj.data.path, hide: true}, function (html) {
                                 layui.layer.close(loadIndex);
                                 main.popup({title: false, content: html, maxmin: false, area: '95%'});
                                 tabled.reload({where: {path: curPath.data.path}});
                             });
                     }
-                    break;
-                case 'compress':
+                },
+                'compress': function (obj) {
                     main.req({
                         url: url + '/compress',
-                        data: {'name': d.path},
+                        data: {'name': obj.data.path},
                         ending: function () {
                             tabled.reload({where: {path: curPath.data.path}});
                         }
                     });
-                    break;
-                case 'decompress':
+                },
+                'decompress': function (obj) {
                     main.req({
                         url: url + '/decompress',
-                        data: {'name': d.path},
+                        data: {'name': obj.data.path},
                         ending: function () {
                             tabled.reload({where: {path: curPath.data.path}});
                         }
                     });
-                    break;
-                case 'download':
-                    window.open(encodeURI(url + '/download?file=' + d.path));
-                    break;
-            }
-        });
-        // 监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            switch (obj.event) {
-                case 'rollback':
+                },
+                'download': function (obj) {
+                    window.open(encodeURI(url + '/download?file=' + obj.data.path));
+                },
+            },
+            activeBar = {
+                'rollback': function () {
                     tabled.reload({where: {path: curPath.data.path}});
-                    break;
-                case 'back_www':
+                },
+                'back_www': function () {
                     tabled.reload({where: {path: '/home/wwwroot'}});
-                    break;
-                case 'back_root':
+                },
+                'back_root': function () {
                     tabled.reload({where: {path: '/root'}});
-                    break;
-                case 'new_folder':
-                    layer.prompt(
-                        {
+                },
+                'new_folder': function () {
+                    layer.prompt({
                             formType: 0,
                             value: 'webrobot.cn',
                             title: '请输入文件夹名不要有空格!'
@@ -337,10 +330,9 @@
                                 }
                             });
                         });
-                    break;
-                case 'new_file':
-                    layer.prompt(
-                        {
+                },
+                'new_file': function () {
+                    layer.prompt({
                             formType: 0,
                             value: 'webrobot.cn',
                             title: '请输入文件名不要有空格!'
@@ -354,10 +346,16 @@
                                     tabled.reload({where: {path: curPath.data.path}});
                                 }
                             });
-                        }
-                    );
-                    break;
-            }
+                        });
+                },
+            };
+        // 监听工具条
+        table.on('tool(table-list)', function (obj) {
+            active[obj.event] && active[obj.event].call(this, obj);
+        });
+        // 监听工具栏
+        table.on('toolbar(table-list)', function (obj) {
+            activeBar[obj.event] && activeBar[obj.event].call(this, obj);
         });
         // 转到
         form.on('submit(submit-goto)', function (obj) {

@@ -246,9 +246,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
             let reloadOptions = $.extend({}, options);
             // 加载中...
-            let loading = layer.load(1, {shade: [0.7, '#000', true]}),
-                isPost = options.type.toUpperCase() === 'POST';
-            if (isPost) {
+            let loading = layer.load(1, {shade: [0.7, '#000', true]});
+            if (options.type.toUpperCase() === 'POST') {
                 options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, othis.tidyObj(options.headers));
             }
             othis.setCols(options.data, dom);
@@ -285,11 +284,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         break;
                     case 1001:
                     case 403:
-                        if (isPost) {
-                            location.replace('/auth/login?next=' + $('meta[name=current_uri]').attr('content'));
-                        } else {
-                            location.href = '/auth/login?next=' + $('meta[name=current_uri]').attr('content');
-                        }
+                        location.replace('/auth/login?next=' + $('meta[name=current_uri]').attr('content'));
                         break;
                     default:
                         if (typeof options.error === 'function' && options.error(res) === false) {
@@ -299,6 +294,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
             });
             request.fail(function (obj) {
+                if (typeof options.fail === 'function' && options.fail(obj) === false) {
+                    return false;
+                }
                 let msg = 'Fail: statusCode: ' + obj.status;
                 if (obj.status === 403) {
                     msg = '登录超时或权限不够 statusCode: ' + obj.status;
@@ -1255,6 +1253,51 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             });
         },
     };
+    main.reboot = {
+        app: function () {
+            layer.confirm("确定重启App?", {icon: 3, title: false}, function (index) {
+                main.req({
+                    url: "/system/reboot",
+                    data: {act: "botadmin"},
+                    index: index,
+                    ending: function () {
+                        main.sleep(3000);
+                        layer.alert('重启App成功!', {title: false, icon: 1, btn: "重新登录"}, function (index) {
+                            layer.close(index);
+                            parent.location.reload("/auth/logout");
+                        });
+                        return false;
+                    }
+                });
+            });
+        },
+        service: function () {
+            layer.confirm("确定重启服务器?", {icon: 3, title: false}, function (index) {
+                main.req({
+                    url: "/system/reboot",
+                    data: {act: "reboot"},
+                    index: index,
+                    ending: function () {
+                        main.sleep(5000);
+                        layer.alert('重启服务器成功!', {title: false, icon: 1, btn: "重新登录"}, function (index) {
+                            layer.close(index);
+                            parent.location.reload("/auth/logout");
+                        });
+                        return false;
+                    }
+                });
+            });
+        },
+    };
+    main.logout = function () {
+        layui.view.exit();
+        location.href = '/auth/logout?next=' + location.pathname;
+    };
+    // 暂停函数
+    main.sleep = function (d) {
+        for (let t = Date.now(); Date.now() - t <= d;) {
+        }
+    }
     // 监听搜索
     main.onSearch = function (options) {
         form.on('submit(search)', function (data) {

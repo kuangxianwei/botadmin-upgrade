@@ -53,7 +53,7 @@
                     <div carousel-item>
                         <ul class="layui-row layui-col-space10">
                             <li class="layui-col-xs2">
-                                <a href="javascript:" lay-event="terminal" lay-text="打开终端">
+                                <a href="javascript:" data-event="terminal" lay-text="打开终端">
                                     <i class="layui-icon iconfont icon-cmd"></i>
                                     <cite>终端</cite>
                                 </a>
@@ -169,27 +169,27 @@
                 <div class="layui-carousel layadmin-carousel layadmin-shortcut">
                     <div carousel-item>
                         <ul class="layui-row layui-col-space10">
-                            <li class="layui-col-xs4" data-reboot="web">
+                            <li class="layui-col-xs4" data-reboot="lnmp restart">
                                 <i class="layui-icon layui-icon-website"></i>
                                 <cite>重启Web</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reboot="mysql">
+                            <li class="layui-col-xs4" data-reboot="lnmp mysql restart">
                                 <i class="layui-icon iconfont icon-sql"></i>
                                 <cite>重启MySQL</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reboot="pureftpd">
+                            <li class="layui-col-xs4" data-reboot="/etc/init.d/pureftpd restart">
                                 <i class="layui-icon iconfont icon-ftp"></i>
                                 <cite>重启FTP</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reboot="ssh">
+                            <li class="layui-col-xs4" data-reboot="systemctl restart sshd">
                                 <i class="layui-icon iconfont icon-ssh"></i>
                                 <cite>重启SSH</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reboot="botadmin">
+                            <li class="layui-col-xs4" data-event="app">
                                 <i class="layui-icon layui-icon-app"></i>
                                 <cite>重启App</cite>
                             </li>
-                            <li class="layui-col-xs4" data-reboot="reboot">
+                            <li class="layui-col-xs4" data-event="service">
                                 <i class="layui-icon iconfont icon-resource"></i>
                                 <cite>重启服务器</cite>
                             </li>
@@ -216,7 +216,7 @@
                                 <a class="layui-btn layui-btn-sm"
                                    href="https://github.com/kuangxianwei/botadmin-upgrade/releases" target="_blank">升级日志
                                 </a>
-                                <button class="layui-btn layui-btn-sm" lay-event="upgrade-app">
+                                <button class="layui-btn layui-btn-sm" data-event="upgrade-app">
                                     升级到:{{.remoteVersion}}</button>
                             </div>
                         </td>
@@ -284,42 +284,44 @@
             title: false, //不显示标题
             scrollbar: false,
             shade: 0.8,
-            content: `<div class="layui-card"><div class="layui-card-body" style="background-color: #0a6e85;color: #F2F2F2;line-height: 2rem"><a lay-href="/resource/disk" style="color: #F2F2F2"><h2>本服务器储存剩余空间不足5%, 请扩充储存空间,详情查看</h2></a></div></div>`,
+            content: '<div class="layui-card"><div class="layui-card-body" style="background-color: #0a6e85;color: #F2F2F2;line-height: 2rem"><a lay-href="/resource/disk" style="color: #F2F2F2"><h2>本服务器储存剩余空间不足5%, 请扩充储存空间,详情查看</h2></a></div></div>',
         });
         {{end -}}
-        $('li[data-reboot]').off('click').on('click',function () {
-            let act = $(this).data("reboot");
-            main.req({
-                url: '/system/reboot',
-                ending: function () {
-                    main.ws.log('reboot');
-                },
-                data: {act: act},
-            });
+        let active = {
+            record: function () {
+                main.ws.info();
+            },
+            'upgrade-app': function () {
+                main.popup({
+                    title: false,
+                    maxmin: false,
+                    url: '/home/upgrade',
+                    content: $('#upgrade-app').html(),
+                    area: '280px',
+                    ending: function () {
+                        main.ws.log("app_upgrade");
+                    }
+                });
+            },
+            'upgrade-app-log': function () {
+                main.ws.log("app_upgrade");
+            },
+            terminal: function () {
+                main.webssh();
+            },
+            app: function () {
+                main.reboot.app();
+            },
+            service: function () {
+                main.reboot.service();
+            },
+        };
+        $('[data-reboot]').off('click').on('click', function () {
+            main.webssh({stdin: $(this).data("reboot")});
         });
-        $('[lay-event]').off('click').on('click',function () {
-            switch ($(this).attr('lay-event')) {
-                case 'record':
-                    main.ws.info();
-                    break;
-                case 'upgrade-app':
-                    main.popup({
-                        title: false,
-                        maxmin: false,
-                        url: '/home/upgrade',
-                        content: $('#upgrade-app').html(),
-                        area: '280px',
-                        ending: function () {
-                            main.ws.log("app_upgrade");
-                        }
-                    });
-                    break;
-                case 'upgrade-app-log':
-                    main.ws.log("app_upgrade");
-                    break;
-                case 'terminal':
-                    main.webssh();
-            }
+        $('[data-event]').off('click').on('click', function () {
+            let $this = $(this), event = $this.data("event");
+            active[event] && active[event].call($this);
         });
         main.checkLNMP();
     });

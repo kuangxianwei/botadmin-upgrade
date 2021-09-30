@@ -109,22 +109,19 @@
             limits: [10, 15, 20, 25, 30],
             text: '对不起，加载出现异常！'
         });
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case 'del':
+        let active = {
+                'del': function (obj) {
                     layer.confirm('确定删除此条日志？', function (index) {
                         main.req({
                             url: url + '/del',
-                            data: {id: data.id},
+                            data: {id: obj.data.id},
                             index: index,
                             ending: obj.del
                         });
                     });
-                    break;
-                case 'modify':
-                    $.get(url + "/modify", {id: data.id}, function (html) {
+                },
+                'modify': function (obj) {
+                    $.get(url + "/modify", {id: obj.data.id}, function (html) {
                         main.popup({
                             title: "修改客服",
                             url: url + "/modify",
@@ -189,27 +186,19 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'test-email':
+                },
+                'test-email': function (obj) {
                     main.req({
                         url: url + "/email/test",
-                        data: {id: data.id}
+                        data: {id: obj.data.id}
                     });
-                    break;
-                case 'log':
-                    main.ws.log('contact.' + data.id);
-                    break;
-            }
-        });
-        //头工具栏事件
-        table.on('toolbar(table-list)', function (obj) {
-            let checkStatus = table.checkStatus(obj.config.id),
-                data = checkStatus.data, ids = [];
-            for (let i = 0; i < data.length; i++) {
-                ids[i] = data[i].id;
-            }
-            switch (obj.event) {
-                case 'add':
+                },
+                'log': function (obj) {
+                    main.ws.log('contact.' + obj.data.id);
+                },
+            },
+            activeBar = {
+                'add': function () {
                     $.get(url + '/add', {}, function (html) {
                         main.popup({
                             title: "添加客服",
@@ -275,8 +264,8 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'del':
+                },
+                'del': function (obj, data, ids) {
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
@@ -288,8 +277,8 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'configure':
+                },
+                'configure': function (obj, data, ids) {
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
@@ -308,8 +297,8 @@
                             },
                         });
                     });
-                    break;
-                case 'reset-token':
+                },
+                'reset-token': function (obj, data, ids) {
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
@@ -321,14 +310,26 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'log':
+                },
+                'log': function () {
                     main.ws.log('contact.0');
-                    break;
-                case 'reset-record':
+                },
+                'reset-record': function (obj, data, ids) {
                     main.reset.log('contact', ids);
-                    break;
+                },
+            };
+        //监听工具条
+        table.on('tool(table-list)', function (obj) {
+            active[obj.event] && active[obj.event].call(this, obj);
+        });
+        //头工具栏事件
+        table.on('toolbar(table-list)', function (obj) {
+            let checkStatus = table.checkStatus(obj.config.id),
+                data = checkStatus.data, ids = [];
+            for (let i = 0; i < data.length; i++) {
+                ids[i] = data[i].id;
             }
+            activeBar[obj.event] && activeBar[obj.event].call(this, obj, data, ids);
         });
         // 切换PC端
         form.on('switch(togglePcEnabled)', function (obj) {

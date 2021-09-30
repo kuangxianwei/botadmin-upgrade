@@ -59,7 +59,7 @@
                         <dd><a lay-href="/auth">登录日志</a></dd>
                         <dd><a lay-href="/safe/login">登录设置</a></dd>
                         <hr/>
-                        <dd data-event="logout" style="text-align: center;"><a href="/auth/logout">退出</a></dd>
+                        <dd data-event="logout" style="text-align:center;"><a href="/auth/logout">退出</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
@@ -503,13 +503,17 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        $('[lay-event="ssh-cmd"]').off('click').on('click', function () {
-            layui.main.webssh();
-        });
-        $('dd[data-event=logout]').off('click').on('click', function () {
-            layui.view.exit(function () {
-                location.href = '/auth/logout';
-            });
+        let active = {
+            webssh: function () {
+                layui.main.webssh();
+            },
+            logout: function () {
+                layui.main.logout();
+            }
+        };
+        $('[data-event]').off('click').on('click', function () {
+            let $this = $(this), event = $this.data("event");
+            active[event] && active[event].call($this);
         });
     });
 </script>
