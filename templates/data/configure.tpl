@@ -12,7 +12,6 @@
             <input type="checkbox" data-field="used" title="使用状态" lay-filter="field">
             <input type="checkbox" data-field="trans_failed" title="译错" lay-filter="field">
             <input type="checkbox" data-field="originality" title="原创检测" lay-filter="field">
-
         </fieldset>
         <fieldset class="layui-elem-field">
             <legend>操作</legend>
@@ -51,66 +50,65 @@
     layui.use(['main'], function () {
         let form = layui.form,
             fieldElem = $("#field");
-        form.on('checkbox(field)', function (obj) {
-            switch ($(this).attr('data-field')) {
-                case 'site_id':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append($('#site-id').html());
-                        form.render('select');
-                        form.on('select(site_id)', function (obj) {
-                            if (obj.value === 0 || obj.value === "") {
-                                $('div[lay-filter=class_id]').html('<select name="class_id"><option value="">无...</option></select>');
-                                form.render('select');
-                                return false;
+        let active = {
+            'site_id': function (enabled) {
+                if (enabled) {
+                    fieldElem.append($('#site-id').html());
+                    form.render('select');
+                    form.on('select(site_id)', function (obj) {
+                        if (obj.value === 0 || obj.value === "") {
+                            $('div[lay-filter=class_id]').html('<select name="class_id"><option value="">无...</option></select>');
+                            form.render('select');
+                            return false;
+                        }
+                        $.get('/site/class', {
+                            id: obj.value,
+                            class_id: $('select[name=class_id]').val()
+                        }, function (res) {
+                            switch (res.code) {
+                                case -1:
+                                    layer.alert(res.msg, {icon: 2});
+                                    break;
+                                case 0:
+                                    $('div[lay-filter=class_id]').html(res.data);
+                                    form.render();
+                                    break;
                             }
-                            $.get('/site/class', {
-                                id: obj.value,
-                                class_id: $('select[name=class_id]').val()
-                            }, function (res) {
-                                switch (res.code) {
-                                    case -1:
-                                        layer.alert(res.msg, {icon: 2});
-                                        break;
-                                    case 0:
-                                        $('div[lay-filter=class_id]').html(res.data);
-                                        form.render();
-                                        break;
-                                }
-                            });
                         });
-                    } else {
-                        fieldElem.find('[name=site_id]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'used':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append(`<div class="layui-form-item">
+                    });
+                } else {
+                    fieldElem.find('[name=site_id]').closest('.layui-form-item').remove();
+                }
+            },
+            'used': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
             <label class="layui-form-label">已使用:</label>
             <div class="layui-input-inline">
                 <input type="checkbox" name="used" lay-skin="switch" lay-text="是|否">
             </div>
         </div>`);
-                        form.render('checkbox');
-                    } else {
-                        fieldElem.find('[name=used]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'trans_failed':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append(`<div class="layui-form-item">
+                    form.render('checkbox');
+                } else {
+                    fieldElem.find('[name=used]').closest('.layui-form-item').remove();
+                }
+            },
+            'trans_failed': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
             <label class="layui-form-label" lay-tips="切换翻译错误">译错:</label>
             <div class="layui-input-inline">
                 <input type="checkbox" name="trans_failed" lay-skin="switch" lay-text="是|否">
             </div>
         </div>`);
-                        form.render('checkbox');
-                    } else {
-                        fieldElem.find('[name=trans_failed]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'originality':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append(`<div class="layui-form-item">
+                    form.render('checkbox');
+                } else {
+                    fieldElem.find('[name=trans_failed]').closest('.layui-form-item').remove();
+                }
+            },
+            'originality': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">原创率:</label>
                 <div class="layui-input-block">
@@ -120,22 +118,22 @@
                 </div>
             </div>
         </div>`);
-                        form.render('radio');
-                    } else {
-                        fieldElem.find('[name=originality]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'conversion':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append($('#conversion').html());
-                        form.render('select');
-                    } else {
-                        fieldElem.find('[name=conversion]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'order':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append(`<div class="layui-form-item">
+                    form.render('radio');
+                } else {
+                    fieldElem.find('[name=originality]').closest('.layui-form-item').remove();
+                }
+            },
+            'conversion': function (enabled) {
+                if (enabled) {
+                    fieldElem.append($('#conversion').html());
+                    form.render('select');
+                } else {
+                    fieldElem.find('[name=conversion]').closest('.layui-form-item').remove();
+                }
+            },
+            'order': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
     <label class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
     <div class="layui-input-block">
         <select name="order" class="layui-select">
@@ -146,12 +144,15 @@
         </select>
     </div>
 </div>`);
-                        form.render('select');
-                    } else {
-                        fieldElem.find('[name=order]').closest('.layui-form-item').remove();
-                    }
-                    break;
+                    form.render('select');
+                } else {
+                    fieldElem.find('[name=order]').closest('.layui-form-item').remove();
+                }
             }
+        };
+        form.on('checkbox(field)', function (obj) {
+            let $this = $(this), field = $this.data("field");
+            active[field] && active[field].call($this, (obj.othis.attr('class').indexOf('layui-form-checked') !== -1));
         });
     });
 </script>

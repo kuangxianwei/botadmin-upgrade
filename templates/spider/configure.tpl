@@ -79,87 +79,86 @@
     layui.use(['main'], function () {
         let form = layui.form,
             fieldElem = $("#field");
-        form.on('checkbox(field)', function (obj) {
-            switch ($(this).attr('data-field')) {
-                case 'site_id':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append($('#site-id').html());
-                        form.render('select');
-                        form.on('select(site_id)', function (obj) {
-                            if (obj.value === 0 || obj.value === "") {
-                                $('div[lay-filter=class_id]').html('<select name="class_id"><option value="">无...</option></select>');
-                                form.render('select');
-                                return false;
+        let active = {
+            'site_id': function (enabled) {
+                if (enabled) {
+                    fieldElem.append($('#site-id').html());
+                    form.render('select');
+                    form.on('select(site_id)', function (obj) {
+                        if (obj.value === 0 || obj.value === "") {
+                            $('div[lay-filter=class_id]').html('<select name="class_id"><option value="">无...</option></select>');
+                            form.render('select');
+                            return false;
+                        }
+                        $.get('/site/class', {
+                            id: obj.value,
+                            class_id: $('select[name=class_id]').val()
+                        }, function (res) {
+                            switch (res.code) {
+                                case -1:
+                                    layer.alert(res.msg, {icon: 2});
+                                    break;
+                                case 0:
+                                    $('div[lay-filter=class_id]').html(res.data);
+                                    form.render();
+                                    break;
                             }
-                            $.get('/site/class', {
-                                id: obj.value,
-                                class_id: $('select[name=class_id]').val()
-                            }, function (res) {
-                                switch (res.code) {
-                                    case -1:
-                                        layer.alert(res.msg, {icon: 2});
-                                        break;
-                                    case 0:
-                                        $('div[lay-filter=class_id]').html(res.data);
-                                        form.render();
-                                        break;
-                                }
-                            });
                         });
-                    } else {
-                        fieldElem.find('[name=site_id]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'user_agent':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append($('#user-agent').html());
-                        form.render('select');
-                    } else {
-                        fieldElem.find('[name=user_agent]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'delay':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append(`<div class="layui-form-item">
+                    });
+                } else {
+                    fieldElem.find('[name=site_id]').closest('.layui-form-item').remove();
+                }
+            },
+            'user_agent': function (enabled) {
+                if (enabled) {
+                    fieldElem.append($('#user-agent').html());
+                    form.render('select');
+                } else {
+                    fieldElem.find('[name=user_agent]').closest('.layui-form-item').remove();
+                }
+            },
+            'delay': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
             <label class="layui-form-label" lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
             <div class="layui-input-inline">
                 <input type="text" name="delay" class="layui-input" value="" placeholder="10-20">
             </div>
         </div>`);
-                        form.render('input');
-                    } else {
-                        fieldElem.find('[name=delay]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'page_enabled':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append(`<div class="layui-form-item">
+                    form.render('input');
+                } else {
+                    fieldElem.find('[name=delay]').closest('.layui-form-item').remove();
+                }
+            },
+            'page_enabled': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
             <label class="layui-form-label">开启分页:</label>
             <div class="layui-input-inline">
                 <input type="checkbox" name="page_enabled" lay-skin="switch" lay-text="是|否">
             </div>
         </div>`);
-                        form.render('checkbox');
-                    } else {
-                        fieldElem.find('[name=page_enabled]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'cron_enabled':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append(`<div class="layui-form-item">
+                    form.render('checkbox');
+                } else {
+                    fieldElem.find('[name=page_enabled]').closest('.layui-form-item').remove();
+                }
+            },
+            'cron_enabled': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
             <label class="layui-form-label">定时采集:</label>
             <div class="layui-input-inline">
                 <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否" checked>
             </div>
         </div>`);
-                        form.render('checkbox');
-                    } else {
-                        fieldElem.find('[name=cron_enabled]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'originality':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append(`<div class="layui-form-item">
+                    form.render('checkbox');
+                } else {
+                    fieldElem.find('[name=cron_enabled]').closest('.layui-form-item').remove();
+                }
+            },
+            'originality': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">原创率:</label>
                 <div class="layui-input-block">
@@ -169,22 +168,22 @@
                 </div>
             </div>
         </div>`);
-                        form.render('radio');
-                    } else {
-                        fieldElem.find('[name=originality]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'conversion':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append($('#conversion').html());
-                        form.render('select');
-                    } else {
-                        fieldElem.find('[name=conversion]').closest('.layui-form-item').remove();
-                    }
-                    break;
-                case 'order':
-                    if (obj.othis.attr('class').indexOf('layui-form-checked') !== -1) {
-                        fieldElem.append(`<div class="layui-form-item">
+                    form.render('radio');
+                } else {
+                    fieldElem.find('[name=originality]').closest('.layui-form-item').remove();
+                }
+            },
+            'conversion': function (enabled) {
+                if (enabled) {
+                    fieldElem.append($('#conversion').html());
+                    form.render('select');
+                } else {
+                    fieldElem.find('[name=conversion]').closest('.layui-form-item').remove();
+                }
+            },
+            'order': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
     <label class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
     <div class="layui-input-block">
         <select name="order" class="layui-select">
@@ -195,12 +194,15 @@
         </select>
     </div>
 </div>`);
-                        form.render('select');
-                    } else {
-                        fieldElem.find('[name=order]').closest('.layui-form-item').remove();
-                    }
-                    break;
-            }
+                    form.render('select');
+                } else {
+                    fieldElem.find('[name=order]').closest('.layui-form-item').remove();
+                }
+            },
+        };
+        form.on('checkbox(field)', function (obj) {
+            let $this = $(this), field = $this.data("field");
+            active[field] && active[field].call($this, (obj.othis.attr('class').indexOf('layui-form-checked') !== -1));
         });
     });
 </script>
