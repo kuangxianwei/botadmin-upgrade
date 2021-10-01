@@ -225,7 +225,7 @@
                                     <input type="text" name="spec" value="{{.monitor.Spec}}" class="layui-input">
                                 </div>
                             </div>
-                            <button class="layui-btn layui-btn-radius" lay-event="monitor-log">查看监控日志</button>
+                            <button class="layui-btn layui-btn-radius" data-event="monitor-log">查看监控日志</button>
                         </div>
                     </fieldset>
                     <fieldset class="layui-elem-field">
@@ -309,76 +309,75 @@
             });
             return false;
         });
-        $('.layui-btn[data-event]').on('click', function () {
-            let othis = $(this),
-                event = othis.data('event'),
-                tip, name;
-            switch (event) {
-                case 'ban-update':
-                    main.req({url: url + '/ban/update'});
-                    break;
-                case 'status':
-                    name = othis.data('name');
-                    tip = othis.data('tip');
-                    if (name.length === 0) {
-                        return false;
-                    }
-                    layer.confirm(tip, function (index) {
-                        main.req({
-                            url: url + '/status',
-                            data: {name: name},
-                            index: index,
-                            ending: function (res) {
-                                main.msg(res.msg);
-                                return false;
-                            },
-                        });
-                    });
-                    break;
-                case 'reset':
-                    name = othis.data('name');
-                    tip = othis.data('tip');
-                    if (name.length === 0) {
-                        return false;
-                    }
-                    layer.confirm(tip, function (index) {
-                        main.req({
-                            url: url + '/reset',
-                            data: {name: name},
-                            index: index,
-                            ending: function () {
-                                document.location.reload();
-                            }
-                        });
-                    });
-                    break;
-                case 'ban-test':
-                    main.popup({
-                        title: '测试违禁词',
-                        url: url + '/ban/test',
-                        area: '70%',
+        let active = {
+            'ban-update': function () {
+                main.req({url: url + '/ban/update'});
+            },
+            'status': function () {
+                let name = this.data('name'),
+                    tip = this.data('tip');
+                if (name.length === 0) {
+                    return false;
+                }
+                layer.confirm(tip, function (index) {
+                    main.req({
+                        url: url + '/status',
+                        data: {name: name},
+                        index: index,
                         ending: function (res) {
-                            main.msg(`<textarea class="layui-textarea" name="content" rows="10">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});
+                            main.msg(res.msg);
                             return false;
                         },
-                        content: '<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" name="content" rows="15" placeholder="输入需要检查的内容..."></textarea></div><div class="layui-hide"><button class="layui-btn" lay-submit lay-filter="submit"></button></div></div></div>'
                     });
-                    break;
-                case 'edit-ban':
-                    $.get('/config/ban/data', function (html) {
-                        main.popup({
-                            title: '编辑禁词',
-                            content: html,
-                            url: '/config/ban/data'
-                        });
+                });
+            },
+            'reset': function () {
+                let name = this.data('name'),
+                    tip = this.data('tip');
+                if (name.length === 0) {
+                    return false;
+                }
+                layer.confirm(tip, function (index) {
+                    main.req({
+                        url: url + '/reset',
+                        data: {name: name},
+                        index: index,
+                        ending: function () {
+                            document.location.reload();
+                        }
                     });
-                    break
+                });
+            },
+            'ban-test': function () {
+                main.popup({
+                    title: '测试违禁词',
+                    url: url + '/ban/test',
+                    area: '70%',
+                    ending: function (res) {
+                        main.msg(`<textarea class="layui-textarea" name="content" rows="10">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});
+                        return false;
+                    },
+                    content: '<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" name="content" rows="15" placeholder="输入需要检查的内容..."></textarea></div><div class="layui-hide"><button class="layui-btn" lay-submit lay-filter="submit"></button></div></div></div>'
+                });
+            },
+            'edit-ban': function () {
+                $.get('/config/ban/data', function (html) {
+                    main.popup({
+                        title: '编辑禁词',
+                        content: html,
+                        url: '/config/ban/data'
+                    });
+                });
+            },
+            'monitor-log': function () {
+                main.ws.log("monitor_service.0");
             }
-            return false;
+        };
+        $('[data-event]').on('click', function () {
+            let othis = $(this),
+                event = othis.data('event');
+            active[event] && active[event].call(othis);
         });
         main.cron('[name=reboot_spec]', '[name=rank_spec]', '[name=spec]');
-        $('[lay-event="monitor-log"]').off('click').on('click', function () {
-            main.ws.log("monitor_service.0");
-        });
     });
 </script>

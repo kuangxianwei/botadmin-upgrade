@@ -103,12 +103,8 @@
             limits: [10, 15, 20, 25, 30],
             text: '对不起，加载出现异常!'
         });
-
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case 'del':
+        let active = {
+                'del': function (obj, data) {
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
                         main.req({
                             url: url + '/del',
@@ -117,8 +113,8 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'modify':
+                },
+                'modify': function (obj, data) {
                     $.get(url + '/modify', {id: data.id}, function (html) {
                         main.popup({
                             title: '修改监控',
@@ -129,29 +125,22 @@
                         });
                         element.render();
                     });
-                    break;
-                case 'monitor':
+                },
+                'monitor': function (obj, data) {
                     main.ws.log('site.' + data.id);
-                    break;
-                case 'test':
+                },
+                'test': function (obj, data) {
                     main.req({
                         url: url + '/test',
                         data: {id: data.id}
                     });
-                    break;
-                case 'log':
+                },
+                'log': function (obj, data) {
                     main.ws.log('monitor.' + data.id);
-                    break;
-            }
-        });
-
-        //监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            let checkStatus = table.checkStatus(obj.config.id),
-                data = checkStatus.data,
-                ids = [];
-            switch (obj.event) {
-                case 'add':
+                },
+            },
+            activeBar = {
+                'add': function () {
                     $.get(url + '/add', {}, function (html) {
                         main.popup({
                             title: '添加邮箱',
@@ -162,8 +151,8 @@
                         });
                         element.render();
                     });
-                    break;
-                case 'del':
+                },
+                'del': function (obj, data) {
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
@@ -179,12 +168,12 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'enabled':
+                },
+                'enabled': function (obj, data) {
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
-                    ids = [];
+                    let ids = [];
                     for (let i = 0; i < data.length; i++) {
                         ids[i] = data[i].id;
                     }
@@ -193,12 +182,12 @@
                         data: {ids: ids.join(), cron_enabled: true},
                         ending: 'table-list'
                     });
-                    break;
-                case 'disabled':
+                },
+                'disabled': function (obj, data) {
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
-                    ids = [];
+                    let ids = [];
                     for (let i = 0; i < data.length; i++) {
                         ids[i] = data[i].id;
                     }
@@ -207,8 +196,8 @@
                         data: {ids: ids.join(), cron_enabled: false},
                         ending: 'table-list'
                     });
-                    break;
-                case 'jobs':
+                },
+                'jobs': function () {
                     main.req({
                         url: url + '/jobs',
                         ending: function (res) {
@@ -216,11 +205,23 @@
                             return false;
                         },
                     });
-                    break;
-                case 'reset-record':
+                },
+                'reset-record': function (obj, data) {
+                    let ids = [];
+                    for (let i = 0; i < data.length; i++) {
+                        ids[i] = data[i].id;
+                    }
                     main.reset.log('monitor', ids);
-                    break;
-            }
+                },
+            };
+        //监听工具条
+        table.on('tool(table-list)', function (obj) {
+            active[obj.event] && active[obj.event].call(this, obj, obj.data);
+        });
+
+        //监听工具栏
+        table.on('toolbar(table-list)', function (obj) {
+            activeBar[obj.event] && activeBar[obj.event].call(this, obj, table.checkStatus(obj.config.id).data);
         });
         // 监听搜索
         main.onSearch();

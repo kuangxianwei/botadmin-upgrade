@@ -418,7 +418,6 @@
             return false;
         });
     });
-
     class CurPath {
         constructor() {
             this.currentPathElem = $('#current-path');

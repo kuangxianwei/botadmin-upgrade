@@ -128,11 +128,8 @@
         }
         //日志管理
         table.render(tableOptions);
-
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            switch (obj.event) {
-                case 'del':
+        let active = {
+                'del': function (obj) {
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
                         main.req({
                             url: url + '/del',
@@ -141,8 +138,8 @@
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'view':
+                },
+                'view': function (obj) {
                     main.display({
                         content: `<textarea class="layui-textarea" style="width:900px;height:300px;margin:10px">终端: ` + (obj.data['is_mobile'] ? '手机端' : '电脑端') + `
 接待ID: ` + obj.data['waiter_id'] + `
@@ -157,18 +154,10 @@ UserAgent: ` + obj.data['user_agent'] + `
 反馈: ` + obj.data['message'] + `</textarea>`,
                         area: 'auto'
                     });
-                    break;
-            }
-        });
-
-        //监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            let data = table.checkStatus(obj.config.id).data, ids = [];
-            for (let i = 0; i < data.length; i++) {
-                ids[i] = data[i].id;
-            }
-            switch (obj.event) {
-                case 'del':
+                },
+            },
+            activeBar = {
+                'del': function (obj, data, ids) {
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
@@ -180,8 +169,8 @@ UserAgent: ` + obj.data['user_agent'] + `
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'truncate':
+                },
+                'truncate': function () {
                     layer.confirm('清空全不可恢复', function (index) {
                         main.req({
                             url: url + '/reset',
@@ -189,14 +178,25 @@ UserAgent: ` + obj.data['user_agent'] + `
                             ending: 'table-list'
                         });
                     });
-                    break;
-                case 'reset-record':
+                },
+                'reset-record': function (obj, data, ids) {
                     main.reset.log('feedback', ids);
-                    break;
-                case 'log':
+                },
+                'log': function () {
                     main.ws.log('feedback.0');
-                    break;
+                },
+            };
+        //监听工具条
+        table.on('tool(table-list)', function (obj) {
+            active[obj.event] && active[obj.event].call(this, obj);
+        });
+        //监听工具栏
+        table.on('toolbar(table-list)', function (obj) {
+            let data = table.checkStatus(obj.config.id).data, ids = [];
+            for (let i = 0; i < data.length; i++) {
+                ids[i] = data[i].id;
             }
+            activeBar[obj.event] && activeBar[obj.event].call(this, obj, data, ids);
         });
         // 搜索
         main.onSearch();
