@@ -16,6 +16,16 @@
                 <div class="layui-tab-item layui-show">
                     <div class="layui-form-item">
                         <textarea class="layui-textarea" name="titles" rows="15">{{join .obj.Titles "\n"}}</textarea>
+                        <label class="layui-form-label">插入标签:</label>
+                        <div class="layui-input-block">
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="tag">Tag</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="title_suffix">副标题
+                            </button>
+                        </div>
                     </div>
                     <div class="layui-collapse">
                         <div class="layui-colla-item">
@@ -38,8 +48,15 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
-                        <textarea class="layui-textarea" name="title_suffixes"
-                                  rows="15">{{join .obj.TitleSuffixes "\n"}}</textarea>
+                        <textarea class="layui-textarea" name="title_suffixes" rows="15">{{join .obj.TitleSuffixes "\n"}}</textarea>
+                        <label class="layui-form-label">插入标签:</label>
+                        <div class="layui-input-block">
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="tag">Tag</button>
+                        </div>
                     </div>
                     <div class="layui-collapse">
                         <div class="layui-colla-item">
@@ -71,8 +88,16 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
-                        <textarea class="layui-textarea" name="descriptions"
-                                  rows="15">{{join .obj.Descriptions "\n"}}</textarea>
+                        <textarea class="layui-textarea" name="descriptions" rows="15">{{join .obj.Descriptions "\n"}}</textarea>
+                        <label class="layui-form-label">插入标签:</label>
+                        <div class="layui-input-block">
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="title">标题</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="tag">Tag</button>
+                        </div>
                     </div>
                     <div class="layui-collapse">
                         <div class="layui-colla-item">
@@ -192,20 +217,24 @@
             });
             return false;
         });
-        $('.layui-btn[data-event=sync]').on('click', function () {
-            main.req({
-                url: url + '/sync',
-            });
-            return false;
+        $('.layui-btn[data-event]').on('click', function () {
+            switch ($(this).data("event")) {
+                case "sync":
+                    main.req({url: url + '/sync'});
+                    break;
+                case "reset":
+                    main.req({
+                        url: url + '/reset',
+                        ending: function () {
+                            location.replace(url);
+                        },
+                    });
+                    break;
+            }
         });
-        $('.layui-btn[data-event=reset]').on('click', function () {
-            main.req({
-                url: url + '/reset',
-                ending: function () {
-                    location.replace(url);
-                },
-            });
-            return false;
+        $('[data-write]').off("click").on("click", function () {
+            let $this = $(this), write = $this.data("write"), textareaElem = $this.parent().prevAll("textarea");
+            textareaElem.val(textareaElem.val() + "{{"{{"}}" + write + "{{"}}"}}").focus();
         });
     });
 </script>
