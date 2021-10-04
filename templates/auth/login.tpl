@@ -80,16 +80,12 @@
             main.req({
                 data: obj.field,
                 url: url,
-                ending: function () {
-                    location.replace(referer);
+                ending: function (res) {
+                    layer.msg(res.msg, {}, function () {
+                        location.replace(referer);
+                    });
                     return false;
                 },
-                fail: function () {
-                    location.reload();
-                },
-                error: function () {
-                    location.reload();
-                }
             });
             return false;
         });
