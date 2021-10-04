@@ -167,7 +167,7 @@
             main = layui.main,
             //渲染上传配置
             importConfig = upload.render({
-                headers: {'X-CSRF-Token':csrfToken},
+                headers: {'X-CSRF-Token': csrfToken},
                 elem: '#import',
                 url: url + '/import',
                 accept: 'file',
@@ -186,13 +186,13 @@
                 },
             });
         let active = {
-                'cron_switch': function (data) {
+                'cron_switch': function (obj) {
                     let $this = this;
                     let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
                     main.req({
                         url: url + "/cron/switch",
                         data: {
-                            id: data.id,
+                            id: obj.data.id,
                             cron_enabled: enabled
                         },
                         error: function () {
@@ -202,18 +202,18 @@
                         }
                     });
                 },
-                'del': function (data) {
+                'del': function (obj) {
                     layer.confirm('确定删除此条日志？', function (index) {
                         main.req({
                             url: url + '/del',
-                            data: {id: data.id},
+                            data: {id: obj.data.id},
                             index: index,
                             ending: obj.del,
                         });
                     });
                 },
-                'modify': function (data) {
-                    $.get(url + '/modify', {id: data.id}, function (html) {
+                'modify': function (obj) {
+                    $.get(url + '/modify', {id: obj.data.id}, function (html) {
                         main.popup({
                             title: '修改规则',
                             content: html,
@@ -233,23 +233,23 @@
                         });
                     });
                 },
-                'copy': function (data) {
-                    layer.confirm('确定复制:' + data.name + '?', function (index) {
+                'copy': function (obj) {
+                    layer.confirm('确定复制:' + obj.data.name + '?', function (index) {
                         main.req({
                             url: url + '/copy',
-                            data: {id: data.id},
+                            data: {id: obj.data.id},
                             index: index,
                             ending: 'table-list',
                         });
                     });
                 },
-                'exec': function (data) {
+                'exec': function (obj) {
                     layer.confirm('开始采集入库？', function (index) {
                         main.req({
                             url: url + '/exec',
-                            data: {id: data.id, thread: 1},
+                            data: {id: obj.data.id, thread: 1},
                             ending: function () {
-                                main.ws.log("spider." + data.id, function () {
+                                main.ws.log("spider." + obj.data.id, function () {
                                     table.reload('table-list');
                                 });
                                 return false;
@@ -258,8 +258,8 @@
                         });
                     });
                 },
-                'site_id': function (data) {
-                    $.get(url + '/bind', {id: data.id}, function (html) {
+                'site_id': function (obj) {
+                    $.get(url + '/bind', {id: obj.data.id}, function (html) {
                         main.popup({
                             title: '绑定网站',
                             content: html,
@@ -269,8 +269,8 @@
                         });
                     });
                 },
-                'log': function (data) {
-                    main.ws.log('spider.' + data.id);
+                'log': function (obj) {
+                    main.ws.log('spider.' + obj.data.id);
                 },
             },
             activeBar = {
@@ -403,7 +403,7 @@
                 },
             };
         table.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
@@ -446,7 +446,7 @@
             }
         });
         table.on('tool(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call($(this), obj.data);
+            active[obj.event] && active[obj.event].call($(this), obj);
         });
         table.on('toolbar(table-list)', function (obj) {
             let checkStatus = table.checkStatus(obj.config.id),
