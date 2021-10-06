@@ -262,7 +262,9 @@
                                             }).val(localStorage.getItem("ssh-code") || "");
                                             break;
                                         case "scp":
-                                            dom.find("#stdin").html(`<div class="layui-input-block"><input type="text" name="stdin" placeholder="/本地路径 /远程路径" class="layui-input" lay-verify="required"></div>`);
+                                            dom.find("#stdin").html(`<div class="layui-input-block"><input type="text" name="stdin" placeholder="/本地路径 /远程路径" class="layui-input" lay-verify="required"></div>`).find('input[name=stdin]').blur(function () {
+                                                localStorage.setItem("ssh-scp", $(this).val())
+                                            }).val(localStorage.getItem("ssh-scp") || "")
                                             break;
                                         default:
                                             dom.find("#stdin").empty();

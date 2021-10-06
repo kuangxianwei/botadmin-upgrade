@@ -912,7 +912,7 @@
                         if (d.status === 4) {
                             return d.vhost;
                         }
-                        return '<a lay-href="/file?path=' + d['webroot_path'] + '" style="color:#01aaed">' + d.vhost + '</a>';
+                        return '<a lay-href="/file?path=' + d['webroot_path'] + '" style="color:#01aaed" lay-tips="' + d['title'] + '">' + d.vhost + '</a>';
                     }
                 },
                 {
