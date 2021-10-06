@@ -7,7 +7,7 @@ protoPath=$(pwd)
 # shellcheck disable=SC2154
 cd "${RootPath}" || exit 1
 # 逻辑代码开始
-
+rm -rf /usr/local/nginx/conf/rewrite/empirecms.conf
 #sqlite3 ./data/db/config.db <<EOF
 #DROP TABLE monitor_cfg;
 #.quit

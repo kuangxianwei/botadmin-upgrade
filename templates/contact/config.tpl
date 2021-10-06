@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <button class="layui-btn layui-btn-primary" lay-event="copy-js">复制广告代码</button>
+                <button class="layui-btn layui-btn-primary" data-event="copy-js">复制广告代码</button>
             </div>
         </div>
         <div class="layui-form-item">
@@ -49,6 +49,14 @@
                            title="{{$v}}"{{if eq $.obj.OrderBy $k}} checked{{end}}>
                 {{end -}}
             </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">广告排除:</label>
+            <div class="layui-input-inline">
+                <input name="exclude" value="{{.obj.Exclude}}" placeholder="\.(php|asp)\b" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">正则匹配到的路径则不显示广告</div>
+            <button class="layui-btn layui-btn-sm layui-btn-radius" data-event="exclude">填充默认</button>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">在线咨询:</label>
@@ -245,10 +253,19 @@
                 delObj.show(200);
             });
         }
-        $('[lay-event="copy-js"]').off('click').on('click', function () {
-            $.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
-                main.copy.exec(jsCode, layer.msg('广告JS代码复制成功'));
-            });
+        let active = {
+            exclude: function () {
+                $('input[name=exclude]').val("\\.(php|asp)\\b");
+            },
+            "copy-js": function () {
+                $.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
+                    main.copy.exec(jsCode, layer.msg('广告JS代码复制成功'));
+                });
+            }
+        };
+        $('[data-event]').off('click').on('click', function () {
+            let $this = $(this), event = $this.data("event");
+            active[event] && active[event].call($this);
         });
         main.checkLNMP();
     });
