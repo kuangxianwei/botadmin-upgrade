@@ -20,11 +20,21 @@
 <div class="layui-card" id="custom-style">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <label class="layui-form-label">名称:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="name" value="{{.obj.Name}}" placeholder="名称" class="layui-input">
+            <div class="layui-inline">
+                <label class="layui-form-label">名称:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" value="{{.obj.Name}}" placeholder="名称" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">样式名称</div>
             </div>
-            <div class="layui-form-mid layui-word-aux">样式名称</div>
+            <div class="layui-inline">
+                <label class="layui-form-label" lay-tips="正则匹配到的URL则不显示广告">拒绝URL:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="deny" value="{{.obj.Deny}}" placeholder="\.(php|asp|js|css)(\?|$)" class="layui-input">
+                </div>
+                <button class="layui-btn layui-btn-radius layui-btn-sm" data-event="deny" style="margin-top:6px;">填充默认
+                </button>
+            </div>
         </div>
         <div class="layui-row">
             <div class="layui-col-md4">
@@ -272,6 +282,11 @@
                 $('*[name=hover_color]').val(color);
             }
         });
+        let active = {
+            deny: function () {
+                $("input[name=deny]").val("\\.(php|asp|js|css)(\\?|$)");
+            }
+        };
         $('#custom-style [lay-event]').off('click').on('click', function () {
             let othis = $(this),
                 event = othis.attr('lay-event'),
@@ -363,6 +378,10 @@
                     val = tipHtmlElem.val() + "{{"{{"}}" + write + "{{"}}"}}";
             }
             tipHtmlElem.val(val).focus();
+        });
+        $('[data-event]').off('click').on('click', function () {
+            let $this = $(this), event = $this.data("event");
+            active[event] && active[event].call($this);
         });
     });
 </script>

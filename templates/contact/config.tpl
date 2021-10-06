@@ -51,14 +51,6 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">广告排除:</label>
-            <div class="layui-input-inline">
-                <input name="exclude" value="{{.obj.Exclude}}" placeholder="\.(php|asp)\b" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux">正则匹配到的路径则不显示广告</div>
-            <button class="layui-btn layui-btn-sm layui-btn-radius" data-event="exclude">填充默认</button>
-        </div>
-        <div class="layui-form-item">
             <label class="layui-form-label">在线咨询:</label>
             <div class="layui-input-inline" style="width: 50%">
                 <input name="consult" value="{{.obj.Consult}}"
@@ -254,9 +246,6 @@
             });
         }
         let active = {
-            exclude: function () {
-                $('input[name=exclude]').val("\\.(php|asp)\\b");
-            },
             "copy-js": function () {
                 $.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
                     main.copy.exec(jsCode, layer.msg('广告JS代码复制成功'));
