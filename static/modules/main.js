@@ -463,7 +463,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 title: false,
                 btn: false,
                 maxmin: false,
-                area: ['90%', '90%'],
             }, options || {}));
         }
 

@@ -142,8 +142,8 @@
                 'view': function (obj) {
                     $.get(url + "/view", {id: obj.data.id}, function (content) {
                         main.display({
-                            content: '<textarea class="layui-textarea" style="width:900px;height:300px;margin:10px">' + content + '</textarea>',
-                            area: 'auto'
+                            content: '<textarea class="layui-textarea" style="border-radius:20px;width:98%;height:96%;margin:1%">' + content + '</textarea>',
+                            area: ['80%', '80%'],
                         });
                     });
                 },

@@ -150,7 +150,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="uid" value="{{.base.Uid}}">
+                    <input type="hidden" name="uid" value="{{.base.Id}}">
                     <div class="layui-form-item">
                         <label class="layui-form-label"></label>
                         <div class="layui-btn-group">
