@@ -1,0 +1,5 @@
+.gov.cn
+.baidu.com
+.sina.com.cn
+.qq.com
+.zhihu.com
