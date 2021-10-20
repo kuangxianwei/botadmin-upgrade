@@ -20,13 +20,21 @@
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
                     <input type="text" placeholder="搜索..." class="layui-input layui-input-search"
-                           layadmin-event="serach" lay-action="template/search.html?keywords=">
+                           layadmin-event="search" lay-action="template/search.html?keywords=">
                 </li>
                 <li class="layui-nav-item" lay-unselect>
                     {{.auth.Msg}}
                 </li>
             </ul>
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+                <li class="layui-nav-item" lay-unselect>
+                    <a data-event="log" lay-text="全局日志">
+                        <i class="layui-icon layui-icon-log"></i>
+                        {{if .changed -}}
+                            <span class="layui-badge-dot"></span>
+                        {{end -}}
+                    </a>
+                </li>
                 <li class="layui-nav-item" lay-unselect>
                     <a lay-href="/record" layadmin-event="message" lay-text="消息中心">
                         <i class="layui-icon layui-icon-notice"></i>
@@ -493,7 +501,7 @@
         <!-- 主体内容 -->
         <div class="layui-body" id="LAY_app_body">
             <div class="layadmin-tabsbody-item layui-show" style="overflow: hidden">
-                <iframe src="/home" frameborder="0" class="layadmin-iframe"></iframe>
+                <iframe src="/home" class="layadmin-iframe"></iframe>
             </div>
         </div>
         <!-- 辅助元素，一般用于移动设备下遮罩 -->
@@ -509,6 +517,10 @@
             },
             logout: function () {
                 layui.main.logout();
+            },
+            log: function () {
+                $(this).find('span.layui-badge-dot').hide();
+                layui.main.ws.log("record.share");
             }
         };
         $('[data-event]').off('click').on('click', function () {
