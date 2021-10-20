@@ -234,7 +234,7 @@
         });
         $('[data-write]').off("click").on("click", function () {
             let $this = $(this), write = $this.data("write"), textareaElem = $this.parent().prevAll("textarea");
-            textareaElem.val(textareaElem.val() + "{{"{{"}}" + write + "{{"}}"}}").focus();
+            textareaElem.insertAt("{{"{{"}}" + write + "{{"}}"}}");
         });
     });
 </script>

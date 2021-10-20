@@ -223,7 +223,7 @@
                 let ids = [], id = 0;
                 $('#menu-items').find('*[name]').each(function (i, v) {
                     let names = $(v).attr('name').split('.'),
-                        id = parseInt(names.slice(names.length - 1, names.length));
+                        id = parseInt(names.slice(names.length - 1, names.length).toString());
                     if (!isNaN(id)) {
                         ids.push(id);
                     }
@@ -369,15 +369,15 @@
             let write = $(this).data("write"), val;
             switch (write) {
                 case "qr":
-                    val = tipHtmlElem.val() + '<img src="{{"{{"}}qr{{"}}"}}" alt="微信号:{{"{{"}}wechat{{"}}"}}" width="150" height="150">';
+                    val = '<img src="{{"{{"}}qr{{"}}"}}" alt="微信号:{{"{{"}}wechat{{"}}"}}" width="150" height="150">';
                     break;
                 case "default":
                     val = "{{"{{"}}alias{{"}}"}}很高兴为您服务，您可以拨打电话{{"{{"}}phone{{"}}"}}、加微信{{"{{"}}wechat{{"}}"}}或者邮箱{{"{{"}}email{{"}}"}}联系我们！"
                     break;
                 default:
-                    val = tipHtmlElem.val() + "{{"{{"}}" + write + "{{"}}"}}";
+                    val = "{{"{{"}}" + write + "{{"}}"}}";
             }
-            tipHtmlElem.val(val).focus();
+            tipHtmlElem.insertAt(val);
         });
         $('[data-event]').off('click').on('click', function () {
             let $this = $(this), event = $this.data("event");
