@@ -259,8 +259,7 @@
         <div class="layui-card">
             <div class="layui-card-header">最新资讯</div>
             <div class="layui-card-body">
-                <iframe id="iframeSRC" src="" frameborder="0"
-                        height="440px" width="100%"></iframe>
+                <iframe id="iframeSRC" src="" style="border:0" height="440px" width="100%"></iframe>
             </div>
         </div>
     </div>
