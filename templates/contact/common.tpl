@@ -258,15 +258,14 @@
             let write = $(this).data("write"), val;
             switch (write) {
                 case "qr":
-                    val = '<img src="{{"{{"}}qr{{"}}"}}" alt="微信号:{{"{{"}}wechat{{"}}"}}" width="150" height="150">';
+                    tipHtmlElem.insertAt('<img src="{{"{{"}}qr{{"}}"}}" alt="微信号:{{"{{"}}wechat{{"}}"}}" width="150" height="150">');
                     break;
                 case "default":
-                    val = "{{"{{"}}alias{{"}}"}}很高兴为您服务，您可以拨打电话{{"{{"}}phone{{"}}"}}、加微信{{"{{"}}wechat{{"}}"}}或者邮箱{{"{{"}}email{{"}}"}}联系我们！"
+                    tipHtmlElem.val("{{"{{"}}alias{{"}}"}}很高兴为您服务，您可以拨打电话{{"{{"}}phone{{"}}"}}、加微信{{"{{"}}wechat{{"}}"}}或者邮箱{{"{{"}}email{{"}}"}}联系我们！");
                     break;
                 default:
-                    val = "{{"{{"}}" + write + "{{"}}"}}";
+                    tipHtmlElem.insertAt("{{"{{"}}" + write + "{{"}}"}}");
             }
-            tipHtmlElem.insertAt(val);
         });
     });
 </script>
