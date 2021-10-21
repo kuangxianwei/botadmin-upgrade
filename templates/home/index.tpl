@@ -323,5 +323,6 @@
             active[event] && active[event].call($this);
         });
         main.checkLNMP();
+
     });
 </script>
