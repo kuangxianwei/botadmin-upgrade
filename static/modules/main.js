@@ -3,6 +3,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     String.prototype.hasSuffix = function (suffix) {
         return this.indexOf(suffix, this.length - suffix.length) !== -1;
     }
+    const textareaHtml = `<style>.layui-layer-page .layui-layer-content {overflow:unset;}</style><textarea class="layui-textarea" style="border-radius:10px;margin:1%;padding:%0.5;height:94%;width:98%">`;
 
     // tags
     class Tags {
@@ -76,7 +77,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         }
     }
 
-    class Class {
+    class Main {
         constructor() {
             this.isObject = function (obj) {
                 return Object.prototype.toString.call(obj) === '[object Object]';
@@ -248,7 +249,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             // 加载中...
             let loading = layer.load(1, {shade: [0.7, '#000', true]});
             if (options.type.toUpperCase() === 'POST') {
-                options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, othis.tidyObj(options.headers));
+                options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, options.headers || {});
             }
             othis.setCols(options.data, dom);
             if (options.data) {
@@ -449,21 +450,28 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             return data;
         }
 
-        // 弹窗
-        pop(options) {
-            let obj = new Pop();
-            $.extend(obj, options);
-            obj.render();
-        }
-
         // 弹出展示
         // 默认不显示标题 不显示最大化和最小化 不显示按钮
         display(options) {
-            main.popup($.extend({
+            layer.open($.extend(true, {
+                type: 1,
                 title: false,
                 btn: false,
                 maxmin: false,
+                shadeClose: true,
+                scrollbar: false,
+                btnAlign: 'c',
+                shade: 0.8,
+                area: ['95%', '95%'],
             }, options || {}));
+        }
+
+        // 弹窗展示 textarea
+        textarea(text, options) {
+            if (typeof text !== 'string') {
+                return false;
+            }
+            this.display($.extend(true, {content: textareaHtml + text + '</textarea>'}, options || {}));
         }
 
         // tags
@@ -516,7 +524,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         isNotBlank = function (str) {
             return str !== undefined && str !== '';
         },
-        main = new Class();
+        main = new Main();
     // 定时规则spec
     let Cron = function (elem) {
         // 输入点例如：input[name=spec]
@@ -993,7 +1001,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
         });
         elemMain += "</ul>";
-        elemMain += '<div class="layui-tab-content" style="width:450px;">' +
+        elemMain += '<div class="layui-tab-content" style="padding:10px;width:450px;">' +
             othis.secondsElem() + // 秒
             othis.minutesElem() + // 分
             othis.hoursElem() + // 时
@@ -1028,95 +1036,33 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         }
         // 绑定聚焦事件
         othis.elem.focus(function () {
-            main.confirm(othis.render(), {
-                scroll: false,
+            main.display({
+                area: ["560px", "430px"],
+                btn: "确定",
+                fixed: true,
+                content: othis.render(),
                 success: function () {
                     form.render();
                     layui.element.render();
                     return true;
                 },
-                done: function (dom) {
-                    return othis.done(dom);
+                yes: function (index, dom) {
+                    othis.done(dom);
+                    layer.close(index)
                 }
             });
         });
         othis.elem.eventHandler = true;
     };
 
-    // 自定义弹窗
-    let Pop = function () {
-        this.opacity = '0.7';
-        this.content = '';
-        this.scroll = true;
-        this.confirm = true;
-        this.area = ['auto', 'auto'];
-        this.zIndex = 2147483000;
-    };
-    // 渲染dom后执行
-    Pop.prototype.success = function () {
-        return true;
-    };
-    // 完成后执行
-    Pop.prototype.done = function () {
-        return true;
-    };
-    // 无人如何都要执行
-    Pop.prototype.always = function () {
-    };
-    // 关闭
-    Pop.prototype.close = function (dom) {
-        this.id = null;
-        dom.remove();
-    };
-    // 显示
-    Pop.prototype.display = function (dom) {
-        let windowElem = $(window),
-            documentElem = $(document),
-            top = (windowElem.height() - dom.height()) / 2,
-            left = (windowElem.width() - dom.width()) / 2,
-            scrollTop = documentElem.scrollTop(),
-            scrollLeft = documentElem.scrollLeft();
-        dom.css({position: 'absolute', 'top': top + scrollTop, left: left + scrollLeft}).show();
-    };
-    // 渲染
-    Pop.prototype.render = function () {
-        if ($('#layuicss-pop').length > 0) {
-            return;
-        }
-        let insertElem = $('body').first();
-        if (!insertElem) {
-            this.always();
-            return false;
-        }
-        let dom = $('<div id="layuicss-pop"></div>');
-        insertElem.append(dom);
-        dom.append('<style>#layuicss-pop{height:100%;width:100%;display:none}.pop-container{z-index:' + (this.zIndex + 1) + ';min-width:150px;min-height:100px;width:' + this.area[0] + ';height:' + this.area[1] + ';position:absolute;top:50%;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);padding:1.5em;background:#fff;border-radius:10px;box-shadow:-2px 2px 2px #888}.pop-container>div{overflow:' + (this.scroll ? 'scroll' : 'hidden') + ';height:100%;width:100%}.pop-container>.shade-cancel,.pop-container>.shade-confirm{z-index:' + (this.zIndex + 2) + ';height:28px;width:28px;line-height:28px;text-align:center;border-radius:14px;position:absolute}.pop-container>.shade-cancel{top:-17px;right:-17px;background-color:rgba(0,0,0,.8);box-shadow:-2px 2px 2px 2px #888}.pop-container>.shade-confirm{bottom:-30px;left:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);background-color:#0a6e85;box-shadow:-2px -2px 2px 2px #888}</style>');
-        dom.append('<div class="layui-layer-shade" style="z-index:' + this.zIndex + ';background-color:rgb(0, 0, 0);opacity:' + this.opacity + ';"></div>');
-        dom.append('<div class="pop-container"><a href="#" title="Cancel" class="shade-cancel"><svg viewBox="0 0 1024 1024"  xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M810.666667 273.493333L750.506667 213.333333 512 451.84 273.493333 213.333333 213.333333 273.493333 451.84 512 213.333333 750.506667 273.493333 810.666667 512 572.16 750.506667 810.666667 810.666667 750.506667 572.16 512z" fill="#fff"></path></svg></a>' + (this.confirm ? '<a href="#" title="Confirm" class="shade-confirm"><svg viewBox="0 0 1024 1024"  xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M448 864a32 32 0 0 1-18.88-6.08l-320-234.24a32 32 0 1 1 37.76-51.52l292.16 213.44 397.76-642.56a32 32 0 0 1 54.4 33.92l-416 672a32 32 0 0 1-21.12 14.4L448 864z" fill="#fff"></path></svg></a>' : '') + '<div>' + this.content + '</div></div>');
-        this.success(dom);
-        this.display(dom);
-        let othis = this;
-        $(document).scroll(function () {
-            othis.display(dom);
-        });
-        dom.find('.shade-cancel,.layui-layer-shade').off('click').on('click', function () {
-            othis.always(dom);
-            othis.close(dom);
-        });
-        dom.find('.shade-confirm').off('click').on('click', function () {
-            if (othis.done(dom) !== false) {
-                othis.always(dom);
-                othis.close(dom);
-            }
-        });
-    };
+
     // 信息提示框
     main.msg = function (msg, options) {
-        main.pop($.extend({content: msg, scroll: false, confirm: false}, options || {}));
-    };
-    // 确认框
-    main.confirm = function (msg, options) {
-        main.pop($.extend({content: msg}, options || {}));
+        main.display($.extend({
+            type: 0, area: "auto", content: msg, success: function (dom) {
+                dom.find("textarea").css("border-radius", "10px");
+            }
+        }, options || {}));
     };
     // 渲染
     main.render = {
@@ -1189,14 +1135,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 return false;
             }
             let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log');
-            main.pop({
-                confirm: false,
-                scroll: false,
-                content: '<div style="position:fixed;padding:6px;top:-15px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div><textarea rows="22" class="layui-textarea layui-bg-black" style="color:white;height:100%" id="log-display" readonly="readonly"></textarea>',
-                area: ['75%'],
+            main.textarea("", {
+                area: ["75%", "75%"],
                 success: function (dom) {
-                    let displayElem = dom.find('#log-display'),
-                        statusElem = dom.find('#log-status');
+                    let elem = dom.find("textarea");
+                    elem.css("margin-top", "-20px").before('<div style="position:relative;z-index:29821027;left:20px;width:90px;padding:6px;top:-20px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div>');
+                    let statusElem = dom.find('#log-status');
                     w.onopen = function () {
                         w.send(name);
                     };
@@ -1208,15 +1152,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             } else {
                                 statusElem.html('状态: <strong style="color:#22849b" title="' + statusCode + '">运行中...</strong>');
                             }
-                            displayElem.focus().append(e.data.substr(1)).scrollTop(displayElem[0].scrollHeight);
+                            elem.focus().append(e.data.substr(1)).scrollTop(elem[0].scrollHeight);
                         }
                     };
                 },
-                always: function (dom) {
+                end: function () {
                     w.close();
-                    if (typeof callback === 'function') {
-                        callback(dom);
-                    }
+                    typeof callback === 'function' && callback();
                 }
             });
         },

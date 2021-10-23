@@ -1,6 +1,6 @@
 {{$tplTip:="{{phone}} 替换成手机号码<br>{{wechat}} 替换为微信号<br>{{alias}}  替换为别名<br>{{email}}  替换为电子邮箱<br>{{qr}}     替换为二维码图片地址<br>"}}
 <style>
-    *[lay-event], *[data-event] {
+    [data-event] {
         cursor: pointer;
         text-align: center;
         margin-top: 20px;
@@ -100,7 +100,7 @@
         </div>
         <div class="layui-form-item">
             <ul class="layui-row layui-col-space10">
-                <li class="layui-col-xs3" lay-event="phone">
+                <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-phone"{{if not .obj.Phone.Enabled}} style="color:grey"{{end}}></i>
                     <cite>手机设置</cite>
                     <input type="hidden" name="phone.enabled" value="{{.obj.Phone.Enabled}}">
@@ -110,7 +110,7 @@
                     <input type="hidden" name="phone.href" value="{{.obj.Phone.Href}}">
                     <input type="hidden" name="phone.trace" value="{{.obj.Phone.Trace}}">
                 </li>
-                <li class="layui-col-xs3" lay-event="wechat">
+                <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-wechat-full"{{if not .obj.Wechat.Enabled}} style="color:grey"{{end}}></i>
                     <cite>微信设置</cite>
                     <input type="hidden" name="wechat.enabled" value="{{.obj.Wechat.Enabled}}">
@@ -120,7 +120,7 @@
                     <input type="hidden" name="wechat.href" value="{{.obj.Wechat.Href}}">
                     <input type="hidden" name="wechat.trace" value="{{.obj.Wechat.Trace}}">
                 </li>
-                <li class="layui-col-xs3" lay-event="consult">
+                <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-consulting"{{if not .obj.Consult.Enabled}} style="color:grey"{{end}}></i>
                     <cite>在线咨询</cite>
                     <input type="hidden" name="consult.enabled" value="{{.obj.Consult.Enabled}}">
@@ -130,7 +130,7 @@
                     <input type="hidden" name="consult.href" value="{{.obj.Consult.Href}}">
                     <input type="hidden" name="consult.trace" value="{{.obj.Consult.Trace}}">
                 </li>
-                <li class="layui-col-xs3" lay-event="feedback">
+                <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-feedback-1"{{if not .obj.Feedback.Enabled}} style="color:grey"{{end}}></i>
                     <cite>留言反馈</cite>
                     <input type="hidden" name="feedback.enabled" value="{{.obj.Feedback.Enabled}}">
@@ -140,7 +140,7 @@
                     <input type="hidden" name="feedback.href" value="{{.obj.Feedback.Href}}">
                     <input type="hidden" name="feedback.trace" value="{{.obj.Feedback.Trace}}">
                 </li>
-                <li class="layui-col-xs3" lay-event="menu">
+                <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-menu"{{if not .obj.Menu.Enabled}} style="color:grey"{{end}}></i>
                     <cite>菜单设置</cite>
                     <input type="hidden" name="menu.enabled" value="{{.obj.Menu.Enabled}}">
@@ -150,12 +150,12 @@
                     <input type="hidden" name="menu.href" value="{{.obj.Menu.Href}}">
                     <input type="hidden" name="menu.trace" value="{{.obj.Menu.Trace}}">
                 </li>
-                <li class="layui-col-xs3" lay-event="pc-css">
+                <li class="layui-col-xs3" data-event="css">
                     <i class="layui-icon iconfont icon-pc"{{if not .obj.PcCss}} style="color:grey"{{end}}></i>
                     <cite>CSS</cite>
                     <input type="hidden" name="pc_css" value="{{.obj.PcCss}}">
                 </li>
-                <li class="layui-col-xs3" lay-event="mobile-css">
+                <li class="layui-col-xs3" data-event="css">
                     <i class="layui-icon iconfont icon-mobile"{{if not .obj.MobileCss}} style="color:grey"{{end}}></i>
                     <cite>CSS</cite>
                     <input type="hidden" name="mobile_css" value="{{.obj.MobileCss}}">
@@ -168,7 +168,7 @@
         </div>
         <fieldset class="layui-elem-field">
             <legend><i class="layui-icon iconfont icon-menu"></i>
-                <a href="javascript:void(0);" lay-event="add-menu" lay-tips="新增子菜单">
+                <a href="javascript:void(0);" data-event="addMenu" lay-tips="新增子菜单">
                     <i class="layui-icon layui-icon-add-circle"></i>子菜单
                 </a>
             </legend>
@@ -202,7 +202,7 @@
         <div class="layui-inline" style="min-width: 320px"><input name="href" value="" class="layui-input"></div>
         <div class="layui-inline"><label class="layui-form-label-col">跟踪:</label></div>
         <div class="layui-inline width120"><input name="trace" value="" class="layui-input"></div>
-        <i class="layui-icon layui-icon-delete" style="color: red" lay-tips="删除该项" data-event="del-menu"></i>
+        <i class="layui-icon layui-icon-delete" style="color: red" lay-tips="删除该项" data-event="delMenu"></i>
     </div>
 </script>
 <script>
@@ -211,13 +211,12 @@
             form = layui.form,
             colorpicker = layui.colorpicker,
             submenus = {{.obj.Submenu}},
-            kv = {
-                'enabled': '启用',
-                'icon': '图标',
-                'href': '链接地址',
-                'text': 'PC端文字',
-                'mobile_text': '移动端文字',
-                'trace': '广告跟踪',
+            field = {
+                icon: {label: "图标", tip: "iconfont图标 www.iconfont.cn去搜索"},
+                href: {label: "链接地址", tip: "http://www.nfivf.com"},
+                text: {label: "PC端文字", tip: "在电脑端显示名称"},
+                mobile_text: {label: "移动端文字", tip: "在移动端显示名称"},
+                trace: {label: "广告跟踪", tip: "跟踪名称 例如:拨打电话"},
             },
             getId = function () {
                 let ids = [], id = 0;
@@ -239,12 +238,12 @@
             insertMenu = function (id, values) {
                 let elem = $($('#insert-submenu').html());
                 values = $.extend({pc: "", mobile: "", href: "", trace: ""}, values || {});
-                elem.find('*[name=pc]').attr('name', 'submenu.text.' + id).val(values.pc);
-                elem.find('*[name=mobile]').attr('name', 'submenu.mobile_text.' + id).val(values.mobile);
-                elem.find('*[name=href]').attr('name', 'submenu.href.' + id).val(values.href);
-                elem.find('*[name=trace]').attr('name', 'submenu.trace.' + id).val(values.trace);
+                elem.find('[name=pc]').attr('name', 'submenu.text.' + id).val(values.pc);
+                elem.find('[name=mobile]').attr('name', 'submenu.mobile_text.' + id).val(values.mobile);
+                elem.find('[name=href]').attr('name', 'submenu.href.' + id).val(values.href);
+                elem.find('[name=trace]').attr('name', 'submenu.trace.' + id).val(values.trace);
                 $('#menu-items').append(elem);
-                $('[data-event="del-menu"]').off('click').on('click', function () {
+                $('[data-event="delMenu"]').off('click').on('click', function () {
                     $(this).closest('div.layui-form-item').remove();
                 });
             };
@@ -285,84 +284,79 @@
         let active = {
             deny: function () {
                 $("input[name=deny]").val("\\.(php|asp|js|css)(\\?|$)");
-            }
-        };
-        $('#custom-style [lay-event]').off('click').on('click', function () {
-            let othis = $(this),
-                event = othis.attr('lay-event'),
-                data = othis.find('[name]').serializeArray(), elem;
-            if (event === 'add-menu') {
-                insertMenu(getId());
-                return false;
-            }
-            if (event.lastIndexOf('-css') !== -1) {
-                main.confirm('', {
-                    scroll: false,
-                    area: ['80%', '60%'],
+            },
+            field: function () {
+                let data = this.find('[name]').serializeArray(),
+                    iconElem = this.find('i:first');
+                main.display({
+                    area: ["800px", "420px"],
+                    btn: "OK",
+                    content: "<div class=\"layui-fluid layui-form\"></div>",
                     success: function (dom) {
-                        let containerElem = dom.find('.pop-container>div').first();
-                        containerElem.addClass('layui-form');
+                        let insertElem = dom.find(".layui-form");
                         $.each(data, function (index, obj) {
-                            elem = $(`<textarea class="layui-textarea" name="" style="width: 100%;height: 100%"></textarea>`);
-                            elem.attr('name', obj.name).val(obj.value);
-                            containerElem.append(elem);
+                            let slice = obj.name.split('.'),
+                                name = slice.slice(slice.length - 1, slice.length).toString();
+                            if (name === 'enabled') {
+                                insertElem.append('<div class="layui-form-item"><label class="layui-form-label">启用:</label><div class="layui-input-block"><input type="checkbox" name="' + obj.name + '" lay-skin="switch" lay-text="启用|关闭"' + (obj.value === 'true' ? ' checked' : '') + `></div></div>`);
+                            } else {
+                                let inputElem = $('<div class="layui-form-item"><label class="layui-form-label">' + field[name].label + ':</label><div class="layui-input-block"><input type="text" name="' + obj.name + '" value="" placeholder="' + field[name].tip + '" class="layui-input"></div></div>');
+                                inputElem.find("input").val(obj.value);
+                                insertElem.append(inputElem);
+                            }
                         });
                         form.render();
                     },
-                    done: function (dom) {
-                        let d = dom.find('[name]').serializeArray(), enabled = false;
-                        $.each(d, function (index, obj) {
-                            obj.value = obj.value.trim();
-                            if (obj.name.slice(obj.name.length - 3) === 'css' && obj.value.length > 0) {
-                                enabled = true
+                    yes: function (index, dom) {
+                        $.each(dom.find("[name$='.enabled']"), function () {
+                            let checked = $(this).prop("checked");
+                            $('[name="' + this.name + '"]').val(checked);
+                            if (checked) {
+                                iconElem.css("color", "");
+                            } else {
+                                iconElem.css("color", "grey");
                             }
-                            $('*[name="' + obj.name + '"]').val(obj.value);
                         });
-                        if (enabled) {
-                            othis.find('i:nth-child(1)').css('color', '');
-                        } else {
-                            othis.find('i:nth-child(1)').css('color', 'grey');
-                        }
+                        $.each(dom.find('[name]').serializeArray(), function (i, v) {
+                            if (!v.name.hasSuffix('.enabled')) {
+                                $('[name="' + v.name + '"]').val(v.value);
+                            }
+                        });
+                        layer.close(index);
                     }
                 });
-                return false;
-            }
-            main.confirm('', {
-                scroll: false,
-                area: ['50%', 'auto'],
-                success: function (dom) {
-                    let containerElem = dom.find('.pop-container>div').first();
-                    containerElem.addClass("layui-form");
-                    $.each(data, function (index, obj) {
-                        let slice = obj.name.split('.'),
-                            name = slice.slice(slice.length - 1, slice.length).toString();
-                        if (name === 'enabled') {
-                            elem = $('<div class="layui-form-item"><label class="layui-form-label">' + kv[name] + ':</label><div class="layui-input-block"><input type="checkbox" name="' + name + '" lay-skin="switch" lay-text="启用|关闭"' + (obj.value === 'true' ? ' checked' : '') + `></div></div>`);
+            },
+            css: function () {
+                let inputElem = this.find('[name]'),
+                    iconElem = this.find('i:first');
+                main.textarea("", {
+                    btn: "OK",
+                    area: ['80%', '60%'],
+                    success: function (dom) {
+                        dom.find("textarea").val(inputElem.val());
+                    },
+                    yes: function (index, dom) {
+                        let val = dom.find("textarea").val();
+                        inputElem.val(val);
+                        if (val) {
+                            iconElem.css("color", "");
                         } else {
-                            elem = $('<div class="layui-form-item"><label class="layui-form-label">' + kv[name] + ':</label><div class="layui-input-block"><input type="text" name="" value="" class="layui-input"></div></div>');
-                            elem.find('[name]').attr("name", name).val(obj.value);
+                            iconElem.css("color", "grey");
                         }
-                        containerElem.append(elem);
-                    });
-                    form.render();
-                },
-                done: function (dom) {
-                    let d = dom.find('[name]').serializeArray(), enabled = false;
-                    $.each(d, function (index, obj) {
-                        if (obj.name === 'enabled') {
-                            enabled = true;
-                        } else {
-                            $('*[name="' + event + '.' + obj.name + '"]').val(obj.value);
-                        }
-                    });
-                    $('*[name="' + event + '.enabled"]').val(enabled);
-                    if (enabled) {
-                        othis.find('i:nth-child(1)').css('color', '');
-                    } else {
-                        othis.find('i:nth-child(1)').css('color', 'grey');
+                        layer.close(index);
                     }
-                }
-            });
+                });
+            },
+            addMenu: function () {
+                insertMenu(getId());
+            },
+            delMenu: function () {
+                $(this).closest('div.layui-form-item').remove();
+            },
+        };
+        $('[data-event]').off('click').on('click', function () {
+            let $this = $(this), event = $this.data("event");
+            active && active[event].call($this);
         });
         let tipHtmlElem = $("textarea[name=tip_html]");
         $('[data-write]').off("click").on("click", function () {
@@ -377,10 +371,6 @@
                 default:
                     tipHtmlElem.insertAt("{{"{{"}}" + write + "{{"}}"}}");
             }
-        });
-        $('[data-event]').off('click').on('click', function () {
-            let $this = $(this), event = $this.data("event");
-            active[event] && active[event].call($this);
         });
     });
 </script>

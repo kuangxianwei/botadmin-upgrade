@@ -16,45 +16,10 @@ html #layuicss-cron {
 /* 主体结构 */
 .layui-cron {
     margin: 5px 0;
-    border-radius: 2px;
     font-size: 14px;
-    -webkit-animation-duration: 0.3s;
-    animation-duration: 0.3s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px 0;
-    -webkit-animation-name: cron-upbit;
-    animation-name: cron-up;
-    border: 1px solid #e6e6e6;
 }
 
-@-webkit-keyframes cron-up {
-    /* 微微往上滑入 */
-    from {
-        -webkit-transform: translate3d(0, 20px, 0);
-        opacity: 0.3;
-    }
 
-    to {
-        -webkit-transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-}
-
-@keyframes cron-up {
-    from {
-        transform: translate3d(0, 20px, 0);
-        opacity: 0.3;
-    }
-
-    to {
-        transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-}
 
 /* tabs */
 .layui-cron > .layui-tab {

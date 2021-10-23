@@ -51,18 +51,21 @@
             <div class="layui-form-mid layui-word-aux">如QQ在线</div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label>
-            <button class="layui-btn" lay-event="cities">选择城市</button>
+            <label class="layui-form-label" lay-tips="不选择则展示全部">屏蔽区域:</label>
             <input type="hidden" name="cities" value="{{join .obj.Cities ","}}">
+            <div class="layui-form-mid layui-word-aux">
+                <i class="layui-icon layui-icon-edit" lay-event="cities" style="color:#22849b"></i>
+                <cite style="margin-left:10px"></cite>
+            </div>
         </div>
         <div class="layui-form-item" lay-filter="duration">
             <input type="hidden" name="durations">
-            <label class="layui-form-label">时间范围:</label>
-            <div class="layui-btn-group">
-                <button class="layui-btn" lay-event="add-duration">
+            <label class="layui-form-label">开放时间:</label>
+            <div class="layui-btn-group" style="line-height: 38px">
+                <button class="layui-btn layui-btn-sm" lay-event="add-duration">
                     <i class="layui-icon layui-icon-add-circle"></i>
                 </button>
-                <button class="layui-btn layui-bg-red" lay-event="del-duration" style="display:none;">
+                <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="del-duration" style="display:none;">
                     <i class="layui-icon layui-icon-fonts-del"></i>
                 </button>
             </div>
@@ -114,8 +117,25 @@
             loading,
             citiesData = {{.cityData}},
             durations = {{.obj.Durations}},
+            cities = {{.obj.Cities}},
             delObj = $('*[lay-event=del-duration]'),
             addObj = $('*[lay-event=add-duration]');
+        citiesData = citiesData || [];
+        cities = cities || [];
+        durations = durations || [];
+
+        if (citiesData && cities) {
+            let titles = [];
+            for (let i = 0; i < cities.length; i++) {
+                cities[i] = cities[i].toString();
+            }
+            $.each(citiesData, function (i, v) {
+                if (cities.indexOf(v.value) !== -1) {
+                    titles.push(v.title);
+                }
+            });
+            $('*[name=cities]+div>cite').text(titles.join());
+        }
         $('*[lay-submit][lay-filter="submit"]').off('click').on('click', function () {
             if ($('[name=host]').val() === '') {
                 layer.tips("Host 不能为空", '[name=host]', {tips: 1, time: 10000});
@@ -189,7 +209,9 @@
         });
         // 监控城市
         $('*[lay-event=cities]').off('click').on('click', function () {
-            main.pop({
+            main.display({
+                type: 0,
+                btn: ['确定'],
                 content: `<div id="cities"></div>`,
                 success: function (dom) {
                     //显示城市搜索框
@@ -202,14 +224,17 @@
                         showSearch: true,
                     });
                 },
-                done: function () {
-                    let cityData = transfer.getData('cityData'),
-                        cities = [];
+                yes: function (index) {
+                    let cityData = transfer.getData('cityData'), cities = [], titles = [];
                     $.each(cityData, function (i, v) {
                         cities[i] = v.value;
+                        titles[i] = v.title;
                     });
-                    $('*[name=cities]').val(cities.join())
-                }
+                    $('*[name=cities]').val(cities.join());
+                    $('*[name=cities]+div>cite').text(titles.join());
+                    layer.close(index);
+                },
+                area: ["540px", "450px"],
             });
         });
         // 添加时间段

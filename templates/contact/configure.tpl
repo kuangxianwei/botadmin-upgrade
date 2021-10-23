@@ -4,7 +4,6 @@
             <legend>修改目标</legend>
             <input type="checkbox" data-field="pc_enabled" title="PC" lay-filter="field">
             <input type="checkbox" data-field="mobile_enabled" title="Mobile" lay-filter="field">
-            <input type="checkbox" data-field="history_enabled" title="历史记录" lay-filter="field">
             <input type="checkbox" data-field="max" title="最大限制" lay-filter="field">
             <input type="checkbox" data-field="weight" title="权重" lay-filter="field">
             <input type="checkbox" data-field="durations" title="开放时间" lay-filter="field">
@@ -31,7 +30,6 @@
             transfer = layui.transfer,
             citiesData = {{.cityData}},
             fieldElem = $("#field");
-
         let active = {
             'tip_delay': function (enabled) {
                 if (enabled) {
@@ -57,14 +55,6 @@
                     fieldElem.find('[name=mobile_enabled]').closest('.layui-form-item').remove();
                 }
             },
-            'history_enabled': function (enabled) {
-                if (enabled) {
-                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">历史记录:</label><div class="layui-input-block"><input type="checkbox" name="history_enabled" lay-skin="switch" lay-text="是|否"></div></div>');
-                    form.render('checkbox');
-                } else {
-                    fieldElem.find('[name=history_enabled]').closest('.layui-form-item').remove();
-                }
-            },
             'max': function (enabled) {
                 if (enabled) {
                     fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">最大限制:</label><div class="layui-input-inline"><input type="number" name="max" value="0" min="0" class="layui-input"></div><div class="layui-form-mid layui-word-aux">0为不限制</div></div>');
@@ -84,10 +74,12 @@
             },
             'cities': function (enabled) {
                 if (enabled) {
-                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label" lay-tips="不选择则展示全部">区域:</label><button class="layui-btn" lay-event="cities">选择城市</button><input type="hidden" name="cities" value=""></div>');
+                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label" lay-tips="不选择则展示全部">屏蔽区域:</label><input type="hidden" name="cities" value=""><div class="layui-form-mid layui-word-aux"><i class="layui-icon layui-icon-edit" lay-event="cities" style="color:#22849b"></i><cite style="margin-left:10px"></cite></div></div>');
                     // 监控城市
                     $('*[lay-event="cities"]').off('click').on('click', function () {
-                        main.pop({
+                        main.display({
+                            type: 0,
+                            btn: ['确定'],
                             content: `<div id="cities"></div>`,
                             success: function (dom) {
                                 //显示城市搜索框
@@ -100,14 +92,17 @@
                                     showSearch: true,
                                 });
                             },
-                            done: function () {
-                                let cityData = transfer.getData('cityData'),
-                                    cities = [];
+                            yes: function (index) {
+                                let cityData = transfer.getData('cityData'), cities = [], titles = [];
                                 $.each(cityData, function (i, v) {
                                     cities[i] = v.value;
+                                    titles[i] = v.title;
                                 });
-                                $('*[name=cities]').val(cities.join())
-                            }
+                                $('*[name=cities]').val(cities.join());
+                                $('*[name=cities]+div>cite').text(titles.join());
+                                layer.close(index);
+                            },
+                            area: ["540px", "450px"],
                         });
                     });
                 } else {
@@ -119,11 +114,11 @@
                     fieldElem.append(`<div class="layui-form-item" lay-filter="duration">
     <input type="hidden" name="durations">
     <label class="layui-form-label">时间范围:</label>
-    <div class="layui-btn-group">
-        <button class="layui-btn" lay-event="add-duration">
+    <div class="layui-btn-group" style="line-height: 38px">
+        <button class="layui-btn layui-btn-sm" lay-event="add-duration">
             <i class="layui-icon layui-icon-add-circle"></i>
         </button>
-        <button class="layui-btn layui-bg-red" lay-event="del-duration" style="display:none;">
+        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="del-duration" style="display:none;">
             <i class="layui-icon layui-icon-fonts-del"></i>
         </button>
     </div>

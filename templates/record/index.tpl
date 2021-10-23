@@ -62,7 +62,7 @@
 
         // 未读消息
         table.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
@@ -86,7 +86,7 @@
         });
         // 已读消息
         table.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list-read',
             toolbar: '#toolbar-read',
@@ -131,12 +131,7 @@
                             table.reload('table-list-read');
                         }
                     });
-                    main.pop({
-                        confirm: false,
-                        scroll: false,
-                        content: '<textarea class="layui-textarea layui-bg-black" style="color:white;height:100%">' + obj.data.feedback + '</textarea>',
-                        area: ['60%', '200px'],
-                    });
+                    main.textarea(obj.data.feedback, {area: ['60%', '200px']});
                     break
             }
         });
@@ -188,12 +183,7 @@
                     });
                     break;
                 case 'read':
-                    main.pop({
-                        confirm: false,
-                        scroll: false,
-                        content: '<textarea class="layui-textarea layui-bg-black" style="color:white;height:100%">' + obj.data.feedback + '</textarea>',
-                        area: ['60%', '200px'],
-                    });
+                    main.textarea(obj.data.feedback, {area: ['60%', '200px']});
                     break
             }
         });

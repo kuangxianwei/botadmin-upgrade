@@ -119,9 +119,12 @@
                 <button class="layui-btn" lay-event="fill-consult">填充默认</button>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label" lay-tips="选中的区域则不显示联系信息">屏蔽区域:</label>
-                <button class="layui-btn layui-btn-radius layui-btn-primary" lay-event="cities">选择</button>
+                <label class="layui-form-label">屏蔽区域:</label>
                 <input type="hidden" name="cities" value="{{join .obj.Cities ","}}">
+                <div class="layui-form-mid layui-word-aux">
+                    <i class="layui-icon layui-icon-edit" lay-event="cities" style="color:#22849b"></i>
+                    <cite style="margin-left:10px"></cite>
+                </div>
             </div>
             <div class="layui-form-item" lay-filter="duration">
                 <input type="hidden" name="durations">
@@ -186,8 +189,24 @@
             transfer = layui.transfer,
             citiesData = {{.cityData}},
             durations = {{.obj.Durations}},
+            cities = {{.obj.Cities}},
             addObj = $('*[lay-event=add-duration]'),
             delObj = $('*[lay-event=del-duration]');
+        citiesData = citiesData || [];
+        cities = cities || [];
+        durations = durations || [];
+        if (citiesData && cities) {
+            let titles = [];
+            for (let i = 0; i < cities.length; i++) {
+                cities[i] = cities[i].toString();
+            }
+            $.each(citiesData, function (i, v) {
+                if (cities.indexOf(v.value) !== -1) {
+                    titles.push(v.title);
+                }
+            });
+            $('*[name=cities]+div>cite').text(titles.join());
+        }
         //滑块控制
         main.slider({elem: '#weight', value: {{.obj.Weight}}, max: 100});
         $('[lay-event="fill-consult"]').off('click').on('click', function () {
@@ -206,7 +225,9 @@
         });
         // 监控城市
         $('*[lay-event=cities]').off('click').on('click', function () {
-            main.pop({
+            main.display({
+                type: 0,
+                btn: ['确定'],
                 content: `<div id="cities"></div>`,
                 success: function (dom) {
                     //显示城市搜索框
@@ -219,14 +240,17 @@
                         showSearch: true,
                     });
                 },
-                done: function () {
-                    let cityData = transfer.getData('cityData'),
-                        cities = [];
+                yes: function (index) {
+                    let cityData = transfer.getData('cityData'), cities = [], titles = [];
                     $.each(cityData, function (i, v) {
                         cities[i] = v.value;
+                        titles[i] = v.title;
                     });
-                    $('*[name=cities]').val(cities.join())
-                }
+                    $('*[name=cities]').val(cities.join());
+                    $('*[name=cities]+div>cite').text(titles.join());
+                    layer.close(index);
+                },
+                area: ["540px", "450px"],
             });
         });
         // 添加时间段
