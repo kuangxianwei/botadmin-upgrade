@@ -90,7 +90,7 @@
                 {
                     title: '跟踪', width: 60, align: 'center',
                     templet: function (d) {
-                        return '<a style="color:#01aaed;" lay-href="/trace?waiter_id=' + d.id + '" lay-text="跟踪-' + d.alias + '"><i class="iconfont icon-trace"></i></a>';
+                        return '<a style="color:#27818a;" lay-href="/trace?waiter_id=' + d.id + '" lay-text="跟踪-' + d.alias + '"><i class="iconfont icon-trace"></i></a>';
                     }
                 },
                 {field: 'qr', title: '二维码', hide: true},

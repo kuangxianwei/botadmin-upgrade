@@ -9,7 +9,7 @@
                     <select name="waiter_id" lay-filter="search-select" class="layui-select">
                         <option value="">选择全部客服</option>
                         {{range $i,$v:=.waiters -}}
-                            <option value="{{$v.Id}}">{{$v.Alias}}</option>
+                            <option value="{{$v.Id}}"{{if gt $v.Action 0}} selected{{end}}>{{$v.Alias}}</option>
                         {{end -}}
                     </select>
                 </div>
@@ -63,68 +63,70 @@
     layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main,
-            searchWaiterId = main.getParam('waiter_id'),
-            tableOptions = {
-                headers: {'X-CSRF-Token': csrfToken},
-                method: 'post',
-                elem: '#table-list',
-                url: url,
-                toolbar: '#toolbar',
-                cols: [[
-                    {type: 'checkbox', fixed: 'left'},
-                    {field: 'id', title: 'ID', hide: true},
-                    {field: 'waiter_id', title: '客服ID', hide: true},
-                    {field: 'waiter_alias', width: 80, title: '客服', align: 'center'},
-                    {
-                        title: '终端', width: 80, templet: function (d) {
-                            if (d['is_mobile']) {
-                                return "手机端";
-                            }
-                            return "电脑端";
-                        }
-                    },
-                    {field: 'entrance', title: '入口', minWidth: 100},
-                    {
-                        title: 'IP', minWidth: 100, templet: function (d) {
-                            return d.ip;
-                        }
-                    },
-                    {
-                        title: '区域', minWidth: 100, templet: function (d) {
-                            if (d.city) {
-                                return d.city
-                            }
-                            if (d['province']) {
-                                return d['province'];
-                            }
-                            if (d['isp']) {
-                                return d['isp'];
-                            }
-                            if (d['country']) {
-                                return d['country'];
-                            }
-                            return '未知';
-                        }
-                    },
-                    {
-                        field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
-                            return main.timestampFormat(d['updated']);
-                        }
-                    },
-                    {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-                ]],
-                page: true,
-                limit: 10,
-                limits: [10, 30, 50, 200],
-                text: '对不起，加载出现异常！'
-            };
-        if (searchWaiterId) {
-            $('select[name=waiter_id]>option[value=' + searchWaiterId + ']').attr('selected', true);
-            layui.form.render('select');
-            tableOptions = $.extend(tableOptions, {where: {waiter_id: searchWaiterId}});
-        }
+            where = {cols: []};
+        $.each($("div.layui-form.table-search [name]").serializeArray(), function () {
+            if (this.value !== "") {
+                where[this.name] = this.value;
+                where.cols.push(this.name);
+            }
+        });
+        where.cols = where.cols.join();
         //日志管理
-        table.render(tableOptions);
+        table.render({
+            headers: {'X-CSRF-Token': csrfToken},
+            method: 'post',
+            where: where,
+            elem: '#table-list',
+            url: url,
+            toolbar: '#toolbar',
+            cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                {field: 'id', title: 'ID', hide: true},
+                {field: 'waiter_id', title: '客服ID', hide: true},
+                {field: 'waiter_alias', width: 80, title: '客服', align: 'center'},
+                {
+                    title: '终端', width: 80, templet: function (d) {
+                        if (d['is_mobile']) {
+                            return "手机端";
+                        }
+                        return "电脑端";
+                    }
+                },
+                {field: 'entrance', title: '入口', minWidth: 100},
+                {
+                    title: 'IP', minWidth: 100, templet: function (d) {
+                        return d.ip;
+                    }
+                },
+                {
+                    title: '区域', minWidth: 100, templet: function (d) {
+                        if (d.city) {
+                            return d.city
+                        }
+                        if (d['province']) {
+                            return d['province'];
+                        }
+                        if (d['isp']) {
+                            return d['isp'];
+                        }
+                        if (d['country']) {
+                            return d['country'];
+                        }
+                        return '未知';
+                    }
+                },
+                {
+                    field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
+                        return main.timestampFormat(d['updated']);
+                    }
+                },
+                {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+            ]],
+            page: true,
+            limit: 10,
+            limits: [10, 30, 50, 200],
+            text: '对不起，加载出现异常！'
+        });
 
         //监听工具条
         table.on('tool(table-list)', function (obj) {

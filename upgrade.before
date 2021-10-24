@@ -7,7 +7,6 @@ protoPath=$(pwd)
 # shellcheck disable=SC2154
 cd "${RootPath}" || exit 1
 # 逻辑代码开始
-rm -rf ./data/db/{config.db,siteData.db}
 #sqlite3 ./data/db/config.db <<EOF
 #DROP TABLE monitor_cfg;
 #.quit

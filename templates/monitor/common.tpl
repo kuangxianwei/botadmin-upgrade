@@ -3,24 +3,20 @@
         <div class="layui-form-item">
             <label class="layui-form-label">目标地址:</label>
             {{if .obj.Addr -}}
-                <div class="layui-input-inline">
-                    <input type="text" name="addr" lay-verify="required"
-                           class="layui-input" placeholder="监控地址" value="{{.obj.Addr}}">
+                <div class="layui-input-block">
+                    <input type="text" name="addr" value="{{.obj.Addr}}" lay-verify="required" class="layui-input" placeholder="http://www.botadmin.cn">
                 </div>
             {{else -}}
-                <div class="layui-input-inline">
-                    <textarea name="address" class="layui-textarea" rows="3"></textarea>
+                <div class="layui-input-block">
+                    <textarea name="address" class="layui-textarea" rows="3" placeholder="http://www.botadmin.cn&#13;http://www.nfivf.com"></textarea>
                 </div>
-                <div class="layui-form-mid layui-word-aux">http://www.botadmin.cn 一行一条</div>
             {{end -}}
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">接收者:</label>
-            <div class="layui-input-inline">
-                <textarea name="to" class="layui-textarea"
-                          rows="3">{{join .obj.To "\n"}}</textarea>
+            <div class="layui-input-block">
+                <textarea name="to" class="layui-textarea" rows="3" placeholder="38050123@qq.com&#13;88364809@qq.com">{{join .obj.To "\n"}}</textarea>
             </div>
-            <div class="layui-form-mid layui-word-aux">接收者邮箱 一行一个</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
