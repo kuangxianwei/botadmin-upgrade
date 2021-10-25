@@ -4,7 +4,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         return this.indexOf(suffix, this.length - suffix.length) !== -1;
     }
     const textareaHtml = `<style>.layui-layer-page .layui-layer-content {overflow:unset;}</style><textarea class="layui-textarea" style="border-radius:10px;margin:1%;padding:%0.5;height:94%;width:98%">`;
-
     // tags
     class Tags {
         constructor() {
@@ -480,6 +479,25 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             let tagClass = new Tags();
             $.extend(tagClass, options);
             tagClass.render();
+        }
+
+        // 填充客服变量
+        onFillContact() {
+            $('.fill-contact').html('<button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">填充默认</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="phone">插入手机号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">插入微信号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="alias">插入别名</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="email">插入邮箱</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">插入二维码</button><i class="layui-icon layui-icon-tips" lay-tips="{{phone}} 替换成手机号码&#13;{{wechat}} 替换为微信号&#13;{{alias}} 替换为别名&#13;{{email}} 替换为电子邮箱&#13;{{qr}} 替换为二维码图片地址" style="color:coral"></i>');
+            $('[data-write]').off("click").on("click", function () {
+                let elem = $(this).closest("div.layui-form-item").find("textarea"),
+                    write = $(this).data("write");
+                switch (write) {
+                    case "qr":
+                        elem.insertAt('<img src="{{qr}}" alt="微信号:{{wechat}}" title="{{wechat}}" width="150" height="150">');
+                        break;
+                    case "default":
+                        elem.val('<img src="{{qr}}" alt="微信号:{{wechat}}" title="{{wechat}}" width="150" height="150">{{alias}}很高兴为您服务，您可以拨打电话{{phone}}、加微信{{wechat}}或者邮箱{{email}}联系我们!');
+                        break;
+                    default:
+                        elem.insertAt("{{" + write + "}}");
+                }
+            });
         }
     }
 

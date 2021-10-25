@@ -139,30 +139,25 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label" lay-tips="延时弹窗时间，单位为秒 0秒为关闭弹窗">延时弹窗:</label>
-                    <div class="layui-input-inline" style="width:60px">
-                        <input type="number" name="tip_delay" value="{{.obj.TipDelay}}" min="0" class="layui-input">
-                    </div>
+                <label class="layui-form-label">延时弹窗:</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="pop_delay" value="{{.obj.PopDelay}}" min="0" class="layui-input">
                 </div>
-                <div class="layui-inline" style="width:80px">
-                    <input type="radio" name="tip_pure" value="false" title="非纯"{{if not .obj.TipPure}} checked{{end}}>
-                    <input type="radio" name="tip_pure" value="true" title="纯净"{{if .obj.TipPure}} checked{{end}}>
+                <div class="layui-form-mid layui-word-aux">延时弹窗时间，单位为秒 0秒为关闭弹窗</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">电脑弹窗:</label>
+                <div class="layui-input-block">
+                    <textarea name="pc_pop" class="layui-textarea" placeholder="弹窗广告HTML代码">{{.obj.PcPop}}</textarea>
                 </div>
-                <div class="layui-inline" style="width:650px">
-                    <textarea name="tip_html" class="layui-textarea" rows="3" placeholder="弹窗广告宣传语HTML代码">{{.obj.TipHtml}}</textarea>
-                    <div class="layui-input-block" style="margin-top:-5px;margin-bottom:-10px">
-                        <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">
-                            填充默认
-                        </button>
-                        <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="phone">插入手机号</button>
-                        <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">插入微信号</button>
-                        <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="alias">插入别名</button>
-                        <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="email">插入邮箱</button>
-                        <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">插入二维码</button>
-                        <i class="layui-icon layui-icon-tips" lay-tips="{{$tplTip}}" style="color:coral"></i>
-                    </div>
+                <div class="layui-input-block fill-contact" style="margin-top:-5px"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机弹窗:</label>
+                <div class="layui-input-block">
+                    <textarea name="mobile_pop" class="layui-textarea" placeholder="弹窗广告HTML代码">{{.obj.MobilePop}}</textarea>
                 </div>
+                <div class="layui-input-block fill-contact" style="margin-top:-5px"></div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">其他:</label>
@@ -277,19 +272,6 @@
                 delObj.show(200);
             });
         }
-        let tipHtmlElem = $("textarea[name=tip_html]");
-        $('[data-write]').off("click").on("click", function () {
-            let write = $(this).data("write"), val;
-            switch (write) {
-                case "qr":
-                    tipHtmlElem.insertAt('<img src="{{"{{"}}qr{{"}}"}}" alt="微信号:{{"{{"}}wechat{{"}}"}}" width="150" height="150">');
-                    break;
-                case "default":
-                    tipHtmlElem.val("{{"{{"}}alias{{"}}"}}很高兴为您服务，您可以拨打电话{{"{{"}}phone{{"}}"}}、加微信{{"{{"}}wechat{{"}}"}}或者邮箱{{"{{"}}email{{"}}"}}联系我们！");
-                    break;
-                default:
-                    tipHtmlElem.insertAt("{{"{{"}}" + write + "{{"}}"}}");
-            }
-        });
+        main.onFillContact();
     });
 </script>

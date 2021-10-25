@@ -1,4 +1,3 @@
-{{$tplTip:="{{phone}} 替换成手机号码<br>{{wechat}} 替换为微信号<br>{{alias}}  替换为别名<br>{{email}}  替换为电子邮箱<br>{{qr}}     替换为二维码图片地址<br>"}}
 <style>
     [data-event] {
         cursor: pointer;
@@ -167,7 +166,8 @@
             <button lay-submit>提交</button>
         </div>
         <fieldset class="layui-elem-field">
-            <legend><i class="layui-icon iconfont icon-menu"></i>
+            <legend>
+                <i class="layui-icon iconfont icon-menu"></i>
                 <a href="javascript:void(0);" data-event="addMenu" lay-tips="新增子菜单">
                     <i class="layui-icon layui-icon-add-circle"></i>子菜单
                 </a>
@@ -175,20 +175,26 @@
             <div id="menu-items"></div>
         </fieldset>
         <div class="layui-form-item">
-            <label class="layui-form-label">宣传语:</label>
+            <label class="layui-form-label">弹窗位置:</label>
             <div class="layui-input-block">
-                <textarea name="tip_html" class="layui-textarea" placeholder="弹窗宣传语HTML代码">{{.obj.TipHtml}}</textarea>
+                <input type="radio" name="pop_position" value="0" title="中央"{{if eq .obj.PopPosition 0}} checked{{end}}>
+                <input type="radio" name="pop_position" value="1" title="左下"{{if eq .obj.PopPosition 1}} checked{{end}}>
+                <input type="radio" name="pop_position" value="2" title="右下"{{if eq .obj.PopPosition 2}} checked{{end}}>
             </div>
-            <div class="layui-input-block" style="margin-top:-5px;">
-                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">填充默认
-                </button>
-                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="phone">插入手机号</button>
-                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">插入微信号</button>
-                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="alias">插入别名</button>
-                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="email">插入邮箱</button>
-                <button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">插入二维码</button>
-                <i class="layui-icon layui-icon-tips" lay-tips="{{$tplTip}}" style="color:coral"></i>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电脑弹窗:</label>
+            <div class="layui-input-block">
+                <textarea name="pc_pop" class="layui-textarea" placeholder="弹窗宣传语HTML代码">{{.obj.PcPop}}</textarea>
             </div>
+            <div class="layui-input-block fill-contact" style="margin-top:-5px;"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机弹窗:</label>
+            <div class="layui-input-block">
+                <textarea name="mobile_pop" class="layui-textarea" placeholder="弹窗宣传语HTML代码">{{.obj.MobilePop}}</textarea>
+            </div>
+            <div class="layui-input-block fill-contact" style="margin-top:-5px;"></div>
         </div>
     </div>
 </div>
@@ -358,19 +364,6 @@
             let $this = $(this), event = $this.data("event");
             active && active[event].call($this);
         });
-        let tipHtmlElem = $("textarea[name=tip_html]");
-        $('[data-write]').off("click").on("click", function () {
-            let write = $(this).data("write");
-            switch (write) {
-                case "qr":
-                    tipHtmlElem.insertAt('<img src="{{"{{"}}qr{{"}}"}}" alt="微信号:{{"{{"}}wechat{{"}}"}}" width="150" height="150">');
-                    break;
-                case "default":
-                    tipHtmlElem.val("{{"{{"}}alias{{"}}"}}很高兴为您服务，您可以拨打电话{{"{{"}}phone{{"}}"}}、加微信{{"{{"}}wechat{{"}}"}}或者邮箱{{"{{"}}email{{"}}"}}联系我们！");
-                    break;
-                default:
-                    tipHtmlElem.insertAt("{{"{{"}}" + write + "{{"}}"}}");
-            }
-        });
+        main.onFillContact();
     });
 </script>
