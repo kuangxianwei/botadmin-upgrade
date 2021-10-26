@@ -42,13 +42,18 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">电子邮箱:</label>
+            <div class="layui-input-inline">
+                <input name="email" value="{{.obj.Email}}" placeholder="38050123@qq.com" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">主要用于在线留言提醒</div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">在线咨询:</label>
             <div class="layui-input-inline" style="width: 50%">
-                <input name="consult" value="{{.obj.Consult}}"
-                       placeholder="http://p.qiao.baidu.com/cps/chat?siteId=15213845&userId=30737617&siteToken=b7387650dc45ac0bbeef7fc0f807ed9a"
-                       class="layui-input">
+                <input name="consult" value="{{.obj.Consult}}" placeholder="http://第三方在线客服链接" class="layui-input">
             </div>
-            <div class="layui-form-mid layui-word-aux">如QQ在线</div>
+            <div class="layui-form-mid layui-word-aux">第三方在线客服链接</div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="不选择则展示全部">屏蔽区域:</label>
