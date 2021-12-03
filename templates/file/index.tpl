@@ -275,9 +275,9 @@
                                 return
                             }
                             let loadIndex = layer.load(1, {shade: [0.6, '#000', true]});
-                            $.get(url + '/editor', {path: obj.data.path, hide: true}, function (html) {
+                            $.get(url + '/editor', {path: obj.data.path, pure: true}, function (html) {
                                 layui.layer.close(loadIndex);
-                                main.popup({title: false, content: html, maxmin: false, area: '95%'});
+                                main.popup({title: false, content: html, maxmin: false});
                                 tabled.reload({where: {path: curPath.data.path}});
                             });
                     }
@@ -418,6 +418,7 @@
             return false;
         });
     });
+
     class CurPath {
         constructor() {
             this.currentPathElem = $('#current-path');

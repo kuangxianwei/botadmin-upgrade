@@ -153,7 +153,7 @@
                                 <div class="layui-col-sm4">
                                     <label class="layui-form-label" lay-tips="每个网页的标题后缀 如:南方39助孕网">副标题:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="title_suffix" value="{{.obj.TitleSuffix}}"
+                                        <input type="text" name="subtitle" value="{{.obj.Subtitle}}"
                                                autocomplete="off" class="layui-input" placeholder="39助孕网">
                                     </div>
                                 </div>
@@ -196,23 +196,9 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label" lay-tips="留空为智能填充,建议用其他编辑器编写好了再粘贴过来">栏目列表:</label>
-                            <div class="layui-input-block">
-                                {{$classesExample:=`顶级栏目1(一个栏目一行,一个栏目不可换行)
----->二级栏目1
----->二级栏目2
--------->三级栏目
-顶级栏目2
----->二级栏目
-顶级栏目3` -}}
-                                <div class="layui-form-mid layui-word-aux">
-                                    name=栏目名称 || alias=别名 || keywords=关键词1 || 关键词2 || 关键词3 || description=描述 ||
-                                    id=栏目ID || parent_id=父ID || parent_name=父栏目 || path=路径 || url=URL ||
-                                    hidden=false(隐藏栏目) || is_face=false(是封面) || level=0(几级栏目)
-                                </div>
-                                <textarea name="classes" class="layui-textarea" rows="7"
-                                          placeholder="{{$classesExample}}">{{print .obj.Classes }}</textarea>
-                            </div>
+                            <label class="layui-form-label">栏目列表:</label>
+                            <input type="hidden" name="classes" value="{{print .obj.Classes }}">
+                            <div class="layui-input-block" id="class-tree"></div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-row">
@@ -783,6 +769,12 @@
                         </div>
                         <div class="layui-form-mid layui-word-aux">默认为0，即不限制 每个连接线程的速度，单位KB/S</div>
                     </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" lay-tips="需要标准的json格式">其他配置:</label>
+                        <div class="layui-input-block">
+                            <textarea name="others" class="layui-textarea" rows="7" placeholder="{&quot;tag_limit&quot;:10,&quot;tag_show&quot;:0}">{{print .obj.Others }}</textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="layui-form-item layui-hide">
@@ -794,12 +786,13 @@
         </div>
     </div>
 </div>
+<div class="layui-icon-paste"></div>
 <script>
     layui.use(['main'], function () {
         let main = layui.main,
             form = layui.form,
             layer = layui.layer;
-        $('[lay-event]').off('click').on('click',function () {
+        $('[lay-event]').off('click').on('click', function () {
             switch ($(this).attr('lay-event')) {
                 case 'valid-title':
                     main.req({
@@ -810,7 +803,7 @@
                 case 'valid-title-suffix':
                     main.req({
                         url: '/site/valid',
-                        data: {text: $('input[name=title_suffix]').val()}
+                        data: {text: $('input[name=subtitle]').val()}
                     });
                     break;
                 case 'valid-description':
@@ -847,7 +840,7 @@
                 $('#theme').empty();
                 main.render.tpl();
             });
-            if (obj.value === 'dedecms') {
+            if (obj.value === 'dedecms'||obj.value === 'cms') {
                 $('select[name=rewrite]>option').prop('selected', false);
             } else {
                 $('select[name=rewrite]>option[value="' + obj.value + '.conf"]').prop('selected', true);
@@ -865,7 +858,7 @@
             {elem: '#out_link_deg', value: {{$.obj.OutLinkDeg}}},
             {elem: '#title_tag_deg', value: {{$.obj.TitleTagDeg}}},
         );
-        //改变模板
+        // 改变模板
         form.on('select(tpl_name)', function (obj) {
             $('#theme').empty();
             if (obj.value) {

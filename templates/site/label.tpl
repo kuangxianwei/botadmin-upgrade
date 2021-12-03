@@ -58,7 +58,7 @@
                 <td>主域名标题</td>
             </tr>
             <tr>
-                <td>title_suffix</td>
+                <td>subtitle</td>
                 <td>string</td>
                 <td>标题后缀</td>
             </tr>

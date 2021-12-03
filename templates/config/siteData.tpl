@@ -23,7 +23,7 @@
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="tag">Tag</button>
-                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="title_suffix">副标题
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="subtitle">副标题
                             </button>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                                 <p>可用标签是:</p>
                                 <p>&#123;{city}&#125; 代表城市名称 例如:广州</p>
                                 <p>&#123;{province}&#125; 代表省份 例如:广东</p>
-                                <p>&#123;{title_suffix}&#125; 代表副标题 例如:南方39助孕网</p>
+                                <p>&#123;{subtitle}&#125; 代表副标题 例如:南方39助孕网</p>
                                 <p>&#123;{keyword}&#125; 代表关键词 例如:试管婴儿</p>
                                 <p>&#123;{description}&#125; 描述</p>
                                 <p>&#123;{domain}&#125; 代表当前域名 例如:www.botadmin.cn</p>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
-                        <textarea class="layui-textarea" name="title_suffixes" rows="15">{{join .obj.TitleSuffixes "\n"}}</textarea>
+                        <textarea class="layui-textarea" name="subtitles" rows="15">{{join .obj.Subtitles "\n"}}</textarea>
                         <label class="layui-form-label">插入标签:</label>
                         <div class="layui-input-block">
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
@@ -107,7 +107,7 @@
                                 <p>&#123;{city}&#125; 代表城市名称 例如:广州</p>
                                 <p>&#123;{province}&#125; 代表省份 例如:广东</p>
                                 <p>&#123;{title}&#125; 代表标题 例如:南方39试管婴儿助孕生殖网</p>
-                                <p>&#123;{title_suffix}&#125; 代表副标题 例如:南方39助孕网</p>
+                                <p>&#123;{subtitle}&#125; 代表副标题 例如:南方39助孕网</p>
                                 <p>&#123;{keyword}&#125; 代表关键词 例如:试管婴儿</p>
                                 <p>&#123;{domain}&#125; 代表当前域名 例如:www.botadmin.cn</p>
                                 <p>&#123;{tag}&#125; 代表tag 例如:广州试管婴儿</p>
@@ -158,7 +158,7 @@
                                 <p>&#123;{city}&#125; 代表城市名称 例如:广州</p>
                                 <p>&#123;{province}&#125; 代表省份 例如:广东</p>
                                 <p>&#123;{title}&#125; 代表标题 例如:南方39试管婴儿助孕生殖网</p>
-                                <p>&#123;{title_suffix}&#125; 代表副标题 例如:南方39助孕网</p>
+                                <p>&#123;{subtitle}&#125; 代表副标题 例如:南方39助孕网</p>
                                 <p>&#123;{keyword}&#125; 代表关键词 例如:试管婴儿</p>
                                 <p>&#123;{domain}&#125; 代表当前域名 例如:www.botadmin.cn</p>
                                 <p>&#123;{tag}&#125; 代表tag 例如:广州试管婴儿</p>

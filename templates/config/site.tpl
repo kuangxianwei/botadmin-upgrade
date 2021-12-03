@@ -547,25 +547,6 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" lay-tips="留空为智能填充,建议用其他编辑器编写好了再粘贴过来">栏目列表:</label>
-                        <div class="layui-input-block">
-                            {{$classesExample:=`顶级栏目1(一个栏目一行,一个栏目不可换行)
----->二级栏目1
----->二级栏目2
--------->三级栏目
-顶级栏目2
----->二级栏目
-顶级栏目3` -}}
-                            <div class="layui-form-mid layui-word-aux">
-                                name=栏目名称 || alias=别名 || keywords=关键词1 || 关键词2 || 关键词3 || description=描述 ||
-                                id=栏目ID || parent_id=父ID || parent_name=父栏目 || path=路径 || url=URL ||
-                                hidden=false(隐藏栏目) || is_face=false(是封面) || level=0(几级栏目)
-                            </div>
-                            <textarea name="classes" class="layui-textarea" rows="7"
-                                      placeholder="{{$classesExample}}">{{print .obj.Classes }}</textarea>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
                         <label class="layui-form-label">广告代码</label>
                         <div class="layui-input-block">
                             <textarea name="ad" class="layui-textarea" placeholder="这里是放广告代码 主要是javascript 代码">{{.obj.Ad}}</textarea>
@@ -574,8 +555,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">关键词替换</label>
                         <div class="layui-input-inline">
-                                        <textarea class="layui-textarea" name="replaces"
-                                                  placeholder="小姐=>美女">{{join .obj.Replaces "\n"}}</textarea>
+                            <textarea class="layui-textarea" name="replaces" placeholder="小姐=>美女">{{join .obj.Replaces "\n"}}</textarea>
                         </div>
                         <div class="layui-form-mid layui-word-aux">留空为不启用 "代孕=>怀孕" 一行一个
                         </div>
@@ -583,12 +563,15 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">联系方式:</label>
                         <div class="layui-input-inline">
-                            {{$contact:=`李谊:139-2235-2985
-韩晶:135-3983-5229`}}
-                            <textarea class="layui-textarea" name="contact"
-                                      placeholder="{{$contact}}">{{join .obj.Contact "\n"}}</textarea>
+                            <textarea class="layui-textarea" name="contact" placeholder="李谊:139-2235-2985&#34;韩晶:135-3983-5229">{{join .obj.Contact "\n"}}</textarea>
                         </div>
                         <div class="layui-form-mid layui-word-aux">联系方式一行一条 名称:139-2235-2985</div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" lay-tips="需要标准的json格式">其他配置:</label>
+                        <div class="layui-input-block">
+                            <textarea name="others" class="layui-textarea" rows="7" placeholder="{&quot;tag_limit&quot;:10,&quot;tag_show&quot;:0}">{{print .obj.Others }}</textarea>
+                        </div>
                     </div>
                 </div>
             </div>

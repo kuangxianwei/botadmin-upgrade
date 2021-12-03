@@ -108,21 +108,20 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_nginx">Nginx
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_nginx">重启Nginx
                             </button>
                         </dd>
                         <dd>
                             <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_website_setup">
-                                网站配置
+                                更新配置
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="update_website">更新网站
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="update_website">更新HTML
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="pull_config">拉取配置
-                            </button>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="pull_config">拉取配置</button>
                         </dd>
                     </dl>
                 </li>
@@ -155,11 +154,14 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="links">添加友链
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="links">
+                                <i class="layui-icon layui-icon-link"></i>
+                                添加友链
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="del_links">
+                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="links-del">
+                                <i class="layui-icon layui-icon-link"></i>
                                 删除友链
                             </button>
                         </dd>
@@ -215,15 +217,15 @@
 <script type="text/html" id="table-copy">
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-                data-type="web_user" lay-tips="复制登录用户名到粘贴板">
+                data-type="web_user" lay-tips="复制管理用户名到粘贴板">
             <i class="layui-icon layui-icon-username"></i>
         </button>
         <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-                data-type="web_pwd" lay-tips="复制登录密码到粘贴板">
+                data-type="web_pwd" lay-tips="复制管理密码到粘贴板">
             <i class="layui-icon layui-icon-password"></i>
         </button>
         <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-                data-type="auth_code" lay-tips="复制登录认证码到粘贴板">
+                data-type="auth_code" lay-tips="复制管理认证码到粘贴板">
             <i class="layui-icon layui-icon-auz"></i>
         </button>
     </div>
@@ -241,12 +243,8 @@
         <button class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dir" lay-tips="设置文章图片">
             <i class="layui-icon layui-icon-picture"></i>
         </button>
-        <button class="layui-btn layui-btn-xs" lay-event="link" lay-tips="添加友链">
-            加<i class="layui-icon layui-icon-link"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-bg-red" lay-event="del_link" lay-tips="删除友链">
-            删<i class="layui-icon layui-icon-link"></i>
-        </button>
+        <button class="layui-btn layui-btn-xs" lay-event="link" lay-tips="操作友情链接">
+            <i class="layui-icon layui-icon-link"></i></button>
         <button class="layui-btn layui-btn-xs" lay-event="mysql" lay-tips="备份/还原数据库">
             <i class="layui-icon iconfont icon-sql"></i>
         </button>
@@ -312,14 +310,28 @@
         </div>
     </div>
 </script>
+<script type="text/template" id="links-add-html">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <textarea class="layui-textarea" name="links" rows="6" placeholder="SEO=>http://www.botadmin.cn&#13;SEO培训=>http://www.botadmin.cn" lay-verify="required"></textarea>
+            </div>
+            <div class="layui-form-item layui-hide">
+                <input type="hidden" name="ids" value="">
+                <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
+            </div>
+        </div>
+    </div>
+</script>
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.use(['index', 'main'], function () {
+    layui.use(['index', 'main', 'classes'], function () {
         let form = layui.form,
             table = layui.table,
             upload = layui.upload,
             element = layui.element,
             main = layui.main,
+            classes = layui.classes,
             status = {{.status}},
             //渲染上传配置
             importConfig = upload.render({
@@ -341,6 +353,7 @@
                     }
                 },
             });
+        status = status || [];
         let active = {
                 'cron_switch': function (obj) {
                     let $this = this;
@@ -382,19 +395,27 @@
                             title: '修改网站设置',
                             content: html,
                             ending: 'table-list',
+                            success: function () {
+                                this.classes = classes();
+                            },
+                            yes: function () {
+                                this.classes.done();
+                            }
                         });
                         form.render();
                     });
                 },
                 'link': function (obj) {
-                    $.get(url + '/link', {id: obj.data.id}, function (html) {
-                        main.popup({
-                            url: url + '/link',
-                            title: '添改友链',
-                            content: html,
-                            area: '500px',
-                        });
-                        form.render();
+                    layer.open({
+                        type: 2,
+                        shadeClose: true,
+                        scrollbar: false,
+                        shade: 0.8,
+                        maxmin: true,
+                        btn: false,
+                        area: ['95%', '95%'],
+                        title: '友情链接',
+                        content: url + '/link?id=' + obj.data.id,
                     });
                 },
                 'del_link': function (obj) {
@@ -423,7 +444,7 @@
                         form.render();
                     });
                 },
-                'mysql': function () {
+                'mysql': function (obj) {
                     layer.open({
                         type: 1,
                         title: '备份/还原MySQL',
@@ -432,16 +453,16 @@
                         btnAlign: 'c',
                         shade: 0.8,
                         fixed: false,
-                        area: '450px',
+                        area: ['450px', '300px'],
                         maxmin: true,
                         btn: ['确定', '取消'],
                         content: $('#mysql-html').html(),
                         success: function (dom, index) {
                             let uuid = main.uuid(), elem = dom.find('.layui-form');
-                            elem.append('<button class="layui-hide" lay-submit lay-filter="' + uuid + '"></button>');
+                            elem.append('<input type="hidden" name="id" value="' + obj.data.id + '"><button class="layui-hide" lay-submit lay-filter="' + uuid + '"></button>');
                             form.render();
-                            form.on('radio(mysql-action)', function (obj) {
-                                if (obj.value === '1') {
+                            form.on('radio(mysql-action)', function (event) {
+                                if (event.value === '1') {
                                     layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
                                         layer.close(index);
                                         $.get(url + "/sql/backup", {webroot_path: obj.data['webroot_path']}, function (res) {
@@ -465,13 +486,12 @@
                             });
                             form.on('submit(' + uuid + ')', function (obj) {
                                 let field = obj.field;
-                                field.id = obj.data.id;
                                 main.req({
                                     url: url + "/mysql",
                                     data: field,
                                     index: index,
                                     ending: function () {
-                                        main.ws.log('site.' + obj.data.id);
+                                        main.ws.log('site.' + field.id);
                                         return false;
                                     }
                                 });
@@ -532,7 +552,11 @@
                     main.copy.exec(obj.data[this.data("type")], layer.msg('复制成功'));
                 },
                 'login': function (obj) {
-                    window.open(obj.data['admin_url'], '_blank');
+                    if (obj.data.system === 'cms') {
+                        window.open('/cms?id=' + obj.data.id, '_blank');
+                    } else {
+                        window.open(obj.data['admin_url'], '_blank');
+                    }
                 },
             },
             activeBar = {
@@ -574,6 +598,12 @@
                             title: '添加网站',
                             content: html,
                             ending: 'table-list',
+                            success: function () {
+                                this.classes = classes();
+                            },
+                            yes: function () {
+                                this.classes.done();
+                            }
                         });
                     });
                 },
@@ -864,28 +894,28 @@
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
-                    $.get(url + '/link', {ids: ids.join()}, function (html) {
-                        main.popup({
-                            url: url + '/link',
-                            title: '添加友链',
-                            content: html,
-                            area: '500px',
-                        });
-                        form.render();
+                    main.popup({
+                        title: "添加友情链接",
+                        url: url + "/link/add",
+                        area: ['500px', '300px'],
+                        content: $('#links-add-html').html(),
+                        success: function (dom) {
+                            dom.find("[name=ids]").val(ids.join());
+                        },
                     });
                 },
-                'del_links': function (data, ids) {
+                'links-del': function (data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
-                    $.get(url + '/link', {ids: ids.join()}, function (html) {
-                        main.popup({
-                            url: url + '/del/link',
-                            title: '删除友链',
-                            content: html,
-                            area: '500px',
-                        });
-                        form.render();
+                    main.popup({
+                        title: "删除友情链接",
+                        url: url + "/link/del",
+                        area: ['500px', '300px'],
+                        content: $('#links-add-html').html(),
+                        success: function (dom) {
+                            dom.find("[name=ids]").val(ids.join());
+                        },
                     });
                 },
             };
@@ -909,17 +939,31 @@
                     field: 'vhost', title: '主域名',
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold',
                     templet: function (d) {
-                        if (d.status === 4) {
-                            return d.vhost;
+                        let icon = '';
+                        switch (d.system) {
+                            case 'cms':
+                                icon = `<small class="iconfont icon-local-shop" style="padding-right:6px;color:rgba(0,0,0,0.3)" title="内置CMS"></small>`;
+                                break;
+                            case 'empirecms':
+                                icon = `<small style="padding-right:6px;color:rgba(0,0,0,0.3)" title="帝国CMS">帝国</small>`;
+                                break;
+                            case 'dedecms':
+                                icon = `<small style="padding-right:6px;color:rgba(0,0,0,0.3)" title="织梦CMS">织梦</small>`;
+                                break;
+                            case 'discuz':
+                                icon = `<small style="padding-right:6px;color:rgba(0,0,0,0.3)" title="Discuz论坛">Discuz</small>`;
+                                break;
                         }
-                        return '<a lay-href="/file?path=' + d['webroot_path'] + '" style="color:#01aaed" lay-tips="' + d['title'] + '">' + d.vhost + '</a>';
+                        if (d.status === 4) {
+                            return icon + d.vhost;
+                        }
+                        return icon + '<a lay-href="/file?path=' + d['webroot_path'] + '" style="color:#01aaed" lay-tips="' + d['title'] + '">' + d.vhost + '</a>';
                     }
                 },
                 {
                     field: 'status', title: '状态', sort: true, width: 100, templet: function (d) {
-                        status = status || [];
-                        let _status = status[d.status];
-                        return '<strong style="color:' + _status.color + '" lay-tips="' + _status.alias + '">' + _status.name + '</strong>';
+                        let stat = status[d.status];
+                        return '<strong style="color:' + stat.color + '" lay-tips="' + stat.alias + '">' + stat.name + '</strong>';
                     }
                 },
                 {
@@ -933,7 +977,7 @@
                 {
                     field: 'admin_url', title: 'admin', align: 'center', event: 'login',
                     style: 'cursor:pointer;color:#01aaed;', width: 80, templet: function () {
-                        return '登录';
+                        return '管理';
                     }
                 },
                 {title: '复制', width: 126, align: 'center', fixed: 'right', toolbar: '#table-copy'},
@@ -958,7 +1002,7 @@
                         return '<i class="layui-icon layui-icon-delete"></i>';
                     }
                 },
-                {title: '操作', width: 280, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', width: 240, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ],],
             page: true,
             limit: 10,

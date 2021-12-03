@@ -71,7 +71,7 @@
                                 </a>
                             </li>
                             <li class="layui-col-xs2">
-                                <a lay-href="/site/phps">
+                                <a lay-href="/site/php">
                                     <i class="layui-icon layui-icon-engine"></i>
                                     <cite>PHP版本</cite>
                                 </a>

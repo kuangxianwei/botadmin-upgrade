@@ -1,9 +1,22 @@
 /*导出基本操作*/
 layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
+// 判断字符串结尾
     String.prototype.hasSuffix = function (suffix) {
         return this.indexOf(suffix, this.length - suffix.length) !== -1;
     }
+    // 提取字符串中的数字 返回数字数组
+    String.prototype.digits = function () {
+        let arr = [];
+        this.split(/\D+/).forEach(function (s) {
+            let i = parseInt(s);
+            if (!isNaN(i)) {
+                arr.push(i);
+            }
+        });
+        return arr;
+    }
     const textareaHtml = `<style>.layui-layer-page .layui-layer-content {overflow:unset;}</style><textarea class="layui-textarea" style="border-radius:10px;margin:1%;padding:%0.5;height:94%;width:98%">`;
+
     // tags
     class Tags {
         constructor() {
@@ -18,12 +31,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             this.del = function (elem) {
                 let othis = this;
                 (elem ? elem.find('i.layui-icon-close-fill') : $('i.layui-icon-close-fill')).off('click').on('click', function () {
-                    let thisText = $(this).parent().text(),
-                        tagsVal = othis.inputElem.val();
+                    let thisText = $(this).parent().text(), tagsVal = othis.inputElem.val();
                     $(this).parent().remove();
                     if (tagsVal) {
-                        let tags = tagsVal.split(','),
-                            newTags = [];
+                        let tags = tagsVal.split(','), newTags = [];
                         for (let i = 0; i < tags.length; i++) {
                             if (tags[i] !== thisText) {
                                 newTags.push(tags[i]);
@@ -35,8 +46,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             };
             this.add = function (val) {
                 if (val) {
-                    let othis = this, tagsVal = othis.inputElem.val(),
-                        exists = tagsVal ? tagsVal.split(',') : [];
+                    let othis = this, tagsVal = othis.inputElem.val(), exists = tagsVal ? tagsVal.split(',') : [];
                     if (tagsVal) {
                         if ($.inArray(val, exists) !== -1) {
                             $(this).val('');
@@ -131,8 +141,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             // 获取一个UUID
             this.uuid = function (len) {
                 len = len || 32;
-                let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-                    maxPos = chars.length,
+                let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', maxPos = chars.length,
                     pwd = '';
                 for (let i = 0; i < len; i++) {
                     pwd += chars.charAt(Math.floor(Math.random() * maxPos));
@@ -178,14 +187,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 del: function (selector) {
                     $('i[lay-event=del]').off('click').on('click', function () {
                         let othis = $(this);
-                        layer.confirm('确定删除该项吗?', {icon: 3, btn: ['确定', '取消']},
-                            function (index) {
-                                layer.close(index);
-                                return selector ? $(othis).closest(selector).remove() : $(othis).parent().remove();
-                            });
+                        layer.confirm('确定删除该项吗?', {icon: 3, btn: ['确定', '取消']}, function (index) {
+                            layer.close(index);
+                            return selector ? $(othis).closest(selector).remove() : $(othis).parent().remove();
+                        });
                     });
-                },
-                add: function (addFunc, delSelector) {
+                }, add: function (addFunc, delSelector) {
                     let othis = this;
                     $('[lay-event="add"]').off('click').on('click', function () {
                         addFunc();
@@ -196,8 +203,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             // 复制
             this.copy = {
                 exec: function (value, callback) {
-                    let flag, textarea = document.createElement("textarea"),
-                        currentFocus = document.activeElement,
+                    let flag, textarea = document.createElement("textarea"), currentFocus = document.activeElement,
                         body = document.getElementsByTagName("body")[0];
                     body.appendChild(textarea);
                     textarea.value = value;
@@ -220,8 +226,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         callback(value);
                     }
                     return flag;
-                },
-                on: function (selector, value, callback) {
+                }, on: function (selector, value, callback) {
                     let othis = this;
                     const elem = document.querySelector(selector);
                     if (typeof value === "undefined") {
@@ -307,28 +312,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 layer.close(loading);
             });
             return {
-                dom: dom,
-                options: reloadOptions,
-                reload: function (options, dom) {
+                dom: dom, options: reloadOptions, reload: function (options, dom) {
                     return othis.req($.extend(true, this.options, options || {}), dom);
                 }
             };
         }
 
-        // 弹窗
-        popup(options) {
-            let othis = this;
-            options = othis.tidyObj(options);
-            let hasSubmit = typeof options.submit === 'string',
-                success = typeof options.success === 'function' ? options.success : function () {
-                    return true;
-                },
-                yes = typeof options.yes === 'function' ? options.yes : function () {
-                    return true;
-                };
-            delete options.success;
-            delete options.yes;
-            options.submit = hasSubmit ? options.submit : othis.uuid();
+        // open
+        open(options) {
             layer.open($.extend({
                 type: 1,
                 shadeClose: true,
@@ -338,6 +329,23 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 maxmin: true,
                 btn: ['提交', '取消'],
                 area: ['95%', '95%'],
+            }, options || {}));
+        }
+
+        // 弹窗
+        popup(options) {
+            let othis = this;
+            options = othis.tidyObj(options);
+            let hasSubmit = typeof options.submit === 'string',
+                success = typeof options.success === 'function' ? options.success : function () {
+                    return true;
+                }, yes = typeof options.yes === 'function' ? options.yes : function () {
+                    return true;
+                };
+            delete options.success;
+            delete options.yes;
+            options.submit = hasSubmit ? options.submit : othis.uuid();
+            othis.open($.extend({
                 success: function (dom, index) {
                     form.render();
                     if (success(dom, index) === false) {
@@ -353,8 +361,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         }, dom);
                         return false;
                     });
-                },
-                yes: function (index, dom) {
+                }, yes: function (index, dom) {
                     if (yes(index, dom) === false) {
                         return false
                     }
@@ -363,7 +370,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     } else {
                         dom.find('*[lay-submit]').attr('lay-filter', options.submit).click();
                     }
-                },
+                }
             }, options));
         }
 
@@ -412,8 +419,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 
         // 获取表单数据
         formData(elem) {
-            let data = {},
-                items = {};
+            let data = {}, items = {};
             switch (typeof elem) {
                 case 'undefined':
                     items = $('.layui-form *[name]').serializeArray();
@@ -485,8 +491,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         onFillContact() {
             $('.fill-contact').html('<button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">填充默认</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="phone">插入手机号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">插入微信号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="alias">插入别名</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="email">插入邮箱</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">插入二维码</button><i class="layui-icon layui-icon-tips" lay-tips="{{phone}} 替换成手机号码&#13;{{wechat}} 替换为微信号&#13;{{alias}} 替换为别名&#13;{{email}} 替换为电子邮箱&#13;{{qr}} 替换为二维码图片地址" style="color:coral"></i>');
             $('[data-write]').off("click").on("click", function () {
-                let elem = $(this).closest("div.layui-form-item").find("textarea"),
-                    write = $(this).data("write");
+                let elem = $(this).closest("div.layui-form-item").find("textarea"), write = $(this).data("write");
                 switch (write) {
                     case "qr":
                         elem.insertAt('<img src="{{qr}}" alt="微信号:{{wechat}}" title="{{wechat}}" width="150" height="150">');
@@ -499,14 +504,307 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
             });
         }
+
+        // 填充内置CMS模板变量
+        onFillTheme() {
+            let othis = this, formHTML = '<div class="layui-card"><div class="layui-card-body layui-form"></div></div>';
+            $('.fill-theme').removeClass("layui-hide").html(`<div class="layui-row">
+    <div class="layui-col-md6"><div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs layui-btn-primary">全局标签</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Hostname}}">Hostname</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Title}}">站名</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Subtitle}}">副站名</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Keywords}}">关键词</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Config.City}}">城市名称</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Province}}">省名称</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Config.About}}">关于我们</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Ad}}">广告代码</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Pager}}">页面名称</button>
+        <button class="layui-btn layui-btn-xs" data-write='{{template "模板.tpl" .}}'>导入模板</button>
+        <button class="layui-btn layui-btn-xs" data-write="nav">导航HTML</button>
+        <button class="layui-btn layui-btn-xs" data-write="link">友情链接HTML</button>
+    </div></div>
+    <div class="layui-col-md6"><div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="list">列表标签</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{unescapeHTML .Positions}}">当前位置</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{unescapeHTML .Paginator}}">分页</button>
+    </div></div>
+    <div class="layui-col-md6"><div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="loop">循环标签</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Title}}">标题</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Subtitle}}">副标题</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Url}}">URL</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.TitlePic}}">标题图片</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{sub .Title 30}}">截取标题</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{sub .Description 150}}">截取描述</button>
+        <button class="layui-btn layui-btn-xs" data-write='{{date .Updated "2006-01-02 15:04"}}'>更新时间</button>
+        <button class="layui-btn layui-btn-xs" data-write='{{class .Cid | unescapeHTML}}'>栏目link</button>
+    </div></div>
+    <div class="layui-col-md6"><div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs layui-btn-primary">头部标签</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Title}}">标题</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Keywords}}">关键词</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Description}}">描述</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{canonicalLabel .Url}}">Canonical标签</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Theme}}">主题路径</button>
+    </div></div>
+    <div class="layui-col-md6"><div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs layui-btn-primary">文章标签</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{unescapeHTML .Positions}}">当前位置</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.Article.Title}}">标题</button>
+        <button class="layui-btn layui-btn-xs" data-write='{{date .Article.Created "2006-01-02 15:04"}}'>发布时间</button>
+        <button class="layui-btn layui-btn-xs" data-write='<script src="{{.Config.Hostname}}/hot.js?aid={{.Article.Id}}"></script>'>点击量</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{unescapeHTML .Article.Content}}">内容</button>
+        <button class="layui-btn layui-btn-xs" data-write="tag">TagHTML</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Pre}}">上一篇</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Next}}">上一篇</button>
+        <button class="layui-btn layui-btn-xs" data-write="like">相关文章HTML</button>
+    </div></div>
+</div>`);
+            $('[data-write]').off("click").on("click", function () {
+                let $this = $(this), elem = $this.closest(".layui-form").find("textarea[name=content]"),
+                    write = $this.data("write");
+                switch (write) {
+                    case "nav":
+                        elem.insertAt(`<ul class="nav">
+    <li>
+        <a href="{{.Config.Hostname}}/">首页</a>
+    <li>
+        {{- range classes 12}}
+    <li{{if eq .Id $.Class.Id}}class="cur"{{end}}>
+        <a href="{{.Url}}">{{.Name}}</a>
+        {{- if .Children}}
+        <ul>
+            {{- range .Children}}
+            <li{{if eq .Id $.Class.Id}}class="cur"{{end}}><a href="{{.Url}}">{{.Name}}</a></li>
+            {{- end}}
+        </ul>
+        {{- end}}
+    </li>
+    {{- end}}
+</ul>`);
+                        break;
+                    case "link":
+                        othis.open({
+                            area: ["600px", "280px"], title: "友情链接标签", content: formHTML, success: function (dom) {
+                                dom.find(".layui-form").html(`<div class="layui-form-item">
+    <label class="layui-form-label">限制:</label>
+    <div class="layui-input-inline">
+        <input class="layui-input" min="1" name="limit" type="number" value="30">
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">显示:</label>
+    <div class="layui-input-block">
+        <input name="pager" title="全部" type="radio" value="all">
+        <input checked name="pager" title="首页" type="radio" value="index">
+        <input name="pager" title="封面" type="radio" value="face">
+        <input name="pager" title="文章" type="radio" value="article">
+        <input name="pager" title="TAG" type="radio" value="tag">
+    </div>
+</div>`);
+                                form.render();
+                            }, yes: function (index, dom) {
+                                let data = othis.formData(dom);
+                                if (data.pager === 'all') {
+                                    elem.insertAt(`<ul class="link">
+    {{- range links ` + data.limit + `}}
+    <li>{{unescapeHTML .}}</li>
+    {{- end}}
+</ul>`);
+                                } else {
+                                    elem.insertAt(`{{if eq .Pager "` + data.pager + `"}}
+<ul class="link">
+    {{- range links ` + data.limit + `}}
+    <li>{{unescapeHTML .}}</li>
+    {{- end}}
+</ul>
+{{end}}`);
+                                }
+                                layer.close(index);
+                            },
+                        });
+                        break;
+                    case "like":
+                        othis.open({
+                            area: ["600px", "280px"], title: "相关文章标签", content: formHTML, success: function (dom) {
+                                dom.find(".layui-form").html(`<div class="layui-form-item">
+    <label class="layui-form-label">限制:</label>
+    <div class="layui-input-inline">
+        <input class="layui-input" min="1" name="limit" type="number" value="30">
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">显示:</label>
+    <div class="layui-input-block">
+        <input name="pager" title="全部" type="radio" value="all">
+        <input checked name="pager" title="首页" type="radio" value="index">
+        <input name="pager" title="封面" type="radio" value="face">
+        <input name="pager" title="文章" type="radio" value="article">
+        <input name="pager" title="TAG" type="radio" value="tag">
+    </div>
+</div>`);
+                                form.render();
+                            }, yes: function (index, dom) {
+                                let data = othis.formData(dom);
+                                if (data.pager === 'all') {
+                                    elem.insertAt(`<ul class="like">
+    {{- range like ` + data.limit + `}}
+    <li>{{unescapeHTML .}}</li>
+    {{- end}}
+</ul>`);
+                                } else {
+                                    elem.insertAt(`{{if eq .Pager "` + data.pager + `"}}
+<ul class="link">
+    {{- range links ` + data.limit + `}}
+    <li>{{unescapeHTML .}}</li>
+    {{- end}}
+</ul>
+{{end}}`);
+                                }
+                                layer.close(index);
+                            },
+                        });
+                        break;
+                    case "loop":
+                        othis.open({
+                            area: ["900px", "460px"], title: "循环标签", content: formHTML, success: function (dom) {
+                                dom.find(".layui-form").html(`<div class="layui-form-item">
+    <div class="layui-inline">
+        <label class="layui-form-label" lay-tips="留空为当前栏目">栏目ID:</label>
+        <div class="layui-input-block">
+            <input class="layui-input" name="id" placeholder="1,2,3,5,6" type="text" value="">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">循环限制:</label>
+        <div class="layui-input-block">
+            <input class="layui-input" min="1" name="limit" type="number" value="8">
+        </div>
+    </div>
+</div>
+<div class="layui-form-item">
+    <div class="layui-inline">
+        <label class="layui-form-label">标题截取:</label>
+        <div class="layui-input-block">
+            <input class="layui-input" min="1" name="sub_title" type="number" value="60">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">描述截取:</label>
+        <div class="layui-input-block">
+            <input class="layui-input" min="1" name="sub_description" type="number" value="180">
+        </div>
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">推荐:</label>
+    <div class="layui-input-block">
+        <input name="good" title="荐1" type="checkbox" value="1">
+        <input name="good" title="荐2" type="checkbox" value="2">
+        <input name="good" title="荐3" type="checkbox" value="3">
+        <input name="good" title="荐4" type="checkbox" value="4">
+        <input name="good" title="荐5" type="checkbox" value="5">
+        <input name="good" title="荐6" type="checkbox" value="6">
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">时间格式:</label>
+    <div class="layui-input-block">
+        <input checked name="time" title="01-02 15:04" type="radio" value="01-02 15:04:05">
+        <input name="time" title="2006-01-02 15:04" type="radio" value="2006-01-02 15:04:05">
+        <input name="time" title="2006-01-02" type="radio" value="2006-01-02">
+    </div>
+</div>
+<div class="layui-form-item">
+    <div class="layui-inline">
+        <label class="layui-form-label">条件:</label>
+        <div class="layui-input-block">
+            <input checked name="where" title="任意" type="radio" value="">
+            <input name="where" title="有图片" type="radio" value="title_pic=1">
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">排序:</label>
+        <div class="layui-input-block">
+            <input checked name="order" title="最新" type="radio" value="0">
+            <input name="order" title="最火" type="radio" value="1">
+            <input name="order" title="ID升序" type="radio" value="2">
+            <input name="order" title="ID降序" type="radio" value="3">
+            <input name="order" title="随机" type="radio" value="4">
+        </div>
+    </div>
+</div>`);
+                                form.render();
+                            }, yes: function (index, dom) {
+                                let data = othis.formData(dom), range = '{{- range loop';
+                                if (data.id !== "") {
+                                    range += ' "' + data.id + '"';
+                                } else {
+                                    range += ' ""';
+                                }
+                                range += ' ' + data.order;
+                                range += ' ' + data.limit;
+                                if (Array.isArray(data['good'])) {
+                                    range += ' "attr=' + data['good'].join() + '"';
+                                } else if (data['good']) {
+                                    range += ' "attr=' + data['good'] + '"';
+                                }
+                                if (data['where']) {
+                                    range += ` "` + data['where'] + `"`;
+                                }
+                                range += "}}";
+                                elem.insertAt(`<ul>
+    ` + range + `
+    <li>
+        {{- if .TitlePic -}}
+        <!--标题图片-->
+        <img alt="{{.Subtitle}}" src="{{.TitlePic}}" title="{{.Title}}">
+        {{- end -}}
+        <!--标题链接-->
+        <a href="{{.Url}}">{{sub .Title ` + data['sub_title'] + `}}</a>
+        <!--描述-->
+        <p>{{sub .Description ` + data['sub_description'] + `}}</p>
+        <time>{{date .Updated "` + data.time + `"}}</time>
+    </li>
+    {{- end}}
+</ul>`);
+                                layer.close(index);
+                            },
+                        });
+                        break;
+                    case "list":
+                        elem.insertAt(`<ul>
+    {{- range .List}}
+    <li>
+        {{- if .TitlePic -}}
+        <!--标题图片-->
+        <img alt="{{.Subtitle}}" src="{{.TitlePic}}" title="{{.Title}}">
+        {{- end -}}
+        <!--标题链接-->
+        <a href="{{.Url}}">{{sub .Title 30}}</a>
+        <!--描述-->
+        <p>{{sub .Description 150}}</p>
+        <time>{{date .Updated "2006-01-02 15:04"}}</time>
+    </li>
+    {{- end}}
+</ul>`);
+                        break;
+                    case "tag":
+                        elem.insertAt(`<ul>
+    {{- range .Tags}}
+    <li>{{.}}</li>
+    {{- end}}
+</ul>`);
+                        break;
+                    default:
+                        elem.insertAt(write);
+                }
+            });
+        }
     }
 
-    let $ = layui.jquery,
-        layer = layui.layer,
-        form = layui.form,
-        table = layui.table,
-        slider = layui.slider,
-        // 范围
+    let $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table, slider = layui.slider, // 范围
         range = function (a, b, min, max) {
             if (a > max) {
                 a = max;
@@ -527,8 +825,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 return '*';
             }
             return a + '-' + b;
-        },
-        // 每
+        }, // 每
         per = function (a, b, min, max) {
             if (a < min || a > max) {
                 a = '*';
@@ -537,12 +834,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 b = 1;
             }
             return a + '/' + b;
-        },
-        // 判断是否为空
+        }, // 判断是否为空
         isNotBlank = function (str) {
             return str !== undefined && str !== '';
-        },
-        main = new Main();
+        }, main = new Main();
     // 定时规则spec
     let Cron = function (elem) {
         // 输入点例如：input[name=spec]
@@ -567,20 +862,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 计算秒
     Cron.prototype.computeSeconds = function () {
-        let othis = this,
-            data = form.val('cronSecForm'),
-            dataType = data['type[0]'];
-        if (
-            'range' === dataType &&
-            isNotBlank(data['rangeStart']) &&
-            isNotBlank(data['rangeEnd'])
-        ) {
+        let othis = this, data = form.val('cronSecForm'), dataType = data['type[0]'];
+        if ('range' === dataType && isNotBlank(data['rangeStart']) && isNotBlank(data['rangeEnd'])) {
             othis.spec[0] = range(data['rangeStart'], data['rangeEnd'], 0, 59);
-        } else if (
-            'per' === dataType &&
-            isNotBlank(data['perFrom']) &&
-            isNotBlank(data['perVal'])
-        ) {
+        } else if ('per' === dataType && isNotBlank(data['perFrom']) && isNotBlank(data['perVal'])) {
             othis.spec[0] = per(data['perFrom'], data['perVal'], 0, 59);
         } else if ('assign' === dataType) {
             let checkbox = [];
@@ -600,20 +885,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 计算分
     Cron.prototype.computeMinutes = function () {
-        let othis = this,
-            data = form.val('cronMinForm'),
-            dataType = data['type[1]'];
-        if (
-            'range' === dataType &&
-            isNotBlank(data['rangeStart']) &&
-            isNotBlank(data['rangeEnd'])
-        ) {
+        let othis = this, data = form.val('cronMinForm'), dataType = data['type[1]'];
+        if ('range' === dataType && isNotBlank(data['rangeStart']) && isNotBlank(data['rangeEnd'])) {
             othis.spec[1] = range(data['rangeStart'], data['rangeEnd'], 0, 59);
-        } else if (
-            'per' === dataType &&
-            isNotBlank(data['perFrom']) &&
-            isNotBlank(data['perVal'])
-        ) {
+        } else if ('per' === dataType && isNotBlank(data['perFrom']) && isNotBlank(data['perVal'])) {
             othis.spec[1] = per(data['perFrom'], data['perVal'], 0, 59);
         } else if ('assign' === dataType) {
             let checkbox = [];
@@ -633,20 +908,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 计算时
     Cron.prototype.computeHours = function () {
-        let othis = this,
-            data = form.val('cronHourForm'),
-            dataType = data['type[2]'];
-        if (
-            'range' === dataType &&
-            isNotBlank(data['rangeStart']) &&
-            isNotBlank(data['rangeEnd'])
-        ) {
+        let othis = this, data = form.val('cronHourForm'), dataType = data['type[2]'];
+        if ('range' === dataType && isNotBlank(data['rangeStart']) && isNotBlank(data['rangeEnd'])) {
             othis.spec[2] = range(data['rangeStart'], data['rangeEnd'], 0, 23);
-        } else if (
-            'per' === dataType &&
-            isNotBlank(data['perFrom']) &&
-            isNotBlank(data['perVal'])
-        ) {
+        } else if ('per' === dataType && isNotBlank(data['perFrom']) && isNotBlank(data['perVal'])) {
             othis.spec[2] = per(data['perFrom'], data['perVal'], 0, 24);
         } else if ('assign' === dataType) {
             let checkbox = [];
@@ -666,21 +931,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 计算天
     Cron.prototype.computeDays = function () {
-        let othis = this,
-            data = form.val('cronDayForm'),
-            dataType = data['type[3]'];
+        let othis = this, data = form.val('cronDayForm'), dataType = data['type[3]'];
 
-        if (
-            'range' === dataType &&
-            isNotBlank(data['rangeStart']) &&
-            isNotBlank(data['rangeEnd'])
-        ) {
+        if ('range' === dataType && isNotBlank(data['rangeStart']) && isNotBlank(data['rangeEnd'])) {
             othis.spec[3] = range(data['rangeStart'], data['rangeEnd'], 1, 31);
-        } else if (
-            'per' === dataType &&
-            isNotBlank(data['perFrom']) &&
-            isNotBlank(data['perVal'])
-        ) {
+        } else if ('per' === dataType && isNotBlank(data['perFrom']) && isNotBlank(data['perVal'])) {
             othis.spec[3] = per(data['perFrom'], data['perVal'], 1, 31);
         } else if ('assign' === dataType) {
             let checkbox = [];
@@ -702,20 +957,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 计算月
     Cron.prototype.computeMonths = function () {
-        let othis = this,
-            data = form.val('cronMonthForm'),
-            dataType = data['type[4]'];
-        if (
-            'range' === dataType &&
-            isNotBlank(data['rangeStart']) &&
-            isNotBlank(data['rangeEnd'])
-        ) {
+        let othis = this, data = form.val('cronMonthForm'), dataType = data['type[4]'];
+        if ('range' === dataType && isNotBlank(data['rangeStart']) && isNotBlank(data['rangeEnd'])) {
             othis.spec[4] = range(data['rangeStart'], data['rangeEnd'], 1, 12);
-        } else if (
-            'per' === dataType &&
-            isNotBlank(data['perFrom']) &&
-            isNotBlank(data['perVal'])
-        ) {
+        } else if ('per' === dataType && isNotBlank(data['perFrom']) && isNotBlank(data['perVal'])) {
             othis.spec[4] = per(data['perFrom'], data['perVal'], 1, 12);
         } else if ('assign' === dataType) {
             let checkbox = [];
@@ -735,20 +980,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 计算周
     Cron.prototype.computeWeeks = function () {
-        let othis = this,
-            data = form.val('cronWeekForm'),
-            dataType = data['type[5]'];
-        if (
-            'range' === dataType &&
-            isNotBlank(data['rangeStart']) &&
-            isNotBlank(data['rangeEnd'])
-        ) {
+        let othis = this, data = form.val('cronWeekForm'), dataType = data['type[5]'];
+        if ('range' === dataType && isNotBlank(data['rangeStart']) && isNotBlank(data['rangeEnd'])) {
             othis.spec[5] = range(data['rangeStart'], data['rangeEnd'], 0, 6);
-        } else if (
-            'per' === dataType &&
-            isNotBlank(data['perFrom']) &&
-            isNotBlank(data['perVal'])
-        ) {
+        } else if ('per' === dataType && isNotBlank(data['perFrom']) && isNotBlank(data['perVal'])) {
             othis.spec[5] = per(data['perFrom'], data['perVal'], 0, 6);
         } else if ('assign' === dataType) {
             let checkbox = [];
@@ -770,8 +1005,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 渲染秒
     Cron.prototype.secondsElem = function () {
-        let othis = this,
-            elem = '<div class="layui-tab-item layui-show layui-form" lay-filter="cronSecForm">',
+        let othis = this, elem = '<div class="layui-tab-item layui-show layui-form" lay-filter="cronSecForm">',
             radio = ['', '', '', ''], val = ['', '', '', '', []];
         if (othis.spec[0] === '*') {
             radio[0] = 'checked';
@@ -808,8 +1042,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 渲染分
     Cron.prototype.minutesElem = function () {
-        let othis = this,
-            elem = '<div class="layui-tab-item layui-form" lay-filter="cronMinForm">',
+        let othis = this, elem = '<div class="layui-tab-item layui-form" lay-filter="cronMinForm">',
             radio = ['', '', '', ''], val = ['', '', '', '', []];
         if (othis.spec[1] === '*') {
             radio[0] = 'checked';
@@ -846,8 +1079,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 渲染时
     Cron.prototype.hoursElem = function () {
-        let othis = this,
-            elem = '<div class="layui-tab-item layui-form" lay-filter="cronHourForm">',
+        let othis = this, elem = '<div class="layui-tab-item layui-form" lay-filter="cronHourForm">',
             radio = ['', '', '', ''], val = ['', '', '', '', []];
         if (othis.spec[2] === '*') {
             radio[0] = 'checked';
@@ -885,8 +1117,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 渲染天
     Cron.prototype.daysElem = function () {
-        let othis = this,
-            elem = '<div class="layui-tab-item layui-form" lay-filter="cronDayForm">',
+        let othis = this, elem = '<div class="layui-tab-item layui-form" lay-filter="cronDayForm">',
             radio = ['', '', '', '', ''], val = ['', '', '', '', []];
         if (othis.spec[3] === '*') {
             radio[0] = 'checked';
@@ -926,8 +1157,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 渲染月
     Cron.prototype.monthsElem = function () {
-        let othis = this,
-            elem = '<div class="layui-tab-item layui-form" lay-filter="cronMonthForm">',
+        let othis = this, elem = '<div class="layui-tab-item layui-form" lay-filter="cronMonthForm">',
             radio = ['', '', '', ''], val = ['', '', '', '', []];
         if (othis.spec[4] === '*') {
             radio[0] = 'checked';
@@ -964,8 +1194,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     // 渲染周
     Cron.prototype.weeksElem = function () {
-        let othis = this,
-            elem = '<div class="layui-tab-item layui-form" lay-filter="cronWeekForm">',
+        let othis = this, elem = '<div class="layui-tab-item layui-form" lay-filter="cronWeekForm">',
             radio = ['', '', '', '', ''], val = ['', '', '', '', []];
         if (othis.spec[5] === '*') {
             radio[0] = 'checked';
@@ -1019,8 +1248,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
         });
         elemMain += "</ul>";
-        elemMain += '<div class="layui-tab-content" style="padding:10px;width:450px;">' +
-            othis.secondsElem() + // 秒
+        elemMain += '<div class="layui-tab-content" style="padding:10px;width:450px;">' + othis.secondsElem() + // 秒
             othis.minutesElem() + // 分
             othis.hoursElem() + // 时
             othis.daysElem() + // 日
@@ -1055,16 +1283,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         // 绑定聚焦事件
         othis.elem.focus(function () {
             main.display({
-                area: ["560px", "430px"],
-                btn: "确定",
-                fixed: true,
-                content: othis.render(),
-                success: function () {
+                area: ["560px", "430px"], btn: "确定", fixed: true, content: othis.render(), success: function () {
                     form.render();
                     layui.element.render();
                     return true;
-                },
-                yes: function (index, dom) {
+                }, yes: function (index, dom) {
                     othis.done(dom);
                     layer.close(index)
                 }
@@ -1093,19 +1316,19 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     });
                 $this.parent().after(elem);
             });
-        },
-        tpl: function (tplName) {
+        }, tpl: function (tplName) {
             // 渲染模板图片
             tplName = tplName || $('select[name=tpl_name]').val();
             if (tplName) {
                 $.get('/site/theme', {
-                    system: $('select[name=system]').val(),
-                    tpl_name: tplName
+                    system: $('select[name=system]').val(), tpl_name: tplName
                 }, function (res) {
                     if (res.code === 0 && res.data.face) {
                         let ele = $('<img width="100%" height="100%" alt="" src="">').attr({
-                            src: res.data["small_face"], "data-src": res.data["face"],
-                            alt: res.data.alias, title: res.data["intro"],
+                            src: res.data["small_face"],
+                            "data-src": res.data["face"],
+                            alt: res.data.alias,
+                            title: res.data["intro"],
                         });
                         ele.off("click").on("click", function () {
                             let $this = $(this);
@@ -1147,15 +1370,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     }
                 }
             };
-        },
-        log: function (name, callback) {
+        }, log: function (name, callback) {
             if (!name) {
                 return false;
             }
             let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log');
             main.textarea("", {
-                area: ["75%", "75%"],
-                success: function (dom) {
+                area: ["75%", "75%"], success: function (dom) {
                     let elem = dom.find("textarea");
                     elem.css("margin-top", "-20px").before('<div style="position:relative;z-index:29821027;left:20px;width:90px;padding:6px;top:-20px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div>');
                     let statusElem = dom.find('#log-status');
@@ -1173,8 +1394,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             elem.focus().append(e.data.substr(1)).scrollTop(elem[0].scrollHeight);
                         }
                     };
-                },
-                end: function () {
+                }, end: function () {
                     w.close();
                     typeof callback === 'function' && callback();
                 }
@@ -1205,9 +1425,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             let tokens = ids.join();
             layer.confirm('清空日志记录? Tokens: <br/>' + tokens, function (index) {
                 main.req($.extend({
-                    url: '/record/reset',
-                    index: index,
-                    data: {tokens: tokens},
+                    url: '/record/reset', index: index, data: {tokens: tokens},
                 }, options || {}));
             });
         },
@@ -1216,31 +1434,24 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         app: function () {
             layer.confirm("确定重启App?", {icon: 3, title: false}, function (index) {
                 main.req({
-                    url: "/system/reboot",
-                    data: {act: "botadmin"},
-                    index: index,
-                    ending: function () {
+                    url: "/system/reboot", data: {act: "botadmin"}, index: index, ending: function () {
                         main.sleep(3000);
                         layer.alert('重启App成功!', {title: false, icon: 1, btn: "重新登录"}, function (index) {
                             layer.close(index);
-                            parent.location.reload("/auth/logout");
+                            parent.location.replace("/auth/logout");
                         });
                         return false;
                     }
                 });
             });
-        },
-        service: function () {
+        }, service: function () {
             layer.confirm("确定重启服务器?", {icon: 3, title: false}, function (index) {
                 main.req({
-                    url: "/system/reboot",
-                    data: {act: "reboot"},
-                    index: index,
-                    ending: function () {
+                    url: "/system/reboot", data: {act: "reboot"}, index: index, ending: function () {
                         main.sleep(5000);
                         layer.alert('重启服务器成功!', {title: false, icon: 1, btn: "重新登录"}, function (index) {
                             layer.close(index);
-                            parent.location.reload("/auth/logout");
+                            parent.location.replace("/auth/logout");
                         });
                         return false;
                     }
@@ -1273,10 +1484,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             if (!field.cols) {
                 return location.reload();
             }
-            //执行重载
+            // 执行重载
             table.reload('table-list', {
-                where: $.extend(field, options || {}),
-                page: {curr: 1}
+                where: $.extend(field, options || {}), page: {curr: 1}
             });
             return false;
         });
@@ -1299,11 +1509,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     return false;
                 }
                 main.popup({
-                    url: "/plugin/lnmp",
-                    title: "安装web服务器",
-                    content: html,
-                    area: ['560px', 'auto'],
-                    tips: function () {
+                    url: "/plugin/lnmp", title: "安装web服务器", content: html, area: ['560px', 'auto'], tips: function () {
                         main.ws.log("lnmp.0");
                     }
                 });
