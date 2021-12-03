@@ -1,25 +1,36 @@
 <div class="layui-card">
     <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item" id="form-search" lay-event="search">
-            <div class="layui-inline">
+        <div class="layui-row" id="form-search" lay-event="search">
+            <div class="layui-col-md3">
                 <label class="layui-form-label">IDS</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="text" name="ids" placeholder="1,2,4,5" class="layui-input">
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-col-md3">
                 <label class="layui-form-label">域名:</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="text" name="vhost" placeholder="模糊匹配域名" class="layui-input">
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-col-md3">
                 <label class="layui-form-label">状态</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <select name="status" lay-filter="search-select">
-                        <option value="">无</option>
+                        <option value="">全部</option>
                         {{range $i,$v:=.status -}}
                             <option value="{{$i}}">{{$v.Alias}}</option>
+                        {{end -}}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <label class="layui-form-label">网站程序</label>
+                <div class="layui-input-block">
+                    <select name="system" lay-filter="search-select">
+                        <option value="">全部</option>
+                        {{range $k,$v:=.drivers -}}
+                            <option value="{{$k}}">{{$v.Alias}}</option>
                         {{end -}}
                     </select>
                 </div>
