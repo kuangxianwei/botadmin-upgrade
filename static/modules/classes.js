@@ -2,7 +2,7 @@ layui.define(['main'], function (exports) {
     const main = layui.main,
         faceTool = '<div class="layui-btn-group"><i data-event="add" class="layui-icon layui-icon-add-circle"></i><i data-event="edit" class="layui-icon layui-icon-edit"></i></div>',
         listTool = '<div class="layui-btn-group"><i data-event="add" class="layui-icon layui-icon-add-circle"></i><i data-event="edit" class="layui-icon layui-icon-edit"></i><i data-event="del" class="layui-icon layui-icon-delete"></i></div>',
-        toolBar = '<div class="layui-btn-group tool-bar"><i data-event="addTop" class="layui-icon layui-icon-add-circle" lay-tips="添加顶级栏目"></i><i data-event="copy" class="layui-icon iconfont icon-copy" lay-tips="复制栏目列表"></i><i data-event="paste" class="layui-icon iconfont icon-paste" lay-tips="粘贴栏目"></i></div>',
+        toolBar = '<div class="layui-btn-group tool-bar"><i class="layui-icon layui-icon-add-circle" data-event="addTop" lay-tips="添加顶级栏目"></i><i class="layui-icon iconfont icon-copy" data-event="copy" lay-tips="复制栏目列表"></i><i class="layui-icon iconfont icon-paste" data-event="paste" lay-tips="粘贴栏目"></i><i class="layui-icon iconfont icon-fill" data-event="fill" lay-tips="随机填充栏目"></i></div>',
         fieldHTML = `<div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-card-body layui-form">
@@ -142,7 +142,22 @@ layui.define(['main'], function (exports) {
                 }
             };
             this.active = {
-                addTop: function (othis) {
+                fill: function (othis) {
+                    let items = sessionStorage.getItem("class_names");
+                    items = typeof items === 'string' ? items.split(",") : items;
+                    let num = parseInt($('input[name=class_num]').val()) || 8;
+                    if (Array.isArray(items) && items.length > 0) {
+                        let fields = [];
+                        items = main.randomN(items, num);
+                        for (let i = 0; i < items.length; i++) {
+                            fields[i] = {name: items[i]};
+                        }
+                        othis.render("", fields);
+                    } else {
+                        main.err("请设置栏目名称库");
+                        return false;
+                    }
+                }, addTop: function (othis) {
                     let elem = this.parent().parent();
                     layui.layer.open({
                         type: 1,

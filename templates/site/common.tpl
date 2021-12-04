@@ -791,7 +791,9 @@
     layui.use(['main'], function () {
         let main = layui.main,
             form = layui.form,
-            layer = layui.layer;
+            layer = layui.layer,
+            class_names = {{.class_names}};
+        sessionStorage.setItem("class_names", class_names || null);
         $('[lay-event]').off('click').on('click', function () {
             switch ($(this).attr('lay-event')) {
                 case 'valid-title':
@@ -840,7 +842,7 @@
                 $('#theme').empty();
                 main.render.tpl();
             });
-            if (obj.value === 'dedecms'||obj.value === 'cms') {
+            if (obj.value === 'dedecms' || obj.value === 'cms') {
                 $('select[name=rewrite]>option').prop('selected', false);
             } else {
                 $('select[name=rewrite]>option[value="' + obj.value + '.conf"]').prop('selected', true);

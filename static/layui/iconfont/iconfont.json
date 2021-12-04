@@ -6,6 +6,20 @@
   "description": "自动化程序图标",
   "glyphs": [
     {
+      "icon_id": "109741",
+      "name": "fill",
+      "font_class": "fill",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "15838482",
+      "name": "filter",
+      "font_class": "filter1",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
       "icon_id": "508909",
       "name": "等级",
       "font_class": "level",

@@ -182,6 +182,20 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
                 return arr;
             };
+            this.randomN = function (items, n) {
+                items = this.unique(items);
+                let shuffled = items.slice(0),
+                    i = items.length;
+                n = n > i ? i : n;
+                let min = i - n, temp, index;
+                while (i-- > min) {
+                    index = Math.floor((i + 1) * Math.random());
+                    temp = shuffled[index];
+                    shuffled[index] = shuffled[i];
+                    shuffled[i] = temp;
+                }
+                return shuffled.slice(min);
+            }
             // 监控
             this.on = {
                 del: function (selector) {
