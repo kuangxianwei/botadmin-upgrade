@@ -298,7 +298,7 @@
                     fieldElem.append(`<div class="layui-form-item">
     <label class="layui-form-label">发布间隔:</label>
     <div class="layui-input-inline">
-        <input class="layui-input" min="1" name="pub_interval" type="number" value="2">
+        <input class="layui-input" min="100" name="pub_interval" type="number" value="2000">
     </div>
     <div class="layui-form-mid layui-word-aux">发布文章间隔时间(毫秒)</div>
 </div>`);
