@@ -56,6 +56,20 @@
             <div class="layui-form-mid layui-word-aux">第三方在线客服链接</div>
         </div>
         <div class="layui-form-item">
+            <div class="layui-col-md6">
+                <label class="layui-form-label" lay-tips="一行一条规则(正则)">来路白名单:</label>
+                <div class="layui-input-block">
+                    <textarea class="layui-textarea" name="allowed_referer" placeholder="www.baidu.com&#13;www.sogou.com">{{join .obj.AllowedReferer "\n"}}</textarea>
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <label class="layui-form-label" lay-tips="一行一条规则(正则)">来路黑名单:</label>
+                <div class="layui-input-block">
+                    <textarea class="layui-textarea" name="disallowed_referer" placeholder="www.google.com&#13;www.sogou.com">{{join .obj.DisallowedReferer "\n"}}</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label" lay-tips="不选择则展示全部">屏蔽区域:</label>
             <input type="hidden" name="cities" value="{{join .obj.Cities ","}}">
             <div class="layui-form-mid layui-word-aux">

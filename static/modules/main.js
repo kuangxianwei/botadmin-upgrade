@@ -184,8 +184,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             };
             this.randomN = function (items, n) {
                 items = this.unique(items);
-                let shuffled = items.slice(0),
-                    i = items.length;
+                let shuffled = items.slice(0), i = items.length;
                 n = n > i ? i : n;
                 let min = i - n, temp, index;
                 while (i-- > min) {
@@ -378,6 +377,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }, yes: function (index, dom) {
                     if (yes(index, dom) === false) {
                         return false
+                    }
+                    let cols = [];
+                    dom.find('[name]').each(function () {
+                        if (this.name && this.name.indexOf(cols) === -1) {
+                            cols.push(this.name);
+                        }
+                    });
+                    if (cols) {
+                        dom.find('.layui-form input[name=cols]').remove();
+                        dom.find('.layui-form').append('<input type="hidden" name="cols" value="' + cols.join(",") + '">');
                     }
                     if (hasSubmit) {
                         dom.find('*[lay-submit][lay-filter=' + options.submit + ']').click();

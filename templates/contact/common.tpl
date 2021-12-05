@@ -1,5 +1,5 @@
 {{$tplTip:="{{phone}} 替换成手机号码<br>{{wechat}} 替换为微信号<br>{{alias}}  替换为别名<br>{{email}}  替换为电子邮箱<br>{{qr}}     替换为二维码图片地址<br>"}}
-<div class="layui-fluid">
+<div class="layui-fluid" id="contact-common">
     <div class="layui-card">
         <div class="layui-card-body layui-form">
             <div class="layui-form-item">
@@ -115,14 +115,29 @@
                 <div class="layui-input-inline" style="width: 50%">
                     <input name="consult" value="{{.obj.Consult}}" placeholder="填写在线咨询URL" class="layui-input">
                 </div>
-                <div class="layui-form-mid layui-word-aux">如QQ在线</div>
-                <button class="layui-btn" lay-event="fill-consult">填充默认</button>
+                <div class="layui-form-mid layui-word-aux">
+                    <i class="layui-icon iconfont icon-fill" data-event="fill-consult" lay-tips="填充默认数据" style="color:#0c80ba"></i>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-col-md6">
+                    <label class="layui-form-label"><cite lay-tips="一行一条规则(正则)">允许来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fill-allowed_referer" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
+                    <div class="layui-input-block">
+                        <textarea class="layui-textarea" name="allowed_referer" placeholder="www.baidu.com&#13;www.sogou.com">{{join .obj.AllowedReferer "\n"}}</textarea>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <label class="layui-form-label"><cite lay-tips="一行一条规则(正则)">拒绝来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fill-disallowed_referer" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
+                    <div class="layui-input-block">
+                        <textarea class="layui-textarea" name="disallowed_referer" placeholder="www.google.com&#13;www.sogou.com">{{join .obj.DisallowedReferer "\n"}}</textarea>
+                    </div>
+                </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">屏蔽区域:</label>
                 <input type="hidden" name="cities" value="{{join .obj.Cities ","}}">
                 <div class="layui-form-mid layui-word-aux">
-                    <i class="layui-icon layui-icon-edit" lay-event="cities" style="color:#22849b"></i>
+                    <i class="layui-icon layui-icon-edit" data-event="cities" style="color:#22849b"></i>
                     <cite style="margin-left:10px"></cite>
                 </div>
             </div>
@@ -130,10 +145,10 @@
                 <input type="hidden" name="durations">
                 <label class="layui-form-label">开放时间:</label>
                 <div class="layui-btn-group" style="line-height: 38px">
-                    <button class="layui-btn layui-btn-sm" lay-event="add-duration">
+                    <button class="layui-btn layui-btn-sm" data-event="add-duration">
                         <i class="layui-icon layui-icon-add-circle"></i>
                     </button>
-                    <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="del-duration" style="display:none;">
+                    <button class="layui-btn layui-btn-sm layui-bg-red" data-event="del-duration" style="display:none;">
                         <i class="layui-icon layui-icon-fonts-del"></i>
                     </button>
                 </div>
@@ -160,19 +175,19 @@
                 <div class="layui-input-block fill-contact" style="margin-top:-5px"></div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">其他:</label>
+                <label class="layui-form-label" lay-tips="例如百度统计客服代码">其他:</label>
                 <div class="layui-input-inline" style="width: 50%">
                     <textarea name="other" class="layui-textarea" rows="4">{{.obj.Other}}</textarea>
                 </div>
-                <div class="layui-form-mid layui-word-aux">例如百度统计客服代码</div>
-                <button class="layui-btn" lay-event="fill-other">填充默认</button>
+                <div class="layui-form-mid layui-word-aux">
+                    <i class="layui-icon iconfont icon-fill" data-event="fill-other" lay-tips="填充默认数据" style="color:#0c80ba"></i>
+                </div>
             </div>
             <div class="layui-hide">
                 <input type="hidden" name="id" value="{{.obj.Id}}">
                 <button lay-submit>提交</button>
                 <button id="uploadSubmit"></button>
                 <button id="submit"></button>
-                <input type="hidden" name="cols" value="pc_enabled,mobile_enabled,style_id,sort,history_enabled,alias,phone,wechat,max,weight,email,consult,cities,durations,tip_delay,tip_pure,tip_html,other">
             </div>
         </div>
     </div>
@@ -184,9 +199,7 @@
             transfer = layui.transfer,
             citiesData = {{.cityData}},
             durations = {{.obj.Durations}},
-            cities = {{.obj.Cities}},
-            addObj = $('*[lay-event=add-duration]'),
-            delObj = $('*[lay-event=del-duration]');
+            cities = {{.obj.Cities}};
         citiesData = citiesData || [];
         cities = cities || [];
         durations = durations || [];
@@ -200,76 +213,101 @@
                     titles.push(v.title);
                 }
             });
-            $('*[name=cities]+div>cite').text(titles.join());
+            $('[name=cities]+div>cite').text(titles.join());
         }
         //滑块控制
         main.slider({elem: '#weight', value: {{.obj.Weight}}, max: 100});
-        $('[lay-event="fill-consult"]').off('click').on('click', function () {
-            main.req({
-                url: '/contact/fill/consult', ending: function (res) {
-                    $('[name="consult"]').val(res.data);
+        let active = {
+            cities: function () {
+                main.display({
+                    type: 0,
+                    btn: ['确定'],
+                    content: `<div id="cities"></div>`,
+                    success: function (dom) {
+                        //显示城市搜索框
+                        transfer.render({
+                            title: ['全部区域', '屏蔽区域'],
+                            id: 'cityData',
+                            elem: dom.find('#cities'),
+                            data: citiesData,
+                            value: $('*[name=cities]').val().split(','),
+                            showSearch: true,
+                        });
+                    },
+                    yes: function (index) {
+                        let cityData = transfer.getData('cityData'), cities = [], titles = [];
+                        $.each(cityData, function (i, v) {
+                            cities[i] = v.value;
+                            titles[i] = v.title;
+                        });
+                        $('*[name=cities]').val(cities.join());
+                        $('*[name=cities]+div>cite').text(titles.join());
+                        layer.close(index);
+                    },
+                    area: ["540px", "450px"],
+                });
+            },
+            "fill-allowed_referer": function () {
+                main.req({
+                    url: '/contact/fill',
+                    data: {field: 'allowed_referer'},
+                    ending: function (res) {
+                        $('[name=allowed_referer]').val(res.data);
+                    }
+                });
+            },
+            "fill-disallowed_referer": function () {
+                main.req({
+                    url: '/contact/fill',
+                    data: {field: "disallowed_referer"},
+                    ending: function (res) {
+                        $('[name=disallowed_referer]').val(res.data);
+                    }
+                });
+            },
+            "fill-consult": function () {
+                main.req({
+                    url: '/contact/fill',
+                    data: {field: "consult"},
+                    ending: function (res) {
+                        $('[name=consult]').val(res.data);
+                    }
+                });
+            },
+            "fill-other": function () {
+                main.req({
+                    url: '/contact/fill',
+                    data: {field: "other"},
+                    ending: function (res) {
+                        $('[name=other]').val(res.data);
+                    }
+                });
+            },
+            "add-duration": function () {
+                let layKey = this.parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
+                layKey++;
+                this.parent().before('<div class="layui-input-inline"><input type="text" name="duration" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
+                layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
+                $('[data-event=del-duration]').show(200);
+            },
+            "del-duration": function () {
+                this.parents('div.layui-form-item').find('input:last').parent().remove();
+                let layKey = this.parents('div.layui-form-item').find('input:last').attr('lay-key');
+                if (typeof layKey === 'undefined') {
+                    $('[data-event=del-duration]').hide(200);
                 }
-            });
-        });
-        $('[lay-event="fill-other"]').off('click').on('click', function () {
-            main.req({
-                url: '/contact/fill/other', ending: function (res) {
-                    $('[name="other"]').val(res.data);
-                }
-            });
-        });
-        // 监控城市
-        $('*[lay-event=cities]').off('click').on('click', function () {
-            main.display({
-                type: 0,
-                btn: ['确定'],
-                content: `<div id="cities"></div>`,
-                success: function (dom) {
-                    //显示城市搜索框
-                    transfer.render({
-                        title: ['全部区域', '屏蔽区域'],
-                        id: 'cityData',
-                        elem: dom.find('#cities'),
-                        data: citiesData,
-                        value: $('*[name=cities]').val().split(','),
-                        showSearch: true,
-                    });
-                },
-                yes: function (index) {
-                    let cityData = transfer.getData('cityData'), cities = [], titles = [];
-                    $.each(cityData, function (i, v) {
-                        cities[i] = v.value;
-                        titles[i] = v.title;
-                    });
-                    $('*[name=cities]').val(cities.join());
-                    $('*[name=cities]+div>cite').text(titles.join());
-                    layer.close(index);
-                },
-                area: ["540px", "450px"],
-            });
-        });
-        // 添加时间段
-        addObj.off('click').on('click', function () {
-            let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
-            layKey++;
-            $(this).parent().before('<div class="layui-input-inline"><input type="text" name="duration" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
-            layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
-            delObj.show(200);
-        });
-        // 删除时间段
-        delObj.off('click').on('click', function () {
-            $(this).parents('div.layui-form-item').find('input:last').parent().remove();
-            let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key');
-            if (typeof layKey === 'undefined') {
-                delObj.hide(200);
-            }
+            },
+        };
+        $('#contact-common [data-event]').off('click').on('click', function () {
+            let $this = $(this), event = $this.data('event');
+            active[event] && active[event].call($this);
         });
         if (durations) {
             durations.forEach(function (item, index) {
                 index += 1;
                 $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="duration" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
                 layDate.render({elem: '#date-' + index, type: 'time', range: true});
-                delObj.show(200);
+                $('[data-event=del-duration]').show(200);
             });
         }
         main.onFillContact();

@@ -1,3 +1,9 @@
+<style>
+    .layui-form .layui-form-checkbox {
+        margin-top: 3px;
+        margin-bottom: 3px;
+    }
+</style>
 <div class="layui-card layui-form">
     <div class="layui-card-body">
         <fieldset class="layui-elem-field">
@@ -6,6 +12,8 @@
             <input type="checkbox" data-field="mobile_enabled" title="Mobile" lay-filter="field">
             <input type="checkbox" data-field="max" title="最大限制" lay-filter="field">
             <input type="checkbox" data-field="weight" title="权重" lay-filter="field">
+            <input type="checkbox" data-field="allowed_referer" title="允许来路" lay-filter="field">
+            <input type="checkbox" data-field="disallowed_referer" title="拒绝来路" lay-filter="field">
             <input type="checkbox" data-field="durations" title="开放时间" lay-filter="field">
             <input type="checkbox" data-field="cities" title="屏蔽区域" lay-filter="field">
             <input type="checkbox" data-field="pop_delay" title="延时弹窗" lay-filter="field">
@@ -70,6 +78,26 @@
                     main.slider({elem: '#weight', value: 0, max: 100});
                 } else {
                     fieldElem.find('[name=weight]').closest('.layui-form-item').remove();
+                }
+            },
+            'allowed_referer': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item"><label class="layui-form-label" lay-tips="一行一条规则(正则)">来路白名单:</label>
+                    <div class="layui-input-block">
+                        <textarea class="layui-textarea" name="allowed_referer" placeholder="www.google.com&#13;www.sogou.com"></textarea>
+                    </div></div>`);
+                } else {
+                    fieldElem.find('[name=allowed_referer]').closest('.layui-form-item').remove();
+                }
+            },
+            'disallowed_referer': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item"><label class="layui-form-label" lay-tips="一行一条规则(正则)">来路黑名单:</label>
+                    <div class="layui-input-block">
+                        <textarea class="layui-textarea" name="disallowed_referer" placeholder="www.google.com&#13;www.sogou.com"></textarea>
+                    </div></div>`);
+                } else {
+                    fieldElem.find('[name=disallowed_referer]').closest('.layui-form-item').remove();
                 }
             },
             'cities': function (enabled) {
