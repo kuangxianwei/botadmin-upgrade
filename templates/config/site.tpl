@@ -318,41 +318,47 @@
                 </div>
                 <div class="layui-tab-item">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">发布模式:</label>
-                        <div class="layui-input-inline">
-                            <select name="publish_mode" class="layui-select">
-                                <option value="0"{{if eq .obj.PublishMode 0}} selected{{end}}>随机模式</option>
-                                <option value="1"{{if eq .obj.PublishMode 1}} selected{{end}}>正常模式</option>
-                                <option value="2"{{if eq .obj.PublishMode 2}} selected{{end}}>百科模式</option>
-                            </select>
+                        <div class="layui-row">
+                            <div class="layui-col-md6">
+                                <label class="layui-form-label">发布模式:</label>
+                                <div class="layui-input-inline">
+                                    <select name="publish_mode" class="layui-select">
+                                        <option value="0"{{if eq .obj.PublishMode 0}} selected{{end}}>随机模式</option>
+                                        <option value="1"{{if eq .obj.PublishMode 1}} selected{{end}}>正常模式</option>
+                                        <option value="2"{{if eq .obj.PublishMode 2}} selected{{end}}>百科模式</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-col-md6">
+                                <label class="layui-form-label">标题格式:</label>
+                                <div class="layui-input-inline">
+                                    <textarea name="title_formats" rows="3" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">
+                                    标签: &#123;&#123;tag&#125;&#125; &#123;&#123;title&#125;&#125; <br/> 一行一条
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">标题格式:</label>
-                        <div class="layui-input-inline">
-                            <textarea name="title_formats" rows="3"
-                                      class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
+                        <div class="layui-row">
+                            <div class="layui-col-md6">
+                                <label class="layui-form-label">图片路径:</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="pic_dir" value="{{.obj.PicDir}}" class="layui-input"/>
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">
+                                    <a lay-href="/file?path=data/pic/{{.obj.PicDir}}" lay-text="默认图片">点击添加或删除图片</a>
+                                </div>
+                            </div>
+                            <div class="layui-col-md6">
+                                <label class="layui-form-label">发布间隔:</label>
+                                <div class="layui-input-inline">
+                                    <input type="number" min="1" name="pub_interval" value="{{.obj.PubInterval}}" class="layui-input"/>
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">单位为秒</div>
+                            </div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            可用标签为&#123;&#123;tag&#125;&#125; &#123;&#123;title&#125;&#125; 标签为必须 一行一条
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">图片路径:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="pic_dir" value="{{.obj.PicDir}}" class="layui-input"/>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <a lay-href="/file?path=data/pic/{{.obj.PicDir}}" lay-text="默认图片">点击添加或删除图片</a>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">插图阈值:</label>
-                        <div class="layui-input-inline">
-                            <div id="insert_pic_deg" class="slider-inline"></div>
-                            <input type="hidden" name="insert_pic_deg" value="{{print .obj.InsertPicDeg}}"/>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">随机插入图片数量</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label" lay-tips="随机发布1至3篇文章数量">发布阈值:</label>
@@ -362,95 +368,105 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">内容阈值:</label>
-                        <div class="layui-input-inline">
-                            <div id="content_deg" class="slider-inline"></div>
-                            <input type="hidden" name="content_deg" value="{{print .obj.ContentDeg}}"/>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">插图阈值:</label>
+                            <div class="layui-input-inline">
+                                <div id="insert_pic_deg" class="slider-inline"></div>
+                                <input type="hidden" name="insert_pic_deg" value="{{print .obj.InsertPicDeg}}"/>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">随机插入图片数量</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">内容内随机插入关键词数量</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">原创度:</label>
-                        <div class="layui-input-inline">
-                            <div id="originality_rate" class="slider-inline"></div>
-                            <input type="hidden" name="originality_rate" value="{{$.obj.OriginalityRate}}">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">内容阈值:</label>
+                            <div class="layui-input-inline">
+                                <div id="content_deg" class="slider-inline"></div>
+                                <input type="hidden" name="content_deg" value="{{print .obj.ContentDeg}}"/>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">内容内随机插入关键词数量</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">大于或等于这个值才发布</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">属性阀值:</label>
-                        <div class="layui-input-inline">
-                            <div id="pub_attr_deg" class="slider-inline"></div>
-                            <input type="hidden" name="pub_attr_deg" value="{{$.obj.PubAttrDeg}}">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">原创度:</label>
+                            <div class="layui-input-inline">
+                                <div id="originality_rate" class="slider-inline"></div>
+                                <input type="hidden" name="originality_rate" value="{{$.obj.OriginalityRate}}">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">大于或等于这个值才发布</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">值越高 几率越高</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">内链阀值:</label>
-                        <div class="layui-input-inline">
-                            <div id="link_deg" class="slider-inline"></div>
-                            <input type="hidden" name="link_deg" value="{{$.obj.LinkDeg}}">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">属性阀值:</label>
+                            <div class="layui-input-inline">
+                                <div id="pub_attr_deg" class="slider-inline"></div>
+                                <input type="hidden" name="pub_attr_deg" value="{{$.obj.PubAttrDeg}}">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">值越高 几率越高</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">随机插入内链</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">外链阀值:</label>
-                        <div class="layui-input-inline">
-                            <div id="out_link_deg" class="slider-inline"></div>
-                            <input type="hidden" name="out_link_deg" value="{{$.obj.OutLinkDeg}}">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">内链阀值:</label>
+                            <div class="layui-input-inline">
+                                <div id="link_deg" class="slider-inline"></div>
+                                <input type="hidden" name="link_deg" value="{{$.obj.LinkDeg}}">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">随机插入内链</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">随机插入外链</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">标题阀值:</label>
-                        <div class="layui-input-inline">
-                            <div id="title_tag_deg" class="slider-inline"></div>
-                            <input type="hidden" name="title_tag_deg" value="{{$.obj.TitleTagDeg}}">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">外链阀值:</label>
+                            <div class="layui-input-inline">
+                                <div id="out_link_deg" class="slider-inline"></div>
+                                <input type="hidden" name="out_link_deg" value="{{$.obj.OutLinkDeg}}">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">随机插入外链</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">标题插入tag 值越高 几率越高</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">指定:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="pub_self" lay-skin="switch"
-                                   lay-text="是|否"{{if .obj.PubSelf}} checked{{end}}>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">标题阀值:</label>
+                            <div class="layui-input-inline">
+                                <div id="title_tag_deg" class="slider-inline"></div>
+                                <input type="hidden" name="title_tag_deg" value="{{$.obj.TitleTagDeg}}">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">标题插入tag 值越高 几率越高</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">只发布指定本站的文章</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">保存图片:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="pic_save" lay-skin="switch"
-                                   lay-text="是|否"{{if .obj.PicSave}} checked{{end}}>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">指定:</label>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" name="pub_self" lay-skin="switch"
+                                       lay-text="是|否"{{if .obj.PubSelf}} checked{{end}}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">只发布指定本站的文章</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">是否保存远程图片</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">图片水印:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="pic_mark" lay-skin="switch"
-                                   lay-text="是|否"{{if .obj.PicMark}} checked{{end}}>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">保存图片:</label>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" name="pic_save" lay-skin="switch"
+                                       lay-text="是|否"{{if .obj.PicSave}} checked{{end}}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">是否保存远程图片</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">图片是否加水印</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">删除已发:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="del_published" lay-skin="switch"
-                                   lay-text="是|否"{{if .obj.DelPublished}} checked{{end}}>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">图片水印:</label>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" name="pic_mark" lay-skin="switch"
+                                       lay-text="是|否"{{if .obj.PicMark}} checked{{end}}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">图片是否加水印</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">发布后马上从数据库中删除该文章</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">发布顺序:</label>
-                        <div class="layui-input-inline">
-                            <select name="order" class="layui-select">
-                                <option value="0"{{if eq .obj.Order 0}} selected{{end}}>最新采集</option>
-                                <option value="1"{{if eq .obj.Order 1}} selected{{end}}>最旧采集</option>
-                                <option value="2"{{if eq .obj.Order 2}} selected{{end}}>随机</option>
-                            </select>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">删除已发:</label>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" name="del_published" lay-skin="switch"
+                                       lay-text="是|否"{{if .obj.DelPublished}} checked{{end}}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">发布后马上从数据库中删除该文章</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">发布文章顺序</div>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">发布顺序:</label>
+                            <div class="layui-input-inline">
+                                <select name="order" class="layui-select">
+                                    <option value="0"{{if eq .obj.Order 0}} selected{{end}}>最新采集</option>
+                                    <option value="1"{{if eq .obj.Order 1}} selected{{end}}>最旧采集</option>
+                                    <option value="2"{{if eq .obj.Order 2}} selected{{end}}>随机</option>
+                                </select>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">发布文章顺序</div>
+                        </div>
                     </div>
                     <fieldset class="layui-elem-field">
                         <legend>推送</legend>

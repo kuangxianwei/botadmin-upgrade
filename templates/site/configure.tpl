@@ -25,6 +25,7 @@
             <input type="checkbox" data-field="pic_mark" title="图片水印" lay-filter="field">
             <input type="checkbox" data-field="order" title="发布顺序" lay-filter="field">
             <input type="checkbox" data-field="publish_mode" title="发布模式" lay-filter="field">
+            <input type="checkbox" data-field="pub_interval" title="发布间隔" lay-filter="field">
             <input type="checkbox" data-field="auth_code" title="认证码" lay-filter="field">
         </fieldset>
         <fieldset class="layui-elem-field">
@@ -290,6 +291,20 @@
                     form.render('select');
                 } else {
                     fieldElem.find('[name=publish_mode]').closest('.layui-form-item').remove();
+                }
+            },
+            'pub_interval': function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
+    <label class="layui-form-label">发布间隔:</label>
+    <div class="layui-input-inline">
+        <input class="layui-input" min="1" name="pub_interval" type="number" value="2">
+    </div>
+    <div class="layui-form-mid layui-word-aux">发布文章间隔时间(秒)</div>
+</div>`);
+                    form.render('input');
+                } else {
+                    fieldElem.find('[name=pub_interval]').closest('.layui-form-item').remove();
                 }
             },
             'auth_code': function (enabled) {
