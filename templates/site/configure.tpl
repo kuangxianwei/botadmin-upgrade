@@ -300,7 +300,7 @@
     <div class="layui-input-inline">
         <input class="layui-input" min="1" name="pub_interval" type="number" value="2">
     </div>
-    <div class="layui-form-mid layui-word-aux">发布文章间隔时间(秒)</div>
+    <div class="layui-form-mid layui-word-aux">发布文章间隔时间(毫秒)</div>
 </div>`);
                     form.render('input');
                 } else {

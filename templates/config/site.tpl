@@ -354,7 +354,7 @@
                             <div class="layui-col-md6">
                                 <label class="layui-form-label">发布间隔:</label>
                                 <div class="layui-input-inline">
-                                    <input type="number" min="1" name="pub_interval" value="{{.obj.PubInterval}}" class="layui-input"/>
+                                    <input type="number" min="100" name="pub_interval" value="{{.obj.PubInterval}}" class="layui-input"/>
                                 </div>
                                 <div class="layui-form-mid layui-word-aux">单位为毫秒</div>
                             </div>
