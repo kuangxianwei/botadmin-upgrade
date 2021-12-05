@@ -559,7 +559,7 @@
                                 <div class="layui-input-inline">
                                     <input type="number" min="1" name="pub_interval" value="{{.obj.PubInterval}}" class="layui-input"/>
                                 </div>
-                                <div class="layui-form-mid layui-word-aux">单位为秒</div>
+                                <div class="layui-form-mid layui-word-aux">单位为毫秒</div>
                             </div>
                         </div>
                     </div>
