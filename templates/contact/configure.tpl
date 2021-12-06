@@ -82,9 +82,11 @@
             },
             'allowed_referrer': function (enabled) {
                 if (enabled) {
+                    $('input[data-field=disallowed_referrer]').prop("checked", false);
+                    fieldElem.find('[name=disallowed_referrer]').closest('.layui-form-item').remove();
                     fieldElem.append(`<div class="layui-form-item">
     <div class="layui-col-md8">
-        <label class="layui-form-label" lay-tips="一行一条规则(正则)">来路白名单:</label>
+        <label class="layui-form-label" lay-tips="一行一条规则(正则)">允许来路:</label>
         <div class="layui-input-block">
             <textarea class="layui-textarea" name="allowed_referrer" placeholder="www.google.com&#13;www.sogou.com" rows="3"></textarea>
         </div>
@@ -111,9 +113,11 @@
             },
             'disallowed_referrer': function (enabled) {
                 if (enabled) {
+                    $('input[data-field=allowed_referrer]').prop("checked", false);
+                    fieldElem.find('[name=allowed_referrer]').closest('.layui-form-item').remove();
                     fieldElem.append(`<div class="layui-form-item">
     <div class="layui-col-md8">
-        <label class="layui-form-label" lay-tips="一行一条规则(正则)">来路黑名单:</label>
+        <label class="layui-form-label" lay-tips="一行一条规则(正则)">拒绝来路:</label>
         <div class="layui-input-block">
             <textarea class="layui-textarea" name="disallowed_referrer" placeholder="www.google.com&#13;www.sogou.com" rows="3"></textarea>
         </div>
