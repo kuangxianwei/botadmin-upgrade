@@ -59,13 +59,13 @@
             <div class="layui-col-md6">
                 <label class="layui-form-label" lay-tips="一行一条规则(正则)">来路白名单:</label>
                 <div class="layui-input-block">
-                    <textarea class="layui-textarea" name="allowed_referer" placeholder="www.baidu.com&#13;www.sogou.com">{{join .obj.AllowedReferer "\n"}}</textarea>
+                    <textarea class="layui-textarea" name="allowed_referrer" placeholder="www.baidu.com&#13;www.sogou.com">{{join .obj.AllowedReferrer "\n"}}</textarea>
                 </div>
             </div>
             <div class="layui-col-md6">
                 <label class="layui-form-label" lay-tips="一行一条规则(正则)">来路黑名单:</label>
                 <div class="layui-input-block">
-                    <textarea class="layui-textarea" name="disallowed_referer" placeholder="www.google.com&#13;www.sogou.com">{{join .obj.DisallowedReferer "\n"}}</textarea>
+                    <textarea class="layui-textarea" name="disallowed_referrer" placeholder="www.google.com&#13;www.sogou.com">{{join .obj.DisallowedReferrer "\n"}}</textarea>
                 </div>
             </div>
         </div>

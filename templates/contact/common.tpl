@@ -120,16 +120,30 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-col-md6">
-                    <label class="layui-form-label"><cite lay-tips="一行一条规则(正则)">允许来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fill-allowed_referer" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
+                <div class="layui-col-md5">
+                    <label class="layui-form-label"><cite lay-tips="一行一条规则(正则)">允许来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fill-allowed_referrer" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
                     <div class="layui-input-block">
-                        <textarea class="layui-textarea" name="allowed_referer" placeholder="www.baidu.com&#13;www.sogou.com">{{join .obj.AllowedReferer "\n"}}</textarea>
+                        <textarea class="layui-textarea" rows="3" name="allowed_referrer" placeholder="www.baidu.com&#13;www.sogou.com">{{join .obj.AllowedReferrer "\n"}}</textarea>
                     </div>
                 </div>
-                <div class="layui-col-md6">
-                    <label class="layui-form-label"><cite lay-tips="一行一条规则(正则)">拒绝来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fill-disallowed_referer" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
+                <div class="layui-col-md2">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">电脑端:</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="enabled_referrer_pc" lay-skin="switch" lay-text="启用|禁用"{{if .obj.EnabledReferrerPc}} checked{{end}}>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">移动端:</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="enabled_referrer_mobile" lay-skin="switch" lay-text="启用|禁用"{{if .obj.EnabledReferrerMobile}} checked{{end}}>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md5">
+                    <label class="layui-form-label"><cite lay-tips="一行一条规则(正则)">拒绝来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fill-disallowed_referrer" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
                     <div class="layui-input-block">
-                        <textarea class="layui-textarea" name="disallowed_referer" placeholder="www.google.com&#13;www.sogou.com">{{join .obj.DisallowedReferer "\n"}}</textarea>
+                        <textarea class="layui-textarea" rows="3" name="disallowed_referrer" placeholder="www.google.com&#13;www.sogou.com">{{join .obj.DisallowedReferrer "\n"}}</textarea>
                     </div>
                 </div>
             </div>
@@ -247,21 +261,21 @@
                     area: ["540px", "450px"],
                 });
             },
-            "fill-allowed_referer": function () {
+            "fill-allowed_referrer": function () {
                 main.req({
                     url: '/contact/fill',
-                    data: {field: 'allowed_referer'},
+                    data: {field: 'allowed_referrer'},
                     ending: function (res) {
-                        $('[name=allowed_referer]').val(res.data);
+                        $('[name=allowed_referrer]').val(res.data);
                     }
                 });
             },
-            "fill-disallowed_referer": function () {
+            "fill-disallowed_referrer": function () {
                 main.req({
                     url: '/contact/fill',
-                    data: {field: "disallowed_referer"},
+                    data: {field: "disallowed_referrer"},
                     ending: function (res) {
-                        $('[name=disallowed_referer]').val(res.data);
+                        $('[name=disallowed_referrer]').val(res.data);
                     }
                 });
             },

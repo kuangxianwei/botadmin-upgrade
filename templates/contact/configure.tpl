@@ -12,8 +12,8 @@
             <input type="checkbox" data-field="mobile_enabled" title="Mobile" lay-filter="field">
             <input type="checkbox" data-field="max" title="最大限制" lay-filter="field">
             <input type="checkbox" data-field="weight" title="权重" lay-filter="field">
-            <input type="checkbox" data-field="allowed_referer" title="允许来路" lay-filter="field">
-            <input type="checkbox" data-field="disallowed_referer" title="拒绝来路" lay-filter="field">
+            <input type="checkbox" data-field="allowed_referrer" title="允许来路" lay-filter="field">
+            <input type="checkbox" data-field="disallowed_referrer" title="拒绝来路" lay-filter="field">
             <input type="checkbox" data-field="durations" title="开放时间" lay-filter="field">
             <input type="checkbox" data-field="cities" title="屏蔽区域" lay-filter="field">
             <input type="checkbox" data-field="pop_delay" title="延时弹窗" lay-filter="field">
@@ -80,24 +80,62 @@
                     fieldElem.find('[name=weight]').closest('.layui-form-item').remove();
                 }
             },
-            'allowed_referer': function (enabled) {
+            'allowed_referrer': function (enabled) {
                 if (enabled) {
-                    fieldElem.append(`<div class="layui-form-item"><label class="layui-form-label" lay-tips="一行一条规则(正则)">来路白名单:</label>
-                    <div class="layui-input-block">
-                        <textarea class="layui-textarea" name="allowed_referer" placeholder="www.google.com&#13;www.sogou.com"></textarea>
-                    </div></div>`);
+                    fieldElem.append(`<div class="layui-form-item">
+    <div class="layui-col-md8">
+        <label class="layui-form-label" lay-tips="一行一条规则(正则)">来路白名单:</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="allowed_referrer" placeholder="www.google.com&#13;www.sogou.com" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="layui-col-md2">
+        <div class="layui-inline">
+            <label class="layui-form-label">电脑端:</label>
+            <div class="layui-input-block">
+                <input lay-skin="switch" lay-text="启用|禁用" name="enabled_referrer_pc" type="checkbox">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">移动端:</label>
+            <div class="layui-input-block">
+                <input lay-skin="switch" lay-text="启用|禁用" name="enabled_referrer_mobile" type="checkbox">
+            </div>
+        </div>
+    </div>
+</div>`);
+                    form.render("checkbox");
                 } else {
-                    fieldElem.find('[name=allowed_referer]').closest('.layui-form-item').remove();
+                    fieldElem.find('[name=allowed_referrer]').closest('.layui-form-item').remove();
                 }
             },
-            'disallowed_referer': function (enabled) {
+            'disallowed_referrer': function (enabled) {
                 if (enabled) {
-                    fieldElem.append(`<div class="layui-form-item"><label class="layui-form-label" lay-tips="一行一条规则(正则)">来路黑名单:</label>
-                    <div class="layui-input-block">
-                        <textarea class="layui-textarea" name="disallowed_referer" placeholder="www.google.com&#13;www.sogou.com"></textarea>
-                    </div></div>`);
+                    fieldElem.append(`<div class="layui-form-item">
+    <div class="layui-col-md8">
+        <label class="layui-form-label" lay-tips="一行一条规则(正则)">来路黑名单:</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" name="disallowed_referrer" placeholder="www.google.com&#13;www.sogou.com" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="layui-col-md2">
+        <div class="layui-inline">
+            <label class="layui-form-label">电脑端:</label>
+            <div class="layui-input-block">
+                <input lay-skin="switch" lay-text="启用|禁用" name="enabled_referrer_pc" type="checkbox">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">移动端:</label>
+            <div class="layui-input-block">
+                <input lay-skin="switch" lay-text="启用|禁用" name="enabled_referrer_mobile" type="checkbox">
+            </div>
+        </div>
+    </div>
+</div>`);
+                    form.render("checkbox");
                 } else {
-                    fieldElem.find('[name=disallowed_referer]').closest('.layui-form-item').remove();
+                    fieldElem.find('[name=disallowed_referrer]').closest('.layui-form-item').remove();
                 }
             },
             'cities': function (enabled) {
