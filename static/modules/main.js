@@ -547,8 +547,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write='{{template "模板.tpl" .}}'>导入模板</button>
         <button class="layui-btn layui-btn-xs" data-write="nav">导航HTML</button>
         <button class="layui-btn layui-btn-xs" data-write="link">友链HTML</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{HTML .}}">HTML</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{imgHTML .}}">ImgHTML</button>
     </div></div>
     <div class="layui-col-md6"><div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="list">列表标签</button>
@@ -561,10 +559,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write="{{.Subtitle}}">副标题</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.Url}}">URL</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.TitlePic}}">标题图片</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{sub .Title 30}}">截取标题</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{sub .Description 150}}">截取描述</button>
-        <button class="layui-btn layui-btn-xs" data-write='{{date .Updated "2006-01-02 15:04:05"}}'>更新时间</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{sub .Title 30}}">标题</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{sub .Description 150}}">描述</button>
+        <button class="layui-btn layui-btn-xs" data-write='{{date .Updated "2006-01-02 15:04:05"}}'>时间</button>
         <button class="layui-btn layui-btn-xs" data-write='{{class .Cid | HTML}}'>栏目link</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{HTML .}}">HTML</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{imgHTML .}}">imgHTML</button>
     </div></div>
     <div class="layui-col-md6"><div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-primary">头部标签</button>
