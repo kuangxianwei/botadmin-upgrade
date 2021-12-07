@@ -595,12 +595,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <a href="{{.Config.Hostname}}/">首页</a>
     <li>
         {{- range classes 12}}
-    <li{{if eq .Id $.Class.Id}}class="cur"{{end}}>
+    <li{{if eq .Id $.Class.Id}} class="cur"{{end}}>
         <a href="{{.Url}}">{{.Name}}</a>
         {{- if .Children}}
         <ul>
             {{- range .Children}}
-            <li{{if eq .Id $.Class.Id}}class="cur"{{end}}><a href="{{.Url}}">{{.Name}}</a></li>
+            <li{{if eq .Id $.Class.Id}} class="cur"{{end}}><a href="{{.Url}}">{{.Name}}</a></li>
             {{- end}}
         </ul>
         {{- end}}
