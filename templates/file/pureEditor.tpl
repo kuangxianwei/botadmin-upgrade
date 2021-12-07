@@ -2,8 +2,8 @@
     <div class="layui-card-header">
         <div class="layui-form-item">
             <label class="layui-form-label">当前文件</label>
-            <div class="layui-input-inline">
-                <div class="layui-form-mid" style="width:700px">{{ .path }}</div>
+            <div class="layui-input-block">
+                <div class="layui-col-md12" id="filepath">{{ .path }}</div>
                 <input name="path" type="hidden" value="{{ .path }}" id="current-filename"/>
                 <input name="act" type="hidden" value="editor"/>
                 <input name="url" type="hidden" value="/file/editor"/>

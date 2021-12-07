@@ -530,6 +530,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 
         // 填充内置CMS模板变量
         onFillTheme() {
+            $('#filepath').append('<button class="layui-btn layui-btn-sm layui-btn-radius" data-event="theme-func" style="margin-left:10px">查看模板支持函数</button>');
             let othis = this, formHTML = '<div class="layui-card"><div class="layui-card-body layui-form"></div></div>';
             $('.fill-theme').removeClass("layui-hide").html(`<div class="layui-row">
     <div class="layui-col-md6"><div class="layui-btn-group">
@@ -823,6 +824,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     default:
                         elem.insertAt(write);
                 }
+            });
+            $('[data-event="theme-func"]').off("click").on("click", function () {
+                $.get("/cms/help", {}, function (text) {
+                    othis.display({
+                        content: `<textarea class="layui-textarea" style="margin:2%;height:92%;width:96%;" disabled></textarea>`,
+                        success: function (dom) {
+                            dom.find('textarea').val(text);
+                        }
+                    });
+                });
             });
         }
     }
