@@ -546,12 +546,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write="{{.Pager}}">页面名称</button>
         <button class="layui-btn layui-btn-xs" data-write='{{template "模板.tpl" .}}'>导入模板</button>
         <button class="layui-btn layui-btn-xs" data-write="nav">导航HTML</button>
-        <button class="layui-btn layui-btn-xs" data-write="link">友情链接HTML</button>
+        <button class="layui-btn layui-btn-xs" data-write="link">友链HTML</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{HTML .}}">HTML</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{imgHTML .}}">ImgHTML</button>
     </div></div>
     <div class="layui-col-md6"><div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="list">列表标签</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{unescapeHTML .Positions}}">当前位置</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{unescapeHTML .Paginator}}">分页</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Positions}}">当前位置</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Paginator}}">分页</button>
     </div></div>
     <div class="layui-col-md6"><div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="loop">循环标签</button>
@@ -562,7 +564,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write="{{sub .Title 30}}">截取标题</button>
         <button class="layui-btn layui-btn-xs" data-write="{{sub .Description 150}}">截取描述</button>
         <button class="layui-btn layui-btn-xs" data-write='{{date .Updated "2006-01-02 15:04:05"}}'>更新时间</button>
-        <button class="layui-btn layui-btn-xs" data-write='{{class .Cid | unescapeHTML}}'>栏目link</button>
+        <button class="layui-btn layui-btn-xs" data-write='{{class .Cid | HTML}}'>栏目link</button>
     </div></div>
     <div class="layui-col-md6"><div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-primary">头部标签</button>
@@ -574,11 +576,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     </div></div>
     <div class="layui-col-md6"><div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-primary">文章标签</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{unescapeHTML .Positions}}">当前位置</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Positions}}">当前位置</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.Article.Title}}">标题</button>
         <button class="layui-btn layui-btn-xs" data-write='{{date .Article.Created "2006-01-02 15:04:05"}}'>发布时间</button>
         <button class="layui-btn layui-btn-xs" data-write='<script src="{{.Config.Hostname}}/hot.js?aid={{.Article.Id}}"></script>'>点击量</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{unescapeHTML .Article.Content}}">内容</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Article.Content}}">内容</button>
         <button class="layui-btn layui-btn-xs" data-write="tag">TagHTML</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Pre}}">上一篇</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Next}}">上一篇</button>
@@ -633,14 +635,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                                 if (data.pager === 'all') {
                                     elem.insertAt(`<ul class="link">
     {{- range links ` + data.limit + `}}
-    <li>{{unescapeHTML .}}</li>
+    <li>{{HTML .}}</li>
     {{- end}}
 </ul>`);
                                 } else {
                                     elem.insertAt(`{{if eq .Pager "` + data.pager + `"}}
 <ul class="link">
     {{- range links ` + data.limit + `}}
-    <li>{{unescapeHTML .}}</li>
+    <li>{{HTML .}}</li>
     {{- end}}
 </ul>
 {{end}}`);
@@ -674,14 +676,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                                 if (data.pager === 'all') {
                                     elem.insertAt(`<ul class="like">
     {{- range like ` + data.limit + `}}
-    <li>{{unescapeHTML .}}</li>
+    <li>{{HTML .}}</li>
     {{- end}}
 </ul>`);
                                 } else {
                                     elem.insertAt(`{{if eq .Pager "` + data.pager + `"}}
 <ul class="link">
     {{- range links ` + data.limit + `}}
-    <li>{{unescapeHTML .}}</li>
+    <li>{{HTML .}}</li>
     {{- end}}
 </ul>
 {{end}}`);
