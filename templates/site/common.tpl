@@ -248,24 +248,25 @@
                                         <textarea name="ad" class="layui-textarea" placeholder="网站广告代码一般为js代码">{{.obj.Ad}}</textarea>
                                     </div>
                                 </div>
-                                <div class="layui-col-sm5">
-                                    <label class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
+                                <div class="layui-col-md6">
+                                    <label class="layui-form-label">版权:</label>
                                     <div class="layui-input-block">
-                                        {{$contact:=`李谊:139-2235-2985
-韩晶:135-3983-5229`}}
-                                        <textarea name="contact" class="layui-textarea"
-                                                  placeholder="{{$contact}}">{{join .obj.Contact "\n"}}</textarea>
+                                        <textarea name="copyright" class="layui-textarea" placeholder="©版权所有：站掌门 公安备案:xxxxxx号 网站ICP备案：xxxxxx号 未经授权禁止转载、摘编、复制或建立镜像，如有违发，追究法律责任！">{{.obj.Copyright}}</textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <div class="layui-row">
-                                <div class="layui-col-sm6">
-                                    <label class="layui-form-label" lay-tips="灰词=>替换成的是词 一行一条">灰词替换:</label>
-                                    <div class="layui-input-block">
-                                        <textarea name="replaces" class="layui-textarea">{{join .obj.Replaces "\n"}}</textarea>
-                                    </div>
+                            <div class="layui-col-sm6">
+                                <label class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
+                                <div class="layui-input-block">
+                                    <textarea name="contact" class="layui-textarea" placeholder="李谊:139-2235-2985&#13;韩晶:135-3983-5229">{{join .obj.Contact "\n"}}</textarea>
+                                </div>
+                            </div>
+                            <div class="layui-col-sm6">
+                                <label class="layui-form-label" lay-tips="灰词=>替换成的是词 一行一条">灰词替换:</label>
+                                <div class="layui-input-block">
+                                    <textarea name="replaces" class="layui-textarea" placeholder="小姐=>美女&#13;代孕=>怀孕">{{join .obj.Replaces "\n"}}</textarea>
                                 </div>
                             </div>
                         </div>

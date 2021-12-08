@@ -542,24 +542,33 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">IP并发数</label>
-                        <div class="layui-input-inline">
-                            <input type="number" name="conn" class="layui-input" value="{{.obj.Conn}}" placeholder="0">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">IP并发数</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="conn" class="layui-input" value="{{.obj.Conn}}" placeholder="0">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">每IP的并发连接数</div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">默认为0，即不限制 每IP的并发连接数</div>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">线程速度</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="conn_speed" class="layui-input" value="{{.obj.ConnSpeed}}" placeholder="0">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">每个连接线程的速度，单位KB/S</div>
+                        </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">线程速度</label>
-                        <div class="layui-input-inline">
-                            <input type="number" name="conn_speed" class="layui-input"
-                                   value="{{.obj.ConnSpeed}}" placeholder="0">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">Tags:</label>
+                            <div class="layui-input-block">
+                                <textarea name="tags" class="layui-textarea" placeholder="TAG 一行一个">{{join .obj.Tags "\n"}}</textarea>
+                            </div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">默认为0，即不限制 每个连接线程的速度，单位KB/S</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">Tags:</label>
-                        <div class="layui-input-block">
-                            <textarea name="tags" class="layui-textarea" placeholder="TAG 一行一个">{{join .obj.Tags "\n"}}</textarea>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">版权:</label>
+                            <div class="layui-input-block">
+                                <textarea name="copyright" class="layui-textarea" placeholder="©版权所有：站掌门 公安备案:xxxxxx号 网站ICP备案：xxxxxx号 未经授权禁止转载、摘编、复制或建立镜像，如有违发，追究法律责任！">{{.obj.Copyright}}</textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -569,19 +578,18 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">关键词替换</label>
-                        <div class="layui-input-inline">
-                            <textarea class="layui-textarea" name="replaces" placeholder="小姐=>美女">{{join .obj.Replaces "\n"}}</textarea>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">灰词替换</label>
+                            <div class="layui-input-block">
+                                <textarea class="layui-textarea" name="replaces" placeholder="小姐=>美女&#13;代孕=>怀孕">{{join .obj.Replaces "\n"}}</textarea>
+                            </div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">留空为不启用 "代孕=>怀孕" 一行一个
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">联系方式:</label>
+                            <div class="layui-input-block">
+                                <textarea class="layui-textarea" name="contact" placeholder="李谊:139-2235-2985&#13;韩晶:135-3983-5229">{{join .obj.Contact "\n"}}</textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">联系方式:</label>
-                        <div class="layui-input-inline">
-                            <textarea class="layui-textarea" name="contact" placeholder="李谊:139-2235-2985&#34;韩晶:135-3983-5229">{{join .obj.Contact "\n"}}</textarea>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">联系方式一行一条 名称:139-2235-2985</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label" lay-tips="需要标准的json格式">其他配置:</label>

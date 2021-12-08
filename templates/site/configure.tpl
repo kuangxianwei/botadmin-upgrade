@@ -27,6 +27,7 @@
             <input type="checkbox" data-field="publish_mode" title="发布模式" lay-filter="field">
             <input type="checkbox" data-field="pub_interval" title="发布间隔" lay-filter="field">
             <input type="checkbox" data-field="auth_code" title="认证码" lay-filter="field">
+            <input type="checkbox" data-field="copyright" title="版权信息" lay-filter="field">
         </fieldset>
         <fieldset class="layui-elem-field">
             <legend>操作</legend>
@@ -54,19 +55,14 @@
             main = layui.main,
             fieldElem = $("#field");
         let active = {
-            'ad': function (enabled) {
+            ad: function (enabled) {
                 if (enabled) {
-                    fieldElem.append(`<div class="layui-form-item">
-    <label class="layui-form-label" lay-tips="网站广告代码一般为js代码">广告:</label>
-    <div class="layui-input-block">
-        <textarea name="ad" class="layui-textarea" placeholder="网站广告代码一般为js代码"></textarea>
-    </div>
-</div>`);
+                    fieldElem.append(`<div class="layui-form-item"><label class="layui-form-label" lay-tips="网站广告代码一般为js代码">广告:</label><div class="layui-input-block"><textarea name="ad" class="layui-textarea" placeholder="网站广告代码一般为js代码"></textarea></div></div>`);
                 } else {
                     fieldElem.find('[name=ad]').closest('.layui-form-item').remove();
                 }
             },
-            'replaces': function (enabled) {
+            replaces: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
     <label class="layui-form-label" lay-tips="灰词=>替换成的是词 一行一条">灰词替换:</label>
@@ -78,14 +74,14 @@
                     fieldElem.find('[name=replaces]').closest('.layui-form-item').remove();
                 }
             },
-            'contact': function (enabled) {
+            contact: function (enabled) {
                 if (enabled) {
                     fieldElem.append($('#contact-html').html());
                 } else {
                     fieldElem.find('[name=contact]').closest('.layui-form-item').remove();
                 }
             },
-            'insert_pic_deg': function (enabled) {
+            insert_pic_deg: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">插图阈值:</label>
@@ -100,7 +96,7 @@
                     fieldElem.find('[name=insert_pic_deg]').closest('.layui-form-item').remove();
                 }
             },
-            'pub_deg': function (enabled) {
+            pub_deg: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label" lay-tips="随机发布指定数量的文章">发布阈值:</label>
@@ -114,7 +110,7 @@
                     fieldElem.find('[name=pub_deg]').closest('.layui-form-item').remove();
                 }
             },
-            'content_deg': function (enabled) {
+            content_deg: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">内容阈值:</label>
@@ -129,7 +125,7 @@
                     fieldElem.find('[name=content_deg]').closest('.layui-form-item').remove();
                 }
             },
-            'link_deg': function (enabled) {
+            link_deg: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">内链阀值:</label>
@@ -144,7 +140,7 @@
                     fieldElem.find('[name=link_deg]').closest('.layui-form-item').remove();
                 }
             },
-            'out_link_deg': function (enabled) {
+            out_link_deg: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">外链阀值:</label>
@@ -159,7 +155,7 @@
                     fieldElem.find('[name=out_link_deg]').closest('.layui-form-item').remove();
                 }
             },
-            'title_tag_deg': function (enabled) {
+            title_tag_deg: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">标题阀值:</label>
@@ -174,7 +170,7 @@
                     fieldElem.find('[name=title_tag_deg]').closest('.layui-form-item').remove();
                 }
             },
-            'pub_self': function (enabled) {
+            pub_self: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">指定发布:</label>
@@ -188,7 +184,7 @@
                     fieldElem.find('[name=pub_self]').closest('.layui-form-item').remove();
                 }
             },
-            'cron_enabled': function (enabled) {
+            cron_enabled: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
     <label class="layui-form-label">定时发布:</label>
@@ -202,7 +198,7 @@
                     fieldElem.find('[name=cron_enabled]').closest('.layui-form-item').remove();
                 }
             },
-            'push_config': function (enabled) {
+            push_config: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
     <label class="layui-form-label">推送配置:</label>
@@ -215,7 +211,7 @@
                     fieldElem.find('[name=push_config]').closest('.layui-form-item').remove();
                 }
             },
-            'originality_rate': function (enabled) {
+            originality_rate: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">原创度:</label>
@@ -230,7 +226,7 @@
                     fieldElem.find('[name=originality_rate]').closest('.layui-form-item').remove();
                 }
             },
-            'pic_save': function (enabled) {
+            pic_save: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">保存图片:</label>
@@ -244,7 +240,7 @@
                     fieldElem.find('[name=pic_save]').closest('.layui-form-item').remove();
                 }
             },
-            'pic_mark': function (enabled) {
+            pic_mark: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">图片水印:</label>
@@ -258,7 +254,7 @@
                     fieldElem.find('[name=pic_mark]').closest('.layui-form-item').remove();
                 }
             },
-            'order': function (enabled) {
+            order: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">发布顺序:</label>
@@ -276,7 +272,7 @@
                     fieldElem.find('[name=order]').closest('.layui-form-item').remove();
                 }
             },
-            'publish_mode': function (enabled) {
+            publish_mode: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
                         <label class="layui-form-label">发布模式:</label>
@@ -293,7 +289,7 @@
                     fieldElem.find('[name=publish_mode]').closest('.layui-form-item').remove();
                 }
             },
-            'pub_interval': function (enabled) {
+            pub_interval: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
     <label class="layui-form-label">发布间隔:</label>
@@ -307,7 +303,7 @@
                     fieldElem.find('[name=pub_interval]').closest('.layui-form-item').remove();
                 }
             },
-            'auth_code': function (enabled) {
+            auth_code: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
     <label class="layui-form-label" lay-tips="网站后台登录认证码 15个字母或数字组成">认证码:</label>
@@ -323,6 +319,13 @@
                     $('input[name=auth_code]').val(main.uuid(15));
                 } else {
                     fieldElem.find('[name=auth_code]').closest('.layui-form-item').remove();
+                }
+            },
+            copyright: function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item"><label class="layui-form-label">版权:</label><div class="layui-input-block"><textarea name="copyright" class="layui-textarea" placeholder="©版权所有：站掌门 公安备案:xxxxxx号 网站ICP备案：xxxxxx号 未经授权禁止转载、摘编、复制或建立镜像，如有违发，追究法律责任！"></textarea></div></div>`);
+                } else {
+                    fieldElem.find('[name=copyright]').closest('.layui-form-item').remove();
                 }
             },
         };
