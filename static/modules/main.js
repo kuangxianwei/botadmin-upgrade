@@ -544,7 +544,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write="{{.Config.About}}">关于我们</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.Config.Ad}}">广告</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.Pager}}">页标识</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Copyright}}">版权</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Config.Copyright}}">版权</button>
         <button class="layui-btn layui-btn-xs" data-write='{{template "模板.tpl" .}}'>导入模板</button>
         <button class="layui-btn layui-btn-xs" data-write="nav">导航HTML</button>
         <button class="layui-btn layui-btn-xs" data-write="link">友链HTML</button>
