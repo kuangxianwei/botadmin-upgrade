@@ -581,6 +581,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write="{{.Article.Title}}">标题</button>
         <button class="layui-btn layui-btn-xs" data-write='{{date .Article.Created "2006-01-02 15:04:05"}}'>发布时间</button>
         <button class="layui-btn layui-btn-xs" data-write='<script src="{{.Config.Hostname}}/hot.js?aid={{.Article.Id}}"></script>'>点击量</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{source}}">来源</button>
         <button class="layui-btn layui-btn-xs" data-write="{{HTML .Article.Content}}">内容</button>
         <button class="layui-btn layui-btn-xs" data-write="tag">TagHTML</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Pre}}">上一篇</button>
