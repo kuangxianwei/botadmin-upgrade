@@ -424,7 +424,9 @@
                         btn: ['内链', '外链'],
                         yes: function (index) {
                             layer.close(index);
+                            let loading = main.loading();
                             $.get(url + '/link', {id: obj.data.id, action: 1}, function (res) {
+                                loading.close();
                                 if (res.code !== 0) {
                                     main.err(res.msg);
                                     return false;
@@ -443,6 +445,7 @@
                         },
                         btn2: function (index) {
                             layer.close(index);
+                            let loading = main.loading();
                             layer.open({
                                 type: 2,
                                 shadeClose: true,
@@ -453,6 +456,9 @@
                                 area: ['95%', '95%'],
                                 title: '友情链接',
                                 content: url + '/link?id=' + obj.data.id,
+                                success: function () {
+                                    loading.close()
+                                }
                             });
                         },
                     });

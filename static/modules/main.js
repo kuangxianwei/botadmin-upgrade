@@ -253,6 +253,15 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     });
                 },
             };
+            // 加载中
+            this.loading = function (options) {
+                let loadIndex = layer.load(1, $.extend({shade: [0.7, '#000', true]}, options || {}));
+                return {
+                    index: loadIndex, close: function () {
+                        layer.close(this.index);
+                    }
+                };
+            }
         }
 
         // ajax 请求
