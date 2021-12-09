@@ -270,6 +270,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">关于我们:</label>
+                            <div class="layui-input-block">
+                                <textarea name="about" class="layui-textarea" placeholder="站群cms系统,单站站群,支持批量发布,批量处理,建站养站自动采集站群管理系统,全自动批量操作,可批量采集英中互译,优化内容,统一管理模式,提供完整的解决方案,一人轻松管理数百个网站">{{.obj.About}}</textarea>
+                            </div>
+                        </div>
                     </fieldset>
                 </div>
                 <div class="layui-tab-item">

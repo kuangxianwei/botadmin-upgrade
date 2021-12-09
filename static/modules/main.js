@@ -1,6 +1,6 @@
 /*导出基本操作*/
 layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
-// 判断字符串结尾
+    // 判断字符串结尾
     String.prototype.hasSuffix = function (suffix) {
         return this.indexOf(suffix, this.length - suffix.length) !== -1;
     }

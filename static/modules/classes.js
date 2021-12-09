@@ -59,12 +59,33 @@ layui.define(['main'], function (exports) {
                     <input name="order" title="ID降序" type="radio" value="3">
                 </div>
             </div>
+            <div class="layui-form-item">
+                <div class="layui-col-md4">
+                    <label class="layui-form-label">封面模板:</label>
+                    <div class="layui-input-block">
+                        <input class="layui-input" name="face_tpl" value="" placeholder="face.tpl">
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <label class="layui-form-label">列表模板:</label>
+                    <div class="layui-input-block">
+                        <input class="layui-input" name="list_tpl" value="" placeholder="list.tpl">
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <label class="layui-form-label">文章模板:</label>
+                    <div class="layui-input-block">
+                        <input class="layui-input" name="article_tpl" value="" placeholder="article.tpl">
+                    </div>
+                </div>
+            </div>
             <div class="layui-form-item"><label class="layui-form-label">其他配置:</label>
                 <div class="layui-input-block"><textarea class="layui-textarea" name="options" placeholder="is_face=false&#13;is_mark=true"></textarea></div>
             </div>
         </div>
     </div>
 </div>`;
+
 
     // tree-view
     class ClassTree {
@@ -78,62 +99,80 @@ layui.define(['main'], function (exports) {
                 }
                 return false;
             };
-            this.assign = {
-                name: function (othis, field, isEdit) {
-                    let val = this.val().trim();
-                    if (!/^(\w|[\u4e00-\u9fa5]){2,10}$/.test(val)) {
+            this.push = {
+                order: function (field) {
+                    this.prop('checked', false);
+                    if (parseInt(this.val()) === field.order) {
+                        this.prop('checked', true);
+                    }
+                },
+                hidden: function (field) {
+                    this.prop('checked', field.hidden);
+                },
+                segments: function (field) {
+                    if (Array.isArray(field.segments)) {
+                        this.val(field.segments.join());
+                    }
+                },
+                keywords: function (field) {
+                    if (Array.isArray(field.keywords)) {
+                        this.val(field.keywords.join());
+                    }
+                },
+                options: function (field) {
+                    if (Object.prototype.toString.call(field.options) === '[object Object]') {
+                        let arr = [];
+                        $.each(field.options, function (k, v) {
+                            arr.push(k + "=" + v);
+                        })
+                        this.val(arr.join("\n"));
+                    }
+                },
+            };
+            this.pull = {
+                name: function (field, othis, isEdit) {
+                    if (!/^(\w|[\u4e00-\u9fa5]){2,10}$/.test(this.value)) {
                         main.err("栏目名称不合法");
                         return false;
                     }
                     if (isEdit) {
-                        if (othis.names[val] !== undefined && othis.names[val] !== field.index) {
+                        if (othis.names[this.value] !== undefined && othis.names[this.value] !== field.index) {
                             main.err("栏目名称已经存在");
                             return false;
                         }
                         othis.names[field.name] = undefined;
-                    } else if (othis.names[val] !== undefined) {
+                    } else if (othis.names[this.value] !== undefined) {
                         main.err("栏目名称已经存在");
                         return false;
                     }
-                    othis.names[val] = field.index;
-                    field.name = val;
+                    othis.names[this.value] = field.index;
+                    field.name = this.value;
                 },
-                order: function (othis, field) {
-                    if (this.prop("checked") === true) {
-                        field.order = parseInt(this.val().trim()) || 0;
-                    }
+                order: function (field) {
+                    field.order = parseInt(this.value) || 0;
                 },
-                sort: function (othis, field) {
-                    field.sort = parseInt(this.val().trim()) || 0;
+                hidden: function (field) {
+                    field.hidden = this.value !== "false" && this.value !== "off";
                 },
-                limit: function (othis, field) {
-                    field.limit = parseInt(this.val().trim()) || 0;
+                sort: function (field) {
+                    field.sort = parseInt(this.value) || 0;
                 },
-                alias: function (othis, field) {
-                    field.alias = this.val().trim();
+                limit: function (field) {
+                    field.limit = parseInt(this.value) || 0;
                 },
-                path: function (othis, field) {
-                    field.path = this.val().trim();
+                segments: function (field) {
+                    field.segments = this.value ? this.value.split(",") : null;
                 },
-                segments: function (othis, field) {
-                    let val = this.val().trim();
-                    field.segments = val ? val.split(",") : null;
+                keywords: function (field) {
+                    field.keywords = this.value ? this.value.split(",") : null;
                 },
-                keywords: function (othis, field) {
-                    let val = this.val().trim();
-                    field.keywords = val ? val.split(",") : null;
-                },
-                description: function (othis, field) {
-                    field.description = this.val().trim();
-                },
-                options: function (othis, field) {
-                    let val = this.val().trim();
-                    if (val) {
+                options: function (field) {
+                    if (this.value) {
                         field.options = {};
-                        $.each(val.split("\n"), function () {
+                        $.each(this.value.split(/\r\n|\n|\r/), function () {
                             if (this) {
                                 let l = this.split("=", 2);
-                                field.options[l[0].trim()] = l[1].trim();
+                                field.options[l[0].trim()] = l[1] ? l[1].trim() : "";
                             }
                         });
                     } else {
@@ -157,7 +196,8 @@ layui.define(['main'], function (exports) {
                         main.err("请设置栏目名称库");
                         return false;
                     }
-                }, addTop: function (othis) {
+                },
+                addTop: function (othis) {
                     let elem = this.parent().parent();
                     layui.layer.open({
                         type: 1,
@@ -174,27 +214,40 @@ layui.define(['main'], function (exports) {
                             layui.form.render();
                         },
                         yes: function (index, dom) {
-                            let isBreak = false, newField = {index: othis.index, parent_index: -1};
-                            dom.find('[name]').each(function () {
-                                if (othis.assign[this.name] && othis.assign[this.name].call($(this), othis, newField) === false) {
-                                    isBreak = true;
+                            let field = {index: othis.index, parent_index: -1, hidden: false}, isBreak = false;
+                            $.each(dom.find("[name]").serializeArray(), function () {
+                                this.value = this.value.trim();
+                                if (othis.pull[this.name]) {
+                                    if (othis.pull[this.name].call(this, field, othis) === false) {
+                                        isBreak = true;
+                                        return false;
+                                    }
+                                } else {
+                                    field[this.name] = this.value;
                                 }
                             });
                             if (isBreak) {
                                 return false;
                             }
-                            newField.hidden = dom.find('[name=hidden]').prop("checked");
-                            othis.names[newField.name] = newField.index;
-                            othis.data.push(newField);
+                            let ts = ['face_tpl', 'list_tpl', 'article_tpl'];
+                            for (let i in ts) {
+                                if (field[ts[i]] && !field[ts[i]].hasSuffix(".tpl")) {
+                                    main.err("模板名称必须以.tpl结尾");
+                                    return false;
+                                }
+                            }
+                            othis.names[field.name] = field.index;
+                            othis.data.push(field);
                             othis.index++;
-                            let citeElem = $('<cite></cite>').text(newField.name).attr("title", "ID: " + (newField.id || 0)),
-                                fieldElem = $('<li></li>').attr("data-index", newField.index).append(citeElem).append(listTool);
+                            let citeElem = $('<cite></cite>').text(field.name).attr("title", "ID: " + (field.id || 0)),
+                                fieldElem = $('<li></li>').attr("data-index", field.index).append(citeElem).append(listTool);
                             elem.append(fieldElem);
                             othis.on(elem);
                             layui.layer.close(index);
                         }
                     });
-                }, copy: function (othis) {
+                },
+                copy: function (othis) {
                     othis.done(function (fields) {
                         let trimId = function (data) {
                             for (let i = 0; i < data.length; i++) {
@@ -210,7 +263,8 @@ layui.define(['main'], function (exports) {
                             layui.layer.msg("栏目列表复制成功");
                         });
                     });
-                }, paste: function (othis) {
+                },
+                paste: function (othis) {
                     layer.prompt({
                         formType: 2,
                         btnAlign: 'c',
@@ -228,8 +282,9 @@ layui.define(['main'], function (exports) {
                         layer.close(index);
                         othis.render("", fields);
                     });
-                }, add: function (othis) {
-                    let elem = this.closest("li"), index = +elem.attr("data-index") || 0, field = othis.data[index];
+                },
+                add: function (othis) {
+                    let elem = this.closest("li"), index = +elem.attr("data-index") || 0, oldField = othis.data[index];
                     layui.layer.open({
                         type: 1,
                         title: "新增栏目",
@@ -246,21 +301,38 @@ layui.define(['main'], function (exports) {
                         },
                         yes: function (index, dom) {
                             let isBreak = false,
-                                newField = {index: othis.index, parent_index: field.index, parent_id: field.id || 0};
-                            dom.find('[name]').each(function () {
-                                if (othis.assign[this.name] && othis.assign[this.name].call($(this), othis, newField) === false) {
-                                    isBreak = true;
+                                field = {
+                                    index: othis.index,
+                                    parent_index: oldField.index,
+                                    parent_id: oldField.id || 0,
+                                    hidden: false
+                                };
+                            $.each(dom.find("[name]").serializeArray(), function () {
+                                this.value = this.value.trim();
+                                if (othis.pull[this.name]) {
+                                    if (othis.pull[this.name].call(this, field, othis) === false) {
+                                        isBreak = true;
+                                        return false;
+                                    }
+                                } else {
+                                    field[this.name] = this.value;
                                 }
                             });
                             if (isBreak) {
                                 return false;
                             }
-                            newField.hidden = dom.find('[name=hidden]').prop("checked");
-                            othis.names[newField.name] = newField.index;
-                            othis.data.push(newField);
+                            let ts = ['face_tpl', 'list_tpl', 'article_tpl'];
+                            for (let i in ts) {
+                                if (field[ts[i]] && !field[ts[i]].hasSuffix(".tpl")) {
+                                    main.err("模板名称必须以.tpl结尾");
+                                    return false;
+                                }
+                            }
+                            othis.names[field.name] = field.index;
+                            othis.data.push(field);
                             othis.index++;
-                            let citeElem = $('<cite></cite>').text(newField.name).attr("title", "ID: " + (newField.id || 0)),
-                                fieldElem = $('<li></li>').attr("data-index", newField.index).append(citeElem).append(listTool);
+                            let citeElem = $('<cite></cite>').text(field.name).attr("title", "ID: " + (field.id || 0)),
+                                fieldElem = $('<li></li>').attr("data-index", field.index).append(citeElem).append(listTool);
                             if (elem.find("ul").length === 0) {
                                 elem.find("i[data-event=del]:first").remove();
                                 elem.prepend('<i class="arrow-right arrow-down"></i>').append('<ul></ul>');
@@ -270,7 +342,8 @@ layui.define(['main'], function (exports) {
                             layui.layer.close(index);
                         }
                     });
-                }, edit: function (othis) {
+                },
+                edit: function (othis) {
                     let elem = this.closest("li"), field = othis.data[(+elem.attr("data-index") || 0)];
                     layui.layer.open({
                         type: 1,
@@ -285,76 +358,46 @@ layui.define(['main'], function (exports) {
                         area: ['800px', '580px'],
                         success: function (dom) {
                             dom.find('[name]').each(function () {
-                                switch (this.name) {
-                                    case 'order':
-                                        let $this = $(this);
-                                        $this.prop('checked', false);
-                                        if (parseInt($this.val()) === field.order) {
-                                            $this.prop('checked', true);
-                                        }
-                                        break;
-                                    case 'limit':
-                                        $(this).val(field.limit);
-                                        break;
-                                    case 'sort':
-                                        $(this).val(field.sort);
-                                        break;
-                                    case 'name':
-                                        $(this).val(field.name);
-                                        break;
-                                    case 'alias':
-                                        $(this).val(field.alias);
-                                        break;
-                                    case 'path':
-                                        $(this).val(field.path);
-                                        break;
-                                    case 'hidden':
-                                        $(this).prop('checked', field.hidden);
-                                        break;
-                                    case 'segments':
-                                        if (Array.isArray(field.segments)) {
-                                            $(this).val(field.segments.join());
-                                        }
-                                        break;
-                                    case 'keywords':
-                                        if (Array.isArray(field.keywords)) {
-                                            $(this).val(field.keywords.join());
-                                        }
-                                        break;
-                                    case 'description':
-                                        $(this).val(field.description);
-                                        break;
-                                    case 'options':
-                                        if (Object.prototype.toString.call(field.options) === '[object Object]') {
-                                            let arr = [];
-                                            $.each(field.options, function (k, v) {
-                                                arr.push(k + "=" + v);
-                                            })
-                                            $(this).val(arr.join("\n"));
-                                        }
-                                        break;
+                                if (othis.push[this.name]) {
+                                    othis.push[this.name].call($(this), field);
+                                } else {
+                                    $(this).val(field[this.name]);
                                 }
                             });
                             layui.form.render();
                         },
                         yes: function (index, dom) {
                             let isBreak = false;
-                            dom.find('[name]').each(function () {
-                                if (othis.assign[this.name] && othis.assign[this.name].call($(this), othis, field, true) === false) {
-                                    isBreak = true;
+                            field.hidden = false;
+                            $.each(dom.find("[name]").serializeArray(), function () {
+                                this.value = this.value.trim();
+                                if (othis.pull[this.name]) {
+                                    if (othis.pull[this.name].call(this, field, othis, true) === false) {
+                                        isBreak = true;
+                                        return false;
+                                    }
+                                } else {
+                                    field[this.name] = this.value;
                                 }
                             });
                             if (isBreak) {
                                 return false;
                             }
-                            field.hidden = dom.find('[name=hidden]').prop("checked");
+                            let ts = ['face_tpl', 'list_tpl', 'article_tpl'];
+                            for (let i in ts) {
+                                if (field[ts[i]] && !field[ts[i]].hasSuffix(".tpl")) {
+                                    main.err("模板名称必须以.tpl结尾");
+                                    return false;
+                                }
+                            }
                             elem.find('>cite').text(field.name);
                             othis.data[field.index] = field;
                             layui.layer.close(index);
                         }
                     });
                     return false;
-                }, del: function (othis) {
+                },
+                del: function (othis) {
                     let elem = this.closest("li"), index = +elem.attr("data-index") || 0,
                         parentIndex = othis.data[index]['parent_index'];
                     othis.names[othis.data[index].name] = undefined;

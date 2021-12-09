@@ -254,7 +254,7 @@
         <button class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dir" lay-tips="设置文章图片">
             <i class="layui-icon layui-icon-picture"></i>
         </button>
-        <button class="layui-btn layui-btn-xs" lay-event="link" lay-tips="操作友情链接">
+        <button class="layui-btn layui-btn-xs" lay-event="link" lay-tips="操作内链或者外链">
             <i class="layui-icon layui-icon-link"></i></button>
         <button class="layui-btn layui-btn-xs" lay-event="mysql" lay-tips="备份/还原数据库">
             <i class="layui-icon iconfont icon-sql"></i>
@@ -417,16 +417,44 @@
                     });
                 },
                 'link': function (obj) {
-                    layer.open({
-                        type: 2,
-                        shadeClose: true,
-                        scrollbar: false,
-                        shade: 0.8,
-                        maxmin: true,
-                        btn: false,
-                        area: ['95%', '95%'],
-                        title: '友情链接',
-                        content: url + '/link?id=' + obj.data.id,
+                    layer.confirm("请选择操作内链或外链！", {
+                        icon: 3,
+                        title: false,
+                        btnAlign: 'c',
+                        btn: ['内链', '外链'],
+                        yes: function (index) {
+                            layer.close(index);
+                            $.get(url + '/link', {id: obj.data.id, action: 1}, function (res) {
+                                if (res.code !== 0) {
+                                    main.err(res.msg);
+                                    return false;
+                                }
+                                main.popup({
+                                    title: "修改内链",
+                                    area: ['500px', '450px'],
+                                    url: url + '/link',
+                                    content: `<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" placeholder="关键词=>https://www.nfivf.com/&#13;关键词2=>https://www.nfivf.com/" rows="12" name="links"></textarea></div><input name="id" type="hidden" value=""><input name="action" type="hidden" value="1"><button class="layui-hidden" lay-filter="submit" lay-submit></button></div></div>`,
+                                    success: function (dom) {
+                                        dom.find("[name=id]").val(obj.data.id);
+                                        res.data && dom.find("textarea[name=links]").val(res.data);
+                                    }
+                                });
+                            });
+                        },
+                        btn2: function (index) {
+                            layer.close(index);
+                            layer.open({
+                                type: 2,
+                                shadeClose: true,
+                                scrollbar: false,
+                                shade: 0.8,
+                                maxmin: true,
+                                btn: false,
+                                area: ['95%', '95%'],
+                                title: '友情链接',
+                                content: url + '/link?id=' + obj.data.id,
+                            });
+                        },
                     });
                 },
                 'del_link': function (obj) {
