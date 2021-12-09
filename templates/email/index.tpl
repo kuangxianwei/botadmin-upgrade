@@ -86,7 +86,9 @@
                     });
                     break;
                 case 'modify':
+                    let loading = layui.main.loading();
                     $.get(url + '/modify', {id: data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改邮箱配置',
                             url: url + '/modify',
@@ -114,7 +116,9 @@
                 data = checkStatus.data;
             switch (obj.event) {
                 case 'add':
+                    let loading = layui.main.loading();
                     $.get(url + '/add', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '添加邮箱',
                             url: url + '/add',

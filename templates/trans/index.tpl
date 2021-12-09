@@ -145,7 +145,9 @@
                     });
                 },
                 'modify': function (obj) {
+                    let loading = layui.main.loading();
                     $.get(url + '/modify', {id: obj.data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改翻译配置',
                             url: url + '/modify',
@@ -158,7 +160,9 @@
             },
             activeBar = {
                 'add': function () {
+                    let loading = layui.main.loading();
                     $.get(url + '/add', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '添加翻译配置',
                             url: url + '/add',

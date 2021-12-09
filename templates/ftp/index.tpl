@@ -81,7 +81,9 @@
                     });
                     break;
                 case 'modify':
+                    let loading = layui.main.loading();
                     $.get(url + '/modify', {id: data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改FTP',
                             url: url + '/modify',
@@ -99,7 +101,9 @@
             let checkStatus = table.checkStatus(obj.config.id);
             switch (obj.event) {
                 case 'add':
+                    let loading = layui.main.loading();
                     $.get(url + '/add', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '添加FTP',
                             url: url + '/add',

@@ -73,7 +73,9 @@
                     });
                     break;
                 case 'modify':
+                    let loading = main.loading();
                     $.get(url + "/modify", {id: data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             url: url + '/modify',
                             title: '修改样式',
@@ -94,7 +96,9 @@
             }
             switch (obj.event) {
                 case 'add':
+                    let loading = main.loading();
                     $.get(url + '/add', {}, function (html) {
+                        loading.close();
                         main.popup({
                             url: url + '/add',
                             title: '添加样式',

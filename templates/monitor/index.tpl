@@ -115,7 +115,9 @@
                     });
                 },
                 'modify': function (obj, data) {
+                    let loading = layui.main.loading();
                     $.get(url + '/modify', {id: data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改监控',
                             url: url + '/modify',
@@ -141,7 +143,9 @@
             },
             activeBar = {
                 'add': function () {
+                    let loading = layui.main.loading();
                     $.get(url + '/add', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '添加邮箱',
                             url: url + '/add',

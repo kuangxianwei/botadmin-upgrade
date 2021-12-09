@@ -74,7 +74,9 @@
                 },
                 edit: function () {
                     let othis = this;
+                    let loading = main.loading();
                     $.get(url + "/modify", {id: id, ids: othis.data.index}, function (html) {
+                        loading.close();
                         main.popup({
                             type: 1,
                             title: "修改TAG",
@@ -88,7 +90,9 @@
             },
             activeBar = {
                 add: function () {
+                    let loading = main.loading();
                     $.get(url + "/add", {id: id}, function (html) {
+                        loading.close();
                         main.popup({
                             type: 1,
                             title: "添加TAG",

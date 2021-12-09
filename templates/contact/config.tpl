@@ -282,7 +282,9 @@
         }
         let active = {
             "copy-js": function () {
+                let loading = main.loading();
                 $.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
+                    loading.close();
                     main.copy.exec(jsCode, layer.msg('广告JS代码复制成功'));
                 });
             }

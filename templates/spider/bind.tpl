@@ -40,7 +40,9 @@
                     form.render();
                     return false;
                 }
+                let loading = layui.main.loading();
                 $.get('/site/class', {id: id, class_id: classId}, function (res) {
+                    loading.close();
                     if (res.code === 0) {
                         classes[id] = res.data;
                         $('[lay-filter=class_id]').html(res.data);

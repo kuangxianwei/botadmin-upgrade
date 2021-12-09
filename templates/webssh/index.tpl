@@ -175,7 +175,9 @@
                         });
                     },
                     modify: function (obj) {
+                        let loading = layui.main.loading();
                         $.get(url + '/modify', {id: obj.data.id}, function (html) {
+                            loading.close();
                             main.popup({
                                 title: '修改SSH配置',
                                 url: url + '/modify',
@@ -186,7 +188,9 @@
                         });
                     },
                     login: function (obj) {
+                        let loading = layui.main.loading();
                         $.get(url + '/login', {id: obj.data.id}, function (link) {
+                            loading.close();
                             if (link) {
                                 window.open(link, "_blank");
                             }
@@ -208,7 +212,9 @@
                 },
                 activeBar = {
                     add: function () {
+                        let loading = layui.main.loading();
                         $.get(url + '/add', {}, function (html) {
+                            loading.close();
                             main.popup({
                                 title: '添加webSSH',
                                 url: url + '/add',

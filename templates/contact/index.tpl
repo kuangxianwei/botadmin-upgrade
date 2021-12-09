@@ -117,7 +117,9 @@
                     });
                 },
                 'modify': function (obj) {
+                    let loading = main.loading();
                     $.get(url + "/modify", {id: obj.data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: "修改客服",
                             url: url + "/modify",
@@ -195,7 +197,9 @@
             },
             activeBar = {
                 'add': function () {
+                    let loading = main.loading();
                     $.get(url + '/add', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: "添加客服",
                             url: url + "/add",
@@ -278,7 +282,9 @@
                     if (data.length === 0) {
                         return layer.msg('请选择数据');
                     }
+                    let loading = main.loading();
                     $.get(url + '/configure', {ids: ids.join()}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '批量设置',
                             content: html,

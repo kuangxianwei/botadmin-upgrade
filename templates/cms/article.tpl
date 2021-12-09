@@ -78,7 +78,9 @@
                 },
                 edit: function () {
                     let othis = this;
+                    let loading = main.loading();
                     $.get(url + "/modify", {id: id, ids: othis.data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             type: 1,
                             title: "修改文章",
@@ -90,7 +92,9 @@
                 },
                 browse: function () {
                     let othis = this;
+                    let loading = main.loading();
                     $.get("/cms/url", {id: id, cid: othis.data.class_id, aid: othis.data.id}, function (res) {
+                        loading.close();
                         if (res.code !== 0) {
                             main.err(res.msg);
                         } else {

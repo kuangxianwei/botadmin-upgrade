@@ -844,7 +844,9 @@
                     });
                     break;
                 case 'assign-push':
+                    let loading = layui.main.loading();
                     $.get('/site/default/push', function (res) {
+                        loading.close();
                         if (res.length === 0) {
                             layer.msg('默认数据为空');
                         }

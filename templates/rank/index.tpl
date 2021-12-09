@@ -129,7 +129,9 @@
             let data = obj.data;
             switch (obj.event) {
                 case 'modify':
+                    let loading = layui.main.loading();
                     $.get('/rank/modify', {id: data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改',
                             content: html,
@@ -171,7 +173,9 @@
                 tokens = [];
             switch (obj.event) {
                 case 'add':
+                    let loading = layui.main.loading();
                     $.get('/rank/add', {id: data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '添加',
                             content: html,

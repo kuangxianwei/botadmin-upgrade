@@ -240,7 +240,9 @@
                     });
                 },
                 'modify': function (data) {
+                    let loading = main.loading();
                     $.get(url + '/modify', {id: data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改文章',
                             url: url + '/modify',
@@ -283,7 +285,9 @@
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
+                    let loading = main.loading();
                     $.get(url + '/configure', {ids: obj.ids.join()}, function (html) {
+                        loading.close();
                         main.popup({
                             title: "批量修改配置",
                             content: html,
@@ -311,7 +315,9 @@
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
+                    let loading = main.loading();
                     $.get(url + '/convert', {ids: obj.ids.join()}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '简繁体转换',
                             content: html,
@@ -349,7 +355,9 @@
                     });
                 },
                 case: function () {
+                    let loading = main.loading();
                     $.get(url + '/case', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '采集范本',
                             content: html,
@@ -366,7 +374,9 @@
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
+                    let loading = main.loading();
                     $.get(url + '/translate', {ids: obj.ids.join()}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '翻译',
                             content: html,

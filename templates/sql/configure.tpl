@@ -25,10 +25,12 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main;
-        $('button[lay-event]').off('click').on('click',function () {
+        $('button[lay-event]').off('click').on('click', function () {
             switch ($(this).attr('lay-event')) {
                 case 'edit-sql':
+                    let loading = main.loading();
                     $.get('/file/editor?path={{.mycnf_path}}', {hide: true}, function (html) {
+                        loading.close();
                         main.popup({
                             url: "/file/editor",
                             title: '编辑文件',

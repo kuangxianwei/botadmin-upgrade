@@ -361,7 +361,9 @@
                 });
             },
             'edit-ban': function () {
+                let loading = main.loading();
                 $.get('/config/ban/data', function (html) {
+                    loading.close();
                     main.popup({
                         title: '编辑禁词',
                         content: html,

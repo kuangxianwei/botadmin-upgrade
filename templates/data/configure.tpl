@@ -61,10 +61,12 @@
                             form.render('select');
                             return false;
                         }
+                        let loading = layui.main.loading();
                         $.get('/site/class', {
                             id: obj.value,
                             class_id: $('select[name=class_id]').val()
                         }, function (res) {
+                            loading.close();
                             switch (res.code) {
                                 case -1:
                                     layer.alert(res.msg, {icon: 2});

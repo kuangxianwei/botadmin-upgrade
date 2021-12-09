@@ -45,6 +45,7 @@
             source_obj = $("select[name='source']"),
             target_obj = $("select[name='target']");
         /*服务器获取*/
+        let loading = layui.main.loading();
         $.get('/spider/usable', {
             engine: engine,
             source_name: source_name,
@@ -52,6 +53,7 @@
             source_selected: source_obj.val() || 'en',
             target_selected: target_obj.val() || 'zh'
         }, function (res) {
+            loading.close();
             if (res.code === 0) {
                 source_obj.replaceWith(res.data.source);
                 target_obj.replaceWith(res.data.target);

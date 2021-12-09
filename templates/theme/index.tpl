@@ -82,7 +82,9 @@
         class Util {
             constructor() {
                 this.init = function () {
+                    let loading = layui.main.loading();
                     $.get(url + "/tags", {driver: driver}, function (res) {
+                        loading.close();
                         tagsEle.empty();
                         if (res.code === 0) {
                             for (let i = 0; i < res.data.length; i++) {
@@ -209,7 +211,9 @@
                     },
                     // 一下是绑定事件
                     "add": function (othis) {
+                        let loading = layui.main.loading();
                         $.get(url + "/add", {driver: driver}, function (html) {
+                            loading.close();
                             main.popup({
                                 title: "添加主题",
                                 url: url + "/add",
@@ -272,7 +276,9 @@
                     },
                     "modify": function (othis) {
                         let id = this.attr("data-id");
+                        let loading = layui.main.loading();
                         $.get(url + "/modify", {driver: driver, id: id}, function (html) {
+                            loading.close();
                             main.popup({
                                 title: "修改主题",
                                 url: url + "/modify",

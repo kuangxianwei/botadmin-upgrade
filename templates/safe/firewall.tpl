@@ -20,7 +20,7 @@
             main = layui.main;
         //规则管理
         table.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             url: url,
@@ -53,7 +53,9 @@
         //点击添加
         let active = {
             add: function () {
+                let loading = layui.main.loading();
                 $.get(url + '/add', {}, function (html) {
+                    loading.close();
                     main.popup({
                         title: '添加规则',
                         content: html,

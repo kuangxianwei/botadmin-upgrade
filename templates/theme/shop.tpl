@@ -77,7 +77,9 @@
         class Util {
             constructor() {
                 this.init = function () {
+                    let loading = layui.main.loading();
                     $.get(url + "/tags", {driver: driver}, function (res) {
+                        loading.close();
                         tagsEle.empty();
                         if (res.code === 0) {
                             for (let i = 0; i < res.data.length; i++) {

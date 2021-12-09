@@ -123,7 +123,9 @@
                     });
                     break;
                 case 'read':
+                    let loading = layui.main.loading();
                     $.get(url + '/update', {'id': data.id, read: true}, function (res) {
+                        loading.close();
                         if (res.code !== 0) {
                             layer.alert(res.msg, {icon: 2});
                         } else {

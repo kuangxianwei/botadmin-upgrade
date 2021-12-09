@@ -400,7 +400,9 @@
                     });
                 },
                 'modify': function (obj) {
+                    let loading = main.loading();
                     $.get(url + '/modify', {id: obj.data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             url: url + '/modify',
                             title: '修改网站设置',
@@ -464,7 +466,9 @@
                     });
                 },
                 'del_link': function (obj) {
+                    let loading = main.loading();
                     $.get(url + '/link', {id: obj.data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             url: url + '/del/link',
                             title: '删除友链',
@@ -475,7 +479,9 @@
                     });
                 },
                 'pic_dir': function (obj) {
+                    let loading = main.loading();
                     $.get(url + '/image', {id: obj.data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             url: url + '/image',
                             title: '添加图片',
@@ -510,7 +516,9 @@
                                 if (event.value === '1') {
                                     layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
                                         layer.close(index);
+                                        let loading = main.loading();
                                         $.get(url + "/sql/backup", {webroot_path: obj.data['webroot_path']}, function (res) {
+                                            loading.close();
                                             if (res.code !== 0) {
                                                 main.err(res.msg);
                                                 layer.close(index);
@@ -561,9 +569,11 @@
                         layer.msg("外部网站不允许编辑FTP", {icon: 2});
                         return false;
                     }
+                    let loading = main.loading();
                     $.get('/ftp/relationship',
                         {'id': obj.data['ftp_id'], 'site_id': obj.data.id, 'username': obj.data.vhost},
                         function (html) {
+                            loading.close();
                             main.popup({
                                 url: '/ftp/relationship',
                                 title: obj.data['ftp_id'] > 0 ? '选择FTP' : '添加FTP',
@@ -578,9 +588,11 @@
                         layer.msg("外部网站不允许编辑数据库", {icon: 2});
                         return false;
                     }
+                    let loading = main.loading();
                     $.get('/sql/relationship',
                         {'id': obj.data['sql_id'], 'site_id': obj.data.id, 'username': obj.data.vhost},
                         function (html) {
+                            loading.close();
                             let title = obj.data['sql_id'] > 0 ? '选择SQL' : '添加SQL';
                             main.popup({
                                 url: '/sql/relationship',
@@ -613,7 +625,9 @@
                         layer.msg("未选择", {icon: 2});
                         return false;
                     }
+                    let loading = main.loading();
                     $.get(url + '/configure', {ids: ids.join()}, function (html) {
+                        loading.close();
                         main.popup({
                             title: "批量修改配置",
                             url: url + '/configure',
@@ -637,7 +651,9 @@
                     });
                 },
                 'add': function () {
+                    let loading = main.loading();
                     $.get(url + '/add', {}, function (html) {
+                        loading.close();
                         main.popup({
                             url: url + '/add',
                             title: '添加网站',
@@ -653,7 +669,9 @@
                     });
                 },
                 'batch': function () {
+                    let loading = main.loading();
                     $.get(url + '/batch', {}, function (html) {
+                        loading.close();
                         main.popup({
                             url: url + '/batch',
                             title: '批量添加网站',

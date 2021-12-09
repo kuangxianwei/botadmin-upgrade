@@ -213,7 +213,9 @@
                     });
                 },
                 'modify': function (obj) {
+                    let loading = layui.main.loading();
                     $.get(url + '/modify', {id: obj.data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改规则',
                             content: html,
@@ -259,7 +261,9 @@
                     });
                 },
                 'site_id': function (obj) {
+                    let loading = layui.main.loading();
                     $.get(url + '/bind', {id: obj.data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '绑定网站',
                             content: html,
@@ -291,7 +295,9 @@
                     });
                 },
                 'addRule': function () {
+                    let loading = layui.main.loading();
                     $.get(url + '/add', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '添加规则',
                             content: html,
@@ -315,7 +321,9 @@
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
+                    let loading = layui.main.loading();
                     $.get(url + '/configure', {ids: ids.join()}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '批量修改配置',
                             content: html,

@@ -110,7 +110,9 @@
                     });
                 },
                 'modify': function (obj) {
+                    let loading = layui.main.loading();
                     $.get(url + '/modify', {id: obj.data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改MySQL',
                             content: html,
@@ -123,7 +125,9 @@
             },
             activeBar = {
                 'add': function () {
+                    let loading = layui.main.loading();
                     $.get(url + '/add', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '创建数据库',
                             content: html,
@@ -134,7 +138,9 @@
                     });
                 },
                 'modifyroot': function () {
+                    let loading = layui.main.loading();
                     $.get(url + '/modifyroot', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改root密码',
                             content: html,
@@ -144,7 +150,9 @@
                     });
                 },
                 'resetroot': function () {
+                    let loading = layui.main.loading();
                     $.get(url + '/resetroot', {}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '重置root密码',
                             content: html,
@@ -154,7 +162,9 @@
                     });
                 },
                 'viewRoot': function () {
+                    let loading = layui.main.loading();
                     $.get(url + '/view', {}, function (pwd) {
+                        loading.close();
                         main.copy.exec(pwd, layer.msg('root密码复制成功'));
                     });
                 },

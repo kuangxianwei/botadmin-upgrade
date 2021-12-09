@@ -274,9 +274,9 @@
                                 layer.msg("文件超大,不支持在线编辑", {icon: 5});
                                 return
                             }
-                            let loadIndex = layer.load(1, {shade: [0.6, '#000', true]});
+                            let loading = layui.main.loading();
                             $.get(url + '/editor', {path: obj.data.path, pure: true}, function (html) {
-                                layui.layer.close(loadIndex);
+                                loading.close();
                                 main.popup({title: false, content: html, maxmin: false});
                                 tabled.reload({where: {path: curPath.data.path}});
                             });

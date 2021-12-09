@@ -80,7 +80,7 @@
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             url: url || "",
@@ -136,7 +136,9 @@
                     });
                     break;
                 case 'modify':
+                    let loading = layui.main.loading();
                     $.get(url + '/modify', {id: data.id}, function (html) {
+                        loading.close();
                         main.popup({
                             title: '修改',
                             url: url + '/modify',
@@ -160,9 +162,11 @@
             layui.each(data, function (i, item) {
                 ids[i] = item.id;
             });
+            let loading = layui.main.loading();
             switch (obj.event) {
                 case 'add':
                     $.get(url + '/add', function (html) {
+                        loading.close();
                         main.popup({
                             title: '添加',
                             url: url + '/add',
@@ -222,6 +226,7 @@
                     break;
                 case 'excludes':
                     $.get(url + '/exclude', function (html) {
+                        loading.close();
                         main.popup({
                             url: url + '/exclude',
                             title: '排除列表',
@@ -249,6 +254,8 @@
                         url: url + '/jobs'
                     });
                     break;
+                default:
+                    loading.close();
             }
         });
     });
