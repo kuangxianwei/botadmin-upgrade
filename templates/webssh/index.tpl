@@ -324,6 +324,6 @@
         main.onSearch();
         setTimeout(function () {
             $('[lay-event=controlVersion]').click();
-        }, 5000);
+        }, 1000);
     });
 </script>
