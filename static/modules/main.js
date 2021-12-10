@@ -577,7 +577,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write="{{imgHTML .}}">imgHTML</button>
     </div></div>
     <div class="layui-col-md6"><div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs layui-btn-primary">头部标签</button>
+        <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="head">头部标签</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.Title}}">标题</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.Keywords}}">关键词</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.Description}}">描述</button>
@@ -592,6 +592,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write='<script src="{{.Config.Hostname}}/hot.js?aid={{.Article.Id}}"></script>'>点击量</button>
         <button class="layui-btn layui-btn-xs" data-write="{{source}}">来源</button>
         <button class="layui-btn layui-btn-xs" data-write="{{HTML .Article.Content}}">内容</button>
+        <button class="layui-btn layui-btn-xs" data-write="{{call .Article.MipContent}}">Mip内容</button>
         <button class="layui-btn layui-btn-xs" data-write="tag">TagHTML</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Pre}}">上一篇</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Next}}">上一篇</button>
@@ -602,6 +603,26 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 let $this = $(this), elem = $this.closest(".layui-form").find("textarea[name=content]"),
                     write = $this.data("write");
                 switch (write) {
+                    case "head":
+                        elem.insertAt(`<head>
+    <meta charset="UTF-8">
+    <meta content="IE=11,IE=10,IE=9,IE=8" http-equiv="X-UA-Compatible">
+    <meta content="pc,mobile" name="applicable-device">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>{{.Title}}</title>
+    <meta content="{{.Keywords}}" name="keywords">
+    <meta content="{{.Description}}" name="description">
+    <link href="{{.Theme}}/css/style.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="{{.Theme}}/js/bootstrap.min.js" type="text/javascript"></script>
+    {{canonicalLabel .Url}}
+    <meta content="webpage" property="og:type"/>
+    <meta content="{{.Url}}" property="og:url"/>
+    <meta content="{{.Config.Subtitle}}" property="og:site_name"/>
+    <meta content="{{.Title}}" property="og:title"/>
+    <meta content="{{.Description}}" property="og:description"/>
+    <meta content="{{.TitlePic}}" property="og:image"/>
+</head>`);
+                        break;
                     case "nav":
                         elem.insertAt(`<ul class="nav">
     <li>
