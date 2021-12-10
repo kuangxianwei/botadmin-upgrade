@@ -301,9 +301,6 @@
                     });
                 },
                 controlVersion: function (data, ids) {
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
                     main.req({
                         url: url + "/version",
                         data: {ids: ids.join()},
