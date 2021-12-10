@@ -6,8 +6,7 @@
                 <span class="layui-badge layui-bg-blue layuiadmin-badge">Site</span>
             </div>
             <div class="layui-card-body layuiadmin-card-list">
-                <p class="layuiadmin-big-font">{{.obj.SiteCount}} / {{.obj.FtpCount}}
-                    / {{.obj.SqlCount}}</p>
+                <p class="layuiadmin-big-font">{{.obj.SiteCount}} / {{.obj.FtpCount}} / {{.obj.SqlCount}}</p>
             </div>
         </div>
     </div>
@@ -213,10 +212,8 @@
                         <td>当前版本:</td>
                         <td><h2 style="display:inline-block; padding-right:20px;">{{.version}}</h2>
                             <div class="layui-btn-group">
-                                <a class="layui-btn layui-btn-sm"
-                                   href="https://github.com/kuangxianwei/botadmin-upgrade/releases" target="_blank">升级日志
-                                </a>
-                                <button class="layui-btn layui-btn-sm" data-event="upgrade-app">
+                                <a class="layui-btn layui-btn-sm" href="https://github.com/kuangxianwei/botadmin-upgrade/releases" target="_blank">升级日志</a>
+                                <button class="layui-btn layui-btn-sm" data-event="upgrade">
                                     升级到:{{.remoteVersion}}</button>
                             </div>
                         </td>
@@ -265,12 +262,13 @@
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
-<script type="text/html" id="upgrade-app">
-    <div class="layui-card" style="text-align: center">
+<script type="text/html" id="upgrade-html">
+    <div class="layui-card" style="text-align:center">
         <div class="layui-card-body layui-form">
             <button class="layui-hide" lay-submit></button>
             <input type="radio" name="mirror" value="0" title="国外源" checked>
             <input type="radio" name="mirror" value="1" title="国内源">
+            <input type="checkbox" name="force" lay-skin="switch" lay-text="启用强制|关闭强制">
         </div>
     </div>
 </script>
@@ -288,20 +286,17 @@
             record: function () {
                 main.ws.info();
             },
-            'upgrade-app': function () {
+            upgrade: function () {
                 main.popup({
                     title: false,
                     maxmin: false,
                     url: '/home/upgrade',
-                    content: $('#upgrade-app').html(),
-                    area: '280px',
+                    content: $('#upgrade-html').html(),
+                    area: '380px',
                     ending: function () {
                         main.ws.log("app_upgrade");
                     }
                 });
-            },
-            'upgrade-app-log': function () {
-                main.ws.log("app_upgrade");
             },
             terminal: function () {
                 main.webssh();
