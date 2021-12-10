@@ -691,14 +691,16 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
             main.req({
                     url: '/spider/test/list',
                     data: obj.field,
-                    ending: function (res) {
-                        main.msg(res.msg);
+                    ending: function () {
+                        main.ws.log("spider_test_list");
                         return false;
                     },
                     success: function (res) {
+                        /*
                         if (res.code === 0 && res.data) {
                             stepObj.seeds = res.data;
                         }
+                         */
                     }
                 },
                 $(obj.elem).closest(".layui-form"));
