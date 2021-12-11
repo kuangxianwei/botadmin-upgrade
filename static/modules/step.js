@@ -692,7 +692,9 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                     url: '/spider/test/list',
                     data: obj.field,
                     ending: function () {
-                        main.ws.log("spider_test_list");
+                        main.ws.log("spider_test_list.0", function (res) {
+                            console.log(res);
+                        });
                         return false;
                     },
                     success: function (res) {
