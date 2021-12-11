@@ -1444,7 +1444,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
             let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log');
             main.textarea("", {
-                area: ["75%", "75%"], success: function (dom) {
+                area: ["75%", "75%"],
+                success: function (dom) {
                     let elem = dom.find("textarea");
                     elem.css("margin-top", "-20px").before('<div style="position:relative;z-index:29821027;left:20px;width:90px;padding:6px;top:-20px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div>');
                     let statusElem = dom.find('#log-status');
@@ -1462,9 +1463,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             elem.focus().append(e.data.substr(1)).scrollTop(elem[0].scrollHeight);
                         }
                     };
-                }, end: function () {
+                },
+                end: function ( dom) {
                     w.close();
-                    typeof callback === 'function' && callback();
+                    typeof callback === 'function' && callback(dom);
                 }
             });
         },
