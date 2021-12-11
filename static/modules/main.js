@@ -1430,13 +1430,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     });
                 $this.parent().after(elem);
             });
-        }, tpl: function (tplName) {
+        },
+        tpl: function (tplName) {
+            if (!tplName) {
+                tplName = $('select[name=tpl_name]').val();
+            }
             // 渲染模板图片
-            tplName = tplName || $('select[name=tpl_name]').val();
             if (tplName) {
-                $.get('/site/theme', {
-                    system: $('select[name=system]').val(), tpl_name: tplName
-                }, function (res) {
+                let loading = main.loading();
+                $.get('/site/theme', {system: $('select[name=system]').val(), tpl_name: tplName}, function (res) {
+                    loading.close();
                     if (res.code === 0 && res.data.face) {
                         let ele = $('<img width="100%" height="100%" alt="" src="">').attr({
                             src: res.data["small_face"],
@@ -1450,6 +1453,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             main.display({content: $this.prop("outerHTML")});
                         });
                         $('#theme').html(ele);
+                    } else {
+                        main.err(res.msg);
                     }
                 });
             }

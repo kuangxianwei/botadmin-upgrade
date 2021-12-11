@@ -894,9 +894,7 @@
         // 改变模板
         form.on('select(tpl_name)', function (obj) {
             $('#theme').empty();
-            if (obj.value) {
-                main.render.tpl(obj.value);
-            }
+            obj.value && main.render.tpl(obj.value);
         });
     });
 </script>
