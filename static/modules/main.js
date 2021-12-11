@@ -1446,6 +1446,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             main.textarea("", {
                 area: ["75%", "75%"],
                 success: function (dom) {
+                    this.dom = dom;
                     let elem = dom.find("textarea");
                     elem.css("margin-top", "-20px").before('<div style="position:relative;z-index:29821027;left:20px;width:90px;padding:6px;top:-20px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div>');
                     let statusElem = dom.find('#log-status');
@@ -1464,9 +1465,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         }
                     };
                 },
-                end: function ( dom) {
+                end: function () {
                     w.close();
-                    typeof callback === 'function' && callback(dom);
+                    typeof callback === 'function' && callback(this.dom);
                 }
             });
         },
