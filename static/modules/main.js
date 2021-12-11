@@ -1466,6 +1466,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     };
                 },
                 end: function () {
+                    console.log(this);
                     w.close();
                     typeof callback === 'function' && callback(this.dom);
                 }
