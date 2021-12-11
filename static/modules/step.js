@@ -25,12 +25,10 @@ function onMethod() {
 
 /* 翻译*/
 layui.define(['form'], function (exports) {
-    let $ = layui.$,
-        form = layui.form,
-        Class = function (engines) {
-            this.engines = engines || [];
-            this.data = {};
-        };
+    let $ = layui.$, form = layui.form, Class = function (engines) {
+        this.engines = engines || [];
+        this.data = {};
+    };
     // 获取可用语言列表
     Class.prototype.get = function (engine) {
         let othis = this;
@@ -94,8 +92,7 @@ layui.define(['form'], function (exports) {
         });
         dom.find('select[name^="trans.engine."]').first().html(engineHtml);
         // 源语言选择列表
-        let source = options['source'] || '',
-            sourceHtml = '<option value="">搜索...</option>';
+        let source = options['source'] || '', sourceHtml = '<option value="">搜索...</option>';
         $.each(data.sources, function (i, v) {
             if (source === v['name']) {
                 sourceHtml += '<option value="' + v['name'] + '" selected>' + v['alias'] + '</option>';
@@ -105,8 +102,7 @@ layui.define(['form'], function (exports) {
         });
         dom.find('select[name^="trans.source."]').first().html(sourceHtml);
         // 目标语言选择列表
-        let target = options['target'] || '',
-            targetHtml = '<option value="">搜索...</option>';
+        let target = options['target'] || '', targetHtml = '<option value="">搜索...</option>';
         $.each(data['targets'], function (i, v) {
             if (target === v['name']) {
                 targetHtml += '<option value="' + v['name'] + '" selected>' + v['alias'] + '</option>';
@@ -117,8 +113,7 @@ layui.define(['form'], function (exports) {
         dom.find('select[name^="trans.target."]').first().html(targetHtml);
 
         // 可选择的翻译ID
-        let cfgId = parseInt(options['cfg_id']) || 0,
-            cfgHtml = '<option value="">搜索...</option>';
+        let cfgId = parseInt(options['cfg_id']) || 0, cfgHtml = '<option value="">搜索...</option>';
         $.each(data['cfg_ids'], function (i, v) {
             if (cfgId === v) {
                 cfgHtml += '<option value="' + v + '" selected>' + v + '</option>';
@@ -133,8 +128,7 @@ layui.define(['form'], function (exports) {
     Class.prototype.changed = function () {
         let othis = this;
         form.on('select(trans.engine)', function (obj) {
-            let parentThis = $($(obj.elem).closest('.layui-form-item')),
-                data = othis.get(obj.value);
+            let parentThis = $($(obj.elem).closest('.layui-form-item')), data = othis.get(obj.value);
             if (data && parentThis) {
                 // 源语言选择列表
                 let sourceHtml = '<option value="">搜索...</option>';
@@ -187,13 +181,10 @@ layui.define(['form'], function (exports) {
 });
 /*列表*/
 layui.define(['form'], function (exports) {
-    let $ = layui.$,
-        form = layui.form,
-        element = layui.element,
-        Class = function (rules) {
-            this.rules = rules || [];
-            this.data = {};
-        };
+    let $ = layui.$, form = layui.form, element = layui.element, Class = function (rules) {
+        this.rules = rules || [];
+        this.data = {};
+    };
     // 获取序号
     Class.prototype.getId = function (id) {
         id = parseInt(id);
@@ -244,14 +235,7 @@ layui.define(['form'], function (exports) {
             dom.find('[name^="list.type."]>option[value=' + field.type + ']').prop('selected', true);
             if (field.page) {
                 field.page = $.extend({
-                    enabled: false,
-                    limit: '',
-                    method: '',
-                    attr_name: '',
-                    match: '',
-                    type: 0,
-                    reg: '',
-                    dom: ''
+                    enabled: false, limit: '', method: '', attr_name: '', match: '', type: 0, reg: '', dom: ''
                 }, field.page);
                 field.page.olds = field.page.olds || [];
                 field.page.news = field.page.news || [];
@@ -309,13 +293,10 @@ layui.define(['form'], function (exports) {
 });
 /*详情列表*/
 layui.define(['form'], function (exports) {
-    let $ = layui.$,
-        form = layui.form,
-        element = layui.element,
-        Class = function (rules) {
-            this.rules = rules || [];
-            this.data = {};
-        };
+    let $ = layui.$, form = layui.form, element = layui.element, Class = function (rules) {
+        this.rules = rules || [];
+        this.data = {};
+    };
     // 获取序号
     Class.prototype.getId = function (id) {
         id = parseInt(id);
@@ -351,14 +332,7 @@ layui.define(['form'], function (exports) {
         });
         if (typeof field.dom === 'string') {
             field = $.extend({
-                limit: '',
-                method: '',
-                attr_name: '',
-                match: '',
-                type: 0,
-                raw: false,
-                reg: '',
-                filter_dom: null
+                limit: '', method: '', attr_name: '', match: '', type: 0, raw: false, reg: '', filter_dom: null
             }, field);
             field.olds = field.olds || [];
             field.news = field.news || [];
@@ -443,9 +417,7 @@ layui.define(['form'], function (exports) {
                 aliases.push($(this).val());
             });
             layer.prompt({
-                formType: 0,
-                value: 'author',
-                title: '输入标识 由字母下划线或数字组成 字母开头'
+                formType: 0, value: 'author', title: '输入标识 由字母下划线或数字组成 字母开头'
             }, function (name, index) {
                 if (!/^[a-zA-Z][a-zA-Z0-9_]+/.test(name)) {
                     layer.alert('您输入的标识不合法!', {icon: 2});
@@ -456,9 +428,7 @@ layui.define(['form'], function (exports) {
                     return false;
                 }
                 layer.prompt({
-                    formType: 0,
-                    value: name.substring(0, 1).toUpperCase() + name.substring(1),
-                    title: '请输入别名 例如:标题'
+                    formType: 0, value: name.substring(0, 1).toUpperCase() + name.substring(1), title: '请输入别名 例如:标题'
                 }, function (alias, index) {
                     if (aliases.indexOf(alias) !== -1) {
                         layer.alert('您输入的别名"' + alias + '"已经存在', {icon: 2});
@@ -481,23 +451,15 @@ layui.define(['form'], function (exports) {
 });
 /*采集爬虫*/
 layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
-    let $ = layui.jquery,
-        form = layui.form,
-        main = layui.main,
-        Class = function (position) {
-            this.elem = '.step-header';
-            this.titleW = '90%';
-            this.position = parseInt(position) || 0;// 当前位置
-            this.stepItems = [
-                {title: '基本设置'},
-                {title: '列表规则'},
-                {title: '详情页'},
-                {title: '定时采集'},
-            ]; // 进度条
-            this.classes = {};
-            this.seeds = [];
-            this.currentIndex = $('.step-content').closest('[times]').attr('times'); //先得到当前iframe层的索引;
-        };
+    let $ = layui.jquery, form = layui.form, main = layui.main, Class = function (position) {
+        this.elem = '.step-header';
+        this.titleW = '90%';
+        this.position = parseInt(position) || 0;// 当前位置
+        this.stepItems = [{title: '基本设置'}, {title: '列表规则'}, {title: '详情页'}, {title: '定时采集'},]; // 进度条
+        this.classes = {};
+        this.seeds = [];
+        this.currentIndex = $('.step-content').closest('[times]').attr('times'); //先得到当前iframe层的索引;
+    };
     // 渲染头部进度条
     Class.prototype.renderHeader = function () {
         let othis = this;
@@ -522,8 +484,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                 stepDiv += '<div class="step-item-head "><i class="layui-icon">' + number + '</i></div>';
             }
             // 标题和描述
-            let title = this.stepItems[i].title,
-                desc = this.stepItems[i].desc;
+            let title = this.stepItems[i].title, desc = this.stepItems[i].desc;
             if (title || desc) {
                 stepDiv += '<div class="step-item-main">';
                 stepDiv += title ? '<div class="step-item-main-title">' + title + '</div>' : '';
@@ -545,11 +506,8 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
     };
     /* 渲染上一步 下一步 */
     Class.prototype.renderGoto = function () {
-        let next = this.position + 1,
-            pre = this.position - 1,
-            domAll = $('div.layui-layer-btn>a'),
-            dom0 = $('div.layui-layer-btn>.layui-layer-btn0'),
-            dom2 = $('div.layui-layer-btn>.layui-layer-btn2');
+        let next = this.position + 1, pre = this.position - 1, domAll = $('div.layui-layer-btn>a'),
+            dom0 = $('div.layui-layer-btn>.layui-layer-btn0'), dom2 = $('div.layui-layer-btn>.layui-layer-btn2');
         switch (true) {
             case pre < 0:
                 domAll.removeClass('layui-hide');
@@ -653,8 +611,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         });
         /* 验证爬虫名称和种子 */
         form.verify({
-            name: [/^.{2,}/, '第一步 爬虫名称必须2个字符以上！'],
-            seeds: [/^\s*https?:\/\//i, '第一步 必须以http:// 或者 https:// 开头']
+            name: [/^.{2,}/, '第一步 爬虫名称必须2个字符以上！'], seeds: [/^\s*https?:\/\//i, '第一步 必须以http:// 或者 https:// 开头']
         });
         // 监控事件
         this.events();
@@ -673,53 +630,60 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         layui.rules(options.rules);
         // 详情列表
         layui.detail(options.detail);
+        let active = {
+            testList: function () {
+                $('.step-content>div').removeClass('layui-form');
+                $('[lay-filter=testList]').click();
+            },
+            testListLog: function () {
+                main.ws.log('spider_test_list.0');
+            },
+            sourceCode: function () {
+                $('.step-content>div').removeClass('layui-form');
+                $('[lay-filter=sourceCode]').click();
+            },
+            testDetail: function () {
+                $('.step-content>div').removeClass('layui-form');
+                $('[lay-filter=testDetail]').click();
+            },
+            testDetailLog: function () {
+                main.ws.log('spider_test_detail.0');
+            },
+        };
+
         // 监控下一个链接正则
         if ($('input[name="next_reg"]').val()) {
             $('#next-dom-toggle').click();
         }
+
         //监控选择网站ID
         form.on('select(site_id)', function (obj) {
             stepObj.bindClass(obj.value);
         });
+
         /*测试列表页*/
-        $('button[data-event=testList]').off('click').on('click', function () {
-            $('.step-content>div').removeClass('layui-form');
-            $('button[lay-filter=testList]').click();
+        $('[data-event]').off('click').on('click', function () {
+            let $this = $(this), event = $this.data("event");
+            active[event] && active[event].call($this);
         });
+
         // 监控测试列表
         form.on('submit(testList)', function (obj) {
             main.req({
-                    url: '/spider/test/list',
-                    data: obj.field,
-                    ending: function () {
-                        main.ws.log("spider_test_list.0", function () {
-                            console.log("textarea:",$("textarea").val());
-                        });
-                        return false;
-                    },
-                    success: function (res) {
-                        /*
-                        if (res.code === 0 && res.data) {
-                            stepObj.seeds = res.data;
-                        }
-                         */
-                    }
-                },
-                $(obj.elem).closest(".layui-form"));
+                url: '/spider/test/list', data: obj.field, ending: function () {
+                    main.ws.log("spider_test_list.0");
+                    return false;
+                }
+            }, $(obj.elem).closest(".layui-form"));
         });
-        /*测试详情页*/
-        $('button[data-event=testDetail]').off('click').on('click', function () {
-            $('.step-content>div').removeClass('layui-form');
-            $('button[lay-filter=testDetail]').click();
-        });
+
+        // 监控测试详情
         form.on('submit(testDetail)', function (obj) {
             if (stepObj.seeds.length === 0) {
                 stepObj.seeds = obj.field.seeds.split("\n")
             }
             layer.prompt({
-                formType: 0,
-                value: stepObj.seeds[0],
-                title: '请输入完整的URL地址 http 开头'
+                formType: 0, value: stepObj.seeds[0], title: '请输入完整的URL地址 http 开头'
             }, function (value, index) {
                 obj.field.detail_url = value;
                 main.req({
@@ -741,27 +705,18 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                 });
             });
         });
-        /*测试源码*/
-        $('button[data-event=sourceCode]').off('click').on('click', function () {
-            $('.step-content>div').removeClass('layui-form');
-            $('button[lay-filter=sourceCode]').click();
-        });
-        /*提交测试源码*/
+
+        // 监控测试源码
         form.on('submit(sourceCode)', function (obj) {
             if (stepObj.seeds.length === 0) {
                 stepObj.seeds = obj.field.seeds.split("\n")
             }
             layer.prompt({
-                formType: 0,
-                value: stepObj.seeds[0],
-                title: '请输入完整的URL地址 http 开头'
+                formType: 0, value: stepObj.seeds[0], title: '请输入完整的URL地址 http 开头'
             }, function (value, index) {
                 obj.field.detail_url = value;
                 main.req({
-                    url: '/spider/test/source',
-                    data: obj.field,
-                    index: index,
-                    ending: function (res) {
+                    url: '/spider/test/source', data: obj.field, index: index, ending: function (res) {
                         layer.open({
                             type: 1,
                             title: '源码详情结果',
@@ -776,6 +731,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                 });
             });
         });
+
         layui.element.render();
         form.render();
     });

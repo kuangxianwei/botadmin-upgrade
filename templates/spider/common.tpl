@@ -154,6 +154,7 @@
             <div class="layui-btn-group" style="float:right">
                 <button class="layui-hide" lay-submit lay-filter="testList"></button>
                 <button class="layui-btn" data-event="testList">测试</button>
+                <button class="layui-btn" data-event="testListLog"><i class="layui-icon layui-icon-log"></i></button>
                 <button class="layui-hide" lay-submit lay-filter="sourceCode"></button>
                 <button class="layui-btn" data-event="sourceCode">源码</button>
             </div>
@@ -200,6 +201,7 @@
                     <div class="layui-btn-group">
                         <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
                         <button class="layui-btn" data-event="testDetail">测试</button>
+                        <button class="layui-btn" data-event="testDetailLog"><i class="layui-icon layui-icon-log"></i></button>
                         <button class="layui-btn" data-event="sourceCode">源码</button>
                     </div>
                 </div>
