@@ -311,7 +311,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         break;
                     case 1001:
                     case 403:
-                        location.replace('/auth/login?next=' + $('meta[name=current_uri]').attr('content'));
+                        window.location.replace('/auth/login?next=' + $('meta[name=current_uri]').attr('content'));
                         break;
                     default:
                         if (typeof options.error === 'function' && options.error(res) === false) {
@@ -539,9 +539,9 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 
         // 填充内置CMS模板变量
         onFillTheme() {
-            $('#filepath').append('<button class="layui-btn layui-btn-sm layui-btn-radius" data-event="theme-func" style="margin-left:10px">查看模板支持函数</button>');
-            let othis = this, formHTML = '<div class="layui-card"><div class="layui-card-body layui-form"></div></div>';
-            $('.fill-theme').removeClass("layui-hide").html(`<div class="layui-row">
+            let othis = this,
+                formHTML = '<div class="layui-card"><div class="layui-card-body layui-form"></div></div>',
+                btnGroupHTML = `<div class="layui-row">
     <div class="layui-col-md6"><div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-primary">全局标签</button>
         <button class="layui-btn layui-btn-xs" data-write="{{.Config.Hostname}}">Hostname</button>
@@ -557,6 +557,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write='{{template "模板.tpl" .}}'>导入模板</button>
         <button class="layui-btn layui-btn-xs" data-write="nav">导航HTML</button>
         <button class="layui-btn layui-btn-xs" data-write="link">友链HTML</button>
+        <button class="layui-btn layui-btn-xs" data-write="tags">Tags</button>
     </div></div>
     <div class="layui-col-md6"><div class="layui-btn-group">
         <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="list">列表标签</button>
@@ -598,13 +599,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Next}}">上一篇</button>
         <button class="layui-btn layui-btn-xs" data-write="like">相关文章HTML</button>
     </div></div>
-</div>`);
-            $('[data-write]').off("click").on("click", function () {
-                let $this = $(this), elem = $this.closest(".layui-form").find("textarea[name=content]"),
-                    write = $this.data("write");
-                switch (write) {
-                    case "head":
-                        elem.insertAt(`<head>
+</div>`,
+                headHTML = `<head>
     <meta charset="UTF-8">
     <meta content="IE=11,IE=10,IE=9,IE=8" http-equiv="X-UA-Compatible">
     <meta content="pc,mobile" name="applicable-device">
@@ -621,10 +617,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     <meta content="{{.Title}}" property="og:title"/>
     <meta content="{{.Description}}" property="og:description"/>
     <meta content="{{.TitlePic}}" property="og:image"/>
-</head>`);
-                        break;
-                    case "nav":
-                        elem.insertAt(`<ul class="nav">
+</head>`,
+                navHTML = `<ul class="nav">
     <li>
         <a href="{{.Config.Hostname}}/">首页</a>
     <li>
@@ -640,18 +634,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         {{- end}}
     </li>
     {{- end}}
-</ul>`);
-                        break;
-                    case "link":
-                        othis.open({
-                            area: ["600px", "280px"], title: "友情链接标签", content: formHTML, success: function (dom) {
-                                dom.find(".layui-form").html(`<div class="layui-form-item">
+</ul>`,
+                linkHTML = `<div class="layui-form-item">
     <label class="layui-form-label">限制:</label>
     <div class="layui-input-inline">
         <input class="layui-input" min="1" name="limit" type="number" value="30">
     </div>
-</div>
-<div class="layui-form-item">
+</div><div class="layui-form-item">
     <label class="layui-form-label">显示:</label>
     <div class="layui-input-block">
         <input name="pager" title="全部" type="radio" value="all">
@@ -660,7 +649,43 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         <input name="pager" title="文章" type="radio" value="article">
         <input name="pager" title="TAG" type="radio" value="tag">
     </div>
-</div>`);
+</div>`,
+                tagsHTML = `<div class="layui-form-item">
+    <label class="layui-form-label">限制:</label>
+    <div class="layui-input-inline">
+        <input class="layui-input" min="1" name="limit" type="number" value="30">
+    </div>
+</div><div class="layui-form-item">
+    <label class="layui-form-label">推荐:</label>
+    <div class="layui-input-block">
+        <input name="level" title="荐1" type="checkbox" value="1">
+        <input name="level" title="荐2" type="checkbox" value="2">
+        <input name="level" title="荐3" type="checkbox" value="3">
+    </div>
+</div><div class="layui-form-item">
+    <label class="layui-form-label">排序:</label>
+    <div class="layui-input-block">
+        <input checked name="order" title="最火" type="radio" value="0">
+        <input name="order" title="最新" type="radio" value="1">
+        <input name="order" title="随机" type="radio" value="2">
+    </div>
+</div>`;
+            $('#filepath').append('<button class="layui-btn layui-btn-sm layui-btn-radius" data-event="theme-func" style="margin-left:10px">查看模板支持函数</button>');
+            $('.fill-theme').removeClass("layui-hide").html(btnGroupHTML);
+            $('[data-write]').off("click").on("click", function () {
+                let $this = $(this), elem = $this.closest(".layui-form").find("textarea[name=content]"),
+                    write = $this.data("write");
+                switch (write) {
+                    case "head":
+                        elem.insertAt(headHTML);
+                        break;
+                    case "nav":
+                        elem.insertAt(navHTML);
+                        break;
+                    case "link":
+                        othis.open({
+                            area: ["600px", "280px"], title: "友情链接标签", content: formHTML, success: function (dom) {
+                                dom.find(".layui-form").html(linkHTML);
                                 form.render();
                             }, yes: function (index, dom) {
                                 let data = othis.formData(dom);
@@ -679,6 +704,27 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 </ul>
 {{end}}`);
                                 }
+                                layer.close(index);
+                            },
+                        });
+                        break;
+                    case "tags":
+                        othis.open({
+                            area: ["600px", "280px"], title: "Tags标签", content: formHTML, success: function (dom) {
+                                dom.find(".layui-form").html(tagsHTML);
+                                form.render();
+                            }, yes: function (index, dom) {
+                                let data = othis.formData(dom),
+                                    begin = "{{- range tags " + (parseInt(data.order) || 0) + " " + data.limit;
+                                if (data.level) {
+                                    begin += " \"level=" + data.level.join(",") + "\"";
+                                }
+                                begin += "}}"
+                                elem.insertAt(`<ul class="tags">
+    ` + begin + `
+    <li>{{HTML .}}</li>
+    {{- end}}
+</ul>`);
                                 layer.close(index);
                             },
                         });
@@ -758,12 +804,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 <div class="layui-form-item">
     <label class="layui-form-label">推荐:</label>
     <div class="layui-input-block">
-        <input name="good" title="荐1" type="checkbox" value="1">
-        <input name="good" title="荐2" type="checkbox" value="2">
-        <input name="good" title="荐3" type="checkbox" value="3">
-        <input name="good" title="荐4" type="checkbox" value="4">
-        <input name="good" title="荐5" type="checkbox" value="5">
-        <input name="good" title="荐6" type="checkbox" value="6">
+        <input name="level" title="荐1" type="checkbox" value="1">
+        <input name="level" title="荐2" type="checkbox" value="2">
+        <input name="level" title="荐3" type="checkbox" value="3">
+        <input name="level" title="荐4" type="checkbox" value="4">
+        <input name="level" title="荐5" type="checkbox" value="5">
+        <input name="level" title="荐6" type="checkbox" value="6">
     </div>
 </div>
 <div class="layui-form-item">
@@ -803,10 +849,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                                 }
                                 range += ' ' + data.order;
                                 range += ' ' + data.limit;
-                                if (Array.isArray(data['good'])) {
-                                    range += ' "attr=' + data['good'].join() + '"';
-                                } else if (data['good']) {
-                                    range += ' "attr=' + data['good'] + '"';
+                                if (Array.isArray(data.level)) {
+                                    range += ' "level=' + data.level.join() + '"';
+                                } else if (data.level) {
+                                    range += ' "level=' + data.level + '"';
                                 }
                                 if (data['where']) {
                                     range += ` "` + data['where'] + `"`;
@@ -1416,7 +1462,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             if (!options.name) {
                 return false;
             }
-            let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log');
+            let w = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws/log');
             w.onopen = function () {
                 w.send(options.name);
             };
@@ -1442,7 +1488,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             if (!name) {
                 return false;
             }
-            let w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log');
+            let w = new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws/log');
             main.textarea("", {
                 area: ["75%", "75%"],
                 success: function (dom) {
@@ -1531,7 +1577,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     };
     main.logout = function () {
         layui.view.exit();
-        location.href = '/auth/logout?next=' + location.pathname;
+        window.location.href = '/auth/logout?next=' + window.location.pathname;
     };
     // 暂停函数
     main.sleep = function (d) {
@@ -1552,7 +1598,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             });
             field.cols = cols.join(",");
             if (!field.cols) {
-                return location.reload();
+                return window.location.reload();
             }
             // 执行重载
             table.reload('table-list', {

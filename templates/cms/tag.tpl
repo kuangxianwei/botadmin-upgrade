@@ -83,7 +83,7 @@
                             url: url + "/modify",
                             content: html,
                             ending: "table-list",
-                            area: ['600px', '400px'],
+                            area: ['600px', '500px'],
                         });
                     });
                 }

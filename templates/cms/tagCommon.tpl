@@ -19,6 +19,15 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label">推荐:</label>
+            <div class="layui-input-block">
+                <input type="radio" name="level" value="0" title="常规"{{if eq .obj.Level 0}} checked{{end}}>
+                <input type="radio" name="level" value="1" title="一级推荐"{{if eq .obj.Level 1}} checked{{end}}>
+                <input type="radio" name="level" value="2" title="二级推荐"{{if eq .obj.Level 2}} checked{{end}}>
+                <input type="radio" name="level" value="3" title="三级推荐"{{if eq .obj.Level 3}} checked{{end}}>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">限制:</label>
             <div class="layui-input-inline">
                 <input type="number" name="size" value="{{.obj.Size}}" min="1" max="100" class="layui-input">
