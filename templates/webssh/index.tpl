@@ -304,6 +304,10 @@
                     main.req({
                         url: url + "/version",
                         data: {ids: ids.join()},
+                        ending: function (res) {
+                            console.log(res.msg);
+                            return false;
+                        }
                     })
                 }
             };
