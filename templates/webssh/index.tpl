@@ -65,9 +65,6 @@
             <button class="layui-btn layui-btn-sm layui-bg-cyan" lay-event="scan" lay-tips="批量检查控制台">
                 <i class="iconfont icon-scan"></i>
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="controlVersion" lay-tips="批量获取控制端版本">
-                <i class="iconfont layui-icon-vercode"></i>
-            </button>
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="log" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
@@ -300,14 +297,12 @@
                         }
                     });
                 },
-                controlVersion: function (data, ids) {
+                controlVersion: function () {
                     main.req({
-                        url: url + "/version",
-                        data: {ids: ids.join()},
-                        ending: function (res) {
+                        url: url + "/version", ending: function () {
                             return false;
                         }
-                    })
+                    });
                 }
             };
         //监听工具条
@@ -326,7 +321,7 @@
         // 监听搜索
         main.onSearch();
         setTimeout(function () {
-            $('[lay-event=controlVersion]').click();
+            activeBar.controlVersion();
         }, 1000);
     });
 </script>
