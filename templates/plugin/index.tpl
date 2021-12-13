@@ -25,7 +25,7 @@
             main = layui.main;
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
@@ -34,7 +34,7 @@
                 {field: 'id', hide: true},
                 {
                     title: '名称', width: 150, align: "center", templet: function (d) {
-                        return '<img src="' + d['icon'] + '" title="' + d['alias'] + '" alt="' + d['alias'] + '"><br/>' + d['alias'];
+                        return '<img src="' + d['icon'] + '" title="' + d['alias'] + '" alt="' + d['alias'] + '"' + (d['installed'] ? ' class="grey"' : '') + '><br/>' + d['alias'];
                     }
                 },
                 {field: 'alias', title: '别名', hide: true},
