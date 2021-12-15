@@ -301,25 +301,27 @@
                 let data = this.find('[name]').serializeArray(),
                     iconElem = this.find('i:first');
                 main.display({
-                    area: ["800px", "420px"],
+                    area: ["800px", "480px"],
                     btn: "OK",
                     content: '<div class="layui-fluid layui-form"></div>',
                     success: function (dom) {
                         let insertElem = dom.find(".layui-form");
                         $.each(data, function (index, obj) {
                             let slice = obj.name.split('.'),
-                                name = slice.slice(slice.length - 1, slice.length).toString();
+                                name = slice.slice(slice.length - 1, slice.length).toString(), itemElem;
                             switch (name) {
                                 case "enabled":
                                     insertElem.append('<div class="layui-form-item"><label class="layui-form-label">启用:</label><div class="layui-input-block"><input type="checkbox" name="' + obj.name + '" lay-skin="switch" lay-text="启用|关闭"' + (obj.value === 'true' ? ' checked' : '') + `></div></div>`);
                                     break;
                                 case "html":
-                                    insertElem.append('<div class="layui-form-item"><label class="layui-form-label">' + field[name].label + ':</label><div class="layui-input-block"><textarea class="layui-textarea" name="' + obj.name + '" placeholder="输入弹窗的HTMNL代码"></textarea></div></div>');
+                                    itemElem = $('<div class="layui-form-item"><label class="layui-form-label">' + field[name].label + ':</label><div class="layui-input-block"><textarea class="layui-textarea" name="' + obj.name + '" placeholder="输入弹窗的HTMNL代码"></textarea></div></div>');
+                                    itemElem.find("textarea").val(obj.value);
+                                    insertElem.append(itemElem);
                                     break;
                                 default:
-                                    let inputElem = $('<div class="layui-form-item"><label class="layui-form-label">' + field[name].label + ':</label><div class="layui-input-block"><input type="text" name="' + obj.name + '" value="" placeholder="' + field[name].tip + '" class="layui-input"></div></div>');
-                                    inputElem.find("input").val(obj.value);
-                                    insertElem.append(inputElem);
+                                    itemElem = $('<div class="layui-form-item"><label class="layui-form-label">' + field[name].label + ':</label><div class="layui-input-block"><input type="text" name="' + obj.name + '" value="" placeholder="' + field[name].tip + '" class="layui-input"></div></div>');
+                                    itemElem.find("input").val(obj.value);
+                                    insertElem.append(itemElem);
                             }
                         });
                         form.render();
