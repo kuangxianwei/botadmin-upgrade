@@ -108,6 +108,7 @@
                     <input type="hidden" name="phone.mobile_text" value="{{.obj.Phone.MobileText}}">
                     <input type="hidden" name="phone.href" value="{{.obj.Phone.Href}}">
                     <input type="hidden" name="phone.trace" value="{{.obj.Phone.Trace}}">
+                    <input type="hidden" name="phone.html" value="{{.obj.Phone.Html}}">
                 </li>
                 <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-wechat-full"{{if not .obj.Wechat.Enabled}} style="color:grey"{{end}}></i>
@@ -118,6 +119,7 @@
                     <input type="hidden" name="wechat.mobile_text" value="{{.obj.Wechat.MobileText}}">
                     <input type="hidden" name="wechat.href" value="{{.obj.Wechat.Href}}">
                     <input type="hidden" name="wechat.trace" value="{{.obj.Wechat.Trace}}">
+                    <input type="hidden" name="wechat.html" value="{{.obj.Wechat.Html}}">
                 </li>
                 <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-consulting"{{if not .obj.Consult.Enabled}} style="color:grey"{{end}}></i>
@@ -128,6 +130,7 @@
                     <input type="hidden" name="consult.mobile_text" value="{{.obj.Consult.MobileText}}">
                     <input type="hidden" name="consult.href" value="{{.obj.Consult.Href}}">
                     <input type="hidden" name="consult.trace" value="{{.obj.Consult.Trace}}">
+                    <input type="hidden" name="consult.html" value="{{.obj.Consult.Html}}">
                 </li>
                 <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-feedback-1"{{if not .obj.Feedback.Enabled}} style="color:grey"{{end}}></i>
@@ -138,6 +141,7 @@
                     <input type="hidden" name="feedback.mobile_text" value="{{.obj.Feedback.MobileText}}">
                     <input type="hidden" name="feedback.href" value="{{.obj.Feedback.Href}}">
                     <input type="hidden" name="feedback.trace" value="{{.obj.Feedback.Trace}}">
+                    <input type="hidden" name="feedback.html" value="{{.obj.Feedback.Html}}">
                 </li>
                 <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-menu"{{if not .obj.Menu.Enabled}} style="color:grey"{{end}}></i>
@@ -148,6 +152,7 @@
                     <input type="hidden" name="menu.mobile_text" value="{{.obj.Menu.MobileText}}">
                     <input type="hidden" name="menu.href" value="{{.obj.Menu.Href}}">
                     <input type="hidden" name="menu.trace" value="{{.obj.Menu.Trace}}">
+                    <input type="hidden" name="menu.html" value="{{.obj.Menu.Html}}">
                 </li>
                 <li class="layui-col-xs3" data-event="css">
                     <i class="layui-icon iconfont icon-pc"{{if not .obj.PcCss}} style="color:grey"{{end}}></i>
@@ -298,18 +303,23 @@
                 main.display({
                     area: ["800px", "420px"],
                     btn: "OK",
-                    content: "<div class=\"layui-fluid layui-form\"></div>",
+                    content: '<div class="layui-fluid layui-form"></div>',
                     success: function (dom) {
                         let insertElem = dom.find(".layui-form");
                         $.each(data, function (index, obj) {
                             let slice = obj.name.split('.'),
                                 name = slice.slice(slice.length - 1, slice.length).toString();
-                            if (name === 'enabled') {
-                                insertElem.append('<div class="layui-form-item"><label class="layui-form-label">启用:</label><div class="layui-input-block"><input type="checkbox" name="' + obj.name + '" lay-skin="switch" lay-text="启用|关闭"' + (obj.value === 'true' ? ' checked' : '') + `></div></div>`);
-                            } else {
-                                let inputElem = $('<div class="layui-form-item"><label class="layui-form-label">' + field[name].label + ':</label><div class="layui-input-block"><input type="text" name="' + obj.name + '" value="" placeholder="' + field[name].tip + '" class="layui-input"></div></div>');
-                                inputElem.find("input").val(obj.value);
-                                insertElem.append(inputElem);
+                            switch (name) {
+                                case "enabled":
+                                    insertElem.append('<div class="layui-form-item"><label class="layui-form-label">启用:</label><div class="layui-input-block"><input type="checkbox" name="' + obj.name + '" lay-skin="switch" lay-text="启用|关闭"' + (obj.value === 'true' ? ' checked' : '') + `></div></div>`);
+                                    break;
+                                case "html":
+                                    insertElem.append('<div class="layui-form-item"><label class="layui-form-label">' + field[name].label + ':</label><div class="layui-input-block"><textarea class="layui-textarea" name="' + obj.name + '" placeholder="输入弹窗的HTMNL代码"></textarea></div></div>');
+                                    break;
+                                default:
+                                    let inputElem = $('<div class="layui-form-item"><label class="layui-form-label">' + field[name].label + ':</label><div class="layui-input-block"><input type="text" name="' + obj.name + '" value="" placeholder="' + field[name].tip + '" class="layui-input"></div></div>');
+                                    inputElem.find("input").val(obj.value);
+                                    insertElem.append(inputElem);
                             }
                         });
                         form.render();
