@@ -223,6 +223,7 @@
                 text: {label: "PC端文字", tip: "在电脑端显示名称"},
                 mobile_text: {label: "移动端文字", tip: "在移动端显示名称"},
                 trace: {label: "广告跟踪", tip: "跟踪名称 例如:拨打电话"},
+                html: {label: "弹窗代码", tip: "弹窗HTML代码"},
             },
             getId = function () {
                 let ids = [], id = 0;
