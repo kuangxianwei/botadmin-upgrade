@@ -123,11 +123,26 @@
     </div>
     <div class="layui-input-block"></div>
 </script>
-<script type="text/html" id="table-toolbar">
-    {{html .toolbar}}
-</script>
 <script src="/static/layui/layui.js"></script>
 <script>
+    function toolbar(d) {
+        let html = '<div class="layui-btn-group">';
+        if (/data\/contact\/images\/[^\/]+\.(jpeg|gif|jpg|png)/.test(d.path)) {
+            html += '<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="copy">复制图片地址</button>';
+        }
+        switch (d.type) {
+            case 2:
+                html += '<button class="layui-btn layui-btn-xs" lay-event="decompress">解压</button><button class="layui-btn layui-btn-xs" lay-event="download"><i class="layui-icon layui-icon-download-circle"></i></button>';
+                break;
+            case 0:
+                html += '<button class="layui-btn layui-btn-xs" lay-event="compress">压缩</button>';
+                break;
+            default:
+                html += '<button class="layui-btn layui-btn-xs" lay-event="download"><i class="layui-icon layui-icon-download-circle"></i></button>';
+        }
+        return html + '<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></button></div>';
+    }
+
     layui.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
@@ -212,7 +227,7 @@
                 },
                 {field: 'mode', title: '权限', width: 100},
                 {field: 'mtime', title: '最后修改', width: 170, sort: true},
-                {title: '操作', minWidth: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', minWidth: 180, align: 'center', fixed: 'right', templet: toolbar}
             ]],
             page: true,
             limit: 100,
@@ -235,8 +250,15 @@
                 });
             }
         });
+        {{$hostname:="{{hostname}}" -}}
         let active = {
-                'size': function (obj) {
+                copy: function (obj) {
+                    let name = obj.data.path.split("/images/", 2)[1];
+                    if (name) {
+                        main.copy.exec("{{$hostname}}/images/" + name, layer.msg("复制成功"));
+                    }
+                },
+                size: function (obj) {
                     let elem = $(obj.tr.selector + ' [data-field="size"]>div');
                     if (elem.find('img[src$=".svg"]').length > 0) {
                         return false;
@@ -246,7 +268,7 @@
                         elem.text(res);
                     });
                 },
-                'del': function (obj) {
+                del: function (obj) {
                     layer.confirm('删除后不可恢复！确定删除 ' + obj.data.path + ' ?', function (index) {
                         main.req({
                             url: url + '/del',
@@ -256,7 +278,7 @@
                         });
                     });
                 },
-                "name": function (obj) {
+                name: function (obj) {
                     switch (obj.data.type) {
                         case 0:
                             tabled.reload({where: {path: obj.data.path}});
@@ -282,7 +304,7 @@
                             });
                     }
                 },
-                'compress': function (obj) {
+                compress: function (obj) {
                     main.req({
                         url: url + '/compress',
                         data: {'name': obj.data.path},
@@ -291,7 +313,7 @@
                         }
                     });
                 },
-                'decompress': function (obj) {
+                decompress: function (obj) {
                     main.req({
                         url: url + '/decompress',
                         data: {'name': obj.data.path},
@@ -300,7 +322,7 @@
                         }
                     });
                 },
-                'download': function (obj) {
+                download: function (obj) {
                     window.open(encodeURI(url + '/download?file=' + obj.data.path));
                 },
             },

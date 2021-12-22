@@ -1,16 +1,35 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <label class="layui-form-label">样式:</label>
-            <div class="layui-input-inline">
-                <select name="style_id" class="layui-select">
-                    {{range $v:=.styles -}}
-                        <option value="{{$v.Id}}"{{if eq $v.Id $.obj.StyleId}} selected{{end}}>{{$v.Name}}</option>
-                    {{end -}}
-                </select>
+            <div class="layui-inline">
+                <label class="layui-form-label">PC样式:</label>
+                <div class="layui-input-inline">
+                    <select name="pc_style_id" class="layui-select">
+                        {{range $v:=.styles -}}
+                            <option value="{{$v.Id}}"{{if eq $v.Id $.obj.PcStyleId}} selected{{end}}>{{$v.Name}}</option>
+                        {{end -}}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">Mobile样式:</label>
+                <div class="layui-input-inline">
+                    <select name="mobile_style_id" class="layui-select">
+                        {{range $v:=.styles -}}
+                            <option value="{{$v.Id}}"{{if eq $v.Id $.obj.MobileStyleId}} selected{{end}}>{{$v.Name}}</option>
+                        {{end -}}
+                    </select>
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">Scheme:</label>
+                <div class="layui-input-block">
+                    <input name="scheme" value="http://" type="radio" title="http://"{{if eq $.obj.Scheme "http://"}} checked{{end}}>
+                    <input name="scheme" value="https://" type="radio" title="https://"{{if eq $.obj.Scheme "https://"}} checked{{end}}>
+                </div>
+            </div>
             <div class="layui-inline">
                 <label class="layui-form-label">绑定域名:</label>
                 <div class="layui-input-inline">

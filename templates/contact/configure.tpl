@@ -16,7 +16,6 @@
             <input type="checkbox" data-field="disallowed_referrer" title="拒绝来路" lay-filter="field">
             <input type="checkbox" data-field="durations" title="开放时间" lay-filter="field">
             <input type="checkbox" data-field="cities" title="屏蔽区域" lay-filter="field">
-            <input type="checkbox" data-field="pop_delay" title="延时弹窗" lay-filter="field">
             <input type="checkbox" data-field="consult" title="在线咨询" lay-filter="field">
             <input type="checkbox" data-field="other" title="其他" lay-filter="field">
         </fieldset>
@@ -39,14 +38,6 @@
             citiesData = {{.cityData}},
             fieldElem = $("#field");
         let active = {
-            'pop_delay': function (enabled) {
-                if (enabled) {
-                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">弹窗延时:</label><div class="layui-input-inline"><input type="number" name="pop_delay" value="0" min="0" class="layui-input"></div><div class="layui-form-mid layui-word-aux">0为禁用弹窗</div></div>');
-                    form.render('checkbox');
-                } else {
-                    fieldElem.find('[name=pop_delay]').closest('.layui-form-item').remove();
-                }
-            },
             'pc_enabled': function (enabled) {
                 if (enabled) {
                     fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">启用PC:</label><div class="layui-input-block"><input type="checkbox" name="pc_enabled" lay-skin="switch" lay-text="启用|禁用" checked></div></div>');

@@ -88,6 +88,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 
     class Main {
         constructor() {
+            this.zIndex = function (elem) {
+                let index = 0;
+                (elem ? elem.siblings() : $("*")).each(function () {
+                    let _index = parseInt($(this).css('zIndex')) || 0;
+                    if (_index > index) {
+                        index = _index
+                    }
+                });
+                return index + 1
+            }
             this.isObject = function (obj) {
                 return Object.prototype.toString.call(obj) === '[object Object]';
             }
@@ -215,31 +225,27 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             };
             // 复制
             this.copy = {
-                exec: function (value, callback) {
-                    let flag, textarea = document.createElement("textarea"), currentFocus = document.activeElement,
-                        body = document.getElementsByTagName("body")[0];
-                    body.appendChild(textarea);
-                    textarea.value = value;
-                    textarea.readonly = "readonly";
-                    textarea.focus({preventScroll: true});
-                    if (textarea.setSelectionRange) {
-                        textarea.setSelectionRange(0, textarea.value.length);
-                    } else {
-                        textarea.select();
-                    }
+                exec: function (value, success) {
                     try {
-                        flag = document.execCommand("copy");
+                        let elem = document.createElement("span");
+                        elem.style.position = "absolute";
+                        elem.style.bottom = "-100%";
+                        elem.innerText = value;
+                        document.getElementsByTagName("body")[0].insertAdjacentElement("beforeend", elem);
+                        let selection = window.getSelection()
+                            , range = document.createRange();
+                        range.selectNodeContents(elem);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        document.execCommand("copy");
+                        elem.remove();
+                        typeof success === "function" && success(value)
                     } catch (e) {
-                        console.log(e);
-                        flag = false;
+                        console.error(e);
+                        alert("复制失败");
                     }
-                    body.removeChild(textarea);
-                    currentFocus.focus({preventScroll: true});
-                    if (flag && typeof callback === "function") {
-                        callback(value);
-                    }
-                    return flag;
-                }, on: function (selector, value, callback) {
+                },
+                on: function (selector, value, callback) {
                     let othis = this;
                     const elem = document.querySelector(selector);
                     if (typeof value === "undefined") {
@@ -521,7 +527,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 
         // 填充客服变量
         onFillContact() {
-            $('.fill-contact').html('<button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">填充默认</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="phone">插入手机号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">插入微信号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="alias">插入别名</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="email">插入邮箱</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">插入二维码</button><i class="layui-icon layui-icon-tips" lay-tips="{{phone}} 替换成手机号码&#13;{{wechat}} 替换为微信号&#13;{{alias}} 替换为别名&#13;{{email}} 替换为电子邮箱&#13;{{qr}} 替换为二维码图片地址" style="color:coral"></i>');
+            $('.fill-contact').html('<button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">填充默认</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="phone">插入手机号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">插入微信号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="alias">插入别名</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="email">插入邮箱</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">插入二维码</button><a class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" lay-href="/file?path=data/contact/images" lay-text="图片管理">复制图片地址</a><i class="layui-icon layui-icon-tips" lay-tips="{{phone}} 替换成手机号码&#13;{{wechat}} 替换为微信号&#13;{{alias}} 替换为别名&#13;{{email}} 替换为电子邮箱&#13;{{qr}} 替换为二维码图片地址" style="color:coral"></i>');
             $('[data-write]').off("click").on("click", function () {
                 let elem = $(this).closest("div.layui-form-item").find("textarea"), write = $(this).data("write");
                 switch (write) {

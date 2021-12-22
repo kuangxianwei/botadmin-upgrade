@@ -1,7 +1,29 @@
-{{$tplTip:="{{phone}} 替换成手机号码<br>{{wechat}} 替换为微信号<br>{{alias}}  替换为别名<br>{{email}}  替换为电子邮箱<br>{{qr}}     替换为二维码图片地址<br>"}}
+{{$tplTip:="{{phone}} 替换成手机号码<br>{{wechat}} 替换为微信号<br>{{alias}}  替换为别名<br>{{email}}  替换为电子邮箱<br>{{qr}}     替换为二维码图片地址<br>" -}}
 <div class="layui-fluid" id="contact-common">
     <div class="layui-card">
         <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">PC样式:</label>
+                    <div class="layui-input-inline">
+                        <select name="pc_style_id" class="layui-select">
+                            {{range $v:=.styles -}}
+                                <option value="{{$v.Id}}"{{if eq $v.Id $.obj.PcStyleId}} selected{{end}}>{{$v.Name}}</option>
+                            {{end -}}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">Mobile样式:</label>
+                    <div class="layui-input-inline">
+                        <select name="mobile_style_id" class="layui-select">
+                            {{range $v:=.styles -}}
+                                <option value="{{$v.Id}}"{{if eq $v.Id $.obj.MobileStyleId}} selected{{end}}>{{$v.Name}}</option>
+                            {{end -}}
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">启用PC:</label>
@@ -16,24 +38,15 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">样式:</label>
-                    <div class="layui-input-block">
-                        <select name="style_id" class="layui-select">
-                            {{range $v:=.styles -}}
-                                <option value="{{$v.Id}}"{{if eq $v.Id $.obj.StyleId}} selected{{end}}>{{$v.Name}}</option>
-                            {{end -}}
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label" lay-tips="值越大越排后面">排序:</label>
-                    <div class="layui-input-block">
+                    <label class="layui-form-label">排序:</label>
+                    <div class="layui-input-inline">
                         <input type="number" name="sort" value="{{.obj.Sort}}" min="0" max="100" class="layui-input">
                     </div>
+                    <div class="layui-form-mid layui-word-aux">值越大越排后面</div>
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-inline">
+                <div class="layui-col-md6">
                     <label class="layui-form-label">用户名:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="username" value="{{.obj.Username}}" lay-verify="required"
@@ -44,7 +57,7 @@
                     </div>
                     <div class="layui-form-mid layui-word-aux">数字和字母组成</div>
                 </div>
-                <div class="layui-inline">
+                <div class="layui-col-md6">
                     <label class="layui-form-label">别名:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="alias" value="{{.obj.Alias}}" placeholder="李谊" class="layui-input">
@@ -53,14 +66,14 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-inline">
+                <div class="layui-col-md6">
                     <label class="layui-form-label">手机号:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="phone" value="{{.obj.Phone}}" lay-verify="phone" placeholder="13724184818" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">填写手机号码</div>
                 </div>
-                <div class="layui-inline">
+                <div class="layui-col-md6">
                     <label class="layui-form-label">微信号:</label>
                     <div class="layui-input-inline">
                         <input type="text" name="wechat" value="{{.obj.Wechat}}" placeholder="13724184818" class="layui-input">
@@ -69,14 +82,14 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-inline">
+                <div class="layui-col-md6">
                     <label class="layui-form-label">最大限制:</label>
                     <div class="layui-input-inline">
                         <input type="number" name="max" value="{{.obj.Max}}" min="0" placeholder="0" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">0为不限制</div>
                 </div>
-                <div class="layui-inline">
+                <div class="layui-col-md6">
                     <label class="layui-form-label">权重:</label>
                     <div class="layui-input-inline">
                         <div id="weight" class="slider-inline"></div>
@@ -166,27 +179,6 @@
                         <i class="layui-icon layui-icon-fonts-del"></i>
                     </button>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">延时弹窗:</label>
-                <div class="layui-input-inline">
-                    <input type="number" name="pop_delay" value="{{.obj.PopDelay}}" min="0" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">延时弹窗时间，单位为秒 0秒为关闭弹窗</div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">电脑弹窗:</label>
-                <div class="layui-input-block">
-                    <textarea name="pc_pop" class="layui-textarea" placeholder="弹窗广告HTML代码">{{.obj.PcPop}}</textarea>
-                </div>
-                <div class="layui-input-block fill-contact" style="margin-top:-5px"></div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">手机弹窗:</label>
-                <div class="layui-input-block">
-                    <textarea name="mobile_pop" class="layui-textarea" placeholder="弹窗广告HTML代码">{{.obj.MobilePop}}</textarea>
-                </div>
-                <div class="layui-input-block fill-contact" style="margin-top:-5px"></div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label" lay-tips="例如百度统计客服代码">其他:</label>
