@@ -523,8 +523,12 @@
                 $("input[name=deny]").val("\\.(php|asp|js|css)(\\?|$)");
             },
             field: function () {
-                let index = main.zIndex(this);
-                this.before('<div class="layui-layer-shade" style="z-index:' + index + '; background-color: rgb(0, 0, 0); opacity: 0.8;"></div>');
+                let index = main.zIndex(this),
+                    shadeDom = $('<div class="layui-layer-shade" style="z-index:' + index + '; background-color: rgb(0, 0, 0); opacity: 0.8;"></div>');
+                this.before(shadeDom);
+                shadeDom.on("click", function () {
+                    $(this).nextAll("div.layui-layer").first().find("[data-event=close]").click();
+                });
                 this.next(".layui-layer").css({"z-index": index + 1, "display": "block"});
             },
             close: function () {
