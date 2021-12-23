@@ -342,7 +342,7 @@
                             }
                             let content = '<div style="overflow:hidden;position:absolute;top:10px;left:50%;transform:translateX(-50%)">Type:' + res.data['name'] + ' Rect:' + res.data.width + '*' + res.data.height + '</div>';
                             main.display({
-                                content: content + '<img src="data:image/' + res.data['name'] + ';base64,' + res.data['base64'] + '" alt="' + obj.data.path + '"/>',
+                                content: content + '<img src="' + res.data['data'] + '" alt="' + obj.data.path + '"/>',
                                 area: [width, height]
                             });
                         } else {
