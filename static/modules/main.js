@@ -527,7 +527,18 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 
         // 填充客服变量
         onFillContact() {
-            $('.fill-contact').html('<button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">填充默认</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="phone">插入手机号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">插入微信号</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="alias">插入别名</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="email">插入邮箱</button><button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">插入二维码</button><a class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" lay-href="/file?path=data/contact/images" lay-text="图片管理">复制图片地址</a><i class="layui-icon layui-icon-tips" lay-tips="{{phone}} 替换成手机号码&#13;{{wechat}} 替换为微信号&#13;{{alias}} 替换为别名&#13;{{email}} 替换为电子邮箱&#13;{{qr}} 替换为二维码图片地址" style="color:coral"></i>');
+            $('.fill-contact').html(`<label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
+<button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">默认HTML</button>
+<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{phone}}">手机号</button>
+<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{wechat}}">微信号</button>
+<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{alias}}">别名</button>
+<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{email}}">邮箱</button>
+<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{qr}}">二维码URL</button>
+<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">二维码HTML</button>
+<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{hostname}}">Hostname</button>
+<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{consult}}">在线咨询URL</button>
+<a class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" lay-href="/file?path=data/contact/images" lay-text="图片管理">复制图片地址</a>
+`);
             $('[data-write]').off("click").on("click", function () {
                 let elem = $(this).closest("div.layui-form-item").find("textarea"), write = $(this).data("write");
                 switch (write) {
@@ -538,7 +549,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         elem.val('<img src="{{qr}}" alt="微信号:{{wechat}}" title="{{wechat}}" width="150" height="150">{{alias}}很高兴为您服务，您可以拨打电话{{phone}}、加微信{{wechat}}或者邮箱{{email}}联系我们!');
                         break;
                     default:
-                        elem.insertAt("{{" + write + "}}");
+                        elem.insertAt(write);
                 }
             });
         }
