@@ -116,11 +116,7 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <div class="layui-upload-list" id="uploadResult">
-                        {{if .obj.QR -}}
-                            <img height="130" width="130" alt="二维码" src="{{.obj.QR}}"/>
-                        {{end -}}
-                    </div>
+                    <div class="layui-upload-list" id="uploadResult"></div>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -203,6 +199,7 @@
         let main = layui.main,
             layDate = layui.laydate,
             transfer = layui.transfer,
+            qrPath = {{.obj.QR}},
             citiesData = {{.cityData}},
             durations = {{.obj.Durations}},
             cities = {{.obj.Cities}};
@@ -314,6 +311,15 @@
                 $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="duration" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
                 layDate.render({elem: '#date-' + index, type: 'time', range: true});
                 $('[data-event=del-duration]').show(200);
+            });
+        }
+        if (qrPath) {
+            $.get("/file/view", {path: qrPath}, function (res) {
+                if (res.code === 0) {
+                    $('#uploadResult').html('<img height="130" width="130" alt="二维码" src="' + res.data['data'] + '"/>');
+                } else {
+                    main.err(res.msg);
+                }
             });
         }
         main.onFillContact();
