@@ -127,12 +127,15 @@
 <script>
     function toolbar(d) {
         let html = '<div class="layui-btn-group">';
-        if (/data\/contact\/images\/[^\/]+\.(jpeg|gif|jpg|png)/.test(d.path)) {
-            html += '<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="copy">复制图片地址</button>';
+        if (/\.(jpeg|gif|jpg|png)$/i.test(d.path)) {
+            html += '<button class="layui-btn layui-btn-xs" lay-event="view" lay-tips="预览图片"><i class="layui-icon iconfont icon-view"></i></button>';
+        }
+        if (/data\/contact\/images\/[^\/]+\.(jpeg|gif|jpg|png)/i.test(d.path)) {
+            html += '<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="copy" lay-tips="复制图片地址"><i class="layui-icon iconfont icon-copy"></i></button>';
         }
         switch (d.type) {
             case 2:
-                html += '<button class="layui-btn layui-btn-xs" lay-event="decompress">解压</button><button class="layui-btn layui-btn-xs" lay-event="download"><i class="layui-icon layui-icon-download-circle"></i></button>';
+                html += '<button class="layui-btn layui-btn-xs" lay-event="decompress">解压</button><button class="layui-btn layui-btn-xs" lay-event="download" lay-tips="下载"><i class="layui-icon layui-icon-download-circle"></i></button>';
                 break;
             case 0:
                 html += '<button class="layui-btn layui-btn-xs" lay-event="compress">压缩</button>';
@@ -259,7 +262,7 @@
                     }
                 },
                 size: function (obj) {
-                    let elem = $(obj.tr.selector + ' [data-field="size"]>div');
+                    let elem = $(obj.tr.selector + ' [data-field=size]>div');
                     if (elem.find('img[src$=".svg"]').length > 0) {
                         return false;
                     }
@@ -324,6 +327,28 @@
                 },
                 download: function (obj) {
                     window.open(encodeURI(url + '/download?file=' + obj.data.path));
+                },
+                view: function (obj) {
+                    let loading = main.loading();
+                    $.get(url + "/view", {path: obj.data.path}, function (res) {
+                        loading.close();
+                        if (res.code === 0) {
+                            let width = "95%", height = "95%";
+                            if (res.data.width < (($(window).width() - 50))) {
+                                width = res.data.width + "px";
+                            }
+                            if (res.data.height < (($(window).height() - 50))) {
+                                height = res.data.height + "px";
+                            }
+                            let content = '<div style="overflow:hidden;position:absolute;top:10px;left:50%;transform:translateX(-50%)">Type:' + res.data['name'] + ' Rect:' + res.data.width + '*' + res.data.height + '</div>';
+                            main.display({
+                                content: content + '<img src="data:image/' + res.data['name'] + ';base64,' + res.data['base64'] + '" alt="' + obj.data.path + '"/>',
+                                area: [width, height]
+                            });
+                        } else {
+                            main.err(res.msg);
+                        }
+                    });
                 },
             },
             activeBar = {
