@@ -12,10 +12,6 @@
             <input type="checkbox" data-field="mobile_enabled" title="Mobile" lay-filter="field">
             <input type="checkbox" data-field="max" title="最大限制" lay-filter="field">
             <input type="checkbox" data-field="weight" title="权重" lay-filter="field">
-            <input type="checkbox" data-field="allowed_referrer" title="允许来路" lay-filter="field">
-            <input type="checkbox" data-field="disallowed_referrer" title="拒绝来路" lay-filter="field">
-            <input type="checkbox" data-field="durations" title="开放时间" lay-filter="field">
-            <input type="checkbox" data-field="cities" title="屏蔽区域" lay-filter="field">
             <input type="checkbox" data-field="consult" title="在线咨询" lay-filter="field">
             <input type="checkbox" data-field="other" title="其他" lay-filter="field">
         </fieldset>
@@ -32,13 +28,10 @@
 <script>
     layui.use(['main'], function () {
         let main = layui.main,
-            layDate = layui.laydate,
             form = layui.form,
-            transfer = layui.transfer,
-            citiesData = {{.cityData}},
             fieldElem = $("#field");
         let active = {
-            'pc_enabled': function (enabled) {
+            pc_enabled: function (enabled) {
                 if (enabled) {
                     fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">启用PC:</label><div class="layui-input-block"><input type="checkbox" name="pc_enabled" lay-skin="switch" lay-text="启用|禁用" checked></div></div>');
                     form.render('checkbox');
@@ -46,7 +39,7 @@
                     fieldElem.find('[name=pc_enabled]').closest('.layui-form-item').remove();
                 }
             },
-            'mobile_enabled': function (enabled) {
+            mobile_enabled: function (enabled) {
                 if (enabled) {
                     fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">启用Mobile:</label><div class="layui-input-block"><input type="checkbox" name="mobile_enabled" lay-skin="switch" lay-text="是|否" checked></div></div>');
                     form.render('checkbox');
@@ -54,7 +47,7 @@
                     fieldElem.find('[name=mobile_enabled]').closest('.layui-form-item').remove();
                 }
             },
-            'max': function (enabled) {
+            max: function (enabled) {
                 if (enabled) {
                     fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">最大限制:</label><div class="layui-input-inline"><input type="number" name="max" value="0" min="0" class="layui-input"></div><div class="layui-form-mid layui-word-aux">0为不限制</div></div>');
                     form.render('checkbox');
@@ -62,7 +55,7 @@
                     fieldElem.find('[name=max]').closest('.layui-form-item').remove();
                 }
             },
-            'weight': function (enabled) {
+            weight: function (enabled) {
                 if (enabled) {
                     fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">权重:</label><div class="layui-input-inline"><div id="weight" class="slider-inline"></div><input type="hidden" name="weight" value="0" lay-verify="number"></div><div class="layui-form-mid layui-word-aux">值越高 几率越高</div></div>');
                     //滑块控制
@@ -71,143 +64,7 @@
                     fieldElem.find('[name=weight]').closest('.layui-form-item').remove();
                 }
             },
-            'allowed_referrer': function (enabled) {
-                if (enabled) {
-                    $('input[data-field=disallowed_referrer]').prop("checked", false);
-                    fieldElem.find('[name=disallowed_referrer]').closest('.layui-form-item').remove();
-                    fieldElem.append(`<div class="layui-form-item">
-    <div class="layui-col-md8">
-        <label class="layui-form-label" lay-tips="一行一条规则(正则)">允许来路:</label>
-        <div class="layui-input-block">
-            <textarea class="layui-textarea" name="allowed_referrer" placeholder="www.google.com&#13;www.sogou.com" rows="3"></textarea>
-        </div>
-    </div>
-    <div class="layui-col-md2">
-        <div class="layui-inline">
-            <label class="layui-form-label">电脑端:</label>
-            <div class="layui-input-block">
-                <input lay-skin="switch" lay-text="启用|禁用" name="enabled_referrer_pc" type="checkbox">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">移动端:</label>
-            <div class="layui-input-block">
-                <input lay-skin="switch" lay-text="启用|禁用" name="enabled_referrer_mobile" type="checkbox">
-            </div>
-        </div>
-    </div>
-</div>`);
-                    form.render("checkbox");
-                } else {
-                    fieldElem.find('[name=allowed_referrer]').closest('.layui-form-item').remove();
-                }
-            },
-            'disallowed_referrer': function (enabled) {
-                if (enabled) {
-                    $('input[data-field=allowed_referrer]').prop("checked", false);
-                    fieldElem.find('[name=allowed_referrer]').closest('.layui-form-item').remove();
-                    fieldElem.append(`<div class="layui-form-item">
-    <div class="layui-col-md8">
-        <label class="layui-form-label" lay-tips="一行一条规则(正则)">拒绝来路:</label>
-        <div class="layui-input-block">
-            <textarea class="layui-textarea" name="disallowed_referrer" placeholder="www.google.com&#13;www.sogou.com" rows="3"></textarea>
-        </div>
-    </div>
-    <div class="layui-col-md2">
-        <div class="layui-inline">
-            <label class="layui-form-label">电脑端:</label>
-            <div class="layui-input-block">
-                <input lay-skin="switch" lay-text="启用|禁用" name="enabled_referrer_pc" type="checkbox">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">移动端:</label>
-            <div class="layui-input-block">
-                <input lay-skin="switch" lay-text="启用|禁用" name="enabled_referrer_mobile" type="checkbox">
-            </div>
-        </div>
-    </div>
-</div>`);
-                    form.render("checkbox");
-                } else {
-                    fieldElem.find('[name=disallowed_referrer]').closest('.layui-form-item').remove();
-                }
-            },
-            'cities': function (enabled) {
-                if (enabled) {
-                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label" lay-tips="不选择则展示全部">屏蔽区域:</label><input type="hidden" name="cities" value=""><div class="layui-form-mid layui-word-aux"><i class="layui-icon layui-icon-edit" lay-event="cities" style="color:#22849b"></i><cite style="margin-left:10px"></cite></div></div>');
-                    // 监控城市
-                    $('*[lay-event="cities"]').off('click').on('click', function () {
-                        main.display({
-                            type: 0,
-                            btn: ['确定'],
-                            content: `<div id="cities"></div>`,
-                            success: function (dom) {
-                                //显示城市搜索框
-                                transfer.render({
-                                    title: ['全部区域', '屏蔽区域'],
-                                    id: 'cityData',
-                                    elem: dom.find('#cities'),
-                                    data: citiesData,
-                                    value: $('*[name=cities]').val().split(','),
-                                    showSearch: true,
-                                });
-                            },
-                            yes: function (index) {
-                                let cityData = transfer.getData('cityData'), cities = [], titles = [];
-                                $.each(cityData, function (i, v) {
-                                    cities[i] = v.value;
-                                    titles[i] = v.title;
-                                });
-                                $('*[name=cities]').val(cities.join());
-                                $('*[name=cities]+div>cite').text(titles.join());
-                                layer.close(index);
-                            },
-                            area: ["540px", "450px"],
-                        });
-                    });
-                } else {
-                    fieldElem.find('[name=cities]').closest('.layui-form-item').remove();
-                }
-            },
-            'durations': function (enabled) {
-                if (enabled) {
-                    fieldElem.append(`<div class="layui-form-item" lay-filter="duration">
-    <input type="hidden" name="durations">
-    <label class="layui-form-label">时间范围:</label>
-    <div class="layui-btn-group" style="line-height: 38px">
-        <button class="layui-btn layui-btn-sm" lay-event="add-duration">
-            <i class="layui-icon layui-icon-add-circle"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="del-duration" style="display:none;">
-            <i class="layui-icon layui-icon-fonts-del"></i>
-        </button>
-    </div>
-</div>`);
-                    let addElem = $('*[lay-event=add-duration]', fieldElem),
-                        delElem = $('*[lay-event=del-duration]', fieldElem);
-                    // 添加时间段
-                    addElem.off('click').on('click', function () {
-                        let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
-                        layKey++
-                        $(this).parent().before('<div class="layui-input-inline"><input type="text" name="duration" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
-                        layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
-                        delElem.show(200);
-                        form.render('input');
-                    });
-                    // 删除时间段
-                    delElem.off('click').on('click', function () {
-                        $(this).parents('div.layui-form-item').find('input:last').parent().remove();
-                        let layKey = $(this).parents('div.layui-form-item').find('input:last').attr('lay-key');
-                        if (typeof layKey === 'undefined') {
-                            delElem.hide(200);
-                        }
-                    });
-                } else {
-                    fieldElem.find('[name=durations]').closest('.layui-form-item').remove();
-                }
-            },
-            'consult': function (enabled) {
+            consult: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
             <label class="layui-form-label">在线咨询:</label>
@@ -221,7 +78,8 @@
                     // 填充咨询链接
                     $('[lay-event="fill-consult"]').on('click', function () {
                         main.req({
-                            url: '/contact/fill/consult',
+                            url: '/contact/fill',
+                            data: {field: 'consult'},
                             ending: function (res) {
                                 $('[name="consult"]').val(res.data);
                             }
@@ -231,7 +89,7 @@
                     fieldElem.find('[name=consult]').closest('.layui-form-item').remove();
                 }
             },
-            'other': function (enabled) {
+            other: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
             <label class="layui-form-label">其他:</label>
@@ -245,7 +103,8 @@
                     // 填充其他百度统计啥的
                     $('[lay-event="fill-other"]').off('click').on('click', function () {
                         main.req({
-                            url: '/contact/fill/other',
+                            url: '/contact/fill',
+                            data: {field: 'other'},
                             ending: function (res) {
                                 $('[name="other"]').val(res.data);
                                 return false;

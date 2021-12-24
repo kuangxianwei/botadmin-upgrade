@@ -142,6 +142,12 @@
                                         </a>
                                     </dd>
                                     <dd data-name="contact-style">
+                                        <a lay-href="/contact/filter" lay-tips="过滤规则列表" lay-direction="2">
+                                            <i class="iconfont icon-filter"></i>
+                                            <cite>过滤列表</cite>
+                                        </a>
+                                    </dd>
+                                    <dd data-name="contact-style">
                                         <a lay-href="/contact/style" lay-tips="样式列表" lay-direction="2">
                                             <i class="iconfont icon-style-text"></i>
                                             <cite>样式列表</cite>

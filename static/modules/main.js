@@ -493,6 +493,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             return data;
         }
 
+        durations(dom) {
+            let formData = this.formData(dom);
+            dom.find('[name=durations]').val(formData.duration ? (Array.isArray(formData.duration) ? formData.duration.join() : formData.duration) : '')
+        }
+
         // 弹出展示
         // 默认不显示标题 不显示最大化和最小化 不显示按钮
         display(options) {

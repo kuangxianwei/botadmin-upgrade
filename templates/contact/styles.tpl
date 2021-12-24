@@ -38,10 +38,7 @@
                 {field: 'name', title: '名称', minWidth: 100},
                 {
                     field: 'float', title: '浮动', width: 80, templet: function (d) {
-                        if (d.float > 0) {
-                            return '左';
-                        }
-                        return '右';
+                        return d.float > 0 ? '左' : '右';
                     }
                 },
                 {field: 'top', title: 'Top', hide: true},
