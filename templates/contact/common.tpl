@@ -43,6 +43,9 @@
                         </select>
                     </div>
                 </div>
+                <div class="layui-inline">
+                    <a lay-href="/contact/style" lay-text="样式列表" class="layui-btn layui-btn-radius">管理样式</a>
+                </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
