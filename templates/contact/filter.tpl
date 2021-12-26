@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label" lay-tips="匹配(正则)的页面则不显示广告"><cite>拒绝广告</cite>:<i class="layui-icon iconfont icon-fill" data-event="fillDeny" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
+                    <label class="layui-form-label" lay-tips="匹配(正则)的页面则不显示广告">拒绝广告:</label>
                     <div class="layui-input-block">
                         <input name="deny" value="{{.obj.Deny}}" type="text" class="layui-input" placeholder="\.(php|asp|js|css)(\?|$)">
                     </div>
@@ -122,15 +122,6 @@
                         layer.close(index);
                     },
                     area: ["540px", "450px"],
-                });
-            },
-            fillDeny: function () {
-                main.req({
-                    url: '/contact/fill',
-                    data: {field: 'deny'},
-                    ending: function (res) {
-                        $('[name=deny]').val(res.data);
-                    }
                 });
             },
             fillAllowed: function () {
