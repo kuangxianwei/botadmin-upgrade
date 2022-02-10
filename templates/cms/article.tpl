@@ -1,6 +1,6 @@
 <div class="layui-card">
     <div class="layui-card-body">
-        <div class="table-search" style="left:100px">
+        <div class="table-search" style="left:200px">
             <div class="layui-inline layui-form">
                 <div class="layui-input-inline">
                     <input type="hidden" name="id" value="{{.obj.Id}}">
@@ -16,6 +16,9 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="add">
+            <i class="layui-icon layui-icon-add-circle"></i>
+        </button>
         <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
@@ -77,9 +80,8 @@
                     });
                 },
                 edit: function () {
-                    let othis = this;
                     let loading = main.loading();
-                    $.get(url + "/modify", {id: id, ids: othis.data.id}, function (html) {
+                    $.get(url + "/modify", {id: id, ids: this.data.id}, function (html) {
                         loading.close();
                         main.popup({
                             type: 1,
@@ -91,9 +93,8 @@
                     });
                 },
                 browse: function () {
-                    let othis = this;
                     let loading = main.loading();
-                    $.get("/cms/url", {id: id, cid: othis.data.class_id, aid: othis.data.id}, function (res) {
+                    $.get("/cms/url", {id: id, cid: this.data.class_id, aid: this.data.id}, function (res) {
                         loading.close();
                         if (res.code !== 0) {
                             main.err(res.msg);
@@ -104,6 +105,45 @@
                 }
             },
             activeBar = {
+                add: function () {
+                    let loading = main.loading();
+                    $.get(url + "/classes", {id: id}, function (res) {
+                        loading.close();
+                        if (res.code !== 0) {
+                            return main.err(res.msg);
+                        }
+                        if (!Array.isArray(res.data)) {
+                            return main.err("网站没有添加任何栏目");
+                        }
+                        main.open({
+                            title: "选择栏目",
+                            area: ["800px", "500px"],
+                            content: '<div class="layui-card"><div class="layui-card-body layui-form"></div></div>',
+                            success: function (dom) {
+                                let elem = '';
+                                $.each(res.data, function (i) {
+                                    elem += '<input type="radio" name="cid" value="' + this.id + '" title="' + this.name + '"' + (i === 0 ? " checked" : "") + '>';
+                                });
+                                dom.find('.layui-form').html(elem);
+                                layui.form.render();
+                            },
+                            yes: function (index, dom) {
+                                layer.close(index);
+                                loading = main.loading();
+                                $.get(url + "/add", {id: id, cid: main.formData(dom).cid}, function (html) {
+                                    loading.close();
+                                    main.popup({
+                                        type: 1,
+                                        title: "添加文章",
+                                        url: url + "/add",
+                                        content: html,
+                                        ending: "table-list"
+                                    });
+                                });
+                            }
+                        });
+                    });
+                },
                 del: function (obj) {
                     if (obj.data.length === 0) {
                         return layer.msg('请选择数据');
@@ -120,7 +160,7 @@
                             ending: 'table-list'
                         });
                     });
-                }
+                },
             };
         //监听工具条
         table.on('tool(table-list)', function (obj) {

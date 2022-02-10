@@ -1,5 +1,18 @@
 /*导出基本操作*/
 layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
+    window.document.loadJS = function (src, fn) {
+        let id = src.replace(/[./]/g, "");
+        if (document.getElementById(id)) {
+            return false;
+        }
+        let script = document.createElement('script');
+        script.id = id;
+        script.src = src;
+        script.onload = function () {
+            fn && fn();
+        }
+        document.getElementsByTagName("head")[0].insertAdjacentElement("beforeend", script);
+    }
     // 判断字符串结尾
     String.prototype.hasSuffix = function (suffix) {
         return this.indexOf(suffix, this.length - suffix.length) !== -1;
