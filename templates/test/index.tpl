@@ -194,7 +194,7 @@
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
-<script src="/static/editor/jquery.dragsort-0.5.2.min.js"></script>
+<script src="/static/file/jquery.dragsort-0.5.2.min.js"></script>
 <script src="/static/editor/file.js"></script>
 <script>
     let events = {

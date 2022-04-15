@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 1228095 */
-  src: url('iconfont.woff2?t=1641865501370') format('woff2'),
-       url('iconfont.woff?t=1641865501370') format('woff'),
-       url('iconfont.ttf?t=1641865501370') format('truetype');
+  src: url('iconfont.woff2?t=1649819901233') format('woff2'),
+       url('iconfont.woff?t=1649819901233') format('woff'),
+       url('iconfont.ttf?t=1649819901233') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,42 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-warning:before {
+  content: "\e631";
+}
+
+.icon-remove:before {
+  content: "\e6e5";
+}
+
+.icon-delete:before {
+  content: "\e69d";
+}
+
+.icon-rename:before {
+  content: "\e7fb";
+}
+
+.icon-del:before {
+  content: "\e938";
+}
+
+.icon-ok:before {
+  content: "\e65b";
+}
+
+.icon-goto-left:before {
+  content: "\f212";
+}
+
+.icon-goto-right:before {
+  content: "\e666";
+}
+
+.icon-goto-top:before {
+  content: "\e791";
 }
 
 .icon-share:before {
@@ -73,6 +109,10 @@
   content: "\f20f";
 }
 
+.icon-arrow-down:before {
+  content: "\f210";
+}
+
 .icon-arrow-right:before {
   content: "\e65f";
 }
@@ -83,6 +123,10 @@
 
 .icon-arrow-circle-right:before {
   content: "\eb06";
+}
+
+.icon-arrow-up:before {
+  content: "\f211";
 }
 
 .icon-css1:before {
@@ -137,7 +181,7 @@
   content: "\e6d1";
 }
 
-.icon-ok:before {
+.icon-ok-circle:before {
   content: "\e61c";
 }
 

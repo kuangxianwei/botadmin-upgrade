@@ -698,7 +698,7 @@
                         $('.ace_catalogue').css({'width': _width, 'transition': 'none'});
                         $('.ace_editor_main').css({'marginLeft': _width, 'transition': 'none'});
                         $('.ace_catalogue_drag_icon ').css('left', _width);
-                        $('.file_fold .newly_file_input').width($('.file_fold .newly_file_input').parent().parent().parent().width() - ($('.file_fold .newly_file_input').parent().parent().attr('data-group') * 15 - 5) - 20 - 30 - 53);
+                        $('.file_fold .newly-file-input').width($('.file_fold .newly-file-input').parent().parent().parent().width() - ($('.file_fold .newly-file-input').parent().parent().attr('data-group') * 15 - 5) - 20 - 30 - 53);
                     }
                 }).on('mouseup', function (ev) {
                     $('.ace_gutter-layer').css('cursor', 'inherit');
@@ -1516,7 +1516,7 @@
                         $('.ace_catalogue').css({'width': _width, 'transition': 'none'});
                         $('.ace_editor_main').css({'marginLeft': _width, 'transition': 'none'});
                         $('.ace_catalogue_drag_icon ').css('left', _width);
-                        $('.file_fold .newly_file_input').width($('.file_fold .newly_file_input').parent().parent().parent().width() - ($('.file_fold .newly_file_input').parent().parent().attr('data-group') * 15 - 5) - 20 - 30 - 53);
+                        $('.file_fold .newly-file-input').width($('.file_fold .newly-file-input').parent().parent().parent().width() - ($('.file_fold .newly-file-input').parent().parent().attr('data-group') * 15 - 5) - 20 - 30 - 53);
                     }
                 }).on('mouseup', function (ev) {
                     $('.ace_gutter-layer').css('cursor', 'inherit');
@@ -1739,9 +1739,9 @@
                     _active.addClass('edit_file_group');
                     _active.find('.file_title').hide();
                     _active.find('.glyphicon').hide();
-                    _active.prepend('<span class="file_input"><i class="' + (_types === 'Dir' ? 'folder' : (_this.getFileSuffix(_active.find('.file_title span').html()))) + '-icon"></i><input type="text" class="newly_file_input" value="' + (_active.find('.file_title span').html()) + '"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>')
-                    $('.file_fold .newly_file_input').width($('.file_fold .newly_file_input').parent().parent().parent().width() - ($('.file_fold .newly_file_input').parent().parent().attr('data-group') * 15 - 5) - 20 - 30 - 53);
-                    $('.file_fold .newly_file_input').focus();
+                    _active.prepend('<span class="file_input"><i class="' + (_types === 'Dir' ? 'folder' : (_this.getFileSuffix(_active.find('.file_title span').html()))) + '-icon"></i><input type="text" class="newly-file-input" value="' + (_active.find('.file_title span').html()) + '"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>')
+                    $('.file_fold .newly-file-input').width($('.file_fold .newly-file-input').parent().parent().parent().width() - ($('.file_fold .newly-file-input').parent().parent().attr('data-group') * 15 - 5) - 20 - 30 - 53);
+                    $('.file_fold .newly-file-input').focus();
                     break;
                 case 5:
                     window.open('/download?filename=' + encodeURIComponent(_path));
@@ -1775,7 +1775,7 @@
             }
             _html += '<li class="has-children children_' + (_group + 1) + '"><div class="file_fold edit_file_group group_' + (_group + 1) + '" data-group="' + (_group + 1) + '" data-edit="' + _type + '"><span class="file_input">';
             _html += '<i class="' + (_type == 0 ? 'folder' : (_type == 1 ? 'text' : (_this.getFileSuffix(_val || '')))) + '-icon"></i>'
-            _html += '<input type="text" class="newly_file_input" value="' + (_val != undefined ? _val : '') + '">'
+            _html += '<input type="text" class="newly-file-input" value="' + (_val != undefined ? _val : '') + '">'
             _html += '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></span></div></li>'
             if (_nextLength > 0) {
                 _active.next().prepend(_html);
@@ -1783,9 +1783,9 @@
                 _active.prepend(_html);
             }
             setTimeout(function () {
-                $('.newly_file_input').focus()
+                $('.newly-file-input').focus()
             }, 100)
-            $('.file_fold .newly_file_input').width($('.file_fold .newly_file_input').parent().parent().parent().width() - ($('.file_fold .newly_file_input').parent().parent().attr('data-group') * 15 - 5) - 20 - 30 - 53);
+            $('.file_fold .newly-file-input').width($('.file_fold .newly-file-input').parent().parent().parent().width() - ($('.file_fold .newly-file-input').parent().parent().attr('data-group') * 15 - 5) - 20 - 30 - 53);
             return false;
         },
         // 通用重命名事件

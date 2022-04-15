@@ -86,9 +86,9 @@
             }
         };
         $("[lay-event=cron]").off('click').on('click',function () {
-            main.req({
+            main.request({
                 url: url + "/cron",
-                ending: function (res) {
+                done: function (res) {
                     main.msg(res.msg);
                     return false;
                 },

@@ -1,43 +1,10 @@
-<style>
-    .toolbar {
-    }
-
-    .toolbar input, #current-path {
-        background-color: #fff;
-        border-radius: 5px;
-        height: 30px;
-        border: 1px solid #d2d2d2;
-        line-height: 30px;
-    }
-
-    #current-path {
-        cursor: pointer;
-    }
-
-    #current-path > span {
-        padding-left: 3px;
-    }
-
-    #current-path > span:hover {
-        color: #0a5b52;
-        font-size: 1.1rem;
-    }
-
-    .toolbar input:hover, #current-path:hover {
-        border: 1px solid #009688 !important;
-    }
-
-    .toolbar .layui-input-inline {
-        width: 800px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="/static/file/icons/icons.css">
+<link rel="stylesheet" type="text/css" href="/static/file/file.css">
 <div class="layui-card">
     <div class="layui-card-body">
         <div class="table-search" style="left:245px">
             <div class="layui-btn-group">
-                <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="terminal" lay-tips="打开终端">
+                <button class="layui-btn layui-btn-sm layui-btn-primary" data-event="terminal" lay-tips="打开终端">
                     <i class="layui-icon iconfont icon-terminal"></i>
                 </button>
                 <button class="layui-btn layui-btn-sm" lay-event="upload" id="upload" lay-tips="上传文件">
@@ -60,8 +27,8 @@
                 </button>
             </div>
         </div>
-        <div class="table-search toolbar" style="left:32px;top:56px">
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="return-top" lay-tips="返回上层目录">
+        <div class="table-search file-toolbar" style="left:32px;top:56px">
+            <button class="layui-btn layui-btn-sm layui-btn-primary" data-event="gotoTop" lay-tips="返回上层目录">
                 <i class="layui-icon layui-icon-return"></i>
             </button>
             <div class="layui-input-inline layui-form">
@@ -69,7 +36,7 @@
                 <input type="hidden" name="goto" value="" class="layui-input" lay-verify="required">
                 <button class="layui-hide" lay-submit lay-filter="submit-goto"></button>
             </div>
-            <button class="layui-btn layui-btn-sm" lay-event="refresh" lay-tips="刷新当前目录">
+            <button class="layui-btn layui-btn-sm" data-event="refresh" lay-tips="刷新当前目录">
                 <i class="layui-icon layui-icon-refresh"></i>
             </button>
         </div>
@@ -108,435 +75,473 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="back_root" lay-tips="用户目录">
+        <button class="layui-btn layui-btn-sm" lay-event="gotoRoot" lay-tips="用户目录">
             <i class="layui-icon layui-icon-home"></i>
         </button>
-        <button class="layui-btn layui-btn-sm" lay-event="back_www" lay-tips="所有网站目录">
+        <button class="layui-btn layui-btn-sm" lay-event="gotoWww" lay-tips="所有网站目录">
             <i class="layui-icon layui-icon-app"></i>
         </button>
-        <button class="layui-btn layui-btn-sm" lay-event="new_folder" lay-tips="在当前目录新建文件夹">
+        <button class="layui-btn layui-btn-sm" lay-event="newFolder" lay-tips="在当前目录新建文件夹">
             <i class="layui-icon layui-icon-add-1"></i><i class="layui-icon layui-icon-template"></i>
         </button>
-        <button class="layui-btn layui-btn-sm" lay-event="new_file" lay-tips="在当前目录新建文件">
+        <button class="layui-btn layui-btn-sm" lay-event="newFile" lay-tips="在当前目录新建文件">
             <i class="layui-icon layui-icon-add-1"></i><i class="layui-icon layui-icon-file"></i>
         </button>
     </div>
     <div class="layui-input-block"></div>
 </script>
+<script type="text/html" id="aceEditor">
+    <div id="ace-container">
+        <div class="ace-header" style="top:0">
+            <span data-event="saveFile"><i class="iconfont icon-save-file"></i>保存</span>
+            <span data-event="saveFileAll"><i class="iconfont icon-save-all-file"></i>全部保存</span>
+            <span data-event="refreshFile"><i class="iconfont icon-refresh"></i>刷新</span>
+            <span data-event="search"><i class="iconfont icon-search"></i>搜索</span>
+            <span data-event="replaces"><i class="iconfont icon-replace"></i>替换</span>
+            <span data-event="jumpLine"><i class="iconfont icon-pushpin"></i>跳转行</span>
+            <span data-event="fontSize"><i class="iconfont icon-typeface"></i>字体</span>
+            <span data-event="themes"><i class="iconfont icon-theme"></i>主题</span>
+            <span data-event="setup"><i class="iconfont icon-setting"></i>设置<div class="red-point" style="display:none;"></div></span>
+            <span data-event="helps"><i class="iconfont icon-fast"></i>快捷键</span>
+            <span data-event="template"><i class="layui-icon layui-icon-template"></i>模板语法</span>
+            <div data-event="pullDown" class="pull-down" title="隐藏工具条" style="top:0">
+                <i class="layui-icon layui-icon-down"></i>
+            </div>
+        </div>
+        <div class="ace-overall" style="top:35px;">
+            <!-- 编辑器目录 -->
+            <div class="ace-catalogue" style="left:0">
+                <div class="ace-catalogue-title"></div>
+                <div class="ace-dir-tools">
+                    <div data-event="upperLevel" title="返回上级目录">
+                        <i class="iconfont icon-share"></i>
+                        <span>上一级</span>
+                    </div>
+                    <div data-event="refresh" title="刷新当前目录">
+                        <span class="iconfont icon-refresh"></span>
+                        <span>刷新</span>
+                    </div>
+                    <div data-event="foldNew" title="新建文件/目录">
+                        <i class="layui-icon layui-icon-add-1"></i>
+                        <span>新建</span>
+                        <ul class="folder-down-up">
+                            <li data-event="newFolder"><i class="folder-icon"></i>新建文件夹</li>
+                            <li data-event="newFile"><i class="text-icon"></i>新建文件</li>
+                        </ul>
+                    </div>
+                    <div data-event="searchFile" title="搜索内容">
+                        <i class="iconfont icon-search"></i>
+                        <span>搜索</span>
+                    </div>
+                    <span class="ace-editor-main-storey"></span>
+                </div>
+                <div class="ace-dir-tools search-file-box">
+                    <div class="search-input-title">搜索目录文件</div>
+                    <div class="search-close" data-event="searchClose" title="关闭">
+                        <i class="layui-icon layui-icon-close"></i><span>关闭</span>
+                    </div>
+                    <div class="search-input-view">
+                        <form>
+                            <input type="text" id="search-val" class="ser-text pull-left" placeholder="文件|文件夹名称">
+                            <button type="button" class="ser-sub pull-left" data-event="searchSubmit"></button>
+                            <div class="search-box">
+                                <input id="search-recursive" type="checkbox">
+                                <label for="search-recursive"><span>包含子目录文件</span></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="ace-catalogue-list">
+                    <ul class="cd-accordion-menu"></ul>
+                    <ul class="ace-catalogue-menu">
+                        <li data-event="refreshDir">
+                            <i class="iconfont icon-refresh"></i><span>刷新目录</span>
+                        </li>
+                        <li data-event="cd">
+                            <i class="iconfont icon-goto-right"></i><span>转到目录</span>
+                        </li>
+                        <li data-event="newFolder">
+                            <i class="folder-icon"></i><span>新建文件夹</span>
+                        </li>
+                        <li data-event="newFile">
+                            <i class="text-icon"></i><span>新建文件</span>
+                        </li>
+                        <li data-event="rename">
+                            <i class="rename-icon img-icon"></i><span>重命名</span>
+                        </li>
+                        <li data-event="download">
+                            <i class="down-icon img-icon"></i><span>下载</span>
+                        </li>
+                        <li data-event="del">
+                            <i class="del-icon img-icon"></i><span>删除</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ace-catalogue-drag-icon">
+                    <div class="drag-icon-container"></div>
+                    <span data-event="foldX" class="fold-icon-container" title="隐藏文件目录">
+                        <i class="iconfont icon-arrow-left"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- 编辑内容 -->
+            <div class="ace-editor-main" style="margin-left:265px">
+                <ul class="ace-container-menu"></ul>
+                <div class="ace-container-tips">
+                    <div class="tips"></div>
+                </div>
+                <div class="ace-editor-main-storey"></div>
+                <div class="ace-container-editor"></div>
+                <div class="term-parent">
+                    <div class="term-content" id="termContent"></div>
+                </div>
+                <div class="ace-container-toolbar">
+                    <div class="pull-left size-ellipsis">
+                        <span data-event="path" class="size-ellipsis"></span>
+                    </div>
+                    <div class="pull-right">
+                        <span data-event="cursor"></span>
+                        <span data-event="tab"></span>
+                        <span data-event="encoding"></span>
+                        <span data-event="lang"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- 工具栏 -->
+            <div class="ace-toolbar-menu" style="display: none;">
+                <div class="menu-item menu-tabs" style="display: none;">
+                    <div class="menu-title">设置制表符</div>
+                    <ul class="tabsType">
+                        <li data-value="nbsp">使用空格缩进</li>
+                        <li data-value="tabs">使用 "Tab" 缩进</li>
+                    </ul>
+                    <div class="menu-title" style="margin-top:15px">设置制表符长度</div>
+                    <ul class="tabsSize">
+                        <li data-value="1">1</li>
+                        <li data-value="2">2</li>
+                        <li data-value="3">3</li>
+                        <li data-value="4">4</li>
+                        <li data-value="5">5</li>
+                        <li data-value="6">6</li>
+                    </ul>
+                </div>
+                <div class="menu-item menu-encoding" style="display:none;">
+                    <div class="menu-title">设置文件保存编码格式</div>
+                    <ul></ul>
+                </div>
+                <div class="menu-item menu-files" style="display: none;">
+                    <div class="menu-container">
+                        <input type="text" class="menu-input" placeholder="输入语言模式">
+                        <i class="fa fa-close"></i>
+                    </div>
+                    <div class="menu-title">设置文件语言关联</div>
+                    <ul></ul>
+                </div>
+                <div class="menu-item menu-fontSize" style="display: none;">
+                    <div class="menu-title">设置编辑器字体大小</div>
+                    <div class="menu-container">
+                        <div class="set-font-size">
+                            <input type="number" min="12" max="45"/>
+                            <span class="tips error">字体设置范围 12-45</span>
+                            <button class="btn-save">保存</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item menu-jumpLine" style="display: none;">
+                    <div class="menu-title">跳转到指定行</div>
+                    <div class="menu-container">
+                        <div class="set-jump-line">
+                            <input type="number" min="0"/>
+                            <div class="jump-tips">当前：行&nbsp;<span></span>&nbsp;，列&nbsp;<span></span>&nbsp;，输入行数(介于&nbsp;1&nbsp;-&nbsp;<span></span>&nbsp;之间)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item menu-themes" style="display: none;">
+                    <div class="menu-title">设置编辑器主题</div>
+                    <ul></ul>
+                </div>
+                <div class="menu-item menu-history" style="display: none;">
+                    <div class="menu-title">文件历史版本</div>
+                    <ul></ul>
+                </div>
+                <div class="menu-item menu-setup" style="display: none;">
+                    <div class="menu-title">编辑器设置【部分设置需要重新打开编辑生效】</div>
+                    <ul class="editor-menu">
+                        <li data-event="wrap">自动换行</li>
+                        <li data-event="enableLiveAutocompletion">代码自动完成</li>
+                        <li data-event="enableSnippets">启用代码段</li>
+                        <li data-event="showInvisible">显示隐藏字符</li>
+                        <li data-event="showLineNumbers">显示行号</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html" id="aceShortcutKeys">
+    <div class="keysUp_left">
+        <div class="keysUp-row">
+            <div class="keysUp-title">常用快捷键</div>
+            <div class="keysUp-content">
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">S</span>
+                    <span class="keysUp-tips">保存文件</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">C</span>
+                    <span class="keysUp-tips">复制内容</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">X</span>
+                    <span class="keysUp-tips">剪切内容</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">V</span>
+                    <span class="keysUp-tips">粘贴内容</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">A</span>
+                    <span class="keysUp-tips">全选内容</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Z</span>
+                    <span class="keysUp-tips">撤销操作</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Y</span>
+                    <span class="keysUp-tips">反撤销操作</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">F</span>
+                    <span class="keysUp-tips">搜索内容</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">H</span>
+                    <span class="keysUp-tips">替换内容</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACkElEQVQ4T62UTWhTQRDHZ6bhFZpK9CAetEoPocF6MG83jRaqFvHjIgrFQ9WLQkHsyZMWvAkFL978QET0YPVUxUuLFFK/Ynk7W0tAqeIHFFEoQqGGWKt9I6+Y2Mh7iQcX9jT//c3Of2cW4T8vXMmbnp5eNT8/34uIKtgAoESEEXGsubl5MJVKfa2Xvwo4OTm52/f9sahDWusqfZiuSuB53gARDYYJRWQ4k8n0WGsPAMAPpdTo37qJiYnNVUBmvg8AB0MzIx5TSt1m5msA0IeIIyIyS0SffN/fFNiDiLMVYD6fX+84znsAcMKAi4uLTZ2dnd+YeRYA1kZUca4CZOZDAHAvwr/XWuuU53ktRDQT5TEi/jHZGHMVEVsRsSAiz3zfd2KxWKvv+6cR8ZZS6gwznwKASxHAj1rrlsoNc7lcrLu7+2eI0RsaGxs3ptPpvDFmHBF3RgCva637KsBCobBmYWFhLxHtAYCEiIw2NDQ8d133VRlgrR0XkVAgIvYopYaXgcx8EgCuRGQe0lofLceMMSeIKCsiwct+EZG3sVjsoeM4hfb29uIy0BhzAxGPhwGJ6Kzruhestf2lUmmoq6trrta0IDM3IeKUiCTDhEtLS23ZbPYNMwsAzIjIIxGxIvKOiILeawuK1FpfDM6jMWYXIuYispa01nFr7X4RGanRLjuUUk+Wgcw8AACh4wYAd7TWR5g5aJWgZcLWy0QioZLJ5Pcy8DEitohIUPYHRNwOANuCoIj0ZjKZu7WmAwBuaq0r/qPneVs7OjqmVqY2xmwBgN5isXg+Ho+vJqLPNR6iX2t9uRyv+x3VmQ4goozruvzPwEBord0nIod/W7EOER8AwFMiepFOp6uqq3vDWj0XFvsFsp0JRWHn0UYAAAAASUVORK5CYII="/></span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Alt</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">0</span>
+                    <span class="keysUp-tips">折叠代码</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACkElEQVQ4T62UTWhTQRDHZ6bhFZpK9CAetEoPocF6MG83jRaqFvHjIgrFQ9WLQkHsyZMWvAkFL978QET0YPVUxUuLFFK/Ynk7W0tAqeIHFFEoQqGGWKt9I6+Y2Mh7iQcX9jT//c3Of2cW4T8vXMmbnp5eNT8/34uIKtgAoESEEXGsubl5MJVKfa2Xvwo4OTm52/f9sahDWusqfZiuSuB53gARDYYJRWQ4k8n0WGsPAMAPpdTo37qJiYnNVUBmvg8AB0MzIx5TSt1m5msA0IeIIyIyS0SffN/fFNiDiLMVYD6fX+84znsAcMKAi4uLTZ2dnd+YeRYA1kZUca4CZOZDAHAvwr/XWuuU53ktRDQT5TEi/jHZGHMVEVsRsSAiz3zfd2KxWKvv+6cR8ZZS6gwznwKASxHAj1rrlsoNc7lcrLu7+2eI0RsaGxs3ptPpvDFmHBF3RgCva637KsBCobBmYWFhLxHtAYCEiIw2NDQ8d133VRlgrR0XkVAgIvYopYaXgcx8EgCuRGQe0lofLceMMSeIKCsiwct+EZG3sVjsoeM4hfb29uIy0BhzAxGPhwGJ6Kzruhestf2lUmmoq6trrta0IDM3IeKUiCTDhEtLS23ZbPYNMwsAzIjIIxGxIvKOiILeawuK1FpfDM6jMWYXIuYispa01nFr7X4RGanRLjuUUk+Wgcw8AACh4wYAd7TWR5g5aJWgZcLWy0QioZLJ5Pcy8DEitohIUPYHRNwOANuCoIj0ZjKZu7WmAwBuaq0r/qPneVs7OjqmVqY2xmwBgN5isXg+Ho+vJqLPNR6iX2t9uRyv+x3VmQ4goozruvzPwEBord0nIod/W7EOER8AwFMiepFOp6uqq3vDWj0XFvsFsp0JRWHn0UYAAAAASUVORK5CYII="/></span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Alt</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Shift</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">0</span>
+                    <span class="keysUp-tips">展开代码</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Esc</span>
+                    <span class="keysUp-tips">退出搜索、取消自动提示</span>
+                </div>
+            </div>
+        </div>
+        <div class="keysUp-row">
+            <div class="keysUp-title">光标移动</div>
+            <div class="keysUp-content">
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Home</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">End</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Up</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Left</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Down</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Right</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Home</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">End</span>
+                    <span class="keysUp-tips">光标移动到文档首/尾</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">P</span>
+                    <span class="keysUp-tips">跳转到匹配的标签</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">pageUp</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">pageDown</span>
+                    <span class="keysUp-tips">光标上/下翻页</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Alt</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Left</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Right</span>
+                    <span class="keysUp-tips">光标移动到行首/尾</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">I</span>
+                    <span class="keysUp-tips">跳转到指定行</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Alt</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Up</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Down</span>
+                    <span class="keysUp-tips">上/下增加光标</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="keysUp_right">
+        <div class="keysUp-row">
+            <div class="keysUp-title">内容选择</div>
+            <div class="keysUp-content">
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">鼠标框选——拖动</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Shift</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Home</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">End</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Up</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Left</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Down</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Right</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Shift</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">pageUp</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">PageDown</span>
+                    <span class="keysUp-tips">上下翻页选中</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Shift</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Home</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-tips">当前光标至头/尾</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Alt</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">鼠标拖动</span>
+                    <span class="keysUp-tips">块选择</span>
+                </div>
+            </div>
+        </div>
+        <div class="keysUp-row">
+            <div class="keysUp-title">编辑</div>
+            <div class="keysUp-content">
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">/</span>
+                    <span class="keysUp-tips">注释&取消注释</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Tab</span>
+                    <span class="keysUp-tips">对齐</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Shift</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Tab</span>
+                    <span class="keysUp-tips">整体前移</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Delete</span>
+                    <span class="keysUp-tips">删除</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">D</span>
+                    <span class="keysUp-tips">删除整行</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Alt</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Shift</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Up</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Down</span>
+                    <span class="keysUp-tips">复制行并添加到上一行/下一行</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Alt</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Delete</span>
+                    <span class="keysUp-tips">删除光标右侧内容</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Alt</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Up</span>
+                    <span class="keysUp-symbols">/</span>
+                    <span class="keysUp-btn">Down</span>
+                    <span class="keysUp-tips">当前行和上一行/下一行交换</span>
+                </div>
+                <div class="keysUp-item">
+                    <span class="keysUp-btn">Ctrl</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">Shift</span>
+                    <span class="keysUp-symbol">+</span>
+                    <span class="keysUp-btn">D</span>
+                    <span class="keysUp-tips">复制行并添加到下面</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
 <script src="/static/layui/layui.js"></script>
+<script src="/static/file/jquery.dragsort-0.5.2.min.js"></script>
+<script src="/static/file/ace/ace.js"></script>
 <script>
-    function toolbar(d) {
-        let html = '<div class="layui-btn-group">';
-        if (/\.(jpeg|gif|jpg|png)$/i.test(d.path)) {
-            html += '<button class="layui-btn layui-btn-xs" lay-event="view" lay-tips="预览图片"><i class="layui-icon iconfont icon-view"></i></button>';
-        }
-        if (/data\/contact\/images\/[^\/]+\.(jpeg|gif|jpg|png)/i.test(d.path)) {
-            html += '<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="copy" lay-tips="复制图片地址"><i class="layui-icon iconfont icon-copy"></i></button>';
-        }
-        switch (d.type) {
-            case 2:
-                html += '<button class="layui-btn layui-btn-xs" lay-event="decompress">解压</button><button class="layui-btn layui-btn-xs" lay-event="download" lay-tips="下载"><i class="layui-icon layui-icon-download-circle"></i></button>';
-                break;
-            case 0:
-                html += '<button class="layui-btn layui-btn-xs" lay-event="compress">压缩</button>';
-                break;
-            default:
-                html += '<button class="layui-btn layui-btn-xs" lay-event="download"><i class="layui-icon layui-icon-download-circle"></i></button>';
-        }
-        return html + '<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></button></div>';
-    }
-
-    layui.use(['index', 'main'], function () {
-        let form = layui.form,
-            table = layui.table,
-            main = layui.main,
-            upload = layui.upload,
-            url = "/file",
-            curPath = new CurPath();
-        curPath.data.path = main.getParam('path') || "/home/wwwroot";
-        // 初始化
-        curPath.init();
-        // 渲染上传组件
-        let uploaded = upload.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            elem: '#upload',
-            url: url + '/upload',
-            data: {'path': curPath.data.path},
-            accept: 'file',
-            done: function (res) {
-                table.reload('table-list', {where: {'path': curPath.data.path}});
-                layer.msg(res.msg);
-            },
-        });
-        // 列表管理
-        let tabled = table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            url: url,
-            toolbar: '#toolbar',
-            where: {'path': curPath.data.path},
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {
-                    field: 'name', minWidth: 100, title: '名称', sort: true, style: 'color:#0a6e85;cursor:pointer',
-                    event: 'name', templet: (d) => {
-                        let name;
-                        switch (d.type) {
-                            case 0:
-                                name = '<i class="iconfont icon-folder"></i> ' + d.name;
-                                break;
-                            case 1:
-                                name = '<i class="iconfont icon-file"></i> ' + d.name;
-                                break;
-                            case 2:
-                                name = '<i class="iconfont icon-compress"></i> ' + d.name;
-                                break;
-                            case 3:
-                                name = '<i class="iconfont icon-html"></i> ' + d.name;
-                                break;
-                            case 4:
-                                name = '<i class="iconfont icon-php"></i> ' + d.name;
-                                break;
-                            case 5:
-                                name = '<i class="iconfont icon-js"></i> ' + d.name;
-                                break;
-                            case 6:
-                                name = '<i class="iconfont icon-css"></i> ' + d.name;
-                                break;
-                            case 7:
-                                name = '<i class="iconfont icon-img"></i> ' + d.name;
-                                break;
-                            case 8:
-                                name = '<i class="iconfont icon-iso"></i> ' + d.name;
-                                break;
-                        }
-                        return '<b title="' + d.path + '">' + name + '</b>';
-                    }
-                },
-                {field: 'type', title: '类型', width: 100, hide: true},
-                {field: 'uname', title: '所有者', width: 80},
-                {field: 'gname', title: '所有组', width: 80},
-                {field: 'uid', title: '用户ID', hide: true},
-                {field: 'gid', title: '组ID', hide: true},
-                {
-                    field: 'size', title: 'Size', width: 100, sort: true, style: 'color:#0a6e85;cursor:pointer',
-                    event: "size", align: 'center', templet: (d) => {
-                        if (d.type === 0) {
-                            return "计算";
-                        }
-                        return d.size;
-                    }
-                },
-                {field: 'mode', title: '权限', width: 100},
-                {field: 'mtime', title: '最后修改', width: 170, sort: true},
-                {title: '操作', minWidth: 180, align: 'center', fixed: 'right', templet: toolbar}
-            ]],
-            page: true,
-            limit: 100,
-            limits: [100, 200, 500, 1000],
-            text: '对不起，加载出现异常！',
-            done: function (res) {
-                if (this.where) {
-                    delete this.where.search
-                }
-                curPath.data = res;
-                curPath.data.path = curPath.data.path || "/";
-                window.scrollTo(0, 0);
-                curPath.render();
-                uploaded.reload({
-                    data: {'path': curPath.data.path},
-                    done: function (res) {
-                        tabled.reload({where: {path: curPath.data.path}});
-                        layer.msg(res.msg);
-                    },
-                });
-            }
-        });
-        {{$hostname:="{{hostname}}" -}}
-        let active = {
-                copy: function (obj) {
-                    let name = obj.data.path.split("/images/", 2)[1];
-                    if (name) {
-                        main.copy.exec("{{$hostname}}/images/" + name, layer.msg("复制成功"));
-                    }
-                },
-                size: function (obj) {
-                    let elem = $(obj.tr.selector + ' [data-field=size]>div');
-                    if (elem.find('img[src$=".svg"]').length > 0) {
-                        return false;
-                    }
-                    elem.html(`<img alt="等待计算结果" src="/theme/loading2.svg">`);
-                    $.get(url + "/size", {path: obj.data.path}, function (res) {
-                        elem.text(res);
-                    });
-                },
-                del: function (obj) {
-                    layer.confirm('删除后不可恢复！确定删除 ' + obj.data.path + ' ?', function (index) {
-                        main.req({
-                            url: url + '/del',
-                            data: {'name': obj.data.path},
-                            index: index,
-                            ending: obj.del,
-                        });
-                    });
-                },
-                name: function (obj) {
-                    switch (obj.data.type) {
-                        case 0:
-                            tabled.reload({where: {path: obj.data.path}});
-                            break;
-                        case 2:
-                        case 7:
-                        case 8:
-                            layer.confirm('确定下载 ' + obj.data.name + ' ?', function (index) {
-                                window.open(encodeURI(url + '/download?file=' + obj.data.path));
-                                layer.close(index);
-                            });
-                            break;
-                        default:
-                            if (obj.data.size > 1024 * 1024 * 3) {
-                                layer.msg("文件超大,不支持在线编辑", {icon: 5});
-                                return
-                            }
-                            let loading = layui.main.loading();
-                            $.get(url + '/editor', {path: obj.data.path, pure: true}, function (html) {
-                                loading.close();
-                                main.popup({title: false, content: html, maxmin: false});
-                                tabled.reload({where: {path: curPath.data.path}});
-                            });
-                    }
-                },
-                compress: function (obj) {
-                    main.req({
-                        url: url + '/compress',
-                        data: {'name': obj.data.path},
-                        ending: function () {
-                            tabled.reload({where: {path: curPath.data.path}});
-                        }
-                    });
-                },
-                decompress: function (obj) {
-                    main.req({
-                        url: url + '/decompress',
-                        data: {'name': obj.data.path},
-                        ending: function () {
-                            tabled.reload({where: {path: curPath.data.path}});
-                        }
-                    });
-                },
-                download: function (obj) {
-                    window.open(encodeURI(url + '/download?file=' + obj.data.path));
-                },
-                view: function (obj) {
-                    let loading = main.loading();
-                    $.get(url + "/view", {path: obj.data.path}, function (res) {
-                        loading.close();
-                        if (res.code === 0) {
-                            let width = "95%", height = "95%";
-                            if (res.data.width < (($(window).width() - 50))) {
-                                width = res.data.width + "px";
-                            }
-                            if (res.data.height < (($(window).height() - 50))) {
-                                height = res.data.height + "px";
-                            }
-                            let content = '<div style="overflow:hidden;position:absolute;top:10px;left:50%;transform:translateX(-50%)">Type:' + res.data['type'] + ' Rect:' + res.data.width + '*' + res.data.height + '</div>';
-                            main.display({
-                                content: content + '<img src="' + res.data['data'] + '" alt="' + obj.data.path + '"/>',
-                                area: [width, height]
-                            });
-                        } else {
-                            main.err(res.msg);
-                        }
-                    });
-                },
-            },
-            activeBar = {
-                'rollback': function () {
-                    tabled.reload({where: {path: curPath.data.path}});
-                },
-                'back_www': function () {
-                    tabled.reload({where: {path: '/home/wwwroot'}});
-                },
-                'back_root': function () {
-                    tabled.reload({where: {path: '/root'}});
-                },
-                'new_folder': function () {
-                    layer.prompt({
-                            formType: 0,
-                            value: 'webrobot.cn',
-                            title: '请输入文件夹名不要有空格!'
-                        },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/new/folder',
-                                data: {name: value, path: curPath.data.path},
-                                index: index,
-                                ending: function () {
-                                    tabled.reload({where: {path: curPath.data.path}});
-                                }
-                            });
-                        });
-                },
-                'new_file': function () {
-                    layer.prompt({
-                            formType: 0,
-                            value: 'webrobot.cn',
-                            title: '请输入文件名不要有空格!'
-                        },
-                        function (value, index) {
-                            main.req({
-                                url: url + '/new/file',
-                                data: {name: value, path: curPath.data.path},
-                                index: index,
-                                ending: function () {
-                                    tabled.reload({where: {path: curPath.data.path}});
-                                }
-                            });
-                        });
-                },
-            };
-        // 监听工具条
-        table.on('tool(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call(this, obj);
-        });
-        // 监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            activeBar[obj.event] && activeBar[obj.event].call(this, obj);
-        });
-        // 转到
-        form.on('submit(submit-goto)', function (obj) {
-            tabled.reload({where: {path: obj.field.goto}});
-        });
-        // 监听搜索
-        form.on('submit(search)', function (data) {
-            let field = data.field, cols = [];
-            $.each(field, function (k, v) {
-                let col = k.split('.')[0];
-                if (v && col !== 'cols' && cols.indexOf(col) === -1) {
-                    cols.push(col);
-                } else {
-                    delete field[k];
-                }
-            });
-            field.cols = cols.join(",");
-            if (!field.cols) {
-                return location.reload();
-            }
-            field.path = curPath.data.path;
-            //执行重载
-            tabled.reload({where: field});
-        });
-        // 监听操作
-        form.on('submit(submit-acts)', function (obj) {
-            let checkData = table.checkStatus('table-list').data, // 得到选中的数据
-                names = [];
-            if (checkData.length === 0) {
-                return layer.msg('请选择数据');
-            }
-            layui.each(checkData, function (k, v) {
-                if (v.path !== undefined) {
-                    names[k] = v.path;
-                }
-            });
-            let field = obj.field;
-            field.name = names.join();
-            field.path = curPath.data.path;
-            if (field.action === 'del') {
-                layer.confirm('删除后不可恢复，确定批量删除吗？', function (index) {
-                    main.req({
-                        url: url + '/del',
-                        data: field,
-                        index: index,
-                        ending: function () {
-                            tabled.reload({where: {path: curPath.data.path}});
-                        }
-                    });
-                });
-            } else {
-                main.req({
-                    url: url + '/' + field.action,
-                    data: field,
-                    ending: function () {
-                        tabled.reload({where: {path: curPath.data.path}});
-                    }
-                });
-            }
-            return false;
-        });
+    layui.use(['index', 'file'], function () {
+        layui.file({appRoot:{{.app_root}}});
     });
-
-    class CurPath {
-        constructor() {
-            this.currentPathElem = $('#current-path');
-            this.data = {};
-            this.init = () => {
-                let othis = this;
-                this.render();
-                othis.currentPathElem.off('click').on('click', function () {
-                    othis.currentPathElem.hide();
-                    $('input[name=goto]').attr("type", "text").val(othis.currentPathElem.attr("title"));
-                    layui.form.render("input");
-                });
-                $('.toolbar [lay-event="return-top"],.toolbar [lay-event=refresh]').off('click').on('click', function () {
-                    othis.goto(this);
-                });
-                $('[lay-event=terminal]').off('click').on('click', function () {
-                    layui.main.webssh({stdin: "cd " + othis.data.path});
-                });
-                $('input[name="goto"]').keydown(function (event) {
-                    if (event.keyCode === 13 && this.value) {
-                        $('[lay-filter="submit-goto"]').click();
-                    }
-                });
-                $('input[name="search"]').keydown(function (event) {
-                    if (event.keyCode === 13) {
-                        $('[lay-filter=search]').click();
-                    }
-                });
-            };
-            this.render = () => {
-                this.data.path = this.data.path || "/";
-                if (this.data.path.substring(0, 1) !== "/") {
-                    this.data.path = {{.app_root}}+"/" + this.data.path;
-                }
-                this.currentPathElem.attr("title", this.data.path).show().parent().find("input").attr("type", "hidden");
-                let paths = this.data.path.split("/"), p = [],
-                    elem = `<span title="/">根目录</span><span title="/">></span>`;
-                for (let i = 1; i < paths.length; i++) {
-                    paths[i] = paths[i].trim();
-                    if (paths[i]) {
-                        p.push(paths[i]);
-                        let title = p.join("/");
-                        elem += `<span title="/` + title + `">` + paths[i] + `</span><span title="/` + title + `">></span>`;
-                    }
-                }
-                this.currentPathElem.html(elem);
-                let othis = this;
-                $('#current-path>span').off('click').on('click', function () {
-                    othis.goto(this);
-                });
-                $('.toolbar [lay-event="return-top"]').attr("title", this.getTop(this.data.path));
-                $('.toolbar [lay-event="refresh"]').attr("title", this.data.path);
-            };
-            this.goto = (othis) => {
-                $('input[name=goto]').val(othis.title);
-                $('[lay-filter="submit-goto"]').click();
-            };
-            this.getTop = (path) => {
-                if (!path || path === "/") {
-                    return "/";
-                }
-                path = path.trim();
-                let paths = path.split("/"), p = "";
-                for (let i = 0; i < paths.length - 1; i++) {
-                    let name = paths[i].trim();
-                    if (name) {
-                        p += "/" + name
-                    }
-                }
-                return p || "/";
-            };
-        }
-    }
 </script>

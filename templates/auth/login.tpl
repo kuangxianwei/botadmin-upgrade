@@ -77,10 +77,10 @@
         });
         //提交
         form.on('submit(login-submit)', function (obj) {
-            main.req({
+            main.request({
                 data: obj.field,
                 url: url,
-                ending: function (res) {
+                done: function (res) {
                     layer.msg(res.msg, {}, function () {
                         location.replace(referer);
                     });

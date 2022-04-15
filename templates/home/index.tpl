@@ -293,7 +293,7 @@
                     url: '/home/upgrade',
                     content: $('#upgrade-html').html(),
                     area: '380px',
-                    ending: function () {
+                    done: function () {
                         main.ws.log("app_upgrade");
                     }
                 });

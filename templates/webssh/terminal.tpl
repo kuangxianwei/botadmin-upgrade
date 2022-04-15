@@ -40,13 +40,9 @@
             };
             // 获取终端大小
             this.getTermSize = () => {
-                let init_width = 9,
-                    init_height = 17,
-                    windows_width = $(window).width() - 30,
-                    windows_height = $(window).height() - 10;
                 return {
-                    cols: Math.floor(windows_width / init_width),
-                    rows: Math.floor(windows_height / init_height),
+                    cols: Math.floor(($(window).width() - 26) / 9),
+                    rows: Math.floor($(window).height() / 19),
                 }
             };
             // 连接终端
@@ -76,12 +72,11 @@
                 // toastr.options.progressBar = true;
                 toastr.options.positionClass = 'toast-top-right';
                 let socket = new WebSocket(socketUri, ['webssh']);
-                // let socket = new WebSocket('ws://127.0.0.1:80/ws/webssh', ['webssh']);
                 socket.binaryType = "arraybuffer";
                 // 切换到终端
                 term.open(document.getElementById('terminal'));
                 term.focus();
-                $("body").attr("onbeforeunload", 'checkWindow()'); //增加刷新关闭提示属性
+                $("body").attr("onbeforeunload", 'checkWindow()'); // 增加刷新关闭提示属性
 
                 function uploadFile(zSession) {
                     let uploadHtml = "<div>" +
@@ -160,7 +155,7 @@
                                 }
                                 return
                             }
-                            //Zmodem.Browser.send_files(zsession, files, {
+                            //zModem.Browser.send_files(zSession, files, {
                             Zmodem.Browser.send_block_files(zSession, files, {
                                     on_offer_response(obj, xfe) {
                                         if (xfe) {
@@ -209,33 +204,28 @@
                 }
 
                 function downloadFile(zSession) {
-                    zSession.on("offer", function (xfer) {
-                        function on_form_submit() {
-                            if (xfer.get_details().size > 2048 * 1024 * 1024) {
-                                xfer.skip();
-                                toastr.warning(`${xfer.get_details().name} 超过 2048 MB, 无法下载`);
-                                return
-                            }
-                            let FILE_BUFFER = [];
-                            xfer.on("input", (payload) => {
-                                updateProgress(xfer, "download");
-                                FILE_BUFFER.push(new Uint8Array(payload));
-                            });
-
-                            xfer.accept().then(
-                                () => {
-                                    saveFile(xfer, FILE_BUFFER);
-                                    term.write("\r\n");
-                                    socket.send(JSON.stringify({
-                                        type: "ignore",
-                                        data: othis.utf8ToB64(xfer.get_details().name + "(" + xfer.get_details().size + ") was download success")
-                                    }));
-                                },
-                                console.error.bind(console)
-                            );
+                    zSession.on("offer", function (fer) {
+                        if (fer.get_details().size > 2048 * 1024 * 1024) {
+                            fer.skip();
+                            toastr.warning(`${fer.get_details().name} 超过 2048 MB, 无法下载`);
+                            return
                         }
-
-                        on_form_submit();
+                        let FILE_BUFFER = [];
+                        fer.on("input", (payload) => {
+                            updateProgress(fer, "download");
+                            FILE_BUFFER.push(new Uint8Array(payload));
+                        });
+                        fer.accept().then(
+                            () => {
+                                saveFile(fer, FILE_BUFFER);
+                                term.write("\r\n");
+                                socket.send(JSON.stringify({
+                                    type: "ignore",
+                                    data: othis.utf8ToB64(fer.get_details().name + "(" + fer.get_details().size + ") was download success")
+                                }));
+                            },
+                            console.error.bind(console)
+                        );
                     });
                     let promise = new Promise((res) => {
                         zSession.on("session_end", () => {
@@ -353,6 +343,6 @@
         let id = {{.id}},
             stdin = {{.stdin}},
             webssh = new WebSSH();
-        webssh.connect({id: (id ? id : 0), stdin: (stdin ? stdin : ""),})
+        webssh.connect({id: (id ? id : 0), stdin: (stdin ? stdin : "")});
     });
 </script>

@@ -72,11 +72,11 @@
             switch (obj.event) {
                 case 'del':
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: data,
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;
@@ -88,7 +88,7 @@
                             title: '修改FTP',
                             url: url + '/modify',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                         element.render();
                     });
@@ -109,7 +109,7 @@
                             url: url + '/add',
                             area: ['70%', '95%'],
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                         element.render();
                     });
@@ -124,17 +124,17 @@
                         for (let i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;
                 case 'sync':
                     layer.confirm('如无错误且无需同步，确定同步？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/sync',
                             index: index,
                         });

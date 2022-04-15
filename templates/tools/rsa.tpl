@@ -25,9 +25,9 @@
         let form = layui.form,
             main = layui.main;
         $("#reload").off('click').on('click', function () {
-            main.req({
+            main.request({
                 url: "/tools/rsa",
-                ending: function (res) {
+                done: function (res) {
                     $('[name="private_key"]').text(res.data.private_key);
                     $('[name="public_key"]').text(res.data.public_key);
                     return false;

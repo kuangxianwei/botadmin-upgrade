@@ -106,11 +106,11 @@
         let active = {
                 'del': function (obj, data) {
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: data,
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -123,7 +123,7 @@
                             url: url + '/modify',
                             area: '600px',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                         element.render();
                     });
@@ -132,7 +132,7 @@
                     main.ws.log('site.' + data.id);
                 },
                 'test': function (obj, data) {
-                    main.req({
+                    main.request({
                         url: url + '/test',
                         data: {id: data.id}
                     });
@@ -151,7 +151,7 @@
                             url: url + '/add',
                             area: '600px',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                         element.render();
                     });
@@ -165,11 +165,11 @@
                         for (let i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -181,10 +181,10 @@
                     for (let i = 0; i < data.length; i++) {
                         ids[i] = data[i].id;
                     }
-                    main.req({
+                    main.request({
                         url: url + '/switch',
                         data: {ids: ids.join(), cron_enabled: true},
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                 },
                 'disabled': function (obj, data) {
@@ -195,16 +195,16 @@
                     for (let i = 0; i < data.length; i++) {
                         ids[i] = data[i].id;
                     }
-                    main.req({
+                    main.request({
                         url: url + '/switch',
                         data: {ids: ids.join(), cron_enabled: false},
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                 },
                 'jobs': function () {
-                    main.req({
+                    main.request({
                         url: url + '/jobs',
-                        ending: function (res) {
+                        done: function (res) {
                             main.msg(res.msg);
                             return false;
                         },
@@ -236,10 +236,10 @@
                 layer.tips('ID为空，无法操作！', obj.othis);
                 return false;
             }
-            main.req({
+            main.request({
                 url: url + '/switch',
                 data: {id: id, cron_enabled: checked},
-                ending: 'table-list',
+                done: 'table-list',
             });
             return false;
         });

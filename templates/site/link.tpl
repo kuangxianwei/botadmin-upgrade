@@ -86,18 +86,18 @@
                                 url: dom.find('[name=url]').val(),
                             }]));
                         },
-                        ending: "table-list",
+                        done: "table-list",
                     });
                 },
                 "del": function (obj) {
                     let links = [];
                     links.push(obj.data);
                     layer.confirm('去除友情链接？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {id: id, links: JSON.stringify(links)},
                             index: index,
-                            ending: obj.del(),
+                            done: obj.del(),
                         });
                     });
                 }
@@ -112,7 +112,7 @@
                         success: function (dom) {
                             dom.find("[name=id]").val(id);
                         },
-                        ending: "table-list",
+                        done: "table-list",
                     });
                 },
                 "del": function (data) {
@@ -125,11 +125,11 @@
                         links[i] = data[i];
                     }
                     layer.confirm('去除友情链接？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {id: id, links: JSON.stringify(links)},
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 }

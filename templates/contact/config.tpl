@@ -178,7 +178,7 @@
             submit: function () {
                 let field = main.formData();
                 field.durations = field.duration ? (Array.isArray(field.duration) ? field.duration.join() : field.duration) : '';
-                main.req({url: url, data: field});
+                main.request({url: url, data: field});
             },
             cities: function () {
                 main.display({

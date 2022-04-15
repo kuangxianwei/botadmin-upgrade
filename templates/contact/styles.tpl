@@ -61,11 +61,11 @@
             switch (obj.event) {
                 case 'del':
                     layer.confirm('确定删除此条日志？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {id: data.id},
                             index: index,
-                            ending: obj.del
+                            done: obj.del
                         });
                     });
                     break;
@@ -77,7 +77,7 @@
                             url: url + '/modify',
                             title: '修改样式',
                             content: html,
-                            ending: "table-list",
+                            done: "table-list",
                         });
                     });
                     break;
@@ -100,7 +100,7 @@
                             url: url + '/add',
                             title: '添加样式',
                             content: html,
-                            ending: "table-list",
+                            done: "table-list",
                         });
                     });
                     break;
@@ -109,11 +109,11 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {ids: ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;

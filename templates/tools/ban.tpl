@@ -26,10 +26,10 @@
                 layer.alert("输入源为空", {icon: 2});
                 return false;
             }
-            main.req({
+            main.request({
                 url: '/tools/ban',
                 data: {content: content},
-                ending: function (res) {
+                done: function (res) {
                     $('#display').show(200).val(res.data);
                 }
             });

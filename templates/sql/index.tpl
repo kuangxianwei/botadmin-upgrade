@@ -101,11 +101,11 @@
         let active = {
                 'del': function (obj) {
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: obj.data,
                             index: index,
-                            ending: obj.del
+                            done: obj.del
                         });
                     });
                 },
@@ -118,7 +118,7 @@
                             content: html,
                             area: ['600px', '550px'],
                             url: url + '/modify',
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -133,7 +133,7 @@
                             content: html,
                             area: ['600px', '550px'],
                             url: url + '/add',
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -170,10 +170,10 @@
                 },
                 'sync': function () {
                     layer.confirm('如无错误且无需同步，确定同步？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/sync',
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },

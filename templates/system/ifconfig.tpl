@@ -133,11 +133,11 @@
                     return false;
             }
             layer.confirm(msg, function (index) {
-                main.req({
+                main.request({
                     url: url,
                     data: data,
                     index: index,
-                    ending: obj.del
+                    done: obj.del
                 });
             });
         });
@@ -162,11 +162,11 @@
                             form.on('submit(submitAddIP)', function (obj) {
                                 let field = obj.field;
                                 field.Act = 'Add';
-                                main.req({
+                                main.request({
                                     url: url,
                                     data: field,
                                     index: index,
-                                    ending: 'table-list',
+                                    done: 'table-list',
                                 });
                                 return false;
                             });

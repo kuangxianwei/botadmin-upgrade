@@ -630,7 +630,7 @@
             });
         });
         form.on('submit(submit)', function (obj) {
-            main.req({
+            main.request({
                 url: url,
                 data: obj.field,
             });
@@ -640,9 +640,9 @@
             let event = $(this).data('event');
             switch (event) {
                 case 'reset':
-                    main.req({
+                    main.request({
                         url: url + '/reset',
-                        ending: function () {
+                        done: function () {
                             location.replace(url);
                         }
                     });

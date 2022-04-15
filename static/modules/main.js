@@ -10,13 +10,13 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         script.src = src;
         script.onload = function () {
             fn && fn();
-        }
+        };
         document.getElementsByTagName("head")[0].insertAdjacentElement("beforeend", script);
-    }
+    };
     // 判断字符串结尾
     String.prototype.hasSuffix = function (suffix) {
         return this.indexOf(suffix, this.length - suffix.length) !== -1;
-    }
+    };
     // 提取字符串中的数字 返回数字数组
     String.prototype.digits = function () {
         let arr = [];
@@ -27,7 +27,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
         });
         return arr;
-    }
+    };
+    // 存在数组中
+    Array.prototype.included = function (item) {
+        for (let i = 0; i < this.length; i++) {
+            if (this.indexOf(item) !== -1) return true;
+        }
+        return false;
+    };
     const textareaHtml = `<style>.layui-layer-page .layui-layer-content {overflow:unset;}</style><textarea class="layui-textarea" style="border-radius:10px;margin:1%;padding:%0.5;height:94%;width:98%">`;
 
     // tags
@@ -110,14 +117,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     }
                 });
                 return index + 1
-            }
+            };
             this.isObject = function (obj) {
                 return Object.prototype.toString.call(obj) === '[object Object]';
-            }
+            };
             // 判断是密码col
             this.isPassword = function (colName) {
                 return colName.hasSuffix("password") || colName.hasSuffix("passwd")
-            }
+            };
             // 设置cols
             this.setCols = function (data, dom) {
                 let othis = this;
@@ -137,7 +144,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     data.cols = data.cols.join(",");
                 }
                 return data;
-            }
+            };
             // 整理对象
             this.tidyObj = function (obj) {
                 return this.isObject(obj) ? obj : {};
@@ -205,6 +212,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
                 return arr;
             };
+            // 随机获取列表
             this.randomN = function (items, n) {
                 items = this.unique(items);
                 let shuffled = items.slice(0), i = items.length;
@@ -217,7 +225,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     shuffled[i] = temp;
                 }
                 return shuffled.slice(min);
-            }
+            };
             // 监控
             this.on = {
                 del: function (selector) {
@@ -280,30 +288,22 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         layer.close(this.index);
                     }
                 };
-            }
+            };
         }
 
         // ajax 请求
-        req(options, dom) {
-            let othis = this;
-            options = $.extend({type: 'POST', dataType: 'json'}, options || {});
-            if (typeof options.url !== 'string') {
-                options.url = $('meta[name=current_uri]').attr('content');
-            }
-            let reloadOptions = $.extend({}, options);
-            // 加载中...
-            let loading = layer.load(1, {shade: [0.7, '#000', true]});
-            if (options.type.toUpperCase() === 'POST') {
-                options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, options.headers || {});
-            }
+        request(options, dom) {
+            options = $.extend({type: 'POST', dataType: 'json'}, options);
+            let othis = this, reloadOptions = $.extend({}, options),
+                // 加载中...
+                loading = layer.load(1, {shade: [0.7, '#000', true]});
+            if (options.type.toUpperCase() === 'POST') options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, options.headers || {});
             othis.setCols(options.data, dom);
-            if (options.data) {
-                $.each(options.data, function (k, v) {
-                    if ((k.hasSuffix("password") || k.hasSuffix("passwd")) && v) {
-                        options.data[k] = encrypt.encrypt(v);
-                    }
-                });
-            }
+            if (options.data) $.each(options.data, function (k, v) {
+                if ((k.hasSuffix("password") || k.hasSuffix("passwd")) && v) {
+                    options.data[k] = encrypt.encrypt(v);
+                }
+            });
             let request = $.ajax(options);
             request.done(function (res) {
                 if (res.textarea === true && res.code === 0) {
@@ -318,12 +318,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 }
                 switch (res.code) {
                     case 0:
-                        if ('index' in options) {
-                            layer.close(options.index);
-                        }
-                        if (typeof options.ending === 'string' && options.ending !== '-') {
-                            table.reload(options.ending, {page: {curr: 1}});
-                        } else if (typeof options.ending === 'function' && options.ending(res) === false) {
+                        if (options.index) layer.close(options.index);
+                        if (typeof options.done === 'string') {
+                            table.reload(options.done, {page: {curr: 1}});
+                        } else if (typeof options.done === 'function' && options.done(res) === false) {
                             return false;
                         }
                         layer.msg(res.msg, {icon: 1, shade: [0.6, '#000', true]});
@@ -339,22 +337,21 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         return othis.err(res.msg);
                 }
             });
-            request.fail(function (obj) {
-                if (typeof options.fail === 'function' && options.fail(obj) === false) {
+            request.fail(function (xhr, status, error) {
+                if (typeof options.fail === 'function' && options.fail(xhr, status, error) === false) {
                     return false;
                 }
-                let msg = 'Fail: statusCode: ' + obj.status;
-                if (obj.status === 403) {
-                    msg = '登录超时或权限不够 statusCode: ' + obj.status;
-                }
-                return othis.err(msg);
+                return othis.err(error);
             });
-            request.always(function () {
+            request.always(function (res) {
+                if (typeof options.always === 'function' && options.always(res) === false) {
+                    return false;
+                }
                 layer.close(loading);
             });
             return {
                 dom: dom, options: reloadOptions, reload: function (options, dom) {
-                    return othis.req($.extend(true, this.options, options || {}), dom);
+                    return othis.request($.extend(true, this.options, options || {}), dom);
                 }
             };
         }
@@ -393,11 +390,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         return false
                     }
                     form.on('submit(' + options.submit + ')', function (obj) {
-                        othis.req({
+                        othis.request({
                             url: options.url || obj.field.url,
                             data: obj.field,
                             index: index,
-                            ending: options.ending,
+                            done: options.done,
                             tips: options.tips,
                         }, dom);
                         return false;
@@ -573,385 +570,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     default:
                         elem.insertAt(write);
                 }
-            });
-        }
-
-        // 填充内置CMS模板变量
-        onFillTheme() {
-            let othis = this,
-                formHTML = '<div class="layui-card"><div class="layui-card-body layui-form"></div></div>',
-                btnGroupHTML = `<div class="layui-row">
-    <div class="layui-col-md6"><div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs layui-btn-primary">全局标签</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Hostname}}">Hostname</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Title}}">站名</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Subtitle}}">副站名</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Keywords}}">关键词</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Config.City}}">城市名称</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Config.Province}}">省名称</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Config.About}}">关于我们</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Pager}}">页标识</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Config.Copyright}}">版权</button>
-        <button class="layui-btn layui-btn-xs" data-write='{{template "模板.tpl" .}}'>导入模板</button>
-        <button class="layui-btn layui-btn-xs" data-write="nav">导航HTML</button>
-        <button class="layui-btn layui-btn-xs" data-write="link">友链HTML</button>
-        <button class="layui-btn layui-btn-xs" data-write="tags">Tags</button>
-    </div></div>
-    <div class="layui-col-md6"><div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="list">列表标签</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Positions}}">当前位置</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Paginator}}">分页</button>
-    </div></div>
-    <div class="layui-col-md6"><div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="loop">循环标签</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Title}}">标题</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Subtitle}}">副标题</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Url}}">URL</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.TitlePic}}">标题图片</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{sub .Title 30}}">标题</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{sub .Description 150}}">描述</button>
-        <button class="layui-btn layui-btn-xs" data-write='{{date .Updated "2006-01-02 15:04:05"}}'>时间</button>
-        <button class="layui-btn layui-btn-xs" data-write='{{class .Cid | HTML}}'>栏目link</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{HTML .}}">HTML</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{imgHTML .}}">imgHTML</button>
-    </div></div>
-    <div class="layui-col-md6"><div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs layui-btn-primary" data-write="head">头部标签</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Title}}">标题</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Keywords}}">关键词</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Description}}">描述</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{canonicalLabel .Url}}">Canonical</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Theme}}">主题路径</button>
-    </div></div>
-    <div class="layui-col-md6"><div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs layui-btn-primary">文章标签</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Positions}}">当前位置</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.Article.Title}}">标题</button>
-        <button class="layui-btn layui-btn-xs" data-write='{{date .Article.Created "2006-01-02 15:04:05"}}'>发布时间</button>
-        <button class="layui-btn layui-btn-xs" data-write='<script src="{{.Config.Hostname}}/hot.js?aid={{.Article.Id}}"></script>'>点击量</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{source}}">来源</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{HTML .Article.Content}}">内容</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{call .Article.MipContent}}">Mip内容</button>
-        <button class="layui-btn layui-btn-xs" data-write="tag">TagHTML</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Pre}}">上一篇</button>
-        <button class="layui-btn layui-btn-xs" data-write="{{.PreNext.Next}}">上一篇</button>
-        <button class="layui-btn layui-btn-xs" data-write="like">相关文章HTML</button>
-    </div></div>
-</div>`,
-                headHTML = `<head>
-    <meta charset="UTF-8">
-    <meta content="IE=11,IE=10,IE=9,IE=8" http-equiv="X-UA-Compatible">
-    <meta content="pc,mobile" name="applicable-device">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <title>{{.Title}}</title>
-    <meta content="{{.Keywords}}" name="keywords">
-    <meta content="{{.Description}}" name="description">
-    <link href="{{.Theme}}/css/style.css" media="all" rel="stylesheet" type="text/css"/>
-    <script src="{{.Theme}}/js/bootstrap.min.js" type="text/javascript"></script>
-    {{canonicalLabel .Url}}
-    <meta content="webpage" property="og:type"/>
-    <meta content="{{.Url}}" property="og:url"/>
-    <meta content="{{.Config.Subtitle}}" property="og:site_name"/>
-    <meta content="{{.Title}}" property="og:title"/>
-    <meta content="{{.Description}}" property="og:description"/>
-    <meta content="{{.TitlePic}}" property="og:image"/>
-</head>`,
-                navHTML = `<ul class="nav">
-    <li>
-        <a href="{{.Config.Hostname}}/">首页</a>
-    <li>
-        {{- range classes 12}}
-    <li{{if eq .Id $.Class.Id}} class="cur"{{end}}>
-        <a href="{{.Url}}">{{.Name}}</a>
-        {{- if .Children}}
-        <ul>
-            {{- range .Children}}
-            <li{{if eq .Id $.Class.Id}} class="cur"{{end}}><a href="{{.Url}}">{{.Name}}</a></li>
-            {{- end}}
-        </ul>
-        {{- end}}
-    </li>
-    {{- end}}
-</ul>`,
-                linkHTML = `<div class="layui-form-item">
-    <label class="layui-form-label">限制:</label>
-    <div class="layui-input-inline">
-        <input class="layui-input" min="1" name="limit" type="number" value="30">
-    </div>
-</div><div class="layui-form-item">
-    <label class="layui-form-label">显示:</label>
-    <div class="layui-input-block">
-        <input name="pager" title="全部" type="radio" value="all">
-        <input checked name="pager" title="首页" type="radio" value="index">
-        <input name="pager" title="封面" type="radio" value="face">
-        <input name="pager" title="文章" type="radio" value="article">
-        <input name="pager" title="TAG" type="radio" value="tag">
-    </div>
-</div>`,
-                tagsHTML = `<div class="layui-form-item">
-    <label class="layui-form-label">限制:</label>
-    <div class="layui-input-inline">
-        <input class="layui-input" min="1" name="limit" type="number" value="30">
-    </div>
-</div><div class="layui-form-item">
-    <label class="layui-form-label">推荐:</label>
-    <div class="layui-input-block">
-        <input name="level" title="荐1" type="checkbox" value="1">
-        <input name="level" title="荐2" type="checkbox" value="2">
-        <input name="level" title="荐3" type="checkbox" value="3">
-    </div>
-</div><div class="layui-form-item">
-    <label class="layui-form-label">排序:</label>
-    <div class="layui-input-block">
-        <input checked name="order" title="最火" type="radio" value="0">
-        <input name="order" title="最新" type="radio" value="1">
-        <input name="order" title="随机" type="radio" value="2">
-    </div>
-</div>`;
-            $('#filepath').append('<button class="layui-btn layui-btn-sm layui-btn-radius" data-event="theme-func" style="margin-left:10px">查看模板支持函数</button>');
-            $('.fill-theme').removeClass("layui-hide").html(btnGroupHTML);
-            $('[data-write]').off("click").on("click", function () {
-                let $this = $(this), elem = $this.closest(".layui-form").find("textarea[name=content]"),
-                    write = $this.data("write");
-                switch (write) {
-                    case "head":
-                        elem.insertAt(headHTML);
-                        break;
-                    case "nav":
-                        elem.insertAt(navHTML);
-                        break;
-                    case "link":
-                        othis.open({
-                            area: ["600px", "280px"], title: "友情链接标签", content: formHTML, success: function (dom) {
-                                dom.find(".layui-form").html(linkHTML);
-                                form.render();
-                            }, yes: function (index, dom) {
-                                let data = othis.formData(dom);
-                                if (data.pager === 'all') {
-                                    elem.insertAt(`<ul class="link">
-    {{- range links ` + data.limit + `}}
-    <li>{{HTML .}}</li>
-    {{- end}}
-</ul>`);
-                                } else {
-                                    elem.insertAt(`{{if eq .Pager "` + data.pager + `"}}
-<ul class="link">
-    {{- range links ` + data.limit + `}}
-    <li>{{HTML .}}</li>
-    {{- end}}
-</ul>
-{{end}}`);
-                                }
-                                layer.close(index);
-                            },
-                        });
-                        break;
-                    case "tags":
-                        othis.open({
-                            area: ["600px", "280px"], title: "Tags标签", content: formHTML, success: function (dom) {
-                                dom.find(".layui-form").html(tagsHTML);
-                                form.render();
-                            }, yes: function (index, dom) {
-                                let data = othis.formData(dom),
-                                    begin = "{{- range tags " + (parseInt(data.order) || 0) + " " + data.limit;
-                                if (data.level) {
-                                    begin += " \"level=" + data.level.join(",") + "\"";
-                                }
-                                begin += "}}"
-                                elem.insertAt(`<ul class="tags">
-    ` + begin + `
-    <li>{{HTML .}}</li>
-    {{- end}}
-</ul>`);
-                                layer.close(index);
-                            },
-                        });
-                        break;
-                    case "like":
-                        othis.open({
-                            area: ["600px", "280px"], title: "相关文章标签", content: formHTML, success: function (dom) {
-                                dom.find(".layui-form").html(`<div class="layui-form-item">
-    <label class="layui-form-label">限制:</label>
-    <div class="layui-input-inline">
-        <input class="layui-input" min="1" name="limit" type="number" value="30">
-    </div>
-</div>
-<div class="layui-form-item">
-    <label class="layui-form-label">显示:</label>
-    <div class="layui-input-block">
-        <input name="pager" title="全部" type="radio" value="all">
-        <input checked name="pager" title="首页" type="radio" value="index">
-        <input name="pager" title="封面" type="radio" value="face">
-        <input name="pager" title="文章" type="radio" value="article">
-        <input name="pager" title="TAG" type="radio" value="tag">
-    </div>
-</div>`);
-                                form.render();
-                            }, yes: function (index, dom) {
-                                let data = othis.formData(dom);
-                                if (data.pager === 'all') {
-                                    elem.insertAt(`<ul class="like">
-    {{- range like ` + data.limit + `}}
-    <li>{{HTML .}}</li>
-    {{- end}}
-</ul>`);
-                                } else {
-                                    elem.insertAt(`{{if eq .Pager "` + data.pager + `"}}
-<ul class="link">
-    {{- range links ` + data.limit + `}}
-    <li>{{HTML .}}</li>
-    {{- end}}
-</ul>
-{{end}}`);
-                                }
-                                layer.close(index);
-                            },
-                        });
-                        break;
-                    case "loop":
-                        othis.open({
-                            area: ["900px", "460px"], title: "循环标签", content: formHTML, success: function (dom) {
-                                dom.find(".layui-form").html(`<div class="layui-form-item">
-    <div class="layui-inline">
-        <label class="layui-form-label" lay-tips="留空为当前栏目">栏目ID:</label>
-        <div class="layui-input-block">
-            <input class="layui-input" name="id" placeholder="1,2,3,5,6" type="text" value="">
-        </div>
-    </div>
-    <div class="layui-inline">
-        <label class="layui-form-label">循环限制:</label>
-        <div class="layui-input-block">
-            <input class="layui-input" min="1" name="limit" type="number" value="8">
-        </div>
-    </div>
-</div>
-<div class="layui-form-item">
-    <div class="layui-inline">
-        <label class="layui-form-label">标题截取:</label>
-        <div class="layui-input-block">
-            <input class="layui-input" min="1" name="sub_title" type="number" value="60">
-        </div>
-    </div>
-    <div class="layui-inline">
-        <label class="layui-form-label">描述截取:</label>
-        <div class="layui-input-block">
-            <input class="layui-input" min="1" name="sub_description" type="number" value="180">
-        </div>
-    </div>
-</div>
-<div class="layui-form-item">
-    <label class="layui-form-label">推荐:</label>
-    <div class="layui-input-block">
-        <input name="level" title="荐1" type="checkbox" value="1">
-        <input name="level" title="荐2" type="checkbox" value="2">
-        <input name="level" title="荐3" type="checkbox" value="3">
-        <input name="level" title="荐4" type="checkbox" value="4">
-        <input name="level" title="荐5" type="checkbox" value="5">
-        <input name="level" title="荐6" type="checkbox" value="6">
-    </div>
-</div>
-<div class="layui-form-item">
-    <label class="layui-form-label">时间格式:</label>
-    <div class="layui-input-block">
-        <input checked name="time" title="01-02 15:04" type="radio" value="01-02 15:04:05">
-        <input name="time" title="2006-01-02 15:04" type="radio" value="2006-01-02 15:04:05">
-        <input name="time" title="2006-01-02" type="radio" value="2006-01-02">
-    </div>
-</div>
-<div class="layui-form-item">
-    <div class="layui-inline">
-        <label class="layui-form-label">条件:</label>
-        <div class="layui-input-block">
-            <input checked name="where" title="任意" type="radio" value="">
-            <input name="where" title="有图片" type="radio" value="title_pic=1">
-        </div>
-    </div>
-    <div class="layui-inline">
-        <label class="layui-form-label">排序:</label>
-        <div class="layui-input-block">
-            <input checked name="order" title="最新" type="radio" value="0">
-            <input name="order" title="最火" type="radio" value="1">
-            <input name="order" title="ID升序" type="radio" value="2">
-            <input name="order" title="ID降序" type="radio" value="3">
-            <input name="order" title="随机" type="radio" value="4">
-        </div>
-    </div>
-</div>`);
-                                form.render();
-                            }, yes: function (index, dom) {
-                                let data = othis.formData(dom), range = '{{- range loop';
-                                if (data.id !== "") {
-                                    range += ' "' + data.id + '"';
-                                } else {
-                                    range += ' ""';
-                                }
-                                range += ' ' + data.order;
-                                range += ' ' + data.limit;
-                                if (Array.isArray(data.level)) {
-                                    range += ' "level=' + data.level.join() + '"';
-                                } else if (data.level) {
-                                    range += ' "level=' + data.level + '"';
-                                }
-                                if (data['where']) {
-                                    range += ` "` + data['where'] + `"`;
-                                }
-                                range += "}}";
-                                elem.insertAt(`<ul>
-    ` + range + `
-    <li>
-        {{- if .TitlePic -}}
-        <!--标题图片-->
-        <img alt="{{.Subtitle}}" src="{{.TitlePic}}" title="{{.Title}}">
-        {{- end -}}
-        <!--标题链接-->
-        <a href="{{.Url}}">{{sub .Title ` + data['sub_title'] + `}}</a>
-        <!--描述-->
-        <p>{{sub .Description ` + data['sub_description'] + `}}</p>
-        <time>{{date .Updated "` + data.time + `"}}</time>
-    </li>
-    {{- end}}
-</ul>`);
-                                layer.close(index);
-                            },
-                        });
-                        break;
-                    case "list":
-                        elem.insertAt(`<ul>
-    {{- range .List}}
-    <li>
-        {{- if .TitlePic -}}
-        <!--标题图片-->
-        <img alt="{{.Subtitle}}" src="{{.TitlePic}}" title="{{.Title}}">
-        {{- end -}}
-        <!--标题链接-->
-        <a href="{{.Url}}">{{sub .Title 30}}</a>
-        <!--描述-->
-        <p>{{sub .Description 150}}</p>
-        <time>{{date .Updated "2006-01-02 15:04"}}</time>
-    </li>
-    {{- end}}
-</ul>`);
-                        break;
-                    case "tag":
-                        elem.insertAt(`<ul>
-    {{- range .Tags}}
-    <li>{{.}}</li>
-    {{- end}}
-</ul>`);
-                        break;
-                    default:
-                        elem.insertAt(write);
-                }
-            });
-            $('[data-event="theme-func"]').off("click").on("click", function () {
-                $.get("/cms/help", {}, function (text) {
-                    othis.display({
-                        content: `<textarea class="layui-textarea" style="margin:2%;height:92%;width:96%;" disabled></textarea>`,
-                        success: function (dom) {
-                            dom.find('textarea').val(text);
-                        }
-                    });
-                });
             });
         }
     }
@@ -1583,7 +1201,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             }
             let tokens = ids.join();
             layer.confirm('清空日志记录? Tokens: <br/>' + tokens, function (index) {
-                main.req($.extend({
+                main.request($.extend({
                     url: '/record/reset', index: index, data: {tokens: tokens},
                 }, options || {}));
             });
@@ -1592,8 +1210,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     main.reboot = {
         app: function () {
             layer.confirm("确定重启App?", {icon: 3, title: false}, function (index) {
-                main.req({
-                    url: "/system/reboot", data: {act: "botadmin"}, index: index, ending: function () {
+                main.request({
+                    url: "/system/reboot", data: {act: "botadmin"}, index: index, done: function () {
                         main.sleep(3000);
                         layer.alert('重启App成功!', {title: false, icon: 1, btn: "重新登录"}, function (index) {
                             layer.close(index);
@@ -1605,8 +1223,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             });
         }, service: function () {
             layer.confirm("确定重启服务器?", {icon: 3, title: false}, function (index) {
-                main.req({
-                    url: "/system/reboot", data: {act: "reboot"}, index: index, ending: function () {
+                main.request({
+                    url: "/system/reboot", data: {act: "reboot"}, index: index, done: function () {
                         main.sleep(5000);
                         layer.alert('重启服务器成功!', {title: false, icon: 1, btn: "重新登录"}, function (index) {
                             layer.close(index);
@@ -1626,7 +1244,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
     main.sleep = function (d) {
         for (let t = Date.now(); Date.now() - t <= d;) {
         }
-    }
+    };
     // 监听搜索
     main.onSearch = function (options) {
         form.on('submit(search)', function (data) {
@@ -1685,6 +1303,6 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             area: ["800px", "500px"],
             content: ["/webssh/terminal?id=" + options.id + "&stdin=" + options.stdin, 'no'],
         });
-    }
+    };
     exports('main', main);
 });

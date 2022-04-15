@@ -125,7 +125,7 @@
                             downEle.hide();
                             return false;
                         },
-                        ending: function (res) {
+                        done: function (res) {
                             if (typeof options.callback === 'function') {
                                 if (options.callback(res) === false) {
                                     return false;
@@ -147,7 +147,7 @@
                             return false;
                         }
                     }, options || {});
-                    main.req(options);
+                    main.request(options);
                     return {
                         options: options,
                         reload: function (options) {
@@ -201,10 +201,10 @@
                     },
                     "buy": function (othis) {
                         let id = this.data("id");
-                        main.req({
+                        main.request({
                             url: url + "/buy",
                             data: {driver: driver, token: admin.token, id: id},
-                            ending: function () {
+                            done: function () {
                                 let ele = $("#" + id + " [lay-filter=btn-group]");
                                 ele.html('<button class="layui-btn layui-btn-sm" data-event="download" lay-tips="下载该主题"><i class="layui-icon layui-icon-download-circle"></i>下载</button><button class="layui-btn layui-btn-sm" data-event="log" lay-tips="操作日志"><i class="layui-icon layui-icon-log"></i></button>');
                                 ele.find("button").attr("data-id", id);
@@ -214,10 +214,10 @@
                     },
                     "download": function (othis) {
                         let id = this.data("id");
-                        main.req({
+                        main.request({
                             url: url + "/download",
                             data: {driver: driver, token: admin.token, id: id},
-                            ending: function () {
+                            done: function () {
                                 main.ws.log("theme." + driver + "." + id, function () {
                                     let ele = $("#" + id + " [data-event=download]");
                                     ele.prop("outerHTML", '<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="download" lay-tips="重新下载该主题" data-id="' + id + '"><i class="layui-icon layui-icon-download-circle"></i>重新下载</button>');

@@ -65,13 +65,13 @@
             main = layui.main,
             isDirect = {{.obj.IsDirect}};
         form.on('submit(submit-start)', function (obj) {
-            main.req({
+            main.request({
                 url: url,
                 data: obj.field,
             });
         });
         form.on('submit(submit-stop)', function () {
-            main.req({url: url + '/stop'});
+            main.request({url: url + '/stop'});
         });
         main.ws.display({
             name: 'statistic_collect.0',
@@ -90,7 +90,7 @@
         });
         $('[lay-filter="reset-record"]').off('click').on('click', function () {
             main.reset.log('statistic_collect', [0], {
-                ending: function () {
+                done: function () {
                     $('#collect-display').val('');
                 }
             })

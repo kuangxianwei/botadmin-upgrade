@@ -37,7 +37,7 @@
         form.render();
         $('.layui-form button[lay-submit]').attr('lay-filter', 'submit');
         form.on('submit(submit)', function (obj) {
-            main.req({
+            main.request({
                 url: url,
                 data: obj.field
             });
@@ -50,26 +50,5 @@
         $('#btnClear').on('click', function () {
             $('textarea[name=content]').text('').focus();
         });
-    });
-</script>
-<style>
-    #editor {
-        margin: 0;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-</style>
-<script src="/static/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-<script src="/static/ace/ext-modelist.js"></script>
-<script>
-    const editor = ace.edit("editor", {
-        theme: "ace/theme/twilight",
-        mode: ace.require("ace/ext/modelist").getModeForPath("/static/ace/ace.js").mode,
-        autoScrollEditorIntoView: true,
-        maxLines: 30,
-        minLines: 2,
-        value: "9999922222222"
     });
 </script>

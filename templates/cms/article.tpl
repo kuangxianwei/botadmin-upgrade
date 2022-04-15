@@ -71,11 +71,11 @@
                 del: function () {
                     let othis = this;
                     layer.confirm('确定删除此条日志？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {id: id, ids: othis.data.id},
                             index: index,
-                            ending: othis.del
+                            done: function (){othis.del();}
                         });
                     });
                 },
@@ -88,7 +88,7 @@
                             title: "修改文章",
                             url: url + "/modify",
                             content: html,
-                            ending: "table-list"
+                            done: "table-list"
                         });
                     });
                 },
@@ -137,7 +137,7 @@
                                         title: "添加文章",
                                         url: url + "/add",
                                         content: html,
-                                        ending: "table-list"
+                                        done: "table-list"
                                     });
                                 });
                             }
@@ -153,11 +153,11 @@
                         for (let i = 0; i < obj.data.length; i++) {
                             ids[i] = obj.data[i].id;
                         }
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {id: id, ids: ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },

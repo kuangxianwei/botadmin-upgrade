@@ -108,11 +108,11 @@
         let active = {
                 'del': function (obj) {
                     layer.confirm('确定删除此条日志？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {id: obj.data.id},
                             index: index,
-                            ending: obj.del
+                            done: obj.del
                         });
                     });
                 },
@@ -181,12 +181,12 @@
                                     return false;
                                 }
                             },
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
                 'test-email': function (obj) {
-                    main.req({
+                    main.request({
                         url: url + "/email/test",
                         data: {id: obj.data.id}
                     });
@@ -261,7 +261,7 @@
                                     return false;
                                 }
                             },
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -270,11 +270,11 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {ids: ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -289,7 +289,7 @@
                             title: '批量设置',
                             content: html,
                             url: url + '/configure',
-                            ending: 'table-list',
+                            done: 'table-list',
                             area: ['95%', '95%'],
                             yes: function (index, dom) {
                                 let field = main.formData(dom);
@@ -328,10 +328,10 @@
                 layer.tips('ID为空，无法操作！', obj.othis);
                 return false;
             }
-            main.req({
+            main.request({
                 url: url + '/configure',
                 data: {id: id, pc_enabled: checked, cols: 'pc_enabled'},
-                ending: 'table-list',
+                done: 'table-list',
             });
             return false;
         });
@@ -343,10 +343,10 @@
                 layer.tips('ID为空，无法操作！', obj.othis);
                 return false;
             }
-            main.req({
+            main.request({
                 url: url + '/configure',
                 data: {id: id, mobile_enabled: checked, cols: 'mobile_enabled'},
-                ending: 'table-list',
+                done: 'table-list',
             });
             return false;
         });

@@ -59,7 +59,7 @@
                 layer.tips('服务名称为空，无法操作！', obj.othis);
                 return false;
             }
-            main.req({
+            main.request({
                 url: url + '/enable',
                 data: {'name': name, "enabled": checked},
                 error: function () {

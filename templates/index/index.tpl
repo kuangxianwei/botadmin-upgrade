@@ -379,8 +379,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="file">
-                                <a lay-href="/file" lay-tips="文件管理"
-                                   lay-direction="2"><cite>文件管理</cite></a>
+                                <a lay-href="/file" lay-tips="文件管理" lay-direction="2"><cite>文件管理</cite></a>
                             </dd>
                             <dd data-name="file-pic">
                                 <a lay-href="/file?path=data/pic" lay-tips="上传或者修改图片"

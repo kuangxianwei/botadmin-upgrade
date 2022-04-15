@@ -80,24 +80,24 @@
         let form = layui.form,
             main = layui.main;
         form.on('submit(submit-save)', function (obj) {
-            main.req({
+            main.request({
                 url: url,
                 data: obj.field,
             });
         });
         form.on('submit(submit-start)', function (obj) {
             obj.field.action = 'run';
-            main.req({
+            main.request({
                 url: url,
                 data: obj.field,
-                ending: function () {
+                done: function () {
                     main.ws.log("tags.0");
                     return false;
                 }
             });
         });
         form.on('submit(submit-stop)', function () {
-            main.req({url: url + '/stop'});
+            main.request({url: url + '/stop'});
         });
         main.ws.display({
             name: 'tags_collect.0',
@@ -117,7 +117,7 @@
         let active = {
             "reset-record": function () {
                 main.reset.log('tags_collect', [0], {
-                    ending: function () {
+                    done: function () {
                         $('#collect-display').val('');
                     }
                 })

@@ -125,19 +125,19 @@
                 });
             },
             fillAllowed: function () {
-                main.req({
+                main.request({
                     url: '/contact/fill',
                     data: {field: 'allowed'},
-                    ending: function (res) {
+                    done: function (res) {
                         $('[name=allowed]').val(res.data);
                     }
                 });
             },
             fillDisallowed: function () {
-                main.req({
+                main.request({
                     url: '/contact/fill',
                     data: {field: "disallowed"},
-                    ending: function (res) {
+                    done: function (res) {
                         $('[name=disallowed]').val(res.data);
                     }
                 });
@@ -157,19 +157,19 @@
                 }
             },
             fillCities: function () {
-                main.req({
+                main.request({
                     url: '/contact/fill',
                     data: {field: 'cities'},
-                    ending: function (res) {
+                    done: function (res) {
                         fillCities(res.data);
                     }
                 });
             },
             fillDurations: function () {
-                main.req({
+                main.request({
                     url: '/contact/fill',
                     data: {field: 'durations'},
-                    ending: function (res) {
+                    done: function (res) {
                         fillDurations(res.data);
                     }
                 });

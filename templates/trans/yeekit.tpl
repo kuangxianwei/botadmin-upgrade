@@ -86,10 +86,10 @@
                         main.err('翻译的字符为空');
                         return false;
                     }
-                    main.req({
+                    main.request({
                         url: '/trans/yeekit/test',
                         data: data,
-                        ending: function (res) {
+                        done: function (res) {
                             main.msg(res.msg);
                             return false;
                         },

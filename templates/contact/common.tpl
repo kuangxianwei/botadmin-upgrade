@@ -212,19 +212,19 @@
                 });
             },
             "fill-consult": function () {
-                main.req({
+                main.request({
                     url: '/contact/fill',
                     data: {field: "consult"},
-                    ending: function (res) {
+                    done: function (res) {
                         $('[name=consult]').val(res.data);
                     }
                 });
             },
             "fill-other": function () {
-                main.req({
+                main.request({
                     url: '/contact/fill',
                     data: {field: "other"},
-                    ending: function (res) {
+                    done: function (res) {
                         $('[name=other]').val(res.data);
                     }
                 });

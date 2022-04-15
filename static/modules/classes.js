@@ -124,7 +124,7 @@ layui.define(['main'], function (exports) {
                         let arr = [];
                         $.each(field.options, function (k, v) {
                             arr.push(k + "=" + v);
-                        })
+                        });
                         this.val(arr.join("\n"));
                     }
                 },
@@ -257,7 +257,7 @@ layui.define(['main'], function (exports) {
                                     trimId(data[i].children);
                                 }
                             }
-                        }
+                        };
                         trimId(fields);
                         main.copy.exec(JSON.stringify(fields), function () {
                             layui.layer.msg("栏目列表复制成功");
@@ -406,7 +406,7 @@ layui.define(['main'], function (exports) {
                     if (othis.hasChildren(parentIndex) === false) {
                         $('li[data-index=' + parentIndex + ']>i.arrow-right').remove();
                         let toolElem = $(listTool);
-                        $('li[data-index=' + parentIndex + ']>div.layui-btn-group').replaceWith(toolElem)
+                        $('li[data-index=' + parentIndex + ']>div.layui-btn-group').replaceWith(toolElem);
                         othis.on(toolElem);
                     }
                 },
@@ -444,7 +444,7 @@ layui.define(['main'], function (exports) {
                         fields[i].index = othis.index;
                         othis.data[fields[i].index] = fields[i];
                         othis.names[fields[i].name] = fields[i].index;
-                        othis.index++
+                        othis.index++;
                         let citeElem = $('<cite></cite>').text(fields[i].name).attr("title", "ID: " + (fields[i].id || 0)),
                             itemElem = $('<li></li>').attr('data-index', fields[i].index).append(citeElem);
                         if (Array.isArray(fields[i].children) && fields[i].children.length > 0) {
@@ -497,7 +497,7 @@ layui.define(['main'], function (exports) {
                                 trimTree(data[i].children);
                             }
                         }
-                    }
+                    };
                     trimTree(treeData);
                     return treeData;
                 };

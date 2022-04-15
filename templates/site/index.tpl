@@ -369,7 +369,7 @@
                 'cron_switch': function (obj) {
                     let $this = this;
                     let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
-                    main.req({
+                    main.request({
                         url: url + "/cron/switch",
                         data: {id: obj.data.id, cron_enabled: enabled},
                         error: function () {
@@ -380,10 +380,10 @@
                     });
                 },
                 'rank': function (obj) {
-                    main.req({
+                    main.request({
                         url: '/site/rank',
                         data: obj.data,
-                        ending: function (res) {
+                        done: function (res) {
                             main.msg(res.msg);
                             return false;
                         },
@@ -391,10 +391,10 @@
                 },
                 'del': function (obj) {
                     layer.confirm('确定删除此网站？不可恢复!', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: obj.data,
-                            ending: obj.del,
+                            done: obj.del,
                             index: index
                         });
                     });
@@ -407,7 +407,7 @@
                             url: url + '/modify',
                             title: '修改网站设置',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                             success: function () {
                                 this.classes = classes();
                             },
@@ -487,7 +487,7 @@
                             title: '添加图片',
                             content: html,
                             area: '800px',
-                            ending: function () {
+                            done: function () {
                                 main.ws.log('site.' + obj.data.id);
                                 return false;
                             }
@@ -539,11 +539,11 @@
                             });
                             form.on('submit(' + uuid + ')', function (obj) {
                                 let field = obj.field;
-                                main.req({
+                                main.request({
                                     url: url + "/mysql",
                                     data: field,
                                     index: index,
-                                    ending: function () {
+                                    done: function () {
                                         main.ws.log('site.' + field.id);
                                         return false;
                                     }
@@ -578,7 +578,7 @@
                                 url: '/ftp/relationship',
                                 title: obj.data['ftp_id'] > 0 ? '选择FTP' : '添加FTP',
                                 content: html,
-                                ending: 'table-list',
+                                done: 'table-list',
                             });
                             element.render();
                         });
@@ -598,7 +598,7 @@
                                 url: '/sql/relationship',
                                 title: title,
                                 content: html,
-                                ending: 'table-list',
+                                done: 'table-list',
                             });
                         });
                 },
@@ -632,7 +632,7 @@
                             title: "批量修改配置",
                             url: url + '/configure',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -642,11 +642,11 @@
                         return false;
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -658,7 +658,7 @@
                             url: url + '/add',
                             title: '添加网站',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                             success: function () {
                                 this.classes = classes();
                             },
@@ -676,7 +676,7 @@
                             url: url + '/batch',
                             title: '批量添加网站',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -685,10 +685,10 @@
                         layer.msg("未选择", {icon: 2});
                         return false;
                     }
-                    main.req({
+                    main.request({
                         url: url + '/found',
                         data: {'ids': ids.join()},
-                        ending: function (res) {
+                        done: function (res) {
                             table.reload('table-list');
                             main.msg(res.msg);
                             return false;
@@ -700,10 +700,10 @@
                         layer.msg("未选择", {icon: 2});
                         return false;
                     }
-                    main.req({
+                    main.request({
                         url: url + '/install',
                         data: {'ids': ids.join()},
-                        ending: function (res) {
+                        done: function (res) {
                             table.reload('table-list');
                             main.msg(res.msg);
                             return false;
@@ -715,10 +715,10 @@
                         layer.msg("未选择", {icon: 2});
                         return false;
                     }
-                    main.req({
+                    main.request({
                         url: url + '/setup',
                         data: {'ids': ids.join()},
-                        ending: function () {
+                        done: function () {
                             main.ws.log('site.0', function () {
                                 table.reload('table-list');
                             });
@@ -737,11 +737,11 @@
                             title: '选中的网站发布文章，请输入线程数量 太多会卡死'
                         },
                         function (value, index) {
-                            main.req({
+                            main.request({
                                 url: url + '/publish',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                ending: function () {
+                                done: function () {
                                     main.ws.log('site.0', function () {
                                         table.reload('table-list');
                                     });
@@ -751,10 +751,10 @@
                         });
                 },
                 'reload_nginx': function (data, ids) {
-                    main.req({
+                    main.request({
                         url: url + '/reload/nginx',
                         data: {'ids': ids.join()},
-                        ending: function (res) {
+                        done: function (res) {
                             table.reload('table-list');
                             main.msg(res.msg);
                             return false;
@@ -772,7 +772,7 @@
                         content: contentObj.prop('outerHTML'),
                         url: url + '/reload/website/setup',
                         area: '400px',
-                        ending: function () {
+                        done: function () {
                             main.ws.log('site.0');
                             return false;
                         }
@@ -785,11 +785,11 @@
                             title: '更新选中网站的文章和目录，请输入线程数量 太多会卡死'
                         },
                         function (value, index) {
-                            main.req({
+                            main.request({
                                 url: url + '/update/website',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                ending: function () {
+                                done: function () {
                                     main.ws.log('site.0', function () {
                                         table.reload('table-list');
                                     });
@@ -809,11 +809,11 @@
                             title: '远程网站配置覆盖本地，请输入线程数量 太多会卡死'
                         },
                         function (value, index) {
-                            main.req({
+                            main.request({
                                 url: url + '/pull/config',
                                 data: {'ids': ids.join(), 'thread': value},
                                 index: index,
-                                ending: function () {
+                                done: function () {
                                     main.ws.log('site.0');
                                     return false;
                                 }
@@ -821,26 +821,26 @@
                         });
                 },
                 'jobs': function () {
-                    main.req({
+                    main.request({
                         url: url + '/jobs',
-                        ending: function (res) {
+                        done: function (res) {
                             main.msg(res.msg);
                             return false;
                         },
                     });
                 },
                 'cron-enable': function (data, ids) {
-                    main.req({
+                    main.request({
                         url: url + '/cron/switch',
                         data: {ids: ids.join(), cron_enabled: true},
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                 },
                 'cron-disable': function (data, ids) {
-                    main.req({
+                    main.request({
                         url: url + '/cron/switch',
                         data: {ids: ids.join(), cron_enabled: false},
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                 },
                 'reset-record': function (data, ids) {
@@ -899,11 +899,11 @@
                                 let field = obj.field;
                                 field.id = data.id;
                                 field.ids = ids.join();
-                                main.req({
+                                main.request({
                                     url: url + "/mysql",
                                     data: field,
                                     index: index,
-                                    ending: function () {
+                                    done: function () {
                                         main.ws.log('site.0');
                                         return false;
                                     }
@@ -920,10 +920,10 @@
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
-                    main.req({
+                    main.request({
                         url: '/site/rank',
                         data: {'ids': ids.join()},
-                        ending: function (res) {
+                        done: function (res) {
                             table.reload('table-list');
                             main.msg(res.msg);
                             return false;
@@ -935,19 +935,19 @@
                         return main.err('请选择数据');
                     }
                     layer.confirm('删除后需要重新下载，确定删除？', function (index) {
-                        main.req({
+                        main.request({
                             url: '/site/del/rank',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
                 'vhosts': function (data, ids) {
-                    main.req({
+                    main.request({
                         url: url + '/vhosts',
                         data: {ids: ids.join()},
-                        ending: function (res) {
+                        done: function (res) {
                             main.msg(res.msg);
                             return false;
                         },

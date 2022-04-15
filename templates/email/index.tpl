@@ -77,11 +77,11 @@
             switch (obj.event) {
                 case 'del':
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: data,
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;
@@ -94,14 +94,14 @@
                             url: url + '/modify',
                             area: '500px',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                         element.render();
                     });
                     break;
                 case 'test':
                     layer.confirm('测试本配置有效果', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/test',
                             data: data,
                             index: index
@@ -124,7 +124,7 @@
                             url: url + '/add',
                             area: '500px',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                         element.render();
                     });
@@ -138,11 +138,11 @@
                         for (let i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;

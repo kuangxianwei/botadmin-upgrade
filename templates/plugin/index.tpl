@@ -70,7 +70,7 @@
                             maxmin: false,
                             content: $('#install-html').html(),
                             area: '350px',
-                            ending: function () {
+                            done: function () {
                                 main.ws.log("plugin." + data.id, function () {
                                     table.reload('table-list');
                                 });
@@ -82,10 +82,10 @@
                             }
                         });
                     } else {
-                        main.req({
+                        main.request({
                             url: url + "/install",
                             data: {id: data.id},
-                            ending: function () {
+                            done: function () {
                                 main.ws.log("plugin." + data.id, function () {
                                     table.reload('table-list');
                                 });
@@ -95,10 +95,10 @@
                     }
                     break;
                 case 'uninstall':
-                    main.req({
+                    main.request({
                         url: url + "/uninstall",
                         data: {id: data.id},
-                        ending: function () {
+                        done: function () {
                             main.ws.log("plugin." + data.id, function () {
                                 table.reload('table-list');
                             });

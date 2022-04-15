@@ -159,7 +159,7 @@
             switch (obj.event) {
                 case 'enabled_switch':
                     let enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
-                    main.req({
+                    main.request({
                         url: url + '/modify',
                         data: {id: data.id, enabled: enabled, cols: 'enabled'},
                         error: function () {
@@ -171,11 +171,11 @@
                     break;
                 case 'del':
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: data,
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;
@@ -188,7 +188,7 @@
                             url: url + '/modify',
                             area: ['800px', '500px'],
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                     break;
@@ -216,7 +216,7 @@
                             url: url + '/add',
                             area: ['800px', '500px'],
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                     break;
@@ -230,7 +230,7 @@
                             main.on.del();
                         },
                         url: url + '/modify',
-                        ending: 'table-list',
+                        done: 'table-list',
                     });
                     break;
                 case 'del':
@@ -243,20 +243,20 @@
                         for (let i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;
                 case 'truncate':
                     layer.confirm('清空全部数据，确定清空？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/truncate',
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;

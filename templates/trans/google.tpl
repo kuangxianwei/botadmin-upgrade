@@ -79,11 +79,11 @@
                         main.err('翻译的字符为空');
                         return false;
                     }
-                    main.req({
+                    main.request({
                         url: '/trans/google/test',
                         data: data,
                         index: index,
-                        ending: function (res) {
+                        done: function (res) {
                             main.msg(res.msg);
                             return false;
                         },

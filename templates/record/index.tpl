@@ -114,11 +114,11 @@
             switch (obj.event) {
                 case 'del':
                     layer.confirm('确定删除此条日志？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/sql/del',
                             data: {'id': data.id},
                             index: index,
-                            ending: obj.del
+                            done: obj.del
                         });
                     });
                     break;
@@ -150,19 +150,19 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/sql/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;
                 case 'read':
-                    main.req({
+                    main.request({
                         url: url + '/update',
                         data: {'ids': ids.join(), read: true},
-                        ending: function () {
+                        done: function () {
                             table.reload('table-list');
                             table.reload('table-list-read');
                         }
@@ -176,11 +176,11 @@
             switch (obj.event) {
                 case 'del':
                     layer.confirm('确定删除此条日志？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/sql/del',
                             data: {'id': data.id},
                             index: index,
-                            ending: obj.del
+                            done: obj.del
                         });
                     });
                     break;
@@ -202,20 +202,20 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/sql/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list-read'
+                            done: 'table-list-read'
                         });
                     });
                     break;
                 case 'reset':
                     layer.confirm('清空全部，未读和已读信息全部会被清空', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/sql/reset',
                             index: index,
-                            ending: function () {
+                            done: function () {
                                 table.reload('table-list');
                                 table.reload('table-list-read');
                             }

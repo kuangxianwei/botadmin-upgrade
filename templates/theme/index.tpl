@@ -130,7 +130,7 @@
                             downEle.hide();
                             return false;
                         },
-                        ending: function (res) {
+                        done: function (res) {
                             if (typeof options.callback === 'function') {
                                 if (options.callback(res) === false) {
                                     return false;
@@ -152,7 +152,7 @@
                             return false;
                         }
                     }, options || {});
-                    main.req(options);
+                    main.request(options);
                     return {
                         options: options,
                         reload: function (options) {
@@ -264,7 +264,7 @@
                                         return false;
                                     }
                                 },
-                                ending: function (res) {
+                                done: function (res) {
                                     if (res.data) {
                                         othis.appendItem(res.data);
                                         flow.lazyimg();
@@ -331,7 +331,7 @@
                                         return false;
                                     }
                                 },
-                                ending: function (res) {
+                                done: function (res) {
                                     othis.buildItem($('#' + res.data.id), res.data);
                                 }
                             });
@@ -340,10 +340,10 @@
                     "del": function () {
                         let id = this.data("id");
                         layer.confirm("删除不可恢复！确定删除该主题？", {icon: 3}, function (index) {
-                            main.req({
+                            main.request({
                                 url: url + "/del",
                                 data: {driver: driver, id: id},
-                                ending: function () {
+                                done: function () {
                                     $("#" + id).remove();
                                     layer.close(index);
                                     return false;

@@ -231,11 +231,11 @@
         let active = {
                 'del': function (data) {
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: data,
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -247,7 +247,7 @@
                             title: '修改文章',
                             url: url + '/modify',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                         element.render();
                     });
@@ -263,20 +263,20 @@
                         return false;
                     }
                     layer.confirm('删除后不可恢复，确定删除选中吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {'ids': obj.ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
                 truncate: function () {
                     layer.confirm('清空全部数据，确定清空？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/truncate',
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -292,7 +292,7 @@
                             title: "批量修改配置",
                             content: html,
                             url: url + '/configure',
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -301,10 +301,10 @@
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
-                    main.req({
+                    main.request({
                         url: url + '/original',
                         data: {ids: obj.ids.join()},
-                        ending: function () {
+                        done: function () {
                             main.ws.log('article.0');
                             return false;
                         },
@@ -323,7 +323,7 @@
                             content: html,
                             url: url + '/convert',
                             area: ['280px', '300px'],
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                         form.render();
                     });
@@ -334,10 +334,10 @@
                         return false;
                     }
                     let val = this.value;
-                    main.req({
+                    main.request({
                         url: url + '/original',
                         data: {ids: obj.ids.join(), originality: val},
-                        ending: "table-list"
+                        done: "table-list"
                     });
                 },
                 ban: function (obj, data) {
@@ -345,10 +345,10 @@
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
                     }
-                    main.req({
+                    main.request({
                         url: url + '/ban',
                         data: {thread: obj.thread, ids: obj.ids.join()},
-                        ending: function () {
+                        done: function () {
                             main.ws.log('article.0');
                             return false;
                         }
@@ -382,7 +382,7 @@
                             content: html,
                             url: url + '/translate',
                             area: ['750px', '300px'],
-                            ending: function () {
+                            done: function () {
                                 main.ws.log('article.0');
                                 return false;
                             },
@@ -395,10 +395,10 @@
                 },
                 delUsed: function () {
                     layer.confirm('删除所有已经发布是文章列表？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del/used',
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -434,10 +434,10 @@
                 layer.tips('ID为空，无法操作！', obj.othis);
                 return false;
             }
-            main.req({
+            main.request({
                 url: url + '/configure',
                 data: {'id': id, "used": checked},
-                ending: 'table-list',
+                done: 'table-list',
             });
             return false;
         });
@@ -449,10 +449,10 @@
                 layer.tips('ID为空，无法操作！', obj.othis);
                 return false;
             }
-            main.req({
+            main.request({
                 url: url + '/configure',
                 data: {'id': id, "trans_failed": checked},
-                ending: 'table-list',
+                done: 'table-list',
             });
             return false;
         });
@@ -464,10 +464,10 @@
                 layer.tips('ID为空，无法操作！', obj.othis);
                 return false;
             }
-            main.req({
+            main.request({
                 url: url + '/toggle',
                 data: {'id': id, "ban_vetted": checked},
-                ending: 'table-list',
+                done: 'table-list',
             });
             return false;
         });

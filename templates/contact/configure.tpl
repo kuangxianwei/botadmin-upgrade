@@ -77,10 +77,10 @@
                     form.render('input');
                     // 填充咨询链接
                     $('[lay-event="fill-consult"]').on('click', function () {
-                        main.req({
+                        main.request({
                             url: '/contact/fill',
                             data: {field: 'consult'},
-                            ending: function (res) {
+                            done: function (res) {
                                 $('[name="consult"]').val(res.data);
                             }
                         });
@@ -102,10 +102,10 @@
                     form.render();
                     // 填充其他百度统计啥的
                     $('[lay-event="fill-other"]').off('click').on('click', function () {
-                        main.req({
+                        main.request({
                             url: '/contact/fill',
                             data: {field: 'other'},
-                            ending: function (res) {
+                            done: function (res) {
                                 $('[name="other"]').val(res.data);
                                 return false;
                             }

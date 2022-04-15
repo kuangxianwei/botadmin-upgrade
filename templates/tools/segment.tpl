@@ -40,10 +40,10 @@
         let form = layui.form,
             main = layui.main;
         form.on('submit(submit)', function (obj) {
-            main.req({
+            main.request({
                 url: "/tools/segment",
                 data: obj.field,
-                ending: function (res) {
+                done: function (res) {
                     if (Array.isArray(res.data)) {
                         $('#results').val(res.data.join("\n"));
                     }

@@ -27,7 +27,7 @@
         form.render();
         //监听开关
         form.on('switch(used_ping)', function (obj) {
-            main.req({
+            main.request({
                 url: url,
                 data: {'used_ping': obj.elem.checked},
             });

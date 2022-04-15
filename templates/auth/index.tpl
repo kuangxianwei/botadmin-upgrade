@@ -66,11 +66,13 @@
             let data = obj.data;
             if (obj.event === 'del') {
                 layer.confirm('确定删除此条日志？', function (index) {
-                    main.req({
+                    main.request({
                         url: url + '/del',
                         data: {'id': data.id},
                         index: index,
-                        ending: obj.del
+                        done: function () {
+                            obj.del()
+                        }
                     });
                 });
             }
@@ -90,11 +92,11 @@
                         for (let i = 0; i < data.length; i++) {
                             ids[i] = data[i].id;
                         }
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;

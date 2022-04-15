@@ -44,10 +44,10 @@
                 default:
                     return false
             }
-            main.req({
+            main.request({
                 url: url,
                 data: data,
-                ending: 'table-list',
+                done: 'table-list',
             });
         });
     });

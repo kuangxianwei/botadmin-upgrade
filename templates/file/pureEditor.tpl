@@ -28,27 +28,3 @@
         }
     });
 </script>
-
-
-<style>
-    #editor {
-        position: absolute;
-        margin: 0;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-</style>
-<pre id="editor" style="height: 300px;">function foo(items) {
-    var i;
-    for (i = 0; i &lt; items.length; i++) {
-        alert("Ace Rocks " + items[i]);
-    }
-}</pre>
-<script src="/static/ace/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    const editor = ace.edit("editor");
-    editor.setTheme("ace/theme/twilight");
-    editor.session.setMode("ace/mode/javascript");
-</script>

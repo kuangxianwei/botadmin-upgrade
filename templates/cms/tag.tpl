@@ -64,11 +64,11 @@
                 del: function () {
                     let othis = this;
                     layer.confirm('确定删除此条TAG？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {id: id, ids: othis.data.index},
                             index: index,
-                            ending: othis.del
+                            done: function (){othis.del();}
                         });
                     });
                 },
@@ -82,7 +82,7 @@
                             title: "修改TAG",
                             url: url + "/modify",
                             content: html,
-                            ending: "table-list",
+                            done: "table-list",
                             area: ['600px', '500px'],
                         });
                     });
@@ -98,7 +98,7 @@
                             title: "添加TAG",
                             url: url + "/add",
                             content: html,
-                            ending: "table-list",
+                            done: "table-list",
                             area: ['600px', '400px'],
                         });
                     });
@@ -112,11 +112,11 @@
                         for (let i = 0; i < obj.data.length; i++) {
                             ids[i] = obj.data[i].index;
                         }
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {id: id, ids: ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 }

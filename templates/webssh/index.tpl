@@ -163,11 +163,11 @@
         let active = {
                 del: function (obj) {
                     layer.confirm('确定删除此条配置？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + "/del",
                             data: {'id': obj.data.id},
                             index: index,
-                            ending: obj.del
+                            done: obj.del
                         });
                     });
                 },
@@ -180,7 +180,7 @@
                             url: url + '/modify',
                             area: '700px',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -200,10 +200,10 @@
                     main.ws.log("webssh." + obj.data.id);
                 },
                 is_default: function (obj) {
-                    main.req({
+                    main.request({
                         url: url + "/default",
                         data: {id: obj.data.id},
-                        ending: 'table-list',
+                        done: 'table-list',
                     });
                 }
             },
@@ -217,7 +217,7 @@
                             url: url + '/add',
                             area: '700px',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -226,11 +226,11 @@
                         return main.err('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {ids: ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -278,7 +278,7 @@
                             });
                         },
                         area: "600px",
-                        ending: function () {
+                        done: function () {
                             main.ws.log("webssh.0");
                             return false;
                         }
@@ -288,18 +288,18 @@
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
-                    main.req({
+                    main.request({
                         url: url + "/scan",
                         data: {ids: ids.join()},
-                        ending: function () {
+                        done: function () {
                             main.ws.log("webssh.0");
                             return false;
                         }
                     });
                 },
                 controlVersion: function () {
-                    main.req({
-                        url: url + "/version", ending: function () {
+                    main.request({
+                        url: url + "/version", done: function () {
                             return false;
                         }
                     });

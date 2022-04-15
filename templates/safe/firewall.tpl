@@ -40,11 +40,11 @@
             let data = obj.data;
             if (obj.event === 'del') {
                 layer.confirm('确定删除此条规则？', function (index) {
-                    main.req({
+                    main.request({
                         url: url + '/del',
                         data: data,
                         index: index,
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                 });
             }
@@ -61,7 +61,7 @@
                         content: html,
                         url: url + '/add',
                         area: "50%",
-                        ending: 'table-list',
+                        done: 'table-list',
                     });
                 });
             },

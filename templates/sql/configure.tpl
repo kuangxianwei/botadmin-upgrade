@@ -39,10 +39,10 @@
                     });
                     break;
                 case 'recover-sql':
-                    main.req({url: url + '/recover'});
+                    main.request({url: url + '/recover'});
                     break;
                 case 'reboot-sql':
-                    main.req({
+                    main.request({
                         url: '/system/reboot',
                         data: {act: 'mysql'},
                     });

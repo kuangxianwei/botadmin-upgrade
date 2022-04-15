@@ -96,11 +96,11 @@
             let data = obj.data;
             if (obj.event === 'del') {
                 layer.confirm('确定删除此条日志？', function (index) {
-                    main.req({
+                    main.request({
                         url: url + '/del',
                         data: {'id': data.id},
                         index: index,
-                        ending: obj.del
+                        done: obj.del
                     });
                 });
             }
@@ -119,11 +119,11 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;
@@ -135,15 +135,15 @@
                             '<textarea class="layui-textarea" name="values" style="height: 100%" placeholder="输入关键词一行一个"></textarea>' +
                             '<button class="layui-hide" lay-submit lay-filter="submit"></bbutton>' +
                             '</div>',
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                     break;
                 case 'truncate':
                     layer.confirm('清空全部Tags', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/reset',
                             index: index,
-                            ending: function () {
+                            done: function () {
                                 table.reload('table-list');
                             }
                         });

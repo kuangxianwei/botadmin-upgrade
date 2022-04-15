@@ -419,7 +419,7 @@ layui.define(['form'], function (exports) {
             layer.prompt({
                 formType: 0, value: 'author', title: '输入标识 由字母下划线或数字组成 字母开头'
             }, function (name, index) {
-                if (!/^[a-zA-Z][a-zA-Z0-9_]+/.test(name)) {
+                if (!/^[a-zA-Z]\w+/.test(name)) {
                     layer.alert('您输入的标识不合法!', {icon: 2});
                     return false;
                 }
@@ -670,7 +670,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
         // 监控测试列表
         form.on('submit(testList)', function (obj) {
             main.req({
-                url: '/spider/test/list', data: obj.field, ending: function () {
+                url: '/spider/test/list', data: obj.field, done: function () {
                     main.ws.log("spider_test_list.0");
                     return false;
                 }
@@ -690,7 +690,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
                     url: '/spider/test/detail',
                     data: obj.field,
                     index: index,
-                    ending: function (res) {
+                    done: function (res) {
                         layer.open({
                             type: 1,
                             title: '测试详情页结果',
@@ -716,7 +716,7 @@ layui.define(['form', 'trans', 'rules', 'detail', 'main'], function (exports) {
             }, function (value, index) {
                 obj.field.detail_url = value;
                 main.req({
-                    url: '/spider/test/source', data: obj.field, index: index, ending: function (res) {
+                    url: '/spider/test/source', data: obj.field, index: index, done: function (res) {
                         layer.open({
                             type: 1,
                             title: '源码详情结果',

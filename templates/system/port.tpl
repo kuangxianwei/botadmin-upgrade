@@ -51,10 +51,10 @@
             } else {
                 return false;
             }
-            main.req({
+            main.request({
                 url: url,
                 data: obj.data,
-                ending: 'table-list'
+                done: 'table-list'
             });
         });
     });

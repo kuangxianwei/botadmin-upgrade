@@ -133,11 +133,11 @@
             switch (obj.event) {
                 case 'del':
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: obj.data,
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;
@@ -166,20 +166,20 @@
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {'ids': ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                     break;
                 case 'truncate':
                     layer.confirm('清空全不可恢复', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/reset',
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                     break;

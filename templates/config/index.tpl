@@ -269,14 +269,14 @@
             showSearch: true
         });
         form.on('submit(submit-base)', function (obj) {
-            main.req({
+            main.request({
                 url: url + '/base',
                 data: obj.field,
             });
             return false;
         });
         form.on('submit(submit-server)', function (obj) {
-            main.req({
+            main.request({
                 url: url + '/server',
                 data: obj.field,
             });
@@ -289,21 +289,21 @@
                 obj.field.services[i] = v.title;
             });
             obj.field.services = obj.field.services.join();
-            main.req({
+            main.request({
                 url: url + '/monitor',
                 data: obj.field,
                 multiple: true,
             });
         });
         form.on('submit(submit-ban)', function (obj) {
-            main.req({
+            main.request({
                 url: url + '/ban',
                 data: obj.field,
             });
             return false;
         });
         form.on('submit(submit-data)', function (obj) {
-            main.req({
+            main.request({
                 url: url + '/data',
                 data: obj.field,
             });
@@ -311,7 +311,7 @@
         });
         let active = {
             'ban-update': function () {
-                main.req({url: url + '/ban/update'});
+                main.request({url: url + '/ban/update'});
             },
             'status': function () {
                 let name = this.data('name'),
@@ -320,11 +320,11 @@
                     return false;
                 }
                 layer.confirm(tip, function (index) {
-                    main.req({
+                    main.request({
                         url: url + '/status',
                         data: {name: name},
                         index: index,
-                        ending: function (res) {
+                        done: function (res) {
                             main.msg(res.msg);
                             return false;
                         },
@@ -338,11 +338,11 @@
                     return false;
                 }
                 layer.confirm(tip, function (index) {
-                    main.req({
+                    main.request({
                         url: url + '/reset',
                         data: {name: name},
                         index: index,
-                        ending: function () {
+                        done: function () {
                             document.location.reload();
                         }
                     });
@@ -353,7 +353,7 @@
                     title: '测试违禁词',
                     url: url + '/ban/test',
                     area: '70%',
-                    ending: function (res) {
+                    done: function (res) {
                         main.msg(`<textarea class="layui-textarea" name="content" rows="10">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});
                         return false;
                     },

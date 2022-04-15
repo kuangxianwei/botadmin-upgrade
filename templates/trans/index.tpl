@@ -119,7 +119,7 @@
                 'enabled': function (obj) {
                     let othis = $(this),
                         enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
-                    main.req({
+                    main.request({
                         url: url + "/switch",
                         data: {
                             id: obj.data.id,
@@ -136,11 +136,11 @@
                 },
                 'del': function (obj) {
                     layer.confirm('确定删除此条配置？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + "/del",
                             data: {'id': obj.data.id},
                             index: index,
-                            ending: obj.del
+                            done: obj.del
                         });
                     });
                 },
@@ -153,7 +153,7 @@
                             url: url + '/modify',
                             area: '70%',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -168,7 +168,7 @@
                             url: url + '/add',
                             area: '70%',
                             content: html,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -177,11 +177,11 @@
                         return main.err('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {ids: ids.join()},
                             index: index,
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -189,20 +189,20 @@
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
-                    main.req({
+                    main.request({
                         url: url + '/switch',
                         data: {ids: ids.join(), enabled: true},
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                 },
                 'disabled': function (obj, data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
-                    main.req({
+                    main.request({
                         url: url + '/switch',
                         data: {ids: ids.join(), enabled: false},
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                 },
                 'export': function (obj, data, ids) {

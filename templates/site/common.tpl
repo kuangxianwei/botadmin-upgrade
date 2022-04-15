@@ -826,19 +826,19 @@
         $('[lay-event]').off('click').on('click', function () {
             switch ($(this).attr('lay-event')) {
                 case 'valid-title':
-                    main.req({
+                    main.request({
                         url: '/site/valid',
                         data: {text: $('input[name=title]').val()}
                     });
                     break;
                 case 'valid-title-suffix':
-                    main.req({
+                    main.request({
                         url: '/site/valid',
                         data: {text: $('input[name=subtitle]').val()}
                     });
                     break;
                 case 'valid-description':
-                    main.req({
+                    main.request({
                         url: '/site/valid',
                         data: {text: $('input[name=description]').val()}
                     });

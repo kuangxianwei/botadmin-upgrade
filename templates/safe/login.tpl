@@ -41,7 +41,7 @@
             form = layui.form;
 
         form.on('submit(submit)', function (obj) {
-            main.req({
+            main.request({
                 url: url,
                 data: obj.field,
             });
@@ -49,5 +49,3 @@
         });
     });
 </script>
-
-

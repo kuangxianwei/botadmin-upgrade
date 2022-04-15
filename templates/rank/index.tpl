@@ -137,23 +137,23 @@
                             content: html,
                             url: '/rank/modify',
                             area: ['450px', '400px'],
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                     break;
                 case 'del':
                     layer.confirm('确定删除此条日志？', function (index) {
-                        main.req({
+                        main.request({
                             url: '/rank/del',
                             data: {token: data.token},
                             index: index,
-                            ending: obj.del,
+                            done: obj.del,
                         });
                     });
                     break;
                 case 'exec':
                     layer.confirm('开始刷新排名?', function (index) {
-                        main.req({
+                        main.request({
                             url: '/rank/exec',
                             data: {id: data.id},
                             index: index,
@@ -181,7 +181,7 @@
                             content: html,
                             url: '/rank/add',
                             area: '450px',
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                     break;
@@ -193,11 +193,11 @@
                         for (let i = 0; i < data.length; i++) {
                             tokens[i] = data[i].token;
                         }
-                        main.req({
+                        main.request({
                             url: '/rank/del',
                             data: {'tokens': tokens.join()},
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                     break;
@@ -209,11 +209,11 @@
                         for (let i = 0; i < data.length; i++) {
                             tokens[i] = data[i].id;
                         }
-                        main.req({
+                        main.request({
                             url: '/rank/reset',
                             data: {'ids': tokens.join()},
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                     break;
@@ -232,11 +232,11 @@
                         for (let i = 0; i < data.length; i++) {
                             tokens[i] = data[i].id;
                         }
-                        main.req({
+                        main.request({
                             url: '/rank/exec',
                             data: {'ids': tokens.join()},
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                     break;

@@ -88,7 +88,7 @@
         form.on('submit(port-submit)', function (obj) {
             let field = obj.field;
             field.act = 'modify_port';
-            main.req({
+            main.request({
                 url: url,
                 data: field,
             });
@@ -97,7 +97,7 @@
 
         //允许或禁止root登录
         form.on('switch(used_root)', function (obj) {
-            main.req({
+            main.request({
                 url: url,
                 data: {'act': 'used_root', 'switch': obj.elem.checked},
                 done: function (res) {
@@ -107,14 +107,14 @@
             return false;
         });
         form.on('switch(used_dns)', function (obj) {
-            main.req({
+            main.request({
                 url: url,
                 data: {'act': 'used_dns', 'switch': obj.elem.checked},
             });
             return false;
         });
         form.on('switch(used_password)', function (obj) {
-            main.req({
+            main.request({
                 url: url,
                 data: {'act': 'used_password', 'switch': obj.elem.checked},
             });
@@ -122,16 +122,16 @@
         });
         let active = {
             restart_sshd: function () {
-                main.req({
+                main.request({
                     url: url,
                     data: {'act': 'restart'},
                 });
             },
             create_key: function () {
-                main.req({
+                main.request({
                     url: url,
                     data: {'act': 'create_key'},
-                    ending: function () {
+                    done: function () {
                         location.reload();
                         return false;
                     },
@@ -139,7 +139,7 @@
             },
             recreate_key: function () {
                 layer.confirm('重新生成会删除以前生成的key,确定生成？', function () {
-                    main.req({
+                    main.request({
                         url: url,
                         data: {'act': 'create_key'},
                     });

@@ -189,7 +189,7 @@
                 'cron_switch': function (obj) {
                     let $this = this;
                     let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
-                    main.req({
+                    main.request({
                         url: url + "/cron/switch",
                         data: {
                             id: obj.data.id,
@@ -204,11 +204,11 @@
                 },
                 'del': function (obj) {
                     layer.confirm('确定删除此条日志？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {id: obj.data.id},
                             index: index,
-                            ending: obj.del,
+                            done: obj.del,
                         });
                     });
                 },
@@ -231,26 +231,26 @@
                                 return false;
                             },
                             submit: 'stepSubmit',
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
                 'copy': function (obj) {
                     layer.confirm('确定复制:' + obj.data.name + '?', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/copy',
                             data: {id: obj.data.id},
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
                 'exec': function (obj) {
                     layer.confirm('开始采集入库？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/exec',
                             data: {id: obj.data.id, thread: 1},
-                            ending: function () {
+                            done: function () {
                                 main.ws.log("spider." + obj.data.id, function () {
                                     table.reload('table-list');
                                 });
@@ -269,7 +269,7 @@
                             content: html,
                             url: url + '/bind',
                             area: ['720px', '300px'],
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -286,11 +286,11 @@
                         return main.err('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/del',
                             data: {ids: ids.join()},
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -313,7 +313,7 @@
                                 return false;
                             },
                             submit: 'stepSubmit',
-                            ending: 'table-list'
+                            done: 'table-list'
                         });
                     });
                 },
@@ -328,7 +328,7 @@
                             title: '批量修改配置',
                             content: html,
                             url: url + '/configure',
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
@@ -341,17 +341,17 @@
                         value: ids.length,
                         title: '采集入库:输入线程数,太多会卡死'
                     }, function (value, index) {
-                        main.req({
+                        main.request({
                             url: url + '/exec',
                             data: {ids: ids.join(), thread: value},
                             index: index,
-                            ending: 'table-list',
+                            done: 'table-list',
                         });
                     });
                 },
                 'recordDel': function (data, ids) {
                     layer.confirm('确定清空采集记录?清空后可导致重复采集', function (index) {
-                        main.req({
+                        main.request({
                             url: url + '/record/del',
                             data: {ids: ids.join()},
                             index: index
@@ -359,22 +359,22 @@
                     });
                 },
                 'jobs': function () {
-                    main.req({
+                    main.request({
                         url: url + '/jobs',
                     });
                 },
                 'cron-enable': function (data, ids) {
-                    main.req({
+                    main.request({
                         url: url + '/cron/switch',
                         data: {ids: ids.join(), cron_enabled: true},
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                 },
                 'cron-disable': function (data, ids) {
-                    main.req({
+                    main.request({
                         url: url + '/cron/switch',
                         data: {ids: ids.join(), cron_enabled: false},
-                        ending: 'table-list'
+                        done: 'table-list'
                     });
                 },
                 'export': function (data, ids) {
