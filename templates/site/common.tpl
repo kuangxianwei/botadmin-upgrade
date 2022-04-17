@@ -45,7 +45,7 @@
                         </div>
                         <div class="layui-inline" id="theme">
                             {{if .theme.Face -}}
-                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.SmallFace}}" data-src="{{.theme.Face}}" title="{{.theme.Readme}}">
+                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="/file/download?filename={{.theme.SmallFace}}" data-src="{{.theme.Face}}" title="{{.theme.Readme}}">
                             {{end -}}
                         </div>
                         <div class="layui-inline">
@@ -148,7 +148,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-col-sm1">
-                                    <button class="layui-btn layui-btn-radius" lay-event="valid-title">验证合规</button>
+                                    <button class="layui-btn layui-btn-radius" data-event="validTitle">验证合规</button>
                                 </div>
                                 <div class="layui-col-sm4">
                                     <label class="layui-form-label" lay-tips="每个网页的标题后缀 如:南方39助孕网">副标题:</label>
@@ -158,7 +158,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-col-sm1">
-                                    <button class="layui-btn layui-btn-radius" lay-event="valid-title-suffix">验证合规
+                                    <button class="layui-btn layui-btn-radius" data-event="validTitleSuffix">验证合规
                                     </button>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-col-sm1">
-                                    <button class="layui-btn layui-btn-radius" lay-event="valid-description">验证合规
+                                    <button class="layui-btn layui-btn-radius" data-event="validDescription">验证合规
                                     </button>
                                 </div>
                             </div>
@@ -815,46 +815,13 @@
         </div>
     </div>
 </div>
-<div class="layui-icon-paste"></div>
 <script>
     layui.use(['main'], function () {
         let main = layui.main,
             form = layui.form,
-            layer = layui.layer,
             class_names = {{.class_names}};
         sessionStorage.setItem("class_names", class_names || null);
-        $('[lay-event]').off('click').on('click', function () {
-            switch ($(this).attr('lay-event')) {
-                case 'valid-title':
-                    main.request({
-                        url: '/site/valid',
-                        data: {text: $('input[name=title]').val()}
-                    });
-                    break;
-                case 'valid-title-suffix':
-                    main.request({
-                        url: '/site/valid',
-                        data: {text: $('input[name=subtitle]').val()}
-                    });
-                    break;
-                case 'valid-description':
-                    main.request({
-                        url: '/site/valid',
-                        data: {text: $('input[name=description]').val()}
-                    });
-                    break;
-                case 'assign-push':
-                    let loading = layui.main.loading();
-                    $.get('/site/default/push', function (res) {
-                        loading.close();
-                        if (res.length === 0) {
-                            layer.msg('默认数据为空');
-                        }
-                        $('textarea[name=push_config]').val(res);
-                    });
-                    break;
-            }
-        });
+
         // 渲染模板
         main.render.tpl();
         // 自动填充

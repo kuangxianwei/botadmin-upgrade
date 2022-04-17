@@ -366,7 +366,7 @@
             });
         status = status || [];
         let active = {
-                'cron_switch': function (obj) {
+                cron_switch: function (obj) {
                     let $this = this;
                     let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
                     main.request({
@@ -379,7 +379,7 @@
                         }
                     });
                 },
-                'rank': function (obj) {
+                rank: function (obj) {
                     main.request({
                         url: '/site/rank',
                         data: obj.data,
@@ -389,8 +389,8 @@
                         },
                     });
                 },
-                'del': function (obj) {
-                    layer.confirm('确定删除此网站？不可恢复!', function (index) {
+                del: function (obj) {
+                    layer.confirm('确定删除此网站？不可恢复!', {icon: 3}, function (index) {
                         main.request({
                             url: url + '/del',
                             data: obj.data,
@@ -399,7 +399,7 @@
                         });
                     });
                 },
-                'modify': function (obj) {
+                modify: function (obj) {
                     let loading = main.loading();
                     $.get(url + '/modify', {id: obj.data.id}, function (html) {
                         loading.close();
@@ -418,7 +418,7 @@
                         form.render();
                     });
                 },
-                'link': function (obj) {
+                link: function (obj) {
                     layer.confirm("请选择操作内链或外链！", {
                         icon: 3,
                         title: false,
@@ -465,7 +465,7 @@
                         },
                     });
                 },
-                'del_link': function (obj) {
+                del_link: function (obj) {
                     let loading = main.loading();
                     $.get(url + '/link', {id: obj.data.id}, function (html) {
                         loading.close();
@@ -478,7 +478,7 @@
                         form.render();
                     });
                 },
-                'pic_dir': function (obj) {
+                pic_dir: function (obj) {
                     let loading = main.loading();
                     $.get(url + '/image', {id: obj.data.id}, function (html) {
                         loading.close();
@@ -495,7 +495,7 @@
                         form.render();
                     });
                 },
-                'mysql': function (obj) {
+                mysql: function (obj) {
                     layer.open({
                         type: 1,
                         title: '备份/还原MySQL',
@@ -556,7 +556,7 @@
                         },
                     });
                 },
-                'push': function (obj) {
+                push: function (obj) {
                     let elem = $($('#push').html()).find('input[name=id]').val(obj.data.id);
                     main.popup({
                         url: '/site/push',
@@ -564,7 +564,7 @@
                         content: elem.html()
                     });
                 },
-                'ftp': function (obj) {
+                ftp: function (obj) {
                     if (obj.data.status === 4) {
                         layer.msg("外部网站不允许编辑FTP", {icon: 2});
                         return false;
@@ -583,7 +583,7 @@
                             element.render();
                         });
                 },
-                'sql': function (obj) {
+                sql: function (obj) {
                     if (obj.data.status === 4) {
                         layer.msg("外部网站不允许编辑数据库", {icon: 2});
                         return false;
@@ -602,25 +602,43 @@
                             });
                         });
                 },
-                'log': function (obj) {
+                log: function (obj) {
                     main.ws.log('site.' + obj.data.id);
                 },
-                'clipboard': function (obj) {
+                clipboard: function (obj) {
                     main.copy.exec(obj.data[this.data("type")], layer.msg('复制成功'));
                 },
-                'login': function (obj) {
+                login: function (obj) {
                     if (obj.data.system === 'cms') {
                         window.open('/cms?id=' + obj.data.id, '_blank');
                     } else {
                         window.open(obj.data['admin_url'], '_blank');
                     }
                 },
+                validTitle: function () {
+                    main.request({
+                        url: '/site/valid',
+                        data: {text: $('input[name=title]').val()}
+                    });
+                },
+                validTitleSuffix: function () {
+                    main.request({
+                        url: '/site/valid',
+                        data: {text: $('input[name=subtitle]').val()}
+                    });
+                },
+                validDescription: function () {
+                    main.request({
+                        url: '/site/valid',
+                        data: {text: $('input[name=description]').val()}
+                    });
+                },
             },
             activeBar = {
-                'log': function () {
+                log: function () {
                     main.ws.log('site.0');
                 },
-                'configure': function (data, ids) {
+                configure: function (data, ids) {
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});
                         return false;
@@ -636,7 +654,7 @@
                         });
                     });
                 },
-                'del': function (data, ids) {
+                del: function (data, ids) {
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});
                         return false;
@@ -650,7 +668,7 @@
                         });
                     });
                 },
-                'add': function () {
+                add: function () {
                     let loading = main.loading();
                     $.get(url + '/add', {}, function (html) {
                         loading.close();
@@ -668,7 +686,7 @@
                         });
                     });
                 },
-                'batch': function () {
+                batch: function () {
                     let loading = main.loading();
                     $.get(url + '/batch', {}, function (html) {
                         loading.close();
@@ -680,7 +698,7 @@
                         });
                     });
                 },
-                'found': function (data, ids) {
+                found: function (data, ids) {
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});
                         return false;
@@ -695,7 +713,7 @@
                         },
                     });
                 },
-                'install': function (data, ids) {
+                install: function (data, ids) {
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});
                         return false;
@@ -710,7 +728,7 @@
                         }
                     });
                 },
-                'setup': function (data, ids) {
+                setup: function (data, ids) {
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});
                         return false;
@@ -726,7 +744,7 @@
                         },
                     });
                 },
-                'publish': function (data, ids) {
+                publish: function (data, ids) {
                     if (data.length === 0) {
                         layer.msg("未选择", {icon: 2});
                         return false;
@@ -750,7 +768,7 @@
                             });
                         });
                 },
-                'reload_nginx': function (data, ids) {
+                reload_nginx: function (data, ids) {
                     main.request({
                         url: url + '/reload/nginx',
                         data: {'ids': ids.join()},
@@ -761,7 +779,7 @@
                         },
                     });
                 },
-                'reload_website_setup': function (data, ids) {
+                reload_website_setup: function (data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
@@ -778,7 +796,7 @@
                         }
                     });
                 },
-                'update_website': function (data, ids) {
+                update_website: function (data, ids) {
                     layer.prompt({
                             formType: 0,
                             value: data.length,
@@ -798,7 +816,7 @@
                             });
                         });
                 },
-                'pull_config': function (data, ids) {
+                pull_config: function (data, ids) {
                     if (data.length < 1) {
                         layer.msg("未选择", {icon: 2});
                         return false;
@@ -1092,5 +1110,10 @@
         // 监听搜索
         main.onSearch();
         main.checkLNMP();
+        $(document).on('click', '.layui-form [data-event]', function (e) {
+            let $this = $(this), event = $this.data('event');
+            active[event] && active[event].call($this);
+            e.stopPropagation();
+        });
     });
 </script>

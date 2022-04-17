@@ -375,7 +375,7 @@
                     "download": function () {
                         window.open(encodeURI(url + "/download?driver=" + driver + "&id=" + this.data("id")), "blank");
                     },
-                }
+                };
                 this.buildItem = function (ele, d) {
                     let othis = this;
                     ele.attr("id", d.id).find("[data-type]").each(function () {

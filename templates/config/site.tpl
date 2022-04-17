@@ -43,7 +43,7 @@
                         </div>
                         <div class="layui-inline" id="theme">
                             {{if .theme.Face -}}
-                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="{{.theme.SmallFace}}" data-src="{{.theme.Face}}" title="{{.theme.Intro}}">
+                                <img width="100%" height="100%" alt="{{.theme.Alias}}" src="/file/download?filename={{.theme.SmallFace}}" data-src="{{.theme.Face}}" title="{{.theme.Intro}}">
                             {{end -}}
                         </div>
                         <div class="layui-inline">

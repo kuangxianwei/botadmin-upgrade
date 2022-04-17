@@ -700,7 +700,7 @@ layui.define(['main'], function (exports) {
                     download: function () {
                         let active = othis.getActiveConfig();
                         othis.closeAll();
-                        window.open(url + '/download?file=' + encodeURIComponent(active.menuPath));
+                        main.download(active.menuPath);
                     },
                     //保存
                     saveFile: function () {
@@ -1824,86 +1824,89 @@ layui.define(['main'], function (exports) {
                 url: url,
                 toolbar: '#toolbar',
                 where: {path: data.path},
-                cols: [[{type: 'checkbox', fixed: 'left'}, {
-                    field: 'name',
-                    minWidth: 100,
-                    title: '名称',
-                    sort: true,
-                    style: 'color:#0a6e85;cursor:pointer',
-                    event: 'name',
-                    templet: (d) => {
-                        let name;
-                        switch (d.type) {
-                            case 0:
-                                name = '<i class="iconfont icon-folder"></i> ' + d.name;
-                                break;
-                            case 1:
-                                name = '<i class="iconfont icon-file"></i> ' + d.name;
-                                break;
-                            case 2:
-                                name = '<i class="iconfont icon-compress"></i> ' + d.name;
-                                break;
-                            case 3:
-                                name = '<i class="iconfont icon-html"></i> ' + d.name;
-                                break;
-                            case 4:
-                                name = '<i class="iconfont icon-php"></i> ' + d.name;
-                                break;
-                            case 5:
-                                name = '<i class="iconfont icon-js"></i> ' + d.name;
-                                break;
-                            case 6:
-                                name = '<i class="iconfont icon-css"></i> ' + d.name;
-                                break;
-                            case 7:
-                                name = '<i class="iconfont icon-img"></i> ' + d.name;
-                                break;
-                            case 8:
-                                name = '<i class="iconfont icon-iso"></i> ' + d.name;
-                                break;
+                cols: [[{type: 'checkbox', fixed: 'left'},
+                    {
+                        field: 'name',
+                        minWidth: 100,
+                        title: '名称',
+                        sort: true,
+                        style: 'color:#0a6e85;cursor:pointer',
+                        event: 'name',
+                        templet: (d) => {
+                            let name;
+                            switch (d.type) {
+                                case 0:
+                                    name = '<i class="iconfont icon-folder"></i> ' + d.name;
+                                    break;
+                                case 1:
+                                    name = '<i class="iconfont icon-file"></i> ' + d.name;
+                                    break;
+                                case 2:
+                                    name = '<i class="iconfont icon-compress"></i> ' + d.name;
+                                    break;
+                                case 3:
+                                    name = '<i class="iconfont icon-html"></i> ' + d.name;
+                                    break;
+                                case 4:
+                                    name = '<i class="iconfont icon-php"></i> ' + d.name;
+                                    break;
+                                case 5:
+                                    name = '<i class="iconfont icon-js"></i> ' + d.name;
+                                    break;
+                                case 6:
+                                    name = '<i class="iconfont icon-css"></i> ' + d.name;
+                                    break;
+                                case 7:
+                                    name = '<i class="iconfont icon-img"></i> ' + d.name;
+                                    break;
+                                case 8:
+                                    name = '<i class="iconfont icon-iso"></i> ' + d.name;
+                                    break;
+                            }
+                            return '<b title="' + d.path + '">' + name + '</b>';
                         }
-                        return '<b title="' + d.path + '">' + name + '</b>';
-                    }
-                }, {field: 'type', title: '类型', width: 100, hide: true}, {
-                    field: 'uname', title: '所有者', width: 80
-                }, {field: 'gname', title: '所有组', width: 80}, {field: 'uid', title: '用户ID', hide: true}, {
-                    field: 'gid', title: '组ID', hide: true
-                }, {
-                    field: 'size',
-                    title: 'Size',
-                    width: 100,
-                    sort: true,
-                    style: 'color:#0a6e85;cursor:pointer',
-                    event: "size",
-                    align: 'center',
-                    templet: (d) => {
-                        if (d.type === 0) {
-                            return "计算";
+                    }, {field: 'type', title: '类型', width: 100, hide: true},
+                    {field: 'uname', title: '所有者', width: 80},
+                    {field: 'gname', title: '所有组', width: 80},
+                    {field: 'uid', title: '用户ID', hide: true},
+                    {
+                        field: 'gid', title: '组ID', hide: true
+                    },
+                    {
+                        field: 'size',
+                        title: 'Size',
+                        width: 100,
+                        sort: true,
+                        style: 'color:#0a6e85;cursor:pointer',
+                        event: "size",
+                        align: 'center',
+                        templet: (d) => {
+                            if (d.type === 0) {
+                                return "计算";
+                            }
+                            return d.size;
                         }
-                        return d.size;
-                    }
-                }, {field: 'mode', title: '权限', width: 100}, {field: 'mtime', title: '最后修改', width: 170, sort: true}, {
-                    title: '操作', minWidth: 180, align: 'center', fixed: 'right', templet: (d) => {
-                        let html = '<div class="layui-btn-group">';
-                        if (/\.(jpeg|gif|jpg|png)$/i.test(d.path)) {
-                            html += '<button class="layui-btn layui-btn-xs" lay-event="view" lay-tips="预览图片"><i class="layui-icon iconfont icon-view"></i></button>';
+                    },
+                    {field: 'mode', title: '权限', width: 100}, {field: 'mtime', title: '最后修改', width: 170, sort: true},
+                    {
+                        title: '操作', minWidth: 180, align: 'center', fixed: 'right', templet: (d) => {
+                            let html = '<div class="layui-btn-group">';
+                            if (/data\/contact\/images\/[^\/]+\.(jpeg|gif|jpg|png)/i.test(d.path)) {
+                                html += '<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="copy" lay-tips="复制图片地址"><i class="layui-icon iconfont icon-copy"></i></button>';
+                            }
+                            switch (d.type) {
+                                case 2:
+                                    html += '<button class="layui-btn layui-btn-xs" lay-event="decompress">解压</button><button class="layui-btn layui-btn-xs" lay-event="download" lay-tips="下载"><i class="layui-icon layui-icon-download-circle"></i></button>';
+                                    break;
+                                case 0:
+                                    html += '<button class="layui-btn layui-btn-xs" lay-event="compress">压缩</button>';
+                                    break;
+                                default:
+                                    html += '<button class="layui-btn layui-btn-xs" lay-event="download"><i class="layui-icon layui-icon-download-circle"></i></button>';
+                            }
+                            return html + '<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></button></div>';
                         }
-                        if (/data\/contact\/images\/[^\/]+\.(jpeg|gif|jpg|png)/i.test(d.path)) {
-                            html += '<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="copy" lay-tips="复制图片地址"><i class="layui-icon iconfont icon-copy"></i></button>';
-                        }
-                        switch (d.type) {
-                            case 2:
-                                html += '<button class="layui-btn layui-btn-xs" lay-event="decompress">解压</button><button class="layui-btn layui-btn-xs" lay-event="download" lay-tips="下载"><i class="layui-icon layui-icon-download-circle"></i></button>';
-                                break;
-                            case 0:
-                                html += '<button class="layui-btn layui-btn-xs" lay-event="compress">压缩</button>';
-                                break;
-                            default:
-                                html += '<button class="layui-btn layui-btn-xs" lay-event="download"><i class="layui-icon layui-icon-download-circle"></i></button>';
-                        }
-                        return html + '<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></button></div>';
-                    }
-                }]],
+                    }]],
                 page: true,
                 limit: 100,
                 limits: [100, 200, 500, 1000],
@@ -1965,9 +1968,11 @@ layui.define(['main'], function (exports) {
                             break;
                         case 2:
                         case 7:
+                            main.preview(obj.data.path);
+                            break;
                         case 8:
                             layer.confirm('确定下载 ' + obj.data.name + ' ?', function (index) {
-                                window.open(encodeURI(url + '/download?file=' + obj.data.path));
+                                main.download(obj.data.path);
                                 layer.close(index);
                             });
                             break;
@@ -2011,29 +2016,7 @@ layui.define(['main'], function (exports) {
                     });
                 },
                 download: function (obj) {
-                    window.open(encodeURI(url + '/download?file=' + obj.data.path));
-                },
-                view: function (obj) {
-                    let loading = main.loading();
-                    $.get(url + "/view", {path: obj.data.path}, function (res) {
-                        loading.close();
-                        if (res.code === 0) {
-                            let width = "95%", height = "95%";
-                            if (res.data.width < (($(window).width() - 50))) {
-                                width = res.data.width + "px";
-                            }
-                            if (res.data.height < (($(window).height() - 50))) {
-                                height = res.data.height + "px";
-                            }
-                            let content = '<div style="overflow:hidden;position:absolute;top:10px;left:50%;transform:translateX(-50%)">Type:' + res.data['type'] + ' Rect:' + res.data.width + '*' + res.data.height + '</div>';
-                            main.display({
-                                content: content + '<img src="' + res.data['data'] + '" alt="' + obj.data.path + '"/>',
-                                area: [width, height]
-                            });
-                        } else {
-                            main.err(res.msg);
-                        }
-                    });
+                    main.download(obj.data.path);
                 },
                 gotoWww: function () {
                     refresh('/home/wwwroot');
