@@ -593,8 +593,26 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 return '/file/download?filename=' + encodeURIComponent(s);
             }
 
+            // 获取图片列表
+            getPreviewList(elem, attrName) {
+                if (elem === false) return false;
+                let re = new RegExp(/\.(jpg|jpeg|gif|bmp|png)$/);
+                attrName = attrName || 'title';
+                let othis = this;
+                (elem ? $(elem) : $('[data-field=name] [title]')).each(function () {
+                    let path = $(this).attr(attrName);
+                    if (path) {
+                        path = othis.getSrc(path);
+                        if (!othis.previewList.includes(path) && re.test(path)) {
+                            othis.previewList.push(path);
+                        }
+                    }
+                });
+                return this.previewList;
+            }
+
             // 预览图片
-            preview(src, elem, attr) {
+            preview(src, elem, attrName) {
                 if (!src || $(".preview-images-mask").length > 0) return false;
                 src = this.getSrc(src);
                 let othis = this,
@@ -659,19 +677,16 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     $('.preview-title').text(othis.basename(src) + ' W:' + img.naturalWidth + ' H:' + img.naturalHeight);
                     loading.close();
                 });
+                if (Array.isArray(elem)) {
+                    this.previewList = elem;
+                } else {
+                    this.getPreviewList(elem, attrName);
+                }
+                if (this.previewList.length < 2) {
+                    $('.preview-images-mask .preview-cut-view').hide();
+                }
                 if (!this.previewLoaded) {
                     this.previewLoaded = true;
-                    let re = new RegExp(/\.(jpg|jpeg|gif|bmp|png)$/);
-                    attr = attr || 'title';
-                    (elem ? $(elem) : $('[data-field=name] [title]')).each(function () {
-                        let path = $(this).attr(attr);
-                        if (path) {
-                            path = othis.getSrc(path);
-                            if (!othis.previewList.includes(path) && re.test(path)) {
-                                othis.previewList.push(path);
-                            }
-                        }
-                    });
                     $(document).on('click', '.preview-close', function (e) {
                         $(".preview-images-mask").remove();
                         $('body').css('overflow', '');
@@ -775,39 +790,35 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             })
                         }
                     });
-                    if (this.previewList.length > 1) {
-                        $(document).on('click', '.preview-cut-view a', function () {
-                            let index = 0;
-                            for (let i = 0; i < othis.previewList.length; i++) {
-                                if (src === othis.previewList[i]) {
-                                    index = i;
-                                    break;
-                                }
+                    $(document).on('click', '.preview-cut-view a', function () {
+                        let index = 0;
+                        for (let i = 0; i < othis.previewList.length; i++) {
+                            if (src === othis.previewList[i]) {
+                                index = i;
+                                break;
                             }
-                            if ($(this).index()) {
-                                index += 1;
-                            } else {
-                                index -= 1;
-                            }
-                            if (index >= othis.previewList.length) {
-                                index = 0
-                            } else if (index < 0) {
-                                index = othis.previewList.length - 1;
-                            }
-                            src = othis.previewList[index];
-                            let loading = othis.loading();
-                            $('#preview-images').attr('src', src).load(function () {
-                                let img = $(this)[0];
-                                config.naturalWidth = img.naturalWidth;
-                                config.naturalHeight = img.naturalHeight;
-                                autoImagesSize();
-                                $('.preview-title').text(othis.basename(src) + ' W:' + img.naturalWidth + ' H:' + img.naturalHeight);
-                                loading.close();
-                            });
+                        }
+                        if ($(this).index()) {
+                            index += 1;
+                        } else {
+                            index -= 1;
+                        }
+                        if (index >= othis.previewList.length) {
+                            index = 0
+                        } else if (index < 0) {
+                            index = othis.previewList.length - 1;
+                        }
+                        src = othis.previewList[index];
+                        let loading = othis.loading();
+                        $('#preview-images').attr('src', src).load(function () {
+                            let img = $(this)[0];
+                            config.naturalWidth = img.naturalWidth;
+                            config.naturalHeight = img.naturalHeight;
+                            autoImagesSize();
+                            $('.preview-title').text(othis.basename(src) + ' W:' + img.naturalWidth + ' H:' + img.naturalHeight);
+                            loading.close();
                         });
-                    } else {
-                        $('.preview-images-mask .preview-cut-view').hide();
-                    }
+                    });
                 }
             }
         }

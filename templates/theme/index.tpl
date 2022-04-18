@@ -28,7 +28,7 @@
 <script type="text/html" id="item">
     <div class="layui-col-md3">
         <div class="item">
-            <img src="/theme/loading.svg" alt="" data-type="img">
+            <img src="/static/images/loading.svg" alt="" data-type="img">
             <h4>
                 <label>名称:</label>
                 <span data-type="alias"></span>
@@ -164,7 +164,7 @@
                     "img": function (d) {
                         this.attr({
                             "lay-tips": (d['intro'] || d['alias']),
-                            "lay-src": d['small_face'],
+                            "lay-src": main.getSrc(d['small_face']),
                             "data-src": d['face'],
                             "alt": d['intro'],
                             "title": d['alias'],
@@ -191,8 +191,8 @@
                             done: function (res) {
                                 if (res.code === 0) {
                                     $('#' + d.id + " [data-type=img]").attr({
-                                        "data-src": res.data["face"] + "?",
-                                        "src": res.data["small_face"] + "?"
+                                        "data-src": res.data["face"],
+                                        "src": main.getSrc(res.data["small_face"]),
                                     });
                                     return layer.msg("封面替换成功");
                                 }
@@ -367,7 +367,7 @@
                         }
                     },
                     "magnifier": function () {
-                        main.display({content: '<img src="' + this.data("src") + '" width="100%" height="auto" alt="' + this.attr("alt") + '">'});
+                        main.preview(this.data("src"), '#theme-container .item>img', 'data-src');
                     },
                     "log": function () {
                         main.ws.log("theme." + driver + "." + this.data("id"));

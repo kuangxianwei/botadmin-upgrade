@@ -1949,7 +1949,7 @@ layui.define(['main'], function (exports) {
                     if (elem.find('img[src$=".svg"]').length > 0) {
                         return false;
                     }
-                    elem.html(`<img alt="等待计算结果" src="/theme/loading2.svg">`);
+                    elem.html(`<img alt="等待计算结果" src="/static/images/loading-small.svg">`);
                     $.get(url + '/size', {path: obj.data.path}, function (res) {
                         elem.text(res);
                     });

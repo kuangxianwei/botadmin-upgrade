@@ -23,7 +23,7 @@
 <script type="text/html" id="item">
     <div class="layui-col-md3">
         <div class="item">
-            <img src="/theme/loading.svg" alt="" data-type="face">
+            <img src="/static/images/loading.svg" alt="" data-type="face">
             <h4>
                 <label>名称:</label>
                 <span data-type="alias"></span>
@@ -228,7 +228,7 @@
                         });
                     },
                     "magnifier": function () {
-                        main.display({content: '<img src="' + $(this).data("src") + '" width="100%" height="auto" alt="' + this.alt + '">'});
+                        main.preview($(this).data("src"), '#theme-container .item>img', 'data-src');
                     },
                     "log": function () {
                         main.ws.log("theme." + driver + "." + this.data("id"));
@@ -248,7 +248,7 @@
                             location.reload();
                         }
                     },
-                }
+                };
                 this.buildItem = function (ele, d) {
                     let othis = this;
                     ele.attr("id", d.id).find("[data-type]").each(function () {
