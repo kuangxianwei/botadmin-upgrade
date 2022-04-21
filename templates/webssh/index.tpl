@@ -140,7 +140,7 @@
                     }
                 },
                 {
-                    title: '设为默认', width: 120, event: "is_default", align: 'center', templet: function (d) {
+                    title: '设为默认', width: 120, event: "setDefault", align: 'center', templet: function (d) {
                         if (d['is_default']) {
                             return `<button class="layui-btn layui-btn-xs">默认</button>`;
                         }
@@ -199,7 +199,7 @@
                 log: function (obj) {
                     main.ws.log("webssh." + obj.data.id);
                 },
-                is_default: function (obj) {
+                setDefault: function (obj) {
                     main.request({
                         url: url + "/default",
                         data: {id: obj.data.id},

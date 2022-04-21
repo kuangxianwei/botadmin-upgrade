@@ -1,5 +1,4 @@
-<div class="step-header"></div>
-<div class="step-content layui-form">
+<div class="steps-content layui-form">
     <div>
         <fieldset class="layui-elem-field">
             <legend>基本配置</legend>
@@ -33,6 +32,7 @@
                         <h2 class="layui-colla-title">翻译处理</h2>
                         <div class="layui-colla-content">
                             <div id="trans-items"></div>
+                            <input type="hidden" name="trans">
                             <button class="layui-btn layui-btn-sm layui-btn-radius" lay-event="add-trans"
                                     style="margin: 10px 40px"
                                     lay-tips="新增一次翻译 则多翻译一次 例如：中文 -> 泰文 -> 英文 -> 中文 这样就翻译了3次">
@@ -144,9 +144,9 @@
     </div>
     <div>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top:0;">
-            <legend><i class="layui-icon layui-icon-add-circle" id="add-rule"></i>新增规则</legend>
+            <legend><i class="layui-icon layui-icon-add-circle" id="add-rule" data-event="addRule"></i>新增规则</legend>
         </fieldset>
-        <div class="layui-tab" lay-filter="step-list" lay-allowclose="true">
+        <div class="layui-tab" lay-filter="steps-list" lay-allowclose="true">
             <ul class="layui-tab-title"></ul>
             <div class="layui-tab-content"></div>
         </div>
@@ -162,9 +162,9 @@
     </div>
     <div>
         <fieldset class="layui-elem-field layui-field-title" style="margin-top:0;">
-            <legend><i class="layui-icon layui-icon-add-circle" id="add-detail"></i>新增规则</legend>
+            <legend><i class="layui-icon layui-icon-add-circle" id="add-detail" data-event="addDetail"></i>新增规则</legend>
         </fieldset>
-        <div class="layui-tab" lay-filter="step-detail" lay-allowclose="true">
+        <div class="layui-tab" lay-filter="steps-detail" lay-allowclose="true">
             <ul class="layui-tab-title"></ul>
             <div class="layui-tab-content"></div>
         </div>
@@ -182,10 +182,10 @@
                             <input class="layui-input" type="text" name="next_attr_name" value="{{.obj.NextAttrName}}" placeholder="href">
                         </div>
                         <div class="layui-inline">
-                            <button class="layui-btn layui-btn-radius" parse-method="" id="next-dom-toggle">转为正则解析</button>
+                            <button class="layui-btn layui-btn-radius" data-event="regMethod">转为正则解析</button>
                         </div>
                     </div>
-                    <div class="parse-method layui-hide">
+                    <div class="parse-method" style="display:none;">
                         <div class="layui-inline">
                             <label class="layui-form-label-col" lay-tips="正则匹配下一篇文章URL">NextLink:</label>
                         </div>
@@ -193,7 +193,7 @@
                             <input class="layui-input" type="text" name="next_reg" value="{{.obj.NextReg}}" placeholder="<a href='(.*?)'">
                         </div>
                         <div class="layui-inline">
-                            <button class="layui-btn layui-btn-radius" parse-method="">转为DOM解析</button>
+                            <button class="layui-btn layui-btn-radius" data-event="domMethod">转为DOM解析</button>
                         </div>
                     </div>
                 </div>
@@ -201,7 +201,8 @@
                     <div class="layui-btn-group">
                         <button class="layui-hide" lay-submit lay-filter="testDetail"></button>
                         <button class="layui-btn" data-event="testDetail">测试</button>
-                        <button class="layui-btn" data-event="testDetailLog"><i class="layui-icon layui-icon-log"></i></button>
+                        <button class="layui-btn" data-event="testDetailLog"><i class="layui-icon layui-icon-log"></i>
+                        </button>
                         <button class="layui-btn" data-event="sourceCode">源码</button>
                     </div>
                 </div>
@@ -247,39 +248,14 @@
             </div>
         </fieldset>
     </div>
+    <button class="layui-hide" lay-submit lay-filter="stepsSubmit"></button>
 </div>
-<!--自定义-->
+<input type="hidden" id="config">
 <script>
-    layui.main.cron('[name="spec"]');
-    layui.use(['step'], function () {
-        let engines = {{.engines}},// 翻译引擎列表
-            transList =   {{.obj.Trans}},// 翻译列表
-            rules = {{.obj.List}},// 列表规则
-            detail = {{.obj.Detail}};// 详情
-        /*渲染*/
-        layui.step({
-            // 进度条
-            "stepItems": [
-                {"title": '基本设置'},
-                {"title": '列表规则'},
-                {"title": '详情页'},
-                {"title": '定时采集'},
-            ],
-            // 翻译配置
-            "trans": {
-                "engines": engines || [], // 翻译引擎列表
-                "items": transList || [], // 已经存在的翻译列表
-            },
-            // 列表
-            "rules": rules || [],
-            // 详情
-            "detail": detail || [
-                {"name": 'title', "alias": '标题'},
-                {"name": 'content', "alias": '内容'},
-                {"name": 'description', "alias": '描述'},
-                {"name": 'keywords', "alias": '关键词'},
-                {"name": 'tags', "alias": 'Tags'},
-            ],
-        });
-    });
+    $('#config').val(JSON.stringify({
+        engines:{{.engines}}, // 翻译引擎列表
+        trans:{{.obj.Trans}}, // 翻译列表
+        rules:{{.obj.List}}, // 列表规则
+        details: {{.obj.Detail}}, // 详情
+    }));
 </script>

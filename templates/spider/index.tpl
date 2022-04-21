@@ -160,7 +160,7 @@
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.extend({step: 'step'}).use(['index', 'main'], function () {
+    layui.extend({steps: 'steps'}).use(['index', 'main', 'steps'], function () {
         let form = layui.form,
             table = layui.table,
             upload = layui.upload,
@@ -213,27 +213,7 @@
                     });
                 },
                 'modify': function (obj) {
-                    let loading = layui.main.loading();
-                    $.get(url + '/modify', {id: obj.data.id}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '修改规则',
-                            content: html,
-                            url: url + '/modify',
-                            btn: ['提交', '上一步', '下一步', '取消'],
-                            yes: function (index, dom) {
-                                dom.find('.step-content>div').removeClass('layui-form');
-                            },
-                            btn2: function () {
-                                return false;
-                            },
-                            btn3: function () {
-                                return false;
-                            },
-                            submit: 'stepSubmit',
-                            done: 'table-list',
-                        });
-                    });
+                    layui.steps({url: url + '/modify', data: {id: obj.data.id}});
                 },
                 'copy': function (obj) {
                     layer.confirm('确定复制:' + obj.data.name + '?', function (index) {
@@ -295,27 +275,7 @@
                     });
                 },
                 'addRule': function () {
-                    let loading = layui.main.loading();
-                    $.get(url + '/add', {}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '添加规则',
-                            content: html,
-                            url: url + '/add',
-                            btn: ['提交', '上一步', '下一步', '取消'],
-                            yes: function (index, dom) {
-                                dom.find('.step-content>div').removeClass('layui-form');
-                            },
-                            btn2: function () {
-                                return false;
-                            },
-                            btn3: function () {
-                                return false;
-                            },
-                            submit: 'stepSubmit',
-                            done: 'table-list'
-                        });
-                    });
+                    layui.steps({url: url + '/add'});
                 },
                 'configure': function (data, ids) {
                     if (ids.length === 0) {

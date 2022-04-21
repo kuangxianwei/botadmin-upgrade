@@ -129,8 +129,8 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 };
                 // 设置cols
                 this.setCols = function (data, dom) {
-                    let othis = this;
                     if (data && dom && !data.cols) {
+                        let othis = this;
                         data.cols = [];
                         $(dom).find('[name]').each(function (i, v) {
                             if (othis.isPassword(v.name) && !v.value) {
@@ -409,20 +409,10 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         if (yes(index, dom) === false) {
                             return false
                         }
-                        let cols = [];
-                        dom.find('[name]').each(function () {
-                            if (this.name && this.name.indexOf(cols) === -1) {
-                                cols.push(this.name);
-                            }
-                        });
-                        if (cols) {
-                            dom.find('.layui-form input[name=cols]').remove();
-                            dom.find('.layui-form').append('<input type="hidden" name="cols" value="' + cols.join(",") + '">');
-                        }
                         if (hasSubmit) {
-                            dom.find('*[lay-submit][lay-filter=' + options.submit + ']').click();
+                            dom.find('[lay-submit][lay-filter=' + options.submit + ']').click();
                         } else {
-                            dom.find('*[lay-submit]').attr('lay-filter', options.submit).click();
+                            dom.find('[lay-submit]').attr('lay-filter', options.submit).click();
                         }
                     }
                 }, options));
