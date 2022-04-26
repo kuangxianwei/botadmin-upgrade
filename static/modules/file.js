@@ -2063,7 +2063,7 @@ layui.define(['main'], function (exports) {
         });
         // 转到
         form.on('submit(submit-goto)', function (obj) {
-            refresh(obj.field.goto);
+            refresh(obj.field['goto']);
         });
         // 监听搜索
         form.on('submit(search)', function (obj) {

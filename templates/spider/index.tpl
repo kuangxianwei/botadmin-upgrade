@@ -111,12 +111,12 @@
                         </dd>
                         <dd>
                             <button class="layui-btn layui-btn-sm layui-btn-fluid layui-bg-red"
-                                    lay-event="cron-disable">关闭任务
+                                    lay-event="disableCron">关闭任务
                             </button>
                         </dd>
                         <dd>
                             <button class="layui-btn layui-btn-sm layui-btn-fluid"
-                                    lay-event="cron-enable">启用任务
+                                    lay-event="enableCron">启用任务
                             </button>
                         </dd>
                     </dl>
@@ -135,7 +135,7 @@
             <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record" lay-tips="重置日志">
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetRecord" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
             </button>
         </div>
@@ -186,7 +186,7 @@
                 },
             });
         let active = {
-                'cron_switch': function (obj) {
+                cron_switch: function (obj) {
                     let $this = this;
                     let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
                     main.request({
@@ -202,7 +202,7 @@
                         }
                     });
                 },
-                'del': function (obj) {
+                del: function (obj) {
                     layer.confirm('确定删除此条日志？', function (index) {
                         main.request({
                             url: url + '/del',
@@ -212,10 +212,10 @@
                         });
                     });
                 },
-                'modify': function (obj) {
+                modify: function (obj) {
                     layui.steps({url: url + '/modify', data: {id: obj.data.id}});
                 },
-                'copy': function (obj) {
+                copy: function (obj) {
                     layer.confirm('确定复制:' + obj.data.name + '?', function (index) {
                         main.request({
                             url: url + '/copy',
@@ -225,7 +225,7 @@
                         });
                     });
                 },
-                'exec': function (obj) {
+                exec: function (obj) {
                     layer.confirm('开始采集入库？', function (index) {
                         main.request({
                             url: url + '/exec',
@@ -240,7 +240,7 @@
                         });
                     });
                 },
-                'site_id': function (obj) {
+                site_id: function (obj) {
                     let loading = layui.main.loading();
                     $.get(url + '/bind', {id: obj.data.id}, function (html) {
                         loading.close();
@@ -253,15 +253,15 @@
                         });
                     });
                 },
-                'log': function (obj) {
+                log: function (obj) {
                     main.ws.log('spider.' + obj.data.id);
                 },
             },
             activeBar = {
-                'log': function () {
+                log: function () {
                     main.ws.log('spider.0');
                 },
-                'del': function (data, ids) {
+                del: function (data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
@@ -274,10 +274,10 @@
                         });
                     });
                 },
-                'addRule': function () {
+                addRule: function () {
                     layui.steps({url: url + '/add'});
                 },
-                'configure': function (data, ids) {
+                configure: function (data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
@@ -292,7 +292,7 @@
                         });
                     });
                 },
-                'exec': function (data, ids) {
+                exec: function (data, ids) {
                     if (ids.length === 0) {
                         return main.err('请选择数据');
                     }
@@ -309,7 +309,7 @@
                         });
                     });
                 },
-                'recordDel': function (data, ids) {
+                recordDel: function (data, ids) {
                     layer.confirm('确定清空采集记录?清空后可导致重复采集', function (index) {
                         main.request({
                             url: url + '/record/del',
@@ -318,29 +318,29 @@
                         });
                     });
                 },
-                'jobs': function () {
+                jobs: function () {
                     main.request({
                         url: url + '/jobs',
                     });
                 },
-                'cron-enable': function (data, ids) {
+                enableCron: function (data, ids) {
                     main.request({
                         url: url + '/cron/switch',
                         data: {ids: ids.join(), cron_enabled: true},
                         done: 'table-list'
                     });
                 },
-                'cron-disable': function (data, ids) {
+                disableCron: function (data, ids) {
                     main.request({
                         url: url + '/cron/switch',
                         data: {ids: ids.join(), cron_enabled: false},
                         done: 'table-list'
                     });
                 },
-                'export': function (data, ids) {
+                export: function (data, ids) {
                     window.open(encodeURI('/spider/export?ids=' + ids.join()));
                 },
-                'import': function () {
+                import: function () {
                     layer.open({
                         type: 1,
                         title: "导入配置",
@@ -366,7 +366,7 @@
                     });
                     form.render();
                 },
-                'reset-record': function (data, ids) {
+                resetRecord: function (data, ids) {
                     main.reset.log('spider', ids);
                 },
             };

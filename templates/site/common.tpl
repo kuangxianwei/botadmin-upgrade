@@ -55,7 +55,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">站点域名:</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="vhost" required lay-verify="required"
+                            <input type="text" name="vhost" required lay-verify="vhost"
                                    class="layui-input" placeholder="如:botadmin.cn" autofocus="autofocus"
                                    value="{{.obj.Vhost}}" {{if gt .obj.Status 0}} disabled{{end}}>
                         </div>
@@ -197,7 +197,7 @@
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">栏目列表:</label>
-                            <input type="hidden" name="classes" value="{{print .obj.Classes }}">
+                            <input type="hidden" name="classes" value="{{print .obj.Classes }}" required lay-verify="classes">
                             <div class="layui-input-block" id="class-tree"></div>
                         </div>
                         <div class="layui-form-item">
@@ -862,6 +862,21 @@
         form.on('select(tpl_name)', function (obj) {
             $('#theme').empty();
             obj.value && main.render.tpl(obj.value);
+        });
+        /* 验证 */
+        form.verify({
+            vhost: function (val) {
+                if (!new RegExp(/^[a-zA-Z\d-]+\.[a-zA-Z]/).test(val)) {
+                    $('.layui-tab>.layui-tab-title>li:nth-child(1)').click();
+                    return '必须是一个有效的域名';
+                }
+            },
+            classes: function (val) {
+                if (!new RegExp(/^\[[\s\S]+\]$/).test(val)) {
+                    $('.layui-tab>.layui-tab-title>li:nth-child(2)').click();
+                    return '请设置网站栏目列表';
+                }
+            },
         });
     });
 </script>
