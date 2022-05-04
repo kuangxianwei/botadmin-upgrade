@@ -29,11 +29,22 @@
 <div class="layui-card" id="custom-style">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <label class="layui-form-label">名称:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="name" value="{{.obj.Name}}" placeholder="名称" class="layui-input">
+            <div class="layui-inline">
+                <label class="layui-form-label">名称:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" value="{{.obj.Name}}" placeholder="名称" class="layui-input">
+                </div>
+                <div class="layui-form-mid layui-word-aux">样式名称</div>
             </div>
-            <div class="layui-form-mid layui-word-aux">样式名称</div>
+            <div class="layui-inline">
+                <label class="layui-form-label">提示位置:</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="position" value="0" title="中央"{{if eq .obj.Position 0}} checked{{end}}>
+                    <input type="radio" name="position" value="1" title="左下"{{if eq .obj.Position 1}} checked{{end}}>
+                    <input type="radio" name="position" value="2" title="右下"{{if eq .obj.Position 2}} checked{{end}}>
+                    <input type="radio" name="position" value="3" title="底部"{{if eq .obj.Position 3}} checked{{end}}>
+                </div>
+            </div>
         </div>
         <div class="layui-row">
             <div class="layui-col-md4">
@@ -414,16 +425,16 @@
             <div class="layui-inline">
                 <label class="layui-form-label">弹窗位置:</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="position" value="0" title="中央"{{if eq .obj.Position 0}} checked{{end}}>
-                    <input type="radio" name="position" value="1" title="左下"{{if eq .obj.Position 1}} checked{{end}}>
-                    <input type="radio" name="position" value="2" title="右下"{{if eq .obj.Position 2}} checked{{end}}>
-                    <input type="radio" name="position" value="3" title="底部"{{if eq .obj.Position 3}} checked{{end}}>
+                    <input type="radio" name="ad_position" value="0" title="中央"{{if eq .obj.AdPosition 0}} checked{{end}}>
+                    <input type="radio" name="ad_position" value="1" title="左下"{{if eq .obj.AdPosition 1}} checked{{end}}>
+                    <input type="radio" name="ad_position" value="2" title="右下"{{if eq .obj.AdPosition 2}} checked{{end}}>
+                    <input type="radio" name="ad_position" value="3" title="底部"{{if eq .obj.AdPosition 3}} checked{{end}}>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">弹窗延时:</label>
                 <div class="layui-input-inline">
-                    <input type="number" name="popup_delay" value="{{.obj.PopupDelay}}" min="0" class="layui-input">
+                    <input type="number" name="ad_delay" value="{{.obj.AdDelay}}" min="0" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">单位为秒 0为禁止弹窗</div>
             </div>
@@ -431,7 +442,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">弹窗HTML:</label>
             <div class="layui-input-block">
-                <textarea name="popup" class="layui-textarea" placeholder="弹窗宣传语HTML代码">{{.obj.Popup}}</textarea>
+                <textarea name="ad_html" class="layui-textarea" placeholder="弹窗宣传语HTML代码">{{.obj.AdHTML}}</textarea>
             </div>
             <div class="layui-input-block fill-contact" style="margin-top:-5px;"></div>
         </div>
