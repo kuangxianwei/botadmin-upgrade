@@ -417,6 +417,7 @@
                     <input type="radio" name="position" value="0" title="中央"{{if eq .obj.Position 0}} checked{{end}}>
                     <input type="radio" name="position" value="1" title="左下"{{if eq .obj.Position 1}} checked{{end}}>
                     <input type="radio" name="position" value="2" title="右下"{{if eq .obj.Position 2}} checked{{end}}>
+                    <input type="radio" name="position" value="3" title="底部"{{if eq .obj.Position 3}} checked{{end}}>
                 </div>
             </div>
             <div class="layui-inline">
