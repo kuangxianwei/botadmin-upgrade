@@ -37,13 +37,17 @@
                 <div class="layui-form-mid layui-word-aux">样式名称</div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">提示位置:</label>
+                <label class="layui-form-label">提示:</label>
                 <div class="layui-input-block">
                     <input type="radio" name="position" value="0" title="中央"{{if eq .obj.Position 0}} checked{{end}}>
                     <input type="radio" name="position" value="1" title="左下"{{if eq .obj.Position 1}} checked{{end}}>
                     <input type="radio" name="position" value="2" title="右下"{{if eq .obj.Position 2}} checked{{end}}>
                     <input type="radio" name="position" value="3" title="底部"{{if eq .obj.Position 3}} checked{{end}}>
                 </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">遮罩关闭:</label>
+                <input type="checkbox" name="shade_close" lay-skin="switch" lay-text="打开|关闭"{{if .obj.ShadeClose}} checked{{end}}>
             </div>
         </div>
         <div class="layui-row">
