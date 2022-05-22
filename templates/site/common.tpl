@@ -866,7 +866,7 @@
         /* 验证 */
         form.verify({
             vhost: function (val) {
-                if (!new RegExp(/^[a-zA-Z\d-]+\.[a-zA-Z]/).test(val)) {
+                if (!new RegExp(/^([a-zA-Z\d-]+\.)+[a-zA-Z]/).test(val)) {
                     $('.layui-tab>.layui-tab-title>li:nth-child(1)').click();
                     return '必须是一个有效的域名';
                 }
