@@ -65,10 +65,10 @@
                     lay-tips="过滤违禁词">
                 <i class="layui-icon layui-icon-find-fill"></i>检违禁
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="originality-exec">
+            <button class="layui-btn layui-btn-sm" lay-event="originalityExec">
                 <i class="layui-icon layui-icon-vercode"></i>检原创
             </button>
-            <button class="layui-btn layui-btn-sm" lay-event="conversion-exec">
+            <button class="layui-btn layui-btn-sm" lay-event="conversionExec">
                 转换简繁体
             </button>
         </div>
@@ -98,7 +98,7 @@
             <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record" lay-tips="重置日志">
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetRecord" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
             </button>
         </div>
@@ -136,7 +136,12 @@
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},
-                {field: 'title', title: '标题', event: 'modify', style: 'cursor:pointer;color:#01aaed;font-weight:bold'},
+                {
+                    field: 'title',
+                    title: '标题',
+                    event: 'modify',
+                    style: 'cursor:pointer;color:#01aaed;font-weight:bold'
+                },
                 {
                     field: 'originality_rate',
                     title: '原创率',
@@ -172,7 +177,12 @@
                     sort: true
                 },
                 {
-                    field: 'ban_vetted', title: '过滤违禁', align: 'center', width: 92, unresize: true, event: 'ban_vetted',
+                    field: 'ban_vetted',
+                    title: '过滤违禁',
+                    align: 'center',
+                    width: 92,
+                    unresize: true,
+                    event: 'ban_vetted',
                     templet: function (d) {
                         let msg = '<input id="' + d.id + '" type="checkbox" name="ban_vetted" lay-skin="switch" lay-text="是|否" lay-filter="banVetted"';
                         if (d.ban_vetted) {
@@ -229,7 +239,7 @@
             text: '对不起，加载出现异常！'
         });
         let active = {
-                'del': function (data) {
+                del: function (data) {
                     layer.confirm('删除后不可恢复，确定删除？', function (index) {
                         main.request({
                             url: url + '/del',
@@ -239,7 +249,7 @@
                         });
                     });
                 },
-                'modify': function (data) {
+                modify: function (data) {
                     let loading = main.loading();
                     $.get(url + '/modify', {id: data.id}, function (html) {
                         loading.close();
@@ -252,7 +262,7 @@
                         element.render();
                     });
                 },
-                'log': function (data) {
+                log: function (data) {
                     main.ws.log('article.' + data.id);
                 },
             },
@@ -296,7 +306,7 @@
                         });
                     });
                 },
-                'originality-exec': function (obj, data) {
+                originalityExec: function (obj, data) {
                     if (data.length === 0) {
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
@@ -310,7 +320,7 @@
                         },
                     });
                 },
-                'conversion-exec': function (obj, data) {
+                conversionExec: function (obj, data) {
                     if (data.length === 0) {
                         layer.msg('请勾选数据', {icon: 2});
                         return false;
@@ -390,7 +400,7 @@
                         form.render();
                     });
                 },
-                "reset-record": function (obj) {
+                resetRecord: function (obj) {
                     main.reset.log('article', obj.ids);
                 },
                 delUsed: function () {
@@ -436,7 +446,7 @@
             }
             main.request({
                 url: url + '/configure',
-                data: {'id': id, "used": checked},
+                data: {id: id, used: checked, cols: 'used'},
                 done: 'table-list',
             });
             return false;
@@ -451,7 +461,7 @@
             }
             main.request({
                 url: url + '/configure',
-                data: {'id': id, "trans_failed": checked},
+                data: {id: id, trans_failed: checked, cols: 'trans_failed'},
                 done: 'table-list',
             });
             return false;
