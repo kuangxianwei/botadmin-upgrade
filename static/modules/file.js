@@ -247,7 +247,7 @@ layui.define(['main'], function (exports) {
 
         // 保存文件方法
         saveFileMethod(options) {
-            if (options.fileState === 0) {
+            if (!options.fileState || options.fileState === 0) {
                 return layer.msg('当前文件未修改，无需保存!');
             }
             this.dom.find('.item-tab-' + options.id + ' .icon-tool').attr('title', '保存文件中，请稍后..').removeClass('icon-warning').addClass('waiting');
@@ -1328,7 +1328,10 @@ layui.define(['main'], function (exports) {
                     if ($(arr[i]).find('.file-title span').text() === $this.val()) {
                         $this.css('border', '1px solid #f34a4a');
                         $this.attr('data-event', 1);
-                        layer.tips(isFolder ? '存在同名目录' : '存在同名文件', $this[0], {tips: [1, '#f34a4a'], time: 0});
+                        layer.tips(isFolder ? '存在同名目录' : '存在同名文件', $this[0], {
+                            tips: [1, '#f34a4a'],
+                            time: 0
+                        });
                         return false
                     }
                 }
@@ -1749,7 +1752,10 @@ layui.define(['main'], function (exports) {
                 editor.encoding = encoding;
                 editor.fileState = 1;
                 othis.dom.find('.ace-container-menu>.item-tab-' + editor.id + '>.ace-item-box>i').removeClass('icon-remove').addClass('icon-warning');
-                layer.confirm('指定编码"' + encoding + '"重载? 会丢失已修改内容!', {title: false, icon: 3}, function (index) {
+                layer.confirm('指定编码"' + encoding + '"重载? 会丢失已修改内容!', {
+                    title: false,
+                    icon: 3
+                }, function (index) {
                     layer.close(index);
                     othis.getFileContent({path: editor.path, encoding: editor.encoding},
                         function (data) {
@@ -1887,7 +1893,12 @@ layui.define(['main'], function (exports) {
                             return d.size;
                         }
                     },
-                    {field: 'mode', title: '权限', width: 100}, {field: 'mtime', title: '最后修改', width: 170, sort: true},
+                    {field: 'mode', title: '权限', width: 100}, {
+                        field: 'mtime',
+                        title: '最后修改',
+                        width: 170,
+                        sort: true
+                    },
                     {
                         title: '操作', minWidth: 180, align: 'center', fixed: 'right', templet: (d) => {
                             let html = '<div class="layui-btn-group">';
