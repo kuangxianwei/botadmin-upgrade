@@ -64,7 +64,6 @@
 </div>
 <script>
     let picURL = "/file?path=" +{{.obj.Dirname}};
-
     function openPic() {
         window.open(picURL, '_blank');
     }
