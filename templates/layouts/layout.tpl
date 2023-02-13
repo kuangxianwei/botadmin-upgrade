@@ -19,6 +19,6 @@
     <script>let url ={{.current_uri}}, csrfToken ={{.csrf_token}}, publicKey ={{.public_key}}</script>
 </head>
 <body class="layui-fluid">
-{{ yield }}
+{{ yield .}}
 </body>
 </html>

@@ -9,20 +9,20 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label" lay-tips="匹配(正则)的页面则不显示广告">拒绝广告:</label>
+                    <label class="layui-form-label"><cite lay-tips="匹配(正则)的页面则不显示广告">拒绝广告</cite>:<i class="layui-icon iconfont icon-fill" data-event="fillDeny" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
                     <div class="layui-input-block">
                         <input name="deny" value="{{.obj.Deny}}" type="text" class="layui-input" placeholder="\.(php|asp|js|css)(\?|$)">
                     </div>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><cite lay-tips="一行一条规则(正则)">允许来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fillAllowed" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
+                <label class="layui-form-label"><cite lay-tips="一行一条规则(正则) *代表直接访问">允许来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fillAllowed" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
                 <div class="layui-input-block">
                     <textarea class="layui-textarea" rows="3" name="allowed" placeholder="www.baidu.com&#13;www.sogou.com">{{join .obj.Allowed "\n"}}</textarea>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label"><cite lay-tips="一行一条规则(正则)">拒绝来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fillDisallowed" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
+                <label class="layui-form-label"><cite lay-tips="一行一条规则(正则) *代表直接访问">拒绝来路</cite>:<i class="layui-icon iconfont icon-fill" data-event="fillDisallowed" lay-tips="填充全局配置" style="color:#0a5b52"></i></label>
                 <div class="layui-input-block">
                     <textarea class="layui-textarea" rows="3" name="disallowed" placeholder="www.google.com&#13;www.sogou.com">{{join .obj.Disallowed "\n"}}</textarea>
                 </div>
@@ -122,6 +122,15 @@
                         layer.close(index);
                     },
                     area: ["540px", "450px"],
+                });
+            },
+            fillDeny: function () {
+                main.request({
+                    url: '/contact/fill',
+                    data: {field: 'deny'},
+                    done: function (res) {
+                        $('[name=deny]').val(res.data);
+                    }
                 });
             },
             fillAllowed: function () {
