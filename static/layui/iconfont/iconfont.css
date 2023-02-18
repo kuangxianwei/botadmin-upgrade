@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 1228095 */
-  src: url('iconfont.woff2?t=1650102924717') format('woff2'),
-       url('iconfont.woff?t=1650102924717') format('woff'),
-       url('iconfont.ttf?t=1650102924717') format('truetype');
+  src: url('iconfont.woff2?t=1676509734018') format('woff2'),
+       url('iconfont.woff?t=1676509734018') format('woff'),
+       url('iconfont.ttf?t=1676509734018') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,70 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pay:before {
+  content: "\e64f";
+}
+
+.icon-secretKey:before {
+  content: "\e638";
+}
+
+.icon-token:before {
+  content: "\e639";
+}
+
+.icon-payment:before {
+  content: "\e63a";
+}
+
+.icon-wifi:before {
+  content: "\e6a5";
+}
+
+.icon-firewall:before {
+  content: "\e648";
+}
+
+.icon-wifi-1:before {
+  content: "\e722";
+}
+
+.icon-memory:before {
+  content: "\e712";
+}
+
+.icon-disk:before {
+  content: "\e636";
+}
+
+.icon-log:before {
+  content: "\e634";
+}
+
+.icon-log-check:before {
+  content: "\e6a7";
+}
+
+.icon-mysql:before {
+  content: "\e632";
+}
+
+.icon-translate:before {
+  content: "\e65e";
+}
+
+.icon-list-1:before {
+  content: "\e66d";
+}
+
+.icon-list-view:before {
+  content: "\e699";
+}
+
+.icon-ai:before {
+  content: "\e641";
 }
 
 .icon-rotate-left:before {

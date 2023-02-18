@@ -132,7 +132,8 @@
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="pull_config">拉取配置</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="pull_config">拉取配置
+                            </button>
                         </dd>
                     </dl>
                 </li>
@@ -350,7 +351,7 @@
                 elem: '#import',
                 url: '/site/import',
                 accept: 'file',
-                exts: 'txt|conf|json',
+                exts: 'txt|conf|json|tar.gz|zip',
                 before: function () {
                     layer.load(); //上传loading
                 },

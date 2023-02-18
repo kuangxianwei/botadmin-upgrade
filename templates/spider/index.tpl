@@ -171,7 +171,7 @@
                 elem: '#import',
                 url: url + '/import',
                 accept: 'file',
-                exts: 'txt|conf|json',
+                exts: 'txt|conf|json|tar.gz|zip',
                 before: function () {
                     layer.load(); //上传loading
                 },

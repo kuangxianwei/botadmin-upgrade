@@ -34,6 +34,9 @@
             <i class="layui-icon layui-icon-delete"></i>
         </button>
         <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="truncate">清空</button>
+        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="log" lay-tips="查看日志">
+            <i class="layui-icon layui-icon-log"></i>
+        </button>
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
@@ -48,11 +51,11 @@
             main = layui.main;
         url = url || '';
         layui.upload.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             elem: '#import',
             url: url + '/import',
             accept: 'file',
-            exts: 'conf|txt',
+            exts: 'conf|txt|tar.gz|zip',
             before: function () {
                 layer.load(); //上传loading
             },
@@ -69,7 +72,7 @@
 
         //日志管理
         table.render({
-            headers: {'X-CSRF-Token':csrfToken},
+            headers: {'X-CSRF-Token': csrfToken},
             method: 'post',
             elem: '#table-list',
             toolbar: '#toolbar',
@@ -148,6 +151,9 @@
                             }
                         });
                     });
+                    break;
+                case 'log':
+                    main.ws.log("tags.0");
                     break;
                 case 'export':
                     window.open(encodeURI(url + '/export?ids=' + ids.join()));

@@ -101,7 +101,7 @@
             elem: '#import',
             url: url + '/import',
             accept: 'file',
-            exts: 'txt|conf|json',
+            exts: 'txt|conf|json|tar.gz|zip',
             before: function () {
                 layer.load(); //上传loading
             },
@@ -149,7 +149,12 @@
                 },
                 {field: 'auth', title: "认证", hide: true},
                 {
-                    field: 'created', title: '创建时间', width: 160, align: 'center', sort: true, templet: function (d) {
+                    field: 'created',
+                    title: '创建时间',
+                    width: 160,
+                    align: 'center',
+                    sort: true,
+                    templet: function (d) {
                         return main.timestampFormat(d['created']);
                     }
                 },
@@ -235,9 +240,6 @@
                     });
                 },
                 export: function (data, ids) {
-                    if (ids.length === 0) {
-                        return main.err('请选择数据');
-                    }
                     window.open(encodeURI('/webssh/export?ids=' + ids.join()));
                 },
                 import: function () {
