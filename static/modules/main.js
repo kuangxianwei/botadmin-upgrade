@@ -182,7 +182,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 };
                 // 自定义错误提示
                 this.err = function (content, options) {
-                    return layer.alert(content, $.extend({
+                    return layer.alert(`<div style="padding-left:30px;">` + content + `</div>`, $.extend({
                         skin: 'layui-layer-admin',
                         shadeClose: true,
                         maxmin: false,
@@ -317,7 +317,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                         if (rows < 8) {
                             rows = 8
                         }
-                        res.msg = '<textarea class="layui-textarea" rows="' + (rows > 12 ? 12 : rows) + '" style="min-width:500px;height:100%">' + res.msg + '</textarea>';
+                        res.msg = '<textarea class="layui-textarea" rows="' + (rows > 12 ? 12 : rows) + '" style="min-width:500px;width:auto;height:100%;margin:10px;">' + res.msg + '</textarea>';
                     } else {
                         let reg = new RegExp('\n', 'g');
                         res.msg = res.msg.replace(reg, '<br/>');
@@ -330,7 +330,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             } else if (typeof options.done === 'function' && options.done(res) === false) {
                                 return false;
                             }
-                            layer.msg(res.msg, {icon: 1, shade: [0.6, '#000', true]});
+                            if (res.textarea === true) {
+                                layer.open({type: 1, title: false, content: res.msg, shade: 0.8});
+                            } else {
+                                layer.msg(res.msg, {icon: 1, shade: [0.6, '#000', true]});
+                            }
                             break;
                         case 1001:
                         case 403:

@@ -278,7 +278,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label" lay-tips="本网站的完整URL一行一条">Urls:</label>
                 <div class="layui-input-block">
-                    <textarea name="urls" class="layui-textarea" rows="6"></textarea>
+                    <textarea name="urls" class="layui-textarea" rows="10"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -558,11 +558,14 @@
                     });
                 },
                 push: function (obj) {
-                    let elem = $($('#push').html()).find('input[name=id]').val(obj.data.id);
                     main.popup({
                         url: '/site/push',
                         title: "推送",
-                        content: elem.html()
+                        area: ['800px', 'auto'],
+                        success: function (dom) {
+                            dom.find('input[name=id]').val(obj.data.id);
+                        },
+                        content: $('#push').html()
                     });
                 },
                 ftp: function (obj) {

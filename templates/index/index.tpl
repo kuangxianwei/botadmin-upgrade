@@ -256,7 +256,7 @@
                                     <cite>MYSQL列表</cite>
                                 </a>
                             </dd>
-                            <dd data-name="sql-seter">
+                            <dd data-name="sql-configure">
                                 <a lay-href="/sql/configure" lay-tips="MySQL设置" lay-direction="2">
                                     <i class="iconfont icon-setting"></i>
                                     <cite>MySQL设置</cite>
@@ -290,7 +290,7 @@
                             <cite>网站采集</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="site-default">
+                            <dd data-name="spider-list">
                                 <a lay-href="/spider" lay-tips="规则列表" lay-direction="2">
                                     <i class="iconfont icon-list-view"></i><cite>规则列表</cite>
                                 </a>
@@ -314,16 +314,22 @@
                             </dd>
                         </dl>
                     </li>
-                    <li data-name="spider" class="layui-nav-item">
+                    <li data-name="openai" class="layui-nav-item">
                         <a href="javascript:" lay-tips="OpenAI" lay-direction="2">
                             <i class="layui-icon iconfont icon-ai"></i>
                             <cite>OpenAI</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="site-default">
-                                <a lay-href="/openai/token" lay-tips="OpenAI Token列表" lay-direction="2">
+                            <dd data-name="openai-models">
+                                <a lay-href="/openai/models" lay-tips="OpenAI 模块列表" lay-direction="2">
+                                    <i class="iconfont icon-models"></i>
+                                    <cite>模块列表</cite>
+                                </a>
+                            </dd>
+                            <dd data-name="openai-token">
+                                <a lay-href="/openai/token" lay-tips="OpenAI 秘钥列表" lay-direction="2">
                                     <i class="iconfont icon-secretKey"></i>
-                                    <cite>Token管理</cite>
+                                    <cite>秘钥管理</cite>
                                 </a>
                             </dd>
                         </dl>
@@ -411,7 +417,7 @@
                             <cite>文件管理</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="file">
+                            <dd data-name="file-list">
                                 <a lay-href="/file" lay-tips="文件管理" lay-direction="2">
                                     <i class="iconfont icon-folder"></i>
                                     <cite>文件管理</cite>

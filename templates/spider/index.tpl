@@ -190,11 +190,8 @@
                     let $this = this;
                     let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
                     main.request({
-                        url: url + "/cron/switch",
-                        data: {
-                            id: obj.data.id,
-                            cron_enabled: enabled
-                        },
+                        url: url + "/modify",
+                        data: {id: obj.data.id, cron_enabled: enabled, cols: 'cron_enabled'},
                         error: function () {
                             $this.find('input[type=checkbox]').prop("checked", !enabled);
                             form.render('checkbox');
@@ -325,15 +322,15 @@
                 },
                 enableCron: function (data, ids) {
                     main.request({
-                        url: url + '/cron/switch',
-                        data: {ids: ids.join(), cron_enabled: true},
+                        url: url + '/modify',
+                        data: {ids: ids.join(), cron_enabled: true, cols: 'cron_enabled'},
                         done: 'table-list'
                     });
                 },
                 disableCron: function (data, ids) {
                     main.request({
-                        url: url + '/cron/switch',
-                        data: {ids: ids.join(), cron_enabled: false},
+                        url: url + '/modify',
+                        data: {ids: ids.join(), cron_enabled: false, cols: 'cron_enabled'},
                         done: 'table-list'
                     });
                 },

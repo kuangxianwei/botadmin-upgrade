@@ -41,6 +41,10 @@ textarea.layui-textarea {
     padding-top: 18px
 }
 
+.slider-block .layui-slider-input {
+    top: 2px;
+}
+
 .layui-slider-input-txt {
     height: 96%
 }
