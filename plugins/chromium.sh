@@ -20,7 +20,9 @@ Install() {
   local rpmFile="google-chrome-stable_current_x86_64.rpm"
   if test ! -s "$rpmFile"; then
     if ! wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm; then
-      Error "下载Chromium浏览器失败"
+      if ! wget https://github.com/kuangxianwei/botadmin-upgrade/releases/download/v1.0.0/google-chrome-stable_current_x86_64.rpm; then
+        Error "下载Chromium浏览器失败"
+      fi
     fi
   fi
   if ! yum localinstall -y google-chrome-stable_current_x86_64.rpm; then
