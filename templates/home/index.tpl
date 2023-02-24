@@ -76,7 +76,7 @@
                                 </a>
                             </li>
                             <li class="layui-col-xs2">
-                                <a lay-href="/file?path={{.rewrite_path}}">
+                                <a lay-href="/file?path={{.rewritePath}}">
                                     <i class="layui-icon layui-icon-file"></i>
                                     <cite>伪静态规则</cite>
                                 </a>
@@ -150,7 +150,7 @@
                                 </a>
                             </li>
                             <li class="layui-col-xs2">
-                                <a lay-href="{{.p_url}}" lay-text="探针">
+                                <a lay-href="{{.pUrl}}" lay-text="探针">
                                     <i class="layui-icon layui-icon-chart"></i>
                                     <cite>探针</cite>
                                 </a>
@@ -210,11 +210,23 @@
                     </tr>
                     <tr>
                         <td>当前版本:</td>
-                        <td><h2 style="display:inline-block; padding-right:20px;">{{.version}}</h2>
-                            <div class="layui-btn-group">
-                                <a class="layui-btn layui-btn-sm" href="https://github.com/kuangxianwei/botadmin-upgrade/releases" target="_blank">升级日志</a>
-                                <button class="layui-btn layui-btn-sm" data-event="upgrade">
-                                    升级到:{{.remoteVersion}}</button>
+                        <td>
+                            {{.version}}
+                            <div class="layui-btn-group"style="margin-left:10px">
+                                {{if not .remoteVersion -}}
+                                    <button class="layui-btn layui-btn-sm layui-btn-checked" data-event="upgrade">
+                                        正在查询最新版本...
+                                    </button>
+                                {{else if eq .version .remoteVersion -}}
+                                    <button class="layui-btn layui-btn-sm" data-event="upgrade">
+                                        已经是最新版本
+                                    </button>
+                                {{else -}}
+                                    <button class="layui-btn layui-btn-sm layui-btn-danger" data-event="upgrade">
+                                        升级到最新版本: {{.remoteVersion}}
+                                    </button>
+                                {{end -}}
+                                <a class="layui-btn layui-btn-sm layui-btn-primary" href="https://github.com/kuangxianwei/botadmin-upgrade/releases" target="_blank">升级日志</a>
                             </div>
                         </td>
                     </tr>
