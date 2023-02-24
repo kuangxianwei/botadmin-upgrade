@@ -2,6 +2,21 @@
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <div class="layui-inline">
+                <label class="layui-form-label">采集模式:</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="type" value="0" title="直接"{{if eq .obj.Type 0}} checked{{end}}>
+                    <input type="radio" name="type" value="1" title="浏览器"{{if eq .obj.Type 1}} checked{{end}}>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" lay-tips="设置间隔多少秒采集一次">延迟:</label>
+                <div class="layui-input-block">
+                    <input type="number" name="delay" max="500" min="1" class="layui-input" value="{{.obj.Delay}}" placeholder="5">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
                 <label class="layui-form-label" lay-tips="是否启用定时更新">启用定时:</label>
                 <div class="layui-input-block">
                     <input type="checkbox" name="enabled" lay-skin="switch" lay-text="开启|关闭"{{if .obj.Enabled}} checked{{end}}>
@@ -40,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <div class="layui-row layui-col-space25">
+        <div class="layui-row">
             <div class="layui-col-md3">
                 <div class="layui-form-item">
                     <label class="layui-form-label">种子<i class="layui-icon layui-icon-down"></i></label>
