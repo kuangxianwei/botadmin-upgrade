@@ -212,7 +212,7 @@
                         <td>当前版本:</td>
                         <td>
                             {{.version}}
-                            <div class="layui-btn-group"style="margin-left:10px">
+                            <div class="layui-btn-group" style="margin-left:10px">
                                 {{if not .remoteVersion -}}
                                     <button class="layui-btn layui-btn-sm layui-btn-checked" data-event="upgrade">
                                         正在查询最新版本...
