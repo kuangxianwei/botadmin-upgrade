@@ -260,7 +260,7 @@
                 },
                 del: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
                         main.request({
@@ -276,7 +276,7 @@
                 },
                 configure: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     let loading = layui.main.loading();
                     $.get(url + '/configure', {ids: ids.join()}, function (html) {
@@ -291,7 +291,7 @@
                 },
                 exec: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     layer.prompt({
                         formType: 0,

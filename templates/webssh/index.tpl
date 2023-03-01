@@ -111,7 +111,7 @@
                     layer.msg(res.msg);
                     table.reload('table-list');
                 } else {
-                    main.err(res.msg);
+                    main.error(res.msg);
                 }
             },
         });
@@ -228,7 +228,7 @@
                 },
                 del: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
                         main.request({
@@ -250,7 +250,7 @@
                 },
                 execute: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     main.popup({
                         url: url + "/execute",
@@ -288,7 +288,7 @@
                 },
                 scan: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     main.request({
                         url: url + "/scan",

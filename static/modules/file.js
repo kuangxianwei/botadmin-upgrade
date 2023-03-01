@@ -1242,7 +1242,7 @@ layui.define(['main'], function (exports) {
                     });
                 request.done(function (res) {
                     if (res.code !== 0) {
-                        main.err(res.msg);
+                        main.error(res.msg);
                         layer.closeAll();
                     } else {
                         localStorage.setItem('aceConfig', res.data.content);
@@ -1250,7 +1250,7 @@ layui.define(['main'], function (exports) {
                     }
                 });
                 request.fail(function (xhr, status, error) {
-                    main.err(error);
+                    main.error(error);
                     layer.closeAll();
                 });
                 request.always(function () {

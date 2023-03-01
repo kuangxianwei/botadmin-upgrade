@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="设置间隔多少秒采集一次">延迟:</label>
+                <label class="layui-form-label" lay-tips="为了防封IP，请设置合适的间隔时间（秒）采集">期间延迟:</label>
                 <div class="layui-input-block">
                     <input type="number" name="delay" max="500" min="1" class="layui-input" value="{{.obj.Delay}}" placeholder="5">
                 </div>
@@ -68,11 +68,11 @@
                     <label class="layui-form-label">结果<i class="layui-icon layui-icon-down"></i></label>
                     <label class="layui-form-label" id="collect-status" style="min-width: 100px">状态:
                         <strong style="color: red" title="0">未运行</strong></label>
-                    <label class="layui-form-label" style="color:#22849b;cursor:pointer" data-event="copy-keywords">
+                    <label class="layui-form-label" style="color:#22849b;cursor:pointer" data-event="copy-keywords" lay-tips="复制关键词">
                         <i class="layui-icon iconfont icon-copy"></i>关键词</label>
-                    <label class="layui-form-label" style="color:red;cursor: pointer" data-event="reset-record">
+                    <label class="layui-form-label" style="color:red;cursor: pointer" data-event="reset-record" lay-tips="清空记录">
                         <i class="layui-icon layui-icon-delete"></i>记录</label>
-                    <label class="layui-form-label" style="cursor:pointer" data-event="log">
+                    <label class="layui-form-label" style="cursor:pointer" data-event="log" lay-tips="查看日志">
                         <i class="layui-icon layui-icon-log"></i>日志</label>
                     <textarea rows="16" class="layui-textarea" id="collect-display"></textarea>
                 </div>

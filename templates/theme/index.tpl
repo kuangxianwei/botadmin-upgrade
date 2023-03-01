@@ -196,7 +196,7 @@
                                     });
                                     return layer.msg("封面替换成功");
                                 }
-                                main.err(res.msg);
+                                main.error(res.msg);
                             },
                         });
                     },
@@ -249,12 +249,12 @@
                                                 flow.lazyimg();
                                                 return false;
                                             }
-                                            main.err(res.msg);
+                                            main.error(res.msg);
                                         },
                                         error: function (index) {
                                             layer.close(index);
                                             this.loading && layer.close(this.loading);
-                                            main.err("网络错误");
+                                            main.error("网络错误");
                                         },
                                     });
                                 },
@@ -316,12 +316,12 @@
                                                 flow.lazyimg();
                                                 return false;
                                             }
-                                            main.err(res.msg);
+                                            main.error(res.msg);
                                         },
                                         error: function (index) {
                                             layer.close(index);
                                             this.loading && layer.close(this.loading);
-                                            main.err("网络错误");
+                                            main.error("网络错误");
                                         },
                                     });
                                 },

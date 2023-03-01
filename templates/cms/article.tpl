@@ -97,7 +97,7 @@
                     $.get("/cms/url", {id: id, cid: this.data.class_id, aid: this.data.id}, function (res) {
                         loading.close();
                         if (res.code !== 0) {
-                            main.err(res.msg);
+                            main.error(res.msg);
                         } else {
                             window.open(res.msg, "_blank");
                         }
@@ -110,10 +110,10 @@
                     $.get(url + "/classes", {id: id}, function (res) {
                         loading.close();
                         if (res.code !== 0) {
-                            return main.err(res.msg);
+                            return main.error(res.msg);
                         }
                         if (!Array.isArray(res.data)) {
-                            return main.err("网站没有添加任何栏目");
+                            return main.error("网站没有添加任何栏目");
                         }
                         main.open({
                             title: "选择栏目",

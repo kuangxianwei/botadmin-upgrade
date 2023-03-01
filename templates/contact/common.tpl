@@ -239,7 +239,7 @@
                 if (res.code === 0) {
                     $('#uploadResult').html('<img height="130" width="130" alt="二维码" src="' + res.data['data'] + '"/>');
                 } else {
-                    main.err(res.msg);
+                    main.error(res.msg);
                 }
             });
         }

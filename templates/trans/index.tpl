@@ -174,7 +174,7 @@
                 },
                 'del': function (obj, data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
                         main.request({
@@ -187,7 +187,7 @@
                 },
                 'enabled': function (obj, data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     main.request({
                         url: url + '/switch',
@@ -197,7 +197,7 @@
                 },
                 'disabled': function (obj, data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     main.request({
                         url: url + '/switch',
@@ -207,7 +207,7 @@
                 },
                 'export': function (obj, data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     window.open(encodeURI('/trans/export?engine=' + data[0].engine + '&ids=' + ids.join()));
                 },

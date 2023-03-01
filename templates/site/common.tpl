@@ -10,7 +10,7 @@
         cursor: pointer;
     }
 </style>
-<div class="layui-card">
+<div class="layui-card" id="classes">
     <div class="layui-card-body">
         <div class="layui-tab layui-tab-card layui-form">
             <ul class="layui-tab-title">
@@ -148,7 +148,8 @@
                                     </div>
                                 </div>
                                 <div class="layui-col-sm1">
-                                    <button class="layui-btn layui-btn-radius" data-event="validTitle">验证合规</button>
+                                    <button class="layui-btn layui-btn-radius" data-event="valid_title">验证合规
+                                    </button>
                                 </div>
                                 <div class="layui-col-sm4">
                                     <label class="layui-form-label" lay-tips="每个网页的标题后缀 如:南方39助孕网">副标题:</label>
@@ -158,7 +159,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-col-sm1">
-                                    <button class="layui-btn layui-btn-radius" data-event="validTitleSuffix">验证合规
+                                    <button class="layui-btn layui-btn-radius" data-event="valid_title_suffix">验证合规
                                     </button>
                                 </div>
                             </div>
@@ -190,7 +191,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-col-sm1">
-                                    <button class="layui-btn layui-btn-radius" data-event="validDescription">验证合规
+                                    <button class="layui-btn layui-btn-radius" data-event="valid_description">验证合规
                                     </button>
                                 </div>
                             </div>
@@ -198,7 +199,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">栏目列表:</label>
                             <input type="hidden" name="classes" value="{{print .obj.Classes }}" required lay-verify="classes">
-                            <div class="layui-input-block" id="class-tree"></div>
+                            <div class="layui-input-block" id="classes-tree"></div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-row">
@@ -433,7 +434,9 @@
                                        title="Error" {{if .obj.ErrorLog}} checked{{end}}>
                             </div>
                             <div class="layui-inline">
-                                <div class="layui-form-mid layui-word-aux">记录详细的访问日志，会占服务器资源，如无特别需求，不建议开启</div>
+                                <div class="layui-form-mid layui-word-aux">
+                                    记录详细的访问日志，会占服务器资源，如无特别需求，不建议开启
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -448,7 +451,9 @@
                                        title="列举目录" {{if .obj.DisplayDir}} checked{{end}}>
                             </div>
                             <div class="layui-inline">
-                                <div class="layui-form-mid layui-word-aux">防止webshell跨目录跨站和没有默认首页时显示所有文件列表</div>
+                                <div class="layui-form-mid layui-word-aux">
+                                    防止webshell跨目录跨站和没有默认首页时显示所有文件列表
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -489,7 +494,9 @@
                                 <input type="checkbox" name="client_cache" lay-skin="switch"
                                        lay-text="是|否" {{if .obj.ClientCache}} checked{{end}}>
                             </div>
-                            <div class="layui-form-mid layui-word-aux">此功能可减轻服务器负载，但有时更新可能不会及时显示</div>
+                            <div class="layui-form-mid layui-word-aux">
+                                此功能可减轻服务器负载，但有时更新可能不会及时显示
+                            </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">删除站点</label>
@@ -725,15 +732,13 @@
                                 </div>
                             </div>
                         </div>
-                        {{$links:=`试管婴儿=>http://www.nfivf.com/
-站掌门=>http://www.botadmin.cn/` -}}
                         <div class="layui-col-md6">
                             <div class="layui-form-item">
                                 <label class="layui-form-label"
                                        lay-tips="内链列表 关键词=>URL 例如：试管婴儿=>http://www.botadmin.cn/">内链列表:</label>
                                 <div class="layui-input-block">
                             <textarea name="links" class="layui-textarea" rows="5"
-                                      placeholder="{{$links}}">{{ join .obj.Links "\n"}}</textarea>
+                                      placeholder="试管婴儿=>http://www.nfivf.com/&#13;站掌门=>http://www.botadmin.cn/">{{.obj.Links}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -743,7 +748,7 @@
                                        lay-tips="外链列表 关键词=>URL 例如：试管婴儿=>http://www.botadmin.cn/">外链列表:</label>
                                 <div class="layui-input-block">
                                     <textarea name="out_links" class="layui-textarea" rows="5"
-                                              placeholder="{{$links}}">{{ join .obj.OutLinks "\n"}}</textarea>
+                                              placeholder="试管婴儿=>http://www.nfivf.com/&#13;站掌门=>http://www.botadmin.cn/">{{.obj.OutLinks}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -770,7 +775,9 @@
                         <div class="layui-input-inline">
                             <input type="number" name="port" value="{{.obj.Port}}" class="layui-input" placeholder="80">
                         </div>
-                        <div class="layui-form-mid layui-word-aux">只在需要使用非80端口时使用，否则请使用默认值。可在系统设置里设置或增加端口</div>
+                        <div class="layui-form-mid layui-word-aux">
+                            只在需要使用非80端口时使用，否则请使用默认值。可在系统设置里设置或增加端口
+                        </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">使用IP:</label>
@@ -782,7 +789,9 @@
                                 {{end}}
                             </select>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">此功能只在多IP且要域名指定IP时用，否则请留默认值。可在系统设置里设置或增加IP</div>
+                        <div class="layui-form-mid layui-word-aux">
+                            此功能只在多IP且要域名指定IP时用，否则请留默认值。可在系统设置里设置或增加IP
+                        </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">IP并发数:</label>
@@ -810,18 +819,18 @@
                 <div class="layui-input-block">
                     <input type="hidden" name="id" value="{{.obj.Id}}">
                     <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
+                    <div class="layui-hide" data-class-names="{{json .class_names}}"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    layui.use(['main'], function () {
+    layui.use(['main', 'classes'], function () {
         let main = layui.main,
-            form = layui.form,
-            class_names = {{.class_names}};
-        sessionStorage.setItem("class_names", class_names || null);
-
+            form = layui.form;
+        // 渲染栏目列表
+        layui.classes();
         // 渲染模板
         main.render.tpl();
         // 自动填充
@@ -872,7 +881,7 @@
                 }
             },
             classes: function (val) {
-                if (!new RegExp(/^\[[\s\S]+\]$/).test(val)) {
+                if (!new RegExp(/^\[[\s\S]+]$/).test(val)) {
                     $('.layui-tab>.layui-tab-title>li:nth-child(2)').click();
                     return '请设置网站栏目列表';
                 }

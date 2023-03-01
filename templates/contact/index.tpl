@@ -156,12 +156,12 @@
                                             });
                                             return false;
                                         }
-                                        main.err(res.msg);
+                                        main.error(res.msg);
                                     },
                                     error: function (index) {
                                         layer.close(index);
                                         layer.close(loading);
-                                        main.err("网络错误");
+                                        main.error("网络错误");
                                     },
                                 });
                             },
@@ -236,12 +236,12 @@
                                             });
                                             return false;
                                         }
-                                        main.err(res.msg);
+                                        main.error(res.msg);
                                     },
                                     error: function (index) {
                                         layer.close(index);
                                         layer.close(loading);
-                                        main.err("网络错误");
+                                        main.error("网络错误");
                                     },
                                 });
                             },

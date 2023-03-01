@@ -48,7 +48,7 @@
                         $('[lay-filter=class_id]').html(res.data);
                         form.render();
                     } else {
-                        main.err(res.msg);
+                        main.error(res.msg);
                     }
                 });
             };

@@ -65,7 +65,7 @@
         $('[lay-filter="test"]').off('click').on('click',function () {
             let data = main.formData("#yeekit");
             if (!data.app_id || !data.token) {
-                main.err('AppId或者token为空');
+                main.error('AppId或者token为空');
                 return false;
             }
             layer.open({
@@ -83,7 +83,7 @@
                 yes: function (index, dom) {
                     data.query = dom.find('[name=query]').val();
                     if (!data.query) {
-                        main.err('翻译的字符为空');
+                        main.error('翻译的字符为空');
                         return false;
                     }
                     main.request({

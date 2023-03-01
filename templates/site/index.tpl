@@ -172,7 +172,7 @@
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="links-del">
+                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="links_del">
                                 <i class="layui-icon layui-icon-link"></i>
                                 删除友链
                             </button>
@@ -182,7 +182,7 @@
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="del-rank">删除百度排名
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="rank_del">删除百度排名
                             </button>
                         </dd>
                     </dl>
@@ -204,11 +204,11 @@
                         </dd>
                         <dd>
                             <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid"
-                                    lay-event="cron-disable">关闭任务
+                                    lay-event="cron_disable">关闭任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="cron-enable">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="cron_enable">
                                 开启任务
                             </button>
                         </dd>
@@ -220,7 +220,7 @@
             <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="reset-record" lay-tips="重置日志">
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="record_reset" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
             </button>
         </div>
@@ -252,7 +252,7 @@
         <button class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
             <i class="layui-icon layui-icon-export"></i>
         </button>
-        <button class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dir" lay-tips="设置文章图片">
+        <button class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dirname" lay-tips="设置文章图片">
             <i class="layui-icon layui-icon-picture"></i>
         </button>
         <button class="layui-btn layui-btn-xs" lay-event="link" lay-tips="操作内链或者外链">
@@ -337,13 +337,12 @@
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.use(['index', 'main', 'classes'], function () {
+    layui.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
             upload = layui.upload,
             element = layui.element,
             main = layui.main,
-            classes = layui.classes,
             status = {{.status}},
             //渲染上传配置
             importConfig = upload.render({
@@ -402,21 +401,15 @@
                 },
                 modify: function (obj) {
                     let loading = main.loading();
-                    $.get(url + '/modify', {id: obj.data.id}, function (html) {
+                    $.get(url + '/modify', {id: obj.data.id}).always(function () {
                         loading.close();
+                    }).done(function (html) {
                         main.popup({
                             url: url + '/modify',
                             title: '修改网站设置',
                             content: html,
                             done: 'table-list',
-                            success: function () {
-                                this.classes = classes();
-                            },
-                            yes: function () {
-                                this.classes.done();
-                            }
                         });
-                        form.render();
                     });
                 },
                 link: function (obj) {
@@ -431,7 +424,7 @@
                             $.get(url + '/link', {id: obj.data.id, action: 1}, function (res) {
                                 loading.close();
                                 if (res.code !== 0) {
-                                    main.err(res.msg);
+                                    main.error(res.msg);
                                     return false;
                                 }
                                 main.popup({
@@ -466,20 +459,7 @@
                         },
                     });
                 },
-                del_link: function (obj) {
-                    let loading = main.loading();
-                    $.get(url + '/link', {id: obj.data.id}, function (html) {
-                        loading.close();
-                        main.popup({
-                            url: url + '/del/link',
-                            title: '删除友链',
-                            content: html,
-                            area: '500px',
-                        });
-                        form.render();
-                    });
-                },
-                pic_dir: function (obj) {
+                pic_dirname: function (obj) {
                     let loading = main.loading();
                     $.get(url + '/image', {id: obj.data.id}, function (html) {
                         loading.close();
@@ -521,7 +501,7 @@
                                         $.get(url + "/sql/backup", {webroot_path: obj.data['webroot_path']}, function (res) {
                                             loading.close();
                                             if (res.code !== 0) {
-                                                main.err(res.msg);
+                                                main.error(res.msg);
                                                 layer.close(index);
                                             } else {
                                                 let selectElem = $('<div id="select-filename" class="layui-form-item"><label class="layui-form-label">选择备份:</label><div class="layui-input-block"><select name="filename" class="layui-select"></select></div></div>'),
@@ -619,19 +599,19 @@
                         window.open(obj.data['admin_url'], '_blank');
                     }
                 },
-                validTitle: function () {
+                valid_title: function () {
                     main.request({
                         url: '/site/valid',
                         data: {text: $('input[name=title]').val()}
                     });
                 },
-                validTitleSuffix: function () {
+                valid_title_suffix: function () {
                     main.request({
                         url: '/site/valid',
                         data: {text: $('input[name=subtitle]').val()}
                     });
                 },
-                validDescription: function () {
+                valid_description: function () {
                     main.request({
                         url: '/site/valid',
                         data: {text: $('input[name=description]').val()}
@@ -681,12 +661,6 @@
                             title: '添加网站',
                             content: html,
                             done: 'table-list',
-                            success: function () {
-                                this.classes = classes();
-                            },
-                            yes: function () {
-                                this.classes.done();
-                            }
                         });
                     });
                 },
@@ -785,7 +759,7 @@
                 },
                 reload_website_setup: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     let contentObj = $($("#reload-setup").html());
                     contentObj.find('*[name=ids]').attr('value', ids.join());
@@ -842,7 +816,7 @@
                             });
                         });
                 },
-                'jobs': function () {
+                jobs: function () {
                     main.request({
                         url: url + '/jobs',
                         done: function (res) {
@@ -851,27 +825,27 @@
                         },
                     });
                 },
-                'cron-enable': function (data, ids) {
+                cron_enable: function (data, ids) {
                     main.request({
                         url: url + '/cron/switch',
                         data: {ids: ids.join(), cron_enabled: true},
                         done: 'table-list'
                     });
                 },
-                'cron-disable': function (data, ids) {
+                cron_disable: function (data, ids) {
                     main.request({
                         url: url + '/cron/switch',
                         data: {ids: ids.join(), cron_enabled: false},
                         done: 'table-list'
                     });
                 },
-                'reset-record': function (data, ids) {
+                record_reset: function (data, ids) {
                     main.reset.log('site', ids);
                 },
-                'export': function (data, ids) {
+                export: function (data, ids) {
                     window.open(encodeURI(url + '/export?ids=' + ids.join()));
                 },
-                'import': function () {
+                import: function () {
                     layer.open({
                         type: 1,
                         title: "导入配置",
@@ -897,9 +871,9 @@
                     });
                     form.render();
                 },
-                'mysql': function (data, ids) {
+                mysql: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     layer.open({
                         type: 1,
@@ -938,9 +912,9 @@
                         },
                     });
                 },
-                'rank': function (data, ids) {
+                rank: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     main.request({
                         url: '/site/rank',
@@ -952,9 +926,9 @@
                         },
                     });
                 },
-                'del-rank': function (data, ids) {
+                rank_del: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     layer.confirm('删除后需要重新下载，确定删除？', function (index) {
                         main.request({
@@ -965,7 +939,7 @@
                         });
                     });
                 },
-                'vhosts': function (data, ids) {
+                vhosts: function (data, ids) {
                     main.request({
                         url: url + '/vhosts',
                         data: {ids: ids.join()},
@@ -975,9 +949,9 @@
                         },
                     });
                 },
-                'links': function (data, ids) {
+                links: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     main.popup({
                         title: "添加友情链接",
@@ -989,9 +963,9 @@
                         },
                     });
                 },
-                'links-del': function (data, ids) {
+                links_del: function (data, ids) {
                     if (ids.length === 0) {
-                        return main.err('请选择数据');
+                        return main.error('请选择数据');
                     }
                     main.popup({
                         title: "删除友情链接",

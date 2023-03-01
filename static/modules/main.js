@@ -181,7 +181,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                     return pwd;
                 };
                 // 自定义错误提示
-                this.err = function (content, options) {
+                this.error = function (content, options) {
                     return layer.alert(`<div style="padding-left:30px;">` + content + `</div>`, $.extend({
                         skin: 'layui-layer-admin',
                         shadeClose: true,
@@ -344,14 +344,14 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             if (typeof options.error === 'function' && options.error(res) === false) {
                                 return false;
                             }
-                            return othis.err(res.msg);
+                            return othis.error(res.msg);
                     }
                 });
                 request.fail(function (xhr, status, error) {
                     if (typeof options.fail === 'function' && options.fail(xhr, status, error) === false) {
                         return false;
                     }
-                    return othis.err(error);
+                    return othis.error(error);
                 });
                 request.always(function (res) {
                     if (typeof options.always === 'function' && options.always(res) === false) {
@@ -384,21 +384,19 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             popup(options) {
                 let othis = this;
                 options = othis.tidyObj(options);
-                let hasSubmit = typeof options.submit === 'string',
-                    success = typeof options.success === 'function' ? options.success : function () {
-                        return true;
-                    }, yes = typeof options.yes === 'function' ? options.yes : function () {
-                        return true;
-                    };
+                let hasSubmit = typeof options.submit === 'string', success = options.success,
+                    yes = options.yes, error = options.error;
                 delete options.success;
                 delete options.yes;
+                delete options.error;
                 options.submit = hasSubmit ? options.submit : othis.uuid();
                 othis.open($.extend({
                     success: function (dom, index) {
                         form.render();
-                        if (success(dom, index) === false) {
+                        if (typeof success === 'function' && success(dom, index) === false) {
                             return false
                         }
+                        let $this = this;
                         form.on('submit(' + options.submit + ')', function (obj) {
                             othis.request({
                                 url: options.url || obj.field.url,
@@ -406,11 +404,15 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                                 index: index,
                                 done: options.done,
                                 tips: options.tips,
+                                error: function (res) {
+                                    typeof error === 'function' && error.call($this, res)
+                                },
                             }, dom);
                             return false;
                         });
-                    }, yes: function (index, dom) {
-                        if (yes(index, dom) === false) {
+                    },
+                    yes: function (index, dom) {
+                        if (typeof yes === 'function' && yes(index, dom) === false) {
                             return false
                         }
                         if (hasSubmit) {
@@ -1360,7 +1362,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                             });
                             $('#theme').html(ele);
                         } else {
-                            main.err(res.msg);
+                            main.error(res.msg);
                         }
                     });
                 }
