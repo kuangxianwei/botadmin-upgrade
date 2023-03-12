@@ -4,7 +4,7 @@
             <div class="layui-col-md3">
                 <label class="layui-form-label">网站程序</label>
                 <div class="layui-input-block">
-                    <select name="search" lay-filter="search-select">
+                    <select name="system" lay-filter="search-select">
                         <option value="">全部</option>
                         {{range $k,$v:=.drivers -}}
                             <option value="{{$k}}">{{$v.Alias}}</option>
@@ -548,49 +548,11 @@
                         content: $('#push').html()
                     });
                 },
-                ftp: function (obj) {
-                    if (obj.data.status === 4) {
-                        layer.msg("外部网站不允许编辑FTP", {icon: 2});
-                        return false;
-                    }
-                    let loading = main.loading();
-                    $.get('/ftp/relationship',
-                        {'id': obj.data['ftp_id'], 'site_id': obj.data.id, 'username': obj.data.vhost},
-                        function (html) {
-                            loading.close();
-                            main.popup({
-                                url: '/ftp/relationship',
-                                title: obj.data['ftp_id'] > 0 ? '选择FTP' : '添加FTP',
-                                content: html,
-                                done: 'table-list',
-                            });
-                            element.render();
-                        });
-                },
-                sql: function (obj) {
-                    if (obj.data.status === 4) {
-                        layer.msg("外部网站不允许编辑数据库", {icon: 2});
-                        return false;
-                    }
-                    let loading = main.loading();
-                    $.get('/sql/relationship',
-                        {'id': obj.data['sql_id'], 'site_id': obj.data.id, 'username': obj.data.vhost},
-                        function (html) {
-                            loading.close();
-                            let title = obj.data['sql_id'] > 0 ? '选择SQL' : '添加SQL';
-                            main.popup({
-                                url: '/sql/relationship',
-                                title: title,
-                                content: html,
-                                done: 'table-list',
-                            });
-                        });
-                },
                 log: function (obj) {
                     main.ws.log('site.' + obj.data.id);
                 },
                 clipboard: function (obj) {
-                    main.copy.exec(obj.data[this.data("type")], layer.msg('复制成功'));
+                    main.copy(obj.data[this.data('type')]);
                 },
                 login: function (obj) {
                     if (obj.data.system === 'cms') {
@@ -1020,18 +982,22 @@
                     }
                 },
                 {
-                    field: 'status', title: '状态', sort: true, width: 100, templet: function (d) {
+                    field: 'status', title: '状态', sort: true, width: 80, templet: function (d) {
                         let stat = status[d.status];
                         return '<strong style="color:' + stat.color + '" lay-tips="' + stat.alias + '">' + stat.name + '</strong>';
                     }
                 },
                 {
-                    field: 'ftp_id', width: 80, title: 'FTP', align: 'center', event: 'ftp',
-                    style: 'cursor:pointer;color:#01aaed;font-weight:bold'
+                    field: 'ftp_id', width: 120, title: 'FTP', align: 'center',
+                    templet: function (d) {
+                        return d['ftp_id'] ? d['ftp_name'] : '未绑定';
+                    }
                 },
                 {
-                    field: 'sql_id', width: 80, title: 'MySQL', align: 'center', event: 'sql',
-                    style: 'cursor:pointer;color:#01aaed;font-weight:bold'
+                    field: 'sql_id', width: 120, title: 'MySQL', align: 'center',
+                    templet: function (d) {
+                        return d['sql_id'] ? d.dbname : '未绑定';
+                    }
                 },
                 {
                     field: 'admin_url', title: 'admin', align: 'center', event: 'login',

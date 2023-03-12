@@ -7,12 +7,12 @@ protoPath=$(pwd)
 # shellcheck disable=SC2154
 cd "${RootPath}" || exit 1
 # 逻辑代码开始
-
-#sqlite3 ./data/db/site.db <<EOF
-#UPDATE site SET classes='';
+#echo "进入：/data/botadmin/data/db"
+#cd /data/botadmin/data/db || exit 1
+#sqlite3 ./site.db <<EOF
+#.dump a.sql
 #.quit
 #EOF
-
 
 # 逻辑代码结束
 cd "$protoPath" || exit 1

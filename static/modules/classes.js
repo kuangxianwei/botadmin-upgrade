@@ -272,7 +272,7 @@ layui.define(['main'], function (exports) {
                         });
                     },
                     copy: function () {
-                        main.copy.exec($(othis.receiver).val(), function () {
+                        main.copy($(othis.receiver).val(), function () {
                             layui.layer.msg('栏目列表复制成功');
                         });
                     },

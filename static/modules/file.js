@@ -1058,7 +1058,7 @@ layui.define(['main'], function (exports) {
             </div>
         </div>
     </div>
-</div>
+</div>;
 <div class="keysUp_right">
     <div class="keysUp-row">
         <div class="keysUp-title">循环标签</div>
@@ -1481,10 +1481,10 @@ layui.define(['main'], function (exports) {
                 let val = $(this).data('value');
                 switch (val) {
                     case "head":
-                        main.copy.exec(headHTML, layer.msg('复制成功'));
+                        main.copy(headHTML);
                         break;
                     case "nav":
-                        main.copy.exec(navHTML, layer.msg('复制成功'));
+                        main.copy(navHTML);
                         break;
                     case "link":
                         main.open({
@@ -1499,19 +1499,19 @@ layui.define(['main'], function (exports) {
                             yes: function (index, dom) {
                                 let data = main.formData(dom);
                                 if (data.pager === 'all') {
-                                    main.copy.exec(`<ul class="link">
+                                    main.copy(`<ul class="link">
     {{- range links ` + data.limit + `}}
     <li>{{HTML .}}</li>
     {{- end}}
-</ul>`, layer.msg('复制成功'));
+</ul>`);
                                 } else {
-                                    main.copy.exec(`{{if eq .Pager "` + data.pager + `"}}
+                                    main.copy(`{{if eq .Pager "` + data.pager + `"}}
 <ul class="link">
     {{- range links ` + data.limit + `}}
     <li>{{HTML .}}</li>
     {{- end}}
 </ul>
-{{end}}`, layer.msg('复制成功'));
+{{end}}`);
                                 }
                                 layer.close(index);
                             },
@@ -1530,11 +1530,11 @@ layui.define(['main'], function (exports) {
                                     begin += " \"level=" + (Array.isArray(data.level) ? data.level.join(",") : data.level) + "\"";
                                 }
                                 begin += "}}";
-                                main.copy.exec(`<ul class="tags">
+                                main.copy(`<ul class="tags">
     ` + begin + `
     <li>{{HTML .}}</li>
     {{- end}}
-</ul>`, layer.msg('复制成功'));
+</ul>`);
                                 layer.close(index);
                             },
                         });
@@ -1556,11 +1556,11 @@ layui.define(['main'], function (exports) {
                             },
                             yes: function (index, dom) {
                                 let data = main.formData(dom);
-                                main.copy.exec(`<ul class="like">
+                                main.copy(`<ul class="like">
     {{- range like ` + data.limit + `}}
     <li>{{HTML .}}</li>
     {{- end}}
-</ul>`, layer.msg('复制成功'));
+</ul>`);
                                 layer.close(index);
                             },
                         });
@@ -1658,7 +1658,7 @@ layui.define(['main'], function (exports) {
                                     range += ` "` + data['where'] + `"`;
                                 }
                                 range += "}}";
-                                main.copy.exec(`<ul>
+                                main.copy(`<ul>
     ` + range + `
     <li>
         {{- if .TitlePic -}}
@@ -1672,13 +1672,13 @@ layui.define(['main'], function (exports) {
         <time>{{date .Updated "` + data.time + `"}}</time>
     </li>
     {{- end}}
-</ul>`, layer.msg('复制成功'));
+</ul>`);
                                 layer.close(index);
                             },
                         });
                         break;
                     case "list":
-                        main.copy.exec(`<ul>
+                        main.copy(`<ul>
     {{- range .List}}
     <li>
         {{- if .TitlePic -}}
@@ -1692,17 +1692,17 @@ layui.define(['main'], function (exports) {
         <time>{{date .Updated "2006-01-02 15:04"}}</time>
     </li>
     {{- end}}
-</ul>`, layer.msg('复制成功'));
+</ul>`);
                         break;
                     case "tag":
-                        main.copy.exec(`<ul>
+                        main.copy(`<ul>
     {{- range .Tags}}
     <li>{{.}}</li>
     {{- end}}
-</ul>`, layer.msg('复制成功'));
+</ul>`);
                         break;
                     default:
-                        main.copy.exec(val, layer.msg('复制成功'));
+                        main.copy(val);
                 }
                 e.stopPropagation();
                 e.preventDefault();
@@ -1952,7 +1952,7 @@ layui.define(['main'], function (exports) {
                 copy: function (obj) {
                     let name = obj.data.path.split('/images/', 2)[1];
                     if (name) {
-                        main.copy.exec('{{hostname}}/images/' + name, layer.msg('复制成功'));
+                        main.copy('{{hostname}}/images/' + name);
                     }
                 },
                 size: function (obj) {

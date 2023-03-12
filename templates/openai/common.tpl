@@ -111,7 +111,7 @@
                             <label class="layui-form-label">模型:</label>
                             <div class="layui-input-block">
                                 <select name="model" lay-search>
-                                    {{range $k,$v:=.models -}}
+                                    {{range $k,$v:=$.obj.Models -}}
                                         <option value="{{$v}}"{{if eq $v $.obj.Model}} selected{{end}}>{{$v}}</option>
                                     {{end -}}
                                 </select>
@@ -185,6 +185,9 @@
                             <div class="layui-input-block" style="margin-left:30px;margin-right:15px;">
                                 <textarea name="prompt" rows="19" class="layui-textarea" placeholder="给我写一篇以《seo》为标题的文章">给我写一篇以《seo》为标题的文章</textarea>
                                 <button class="layui-btn" data-event="test">测试模块</button>
+                                <button class="layui-btn layui-btn-primary" data-event="saveDefault" style="float:right">
+                                    保存当前配置为系统默认
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -242,21 +245,43 @@
             {elem: '#presence_penalty', min: 0, max: 200},
             {elem: '#best_of', min: 1, max: 20},
         );
+        let active = {
+            test: function () {
+                let data = main.formData(this.closest(".layui-form"));
+                main.request({
+                    url: url + "/test",
+                    data: data,
+                    done: function (res) {
+                        $('[name=prompt]').val(res.data);
+                        return false;
+                    }
+                });
+            },
+            saveDefault: function () {
+                let data = main.formData(this.closest(".layui-form"));
+                main.request({
+                    url: url + "/default/save",
+                    data: data,
+                    done: function (res) {
+                        if (Array.isArray(res.data)) {
+                            let ele = $('select[name=model]'), val = ele.val(), html = '';
+                            $.each(res.data, function (k, v) {
+                                html += '<option value="' + v + '"' + (v === val ? ' selected' : '') + '>' + v + '</option>';
+                            });
+                            ele.html(html);
+                            form.render('select');
+                        }
+                    }
+                });
+            }
+        };
         // 填充关键词变量
         $('[data-write]').off("click").on("click", function () {
             $(this).parent().prev().find('textarea').insertAt($(this).data('write'));
         });
-        // 测试模块
-        $('[data-event=test]').off("click").on("click", function () {
-            let data = main.formData($(this).closest(".layui-form"));
-            main.request({
-                url: url + "/test",
-                data: data,
-                done: function (res) {
-                    $('[name=prompt]').val(res.data);
-                    return false;
-                }
-            });
+        $('[data-event]').off("click").on("click", function () {
+            let $this = $(this), event = $this.data('event');
+            active[event] && active[event].call($this);
         });
         $('[name=stop]').keypress(function (e) {
             if (e.keyCode === 13) {

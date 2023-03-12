@@ -110,9 +110,7 @@
                 layer.msg("关键词列表为空");
                 return false;
             }
-            main.copy.exec(result.join("\n"), function () {
-                layer.msg("复制成功");
-            });
+            main.copy(result.join("\n"));
         });
         $('[lay-filter="copy-urls"]').off('click').on('click', function () {
             let val = $('#collect-display').val(), values = val.split("\n"), result = [], reg = /(https?:\/\/\S+)/;
@@ -129,9 +127,7 @@
                 layer.msg("关键词列表为空");
                 return false;
             }
-            main.copy.exec(result.join("\n"), function () {
-                layer.msg("复制成功");
-            });
+            main.copy(result.join("\n"));
         });
         main.slider({elem: '#thread', value: {{$.obj.Thread}}, max: 100});
         if (isDirect) {

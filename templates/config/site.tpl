@@ -10,7 +10,7 @@
         cursor: pointer;
     }
 </style>
-<div class="layui-card layui-form">
+<div class="layui-card layui-form" id="site">
     <div class="layui-card-body">
         <div class="layui-tab layui-tab-card">
             <ul class="layui-tab-title">
@@ -222,7 +222,9 @@
                                        title="Error"{{if .obj.ErrorLog}} checked{{end}}>
                             </div>
                             <div class="layui-inline">
-                                <div class="layui-form-mid layui-word-aux">记录详细的访问日志，会占服务器资源，如无特别需求，不建议开启</div>
+                                <div class="layui-form-mid layui-word-aux">
+                                    记录详细的访问日志，会占服务器资源，如无特别需求，不建议开启
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -237,7 +239,9 @@
                                        title="列举目录" {{if .obj.DisplayDir}} checked{{end}}>
                             </div>
                             <div class="layui-inline">
-                                <div class="layui-form-mid layui-word-aux">防止webshell跨目录跨站和没有默认首页时显示所有文件列表</div>
+                                <div class="layui-form-mid layui-word-aux">
+                                    防止webshell跨目录跨站和没有默认首页时显示所有文件列表
+                                </div>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -278,7 +282,9 @@
                                 <input type="checkbox" name="client_cache" lay-skin="switch"
                                        lay-text="是|否"{{if .obj.ClientCache}} checked{{end}}>
                             </div>
-                            <div class="layui-form-mid layui-word-aux">此功能可减轻服务器负载，但有时更新可能不会及时显示</div>
+                            <div class="layui-form-mid layui-word-aux">
+                                此功能可减轻服务器负载，但有时更新可能不会及时显示
+                            </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">删除站点</label>
@@ -612,23 +618,8 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main,
-            form = layui.form,
-            //获取模板目录名称
-            tplName = $('select[name=tpl_name]').val();
-        //改变模板目录列表
-        form.on('select(system)', function (obj) {
-            $('#theme-shop').attr("lay-href", "/themes/shop?driver=" + obj.value);
-            let tplUrl = '/site/tpl?system=' + obj.value;
-            if (tplName) {
-                tplUrl = tplUrl + '&tpl_name=' + tplName;
-            }
-            $.get(tplUrl, {}, function (html) {
-                $('div[lay-filter=tpl_name]').html(html);
-                form.render();
-                $('#theme').empty();
-                main.render.tpl();
-            });
-        });
+            form = layui.form;
+
         form.on('submit(submit)', function (obj) {
             main.request({
                 url: url,
@@ -650,6 +641,8 @@
             }
             return false;
         });
+        // 渲染模板
+        main.render.theme();
         //滑块控制
         main.slider(
             {elem: '#insert_pic_deg', range: true},
@@ -661,13 +654,5 @@
             {elem: '#out_link_deg', value: {{$.obj.OutLinkDeg}}},
             {elem: '#title_tag_deg', value: {{$.obj.TitleTagDeg}}},
         );
-        //改变模板
-        form.on('select(tpl_name)', function (obj) {
-            $('#theme').empty();
-            if (obj.value) {
-                main.render.tpl(obj.value);
-            }
-        });
-        main.render.tpl();
     });
 </script>

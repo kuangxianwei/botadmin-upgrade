@@ -153,9 +153,7 @@
                     layer.msg("关键词列表为空");
                     return false;
                 }
-                main.copy.exec(result.join("\n"), function () {
-                    layer.msg("复制成功");
-                });
+                main.copy(result.join("\n"));
             },
             "log": function () {
                 main.ws.log("tags.0");

@@ -321,7 +321,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="openai-models">
-                                <a lay-href="/openai/models" lay-tips="OpenAI 模块列表" lay-direction="2">
+                                <a lay-href="/openai" lay-tips="OpenAI 模块列表" lay-direction="2">
                                     <i class="iconfont icon-models"></i>
                                     <cite>模块列表</cite>
                                 </a>

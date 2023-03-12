@@ -213,7 +213,7 @@
                 let loading = main.loading();
                 $.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
                     loading.close();
-                    main.copy.exec(jsCode, layer.msg('广告JS代码复制成功'));
+                    main.copy(jsCode, layer.msg('广告JS代码复制成功'));
                 });
             },
             addDuration: function () {

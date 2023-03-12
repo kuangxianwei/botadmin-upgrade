@@ -10,15 +10,13 @@
         cursor: pointer;
     }
 </style>
-<div class="layui-card" id="classes">
+<div class="layui-card" id="site">
     <div class="layui-card-body">
         <div class="layui-tab layui-tab-card layui-form">
             <ul class="layui-tab-title">
                 <li class="layui-this">建站设置</li>
                 <li>web设置</li>
                 <li>手机站</li>
-                <li>数据库</li>
-                <li>FTP帐户</li>
                 <li>基本控制</li>
                 <li>发布设置</li>
                 <li>SEO设置</li>
@@ -53,23 +51,23 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">站点域名:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="vhost" required lay-verify="vhost"
-                                   class="layui-input" placeholder="如:botadmin.cn" autofocus="autofocus"
-                                   value="{{.obj.Vhost}}" {{if gt .obj.Status 0}} disabled{{end}}>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">站点域名<i class="iconfont icon-about" lay-tips="不带http://，创建后不可修改"></i>:</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="vhost" required lay-verify="vhost"
+                                       class="layui-input" placeholder="如:botadmin.cn" autofocus="autofocus"
+                                       value="{{.obj.Vhost}}" {{if gt .obj.Status 0}} disabled{{end}}>
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">
+                                <span class="text-danger" style="color:red;">*</span>
+                            </div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <span class="text-danger"><strong style="color:red;">*</strong> 不带http://，创建后不可修改</span>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">绑定域名<i class="iconfont icon-about" lay-tips="多个请用英文逗号,分隔"></i>:</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="binds" class="layui-input" placeholder="如:blog.botadmin.cn,nfivf.com" value='{{join .obj.Binds ","}}'>
+                            </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">绑定域名:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="binds" class="layui-input"
-                                   placeholder="如:blog.botadmin.cn,nfivf.com" value='{{join .obj.Binds ","}}'>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">多个请用英文逗号","分隔</div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">默认首页:</label>
@@ -93,13 +91,50 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">泛域名支持:</label>
+                        <label class="layui-form-label">泛域名<i class="iconfont icon-about" lay-tips="对泛域名的支持，一般不需要开启"></i>:</label>
                         <div class="layui-input-inline">
                             <input type="checkbox" name="unlimited_bind" lay-skin="switch"
-                                   lay-text="打开|关闭"{{if .obj.UnlimitedBind}} checked{{end}}>
+                                   lay-text="启用|禁用"{{if .obj.UnlimitedBind}} checked{{end}}>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">
-                            <span class="text-danger">对泛域名的支持，一般不需要开启</span>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">SQL<i class="iconfont icon-about" lay-tips="是否启用数据库，如果启用又不选择则自动创建"></i>:</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="sql_enabled" lay-skin="switch" lay-text="启用|禁用"{{if .obj.SqlEnabled}} checked{{end}}>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <select name="sql_id" lay-tips="不选择则自动创建数据库" lay-search>
+                                <option value="">自动创建</option>
+                                {{range .sqls -}}
+                                    <option value="{{.Id}}" {{if eq .Id $.obj.SqlId}} selected{{end}}>{{.Dbname}}</option>
+                                {{end -}}
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-form-mid layui-word-aux">不选择则自动创建数据库</div>
+                            <div class="layui-btn layui-btn-primary" data-event="addSql">手动创建数据库</div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">FTP<i class="iconfont icon-about" lay-tips="是否启用FTP，如果启用又不选择则自动创建"></i>:</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="ftp_enabled" lay-skin="switch" lay-text="启用|禁用"{{if .obj.FtpEnabled}} checked{{end}}>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <select name="ftp_id" lay-search>
+                                <option value="">自动创建</option>
+                                {{range .ftps -}}
+                                    <option value="{{.Id}}" {{if eq .Id $.obj.FtpId}} selected{{end}}>{{.Username}}</option>
+                                {{end -}}
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <div class="layui-form-mid layui-word-aux">不选择则自动创建FTP</div>
+                            <div class="layui-btn layui-btn-primary" data-event="addFtp">手动创建FTP</div>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -303,89 +338,6 @@
                                    autocomplete="off" placeholder="m">
                         </div>
                         <div class="layui-form-mid layui-word-aux">确保网站根目录下存在这个路径</div>
-                    </div>
-                </div>
-                <div class="layui-tab-item">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">是否创建:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="sql_enabled" lay-skin="switch"
-                                   lay-text="是|否" {{if .obj.SqlEnabled}} checked{{end}}{{if gt .obj.Status 0}}
-                            disabled{{end}}>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux"><span class="text-danger">创建数据库</span></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">数据库名:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="db_name" value="{{.obj.DbName}}" class="layui-input"
-                                   autocomplete="off" placeholder="5-15个字符">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">由字母、数字、下划线组成，<span
-                                    class="text-danger">不能全为数字</span>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">用户名:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="db_user" value="{{.obj.DbUser}}" class="layui-input"
-                                   autocomplete="off" placeholder="3-15个字符">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">由字母、数字、下划线组成，
-                            <span class="text-danger">不能全为数字</span>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">密码:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="db_pwd" value="{{.obj.DbPwd}}" class="layui-input"
-                                   autocomplete="off" placeholder="6-15个字符">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">由字母、数字、下划线组成</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">数据库前缀:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="db_prefix" value="{{.obj.DbPrefix}}" class="layui-input">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">字母加下划线结尾</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">编码:</label>
-                        <div class="layui-input-inline">
-                            <select name="db_charset">
-                                <option value="utf8mb4" {{if eq .obj.DbCharset "utf8mb4"}} selected{{end}}>UTF8</option>
-                                <option value="gbk" {{if eq .obj.DbCharset "gbk"}} selected{{end}}>GBK</option>
-                                <option value="latin1" {{if eq .obj.DbCharset "latin1"}} selected{{end}}>latin1</option>
-                            </select>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">数据库编码，一般是用utf8,gbk</div>
-                    </div>
-                </div>
-                <div class="layui-tab-item">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">FTP:</label>
-                        <div class="layui-input-inline">
-                            <input type="checkbox" name="ftp_enabled" lay-skin="switch"
-                                   lay-text="是|否" {{if .obj.FtpEnabled}} checked{{end}}>
-                        </div>
-                        <div class="layui-form-mid layui-word-aux"><span class="text-danger">创建FTP帐户</span></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">用户名:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="ftp_user" value="{{.obj.FtpUser}}"
-                                   class="layui-input" placeholder="3-12个字符">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">由字母、数字、下划线组成，且不可修改</div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">密码:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="ftp_pwd" value="{{.obj.FtpPwd}}"
-                                   class="layui-input" placeholder="6-15个字符">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">由字母、数字、下划线组成</div>
                     </div>
                 </div>
                 <div class="layui-tab-item">
@@ -725,10 +677,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label" lay-tips="忽略百度关键词列表">过滤:</label>
                                 <div class="layui-input-block">
-                                    {{$bd_ignores:=`小姐
-代孕` -}}
-                                    <textarea name="bd_ignores" class="layui-textarea" rows="3"
-                                              placeholder="{{$bd_ignores}}">{{ join .obj.BdIgnores "\n"}}</textarea>
+                                    <textarea name="bd_ignores" class="layui-textarea" rows="3" placeholder="小姐&#13;代孕">{{ join .obj.BdIgnores "\n"}}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -832,29 +781,101 @@
         // 渲染栏目列表
         layui.classes();
         // 渲染模板
-        main.render.tpl();
+        main.render.theme();
         // 自动填充
         main.render.fill();
         // 定时选择器
         main.cron('[name="spec"]');
-        //监控系统选择
-        form.on('select(system)', function (obj) {
-            $('#theme-shop').attr("lay-href", "/themes/shop?driver=" + obj.value);
-            $.get('/site/admin', {system: obj.value}, function (html) {
-                $('input[name=admin_dir]').val(html);
-            });
-            $.get('/site/tpl', {system: obj.value, tpl_name: $('select[name=tpl_name]').val()}, function (html) {
-                $('div[lay-filter=tpl_name]').html(html);
-                form.render();
-                $('#theme').empty();
-                main.render.tpl();
-            });
-            if (obj.value === 'dedecms' || obj.value === 'cms') {
-                $('select[name=rewrite]>option').prop('selected', false);
-            } else {
-                $('select[name=rewrite]>option[value="' + obj.value + '.conf"]').prop('selected', true);
-            }
-            form.render('select');
+        let getVhost = function () {
+                let ele = $('#site input[name=vhost]');
+                if (!new RegExp(/^([a-zA-Z\d-]+\.)+[a-zA-Z]/).test(ele.val())) {
+                    main.error('必须是一个有效的域名', {
+                        end: function () {
+                            $('#site').scrollTop(0);
+                            ele.focus()
+                        }
+                    });
+                    return false;
+                }
+                return ele.val();
+            },
+            active = {
+                addSql: function () {
+                    let vhost = getVhost();
+                    if (vhost) {
+                        let loading = main.loading();
+                        $.get('/sql/add', {dbname: vhost}).always(function () {
+                            loading.close();
+                        }).done(function (html) {
+                            main.popup({
+                                title: "添加SQL",
+                                url: '/sql/add',
+                                content: html,
+                                area: ['600px', '600px'],
+                                done: function () {
+                                    $.get('/sql/list').done(function (res) {
+                                        if (Array.isArray(res.data)) {
+                                            let ele = $('#site select[name=sql_id]'),
+                                                sqlId = +ele.val(),
+                                                id = +($('#site input[name=id]').val()),
+                                                enabled = $('#site [name=sql_enabled]').prop('checked'),
+                                                html = '<option value="">自动创建</option>';
+                                            $.each(res.data, function (i, v) {
+                                                if ((enabled && id === 0 && i === 0) || v.id === sqlId) {
+                                                    html += '<option value="' + v.id + '" selected>' + v.dbname + '</option>';
+                                                } else {
+                                                    html += '<option value="' + v.id + '">' + v.dbname + '</option>';
+                                                }
+                                            });
+                                            ele.html(html);
+                                            form.render('select');
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    }
+                },
+                addFtp: function () {
+                    let vhost = getVhost();
+                    if (vhost) {
+                        let loading = main.loading();
+                        $.get('/ftp/add', {username: vhost}).always(function () {
+                            loading.close();
+                        }).done(function (html) {
+                            main.popup({
+                                title: "添加FTP",
+                                url: '/ftp/add',
+                                content: html,
+                                area: ['600px', '600px'],
+                                done: function () {
+                                    $.get('/ftp/list').done(function (res) {
+                                        if (Array.isArray(res.data)) {
+                                            let ele = $('#site select[name=ftp_id]'),
+                                                ftpId = +ele.val(),
+                                                id = +($('#site input[name=id]').val()),
+                                                enabled = $('#site [name=ftp_enabled]').prop('checked'),
+                                                html = '<option value="">自动创建</option>';
+                                            $.each(res.data, function (i, v) {
+                                                if ((enabled && id === 0 && i === 0) || v.id === ftpId) {
+                                                    html += '<option value="' + v.id + '" selected>' + v.username + '</option>';
+                                                } else {
+                                                    html += '<option value="' + v.id + '">' + v.username + '</option>';
+                                                }
+                                            });
+                                            ele.html(html);
+                                            form.render('select');
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    }
+                },
+            };
+        $('[data-event]').off('click').on('click', function () {
+            let $this = $(this), event = $this.data('event');
+            active[event] && active[event].call($this);
         });
         //滑块控制
         main.slider(
@@ -867,11 +888,6 @@
             {elem: '#out_link_deg', value: {{$.obj.OutLinkDeg}}},
             {elem: '#title_tag_deg', value: {{$.obj.TitleTagDeg}}},
         );
-        // 改变模板
-        form.on('select(tpl_name)', function (obj) {
-            $('#theme').empty();
-            obj.value && main.render.tpl(obj.value);
-        });
         /* 验证 */
         form.verify({
             vhost: function (val) {

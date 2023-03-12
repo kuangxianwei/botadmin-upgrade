@@ -23,29 +23,9 @@
                 <td>数据库 ID</td>
             </tr>
             <tr>
-                <td>ftp_user</td>
-                <td>string</td>
-                <td>FTP 用户名</td>
-            </tr>
-            <tr>
-                <td>ftp_pwd</td>
-                <td>string</td>
-                <td>FTP 密码</td>
-            </tr>
-            <tr>
-                <td>db_name</td>
+                <td>dbname</td>
                 <td>string</td>
                 <td>数据库名称</td>
-            </tr>
-            <tr>
-                <td>db_user</td>
-                <td>string</td>
-                <td>数据库用户名</td>
-            </tr>
-            <tr>
-                <td>db_pwd</td>
-                <td>string</td>
-                <td>数据库密码</td>
             </tr>
             <tr>
                 <td>vhost</td>

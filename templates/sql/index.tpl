@@ -165,7 +165,7 @@
                     let loading = layui.main.loading();
                     $.get(url + '/view', {}, function (pwd) {
                         loading.close();
-                        main.copy.exec(pwd, layer.msg('root密码复制成功'));
+                        main.copy(pwd, layer.msg('root密码复制成功'));
                     });
                 },
                 'sync': function () {
