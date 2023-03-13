@@ -22,7 +22,7 @@
                             <label class="layui-form-label">秘钥:</label>
                             <div class="layui-input-block">
                                 <select name="token_id" lay-search>
-                                    <option value="0">随机秘钥</option>
+                                    <option value="">随机秘钥</option>
                                     {{range .tokens -}}
                                         <option value="{{.Id}}"{{if eq .Id $.Id}} selected{{end}}>{{.Key}}</option>
                                     {{end -}}

@@ -2,15 +2,21 @@
     <div class="layui-form layui-card-header layuiadmin-card-header-auto">
         <div class="layui-form-item" id="form-search" lay-event="search">
             <div class="layui-inline">
-                <label class="layui-form-label">秘钥:</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="key" placeholder="请输入部分秘钥搜索" class="layui-input">
+                <label class="layui-form-label">搜索类型:</label>
+                <div class="layui-input-block">
+                    <select lay-filter="search-type">
+                        <option value="key">秘钥</option>
+                        <option value="enabled">启用</option>
+                        <option value="disabled">禁用</option>
+                        <option value="type">状态类型</option>
+                        <option value="message">提示信息</option>
+                        <option value="http_code">状态码</option>
+                    </select>
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">状态:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="status" placeholder="请输入部分状态搜索" class="layui-input">
+                    <input type="text" name="key" placeholder="搜索..." class="layui-input" id="search-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -131,7 +137,13 @@
                     }
                 },
                 {field: 'key', title: '秘钥', edit: true, event: 'key'},
-                {field: 'status', title: '状态', sort: true},
+                {field: 'http_code', width: 90, title: '状态码', align: 'center'},
+                {
+                    field: 'type', title: '类型', sort: true, templet: function (d) {
+                        return d.type || 'Success';
+                    }
+                },
+                {field: 'message', title: '提示', sort: true},
                 {
                     field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
                         return main.timestampFormat(d['updated']);
@@ -264,6 +276,34 @@
             }
         });
         // 监听搜索
+        form.on('select(search-type)', function (obj) {
+            let ele = $('#search-input');
+            switch (obj.value) {
+                case 'disabled':
+                    table.reload('table-list', {
+                        where: {cols: 'enabled', enabled: false, page: {curr: 1}}
+                    });
+                    ele.hide().val('');
+                    break;
+                case 'enabled':
+                    table.reload('table-list', {
+                        where: {
+                            cols: 'enabled',
+                            enabled: true,
+                            page: {curr: 1}
+                        }
+                    });
+                    ele.hide().val('');
+                    break;
+                case 'http_code':
+                    ele.show().attr({type: 'number', name: obj.value}).val('');
+                    table.reload('table-list', {where: {page: {curr: 1}}});
+                    break;
+                default:
+                    ele.show().attr({type: 'text', name: obj.value}).val('');
+                    table.reload('table-list', {where: {page: {curr: 1}}});
+            }
+        });
         main.onSearch();
         main.checkLNMP();
     });
