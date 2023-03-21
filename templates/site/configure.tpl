@@ -10,6 +10,7 @@
             <legend>修改目标</legend>
             <input type="checkbox" data-field="ad" title="广告代码" lay-filter="field">
             <input type="checkbox" data-field="replaces" title="灰词替换" lay-filter="field">
+            <input type="checkbox" data-field="pic_autoed" title="自动图片" lay-filter="field">
             <input type="checkbox" data-field="contact" title="联系方式" lay-filter="field">
             <input type="checkbox" data-field="insert_pic_deg" title="插图阈值" lay-filter="field">
             <input type="checkbox" data-field="pub_deg" title="发布阈值" lay-filter="field">
@@ -43,9 +44,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
         <div class="layui-input-block">
-            {{$contact:=`李谊:139-2235-2985
-韩晶:135-3983-5229` -}}
-            <textarea name="contact" class="layui-textarea" placeholder="{{$contact}}"></textarea>
+            <textarea name="contact" class="layui-textarea" placeholder="李谊:139-2235-2985&#13;韩晶:135-3983-5229"></textarea>
         </div>
     </div>
 </script>
@@ -79,6 +78,20 @@
                     fieldElem.append($('#contact-html').html());
                 } else {
                     fieldElem.find('[name=contact]').closest('.layui-form-item').remove();
+                }
+            },
+            pic_autoed: function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
+                        <label class="layui-form-label">自动图片:</label>
+                        <div class="layui-input-inline">
+                            <input type="checkbox" name="pic_autoed" lay-skin="switch" lay-text="是|否" checked>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">根据标题和描述自动生成图片</div>
+                    </div>`);
+                    form.render('checkbox');
+                } else {
+                    fieldElem.find('[name=pic_autoed]').closest('.layui-form-item').remove();
                 }
             },
             insert_pic_deg: function (enabled) {

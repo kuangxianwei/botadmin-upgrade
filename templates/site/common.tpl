@@ -477,14 +477,23 @@
                     </fieldset>
                 </div>
                 <div class="layui-tab-item">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">发布模式:</label>
-                        <div class="layui-input-inline">
-                            <select name="publish_mode" class="layui-select">
-                                <option value="0"{{if eq .obj.PublishMode 0}} selected{{end}}>随机模式</option>
-                                <option value="1"{{if eq .obj.PublishMode 1}} selected{{end}}>正常模式</option>
-                                <option value="2"{{if eq .obj.PublishMode 2}} selected{{end}}>百科模式</option>
-                            </select>
+                    <div class="layui-form-item layui-row">
+                        <div class="layui-col-sm6">
+                            <label class="layui-form-label">发布模式:</label>
+                            <div class="layui-input-block">
+                                <select name="publish_mode" class="layui-select">
+                                    <option value="0"{{if eq .obj.PublishMode 0}} selected{{end}}>随机模式</option>
+                                    <option value="1"{{if eq .obj.PublishMode 1}} selected{{end}}>正常模式</option>
+                                    <option value="2"{{if eq .obj.PublishMode 2}} selected{{end}}>百科模式</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6">
+                            <label class="layui-form-label" lay-tips="随机发布指定数量的文章">发布阈值:</label>
+                            <div class="layui-input-block">
+                                <div id="pub_deg" class="slider-block"></div>
+                                <input type="hidden" name="pub_deg" value="{{print .obj.PubDeg}}"/>
+                            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -529,11 +538,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label" lay-tips="随机发布指定数量的文章">发布阈值:</label>
-                        <div class="layui-input-block">
-                            <div id="pub_deg" class="slider-block"></div>
-                            <input type="hidden" name="pub_deg" value="{{print .obj.PubDeg}}"/>
+                    <div class="layui-form-item layui-row">
+                        <div class="layui-col-md2">
+                            <label class="layui-form-label" lay-tips="系统根据标题和描述自动制作图片">自动图片:</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="pic_autoed" lay-skin="switch" lay-text="是|否"{{if .obj.PicAutoed}} checked{{end}}>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label" lay-tips="自动生成图片的宽度">自动图宽:</label>
+                            <div class="layui-input-block">
+                                <input type="number" name="pic_w" value="{{.obj.PicW}}" class="layui-input"/>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label" lay-tips="自动生成图片的高度">自动图高:</label>
+                            <div class="layui-input-block">
+                                <input type="number" name="pic_h" value="{{.obj.PicH}}" class="layui-input"/>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label" lay-tips="自动生成图片的高">图模式:</label>
+                            <div class="layui-input-block">
+                                <select name="pic_mode" class="layui-select">
+                                    <option value="0"{{if eq .obj.PicMode 0}} selected{{end}}>随机颜色</option>
+                                    <option value="1"{{if eq .obj.PicMode 1}} selected{{end}}>白底黑字</option>
+                                    <option value="2"{{if eq .obj.PicMode 2}} selected{{end}}>黑底白字</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -880,7 +912,7 @@
         //滑块控制
         main.slider(
             {elem: '#insert_pic_deg', range: true},
-            {elem: '#pub_deg', range: true, min: 1, max: 100},
+            {elem: '#pub_deg', range: true, min: 1, max: 30},
             {elem: '#content_deg', range: true},
             {elem: '#pub_attr_deg', value: {{$.obj.PubAttrDeg}}},
             {elem: '#originality_rate', value: {{$.obj.OriginalityRate}}, max: 100},

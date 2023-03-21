@@ -323,54 +323,77 @@
                     </fieldset>
                 </div>
                 <div class="layui-tab-item">
-                    <div class="layui-form-item">
-                        <div class="layui-row">
-                            <div class="layui-col-md6">
-                                <label class="layui-form-label">发布模式:</label>
-                                <div class="layui-input-inline">
-                                    <select name="publish_mode" class="layui-select">
-                                        <option value="0"{{if eq .obj.PublishMode 0}} selected{{end}}>随机模式</option>
-                                        <option value="1"{{if eq .obj.PublishMode 1}} selected{{end}}>正常模式</option>
-                                        <option value="2"{{if eq .obj.PublishMode 2}} selected{{end}}>百科模式</option>
-                                    </select>
-                                </div>
+                    <div class="layui-form-item layui-row">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label">发布模式:</label>
+                            <div class="layui-input-inline">
+                                <select name="publish_mode" class="layui-select">
+                                    <option value="0"{{if eq .obj.PublishMode 0}} selected{{end}}>随机模式</option>
+                                    <option value="1"{{if eq .obj.PublishMode 1}} selected{{end}}>正常模式</option>
+                                    <option value="2"{{if eq .obj.PublishMode 2}} selected{{end}}>百科模式</option>
+                                </select>
                             </div>
-                            <div class="layui-col-md6">
-                                <label class="layui-form-label">标题格式:</label>
-                                <div class="layui-input-inline">
-                                    <textarea name="title_formats" rows="3" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
-                                </div>
-                                <div class="layui-form-mid layui-word-aux">
-                                    标签: &#123;&#123;tag&#125;&#125; &#123;&#123;title&#125;&#125; <br/> 一行一条
-                                </div>
+                        </div>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label" lay-tips="标签: &#123;&#123;tag&#125;&#125; &#123;&#123;title&#125;&#125;&#13;一行一条">标题格式:</label>
+                            <div class="layui-input-block">
+                                <textarea name="title_formats" rows="2" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-row">
-                            <div class="layui-col-md6">
-                                <label class="layui-form-label">图片路径:</label>
-                                <div class="layui-input-inline">
-                                    <input type="text" name="pic_dir" value="{{.obj.PicDir}}" class="layui-input"/>
-                                </div>
-                                <div class="layui-form-mid layui-word-aux">
-                                    <a lay-href="/file?path=data/pic/{{.obj.PicDir}}" lay-text="默认图片">点击添加或删除图片</a>
-                                </div>
+                    <div class="layui-form-item layui-row">
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label" lay-tips="随机发布1至3篇文章数量">发布阈值:</label>
+                            <div class="layui-input-block">
+                                <div id="pub_deg" class="slider-block"></div>
+                                <input type="hidden" name="pub_deg" value="{{print .obj.PubDeg}}"/>
                             </div>
-                            <div class="layui-col-md6">
-                                <label class="layui-form-label">发布间隔:</label>
-                                <div class="layui-input-inline">
-                                    <input type="number" min="100" name="pub_interval" value="{{.obj.PubInterval}}" class="layui-input"/>
-                                </div>
-                                <div class="layui-form-mid layui-word-aux">单位为毫秒</div>
+                        </div>
+                        <div class="layui-col-md6">
+                            <label class="layui-form-label" lay-tips="单位为毫秒">发布间隔:</label>
+                            <div class="layui-input-inline">
+                                <input type="number" min="100" name="pub_interval" value="{{.obj.PubInterval}}" class="layui-input"/>
                             </div>
+                            <div class="layui-form-mid layui-word-aux">单位为毫秒</div>
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label" lay-tips="随机发布1至3篇文章数量">发布阈值:</label>
-                        <div class="layui-input-block">
-                            <div id="pub_deg" class="slider-block"></div>
-                            <input type="hidden" name="pub_deg" value="{{print .obj.PubDeg}}"/>
+                        <label class="layui-form-label">图片路径:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="pic_dir" value="{{.obj.PicDir}}" class="layui-input"/>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <a lay-href="/file?path=data/pic/{{.obj.PicDir}}" lay-text="默认图片">点击添加或删除图片</a>
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-row">
+                        <div class="layui-col-md2">
+                            <label class="layui-form-label" lay-tips="系统根据标题和描述自动制作图片">自动图片:</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="pic_autoed" lay-skin="switch" lay-text="是|否"{{if .obj.PicAutoed}} checked{{end}}>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label" lay-tips="自动生成图片的宽度">自动图宽:</label>
+                            <div class="layui-input-block">
+                                <input type="number" name="pic_w" value="{{.obj.PicW}}" class="layui-input"/>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label" lay-tips="自动生成图片的高度">自动图高:</label>
+                            <div class="layui-input-block">
+                                <input type="number" name="pic_h" value="{{.obj.PicH}}" class="layui-input"/>
+                            </div>
+                        </div>
+                        <div class="layui-col-md3">
+                            <label class="layui-form-label" lay-tips="自动生成图片的高">图模式:</label>
+                            <div class="layui-input-block">
+                                <select name="pic_mode" class="layui-select">
+                                    <option value="0"{{if eq .obj.PicMode 0}} selected{{end}}>随机颜色</option>
+                                    <option value="1"{{if eq .obj.PicMode 1}} selected{{end}}>白底黑字</option>
+                                    <option value="2"{{if eq .obj.PicMode 2}} selected{{end}}>黑底白字</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -480,7 +503,7 @@
                             {{$pushTip:="api 别名 说明 一行一条<br> {{site}} 代表: http://www.botadmin.cn<br>{{host}} 代表: www.botadmin.cn<br>"}}
                             <label class="layui-form-label" lay-tips="{{$pushTip}}">推送设置</label>
                             <div class="layui-input-block">
-                                <textarea name="push_config" class="layui-textarea" rows="3">{{.push_config}}</textarea>
+                                <textarea name="push_config" class="layui-textarea" rows="2">{{.push_config}}</textarea>
                             </div>
                         </div>
                     </fieldset>
@@ -646,13 +669,13 @@
         //滑块控制
         main.slider(
             {elem: '#insert_pic_deg', range: true},
-            {elem: '#pub_deg', range: true, max: 100},
+            {elem: '#pub_deg', range: true, max: 50},
             {elem: '#content_deg', range: true},
-            {elem: '#originality_rate', value: {{$.obj.OriginalityRate}}, max: 100},
-            {elem: '#pub_attr_deg', value: {{$.obj.PubAttrDeg}}},
-            {elem: '#link_deg', value: {{$.obj.LinkDeg}}},
-            {elem: '#out_link_deg', value: {{$.obj.OutLinkDeg}}},
-            {elem: '#title_tag_deg', value: {{$.obj.TitleTagDeg}}},
+            {elem: '#originality_rate', max: 100},
+            {elem: '#pub_attr_deg'},
+            {elem: '#link_deg'},
+            {elem: '#out_link_deg'},
+            {elem: '#title_tag_deg'},
         );
     });
 </script>

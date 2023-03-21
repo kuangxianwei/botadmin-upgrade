@@ -4850,7 +4850,7 @@
                             if (typeof res.task === "undefined") {
                                 html = '
                                     < div
-                                style = "padding:5px;" > 当前没有任务！</div>
+                                style = "padding:5px;" > 当前没有任</div>
                                 <div style="position: fixed;bottom: 15px;">若任务长时间未执行，请尝试在首页点【重启面板】来重置任务队列</div>
                                 '
                                 command_install_list.html(html)
