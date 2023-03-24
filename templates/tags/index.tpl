@@ -50,26 +50,7 @@
             table = layui.table,
             main = layui.main;
         url = url || '';
-        layui.upload.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            elem: '#import',
-            url: url + '/import',
-            accept: 'file',
-            exts: 'conf|txt|tar.gz|zip',
-            before: function () {
-                layer.load(); //上传loading
-            },
-            done: function (res) {
-                layer.closeAll('loading'); //关闭loading
-                if (res.code === 0) {
-                    layer.msg(res.msg);
-                    table.reload('table-list');
-                } else {
-                    layer.alert(res.msg, {icon: 2});
-                }
-            },
-        });
-
+        main.upload();
         //日志管理
         table.render({
             headers: {'X-CSRF-Token': csrfToken},
@@ -136,7 +117,7 @@
                         url: url + '/add',
                         content: '<div class="layui-card layui-form" style="height: 98%">' +
                             '<textarea class="layui-textarea" name="values" style="height: 100%" placeholder="输入关键词一行一个"></textarea>' +
-                            '<button class="layui-hide" lay-submit lay-filter="submit"></bbutton>' +
+                            '<button class="layui-hide" lay-submit lay-filter="submit"></button>' +
                             '</div>',
                         done: 'table-list'
                     });

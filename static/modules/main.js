@@ -1588,5 +1588,41 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             content: ["/webssh/terminal?id=" + options.id + "&stdin=" + options.stdin, 'no'],
         });
     };
+    main.upload = function (options) {
+        layui.upload.render($.extend({
+            headers: {'X-CSRF-Token': csrfToken},
+            elem: '#import',
+            url: url + '/import',
+            accept: 'file',
+            exts: 'conf|txt|tar.gz|zip',
+            before: function () {
+                layer.load(); //上传loading
+            },
+            done: function (res) {
+                layer.closeAll('loading'); //关闭loading
+                if (res.code === 0) {
+                    layer.msg(res.msg);
+                    table.reload('table-list');
+                } else {
+                    layer.alert(res.msg, {icon: 2});
+                }
+            },
+        }, options || {}));
+    };
+    main.table = function (cols, options) {
+        options = main.isObject(cols) ? cols : options;
+        return table.render($.extend({
+            headers: {'X-CSRF-Token': csrfToken},
+            method: 'post',
+            elem: '#table-list',
+            toolbar: '#toolbar',
+            url: url,
+            cols: Array.isArray(cols) ? cols : [[]],
+            page: true,
+            limit: 10,
+            limits: [10, 50, 100, 500],
+            text: '对不起，加载出现异常！'
+        }, options || {}));
+    };
     exports('main', main);
 });
