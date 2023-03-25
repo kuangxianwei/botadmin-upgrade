@@ -109,7 +109,7 @@
             },
             log: function () {
                 $(this).find('span.layui-badge-dot').hide();
-                layui.main.ws.log("record.share");
+                layui.main.ws.log('record.global');
             }
         };
         $('[data-event]').off('click').on('click', function () {
