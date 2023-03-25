@@ -98,27 +98,8 @@
     layui.use(['index', 'main'], function () {
         let main = layui.main,
             table = layui.table,
-            form = layui.form,
-            upload = layui.upload;
-        upload.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            elem: '#import',
-            url: url + '/import',
-            accept: 'file',
-            exts: 'conf|json|tar.gz|zip',
-            before: function () {
-                layer.load(); //上传loading
-            },
-            done: function (res) {
-                layer.closeAll('loading'); //关闭loading
-                if (res.code === 0) {
-                    layer.msg(res.msg);
-                    table.reload('table-list');
-                } else {
-                    layer.alert(res.msg, {icon: 2});
-                }
-            },
-        });
+            form = layui.form;
+        main.upload();
 
         //日志管理
         table.render({

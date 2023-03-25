@@ -340,30 +340,11 @@
     layui.use(['index', 'main'], function () {
         let form = layui.form,
             table = layui.table,
-            upload = layui.upload,
             element = layui.element,
             main = layui.main,
             status = {{.status}},
             //渲染上传配置
-            importConfig = upload.render({
-                headers: {'X-CSRF-Token': csrfToken},
-                elem: '#import',
-                url: '/site/import',
-                accept: 'file',
-                exts: 'txt|conf|json|tar.gz|zip',
-                before: function () {
-                    layer.load(); //上传loading
-                },
-                done: function (res) {
-                    layer.closeAll('loading'); //关闭loading
-                    if (res.code === 0) {
-                        layer.msg(res.msg);
-                        table.reload('table-list');
-                    } else {
-                        layer.alert(res.msg, {icon: 2});
-                    }
-                },
-            });
+            importConfig = main.upload();
         status = status || [];
         let active = {
                 cron_switch: function (obj) {

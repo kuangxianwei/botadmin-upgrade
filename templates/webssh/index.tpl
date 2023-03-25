@@ -96,25 +96,7 @@
         version = version || 'v0';
         version = parseInt(version.replaceAll(/[v.]/g, ''));
         //渲染上传配置
-        layui.upload.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            elem: '#import',
-            url: url + '/import',
-            accept: 'file',
-            exts: 'txt|conf|json|tar.gz|zip',
-            before: function () {
-                layer.load(); //上传loading
-            },
-            done: function (res) {
-                layer.closeAll('loading'); //关闭loading
-                if (res.code === 0) {
-                    layer.msg(res.msg);
-                    table.reload('table-list');
-                } else {
-                    main.error(res.msg);
-                }
-            },
-        });
+        main.upload();
         //日志管理
         table.render({
             headers: {'X-CSRF-Token': csrfToken},
@@ -269,7 +251,7 @@
                                     case "scp":
                                         dom.find("#stdin").html(`<div class="layui-input-block"><input type="text" name="stdin" placeholder="/本地路径 /远程路径" class="layui-input" lay-verify="required"></div>`).find('input[name=stdin]').blur(function () {
                                             localStorage.setItem("ssh-scp", $(this).val())
-                                        }).val(localStorage.getItem("ssh-scp") || "")
+                                        }).val(localStorage.getItem("ssh-scp") || "");
                                         break;
                                     default:
                                         dom.find("#stdin").empty();

@@ -114,7 +114,7 @@
                     // 下拉加载更多
                     $(window).scroll(function () {
                         if (($(document).scrollTop() >= $(document).height() - $(window).height()) && $('img[lay-src]').length === 0 && !paginatorLast) {
-                            req.options.data.page++
+                            req.options.data.page++;
                             req.reload({callback: null});
                         }
                     });
@@ -125,7 +125,7 @@
                         url: url,
                         data: {driver: driver, page: 1, limit: 24},
                         error: function (res) {
-                            paginatorLast = true
+                            paginatorLast = true;
                             $('#result-count>cite').text(res.msg);
                             downEle.hide();
                             return false;
@@ -161,7 +161,7 @@
                     }
                 };
                 this.active = {
-                    "img": function (d) {
+                    img: function (d) {
                         this.attr({
                             "lay-tips": (d['intro'] || d['alias']),
                             "lay-src": main.getSrc(d['small_face']),
@@ -171,16 +171,16 @@
                             "data-event": "magnifier"
                         });
                     },
-                    "alias": function (d) {
+                    alias: function (d) {
                         this.attr("lay-tips", d['alias']).text(d['alias']);
                     },
-                    "intro": function (d) {
+                    intro: function (d) {
                         this.attr("lay-tips", d['intro']).text(d['intro']);
                     },
-                    "tags": function (d) {
+                    tags: function (d) {
                         this.attr("lay-tips", d['tags']).text(d['tags']);
                     },
-                    "face": function (d) {
+                    face: function (d) {
                         upload.render({
                             headers: {'X-CSRF-Token': csrfToken},
                             elem: this,
@@ -312,7 +312,7 @@
                                                 layer.close(index);
                                                 layer.close(popIndex);
                                                 let ele = $("#" + res.data.id);
-                                                othis.buildItem(ele, res.data)
+                                                othis.buildItem(ele, res.data);
                                                 flow.lazyimg();
                                                 return false;
                                             }

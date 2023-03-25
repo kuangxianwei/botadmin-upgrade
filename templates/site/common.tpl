@@ -912,7 +912,7 @@
         //滑块控制
         main.slider(
             {elem: '#insert_pic_deg', range: true},
-            {elem: '#pub_deg', range: true, min: 1, max: 30},
+            {elem: '#pub_deg', range: true, min: 1, max: 100},
             {elem: '#content_deg', range: true},
             {elem: '#pub_attr_deg', value: {{$.obj.PubAttrDeg}}},
             {elem: '#originality_rate', value: {{$.obj.OriginalityRate}}, max: 100},

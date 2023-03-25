@@ -62,61 +62,32 @@
         let table = layui.table,
             main = layui.main;
         //渲染上传配置
-        layui.upload.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            elem: '#import',
-            url: '/trans/import',
-            accept: 'file',
-            exts: 'txt|conf|json',
-            before: function () {
-                layer.load(); //上传loading
-            },
-            done: function (res) {
-                layer.closeAll('loading'); //关闭loading
-                if (res.code === 0) {
-                    layer.msg(res.msg);
-                    table.reload('table-list');
-                } else {
-                    layer.alert(res.msg, {icon: 2});
+        main.upload();
+        //日志管理
+        main.table([[
+            {type: 'checkbox', fixed: 'left'},
+            {field: 'engine', title: '引擎', hide: true},
+            {field: 'id', title: 'ID', width: 80, align: 'center', sort: true},
+            {
+                field: 'enabled', title: '启用', width: 100, align: 'center',
+                event: 'enabled', templet: function (d) {
+                    return '<input type="checkbox" lay-skin="switch" lay-text="启用|关闭"' + (d.enabled ? ' checked' : '') + '>';
                 }
             },
-        });
-        //日志管理
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            toolbar: '#toolbar',
-            url: url,
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {field: 'engine', title: '引擎', hide: true},
-                {field: 'id', title: 'ID', width: 80, align: 'center', sort: true},
-                {
-                    field: 'enabled', title: '启用', width: 100, align: 'center',
-                    event: 'enabled', templet: function (d) {
-                        return '<input type="checkbox" lay-skin="switch" lay-text="启用|关闭"' + (d.enabled ? ' checked' : '') + '>';
-                    }
-                },
-                {{if not .hide -}}
-                {field: 'app_id', title: 'AppId', minWidth: 100, align: 'center', sort: true},
-                {{end -}}
-                {field: 'token', title: 'Token', minWidth: 100},
-                {field: 'delay', title: '延时', width: 100, align: 'center', hide: true},
-                {
-                    field: 'created', title: '创建时间', width: 160, align: 'center', sort: true, templet: function (d) {
-                        return main.timestampFormat(d['created']);
-                    }
-                },
-                {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-            ],],
-            page: true,
-            limit: 10,
-            limits: [10, 30, 100, 500, 1000],
-            text: '对不起，加载出现异常！'
-        });
+            {{if not .hide -}}
+            {field: 'app_id', title: 'AppId', minWidth: 100, align: 'center', sort: true},
+            {{end -}}
+            {field: 'token', title: 'Token', minWidth: 100},
+            {field: 'delay', title: '延时', width: 100, align: 'center', hide: true},
+            {
+                field: 'created', title: '创建时间', width: 160, align: 'center', sort: true, templet: function (d) {
+                    return main.timestampFormat(d['created']);
+                }
+            },
+            {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+        ]]);
         let active = {
-                'enabled': function (obj) {
+                enabled: function (obj) {
                     let othis = $(this),
                         enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
                     main.request({
@@ -134,7 +105,7 @@
                         }
                     });
                 },
-                'del': function (obj) {
+                del: function (obj) {
                     layer.confirm('确定删除此条配置？', function (index) {
                         main.request({
                             url: url + "/del",
@@ -144,7 +115,7 @@
                         });
                     });
                 },
-                'modify': function (obj) {
+                modify: function (obj) {
                     let loading = layui.main.loading();
                     $.get(url + '/modify', {id: obj.data.id}, function (html) {
                         loading.close();
@@ -159,7 +130,7 @@
                 },
             },
             activeBar = {
-                'add': function () {
+                add: function () {
                     let loading = layui.main.loading();
                     $.get(url + '/add', {}, function (html) {
                         loading.close();
@@ -172,7 +143,7 @@
                         });
                     });
                 },
-                'del': function (obj, data, ids) {
+                del: function (obj, data, ids) {
                     if (ids.length === 0) {
                         return main.error('请选择数据');
                     }
@@ -185,7 +156,7 @@
                         });
                     });
                 },
-                'enabled': function (obj, data, ids) {
+                enabled: function (obj, data, ids) {
                     if (ids.length === 0) {
                         return main.error('请选择数据');
                     }
@@ -195,7 +166,7 @@
                         done: 'table-list'
                     });
                 },
-                'disabled': function (obj, data, ids) {
+                disabled: function (obj, data, ids) {
                     if (ids.length === 0) {
                         return main.error('请选择数据');
                     }
@@ -205,16 +176,16 @@
                         done: 'table-list'
                     });
                 },
-                'export': function (obj, data, ids) {
+                export: function (obj, data, ids) {
                     if (ids.length === 0) {
                         return main.error('请选择数据');
                     }
                     window.open(encodeURI('/trans/export?engine=' + data[0].engine + '&ids=' + ids.join()));
                 },
-                'import': function () {
+                import: function () {
                     $('#import').click();
                 },
-                'log': function (obj, data) {
+                log: function (obj, data) {
                     main.ws.log("trans." + data.engine + ".0");
                 },
             };

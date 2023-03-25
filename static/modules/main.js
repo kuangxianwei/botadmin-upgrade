@@ -1589,12 +1589,12 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
         });
     };
     main.upload = function (options) {
-        layui.upload.render($.extend({
+        return layui.upload.render($.extend({
             headers: {'X-CSRF-Token': csrfToken},
             elem: '#import',
             url: url + '/import',
             accept: 'file',
-            exts: 'conf|txt|tar.gz|zip',
+            exts: 'conf|txt|json|tar.gz|zip',
             before: function () {
                 layer.load(); //上传loading
             },
