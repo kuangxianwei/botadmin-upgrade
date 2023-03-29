@@ -315,8 +315,8 @@
         <div class="layui-card-body layui-form">
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <input type="radio" name="action" value="0" title="备份" lay-filter="mysql-action" checked>
-                    <input type="radio" name="action" value="1" title="还原" lay-filter="mysql-action">
+                    <input type="radio" name="action" value="backup" title="备份" lay-filter="mysql-action" checked>
+                    <input type="radio" name="action" value="revert" title="还原" lay-filter="mysql-action">
                 </div>
             </div>
         </div>
@@ -402,7 +402,7 @@
                         yes: function (index) {
                             layer.close(index);
                             let loading = main.loading();
-                            $.get(url + '/link', {id: obj.data.id, action: 1}, function (res) {
+                            $.get(url + '/link', {id: obj.data.id, action: 'inner'}, function (res) {
                                 loading.close();
                                 if (res.code !== 0) {
                                     main.error(res.msg);
@@ -412,7 +412,7 @@
                                     title: "修改内链",
                                     area: ['500px', '450px'],
                                     url: url + '/link',
-                                    content: `<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" placeholder="关键词=>https://www.nfivf.com/&#13;关键词2=>https://www.nfivf.com/" rows="12" name="links"></textarea></div><input name="id" type="hidden" value=""><input name="action" type="hidden" value="1"><button class="layui-hidden" lay-filter="submit" lay-submit></button></div></div>`,
+                                    content: `<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" placeholder="关键词=>https://www.nfivf.com/&#13;关键词2=>https://www.nfivf.com/" rows="12" name="links"></textarea></div><input name="id" type="hidden" value=""><input name="action" type="hidden" value="inner"><button class="layui-hidden" lay-filter="submit" lay-submit></button></div></div>`,
                                     success: function (dom) {
                                         dom.find("[name=id]").val(obj.data.id);
                                         res.data && dom.find("textarea[name=links]").val(res.data);
@@ -475,7 +475,7 @@
                             elem.append('<input type="hidden" name="id" value="' + obj.data.id + '"><button class="layui-hide" lay-submit lay-filter="' + uuid + '"></button>');
                             form.render();
                             form.on('radio(mysql-action)', function (event) {
-                                if (event.value === '1') {
+                                if (event.value === 'revert') {
                                     layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
                                         layer.close(index);
                                         let loading = main.loading();

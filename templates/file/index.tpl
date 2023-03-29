@@ -19,7 +19,7 @@
                 </div>
                 <div class="layui-inline">
                     <div class="layui-input-inline">
-                        <input type="checkbox" name="action" title="包含子目录">
+                        <input type="checkbox" name="recursion" title="包含子目录">
                     </div>
                 </div>
                 <button class="layui-btn layui-btn-sm layui-btn-primary" lay-submit lay-filter="search">
@@ -48,7 +48,7 @@
         <div class="layui-inline">
             <label class="layui-form-label">操作:</label>
             <div class="layui-input-block">
-                <select name="action" lay-verify="" lay-search>
+                <select name="action" lay-verify="" lay-filter="action" lay-search>
                     <option value="compress" selected>打包</option>
                     <option value="del">删除</option>
                     <option value="move">移动/重命名</option>
@@ -542,6 +542,6 @@
 <script src="/static/file/ace/ace.js"></script>
 <script>
     layui.use(['index', 'file'], function () {
-        layui.file({appRoot:{{.app_root}}});
+        layui.file({root:{{.root}}});
     });
 </script>

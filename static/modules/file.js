@@ -1791,12 +1791,12 @@ layui.define(['main'], function (exports) {
         let url = options.url || $('meta[name=current_uri]').attr('content'),
             csrfToken = options['csrfToken'] || $('meta[name=csrf_token]').attr('content'),
             pathElem = typeof options.elem === 'string' ? $(options.elem) : $('#current-path'),
-            appRoot = options.appRoot || '/data/botadmin',
+            root = options.root || '/data/botadmin',
             data = {path: options.path || main.getParam('path') || '/home/wwwroot'},
             renderPath = function () {
                 data.path = data.path || '/';
                 if (data.path.substring(0, 1) !== '/') {
-                    data.path = appRoot + '/' + data.path;
+                    data.path = root + '/' + data.path;
                 }
                 pathElem.attr('title', data.path).show().parent().find('input').attr('type', 'hidden');
                 let paths = data.path.split('/'), p = [], elem = '<span title="/">根目录</span>';
@@ -1919,8 +1919,8 @@ layui.define(['main'], function (exports) {
                         }
                     }]],
                 page: true,
-                limit: 100,
-                limits: [100, 200, 500, 1000],
+                limit: 50,
+                limits: [50, 100, 200, 500, 1000],
                 text: '对不起，加载出现异常！',
                 done: function (res) {
                     if (this.where) {
@@ -1939,6 +1939,9 @@ layui.define(['main'], function (exports) {
                 }
             }),
             refresh = function (path) {
+                $('input[name=search]').val('');
+                $('input[name=recursion]').prop('checked', false);
+                form.render('checkbox');
                 tabled.reload({where: {path: path || data.path}});
             },
             active = {
@@ -2131,6 +2134,9 @@ layui.define(['main'], function (exports) {
                 });
             }
             return false;
+        });
+        form.on('select(action)', function (obj) {
+            console.log(obj);
         });
         // 渲染路径
         renderPath();
