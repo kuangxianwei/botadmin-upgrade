@@ -49,7 +49,8 @@
         <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
-        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="reset" lay-tips="清空全部 已读和未读都会被清空">清空
+        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="reset" lay-tips="清空全部 已读和未读都会被清空">
+            清空
         </button>
     </div>
 </script>
@@ -226,8 +227,10 @@
         });
         // 监听搜索
         form.on('submit(search)', function (data) {
-            let tableFilter = $('.layui-tab-title>li:first.layui-this').length ? 'table-list' : 'table-list-read';
+            let tableFilter = $('.layui-tab-item.layui-show>table').attr('lay-filter');
+            data.field.read = tableFilter === 'table-list-read';
             //执行重载
+            data.field.cols = 'feedback';
             table.reload(tableFilter, {
                 where: data.field,
                 page: {curr: 1}

@@ -1,9 +1,9 @@
 layui.define(['main'], function (exports) {
     const main = layui.main,
         faceTool = '<div class="layui-btn-group"><i data-event="add" class="layui-icon layui-icon-add-circle" lay-tips="添加子栏目"></i><i data-event="edit" class="layui-icon layui-icon-edit"></i></div>',
-        listTool = '<div class="layui-btn-group"><i data-event="add" class="layui-icon layui-icon-add-circle" lay-tips="添加子栏目"></i><i data-event="edit" class="layui-icon layui-icon-edit"></i><i data-event="del" class="layui-icon layui-icon-delete"></i></div>',
+        listTool = '<div class="layui-btn-group"><i data-event="edit" class="layui-icon layui-icon-edit"></i><i data-event="del" class="layui-icon layui-icon-delete"></i></div>',
         boxHTML = '<ul class="tree"><div class="layui-btn-group tool-bar"><i class="layui-icon layui-icon-add-circle" data-event="addTop" lay-tips="添加顶级栏目"></i><i class="layui-icon iconfont icon-copy" data-event="copy" lay-tips="复制栏目列表"></i><i class="layui-icon iconfont icon-paste" data-event="paste" lay-tips="粘贴栏目"></i><i class="layui-icon iconfont icon-fill" data-event="fill" lay-tips="随机填充栏目"></i></div></ul>',
-        fieldHTML = '<div class="layui-fluid"><div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><div class="layui-row"><div class="layui-col-md6"><label class="layui-form-label">栏目名称:</label><div class="layui-input-block"><input class="layui-input" lay-verify="required" name="name" placeholder="费用套餐" required type="text"></div></div><div class="layui-col-md6"><label class="layui-form-label">栏目别名:</label><div class="layui-input-block"><input class="layui-input" name="alias" placeholder="seo培训价格是多少" type="text"></div></div></div></div><div class="layui-form-item"><div class="layui-row"><div class="layui-col-md4"><label class="layui-form-label">路径名:</label><div class="layui-input-block"><input class="layui-input" name="path" placeholder="price" type="text"></div></div><div class="layui-col-md8"><label class="layui-form-label" lay-tips="用于自动匹配发布文章">分词:</label><div class="layui-input-block"><input class="layui-input" name="segments" placeholder="有限公司,广州,网络,优化" type="text"></div></div></div></div><div class="layui-form-item"><label class="layui-form-label">关键词:</label><div class="layui-input-block"><input class="layui-input" name="keywords" placeholder="关键词1,关键词2,关键词3" type="text"></div></div><div class="layui-form-item"><label class="layui-form-label">描述:</label><div class="layui-input-block"><input class="layui-input" name="description" placeholder="关于这个栏目的描述" type="text"></div></div><div class="layui-form-item"><div class="layui-row"><div class="layui-col-md4"><label class="layui-form-label" lay-tips="隐藏则在导航不显示该栏目">隐藏栏目:</label><div class="layui-input-block"><input lay-skin="switch" lay-text="是|否" name="hidden" type="checkbox"></div></div><div class="layui-col-md4"><label class="layui-form-label" lay-tips="数值越大越靠前">排序:</label><div class="layui-input-block"><input class="layui-input" name="sort" type="number" value="0"></div></div><div class="layui-col-md4"><label class="layui-form-label" lay-tips="每页显示限制">限制:</label><div class="layui-input-block"><input class="layui-input" name="limit" type="number" value="10"></div></div></div></div><div class="layui-form-item"><label class="layui-form-label">文章排序:</label><div class="layui-input-block"><input checked name="order" title="最新文章" type="radio" value="0"><input name="order" title="最旧文章" type="radio" value="1"><input name="order" title="ID升序" type="radio" value="2"><input name="order" title="ID降序" type="radio" value="3"></div></div><div class="layui-form-item"><div class="layui-col-md4"><label class="layui-form-label">封面模板:</label><div class="layui-input-block"><input class="layui-input" name="face_tpl" value="" placeholder="face.tpl"></div></div><div class="layui-col-md4"><label class="layui-form-label">列表模板:</label><div class="layui-input-block"><input class="layui-input" name="list_tpl" value="" placeholder="list.tpl"></div></div><div class="layui-col-md4"><label class="layui-form-label">文章模板:</label><div class="layui-input-block"><input class="layui-input" name="article_tpl" value="" placeholder="article.tpl"></div></div></div><div class="layui-form-item"><label class="layui-form-label">其他配置:</label><div class="layui-input-block"><textarea class="layui-textarea" name="options" placeholder="is_face=false&#13;is_mark=true"></textarea></div></div></div></div></div>';
+        fieldHTML = '<div class="layui-fluid"><div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item layui-row"><div class="layui-col-md6"><label class="layui-form-label">栏目名称:</label><div class="layui-input-block"><input class="layui-input" lay-verify="required" name="name" placeholder="费用套餐" required type="text"></div></div><div class="layui-col-md6"><label class="layui-form-label">栏目别名:</label><div class="layui-input-block"><input class="layui-input" name="alias" placeholder="seo培训价格是多少" type="text"></div></div></div><div class="layui-form-item layui-row"><div class="layui-col-md4"><label class="layui-form-label">路径名:</label><div class="layui-input-block"><input class="layui-input" name="path" placeholder="price" type="text"></div></div><div class="layui-col-md8"><label class="layui-form-label" lay-tips="用于自动匹配发布文章">分词:</label><div class="layui-input-block"><input class="layui-input" name="segments" placeholder="有限公司,广州,网络,优化" type="text"></div></div></div><div class="layui-form-item"><label class="layui-form-label">关键词:</label><div class="layui-input-block"><input class="layui-input" name="keywords" placeholder="关键词1,关键词2,关键词3" type="text"></div></div><div class="layui-form-item"><label class="layui-form-label">描述:</label><div class="layui-input-block"><input class="layui-input" name="description" placeholder="关于这个栏目的描述" type="text"></div></div><div class="layui-form-item layui-row"><div class="layui-col-md4"><label class="layui-form-label" lay-tips="隐藏则在导航不显示该栏目">隐藏栏目:</label><div class="layui-input-block"><input lay-skin="switch" lay-text="是|否" name="hidden" type="checkbox"></div></div><div class="layui-col-md4"><label class="layui-form-label" lay-tips="数值越大越靠前">排序:</label><div class="layui-input-block"><input class="layui-input" name="sort" type="number" value="0"></div></div><div class="layui-col-md4"><label class="layui-form-label" lay-tips="每页显示限制">限制:</label><div class="layui-input-block"><input class="layui-input" name="limit" type="number" value="10"></div></div></div><div class="layui-form-item"><label class="layui-form-label">文章排序:</label><div class="layui-input-block"><input checked name="order" title="最新文章" type="radio" value="0"><input name="order" title="最旧文章" type="radio" value="1"><input name="order" title="ID升序" type="radio" value="2"><input name="order" title="ID降序" type="radio" value="3"></div></div><div class="layui-form-item layui-row"><div class="layui-col-md4"><label class="layui-form-label">封面模板:</label><div class="layui-input-block"><input class="layui-input" name="face_tpl" value="" placeholder="face.tpl"></div></div><div class="layui-col-md4"><label class="layui-form-label">列表模板:</label><div class="layui-input-block"><input class="layui-input" name="list_tpl" value="" placeholder="list.tpl"></div></div><div class="layui-col-md4"><label class="layui-form-label">文章模板:</label><div class="layui-input-block"><input class="layui-input" name="article_tpl" value="" placeholder="article.tpl"></div></div></div><div class="layui-form-item layui-row"><div class="layui-col-md7"><label class="layui-form-label">封面:</label><div class="layui-input-inline" style="width:80px"><input lay-skin="switch" lay-text="是|否" name="is_face" type="checkbox"></div><div class="layui-form-mid layui-word-aux">封面才可添加下级栏目</div></div><div class="layui-col-md5"><label class="layui-form-label">其他配置:</label><div class="layui-input-block"><textarea class="layui-textarea" name="options" placeholder="is_face=false&#13;is_mark=true"></textarea></div></div></div></div></div></div>';
     layui.link('/static/style/tree.css');
 
     // tree-view
@@ -79,7 +79,6 @@ layui.define(['main'], function (exports) {
             })
         };
 
-
         // 判断有子栏目
         hasChildren(parentIndex) {
             for (let i = 0; i < this._data.length; i++) {
@@ -100,11 +99,15 @@ layui.define(['main'], function (exports) {
                 this._index++;
                 let citeElem = $('<cite></cite>').text(fields[i].name).attr('title', 'ID: ' + (fields[i].id || 0)),
                     itemElem = $('<li></li>').attr('data-index', fields[i].index).append(citeElem);
-                if (Array.isArray(fields[i].children) && fields[i].children.length > 0) {
+                if (fields[i]['is_face'] || Array.isArray(fields[i].children)) {
                     let elem = $('<ul></ul>');
                     itemElem.prepend('<i class="arrow-right"></i>').append(faceTool).append(elem);
                     box.append(itemElem);
-                    this.builder(elem, fields[i].children, fields[i].index);
+                    if (Array.isArray(fields[i].children) && fields[i].children.length > 0) {
+                        this.builder(elem, fields[i].children, fields[i].index);
+                    } else {
+                        itemElem.find('.layui-btn-group:first').append('<i data-event="del" class="layui-icon layui-icon-delete"></i>')
+                    }
                 } else {
                     box.append(itemElem.append(listTool));
                 }
@@ -131,6 +134,9 @@ layui.define(['main'], function (exports) {
                     },
                     hidden: function (field) {
                         this.prop('checked', field.hidden);
+                    },
+                    is_face: function (field) {
+                        this.prop('checked', field.is_face);
                     },
                     segments: function (field) {
                         if (Array.isArray(field.segments)) {
@@ -177,6 +183,9 @@ layui.define(['main'], function (exports) {
                     },
                     hidden: function (field) {
                         field.hidden = this.value !== 'false' && this.value !== 'off';
+                    },
+                    is_face: function (field) {
+                        field.is_face = this.value !== 'false' && this.value !== 'off';
                     },
                     sort: function (field) {
                         field.sort = parseInt(this.value) || 0;
@@ -233,7 +242,7 @@ layui.define(['main'], function (exports) {
                             scrollbar: false,
                             btnAlign: 'c',
                             shade: 0.8,
-                            area: ['800px', '580px'],
+                            area: ['800px', '600px'],
                             success: function () {
                                 layui.form.render();
                             },
@@ -299,7 +308,9 @@ layui.define(['main'], function (exports) {
                         });
                     },
                     add: function () {
-                        let elem = this.closest('li'), index = parseInt(elem.attr('data-index')) || 0,
+                        let parent = this.parent();
+                        let delElem = this.siblings('i[data-event=del]'),
+                            elem = this.closest('li'), index = parseInt(elem.attr('data-index')) || 0,
                             oldField = othis._data[index];
                         layui.layer.open({
                             type: 1,
@@ -348,13 +359,22 @@ layui.define(['main'], function (exports) {
                                 othis._data.push(field);
                                 othis._index++;
                                 let citeElem = $('<cite></cite>').text(field.name).attr('title', 'ID: ' + (field.id || 0)),
+                                    fieldElem;
+                                if (field.is_face) {
+                                    let faceToolElem = $(faceTool).append('<i data-event="del" class="layui-icon layui-icon-delete"></i>');
+                                    fieldElem = $('<li><i class="arrow-right"></i></li>').attr('data-index', field.index).append(citeElem).append(faceToolElem).append('<ul></ul>');
+                                } else {
                                     fieldElem = $('<li></li>').attr('data-index', field.index).append(citeElem).append(listTool);
+                                }
                                 if (elem.find('ul').length === 0) {
                                     elem.find('i[data-event=del]:first').remove();
                                     elem.prepend('<i class="arrow-right arrow-down"></i>').append('<ul></ul>');
                                 }
-                                elem.find('ul').append(fieldElem);
+                                elem.find('ul:first').append(fieldElem);
                                 othis.assign();
+                                delElem.remove();
+                                parent.siblings('i.arrow-right').addClass('arrow-down');
+                                parent.siblings('ul:first').show();
                                 layui.layer.close(index);
                             }
                         });
@@ -371,8 +391,9 @@ layui.define(['main'], function (exports) {
                             scrollbar: false,
                             btnAlign: 'c',
                             shade: 0.8,
-                            area: ['800px', '580px'],
+                            area: ['800px', '600px'],
                             success: function (dom) {
+                                dom.find('[name=is_face]').attr('disabled', 'disabled');
                                 dom.find('[name]').each(function () {
                                     if (push[this.name]) {
                                         push[this.name].call($(this), field);
@@ -421,8 +442,7 @@ layui.define(['main'], function (exports) {
                         delete othis._data[index];
                         elem.remove();
                         if (othis.hasChildren(parentIndex) === false) {
-                            $('li[data-index=' + parentIndex + ']>i.arrow-right').remove();
-                            $('li[data-index=' + parentIndex + ']>div.layui-btn-group').replaceWith($(listTool));
+                            $('li[data-index=' + parentIndex + ']>div.layui-btn-group').append($('<i data-event="del" class="layui-icon layui-icon-delete"></i>'));
                         }
                         othis.assign();
                     },
