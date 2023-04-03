@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <textarea class="layui-textarea layui-hide" rows="12" id="display"></textarea>
+            <textarea class="layui-textarea" rows="12" id="display"></textarea>
         </div>
     </div>
 </div>
@@ -20,8 +20,9 @@
         let form = layui.form,
             layer = layui.layer,
             main = layui.main;
+        $('#display').hide();
         form.on('submit(submit)', function (obj) {
-            let content = obj.field.content.trim()
+            let content = obj.field.content.trim();
             if (content.length === 0) {
                 layer.alert("输入源为空", {icon: 2});
                 return false;
