@@ -328,9 +328,9 @@
                             <label class="layui-form-label">发布模式:</label>
                             <div class="layui-input-inline">
                                 <select name="publish_mode" class="layui-select">
-                                    <option value="0"{{if eq .obj.PublishMode 0}} selected{{end}}>随机模式</option>
-                                    <option value="1"{{if eq .obj.PublishMode 1}} selected{{end}}>正常模式</option>
-                                    <option value="2"{{if eq .obj.PublishMode 2}} selected{{end}}>百科模式</option>
+                                    <option value="0"{{if eq .obj.PublishMode 0}} selected{{end}}>正常模式</option>
+                                    <option value="1"{{if eq .obj.PublishMode 1}} selected{{end}}>百科模式</option>
+                                    <option value="2"{{if eq .obj.PublishMode 2}} selected{{end}}>随机模式</option>
                                 </select>
                             </div>
                         </div>

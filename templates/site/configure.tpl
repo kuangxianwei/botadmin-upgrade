@@ -291,9 +291,9 @@
                         <label class="layui-form-label">发布模式:</label>
                         <div class="layui-input-inline">
                             <select name="publish_mode" class="layui-select">
-                                <option value="0" selected>随机模式</option>
-                                <option value="1">正常模式</option>
-                                <option value="2">百科模式</option>
+                                <option value="0" selected>正常模式</option>
+                                <option value="1">百科模式</option>
+                                <option value="2" >随机模式</option>
                             </select>
                         </div>
                     </div>`);
