@@ -113,9 +113,15 @@
             {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
             {field: 'name', title: '名称', width: 100, align: 'center'},
             {
-                field: 'enabled', title: '提取', width: 100, align: 'center',
+                field: 'enabled', title: '启用', width: 100, align: 'center',
                 event: 'enabled', templet: function (d) {
                     return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
+                }
+            },
+            {
+                field: 'visiting', title: '访问', width: 100, align: 'center',
+                event: 'visiting', templet: function (d) {
+                    return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.visiting ? ' checked' : '') + '>';
                 }
             },
             {field: 'spec', title: '定时', sort: true},
@@ -148,6 +154,18 @@
                 main.request({
                     url: url + "/modify",
                     data: {id: obj.data.id, enabled: enabled, cols: 'enabled'},
+                    error: function () {
+                        $this.find('input[type=checkbox]').prop('checked', !enabled);
+                        form.render('checkbox');
+                    }
+                });
+            },
+            visiting: function (obj) {
+                let $this = this;
+                let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
+                main.request({
+                    url: url + "/modify",
+                    data: {id: obj.data.id, visiting: enabled, cols: 'visiting'},
                     error: function () {
                         $this.find('input[type=checkbox]').prop('checked', !enabled);
                         form.render('checkbox');

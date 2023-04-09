@@ -13,6 +13,14 @@
                     <input type="checkbox" name="enabled" lay-skin="switch" lay-text="是|否"{{if .obj.Enabled}} checked{{end}}/>
                 </div>
             </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" lay-tips="不访问则直接生成">访问:</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="visiting" lay-skin="switch" lay-text="是|否"{{if .obj.Visiting}} checked{{end}}/>
+                </div>
+            </div>
             <div class="layui-inline">
                 <label class="layui-form-label">Spec:</label>
                 <div class="layui-input-inline">

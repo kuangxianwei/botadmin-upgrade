@@ -11,7 +11,7 @@
             <div class="layui-tab-content">
                 <div class="layui-form table-search" style="top:75px">
                     <div class="layui-inline">
-                        <input type="text" name="feedback" class="layui-input" placeholder="输入搜索...">
+                        <input type="text" name="search" class="layui-input" placeholder="输入搜索...">
                     </div>
                     <button class="layui-btn layui-btn-sm" lay-submit lay-filter="search">
                         <i class="layui-icon layui-icon-search"></i>
@@ -71,7 +71,9 @@
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},
+                {field: 'level', title: 'Level', width: 80},
                 {field: 'feedback', title: '反馈', sort: true, event: 'read', style: 'cursor:pointer;color:#22849a'},
+                {field: 'position', title: 'Position', hide: true},
                 {
                     field: 'updated', title: '时间', width: 170, sort: true, templet: function (d) {
                         return main.timestampFormat(d['updated']);
@@ -95,7 +97,9 @@
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},
+                {field: 'level', title: 'Level', width: 80},
                 {field: 'feedback', title: '反馈', sort: true, event: 'read', style: 'cursor:pointer'},
+                {field: 'position', title: 'Position', hide: true},
                 {
                     field: 'updated', title: '时间', width: 170, sort: true, templet: function (d) {
                         return main.timestampFormat(d['updated']);
@@ -230,7 +234,7 @@
             let tableFilter = $('.layui-tab-item.layui-show>table').attr('lay-filter');
             data.field.read = tableFilter === 'table-list-read';
             //执行重载
-            data.field.cols = 'feedback';
+            data.field.cols = 'search';
             table.reload(tableFilter, {
                 where: data.field,
                 page: {curr: 1}
