@@ -73,7 +73,7 @@
                 {field: 'id', title: 'ID', hide: true},
                 {field: 'level', title: 'Level', width: 80},
                 {field: 'feedback', title: '反馈', sort: true, event: 'read', style: 'cursor:pointer;color:#22849a'},
-                {field: 'position', title: 'Position', hide: true},
+                {field: 'position', title: '定位', hide: true},
                 {
                     field: 'updated', title: '时间', width: 170, sort: true, templet: function (d) {
                         return main.timestampFormat(d['updated']);
@@ -99,7 +99,7 @@
                 {field: 'id', title: 'ID', hide: true},
                 {field: 'level', title: 'Level', width: 80},
                 {field: 'feedback', title: '反馈', sort: true, event: 'read', style: 'cursor:pointer'},
-                {field: 'position', title: 'Position', hide: true},
+                {field: 'position', title: '定位', hide: true},
                 {
                     field: 'updated', title: '时间', width: 170, sort: true, templet: function (d) {
                         return main.timestampFormat(d['updated']);
