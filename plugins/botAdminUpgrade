@@ -37,9 +37,9 @@ fi
 rm -rf ./botadmin.tar.gz || Error "删除botadmin.tar.gz失败" "$UpgradeTmp"
 # 进入到解压后的文件目录里面
 ls
-# shellcheck disable=SC2012
-if [ "$(ls | wc -l)" -eq 1 ]; then
-  cd "$(ls | head -n 1)" || Error "进入解压目录失败" "$UpgradeTmp"
+upgradeDirname=$(find ./ -maxdepth 1 -type d -name 'botadmin-upgrade-*')
+if [ "${#upgradeDirname[@]}" -eq 1 ]; then
+  cd "$upgradeDirname" || Error "进入解压目录失败" "$UpgradeTmp"
 fi
 # 如果前期设置的shell脚本存在
 if test -s upgrade.before; then
