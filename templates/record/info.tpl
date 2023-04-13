@@ -11,7 +11,8 @@
                 <button class="layui-btn layui-btn-primary">总日志: <span id="count"></span>条</button>
                 <button class="layui-btn layui-btn-primary">运行中: <span id="active"></span>条</button>
                 <button class="layui-btn layui-btn-primary">总协程数: <span id="goroutine"></span></button>
-                <button class="layui-btn layui-btn-primary" lay-event="cron">定时任务: <span id="cron"></span>条</button>
+                <button class="layui-btn layui-btn-primary" lay-event="cron">定时任务: <span id="cron"></span>条
+                </button>
             </div>
         </div>
     </div>
@@ -33,6 +34,7 @@
                     <div class="layui-table-cell" align="center"><span>Size(字节)</span></div>
                 </th>
                 <th>Other</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody></tbody>
@@ -72,10 +74,11 @@
                         trElem += '<td align="center">' + (item.status === 0 ? '未运行' : '运行中') + '</td>';
                         trElem += '<td align="center">' + item.size + '</td>';
                         trElem += '<td>' + item.other + '</td>';
+                        trElem += '<td>操作</td>';
                         trElem += '</tr>';
                         elem.append(trElem);
                     }
-                    $('[lay-event="view-log"]').off('click').on('click',function () {
+                    $('[lay-event="view-log"]').off('click').on('click', function () {
                         main.ws.log($(this).data('token'));
                     });
                 }
@@ -85,7 +88,7 @@
                 $('#cron').text(field.cron);
             }
         };
-        $("[lay-event=cron]").off('click').on('click',function () {
+        $("[lay-event=cron]").off('click').on('click', function () {
             main.request({
                 url: url + "/cron",
                 done: function (res) {

@@ -22,8 +22,8 @@ test -z "$Version" && Error "程序版本号为空"
 test -z "$Mirror" && Error "程序镜像源为空"
 UpgradeTmp="/tmp/botAdminUpgrade" # 升级文件临时目录
 rm -rf "$UpgradeTmp"
-mkdir -p "$UpgradeTmp" || Error "创建临时目录失败"
-cd "$UpgradeTmp" || Error "进入目录失败" "$UpgradeTmp"
+mkdir -p "$UpgradeTmp" || Error "创建临时目录${UpgradeTmp}失败"
+cd "$UpgradeTmp" || Error "进入目录${UpgradeTmp}失败" "$UpgradeTmp"
 echo "根路径: ${RootPath}"
 echo "开始升级到版本: ${Version}"
 echo "开始下载镜像: $Mirror"
@@ -36,9 +36,11 @@ if ! tar -zxvf "botadmin.tar.gz"; then
 fi
 rm -rf ./botadmin.tar.gz || Error "删除botadmin.tar.gz失败" "$UpgradeTmp"
 # 进入到解压后的文件目录里面
+ls
 # shellcheck disable=SC2012
-cd "$(ls | head -n 1)" || Error "进入解压目录失败" "$UpgradeTmp"
-
+if [ "$(ls | wc -l)" -eq 1 ]; then
+  cd "$(ls | head -n 1)" || Error "进入解压目录失败" "$UpgradeTmp"
+fi
 # 如果前期设置的shell脚本存在
 if test -s upgrade.before; then
   echo "前期设置开始..."
