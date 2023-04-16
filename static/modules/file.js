@@ -1808,6 +1808,9 @@ layui.define(['main'], function (exports) {
                     }
                 }
                 pathElem.html(elem);
+                if ($('select[name=action]').val() === 'compress') {
+                    $('input[name=value]').val(main.basename(pathElem.attr('title')) + '.tar.gz');
+                }
                 $('#current-path>span[title]').off('click').on('click', function () {
                     refresh(this.title);
                 });
@@ -1831,6 +1834,7 @@ layui.define(['main'], function (exports) {
                 toolbar: '#toolbar',
                 where: {path: data.path},
                 cols: [[{type: 'checkbox', fixed: 'left'},
+                    {field: 'path', title: '目录', hide: true},
                     {
                         field: 'name',
                         minWidth: 100,
@@ -1869,9 +1873,10 @@ layui.define(['main'], function (exports) {
                                     name = '<i class="iconfont icon-iso"></i> ' + d.name;
                                     break;
                             }
-                            return '<b title="' + d.path + '">' + name + '</b>';
+                            return '<b title="' + d.path + '/' + d.name + '">' + name + '</b>';
                         }
-                    }, {field: 'type', title: '类型', width: 100, hide: true},
+                    },
+                    {field: 'type', title: '类型', width: 100, hide: true},
                     {field: 'uname', title: '所有者', width: 80},
                     {field: 'gname', title: '所有组', width: 80},
                     {field: 'uid', title: '用户ID', hide: true},
@@ -1893,12 +1898,8 @@ layui.define(['main'], function (exports) {
                             return d.size;
                         }
                     },
-                    {field: 'mode', title: '权限', width: 100}, {
-                        field: 'mtime',
-                        title: '最后修改',
-                        width: 170,
-                        sort: true
-                    },
+                    {field: 'mode', title: '权限', width: 100},
+                    {field: 'mtime', title: '最后修改', width: 170, sort: true},
                     {
                         title: '操作', minWidth: 180, align: 'center', fixed: 'right', templet: (d) => {
                             let html = '<div class="layui-btn-group">';
@@ -1964,35 +1965,40 @@ layui.define(['main'], function (exports) {
                         return false;
                     }
                     elem.html(`<img alt="等待计算结果" src="/static/images/loading-small.svg">`);
-                    $.get(url + '/size', {path: obj.data.path}, function (res) {
+                    $.get(url + '/size', obj.data, function (res) {
                         elem.text(res);
                     });
                 },
                 del: function (obj) {
-                    layer.confirm('删除后不可恢复！确定删除 ' + obj.data.path + ' ?', function (index) {
+                    let filename = obj.data.path + '/' + obj.data.name;
+                    layer.confirm('删除后不可恢复！确定删除 ' + filename + ' ?', function (index) {
                         main.request({
-                            url: url + '/del', data: {name: obj.data.path}, index: index, done: obj.del,
+                            url: url + '/del',
+                            data: {path: obj.data.path, names: filename},
+                            index: index,
+                            done: obj.del,
                         });
                     });
                 },
                 name: function (obj) {
+                    let filename = obj.data.path + '/' + obj.data.name;
                     switch (obj.data.type) {
                         case 0:
-                            refresh(obj.data.path);
+                            refresh(filename);
+                            break;
+                        case 7:
+                            main.preview(filename);
                             break;
                         case 2:
-                        case 7:
-                            main.preview(obj.data.path);
-                            break;
                         case 8:
                             layer.confirm('确定下载 ' + obj.data.name + ' ?', function (index) {
-                                main.download(obj.data.path);
+                                main.download(filename);
                                 layer.close(index);
                             });
                             break;
                         default:
                             //'文本在线编辑器'
-                            $('#LAY_app_flexible.layui-icon-shrink-right', window.parent.document).click();
+                            let shrinkElem = $('#LAY_app_flexible.layui-icon-shrink-right', window.parent.document);
                             main.open({
                                 title: false,
                                 shadeClose: false,
@@ -2002,19 +2008,25 @@ layui.define(['main'], function (exports) {
                                 btn: false,
                                 content: $('#aceEditor').html(),
                                 success: function (dom) {
-                                    this.editor = new Editor({dom: dom, path: data.path});
-                                    this.editor.render(obj.data.path);
+                                    this.editor = new Editor({dom: dom, path: obj.data.path});
+                                    this.editor.render(filename);
+                                    shrinkElem.click();
                                 },
                                 resizing: function () {
                                     this.editor.setEditorView();
                                 },
+                                cancel: function (index) {
+                                    layer.close(index);
+                                    shrinkElem.click();
+                                    return false;
+                                }
                             });
                     }
                 },
                 compress: function (obj) {
                     main.request({
                         url: url + '/compress',
-                        data: {'name': obj.data.path},
+                        data: {path: obj.data.path, names: obj.data.name},
                         done: function () {
                             refresh();
                         },
@@ -2023,14 +2035,14 @@ layui.define(['main'], function (exports) {
                 decompress: function (obj) {
                     main.request({
                         url: url + '/decompress',
-                        data: {'name': obj.data.path},
+                        data: obj.data,
                         done: function () {
                             refresh();
                         },
                     });
                 },
                 download: function (obj) {
-                    main.download(obj.data.path);
+                    main.download(obj.data.path + '/' + obj.data.name);
                 },
                 gotoWww: function () {
                     refresh('/home/wwwroot');
@@ -2040,7 +2052,7 @@ layui.define(['main'], function (exports) {
                 },
                 newFolder: function () {
                     layer.prompt({
-                        formType: 0, value: 'botadmin.cn', title: '请输入文件夹名不要有空格!'
+                        formType: 0, value: 'folder', title: '请输入文件夹名不要有空格!'
                     }, function (value, index) {
                         main.request({
                             url: url + '/new/folder',
@@ -2054,7 +2066,7 @@ layui.define(['main'], function (exports) {
                 },
                 newFile: function () {
                     layer.prompt({
-                        formType: 0, value: 'botadmin.cn', title: '请输入文件名不要有空格!'
+                        formType: 0, value: 'filename.txt', title: '请输入文件名不要有空格!'
                     }, function (value, index) {
                         main.request({
                             url: url + '/new/file',
@@ -2106,12 +2118,12 @@ layui.define(['main'], function (exports) {
                 return layer.msg('请选择数据');
             }
             layui.each(checkData, function (k, v) {
-                if (v.path !== undefined) {
-                    names[k] = v.path;
+                if (v.name !== undefined) {
+                    names[k] = v.name;
                 }
             });
             let field = obj.field;
-            field.name = names.join();
+            field.names = names.join('\n');
             field.path = data.path;
             if (field.action === 'del') {
                 layer.confirm('删除后不可恢复，确定批量删除吗？', function (index) {
@@ -2136,7 +2148,26 @@ layui.define(['main'], function (exports) {
             return false;
         });
         form.on('select(action)', function (obj) {
-            console.log(obj);
+            let parentName = main.basename(pathElem.attr('title')),
+                valElem = obj.othis.closest('.layui-form').find('input[name=value]');
+            switch (obj.value) {
+                case 'compress':
+                    valElem.val(parentName + '.tar.gz');
+                    break;
+                case 'del':
+                    valElem.val('');
+                    break;
+                case 'copy':
+                case 'move':
+                    valElem.val('新文件名');
+                    break;
+                case 'chmod':
+                    valElem.val('0755');
+                    break;
+                case 'chgroup':
+                    valElem.val('www:www');
+                    break;
+            }
         });
         // 渲染路径
         renderPath();

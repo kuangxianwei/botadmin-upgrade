@@ -163,7 +163,6 @@
     layui.extend({steps: 'steps'}).use(['index', 'main', 'steps'], function () {
         let form = layui.form,
             table = layui.table,
-            upload = layui.upload,
             main = layui.main,
             //渲染上传配置
             importConfig = main.upload();

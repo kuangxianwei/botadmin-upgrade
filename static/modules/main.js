@@ -626,11 +626,11 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             attrName = attrName || 'title';
             let othis = this;
             (elem ? $(elem) : $('[data-field=name] [title]')).each(function () {
-                let path = $(this).attr(attrName);
-                if (path) {
-                    path = othis.getSrc(path);
-                    if (!othis.previewList.includes(path) && re.test(path)) {
-                        othis.previewList.push(path);
+                let src = $(this).attr(attrName);
+                if (src) {
+                    src = othis.getSrc(src);
+                    if (!othis.previewList.includes(src) && re.test(src)) {
+                        othis.previewList.push(src);
                     }
                 }
             });
@@ -639,7 +639,7 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
 
         // 预览图片
         preview(src, elem, attrName) {
-            if (!src || $(".preview-images-mask").length > 0) return false;
+            if (!src || $('.preview-images-mask').length > 0) return false;
             src = this.getSrc(src);
             let othis = this,
                 $body = $('body'),
@@ -682,15 +682,15 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
                 config.currentHeight = config.initHeight * config.scale;
                 config.currentLeft = parseFloat(((config.previewWidth - config.currentWidth) / 2).toFixed(2));
                 config.currentTop = parseFloat(((config.previewHeight - config.currentHeight) / 2).toFixed(2));
-                $("#preview-images").css({
+                $('#preview-images').css({
                     width: config.currentWidth,
                     height: config.currentHeight,
                     top: config.currentTop,
                     left: config.currentLeft,
-                    display: "inline",
-                    transform: "rotate(" + config.rotate + "deg)",
+                    display: 'inline',
+                    transform: 'rotate(' + config.rotate + 'deg)',
                     opacity: 1,
-                    transition: "all 400ms"
+                    transition: 'all 400ms'
                 });
             }
 
@@ -1472,18 +1472,18 @@ layui.define(['form', 'slider', 'table', 'layer'], function (exports) {
             if (!prefix) {
                 return;
             }
-            ids = ids || [];
-            for (let i = 0; i < ids.length; i++) {
-                ids[i] = prefix + '.' + ids[i];
+            let tokens = prefix;
+            if (Array.isArray(ids)) {
+                for (let i = 0; i < ids.length; i++) {
+                    ids[i] = prefix + '.' + ids[i];
+                }
+                if (ids.length === 0) {
+                    ids.push(prefix + '.0');
+                }
+                tokens = ids.join();
             }
-            if (ids.length === 0) {
-                ids.push(prefix + '.0');
-            }
-            let tokens = ids.join();
             layer.confirm('清空日志记录? Tokens: <br/>' + tokens, function (index) {
-                main.request($.extend({
-                    url: '/record/reset', index: index, data: {tokens: tokens},
-                }, options || {}));
+                main.request($.extend({url: '/record/reset', index: index, data: {tokens: tokens}}, options || {}));
             });
         },
     };

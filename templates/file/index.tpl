@@ -54,8 +54,7 @@
                     <option value="move">移动/重命名</option>
                     <option value="copy">复制</option>
                     <option value="chmod">修改权限</option>
-                    <option value="user">所有者</option>
-                    <option value="group">所有组</option>
+                    <option value="chgroup">用户组:用户者</option>
                 </select>
             </div>
         </div>

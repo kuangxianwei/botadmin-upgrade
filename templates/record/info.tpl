@@ -19,19 +19,19 @@
     <div class="layui-card-body">
         <table id="table-list" lay-filter="table-list" class="layui-table">
             <colgroup>
-                <col width="200">
-                <col width="100">
-                <col width="120">
+                <col style="width:200px">
+                <col style="width:100px">
+                <col style="width:120px">
                 <col>
             </colgroup>
             <thead>
             <tr>
                 <th>Token</th>
                 <th>
-                    <div class="layui-table-cell" align="center"><span>Status</span></div>
+                    <div class="layui-table-cell" style="text-align:center"><span>Status</span></div>
                 </th>
                 <th>
-                    <div class="layui-table-cell" align="center"><span>Size(字节)</span></div>
+                    <div class="layui-table-cell" style="text-align:center"><span>Size(字节)</span></div>
                 </th>
                 <th>Other</th>
                 <th>操作</th>
@@ -59,7 +59,7 @@
                         display = localStorage.getItem('log_info') || '1';
                     for (let i = 0; i < field.data.length; i++) {
                         let item = field.data[i];
-                        if (display === "1" && item.size === 0 && !item.other) {
+                        if (display === '1' && item.size === 0 && !item.other) {
                             continue
                         }
                         let trElem = '<tr>';
@@ -71,15 +71,22 @@
                             item.other = '';
                         }
                         trElem += '<td lay-event="view-log" style="cursor:pointer;color:#0a5b52" data-token="' + item.token + '">' + item.token + '</td>';
-                        trElem += '<td align="center">' + (item.status === 0 ? '未运行' : '运行中') + '</td>';
-                        trElem += '<td align="center">' + item.size + '</td>';
+                        if (item.status === 0) {
+                            trElem += '<td align="center">未运行</td>';
+                        } else {
+                            trElem += '<td style="text-align:center;color:#0a5b52">运行中</td>';
+                        }
+                        trElem += '<td style="text-align:center;">' + item.size + '</td>';
                         trElem += '<td>' + item.other + '</td>';
-                        trElem += '<td>操作</td>';
+                        trElem += '<td style="text-align:center;width: 80px"><button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetRecord" lay-tips="重置日志"> <i class="layui-icon iconfont icon-reset"></i>Log</button></td>';
                         trElem += '</tr>';
                         elem.append(trElem);
                     }
                     $('[lay-event="view-log"]').off('click').on('click', function () {
                         main.ws.log($(this).data('token'));
+                    });
+                    $('[lay-event="resetRecord"]').off('click').on('click', function () {
+                        main.reset.log($(this).parent().prevAll('[data-token]').data('token'));
                     });
                 }
                 $('#count').text(field.count);
