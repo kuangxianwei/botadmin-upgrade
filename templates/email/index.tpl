@@ -87,8 +87,9 @@
                     break;
                 case 'modify':
                     let loading = layui.main.loading();
-                    $.get(url + '/modify', {id: data.id}, function (html) {
-                        loading.close();
+                    $.get(url + '/modify', data).always(function () {
+                        loading.close()
+                    }).done(function (html) {
                         main.popup({
                             title: '修改邮箱配置',
                             url: url + '/modify',
