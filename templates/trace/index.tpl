@@ -9,7 +9,7 @@
                     <select name="waiter_id" lay-filter="search-select" class="layui-select">
                         <option value="">选择全部客服</option>
                         {{range $i,$v:=.waiters -}}
-                            <option value="{{$v.Id}}"{{if $v.Action}} selected{{end}}>{{$v.Alias}}</option>
+                            <option value="{{$v.Id}}"{{if eq $v.Id $.selected}} selected{{end}}>{{$v.Alias}}</option>
                         {{end -}}
                     </select>
                 </div>
