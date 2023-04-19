@@ -457,6 +457,11 @@
                                     <cite>图片目录</cite>
                                 </a>
                             </dd>
+                            <dd data-name="file-ssl">
+                                <a lay-href="/file?path=/usr/local/nginx/conf/ssl" lay-tips="管理SSL配置文件" lay-direction="2">
+                                    <cite>SSL配置文件</cite>
+                                </a>
+                            </dd>
                             <dd data-name="file-logs">
                                 <a lay-href="/file?path=logs" lay-tips="本程序日志目录" lay-direction="2">
                                     <i class="iconfont icon-log-check"></i>
