@@ -1,0 +1,91 @@
+ul.tree,
+ul.tree ul {
+    margin: 0;
+    padding: 0 0 0 2em;
+}
+
+ul.tree {
+    margin-top: 25px;
+}
+
+ul.tree li {
+    list-style: none;
+    position: relative;
+}
+
+ul.tree > li:first-child:before {
+    border-style: none none dashed none;
+}
+
+ul.tree li:before {
+    position: absolute;
+    content: '';
+    top: 0.3em;
+    left: -0.7em;
+    width: 0.5em;
+    height: 0.615em;
+    border-style: none none dashed dashed;
+    border-width: 0.05em;
+    border-color: #aaa;
+}
+
+ul.tree li:not(:last-child):after {
+    position: absolute;
+    content: '';
+    top: 0.7em;
+    left: -0.7em;
+    bottom: 0;
+    border-style: none none none dashed;
+    border-width: 0.05em;
+    border-color: #aaa;
+}
+
+ul.tree li i[data-event=edit] {
+    color: rgba(113, 47, 47, 0.78);
+}
+
+ul.tree li i[data-event=add], ul.tree > .tool-bar > i[data-event=addTop] {
+    color: #27818a;
+}
+
+ul.tree li i[data-event=del] {
+    color: red;
+}
+
+ul.tree li > i.arrow-right {
+    cursor: pointer;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-right: 0.3em;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 8px solid #aaa;
+}
+
+ul.tree li > i.arrow-down {
+    border-bottom: none;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #aaa;
+}
+
+ul.tree li > cite {
+    margin-right: 0.3em;
+}
+
+ul.tree > .tool-bar {
+    position: absolute;
+    display: inline-block;
+    cursor: pointer;
+    top: -25px;
+    left: 11px;
+}
+
+ul.tree > .tool-bar > i {
+    margin-right: 10px;
+}
+
+ul.tree > .tool-bar > i[data-event=copy] {
+    color: rgba(113, 47, 47, 0.78);
+}
