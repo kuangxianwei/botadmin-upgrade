@@ -1,0 +1,1299 @@
+.ser-text {
+    border: #20a53a 1px solid;
+    height: 30px;
+    width: 250px;
+    padding: 0 8px;
+    margin-top: 8px
+}
+
+.ser-sub {
+    width: 38px;
+    height: 30px;
+    border: 0;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAxAAAAMQBz4pYTAAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAE2SURBVDiNndJBS1VRFMXx9UzNQUQD0caFk6YhEUFCOPETiJQfIygQbNQgCCeOGjYLGjRJkPoKoSGIRKADs1nQoEIEfw3cry6v+3oPN2z2ufuu8z/7nruC9ORNvMRXHOIFbrTogjQfOniKX87iR2P9HSv/A1zA+xK/wRwmMYV5vKt3r/sBnpTgcb9R8aw0D3sB1/GzTum3uZsfSnupCVgr8vwQgKXSLnR7I0nuJJFkN4PjY9WZbmMkyXGtx4YAjFY9aQI2knSS3B4CMFd1508HV3CE3QHfP17G2sdo7298UJfzChMtmy9jszTLbT4InpfgCx6Vme5hFd/8jW1cbQME93Hg39jDYmOKT5hGOmi7rNkk15KcJvmcZKv6E0k2k9xNsp1keZBx2vIi3tYkG+cBxJmV13HrN6Szg7ZCfX3NAAAAAElFTkSuQmCC") no-repeat center #20a53a;
+    cursor: pointer;
+    margin-right: 2px;
+    margin-top: 8px;
+}
+
+#current-path {
+    cursor: pointer;
+}
+
+#current-path > span {
+    padding-left: 3px;
+}
+
+#current-path > span:hover {
+    color: #0a5b52;
+    font-size: 0.9rem;
+}
+
+.file-toolbar input, #current-path {
+    background-color: #fff;
+    border-radius: 5px;
+    height: 30px;
+    border: 1px solid #d2d2d2;
+    line-height: 30px;
+    min-width: 556px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.file-toolbar input:hover, #current-path:hover {
+    border: 1px solid #009688 !important;
+}
+
+.ace-catalogue-drag-icon > .fold-icon-container {
+    color: white;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    width: 16px;
+    font-style: normal;
+    font-weight: 400;
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -1px;
+    background: #222;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    border: 1px solid #525252;
+    border-left: none;
+    cursor: pointer;
+    margin-left: 0;
+    padding-left: 0
+}
+
+/*以下是编辑器样式*/
+#ace-container {
+    background: #444;
+    height: 100%;
+    overflow: hidden;
+}
+
+.aceEditors > .layui-layer-content {
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+}
+
+.aceEditors .layui-layer-content {
+    overflow-y: hidden !important;
+}
+
+.aceEditors .cd-accordion-menu {
+    overflow-x: hidden !important;
+}
+
+.ace-header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 35px;
+    background: #565656;
+    transition: top 500ms;
+}
+
+.ace-header > span {
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 15px;
+    font-size: 13px;
+    text-align: center;
+    color: #fff;
+    border-right: 1px solid #4c4c4c;
+    cursor: pointer;
+}
+
+.ace-header > span i {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.ace-header > span:hover {
+    background: #2f2f2f;
+}
+
+.ace-header .pull-down {
+    display: inline-block;
+    position: absolute;
+    z-index: 999;
+    right: 0;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 14px;
+    font-size: 15px;
+    color: #fff;
+    background: #292929;
+    cursor: pointer;
+}
+
+.ace-overall {
+    width: 100%;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+    background: #777;
+    transition: top 500ms;
+}
+
+.ace-overall.active .ace_editor_main {
+    margin-left: 0 !important;
+}
+
+.ace-catalogue-drag-icon {
+    height: 100%;
+    width: 1px;
+    position: absolute;
+    left: 265px;
+    bottom: 0;
+    top: 0;
+    cursor: col-resize;
+}
+
+.ace-catalogue-drag-icon .drag-icon-container {
+    height: 100%;
+    width: 1px;
+}
+
+.ace-catalogue {
+    float: left;
+    width: 265px;
+    min-width: 265px;
+    max-width: 450px;
+    position: absolute;
+    z-index: 99;
+    height: 100%;
+    background: #292929;
+    transition: all 500ms;
+    font-size: 12px;
+}
+
+.ace-catalogue-title {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    color: #fff;
+    background: #383838;
+    position: absolute;
+    left: 0;
+    right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    border-right: 1px solid #2e2e2e;
+}
+
+/*目录工具栏开始*/
+.ace-dir-tools {
+    height: 30px;
+    top: 40px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: #444;
+}
+
+.ace-dir-tools > div > span {
+    font-size: 12px;
+}
+
+.ace-dir-tools > div {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
+    color: #ccc;
+    padding: 0 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.ace-dir-tools > span {
+    left: 0;
+    bottom: -5px;
+}
+
+.ace-dir-tools > div:hover {
+    background: #333;
+}
+
+.ace-dir-tools .iconfont, .ace-dir-tools .layui-icon {
+    font-size: 12px;
+}
+
+.ace-dir-tools > div i {
+    margin: 0 3px;
+}
+
+.search-file-box {
+    height: 110px;
+    display: none;
+}
+
+.search-file-box .search-input-view {
+    width: 100%;
+    padding: 10px 15px 0 15px;
+    height: auto;
+}
+
+.search-file-box .search-input-view:hover,
+.search-file-box .search-input-title:hover {
+    background: #444 !important;
+}
+
+.search-file-box .search-input-view form {
+    position: relative;
+    overflow: hidden;
+}
+
+.search-file-box .search-input-view input {
+    margin-top: 0;
+    width: 200px;
+}
+
+.search-file-box .search-input-view button {
+    margin-top: 0;
+    position: absolute;
+    right: -2px;
+    outline: none;
+    top: 1px;
+}
+
+.search-file-box .search-input-view button:hover {
+    background-color: #138c2b;
+}
+
+.search-file-box .search-input-title {
+    padding-left: 15px;
+    cursor: default;
+}
+
+.search-file-box .search-close {
+    float: right;
+    color: red;
+}
+
+.search-file-box .search-input-view .search-box {
+    margin-top: 5px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.search-file-box .search-input-view .search-box {
+    margin-top: 5px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.search-file-box .search-input-view .search-box input {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+}
+
+.search-file-box .search-input-view .search-box label {
+    height: 20px;
+    margin: 0;
+}
+
+.search-file-box .search-input-view .search-box span {
+    vertical-align: super;
+    margin-right: 5px;
+}
+
+/*目录工具栏结束*/
+.ace-catalogue-list {
+    height: auto;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 1px;
+    bottom: 0;
+    background: #222;
+    padding: 5px;
+    overflow-x: auto;
+}
+
+.ace-catalogue-list::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 9px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+
+.ace-catalogue-list::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(78, 86, 102, 0.6);
+    border-radius: 0;
+}
+
+.ace-catalogue-list::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #333;
+    border-radius: 0;
+}
+
+/* 文件侧边栏 */
+.cd-accordion-menu {
+    overflow-y: hidden;
+}
+
+.cd-accordion-menu .has-children {
+    min-height: 28px;
+    line-height: 28px;
+    position: relative;
+}
+
+.cd-accordion-menu .has-children ul {
+    display: none;
+    position: relative;
+}
+
+.cd-accordion-menu .has-children .file-fold.active {
+    color: rgb(204, 167, 0);
+}
+
+.cd-accordion-menu .has-children .file-fold.bg {
+    background: #2f2f2f;
+}
+
+.cd-accordion-menu .has-children .file-fold.bg:hover {
+    background: #2f2f2f;
+}
+
+.cd-accordion-menu .has-children .file-fold:hover {
+    background-color: #272727;
+}
+
+.cd-accordion-menu .has-children .file-fold {
+    margin-bottom: 0;
+    padding-left: 10px;
+    width: 100%;
+    font-size: 13px;
+    cursor: pointer;
+    color: #cccccc;
+    position: relative;
+    height: 28px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cd-accordion-menu .has-children .file-fold > .iconfont {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    font-size: 12px;
+    height: 27px;
+    line-height: 27px;
+}
+
+.cd-accordion-menu .has-children .file-title {
+    position: relative;
+    left: 20px;
+    font-weight: 500;
+    height: 27px;
+    display: inline-block;
+    width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cd-accordion-menu .has-children .file-input {
+    position: relative;
+    left: 20px;
+    font-weight: 500;
+    height: 28px;
+    display: inline-block;
+    width: 100%;
+}
+
+.cd-accordion-menu .has-children .file-input i,
+.cd-accordion-menu .has-children .file-title i {
+    font-style: normal;
+    font-size: 16px;
+    margin-right: 8px;
+    vertical-align: bottom;
+    width: 15px;
+    height: 28px;
+    display: inline-block;
+    color: rgb(214, 171, 52);
+}
+
+.cd-accordion-menu .has-children .folder-icon {
+    font-style: normal;
+    font-size: 14px;
+    margin-right: 7px;
+    vertical-align: bottom;
+}
+
+.cd-accordion-menu .has-children .file-title b {
+    color: red;
+}
+
+.ace-catalogue-menu .folder-icon:before,
+.cd-accordion-menu .has-children .folder-icon:before {
+    color: #d6ab34;
+    content: '\f016';
+    font-family: octicons, serif;
+    display: inline-block;
+}
+
+.has-children-separator {
+    position: absolute;
+    top: 29px;
+    bottom: 0;
+    width: 1px;
+    background: #333;
+    left: 15px;
+}
+
+/*编辑文件名称*/
+.newly-file-input {
+    height: 24px;
+    background: #555;
+    outline: none;
+    padding-left: 5px;
+    border: 1px solid #528bff;
+}
+
+.file-input .icon-ok, .file-input .icon-del {
+    display: inline-block;
+    color: #20a53a;
+    width: 20px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+}
+
+.file-input .icon-del {
+    color: #f34a4a;
+}
+
+.ace-catalogue-menu {
+    padding: 5px 0;
+    width: 150px;
+    border: 1px solid #ececec;
+    position: fixed;
+    z-index: 9999;
+    background: #fff;
+    border-radius: 2px;
+    display: none;
+}
+
+.ace-catalogue-menu li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 35px;
+    width: 150px;
+    height: 30px;
+    font-size: 13px;
+    line-height: 30px;
+    box-sizing: border-box;
+    position: relative;
+    color: #555;
+    left: -1px;
+}
+
+.ace-catalogue-menu li:hover {
+    background: #efefef;
+    cursor: pointer;
+}
+
+.ace-catalogue-menu li .iconfont {
+    left: 9px;
+    color: #999;
+}
+
+.ace-catalogue-menu li .iconfont:before {
+    line-height: 30px;
+    font-size: 18px;
+}
+
+.ace-catalogue-menu li .glyphicon-folder-open:before {
+    font-size: 13px;
+    color: rgb(204, 167, 0);
+}
+
+.ace-catalogue-menu li i {
+    font-style: normal;
+    position: absolute;
+    left: 10px;
+}
+
+.ace-catalogue-menu li i:before {
+    font-size: 17px;
+}
+
+.ace-catalogue-menu .rename-icon {
+    background-position: 0 -64px;
+}
+
+.ace-catalogue-menu .down-icon {
+    background-position: -16px -48px;
+}
+
+.ace-catalogue-menu .del-icon {
+    background-position: 0 -80px;
+}
+
+.ace-catalogue-menu .img-icon {
+    display: inline-block;
+    background-image: url('./images/file_menu_icon.png');
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 50%;
+    margin-top: -8.5px;
+    font-style: normal;
+    background-size: auto !important;
+    background-repeat: no-repeat;
+}
+
+.folder-down-up {
+    padding: 5px 0;
+    width: 150px;
+    border: 1px solid #ececec;
+    z-index: 9999;
+    background: #fff;
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    display: none;
+}
+
+.folder-down-up i.folder-icon:before {
+    color: #d6ab34;
+    content: '\f016';
+    font-family: octicons, serif;
+    display: inline-block;
+    font-size: 15px;
+}
+
+.folder-down-up i {
+    font-style: normal;
+    position: absolute;
+    left: 10px;
+}
+
+.folder-down-up li:hover {
+    background: #efefef;
+    cursor: pointer;
+}
+
+.folder-down-up li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 35px;
+    width: 150px;
+    height: 30px;
+    font-size: 13px;
+    line-height: 30px;
+    box-sizing: border-box;
+    position: relative;
+    color: #555;
+    left: -1px;
+    font-style: normal;
+}
+
+#search-val {
+    outline: none;
+    color: #333;
+    padding-right: 45px;
+    width: 100%;
+}
+
+.ace-editor-main {
+    position: relative;
+    background: #444;
+    transition: margin 500ms;
+    height: 100%;
+}
+
+.ace-editor-main-storey {
+    display: inline-block;
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0));
+}
+
+.ace-container-editor {
+    background: #333;
+    padding-bottom: 35px;
+    transition: height 100ms;
+}
+
+.ace-container-toolbar {
+    height: 35px;
+    line-height: 35px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding-right: 15px;
+    position: absolute;
+    background: #444;
+    font-size: 0;
+    overflow: hidden;
+    transition: all 500ms;
+}
+
+.ace-container-toolbar .pull-left {
+    text-align: left;
+    max-width: 50%;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.ace-container-toolbar .pull-left,
+.ace-container-toolbar .pull-right {
+    height: 35px;
+}
+
+.ace-container-toolbar .pull-left span,
+.ace-container-toolbar .pull-right span {
+    color: #fff;
+    display: inline-block;
+    border-right: 1px solid #505050;
+    padding: 0 15px;
+    cursor: pointer;
+    transition: all 500ms;
+    font-size: 13px;
+}
+
+.ace-container-toolbar .pull-left span {
+    border-right: 0;
+    cursor: default;
+}
+
+.ace-container-toolbar .pull-left span i,
+.ace-container-toolbar .pull-right span i {
+    font-style: normal;
+}
+
+.ace-container-toolbar .pull-right span:hover {
+    background: #717171;
+}
+
+.ace-editors {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    bottom: 35px;
+    left: 0;
+    font-size: 13px;
+    overflow-y: auto;
+    z-index: -1;
+}
+
+.ace-editors.active {
+    z-index: 50;
+}
+
+.ace-toolbar-menu {
+    position: absolute;
+    z-index: 9999;
+    top: 40px;
+    left: 50%;
+    margin-left: -200px;
+    background: #444444;
+    width: 400px;
+    padding: 15px 0;
+    box-shadow: 0 0 2px 0 #000;
+}
+
+.ace-toolbar-menu .menu-container {
+    margin: 0 15px 15px;
+    position: relative;
+}
+
+.ace-toolbar-menu .menu-container .fa {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.ace-toolbar-menu input {
+    width: 100%;
+    height: 35px;
+    background: #444;
+    border: 1px solid #7d7d7d;
+    color: #fff;
+    padding: 0 10px;
+    outline: none;
+}
+
+.ace-toolbar-menu input:focus {
+    border: 1px solid #fff;
+}
+
+.ace-toolbar-menu .menu-item ul {
+    overflow: auto;
+    max-height: 300px;
+}
+
+.ace-toolbar-menu .menu-item li {
+    padding: 0 20px;
+    height: 35px;
+    line-height: 35px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 500ms;
+    position: relative;
+}
+
+.ace-toolbar-menu .menu-item li.active,
+.ace-toolbar-menu .menu-item li.active:hover {
+    background: #333;
+}
+
+.editor-menu li.active {
+    background: #444 !important;
+}
+
+.ace-toolbar-menu .menu-item li:hover {
+    background: #505050;
+}
+
+.ace-toolbar-menu .icon-link {
+    margin-left: 15px;
+    color: #20a53a;
+}
+
+.ace-toolbar-menu .menu-item .icon {
+    position: absolute;
+    right: 25px;
+}
+
+.ace-toolbar-menu .menu-title {
+    padding: 0 0 10px 20px;
+    border-bottom: 1px solid #666666;
+    color: #9e9e9e;
+}
+
+.menu-setUp .menu-container {
+    padding-top: 15px;
+}
+
+.setUp {
+    position: relative;
+}
+
+.red-point {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: red;
+    top: 20%;
+    right: 9%;
+}
+
+.editor-menu {
+    position: relative;
+}
+
+.red-history {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: red;
+    top: 73%;
+    right: 6.5%;
+}
+
+.ace-toolbar-menu .menu-titles {
+    display: inline-block;
+    font-size: 13px;
+    padding: 10px 0 10px 25px;
+    color: #ccc;
+}
+
+.ace-toolbar-menu .menu-content {
+    display: inline-block;
+    color: #444;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.ace-item-box {
+    position: relative;
+    padding: 0 35px 0 10px;
+    color: #ececec;
+    cursor: pointer;
+    border-right: 1px solid #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 15px;
+    height: 40px;
+}
+
+@keyframes myMove {
+    0% {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg); /* IE 9 */
+        -moz-transform: rotate(0deg); /* Firefox */
+        -webkit-transform: rotate(0deg); /* Safari 和 Chrome */
+        -o-transform: rotate(0deg); /* Opera */
+    }
+    100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg); /* IE 9 */
+        -moz-transform: rotate(360deg); /* Firefox */
+        -webkit-transform: rotate(360deg); /* Safari 和 Chrome */
+        -o-transform: rotate(360deg); /* Opera */
+    }
+}
+
+.ace-item-box .waiting {
+    font-size: 14px;
+    color: #d6ad00;
+    display: inline-block;
+    animation: myMove .8s ease infinite;
+    -webkit-animation: mymove .8s ease infinite; /* Safari 和 Chrome */
+}
+
+/* 文字省略 */
+.size-ellipsis {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ace-container-tips {
+    height: 50px;
+    background: #d29232;
+    z-index: 99999;
+    position: absolute;
+    width: 100%;
+    display: none;
+    bottom: -1px;
+}
+
+.ace-container-tips .tips {
+    display: inline-block;
+    padding-left: 15px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    height: 100%;
+    line-height: 50px;
+    vertical-align: top;
+    transition: all 500ms;
+}
+
+/* 关闭视图-开始 */
+.ace-clear-form {
+    padding-top: 25px;
+}
+
+.ace-clear-form .line {
+    margin-left: 20px;
+}
+
+.clear-title {
+    font-size: 15px;
+    color: #333;
+}
+
+.clear-tips {
+    font-size: 13px;
+    color: #666;
+}
+
+.clear-tips,
+.clear-title {
+    padding-left: 80px;
+}
+
+.clear-icon {
+    width: 30px;
+    height: 30px;
+    background-image: url(./images/icon.png);
+    background-position: 0 0;
+    position: absolute;
+    left: 30px;
+    top: 28px;
+}
+
+/* 取消按钮组 */
+.ace-clear-btn {
+    padding: 8px 20px 15px;
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.ace-clear-btn .btn-default:hover {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+/* 关闭视图-结束 */
+.ace-catalogue-sidebar {
+    display: none;
+    height: 100%;
+    width: 10px;
+    background: #444;
+    cursor: col-resize;
+    position: absolute;
+    left: 240px;
+    top: 90px;
+}
+
+.ace-catalogue-sidebar img {
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    margin-top: -20px;
+}
+
+.ace-container-menu {
+    height: 40px;
+    position: relative;
+    background: #292929;
+    overflow: auto;
+}
+
+.ace_editor {
+    font-size: 15px;
+}
+
+
+.ace_scrollbar::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 15px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 10px;
+}
+
+.ace_scrollbar::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #777;
+    border-radius: 0;
+}
+
+.ace_scrollbar::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #333;
+    border-radius: 0;
+}
+
+.keys-item {
+    height: 45px;
+    line-height: 45px;
+    padding: 5px 0;
+}
+
+.keys-item .keys-btn {
+    border: 1px solid #ececec;
+    height: 45px;
+    width: 45px;
+    text-align: center;
+}
+
+.keys-item .keys_symbol {
+    font-weight: 500;
+    padding: 0 15px;
+}
+
+.keys-item .keys-tips {
+    padding-left: 15px;
+}
+
+.ace-container-menu > li {
+    float: left;
+    max-width: 300px;
+    height: 40px;
+    display: block;
+    position: relative;
+}
+
+/* 文件标签右键菜单 */
+.file-tag-box {
+    z-index: 100000;
+    padding: 5px 0;
+    width: 150px;
+    border: 1px solid #ececec;
+    position: fixed;
+    background: #fff;
+    border-radius: 2px;
+}
+
+.file-tag-box li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0 35px;
+    width: 150px;
+    height: 30px;
+    font-size: 13px;
+    line-height: 30px;
+    box-sizing: border-box;
+    position: relative;
+    color: #555;
+    left: -1px;
+    cursor: pointer;
+}
+
+.file-tag-box li:hover {
+    background: #d4d6db;
+    cursor: pointer;
+}
+
+/*滚动条样式*/
+.ace-container-menu::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ace-container-menu::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.ace-container-menu::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.ace-container-menu .item:hover {
+    background: #313131;
+}
+
+.ace-container-menu .item:hover .icon-tool {
+    display: block;
+}
+
+.ace-container-menu .item.active {
+    color: #fff;
+    background: #222;
+}
+
+.ace-container-menu .active.item:before {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 2px;
+    background: #20a53a;
+    position: absolute;
+    bottom: 0;
+}
+
+.ace-container-menu .item.active .icon-tool {
+    display: block;
+}
+
+.ace-container-menu .item span {
+    line-height: 40px;
+    height: 40px;
+    padding: 0 5px;
+    vertical-align: top;
+}
+
+.ace-container-menu .item span i {
+    font-style: normal;
+}
+
+.ace-container-menu .item .icon_file {
+    color: #ff9800;
+    font-weight: 500;
+    min-width: 8px;
+}
+
+.ace-container-menu .item .icon_file > img {
+    width: 13px;
+}
+
+.ace-container-menu .item .icon-warning {
+    display: inline !important;
+    font-size: 15px;
+    color: rgb(204, 167, 0);
+}
+
+.ace-container-menu .item .icon-tool.fa-circle {
+    display: block;
+}
+
+.ace-container-menu .item .icon-tool {
+    display: none;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    transition: all 1000ms;
+}
+
+.ace-editor-add {
+    float: left;
+    height: 40px;
+    padding: 9px 15px;
+    font-size: 17px;
+    color: #ddd;
+    cursor: pointer;
+    transition: all 500ms;
+}
+
+.ace-editor-add:hover {
+    background-color: #505050
+}
+
+
+.set-font-size,
+.set-jump-line {
+    margin-top: 20px;
+    position: relative;
+}
+
+.set-font-size input {
+    width: 230px;
+}
+
+.set-jump-line input {
+    width: 350px;
+}
+
+.set-font-size .btn-save,
+.set-jump-line .btn-save {
+    margin-left: 15px;
+    height: 35px;
+    width: 80px;
+    border: none;
+    background: #20a53a;
+    color: #fff;
+    outline: none;
+    transition: all 500ms;
+}
+
+.set-font-size .btn-save:hover,
+.set-jump-line .btn-save:hover {
+    background: #23963a;
+}
+
+.chrome .set-font-size .tips {
+    color: #c7c7c7;
+
+}
+
+.set-font-size .tips {
+    position: absolute;
+    top: 10px;
+    right: 150px;
+    color: #888;
+}
+
+.jump-tips {
+    font-size: 14px;
+    color: #fff !important;
+    margin-top: 10px;
+}
+
+
+.keysUp_left {
+    float: left;
+    width: 42%;
+    padding: 30px 50px;
+}
+
+.keysUp_right {
+    float: left;
+    width: 42%;
+    padding: 30px 0;
+}
+
+.keysUp-row {
+    margin-bottom: 30px;
+    color: #eee;
+}
+
+.keysUp-title {
+    margin-bottom: 15px;
+    border-left: 4px solid #20a53a;
+    padding: 5px 0 5px 10px;
+    font-size: 16px;
+}
+
+.keysUp-content {
+    padding-left: 10px;
+}
+
+.keysUp-item {
+    line-height: 25px;
+    color: #333;
+    font-size: 0;
+    margin-bottom: 5px;
+}
+
+.keysUp-item img {
+    width: 14px;
+}
+
+.keysUp-item .keysUp-btn {
+    border: 1px solid #ccc;
+    height: 25px;
+    padding: 0 10px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ccc;
+}
+
+.keysUp-item .keysUp-btn i {
+    font-size: 13px;
+}
+
+.keysUp-item .keysUp-symbol {
+    padding: 0 5px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ccc;
+}
+
+.keysUp-item .keysUp-symbols {
+    padding: 0 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ccc;
+}
+
+.keysUp-item .keysUp-tips {
+    padding-left: 25px;
+    font-size: 13px;
+    color: #ccc;
+}
+
+.layui-layer-close {
+    z-index: 99821027;
+}
+
+[data-value] {
+    cursor: pointer;
+}
+
+[data-value]:hover {
+    color: #22849b;
+    border: 1px solid #22849b;
+}
