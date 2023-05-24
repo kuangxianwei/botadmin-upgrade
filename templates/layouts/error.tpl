@@ -16,7 +16,6 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let main = layui.main;
         $('#setter').off('click').on('click', function () {
             setTimeout(layui.layer.closeAll, 2000);
         });

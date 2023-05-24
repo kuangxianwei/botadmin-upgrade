@@ -1,13 +1,13 @@
 <div class="layui-card">
     <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-event="search">
         <div class="layui-inline">
-            <input type="text" name="ids" placeholder="搜索ID:1,2,3" class="layui-input">
+            <input type="text" autocomplete="off" name="ids" placeholder="搜索ID:1,2,3" class="layui-input">
         </div>
         <div class="layui-inline">
-            <input class="layui-input" type="text" name="title" placeholder="请输入标题部分或全部">
+            <input class="layui-input" type="text" autocomplete="off" name="title" placeholder="请输入标题部分或全部">
         </div>
         <div class="layui-inline" style="width: 80px" lay-tips="原创度 例如:70.00">
-            <input type="number" name="originality_rate" placeholder="70.00" class="layui-input">
+            <input type="number" autocomplete="off" name="originality_rate" placeholder="70.00" class="layui-input">
         </div>
         <div class="layui-inline">
             <select name="site_id" lay-filter="search-select" lay-search>
@@ -50,7 +50,7 @@
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="import" id="import" lay-tips="导入 tag.gz|.zip 格式的压缩文件">
+            <button class="layui-btn layui-btn-sm" lay-event="import" lay-tips="导入 tag.gz|.zip 格式的压缩文件">
                 <i class="layui-icon iconfont icon-import"></i>
             </button>
             <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出文章">
@@ -98,7 +98,7 @@
             <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetRecord" lay-tips="重置日志">
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
             </button>
         </div>
@@ -120,325 +120,219 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table,
-            main = layui.main,
-            form = layui.form,
-            upload = layui.upload,
-            element = layui.element;
-
-        //日志管理
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            url: url,
-            toolbar: '#toolbar',
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {field: 'id', title: 'ID', hide: true},
-                {
-                    field: 'title',
-                    title: '标题',
-                    event: 'modify',
-                    style: 'cursor:pointer;color:#01aaed;font-weight:bold'
-                },
-                {
-                    field: 'originality_rate',
-                    title: '原创率',
-                    align: 'center',
-                    sort: true,
-                    width: 120,
-                    templet: function (d) {
-                        let val = (d['originality_rate'] * 100).toFixed(2) + '%';
-                        if (d['originality_rate'] < 0.35) {
-                            return '<b style="color: red">' + val + '</b>';
-                        }
-                        if (d['originality_rate'] > 0.69) {
-                            return '<b style="color:#01aaed;">' + val + '</b>';
-                        }
-                        return val;
-                    },
-                },
-                {field: 'description', title: '描述', hide: true},
-                {field: 'tags', title: 'Tags', hide: true},
-                {field: 'site_id', title: '绑定网站ID', hide: true},
-                {field: 'class_id', title: '文章ID', hide: true},
-                {
-                    field: 'used', title: '已使用', align: 'center', width: 92, unresize: true, event: 'used',
-                    templet: function (d) {
-                        let msg = '<input id="' + d.id + '" type="checkbox" name="used" lay-skin="switch" lay-text="是|否" lay-filter="used"';
-                        if (d.used) {
-                            msg += ' checked>';
-                        } else {
-                            msg += '>';
-                        }
-                        return msg;
-                    },
-                    sort: true
-                },
-                {
-                    field: 'ban_vetted',
-                    title: '过滤违禁',
-                    align: 'center',
-                    width: 92,
-                    unresize: true,
-                    event: 'ban_vetted',
-                    templet: function (d) {
-                        let msg = '<input id="' + d.id + '" type="checkbox" name="ban_vetted" lay-skin="switch" lay-text="是|否" lay-filter="banVetted"';
-                        if (d.ban_vetted) {
-                            msg += ' checked>';
-                        } else {
-                            msg += '>';
-                        }
-                        return msg;
-                    },
-                    sort: true,
-                    hide: true
-                },
-                {
-                    field: 'trans_failed',
-                    title: '译错',
-                    align: 'center',
-                    width: 92,
-                    unresize: true,
-                    event: 'trans_failed',
-                    templet: function (d) {
-                        let msg = '<input id="' + d.id + '" type="checkbox" name="trans_failed" lay-skin="switch" lay-text="是|否" lay-filter="transFailed"';
-                        if (d.trans_failed) {
-                            msg += ' checked>';
-                        } else {
-                            msg += '>';
-                        }
-                        return msg;
-                    },
-                    sort: true
-                },
-                {
-                    field: 'updated', title: '时间', align: 'center', width: 180, sort: true, templet: function (d) {
-                        return main.timestampFormat(d['updated']);
+        let main = layui.main,
+            form = layui.form;
+        main.upload();
+        main.table([[
+            {type: 'checkbox', fixed: 'left'},
+            {field: 'id', title: 'ID', hide: true},
+            {
+                field: 'title',
+                title: '标题',
+                event: 'modify',
+                style: 'cursor:pointer;color:#01aaed;font-weight:bold'
+            },
+            {
+                field: 'originality_rate',
+                title: '原创率',
+                align: 'center',
+                sort: true,
+                width: 120,
+                templet: function (d) {
+                    let val = (d['originality_rate'] * 100).toFixed(2) + '%';
+                    if (d['originality_rate'] < 0.35) {
+                        return '<b style="color: red">' + val + '</b>';
                     }
+                    if (d['originality_rate'] > 0.69) {
+                        return '<b style="color:#01aaed;">' + val + '</b>';
+                    }
+                    return val;
                 },
-                {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-            ]],
-            page: true,
-            limit: 10,
-            limits: [10, 50, 200, 500, 900],
-            done: function () {
-                upload.render({
-                    headers: {'X-CSRF-Token': csrfToken},
-                    elem: '#import',
-                    url: url + '/import',
-                    accept: 'file',
-                    done: function (res) {
-                        table.reload('table-list');
-                        layer.msg(res.msg);
+            },
+            {field: 'description', title: '描述', hide: true},
+            {field: 'tags', title: 'Tags', hide: true},
+            {field: 'site_id', title: '绑定网站ID', hide: true},
+            {field: 'class_id', title: '文章ID', hide: true},
+            {
+                field: 'used', title: '已使用', align: 'center', width: 92, unresize: true, event: 'used',
+                templet: function (d) {
+                    let msg = '<input data-id="' + d.id + '" type="checkbox" name="used" lay-skin="switch" lay-text="是|否" lay-filter="used"';
+                    if (d.used) {
+                        msg += ' checked>';
+                    } else {
+                        msg += '>';
+                    }
+                    return msg;
+                },
+                sort: true
+            },
+            {
+                field: 'ban_vetted',
+                title: '过滤违禁',
+                align: 'center',
+                width: 92,
+                unresize: true,
+                event: 'ban_vetted',
+                templet: function (d) {
+                    let msg = '<input data-id="' + d.id + '" type="checkbox" name="ban_vetted" lay-skin="switch" lay-text="是|否" lay-filter="banVetted"';
+                    if (d.ban_vetted) {
+                        msg += ' checked>';
+                    } else {
+                        msg += '>';
+                    }
+                    return msg;
+                },
+                sort: true,
+                hide: true
+            },
+            {
+                field: 'trans_failed',
+                title: '译错',
+                align: 'center',
+                width: 92,
+                unresize: true,
+                event: 'trans_failed',
+                templet: function (d) {
+                    let msg = '<input data-id="' + d.id + '" type="checkbox" name="trans_failed" lay-skin="switch" lay-text="是|否" lay-filter="transFailed"';
+                    if (d.trans_failed) {
+                        msg += ' checked>';
+                    } else {
+                        msg += '>';
+                    }
+                    return msg;
+                },
+                sort: true
+            },
+            {
+                field: 'updated', title: '时间', align: 'center', width: 180, sort: true, templet: function (d) {
+                    return main.timestampFormat(d['updated']);
+                }
+            },
+            {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}]], {
+            modify: function (obj) {
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                    main.popup({
+                        title: '修改文章',
+                        url: url + '/modify',
+                        content: html,
+                        done: 'table-list',
+                    });
+                });
+            },
+            configure: function (obj, ids) {
+                if (obj.data.length === 0) {
+                    layer.msg('请勾选数据', {icon: 2});
+                    return false;
+                }
+                main.get(url + '/configure', {ids: ids.join()}, function (html) {
+                    main.popup({
+                        title: "批量修改配置",
+                        content: html,
+                        url: url + '/configure',
+                        done: 'table-list',
+                    });
+                });
+            },
+            originalityExec: function (obj, ids) {
+                if (obj.data.length === 0) {
+                    layer.msg('请勾选数据', {icon: 2});
+                    return false;
+                }
+                main.request({
+                    url: url + '/original',
+                    data: {ids: ids.join()},
+                    done: function () {
+                        main.ws.log('article.0');
+                        return false;
+                    },
+                });
+            },
+            conversionExec: function (obj, ids) {
+                if (obj.data.length === 0) {
+                    layer.msg('请勾选数据', {icon: 2});
+                    return false;
+                }
+                main.get(url + '/convert', {ids: ids.join()}, function (html) {
+                    main.popup({
+                        title: '简繁体转换',
+                        content: html,
+                        url: url + '/convert',
+                        area: ['280px', '300px'],
+                        done: 'table-list'
+                    });
+                });
+            },
+            originality: function (obj, ids) {
+                if (obj.data.length === 0) {
+                    layer.msg('请勾选数据', {icon: 2});
+                    return false;
+                }
+                let val = this.value;
+                main.request({
+                    url: url + '/original',
+                    data: {ids: ids.join(), originality: val},
+                    done: "table-list"
+                });
+            },
+            ban: function (obj, ids) {
+                if (obj.data.length === 0) {
+                    layer.msg('请勾选数据', {icon: 2});
+                    return false;
+                }
+                main.request({
+                    url: url + '/ban',
+                    data: {thread: obj.data.length, ids: ids.join()},
+                    done: function () {
+                        main.ws.log('article.0');
+                        return false;
                     }
                 });
-                element.render();
             },
-            text: '对不起，加载出现异常！'
-        });
-        let active = {
-                del: function (data) {
-                    layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.request({
-                            url: url + '/del',
-                            data: data,
-                            index: index,
-                            done: 'table-list'
-                        });
+            case: function () {
+                main.get(url + '/case', function (html) {
+                    main.popup({
+                        title: '采集范本',
+                        content: html,
+                        btn: ['关闭'],
+                        yes: function (index) {
+                            layer.close(index);
+                            return false;
+                        },
                     });
-                },
-                modify: function (data) {
-                    let loading = main.loading();
-                    $.get(url + '/modify', {id: data.id}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '修改文章',
-                            url: url + '/modify',
-                            content: html,
-                            done: 'table-list',
-                        });
-                        element.render();
-                    });
-                },
-                log: function (data) {
-                    main.ws.log('article.' + data.id);
-                },
+                });
             },
-            activeBar = {
-                del: function (obj, data) {
-                    if (data.length === 0) {
-                        layer.msg('请勾选数据', {icon: 2});
-                        return false;
-                    }
-                    layer.confirm('删除后不可恢复，确定删除选中吗？', function (index) {
-                        main.request({
-                            url: url + '/del',
-                            data: {'ids': obj.ids.join()},
-                            index: index,
-                            done: 'table-list'
-                        });
-                    });
-                },
-                truncate: function () {
-                    layer.confirm('清空全部数据，确定清空？', function (index) {
-                        main.request({
-                            url: url + '/truncate',
-                            index: index,
-                            done: 'table-list'
-                        });
-                    });
-                },
-                configure: function (obj, data) {
-                    if (data.length === 0) {
-                        layer.msg('请勾选数据', {icon: 2});
-                        return false;
-                    }
-                    let loading = main.loading();
-                    $.get(url + '/configure', {ids: obj.ids.join()}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: "批量修改配置",
-                            content: html,
-                            url: url + '/configure',
-                            done: 'table-list',
-                        });
-                    });
-                },
-                originalityExec: function (obj, data) {
-                    if (data.length === 0) {
-                        layer.msg('请勾选数据', {icon: 2});
-                        return false;
-                    }
-                    main.request({
-                        url: url + '/original',
-                        data: {ids: obj.ids.join()},
+            translate: function (obj, ids) {
+                if (obj.data.length === 0) {
+                    layer.msg('请勾选数据', {icon: 2});
+                    return false;
+                }
+                main.get(url + '/translate', {ids: ids.join()}, function (html) {
+                    main.popup({
+                        title: '翻译',
+                        content: html,
+                        url: url + '/translate',
+                        area: ['750px', '300px'],
                         done: function () {
                             main.ws.log('article.0');
                             return false;
                         },
                     });
-                },
-                conversionExec: function (obj, data) {
-                    if (data.length === 0) {
-                        layer.msg('请勾选数据', {icon: 2});
-                        return false;
-                    }
-                    let loading = main.loading();
-                    $.get(url + '/convert', {ids: obj.ids.join()}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '简繁体转换',
-                            content: html,
-                            url: url + '/convert',
-                            area: ['280px', '300px'],
-                            done: 'table-list'
-                        });
-                        form.render();
-                    });
-                },
-                originality: function (obj, data) {
-                    if (data.length === 0) {
-                        layer.msg('请勾选数据', {icon: 2});
-                        return false;
-                    }
-                    let val = this.value;
+                    form.render();
+                });
+            },
+            delUsed: function () {
+                layer.confirm('删除所有已经发布是文章列表？', function (index) {
                     main.request({
-                        url: url + '/original',
-                        data: {ids: obj.ids.join(), originality: val},
-                        done: "table-list"
+                        url: url + '/del/used',
+                        index: index,
+                        done: 'table-list'
                     });
-                },
-                ban: function (obj, data) {
-                    if (data.length === 0) {
-                        layer.msg('请勾选数据', {icon: 2});
-                        return false;
-                    }
-                    main.request({
-                        url: url + '/ban',
-                        data: {thread: obj.thread, ids: obj.ids.join()},
-                        done: function () {
-                            main.ws.log('article.0');
-                            return false;
-                        }
-                    });
-                },
-                case: function () {
-                    let loading = main.loading();
-                    $.get(url + '/case', {}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '采集范本',
-                            content: html,
-                            btn: ['关闭'],
-                            yes: function (index) {
-                                layer.close(index);
-                                return false;
-                            },
-                        });
-                    });
-                },
-                translate: function (obj, data) {
-                    if (data.length === 0) {
-                        layer.msg('请勾选数据', {icon: 2});
-                        return false;
-                    }
-                    let loading = main.loading();
-                    $.get(url + '/translate', {ids: obj.ids.join()}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '翻译',
-                            content: html,
-                            url: url + '/translate',
-                            area: ['750px', '300px'],
-                            done: function () {
-                                main.ws.log('article.0');
-                                return false;
-                            },
-                        });
-                        form.render();
-                    });
-                },
-                resetRecord: function (obj) {
-                    main.reset.log('article', obj.ids);
-                },
-                delUsed: function () {
-                    layer.confirm('删除所有已经发布是文章列表？', function (index) {
-                        main.request({
-                            url: url + '/del/used',
-                            index: index,
-                            done: 'table-list'
-                        });
-                    });
-                },
-                export: function (obj) {
-                    window.open(encodeURI(url + '/export?ids=' + obj.ids.join()));
-                },
-                log: function () {
-                    main.ws.log('article.0');
-                }
-            };
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call(this, obj.data);
+                });
+            },
         });
-
-        //监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            let data = table.checkStatus(obj.config.id).data;
-            obj.ids = [];
-            obj.thread = data.length ? data.length : 10;
-            for (let i = 0; i < data.length; i++) {
-                obj.ids[i] = data[i].id;
-            }
-            activeBar[obj.event] && activeBar[obj.event].call(this, obj, data);
-        });
-        // 监听搜索
-        main.onSearch();
         // 切换是否已经使用
         form.on('switch(used)', function (obj) {
-            let id = this.id,
+            let id = $(this).attr('data-id'),
                 checked = this.checked;
             if (!id) {
                 layer.tips('ID为空，无法操作！', obj.othis);
@@ -449,11 +343,10 @@
                 data: {id: id, used: checked, cols: 'used'},
                 done: 'table-list',
             });
-            return false;
         });
         // 切换翻译错误
         form.on('switch(transFailed)', function (obj) {
-            let id = this.id,
+            let id = $(this).attr('data-id'),
                 checked = this.checked;
             if (!id) {
                 layer.tips('ID为空，无法操作！', obj.othis);
@@ -468,7 +361,7 @@
         });
         // 切换过滤
         form.on('switch(banVetted)', function (obj) {
-            let id = this.id,
+            let id = $(this).attr('data-id'),
                 checked = this.checked;
             if (!id) {
                 layer.tips('ID为空，无法操作！', obj.othis);

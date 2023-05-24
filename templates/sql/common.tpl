@@ -1,41 +1,41 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <label class="layui-form-label">用户名:</label>
+            <label for="username" class="layui-form-label">用户名:</label>
             <div class="layui-input-inline">
-                <input type="text" name="username" value="{{.obj.Username}}" required lay-verify="required"
+                <input type="text" autocomplete="off" name="username" id="username" value="{{.obj.Username}}" required lay-verify="required"
                        class="layui-input"
                        placeholder="6-15个字符，由字母、数字、下划线组成"{{if ne .obj.Id 0}} disabled{{end}}>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">密码:</label>
+            <label for="password" class="layui-form-label">密码:</label>
             <div class="layui-input-inline">
-                <input type="text" name="password" value="{{.obj.Password}}"
+                <input type="text" autocomplete="off" name="password" id="password" value="{{.obj.Password}}"
                        placeholder="6-15个字符，由字母、数字、下划线组成" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">留空为8位随机密码</div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">确认密码:</label>
+            <label for="password2" class="layui-form-label">确认密码:</label>
             <div class="layui-input-inline">
-                <input type="password" name="password2" value="{{.obj.Password}}" placeholder="请确认新密码"
+                <input type="password" name="password2" id="password2" value="{{.obj.Password}}" placeholder="请确认新密码"
                        autocomplete="off"
                        class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">留空为8位随机密码</div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">数据库名:</label>
+            <label for="dbname" class="layui-form-label">数据库名:</label>
             <div class="layui-input-inline">
-                <input type="text" name="dbname" value="{{.obj.Dbname}}"
+                <input type="text" autocomplete="off" name="dbname" id="dbname" value="{{.obj.Dbname}}"
                        placeholder="留空为用户名" class="layui-input"{{if ne .obj.Id 0}} disabled{{end}}>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">数据库前缀:</label>
+            <label for="prefix" class="layui-form-label">数据库前缀:</label>
             <div class="layui-input-inline">
-                <input type="text" name="prefix" value="{{.obj.Prefix}}" placeholder="bot_" class="layui-input">
+                <input type="text" autocomplete="off" name="prefix" id="prefix" value="{{.obj.Prefix}}" placeholder="bot_" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">字母开头下划线结尾 如：bot_</div>
         </div>
@@ -51,9 +51,9 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">主机名:</label>
+            <label for="hosts" class="layui-form-label">主机名:</label>
             <div class="layui-input-inline">
-                <textarea name="hosts" class="layui-textarea">{{join .obj.Hosts "\n"}}</textarea>
+                <textarea name="hosts" id="hosts" class="layui-textarea">{{join .obj.Hosts "\n"}}</textarea>
             </div>
             <div class="layui-form-mid layui-word-aux">指定IP访问 10.211.55.2 一行一个</div>
         </div>

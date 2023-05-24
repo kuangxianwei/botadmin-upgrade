@@ -8,9 +8,9 @@
         <div class="layui-form-item">
             <div class="layui-row">
                 <div class="layui-col-md6">
-                    <label class="layui-form-label">引擎:</label>
+                    <label for="engine" class="layui-form-label">引擎:</label>
                     <div class="layui-input-inline">
-                        <select name="engine" lay-filter="engine">
+                        <select name="engine" id="engine" lay-filter="engine">
                             {{range $engine:=.engines -}}
                                 <option value="{{$engine.Name}}"{{if eq $.obj.Engine $engine.Name}} selected{{end}}>{{$engine.Alias}}</option>
                             {{end -}}
@@ -18,40 +18,40 @@
                     </div>
                 </div>
                 <div class="layui-col-md6">
-                    <label class="layui-form-label" lay-tips="关键词列表 一行一条">关键词:</label>
+                    <label for="begin" class="layui-form-label" lay-tips="关键词列表 一行一条">关键词:</label>
                     <div class="layui-input-block">
                         <textarea name="keywords" class="layui-textarea"
                                   required lay-verify="required">{{join .obj.Keywords "\n"}}</textarea>
                     </div>
                 </div>
                 <div class="layui-col-md3">
-                    <label class="layui-form-label" lay-tips="开始页">开始:</label>
+                    <label for="begin" class="layui-form-label" lay-tips="开始页">开始:</label>
                     <div class="layui-input-inline" style="width: 60px">
-                        <input type="number" name="begin" value="{{.obj.Begin}}" class="layui-input">
+                        <input type="number" autocomplete="off" name="begin" id="begin" value="{{.obj.Begin}}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-col-md3">
-                    <label class="layui-form-label" lay-tips="结束页">结束:</label>
+                    <label for="end" class="layui-form-label" lay-tips="结束页">结束:</label>
                     <div class="layui-input-inline" style="width: 60px">
-                        <input type="number" name="end" value="{{.obj.End}}" class="layui-input">
+                        <input type="number" autocomplete="off" name="end" id="end" value="{{.obj.End}}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-col-md3">
-                    <label class="layui-form-label" lay-tips="每页显示量默认30个">页数:</label>
+                    <label for="limit" class="layui-form-label" lay-tips="每页显示量默认30个">页数:</label>
                     <div class="layui-input-inline" style="width: 60px">
-                        <input type="number" name="limit" value="{{.obj.Limit}}" class="layui-input">
+                        <input type="number" autocomplete="off" name="limit" id="limit" value="{{.obj.Limit}}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-col-md3">
-                    <label class="layui-form-label" lay-tips="延迟时间秒">延迟:</label>
+                    <label for="delay" class="layui-form-label" lay-tips="延迟时间秒">延迟:</label>
                     <div class="layui-input-inline" style="width: 60px">
-                        <input type="number" name="delay" value="{{print .obj.Delay}}" class="layui-input">
+                        <input type="number" autocomplete="off" name="delay" id="delay" value="{{print .obj.Delay}}" class="layui-input">
                     </div>
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">Cookies:</label>
+            <label for="id" class="layui-form-label">Cookies:</label>
             <div class="layui-input-block">
                 <textarea name="cookies" class="layui-textarea">{{.obj.Cookies}}</textarea>
             </div>
@@ -64,6 +64,7 @@
 </div>
 <script>
     let picURL = "/file?path=" +{{.obj.Dirname}};
+
     function openPic() {
         window.open(picURL, '_blank');
     }

@@ -2,7 +2,7 @@
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <select name="conversion" class="layui-select">
+                <select name="conversion" id="conversion" class="layui-select">
                     {{range $v:=.conversions}}
                         <option value="{{$v.Name}}">{{$v.Alias}}</option>
                     {{end}}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>404 Not Found</title>
-    <style type="text/css">
+    <style>
         .head404 {
             width: 580px;
             height: 234px;
@@ -47,7 +47,7 @@
         }
     </style>
 </head>
-<body bgcolor="#494949">
+<body style="background-color:#494949">
 
 <div class="head404"></div>
 

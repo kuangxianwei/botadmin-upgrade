@@ -3,30 +3,30 @@
         <div class="layui-card-body layui-form">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">启用PC:</label>
+                    <label for="pc_enabled" class="layui-form-label">启用PC:</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="pc_enabled" lay-skin="switch" lay-text="是|否"{{if .obj.PcEnabled}} checked{{end}}/>
+                        <input type="checkbox" name="pc_enabled" id="pc_enabled" lay-skin="switch" lay-text="是|否"{{if .obj.PcEnabled}} checked{{end}}/>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">启用Mobile:</label>
+                    <label for="mobile_enabled" class="layui-form-label">启用Mobile:</label>
                     <div class="layui-input-block">
-                        <input type="checkbox" name="mobile_enabled" lay-skin="switch" lay-text="是|否"{{if .obj.MobileEnabled}} checked{{end}}/>
+                        <input type="checkbox" name="mobile_enabled" id="mobile_enabled" lay-skin="switch" lay-text="是|否"{{if .obj.MobileEnabled}} checked{{end}}/>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">排序:</label>
+                    <label for="sort" class="layui-form-label">排序:</label>
                     <div class="layui-input-inline">
-                        <input type="number" name="sort" value="{{.obj.Sort}}" min="0" max="100" class="layui-input">
+                        <input type="number" autocomplete="off" name="sort" id="sort" value="{{.obj.Sort}}" min="0" max="100" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">值越大越排后面</div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">PC样式:</label>
+                    <label for="pc_style_id" class="layui-form-label">PC样式:</label>
                     <div class="layui-input-inline">
-                        <select name="pc_style_id" class="layui-select">
+                        <select name="pc_style_id" id="pc_style_id" class="layui-select">
                             {{range $v:=.styles -}}
                                 <option value="{{$v.Id}}"{{if eq $v.Id $.obj.PcStyleId}} selected{{end}}>{{$v.Name}}</option>
                             {{end -}}
@@ -34,9 +34,9 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">Mobile样式:</label>
+                    <label for="mobile_style_id" class="layui-form-label">Mobile样式:</label>
                     <div class="layui-input-inline">
-                        <select name="mobile_style_id" class="layui-select">
+                        <select name="mobile_style_id" id="mobile_style_id" class="layui-select">
                             {{range $v:=.styles -}}
                                 <option value="{{$v.Id}}"{{if eq $v.Id $.obj.MobileStyleId}} selected{{end}}>{{$v.Name}}</option>
                             {{end -}}
@@ -49,9 +49,9 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">PC过滤:</label>
+                    <label for="pc_filter_id" class="layui-form-label">PC过滤:</label>
                     <div class="layui-input-inline">
-                        <select name="pc_filter_id" class="layui-select">
+                        <select name="pc_filter_id" id="pc_filter_id" class="layui-select">
                             <option value="0">禁用</option>
                             {{range $v:=.filters -}}
                                 <option value="{{$v.Id}}"{{if eq $v.Id $.obj.PcFilterId}} selected{{end}}>{{$v.Name}}</option>
@@ -60,9 +60,9 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">Mobile过滤:</label>
+                    <label for="mobile_filter_id" class="layui-form-label">Mobile过滤:</label>
                     <div class="layui-input-inline">
-                        <select name="mobile_filter_id" class="layui-select">
+                        <select name="mobile_filter_id" id="mobile_filter_id" class="layui-select">
                             <option value="0">禁用</option>
                             {{range $v:=.filters -}}
                                 <option value="{{$v.Id}}"{{if eq $v.Id $.obj.MobileFilterId}} selected{{end}}>{{$v.Name}}</option>
@@ -76,45 +76,45 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-col-md6">
-                    <label class="layui-form-label">用户名:</label>
+                    <label for="username" class="layui-form-label">用户名:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="username" value="{{.obj.Username}}" lay-verify="required"
-                               placeholder="liYi" class="layui-input"{{if .obj.Username}} disabled{{end}}>
-                        {{if .obj.Username}}
-                            <input type="hidden" name="username" value="{{.obj.Username}}" lay-verify="required">
-                        {{end}}
+                        {{if .obj.Id -}}
+                            <input type="text" pattern="^[a-zA-Z]\w+$" autocomplete="off" name="username" id="username" value="{{.obj.Username}}" lay-verify="required" placeholder="liYi" class="layui-input layui-disabled" disabled>
+                        {{else -}}
+                            <input type="text" pattern="^[a-zA-Z]\w+$" autocomplete="off" name="username" id="username" value="{{.obj.Username}}" lay-verify="required" placeholder="liYi" class="layui-input">
+                        {{end -}}
                     </div>
                     <div class="layui-form-mid layui-word-aux">数字和字母组成</div>
                 </div>
                 <div class="layui-col-md6">
-                    <label class="layui-form-label">别名:</label>
+                    <label for="alias" class="layui-form-label">别名:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="alias" value="{{.obj.Alias}}" placeholder="李谊" class="layui-input">
+                        <input type="text" autocomplete="off" name="alias" id="alias" value="{{.obj.Alias}}" placeholder="李谊" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">填写姓名</div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-col-md6">
-                    <label class="layui-form-label">手机号:</label>
+                    <label for="phone" class="layui-form-label">手机号:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="phone" value="{{.obj.Phone}}" lay-verify="phone" placeholder="13724184818" class="layui-input">
+                        <input type="tel" autocomplete="off" name="phone" id="phone" value="{{.obj.Phone}}" lay-verify="phone" placeholder="13724184818" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">填写手机号码</div>
                 </div>
                 <div class="layui-col-md6">
-                    <label class="layui-form-label">微信号:</label>
+                    <label for="wechat" class="layui-form-label">微信号:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="wechat" value="{{.obj.Wechat}}" placeholder="13724184818" class="layui-input">
+                        <input type="text" autocomplete="off" name="wechat" id="wechat" value="{{.obj.Wechat}}" placeholder="13724184818" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">留空默认为手机号码</div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-col-md6">
-                    <label class="layui-form-label">最大限制:</label>
+                    <label for="max" class="layui-form-label">最大限制:</label>
                     <div class="layui-input-inline">
-                        <input type="number" name="max" value="{{.obj.Max}}" min="0" placeholder="0" class="layui-input">
+                        <input type="number" autocomplete="off" name="max" id="max" value="{{.obj.Max}}" min="0" placeholder="0" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">0为不限制</div>
                 </div>
@@ -128,15 +128,15 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">电子邮箱:</label>
+                <label for="email" class="layui-form-label">电子邮箱:</label>
                 <div class="layui-input-inline">
-                    <input type="email" name="email" value="{{.obj.Email}}" placeholder="38050123@qq.com" class="layui-input">
+                    <input type="email" name="email" id="email" value="{{.obj.Email}}" placeholder="38050123@qq.com" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">如开启了留言则发送到这个邮箱</div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">二维码:</label>
+                    <label for="consult" class="layui-form-label">二维码:</label>
                     <div class="layui-input-inline">
                         <div class="layui-upload-drag" id="uploadFile">
                             <i class="layui-icon layui-icon-upload-drag"></i>
@@ -149,9 +149,9 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">在线咨询:</label>
+                <label for="consult" class="layui-form-label">在线咨询:</label>
                 <div class="layui-input-inline" style="width: 50%">
-                    <input name="consult" value="{{.obj.Consult}}" placeholder="填写在线咨询URL" class="layui-input">
+                    <input name="consult" id="consult" value="{{.obj.Consult}}" placeholder="填写在线咨询URL" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <i class="layui-icon iconfont icon-fill" data-event="fill-consult" lay-tips="填充默认数据" style="color:#0c80ba"></i>
@@ -178,6 +178,8 @@
 <script>
     layui.use(['main'], function () {
         let main = layui.main,
+            transfer = layui.transfer,
+            citiesData = {{.citiesData}},
             qrPath = {{.obj.QR}};
         //滑块控制
         main.slider({elem: '#weight', value: {{.obj.Weight}}, max: 100});
@@ -235,7 +237,7 @@
             active[event] && active[event].call($this);
         });
         if (qrPath) {
-            $.get("/file/view", {path: qrPath}, function (res) {
+            main.get("/file/view", {path: qrPath}, function (res) {
                 if (res.code === 0) {
                     $('#uploadResult').html('<img height="130" width="130" alt="二维码" src="' + res.data['data'] + '"/>');
                 } else {

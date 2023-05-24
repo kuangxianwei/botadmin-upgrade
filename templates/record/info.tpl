@@ -11,108 +11,18 @@
                 <button class="layui-btn layui-btn-primary">总日志: <span id="count"></span>条</button>
                 <button class="layui-btn layui-btn-primary">运行中: <span id="active"></span>条</button>
                 <button class="layui-btn layui-btn-primary">总协程数: <span id="goroutine"></span></button>
-                <button class="layui-btn layui-btn-primary" lay-event="cron">定时任务: <span id="cron"></span>条
+                <button class="layui-btn layui-btn-primary" data-crontab>定时任务: <span id="cron"></span>条
                 </button>
             </div>
         </div>
     </div>
     <div class="layui-card-body">
-        <table id="table-list" lay-filter="table-list" class="layui-table">
-            <colgroup>
-                <col style="width:200px">
-                <col style="width:100px">
-                <col style="width:120px">
-                <col>
-            </colgroup>
-            <thead>
-            <tr>
-                <th>Token</th>
-                <th>
-                    <div class="layui-table-cell" style="text-align:center"><span>Status</span></div>
-                </th>
-                <th>
-                    <div class="layui-table-cell" style="text-align:center"><span>Size(字节)</span></div>
-                </th>
-                <th>Other</th>
-                <th>操作</th>
-            </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <table id="table-info" lay-filter="table-info" class="layui-hide"></table>
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let main = layui.main,
-            form = layui.form,
-            hasLocalStorage = typeof localStorage !== "undefined",
-            w = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws/log/info');
-        w.onopen = function () {
-            w.send("show");
-        };
-        w.onmessage = function (e) {
-            let field = JSON.parse(e.data);
-            if (field) {
-                if (field.data) {
-                    let elem = $('#table-list>tbody').empty(),
-                        display = localStorage.getItem('log_info') || '1';
-                    for (let i = 0; i < field.data.length; i++) {
-                        let item = field.data[i];
-                        if (display === '1' && item.size === 0 && !item.other) {
-                            continue
-                        }
-                        let trElem = '<tr>';
-                        if (typeof item.other === 'string') {
-                            item.other = item.other.toString();
-                        } else if (item.other instanceof Object) {
-                            item.other = JSON.stringify(item.other);
-                        } else if (!item.other) {
-                            item.other = '';
-                        }
-                        trElem += '<td lay-event="view-log" style="cursor:pointer;color:#0a5b52" data-token="' + item.token + '">' + item.token + '</td>';
-                        if (item.status === 0) {
-                            trElem += '<td align="center">未运行</td>';
-                        } else {
-                            trElem += '<td style="text-align:center;color:#0a5b52">运行中</td>';
-                        }
-                        trElem += '<td style="text-align:center;">' + item.size + '</td>';
-                        trElem += '<td>' + item.other + '</td>';
-                        trElem += '<td style="text-align:center;width: 80px"><button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetRecord" lay-tips="重置日志"> <i class="layui-icon iconfont icon-reset"></i>Log</button></td>';
-                        trElem += '</tr>';
-                        elem.append(trElem);
-                    }
-                    $('[lay-event="view-log"]').off('click').on('click', function () {
-                        main.ws.log($(this).data('token'));
-                    });
-                    $('[lay-event="resetRecord"]').off('click').on('click', function () {
-                        main.reset.log($(this).parent().prevAll('[data-token]').data('token'));
-                    });
-                }
-                $('#count').text(field.count);
-                $('#active').text(field.active);
-                $('#goroutine').text(field['goroutine']);
-                $('#cron').text(field.cron);
-            }
-        };
-        $("[lay-event=cron]").off('click').on('click', function () {
-            main.request({
-                url: url + "/cron",
-                done: function (res) {
-                    main.msg(res.msg);
-                    return false;
-                },
-            });
-        });
-        form.on('radio(display)', function (obj) {
-            if (hasLocalStorage) {
-                localStorage.setItem('log_info', obj.value);
-                location.reload();
-            }
-        });
-        if (hasLocalStorage) {
-            $('input[type=radio][value="' + localStorage.getItem('log_info') + '"]').prop('checked', true);
-        }
-        form.render();
+        layui.main.ws.info();
     });
 </script>

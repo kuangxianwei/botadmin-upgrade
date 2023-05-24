@@ -1,5 +1,13 @@
 <div class="layui-card">
     <div class="layui-card-body">
+        <div class="layui-form table-search" style="left: 20px">
+            <div class="layui-inline">
+                <input type="text" autocomplete="off" name="search" class="layui-input" placeholder="输入搜索...">
+            </div>
+            <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="search">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+        </div>
         <table id="table-list" lay-filter="table-list"></table>
     </div>
     <div class="layui-card-body">
@@ -17,45 +25,25 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table,
-            main = layui.main,
-            loadindex = layer.load(1, {shade: [0.5, '#000']});
-
-        //规则管理
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            url: url,
+        let main = layui.main;
+        main.table({
             cols: [[
-                {type: 'numbers', width: 50, title: 'ID', sort: true},
+                {type: 'numbers', width: 80, title: 'ID', sort: true},
                 {field: 'prot', title: '协议', sort: true},
                 {field: 'pid', title: 'PID', align: 'center', sort: true},
                 {field: 'ip_port', title: 'IP端口', align: 'center', sort: true},
                 {field: 'name', title: '应用程序', align: 'center', sort: true},
                 {title: '操作', align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-            ]],
-            done: function () {
-                layer.close(loadindex);
-            },
-            page: false,
-            limit: 10,
-            limits: [10, 15, 20, 25, 30],
-            text: '对不起，加载出现异常！'
-        });
-
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            if (obj.event === "kill") {
+            ]], page: false
+        }, {
+            kill: function (obj) {
                 obj.data.act = 'kill';
-            } else {
-                return false;
+                main.request({
+                    url: url,
+                    data: obj.data,
+                    done: 'table-list'
+                });
             }
-            main.request({
-                url: url,
-                data: obj.data,
-                done: 'table-list'
-            });
         });
     });
 </script>

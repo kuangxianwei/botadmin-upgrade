@@ -27,14 +27,13 @@
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
-<div class="layui-hide" id="import"></div>
 <script type="text/html" id="configure">
     <div class="layui-card">
         <div class="layui-card-body layui-form">
             <div class="layui-form-item">
-                <label class="layui-form-label">启用:</label>
+                <label for="enabled" class="layui-form-label">启用:</label>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="enabled" lay-skin="switch" lay-text="启用|禁用">
+                    <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="启用|禁用">
                 </div>
             </div>
             <div class="layui-hide">
@@ -74,7 +73,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
         </button>
-        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetRecord" lay-tips="重置日志">
+        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
             <i class="layui-icon iconfont icon-reset"></i>Log
         </button>
     </div>
@@ -132,8 +131,7 @@
                 });
             },
             enabled: function (obj) {
-                let $this = this;
-                let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
+                let $this = this, enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
                 main.request({
                     url: url + "/modify",
                     data: {id: obj.data.id, enabled: enabled, cols: 'enabled'},
@@ -143,34 +141,8 @@
                     }
                 });
             },
-            del: function (obj) {
-                let data = {}, done = obj.del;
-                if (obj.config) {
-                    let ids = [];
-                    $.each(table.checkStatus(obj.config.id).data, function () {
-                        ids.push(this.id);
-                    });
-                    if (ids.length === 0) {
-                        return layer.msg('请选择数据');
-                    }
-                    data.ids = ids.join();
-                    done = 'table-list';
-                } else {
-                    data = obj.data;
-                }
-                layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                    main.request({
-                        url: url + '/del',
-                        data: data,
-                        index: index,
-                        done: done
-                    });
-                });
-            },
             modify: function (obj) {
-                let loading = layui.main.loading();
-                $.get(url + '/modify', {id: obj.data.id}).always(function () {
-                    loading.close();
+                main.get(url + '/modify', {id: obj.data.id}).always(function () {
                 }).done(function (html) {
                     main.popup({
                         title: '修改规则',
@@ -192,13 +164,6 @@
             },
             log: function (obj) {
                 main.ws.log('ad_configure.' + (obj.data ? obj.data.id : 0));
-            },
-            resetRecord: function (obj) {
-                let ids = [];
-                $.each(table.checkStatus(obj.config.id).data, function () {
-                    ids.push(this.id);
-                });
-                main.reset.log('ad_configure', ids);
             },
             configure: function (obj) {
                 let ids = [];
@@ -239,8 +204,6 @@
         table.on('toolbar(table-list)', function (obj) {
             active[obj.event] && active[obj.event].call(this, obj);
         });
-        // 监听搜索
-        main.onSearch();
         main.checkLNMP();
     });
 </script>

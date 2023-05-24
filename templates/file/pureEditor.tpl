@@ -4,7 +4,7 @@
             <label class="layui-form-label">当前文件</label>
             <div class="layui-input-block">
                 <div class="layui-col-md12" id="filepath">{{ .path }}</div>
-                <input name="path" type="hidden" value="{{ .path }}" id="current-filename"/>
+                <input name="path" type="hidden" value="{{ .path }}"/>
                 <input name="act" type="hidden" value="editor"/>
                 <input name="url" type="hidden" value="/file/editor"/>
                 <button type="submit" class="layui-hide" lay-submit lay-filter="submit">保存</button>
@@ -18,13 +18,7 @@
         <div class="layui-form-item fill-theme layui-hide"></div>
     </div>
 </div>
-<script>
-    layui.use(['main'], function () {
-        let mimetype = $.extend({{.mimetype}}, {});
-        console.log(mimetype.type);
-
-        if (/\/theme\/.*?\w+\.tpl$/i.test($('#current-filename').val())) {
-            layui.main.onFillTheme();
-        }
-    });
-</script>
+{{/*<script>*/}}
+{{/*    var index = parent.layer.getFrameIndex(window.name); // 获取当前 iframe 层的索引*/}}
+{{/*    parent.layer.close(index); // 关闭当前 iframe 弹层*/}}
+{{/*</script>*/}}

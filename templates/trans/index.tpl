@@ -17,7 +17,6 @@
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
-<div class="layui-hide" id="import"></div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
         <div class="layui-btn-group">
@@ -85,78 +84,9 @@
                 }
             },
             {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-        ]]);
-        let active = {
-                enabled: function (obj) {
-                    let othis = $(this),
-                        enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
-                    main.request({
-                        url: url + "/switch",
-                        data: {
-                            id: obj.data.id,
-                            enabled: enabled
-                        },
-                        error: function () {
-                            if (enabled) {
-                                othis.find('div.layui-unselect.layui-form-switch').removeClass('layui-form-onswitch');
-                            } else {
-                                othis.find('div.layui-unselect.layui-form-switch').addClass('layui-form-onswitch');
-                            }
-                        }
-                    });
-                },
-                del: function (obj) {
-                    layer.confirm('确定删除此条配置？', function (index) {
-                        main.request({
-                            url: url + "/del",
-                            data: {'id': obj.data.id},
-                            index: index,
-                            done: obj.del
-                        });
-                    });
-                },
-                modify: function (obj) {
-                    let loading = layui.main.loading();
-                    $.get(url + '/modify', {id: obj.data.id}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '修改翻译配置',
-                            url: url + '/modify',
-                            area: '70%',
-                            content: html,
-                            done: 'table-list',
-                        });
-                    });
-                },
-            },
-            activeBar = {
-                add: function () {
-                    let loading = layui.main.loading();
-                    $.get(url + '/add', {}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '添加翻译配置',
-                            url: url + '/add',
-                            area: '70%',
-                            content: html,
-                            done: 'table-list',
-                        });
-                    });
-                },
-                del: function (obj, data, ids) {
-                    if (ids.length === 0) {
-                        return main.error('请选择数据');
-                    }
-                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.request({
-                            url: url + '/del',
-                            data: {ids: ids.join()},
-                            index: index,
-                            done: 'table-list'
-                        });
-                    });
-                },
-                enabled: function (obj, data, ids) {
+        ]], {
+            enabled: function (obj, ids) {
+                if (main.isArray(ids)) {
                     if (ids.length === 0) {
                         return main.error('请选择数据');
                     }
@@ -165,45 +95,59 @@
                         data: {ids: ids.join(), enabled: true},
                         done: 'table-list'
                     });
-                },
-                disabled: function (obj, data, ids) {
-                    if (ids.length === 0) {
-                        return main.error('请选择数据');
+                    return
+                }
+                let othis = $(this),
+                    enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
+                main.request({
+                    url: url + "/switch",
+                    data: {
+                        id: obj.data.id,
+                        enabled: enabled
+                    },
+                    error: function () {
+                        if (enabled) {
+                            othis.find('div.layui-unselect.layui-form-switch').removeClass('layui-form-onswitch');
+                        } else {
+                            othis.find('div.layui-unselect.layui-form-switch').addClass('layui-form-onswitch');
+                        }
                     }
-                    main.request({
-                        url: url + '/switch',
-                        data: {ids: ids.join(), enabled: false},
-                        done: 'table-list'
-                    });
-                },
-                export: function (obj, data, ids) {
-                    if (ids.length === 0) {
-                        return main.error('请选择数据');
-                    }
-                    window.open(encodeURI('/trans/export?engine=' + data[0].engine + '&ids=' + ids.join()));
-                },
-                import: function () {
-                    $('#import').click();
-                },
-                log: function (obj, data) {
-                    main.ws.log("trans." + data.engine + ".0");
-                },
-            };
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call(this, obj);
-        });
+                });
+            },
+            modify: function (obj) {
 
-        //头工具栏事件
-        table.on('toolbar(table-list)', function (obj) {
-            let data = table.checkStatus(obj.config.id).data,
-                ids = [];
-            layui.each(data, function (i, v) {
-                ids[i] = v.id;
-            });
-            activeBar[obj.event] && activeBar[obj.event].call(this, obj, data, ids);
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+
+                    main.popup({
+                        title: '修改翻译配置',
+                        url: url + '/modify',
+                        area: '70%',
+                        content: html,
+                        done: 'table-list',
+                    });
+                });
+            },
+            add: function () {
+                main.get(url + '/add', function (html) {
+                    main.popup({
+                        title: '添加翻译配置',
+                        url: url + '/add',
+                        area: '70%',
+                        content: html,
+                        done: 'table-list',
+                    });
+                });
+            },
+            disabled: function (obj, ids) {
+                if (ids.length === 0) {
+                    return main.error('请选择数据');
+                }
+                main.request({
+                    url: url + '/switch',
+                    data: {ids: ids.join(), enabled: false},
+                    done: 'table-list'
+                });
+            },
         });
-        // 监听搜索
-        main.onSearch();
     });
 </script>

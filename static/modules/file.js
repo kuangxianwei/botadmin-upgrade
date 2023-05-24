@@ -1788,7 +1788,7 @@ layui.define(['main'], function (exports) {
 
     exports('file', function (options) {
         options = options || {};
-        let url = options.url || $('meta[name=current_uri]').attr('content'),
+        let url = options.url || $('meta[name=url]').attr('content'),
             csrfToken = options['csrfToken'] || $('meta[name=csrf_token]').attr('content'),
             pathElem = typeof options.elem === 'string' ? $(options.elem) : $('#current-path'),
             root = options.root || '/data/botadmin',
@@ -1916,6 +1916,10 @@ layui.define(['main'], function (exports) {
                                 default:
                                     html += '<button class="layui-btn layui-btn-xs" lay-event="download"><i class="layui-icon layui-icon-download-circle"></i></button>';
                             }
+                            if (d.type === 0 || d.type === 1 || d.type === 2 || d.type === 4 || d.type === 8) {
+                                html += '<button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="scan" lay-tips="扫描病毒文件"><i class="iconfont icon-scanner"></i></button>';
+                                html += '<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="scanned" lay-tips="查看扫描结果"><i class="iconfont icon-safe"></i></button>';
+                            }
                             return html + '<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></button></div>';
                         }
                     }]],
@@ -2027,7 +2031,7 @@ layui.define(['main'], function (exports) {
                                 resizing: function () {
                                     this.editor.setEditorView();
                                 },
-                                cancel: function (index) {
+                                end: function (index) {
                                     layer.close(index);
                                     shrinkElem.click();
                                     return false;
@@ -2090,6 +2094,20 @@ layui.define(['main'], function (exports) {
                         });
                     });
                 },
+                scan: function (obj) {
+                    layer.prompt({title: '扫描排除文件名或路径(不可用绝对路径)', placeholder: '.html, .doc, .csv'},
+                        function (pass, index) {
+                            layer.close(index);
+                            let filename = obj.data.path + '/' + obj.data.name;
+                            main.request({
+                                url: '/file/scan',
+                                data: {path: filename, excludes: pass}
+                            });
+                        });
+                },
+                scanned: function (obj) {
+                    main.ws.scanned(obj.data.path + '/' + obj.data.name);
+                }
             };
         // 监听工具条
         table.on('tool(table-list)', function (obj) {

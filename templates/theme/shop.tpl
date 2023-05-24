@@ -3,7 +3,7 @@
     <div class="layui-card-body">
         <header class="layui-inline">
             <div class="layui-input-inline">
-                <input name="search" placeholder="搜索..." data-type="search" class="layui-input" style="height: 30px">
+                <input name="search" id="search" placeholder="搜索..." data-type="search" class="layui-input" style="height: 30px">
             </div>
             <button class="layui-btn layui-btn-sm" data-event="search">
                 <i class="layui-icon layui-icon-search"></i>
@@ -77,9 +77,7 @@
         class Util {
             constructor() {
                 this.init = function () {
-                    let loading = layui.main.loading();
-                    $.get(url + "/tags", {driver: driver}, function (res) {
-                        loading.close();
+                    main.get(url + "/tags", {driver: driver}, function (res) {
                         tagsEle.empty();
                         if (res.code === 0) {
                             for (let i = 0; i < res.data.length; i++) {
@@ -109,7 +107,7 @@
                     // 下拉加载更多
                     $(window).scroll(function () {
                         if (($(document).scrollTop() >= $(document).height() - $(window).height()) && $('img[lay-src]').length === 0 && !paginatorLast) {
-                            req.options.data.page++
+                            req.options.data.page++;
                             req.reload({callback: null});
                         }
                     });
@@ -120,7 +118,7 @@
                         url: url,
                         data: {driver: driver, page: 1, limit: 24},
                         error: function (res) {
-                            paginatorLast = true
+                            paginatorLast = true;
                             $('#result-count>cite').text(res.msg);
                             downEle.hide();
                             return false;

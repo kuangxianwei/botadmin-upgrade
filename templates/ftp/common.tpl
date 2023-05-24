@@ -1,41 +1,41 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <label class="layui-form-label">用户名</label>
+            <label for="username" class="layui-form-label">用户名</label>
             <div class="layui-input-inline">
-                <input type="text" name="username" value="{{.obj.Username}}" lay-verify="required"
+                <input type="text" name="username" id="username" value="{{.obj.Username}}" lay-verify="required"
                        autocomplete="off" placeholder="3-12个字符" class="layui-input"{{if ne .obj.Id 0}} disabled{{end}}>
             </div>
             <div class="layui-form-mid layui-word-aux">由字母、数字、下划线组成</div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">密码</label>
+            <label for="password" class="layui-form-label">密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="password" value="{{.obj.Password}}"
+                <input type="password" autocomplete="off" name="password" id="password" value="{{.obj.Password}}"
                        placeholder="6-15个字符，由字母、数字、下划线组成" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">留空为随机密码</div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">确认密码</label>
+            <label for="password2" class="layui-form-label">确认密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="password2" value="{{.obj.Password}}"
+                <input type="password" autocomplete="off" name="password2" id="password2" value="{{.obj.Password}}"
                        placeholder="请再输入一次" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">留空为随机密码</div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">目录</label>
+            <label for="dir" class="layui-form-label">目录</label>
             <div class="layui-input-inline">
-                <input type="text" name="dir" value="{{.obj.Dir}}"
+                <input type="text" autocomplete="off" name="dir" id="dir" value="{{.obj.Dir}}"
                        placeholder="留空为用户名" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">可使用绝对路径，如/home/ftp</div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">备注</label>
+            <label for="note" class="layui-form-label">备注</label>
             <div class="layui-input-inline">
-                <input type="text" name="note" value="{{.obj.Note}}" placeholder="可选"
+                <input type="text" autocomplete="off" name="note" id="note" value="{{.obj.Note}}" placeholder="可选"
                        class="layui-input"/>
             </div>
         </div>
@@ -44,33 +44,33 @@
                 <h2 class="layui-colla-title">更多选项<i class="layui-icon layui-colla-icon"></i></h2>
                 <div class="layui-colla-content">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">空间大小</label>
+                        <label for="quota_size" class="layui-form-label">空间大小</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="quota_size" value="{{.obj.QuotaSize}}"
+                            <input type="text" name="quota_size" id="quota_size" value="{{.obj.QuotaSize}}"
                                    autocomplete="off" placeholder="为0则不限制" class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">单位为M</div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">文件数量</label>
+                        <label for="quota_files" class="layui-form-label">文件数量</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="quota_files" value="{{.obj.QuotaFiles}}"
+                            <input type="text" name="quota_files" id="quota_files" value="{{.obj.QuotaFiles}}"
                                    autocomplete="off" placeholder="为0则不限制" class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">单位为个</div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">上传带宽</label>
+                        <label for="ulbandwidth" class="layui-form-label">上传带宽</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="ulbandwidth" value="{{.obj.Ulbandwidth}}"
+                            <input type="text" autocomplete="off" name="ulbandwidth" id="ulbandwidth" value="{{.obj.Ulbandwidth}}"
                                    placeholder="为0则不限制" class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">单位为K</div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label ">下载带宽</label>
+                        <label for="dlbandwidth" class="layui-form-label ">下载带宽</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="dlbandwidth" value="{{.obj.Dlbandwidth}}"
+                            <input type="text" autocomplete="off" name="dlbandwidth" id="dlbandwidth" value="{{.obj.Dlbandwidth}}"
                                    placeholder="为0则不限制" class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">单位为K</div>

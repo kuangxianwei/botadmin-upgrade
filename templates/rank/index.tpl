@@ -3,14 +3,12 @@
         <div class="layui-form-item">
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="keyword" value="" class="layui-input"
-                           placeholder="模糊匹配关键词">
+                    <input type="text" autocomplete="off" name="keyword" value="" class="layui-input" placeholder="模糊匹配关键词">
                 </div>
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="expect" value="" class="layui-input"
-                           placeholder="模糊匹配网站">
+                    <input type="text" autocomplete="off" name="expect" value="" class="layui-input" placeholder="模糊匹配网站">
                 </div>
             </div>
             <div class="layui-inline">
@@ -55,7 +53,7 @@
             </button>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-xs layui-bg-red" lay-event="reset-record" lay-tips="重置日志">
+            <button class="layui-btn layui-btn-xs layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
             </button>
         </div>
@@ -80,171 +78,120 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table,
-            main = layui.main,
+        let main = layui.main,
             form = layui.form;
-
-        //日志管理
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            toolbar: '#toolbar',
-            url: url,
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {field: 'id', title: 'Id', hide: true},
-                {field: 'token', title: 'Token', hide: true},
-                {field: 'keyword', title: '关键词', minWidth: 150, sort: true},
-                {field: 'expect', title: '网站', minWidth: 150, sort: true},
-                {field: 'engine', title: '引擎', minWidth: 150, align: 'center', sort: true},
-                {field: 'first', title: '初排', width: 80, align: 'center', sort: true},
-                {field: 'current', title: '新排', width: 80, align: 'center', sort: true},
-                {
-                    field: 'changed', title: '变化', width: 80, align: 'center', sort: true, templet: function (d) {
-                        if (d.changed < 0) {
-                            return '<i style="color:red;">' + d.changed + '</i>'
-                        }
-                        if (d.changed < 0) {
-                            return '<i style="color:blue;">' + d.changed + '</i>'
-                        }
-                        return d.changed
+        main.table([[
+            {type: 'checkbox', fixed: 'left'},
+            {field: 'id', title: 'Id', hide: true},
+            {field: 'token', title: 'Token', hide: true},
+            {field: 'keyword', title: '关键词', minWidth: 150, sort: true},
+            {field: 'expect', title: '网站', minWidth: 150, sort: true},
+            {field: 'engine', title: '引擎', minWidth: 150, align: 'center', sort: true},
+            {field: 'first', title: '初排', width: 80, align: 'center', sort: true},
+            {field: 'current', title: '新排', width: 80, align: 'center', sort: true},
+            {
+                field: 'changed', title: '变化', width: 80, align: 'center', sort: true, templet: function (d) {
+                    if (d.changed < 0) {
+                        return '<i style="color:red;">' + d.changed + '</i>'
                     }
-                },
-                {field: 'created', title: '创建时间', hide: true},
-                {
-                    field: 'timestamp', title: '排名时间', hide: true, templet: function (obj) {
-                        return main.timestampFormat(obj.timestamp / 1000000);
+                    if (d.changed < 0) {
+                        return '<i style="color:blue;">' + d.changed + '</i>'
                     }
-                },
-                {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-            ]],
-            page: true,
-            limit: 30,
-            limits: [40, 60, 80, 200, 300],
-            text: '对不起，加载出现异常！'
-        });
-
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case 'modify':
-                    let loading = layui.main.loading();
-                    $.get('/rank/modify', {id: data.id}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '修改',
-                            content: html,
-                            url: '/rank/modify',
-                            area: ['450px', '400px'],
-                            done: 'table-list',
-                        });
+                    return d.changed
+                }
+            },
+            {field: 'created', title: '创建时间', hide: true},
+            {
+                field: 'timestamp', title: '排名时间', hide: true, templet: function (obj) {
+                    return main.timestampFormat(obj.timestamp / 1000000);
+                }
+            },
+            {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+        ]], {
+            modify: function (obj) {
+                main.get('/rank/modify', {id: obj.data.id}, function (html) {
+                    main.popup({
+                        title: '修改',
+                        content: html,
+                        url: '/rank/modify',
+                        area: ['450px', '400px'],
+                        done: 'table-list',
                     });
-                    break;
-                case 'del':
-                    layer.confirm('确定删除此条日志？', function (index) {
-                        main.request({
-                            url: '/rank/del',
-                            data: {token: data.token},
-                            index: index,
-                            done: obj.del,
-                        });
-                    });
-                    break;
-                case 'exec':
-                    layer.confirm('开始刷新排名?', function (index) {
-                        main.request({
-                            url: '/rank/exec',
-                            data: {id: data.id},
-                            index: index,
-                        });
-                    });
-                    break;
-                case 'log':
-                    main.ws.log('rank.' + data.id);
-                    break;
-            }
-        });
-
-        //头工具栏事件
-        table.on('toolbar(table-list)', function (obj) {
-            let checkStatus = table.checkStatus(obj.config.id),
-                data = checkStatus.data,
-                tokens = [];
-            switch (obj.event) {
-                case 'add':
-                    let loading = layui.main.loading();
-                    $.get('/rank/add', {id: data.id}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '添加',
-                            content: html,
-                            url: '/rank/add',
-                            area: '450px',
-                            done: 'table-list',
-                        });
-                    });
-                    break;
-                case 'del':
-                    if (data.length === 0) {
-                        return layer.msg('请选择数据');
-                    }
-                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        for (let i = 0; i < data.length; i++) {
-                            tokens[i] = data[i].token;
-                        }
-                        main.request({
-                            url: '/rank/del',
-                            data: {'tokens': tokens.join()},
-                            index: index,
-                            done: 'table-list',
-                        });
-                    });
-                    break;
-                case 'reset':
-                    if (data.length === 0) {
-                        return layer.msg('请选择数据');
-                    }
-                    layer.confirm('重置排名?', function (index) {
-                        for (let i = 0; i < data.length; i++) {
-                            tokens[i] = data[i].id;
-                        }
-                        main.request({
-                            url: '/rank/reset',
-                            data: {'ids': tokens.join()},
-                            index: index,
-                            done: 'table-list',
-                        });
-                    });
-                    break;
-                case 'reset-record':
-                    let ids = [];
-                    for (let i = 0; i < data.length; i++) {
-                        ids[i] = data[i].id;
-                    }
-                    main.reset.log('rank', ids);
-                    break;
-                case 'exec':
-                    if (data.length === 0) {
+                });
+            },
+            exec: function (obj, ids) {
+                if (main.isArray(ids)) {
+                    if (obj.data.length === 0) {
                         return layer.msg('请选择数据');
                     }
                     layer.confirm('开始刷新排名', function (index) {
-                        for (let i = 0; i < data.length; i++) {
-                            tokens[i] = data[i].id;
+                        let tokens = [];
+                        for (let i = 0; i < obj.data.length; i++) {
+                            tokens[i] = obj.data[i].token;
                         }
                         main.request({
                             url: '/rank/exec',
-                            data: {'ids': tokens.join()},
+                            data: {ids: tokens.join()},
                             index: index,
                             done: 'table-list',
                         });
                     });
-                    break;
-            }
+                    return
+                }
+                layer.confirm('开始刷新排名?', function (index) {
+                    main.request({
+                        url: '/rank/exec',
+                        data: {id: obj.data.id},
+                        index: index,
+                    });
+                });
+            },
+            add: function (obj) {
+                main.get('/rank/add', {id: obj.id}, function (html) {
+                    main.popup({
+                        title: '添加',
+                        content: html,
+                        url: '/rank/add',
+                        area: '450px',
+                        done: 'table-list',
+                    });
+                });
+            },
+            del: function (obj) {
+                if (obj.data.length === 0) {
+                    return layer.msg('请选择数据');
+                }
+                layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
+                    let tokens = [];
+                    for (let i = 0; i < obj.data.length; i++) {
+                        tokens[i] = obj.data[i].token;
+                    }
+                    main.request({
+                        url: '/rank/del',
+                        data: {tokens: tokens.join()},
+                        index: index,
+                        done: 'table-list',
+                    });
+                });
+            },
+            reset: function (obj) {
+                if (obj.data.length === 0) {
+                    return layer.msg('请选择数据');
+                }
+                let tokens = [];
+                layer.confirm('重置排名?', function (index) {
+                    for (let i = 0; i < obj.data.length; i++) {
+                        tokens[i] = obj.data[i].token;
+                    }
+                    main.request({
+                        url: '/rank/reset',
+                        data: {ids: tokens.join()},
+                        index: index,
+                        done: 'table-list',
+                    });
+                });
+            },
         });
-        // 监听搜索
-        main.onSearch();
-
         //监控选择
         form.on('select(select_engine)', function () {
             $('button[lay-filter=search]').click();

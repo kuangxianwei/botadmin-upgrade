@@ -7,7 +7,7 @@
             </button>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" name="search" placeholder="搜索..." data-type="search" class="layui-input" style="height: 30px">
+                    <input type="text" autocomplete="off" name="search" id="search" placeholder="搜索..." data-type="search" class="layui-input" style="height: 30px">
                 </div>
                 <button class="layui-btn layui-btn-sm" data-event="search">
                     <i class="layui-icon layui-icon-search"></i>
@@ -82,9 +82,7 @@
         class Util {
             constructor() {
                 this.init = function () {
-                    let loading = layui.main.loading();
-                    $.get(url + "/tags", {driver: driver}, function (res) {
-                        loading.close();
+                    main.get(url + "/tags", {driver: driver}, function (res) {
                         tagsEle.empty();
                         if (res.code === 0) {
                             for (let i = 0; i < res.data.length; i++) {
@@ -211,9 +209,7 @@
                     },
                     // 一下是绑定事件
                     "add": function (othis) {
-                        let loading = layui.main.loading();
-                        $.get(url + "/add", {driver: driver}, function (html) {
-                            loading.close();
+                        main.get(url + "/add", {driver: driver}, function (html) {
                             main.popup({
                                 title: "添加主题",
                                 url: url + "/add",
@@ -276,9 +272,7 @@
                     },
                     "modify": function (othis) {
                         let id = this.attr("data-id");
-                        let loading = layui.main.loading();
-                        $.get(url + "/modify", {driver: driver, id: id}, function (html) {
-                            loading.close();
+                        main.get(url + "/modify", {driver: driver, id: id}, function (html) {
                             main.popup({
                                 title: "修改主题",
                                 url: url + "/modify",

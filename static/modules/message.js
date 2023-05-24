@@ -1,1 +1,127 @@
-layui.define(["admin","table","util"],function(e){var t=layui.$,i=(layui.admin,layui.table),l=(layui.element,{all:{text:"\u5168\u90e8\u6d88\u606f",id:"LAY-app-message-all"},notice:{text:"\u901a\u77e5",id:"LAY-app-message-notice"},direct:{text:"\u79c1\u4fe1",id:"LAY-app-message-direct"}}),a=function(e){return'<a href="detail.html?id='+e.id+'">'+e.title};i.render({elem:"#LAY-app-message-all",url:layui.setter.base+"json/message/all.js",page:!0,cols:[[{type:"checkbox",fixed:"left"},{field:"title",title:"\u6807\u9898\u5185\u5bb9",minWidth:300,templet:a},{field:"time",title:"\u65f6\u95f4",width:170,templet:"<div>{{ layui.util.timeAgo(d.time) }}</div>"}]],skin:"line"}),i.render({elem:"#LAY-app-message-notice",url:layui.setter.base+"json/message/notice.js",page:!0,cols:[[{type:"checkbox",fixed:"left"},{field:"title",title:"\u6807\u9898\u5185\u5bb9",minWidth:300,templet:a},{field:"time",title:"\u65f6\u95f4",width:170,templet:"<div>{{ layui.util.timeAgo(d.time) }}</div>"}]],skin:"line"}),i.render({elem:"#LAY-app-message-direct",url:layui.setter.base+"json/message/direct.js",page:!0,cols:[[{type:"checkbox",fixed:"left"},{field:"title",title:"\u6807\u9898\u5185\u5bb9",minWidth:300,templet:a},{field:"time",title:"\u65f6\u95f4",width:170,templet:"<div>{{ layui.util.timeAgo(d.time) }}</div>"}]],skin:"line"});var d={del:function(e,t){var a=l[t],d=i.checkStatus(a.id),s=d.data;return 0===s.length?layer.msg("\u672a\u9009\u4e2d\u884c"):void layer.confirm("\u786e\u5b9a\u5220\u9664\u9009\u4e2d\u7684\u6570\u636e\u5417\uff1f",function(){layer.msg("\u5220\u9664\u6210\u529f",{icon:1}),i.reload(a.id)})},ready:function(e,t){var a=l[t],d=i.checkStatus(a.id),s=d.data;return 0===s.length?layer.msg("\u672a\u9009\u4e2d\u884c"):(layer.msg("\u6807\u8bb0\u5df2\u8bfb\u6210\u529f",{icon:1}),void i.reload(a.id))},readyAll:function(e,t){var i=l[t];layer.msg(i.text+"\uff1a\u5168\u90e8\u5df2\u8bfb",{icon:1})}};t(".LAY-app-message-btns .layui-btn").on("click",function(){var e=t(this),i=e.data("events"),l=e.data("type");d[i]&&d[i].call(this,e,l)}),e("message",{})});
+/**
+ * message  
+ */
+
+
+layui.define(['admin', 'table', 'util'], function(exports){
+  var $ = layui.$
+  ,admin = layui.admin
+  ,table = layui.table
+  ,element = layui.element;
+  
+  var DISABLED = 'layui-btn-disabled'
+  
+  //区分各选项卡中的表格
+  ,tabs = {
+    all: {
+      text: '全部消息'
+      ,id: 'LAY-app-message-all'
+    }
+    ,notice: {
+      text: '通知'
+      ,id: 'LAY-app-message-notice'
+    }
+    ,direct: {
+      text: '私信'
+      ,id: 'LAY-app-message-direct'
+    }
+  };
+  
+  //标题内容模板
+  var tplTitle = function(d){
+    return '<a href="detail.html?id='+ d.id +'">'+ d.title;
+  };
+  
+  //全部消息
+  table.render({
+    elem: '#LAY-app-message-all'
+    ,url: layui.setter.paths.base + 'json/message/all.js' //模拟接口
+    ,page: true
+    ,cols: [[
+      {type: 'checkbox', fixed: 'left'}
+      ,{field: 'title', title: '标题内容', minWidth: 300, templet: tplTitle}
+      ,{field: 'time', title: '时间', width: 170, templet: '<div>{{ layui.util.timeAgo(d.time) }}</div>'}
+    ]]
+    ,skin: 'line'
+  });
+  
+  //通知
+  table.render({
+    elem: '#LAY-app-message-notice'
+    ,url: layui.setter.paths.base + 'json/message/notice.js' //模拟接口
+    ,page: true
+    ,cols: [[
+      {type: 'checkbox', fixed: 'left'}
+      ,{field: 'title', title: '标题内容', minWidth: 300, templet: tplTitle}
+      ,{field: 'time', title: '时间', width: 170, templet: '<div>{{ layui.util.timeAgo(d.time) }}</div>'}
+    ]]
+    ,skin: 'line'
+  });
+  
+  //私信
+  table.render({
+    elem: '#LAY-app-message-direct'
+    ,url: layui.setter.paths.base + 'json/message/direct.js' //模拟接口
+    ,page: true
+    ,cols: [[
+      {type: 'checkbox', fixed: 'left'}
+      ,{field: 'title', title: '标题内容', minWidth: 300, templet: tplTitle}
+      ,{field: 'time', title: '时间', width: 170, templet: '<div>{{ layui.util.timeAgo(d.time) }}</div>'}
+    ]]
+    ,skin: 'line'
+  });
+  
+  
+  //事件处理
+  var events = {
+    del: function(othis, type){
+      var thisTabs = tabs[type]
+      ,checkStatus = table.checkStatus(thisTabs.id)
+      ,data = checkStatus.data; //获得选中的数据
+      if(data.length === 0) return layer.msg('未选中行');
+
+      layer.confirm('确定删除选中的数据吗？', function(){
+        /*
+        admin.req('url', {}, function(){ //请求接口
+          //do somethin
+        });
+        */
+        //此处只是演示，实际应用需把下述代码放入上述Ajax回调中
+        layer.msg('删除成功', {
+          icon: 1
+        });
+        table.reload(thisTabs.id); //刷新表格
+      });
+    }
+    ,ready: function(othis, type){
+      var thisTabs = tabs[type]
+      ,checkStatus = table.checkStatus(thisTabs.id)
+      ,data = checkStatus.data; //获得选中的数据
+      if(data.length === 0) return layer.msg('未选中行');
+      
+      //此处只是演示
+      layer.msg('标记已读成功', {
+        icon: 1
+      });
+      table.reload(thisTabs.id); //刷新表格
+    }
+    ,readyAll: function(othis, type){
+      var thisTabs = tabs[type];
+      
+      //do somethin
+      
+      layer.msg(thisTabs.text + '：全部已读', {
+        icon: 1
+      });
+    }
+  };
+  
+  $('.LAY-app-message-btns .layui-btn').on('click', function(){
+    var othis = $(this)
+    ,thisEvent = othis.data('events')
+    ,type = othis.data('type');
+    events[thisEvent] && events[thisEvent].call(this, othis, type);
+  });
+  
+  exports('message', {});
+});

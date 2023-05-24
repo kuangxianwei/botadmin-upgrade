@@ -29,20 +29,21 @@
             <input type="checkbox" data-field="pub_interval" title="发布间隔" lay-filter="field">
             <input type="checkbox" data-field="auth_code" title="认证码" lay-filter="field">
             <input type="checkbox" data-field="copyright" title="版权信息" lay-filter="field">
+            <input type="checkbox" data-field="scan_enabled" title="启用扫毒" lay-filter="field">
         </fieldset>
         <fieldset class="layui-elem-field">
             <legend>操作</legend>
             <div id="field"></div>
         </fieldset>
         <div class="layui-hide">
-            <input name="ids" value="{{.ids}}">
+            <input name="ids" id="ids" value="{{.ids}}">
             <button lay-submit></button>
         </div>
     </div>
 </div>
 <script type="text/html" id="contact-html">
     <div class="layui-form-item">
-        <label class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
+        <label for="pic_autoed" class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
         <div class="layui-input-block">
             <textarea name="contact" class="layui-textarea" placeholder="李谊:139-2235-2985&#13;韩晶:135-3983-5229"></textarea>
         </div>
@@ -56,7 +57,7 @@
         let active = {
             ad: function (enabled) {
                 if (enabled) {
-                    fieldElem.append(`<div class="layui-form-item"><label class="layui-form-label" lay-tips="网站广告代码一般为js代码">广告:</label><div class="layui-input-block"><textarea name="ad" class="layui-textarea" placeholder="网站广告代码一般为js代码"></textarea></div></div>`);
+                    fieldElem.append(`<div class="layui-form-item"><label for="pic_autoed" class="layui-form-label" lay-tips="网站广告代码一般为js代码">广告:</label><div class="layui-input-block"><textarea name="ad" class="layui-textarea" placeholder="网站广告代码一般为js代码"></textarea></div></div>`);
                 } else {
                     fieldElem.find('[name=ad]').closest('.layui-form-item').remove();
                 }
@@ -64,7 +65,7 @@
             replaces: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-    <label class="layui-form-label" lay-tips="灰词=>替换成的是词 一行一条">灰词替换:</label>
+    <label for="pic_autoed" class="layui-form-label" lay-tips="灰词=>替换成的是词 一行一条">灰词替换:</label>
     <div class="layui-input-block">
         <textarea name="replaces" class="layui-textarea"></textarea>
     </div>
@@ -83,9 +84,9 @@
             pic_autoed: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-                        <label class="layui-form-label">自动图片:</label>
+                        <label for="pic_autoed" class="layui-form-label">自动图片:</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" name="pic_autoed" lay-skin="switch" lay-text="是|否" checked>
+                            <input type="checkbox" name="pic_autoed" id="pic_autoed" lay-skin="switch" lay-text="是|否" checked>
                         </div>
                         <div class="layui-form-mid layui-word-aux">根据标题和描述自动生成图片</div>
                     </div>`);
@@ -97,7 +98,7 @@
             insert_pic_deg: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-                        <label class="layui-form-label">插图阈值:</label>
+                        <label  class="layui-form-label">插图阈值:</label>
                         <div class="layui-input-inline">
                             <div id="insert_pic_deg" class="slider-inline"></div>
                             <input type="hidden" name="insert_pic_deg" value="0-3">
@@ -112,7 +113,7 @@
             pub_deg: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-                        <label class="layui-form-label" lay-tips="随机发布指定数量的文章">发布阈值:</label>
+                        <label for="pub_deg" class="layui-form-label" lay-tips="随机发布指定数量的文章">发布阈值:</label>
                         <div class="layui-input-block">
                             <div id="pub_deg" class="slider-block"></div>
                             <input type="hidden" name="pub_deg" value="1-3"/>
@@ -186,9 +187,9 @@
             pub_self: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-                        <label class="layui-form-label">指定发布:</label>
+                        <label for="pub_self" class="layui-form-label">指定发布:</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" name="pub_self" lay-skin="switch" lay-text="是|否" checked>
+                            <input type="checkbox" name="pub_self" id="pub_self" lay-skin="switch" lay-text="是|否" checked>
                         </div>
                         <div class="layui-form-mid layui-word-aux">限制只发布隶属本站文章</div>
                     </div>`);
@@ -200,11 +201,25 @@
             cron_enabled: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-    <label class="layui-form-label">定时发布:</label>
+    <label for="cron_enabled" class="layui-form-label">定时发布:</label>
     <div class="layui-input-inline">
-        <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否" checked>
+        <input type="checkbox" name="cron_enabled" id="cron_enabled" lay-skin="switch" lay-text="是|否" checked>
     </div>
     <div class="layui-form-mid layui-word-aux">是否启用定时发布任务</div>
+</div>`);
+                    form.render('checkbox');
+                } else {
+                    fieldElem.find('[name=cron_enabled]').closest('.layui-form-item').remove();
+                }
+            },
+            scan_enabled: function (enabled) {
+                if (enabled) {
+                    fieldElem.append(`<div class="layui-form-item">
+    <label for="scan_enabled" class="layui-form-label">定时发布:</label>
+    <div class="layui-input-inline">
+        <input type="checkbox" name="scan_enabled" id="scan_enabled" lay-skin="switch" lay-text="是|否" checked>
+    </div>
+    <div class="layui-form-mid layui-word-aux">启用定时扫描病毒文件任务</div>
 </div>`);
                     form.render('checkbox');
                 } else {
@@ -214,7 +229,7 @@
             push_config: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-    <label class="layui-form-label">推送配置:</label>
+    <label for="originality_rate" class="layui-form-label">推送配置:</label>
     <div class="layui-input-block">
 <textarea name="push_config" class="layui-textarea" rows="3"
           placeholder="http://data.zz.baidu.com/urls?site=&#123;&#123;site&#125;&#125;&token=zjoYZiTU6B1rgblL 百度普通推送 账号=username 密码=password"></textarea>
@@ -242,9 +257,9 @@
             pic_save: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-                        <label class="layui-form-label">保存图片:</label>
+                        <label for="pic_save" class="layui-form-label">保存图片:</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" name="pic_save" lay-skin="switch" lay-text="是|否">
+                            <input type="checkbox" name="pic_save" id="pic_save" lay-skin="switch" lay-text="是|否">
                         </div>
                         <div class="layui-form-mid layui-word-aux">是否保存远程图片</div>
                     </div>`);
@@ -256,9 +271,9 @@
             pic_mark: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-                        <label class="layui-form-label">图片水印:</label>
+                        <label for="pic_mark" class="layui-form-label">图片水印:</label>
                         <div class="layui-input-inline">
-                            <input type="checkbox" name="pic_mark" lay-skin="switch" lay-text="是|否">
+                            <input type="checkbox" name="pic_mark" id="pic_mark" lay-skin="switch" lay-text="是|否">
                         </div>
                         <div class="layui-form-mid layui-word-aux">图片是否加水印</div>
                     </div>`);
@@ -270,9 +285,9 @@
             order: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-                        <label class="layui-form-label">发布顺序:</label>
+                        <label for="order" class="layui-form-label">发布顺序:</label>
                         <div class="layui-input-inline">
-                            <select name="order" class="layui-select">
+                            <select name="order" id="order" class="layui-select">
                                 <option value="0" selected>最新采集</option>
                                 <option value="1">最旧采集</option>
                                 <option value="2">随机</option>
@@ -288,9 +303,9 @@
             publish_mode: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-                        <label class="layui-form-label">发布模式:</label>
+                        <label for="publish_mode" class="layui-form-label">发布模式:</label>
                         <div class="layui-input-inline">
-                            <select name="publish_mode" class="layui-select">
+                            <select name="publish_mode" id="publish_mode" class="layui-select">
                                 <option value="0" selected>正常模式</option>
                                 <option value="1">百科模式</option>
                                 <option value="2" >随机模式</option>
@@ -305,9 +320,9 @@
             pub_interval: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-    <label class="layui-form-label">发布间隔:</label>
+    <label for="pub_interval" class="layui-form-label">发布间隔:</label>
     <div class="layui-input-inline">
-        <input class="layui-input" min="100" name="pub_interval" type="number" value="2000">
+        <input class="layui-input" min="100" name="pub_interval" id="pub_interval" type="number" autocomplete="off" value="2000">
     </div>
     <div class="layui-form-mid layui-word-aux">发布文章间隔时间(毫秒)</div>
 </div>`);
@@ -319,9 +334,9 @@
             auth_code: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-    <label class="layui-form-label" lay-tips="网站后台登录认证码 15个字母或数字组成">认证码:</label>
+    <label  class="layui-form-label" lay-tips="网站后台登录认证码 15个字母或数字组成">认证码:</label>
     <div class="layui-input-inline">
-        <input type="text" name="auth_code" class="layui-input" value="" placeholder="登录第二验证码">
+        <input type="text" autocomplete="off" name="auth_code"  class="layui-input" value="" placeholder="登录第二验证码">
     </div>
     <button class="layui-btn" id="auth_code">随机</button>
 </div>`);

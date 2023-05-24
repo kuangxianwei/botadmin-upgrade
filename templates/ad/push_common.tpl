@@ -2,43 +2,43 @@
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">名称:</label>
+                <label for="name" class="layui-form-label">名称:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="text" name="name" value="{{.obj.Name}}" lay-verify="required">
+                    <input class="layui-input" type="text" autocomplete="off" name="name" id="name" value="{{.obj.Name}}" lay-verify="required">
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">启用:</label>
+                <label for="enabled" class="layui-form-label">启用:</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="enabled" lay-skin="switch" lay-text="是|否"{{if .obj.Enabled}} checked{{end}}/>
+                    <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="是|否"{{if .obj.Enabled}} checked{{end}}/>
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="不访问则直接生成">访问:</label>
+                <label for="visiting" class="layui-form-label" lay-tips="不访问则直接生成">访问:</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="visiting" lay-skin="switch" lay-text="是|否"{{if .obj.Visiting}} checked{{end}}/>
+                    <input type="checkbox" name="visiting" id="visiting" lay-skin="switch" lay-text="是|否"{{if .obj.Visiting}} checked{{end}}/>
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">Spec:</label>
+                <label for="spec" class="layui-form-label">Spec:</label>
                 <div class="layui-input-inline" lay-tips="双击修改定时任务">
-                    <input type="text" name="spec" value="{{.obj.Spec}}" class="layui-input">
+                    <input type="text" autocomplete="off" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="发布期间间隔时间 单位为秒">延时:</label>
+                <label for="delay" class="layui-form-label" lay-tips="发布期间间隔时间 单位为秒">延时:</label>
                 <div class="layui-input-block">
-                    <input type="number" name="delay" value="{{.obj.Delay}}" class="layui-input" min="0">
+                    <input type="number" autocomplete="off" name="delay" id="delay" value="{{.obj.Delay}}" class="layui-input" min="0">
                 </div>
             </div>
         </div>
         <div class="layui-form-item layui-row">
             <div class="layui-col-sm6">
-                <label class="layui-form-label">关键词:</label>
+                <label for="keywords" class="layui-form-label">关键词:</label>
                 <div class="layui-input-block">
-                    <textarea name="keywords" class="layui-textarea" required lay-verify="keywords" placeholder="关键词1&#13;关键词2" rows="17">{{join .obj.Keywords "\n"}}</textarea>
+                    <textarea name="keywords"id="keywords" class="layui-textarea" required lay-verify="keywords" placeholder="关键词1&#13;关键词2" rows="17">{{join .obj.Keywords "\n"}}</textarea>
                 </div>
                 <button class="layui-btn" style="margin-left:250px" id="fillTags">来自Tags库填充</button>
             </div>

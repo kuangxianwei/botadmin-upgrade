@@ -1,42 +1,42 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form" id="google">
         <div class="layui-form-item">
-            <label class="layui-form-label">启用:</label>
+            <label for="enabled" class="layui-form-label">启用:</label>
             <div class="layui-input-block">
-                <input type="checkbox" name="enabled"
+                <input type="checkbox" name="enabled" id="enabled"
                        lay-skin="switch" lay-text="启用|关闭"{{if .obj.Enabled}} checked{{end}}>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" lay-tips="翻译平台获取">Token:</label>
+            <label for="token" class="layui-form-label" lay-tips="翻译平台获取">Token:</label>
             <div class="layui-input-block">
-                <input type="text" name="token" value="{{.obj.Token}}"
+                <input type="text" autocomplete="off" name="token" id="token" value="{{.obj.Token}}"
                        placeholder="翻译平台获取" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">源语言:</label>
+                <label for="delay" class="layui-form-label">源语言:</label>
                 <div class="layui-input-inline">
                     {{.source}}
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label-col" style="color: #009688;">
+                <label for="delay" class="layui-form-label-col" style="color: #009688;">
                     <i class="layui-icon layui-icon-spread-left"></i>
                 </label>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">目标语言:</label>
+                <label for="delay" class="layui-form-label">目标语言:</label>
                 <div class="layui-input-inline">
                     {{.target}}
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">延时:</label>
+            <label for="delay" class="layui-form-label">延时:</label>
             <div class="layui-input-inline">
-                <input type="text" name="delay" value="{{print .obj.Delay}}" placeholder="输入秒"
+                <input type="text" autocomplete="off" name="delay" id="delay" value="{{print .obj.Delay}}" placeholder="输入秒"
                        class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">每次请求间隔多少秒</div>
@@ -55,7 +55,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main;
-        $('[lay-filter="test"]').off('click').on('click',function () {
+        $('[lay-filter="test"]').off('click').on('click', function () {
             let data = main.formData("#google");
             if (!data.token) {
                 main.error('AppId或者token为空');

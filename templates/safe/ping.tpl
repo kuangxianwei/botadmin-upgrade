@@ -3,9 +3,9 @@
         <div class="layui-card-header">PING设置</div>
         <div class="layui-card-body layui-form">
             <div class="layui-form-item">
-                <label class="layui-form-label">设置</label>
+                <label for="used_ping" class="layui-form-label">设置</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="used_ping" lay-skin='switch' lay-text="开启|关闭"
+                    <input type="checkbox" name="used_ping" id="used_ping" lay-skin='switch' lay-text="开启|关闭"
                            lay-filter="used_ping"{{if .used_ping}} checked{{end}}>
                 </div>
             </div>

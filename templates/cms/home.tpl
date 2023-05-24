@@ -1,7 +1,8 @@
 <div class="layui-row layui-col-space10">
     <div class="layui-col-sm12 layui-col-md6">
         <div class="layui-card">
-            <div class="layui-card-header">概况<span class="layui-badge layui-bg-blue layuiadmin-badge">Info</span></div>
+            <div class="layui-card-header">概况<span class="layui-badge layui-bg-blue layuiadmin-badge">Info</span>
+            </div>
             <div class="layui-card-body layuiadmin-card-list">
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;ID: {{.obj.Id}}</p>
                 <p>主域: {{call .obj.HostnameFunc}}</p>
@@ -24,7 +25,5 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let id = parseInt({{.obj.Id}}) || 0,
-            main = layui.main;
     });
 </script>

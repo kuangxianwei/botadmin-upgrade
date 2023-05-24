@@ -2,15 +2,15 @@
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">搜索模式:</label>
+                <label for="search_mode" class="layui-form-label">搜索模式:</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="search_mode" lay-skin="switch" lay-text="是|否" checked>
+                    <input type="checkbox" name="search_mode" id="search_mode" lay-skin="switch" lay-text="是|否" checked>
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">过滤:</label>
+                <label for="filter" class="layui-form-label">过滤:</label>
                 <div class="layui-input-inline">
-                    <input type="number" name="filter" value="0" class="layui-input" max="20">
+                    <input type="number" autocomplete="off" name="filter" id="filter" value="0" class="layui-input" max="20">
                 </div>
                 <div class="layui-form-mid layui-word-aux">过滤小于该长度的列表</div>
             </div>

@@ -22,7 +22,7 @@
             <div id="field"></div>
         </fieldset>
         <div class="layui-hide">
-            <input name="ids" value="{{.ids}}">
+            <input name="ids" id="ids" value="{{.ids}}">
             <button lay-submit></button>
         </div>
     </div>
@@ -30,9 +30,9 @@
 <script type="text/html" id="site-id">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">网站ID:</label>
+            <label for="site_id" class="layui-form-label">网站ID:</label>
             <div class="layui-input-inline">
-                <select name="site_id" lay-search lay-filter="site_id">
+                <select name="site_id" id="site_id" lay-search lay-filter="site_id">
                     <option value="">搜索...</option>
                     {{range .sites -}}
                         <option value="{{.Id}}">{{.Vhost}}</option>
@@ -41,9 +41,9 @@
             </div>
         </div>
         <div class="layui-inline" lay-tips="选择栏目ID">
-            <label class="layui-form-label">栏目ID:</label>
+            <label for="class_id" class="layui-form-label">栏目ID:</label>
             <div class="layui-input-block" lay-filter="class_id">
-                <select name="class_id">
+                <select name="class_id" id="class_id">
                     <option value="">无...</option>
                 </select>
             </div>
@@ -52,9 +52,9 @@
 </script>
 <script type="text/html" id="user-agent">
     <div class="layui-form-item">
-        <label class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
+        <label for="user_agent" class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
         <div class="layui-input-inline">
-            <select name="user_agent" class="layui-select" lay-search>
+            <select name="user_agent" id="user_agent" class="layui-select" lay-search>
                 {{range .userAgents -}}
                     <option value="{{.Value}}">{{.Alias}}</option>
                 {{end -}}
@@ -64,9 +64,9 @@
 </script>
 <script type="text/html" id="conversion">
     <div class="layui-form-item">
-        <label class="layui-form-label" lay-tips="繁体简体转换">繁简转换:</label>
+        <label for="conversion" class="layui-form-label" lay-tips="繁体简体转换">繁简转换:</label>
         <div class="layui-input-inline">
-            <select name="conversion" class="layui-select" lay-search>
+            <select name="conversion" id="conversion" class="layui-select" lay-search>
                 <option>无...</option>
                 {{range .conversions -}}
                     <option value="{{.Name}}">{{.Alias}}</option>
@@ -86,16 +86,16 @@
                     form.render('select');
                     form.on('select(site_id)', function (obj) {
                         if (obj.value === 0 || obj.value === "") {
-                            $('div[lay-filter=class_id]').html('<select name="class_id"><option value="">无...</option></select>');
+                            $('div[lay-filter=class_id]').html('<select name="class_id" id="class_id"><option value="">无...</option></select>');
                             form.render('select');
                             return false;
                         }
-                        let loading = layui.main.loading();
-                        $.get('/site/class', {
+
+                        layui.main.get('/site/class', {
                             id: obj.value,
                             class_id: $('select[name=class_id]').val()
                         }, function (res) {
-                            loading.close();
+
                             switch (res.code) {
                                 case -1:
                                     layer.alert(res.msg, {icon: 2});
@@ -122,9 +122,9 @@
             'delay': function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-            <label class="layui-form-label" lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
+            <label for="delay" class="layui-form-label" lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
             <div class="layui-input-inline">
-                <input type="text" name="delay" class="layui-input" value="" placeholder="10-20">
+                <input type="text" autocomplete="off" name="delay" id="delay" class="layui-input" value="" placeholder="10-20">
             </div>
         </div>`);
                     form.render('input');
@@ -135,9 +135,9 @@
             'page_enabled': function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-            <label class="layui-form-label">开启分页:</label>
+            <label for="page_enabled" class="layui-form-label">开启分页:</label>
             <div class="layui-input-inline">
-                <input type="checkbox" name="page_enabled" lay-skin="switch" lay-text="是|否">
+                <input type="checkbox" name="page_enabled" id="page_enabled" lay-skin="switch" lay-text="是|否">
             </div>
         </div>`);
                     form.render('checkbox');
@@ -148,9 +148,9 @@
             'cron_enabled': function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-            <label class="layui-form-label">定时采集:</label>
+            <label for="cron_enabled" class="layui-form-label">定时采集:</label>
             <div class="layui-input-inline">
-                <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否" checked>
+                <input type="checkbox" name="cron_enabled" id="cron_enabled" lay-skin="switch" lay-text="是|否" checked>
             </div>
         </div>`);
                     form.render('checkbox');
@@ -186,9 +186,9 @@
             'order': function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-    <label class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
+    <label for="order" class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
     <div class="layui-input-block">
-        <select name="order" class="layui-select">
+        <select name="order" id="order" class="layui-select">
             <option value="0" selected>正序</option>
             <option value="1">倒序</option>
             <option value="2">URL升序</option>

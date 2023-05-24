@@ -17,7 +17,6 @@
 </div>
 <script>
     layui.use(['index', 'main'], function () {
-        let main = layui.main;
         $("#addMany").on('keypress', function (e) {
             if (e.keyCode === 13) {
                 let $this = $(this),

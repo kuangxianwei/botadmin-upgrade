@@ -28,7 +28,7 @@
             };
             // 字节转为人类识别的B/KB/MB/GB
             this.bytesHuman = (bytes, precision) => {
-                if (!/^([-+])?|(\.\d+)(\d+(\.\d+)?|(\d+\.)|Infinity)$/.test(bytes)) {
+                if (!/^[-+]?|\.\d+(?:\d+(?:\.\d+)?|\d+\.|Infinity)$/.test(bytes)) {
                     return '-'
                 }
                 if (bytes === 0) return '0';
@@ -49,7 +49,7 @@
             this.connect = (data) => {
                 let othis = this,
                     cols_rows = this.getTermSize(),
-                    socketUri = ((location.protocol === 'https:') ? 'wss://' : 'ws://') + location.host + '/ws/webssh';
+                    socketUri = ((location.protocol === 'https:') ? 'wss://' : 'ws://') + location.host + '/webssh/connect';
                 data.cols = cols_rows.cols;
                 data.rows = cols_rows.rows;
                 let term = new Terminal({
@@ -81,7 +81,7 @@
                 function uploadFile(zSession) {
                     let uploadHtml = "<div>" +
                         "<label class='upload-area' style='width:100%;text-align:center;' for='fupload'>" +
-                        "<input id='fupload' name='fupload' type='file' style='display:none;' multiple='true'>" +
+                        "<input id='fupload' name='fupload' type='file' style='display:none;' multiple='multiple'>" +
                         "<i class='fa fa-cloud-upload fa-3x'></i>" +
                         "<br />" +
                         "点击选择文件" +

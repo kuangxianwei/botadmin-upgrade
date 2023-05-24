@@ -2,31 +2,31 @@
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label-col">引擎:</label>
+                <label for="engine" class="layui-form-label-col">引擎:</label>
             </div>
             <div class="layui-inline" style="width: 100px;">
-                <select name="engine" lay-filter="engine">
+                <select name="engine" id="engine" lay-filter="engine">
                     {{range $v :=.engines}}
                         <option value="{{$v.Name}}">{{$v.Alias}}</option>
                     {{end}}
                 </select>
             </div>
             <div class="layui-inline" style="width: 160px;">
-                <select name="source" lay-search=""></select>
+                <select name="source" id="source" lay-search=""></select>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label-col" style="color: #009688;">
+                <label for="target" class="layui-form-label-col" style="color: #009688;">
                     <i class="layui-icon layui-icon-spread-left"></i>
                 </label>
             </div>
             <div class="layui-inline" style="width: 160px;">
-                <select name="target" lay-search=""></select>
+                <select name="target" id="target" lay-search=""></select>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label-col">线程:</label>
+                <label for="thread" class="layui-form-label-col">线程:</label>
             </div>
             <div class="layui-inline">
-                <input name="thread" value="1" class="layui-input" style="width: 60px;">
+                <input name="thread" id="thread" value="1" class="layui-input" style="width: 60px;">
             </div>
         </div>
         <div class="layui-form-item layui-hide">
@@ -45,15 +45,13 @@
             source_obj = $("select[name='source']"),
             target_obj = $("select[name='target']");
         /*服务器获取*/
-        let loading = layui.main.loading();
-        $.get('/spider/usable', {
+        layui.main.get('/spider/usable', {
             engine: engine,
             source_name: source_name,
             target_name: target_name,
             source_selected: source_obj.val() || 'en',
             target_selected: target_obj.val() || 'zh'
         }, function (res) {
-            loading.close();
             if (res.code === 0) {
                 source_obj.replaceWith(res.data.source);
                 target_obj.replaceWith(res.data.target);

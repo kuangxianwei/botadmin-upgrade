@@ -32,8 +32,8 @@
 <script>
     layui.use(['index', 'main'], function () {
         let form = layui.form,
-            main = layui.main;
-        let mimetype = {{.mimetype}};
+            main = layui.main,
+            index = parent.layer.getFrameIndex(window.name); // 获取当前 iframe 层的索引
         form.render();
         $('.layui-form button[lay-submit]').attr('lay-filter', 'submit');
         form.on('submit(submit)', function (obj) {

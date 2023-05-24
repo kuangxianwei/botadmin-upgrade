@@ -29,117 +29,54 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table,
-            main = layui.main,
-            element = layui.element;
-
-        //日志管理
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            url: url,
-            toolbar: '#toolbar',
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},
-                {field: 'username', title: '用户名'},
-                {field: 'password', title: '密码', align: 'center'},
-                {field: 'dir', title: '路径', align: 'center'},
-                {field: 'site_id', title: '网站ID', align: 'center'},
-                {field: 'quota_size', title: '空间大小M', align: 'center', hide: true},
-                {field: 'quota_files', title: '文件数个', align: 'center', hide: true},
-                {field: 'ulbandwidth', title: '上传带宽K', align: 'center', hide: true},
-                {field: 'dlbandwidth', title: '下载带宽K', align: 'center', hide: true},
-                {
-                    field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
-                        return main.timestampFormat(d['updated']);
-                    }
-                },
-                {field: 'node', title: '备注', align: 'center', hide: true},
-                {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-            ]],
-            page: true,
-
-            limit: 10,
-            limits: [10, 15, 20, 25, 30],
-            text: '对不起，加载出现异常！'
-        });
-
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case 'del':
-                    layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.request({
-                            url: url + '/del',
-                            data: data,
-                            index: index,
-                            done: 'table-list'
-                        });
+        let main = layui.main;
+        main.table([[
+            {type: 'checkbox', fixed: 'left'},
+            {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},
+            {field: 'username', title: '用户名'},
+            {field: 'password', title: '密码', align: 'center'},
+            {field: 'dir', title: '路径', align: 'center'},
+            {field: 'site_id', title: '网站ID', align: 'center'},
+            {field: 'quota_size', title: '空间大小M', align: 'center', hide: true},
+            {field: 'quota_files', title: '文件数个', align: 'center', hide: true},
+            {field: 'ulbandwidth', title: '上传带宽K', align: 'center', hide: true},
+            {field: 'dlbandwidth', title: '下载带宽K', align: 'center', hide: true},
+            {
+                field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
+                    return main.timestampFormat(d['updated']);
+                }
+            },
+            {field: 'node', title: '备注', align: 'center', hide: true},
+            {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+        ]], {
+            modify: function (obj) {
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                    main.popup({
+                        title: '修改FTP',
+                        url: url + '/modify',
+                        content: html,
+                        done: 'table-list',
                     });
-                    break;
-                case 'modify':
-                    let loading = layui.main.loading();
-                    $.get(url + '/modify', {id: data.id}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '修改FTP',
-                            url: url + '/modify',
-                            content: html,
-                            done: 'table-list',
-                        });
-                        element.render();
+                });
+            },
+            add: function () {
+                main.get(url + '/add', function (html) {
+                    main.popup({
+                        title: '添加FTP',
+                        url: url + '/add',
+                        area: ['70%', '95%'],
+                        content: html,
+                        done: 'table-list',
                     });
-                    break;
-            }
-        });
-
-        //监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            let checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {
-                case 'add':
-                    let loading = layui.main.loading();
-                    $.get(url + '/add', {}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '添加FTP',
-                            url: url + '/add',
-                            area: ['70%', '95%'],
-                            content: html,
-                            done: 'table-list',
-                        });
-                        element.render();
+                });
+            },
+            sync: function () {
+                layer.confirm('如无错误且无需同步，确定同步？', function (index) {
+                    main.request({
+                        url: url + '/sync',
+                        index: index,
                     });
-                    break;
-                case 'del':
-                    let data = checkStatus.data;
-                    if (data.length === 0) {
-                        return layer.msg('请选择数据');
-                    }
-                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        let ids = [];
-                        for (let i = 0; i < data.length; i++) {
-                            ids[i] = data[i].id;
-                        }
-                        main.request({
-                            url: url + '/del',
-                            data: {'ids': ids.join()},
-                            index: index,
-                            done: 'table-list'
-                        });
-                    });
-                    break;
-                case 'sync':
-                    layer.confirm('如无错误且无需同步，确定同步？', function (index) {
-                        main.request({
-                            url: url + '/sync',
-                            index: index,
-                        });
-                    });
-                    break;
+                });
             }
         });
     });

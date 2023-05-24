@@ -14,7 +14,7 @@
 </div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn" lay-event="AddIP" id="LAY_layer_iframe_add" lay-tips="点击添加IP地址">
+        <button class="layui-btn" lay-event="addIP" id="LAY_layer_iframe_add" lay-tips="点击添加IP地址">
             <i class="layui-icon layui-icon-add-1"></i>添加IP
         </button>
         <button class="layui-btn layui-btn-primary">默认网关：{{.Route}}</button>
@@ -32,9 +32,9 @@
     <div class="layui-field-box">
         <div class="layui-form">
             <div class="layui-form-item">
-                <label class="layui-form-label">网卡名称</label>
+                <label for="eth" class="layui-form-label">网卡名称</label>
                 <div class="layui-input-inline" style="width:100px;">
-                    <select name="eth">
+                    <select name="eth" id="eth">
                         <option value="eth0:0">eth0:0</option>
                         <option value="eth0:1">eth0:1</option>
                         <option value="eth0:2">eth0:2</option>
@@ -56,26 +56,26 @@
                 </div>
                 <div class="layui-form-mid">定义</div>
                 <div class="layui-input-inline" style="width:100px">
-                    <input type="text" name="eths" class="layui-input">
+                    <input type="text" autocomplete="off" name="eths" id="eths" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">IP地址</label>
+                <label for="ip" class="layui-form-label">IP地址</label>
                 <div class="layui-input-inline" style="width:248px">
-                    <input type="text" name="ip" required lay-verify="required" class="layui-input">
+                    <input type="text" autocomplete="off" name="ip" id="ip" required lay-verify="required" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">子网掩码</label>
+                <label for="mask" class="layui-form-label">子网掩码</label>
                 <div class="layui-input-inline" style="width:248px">
-                    <input type="text" name="mask" required lay-verify="required"
+                    <input type="text" autocomplete="off" name="mask" id="mask" required lay-verify="required"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">重启生效</label>
+                <label for="forever" class="layui-form-label">重启生效</label>
                 <div class="layui-input-inline" style="width:248px">
-                    <input name="forever" type="checkbox" title="保存" lay-skin="switch" lay-text="打开|关闭"/>
+                    <input name="forever" id="forever" type="checkbox" title="保存" lay-skin="switch" lay-text="打开|关闭"/>
                 </div>
             </div>
             <div class="layui-form-item" style="display:none">
@@ -95,86 +95,66 @@
 <script>
     layui.use(['index', 'main'], function () {
         let form = layui.form,
-            table = layui.table,
             main = layui.main;
-
-        table.render({
-            headers: {'X-CSRF-Token':csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            url: url,
-            toolbar: '#toolbar',
+        main.table({
             cols: [[
                 {type: 'numbers', width: 80, title: 'ID', align: 'center', sort: true},
                 {field: 'eth', title: '网卡'},
                 {field: 'ip', title: 'IP地址', align: 'center'},
                 {field: 'mask', title: '子网掩码', align: 'center'},
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-            ]],
-            page: false,
-
-            limit: 10,
-            limits: [10, 15, 20, 25, 30],
-            text: '对不起，加载出现异常！'
-        });
-
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data,
-                msg = "删除后不可恢复，确定删除？";
-            switch (obj.event) {
-                case 'stop':
-                    data.Act = 'Stop';
-                    msg = "重启服务器恢复，确定停用？";
-                    break;
-                case 'del':
-                    data.Act = 'Del';
-                    break;
-                default:
-                    return false;
-            }
-            layer.confirm(msg, function (index) {
-                main.request({
-                    url: url,
-                    data: data,
-                    index: index,
-                    done: obj.del
-                });
-            });
-        });
-
-        table.on('toolbar(table-list)', function (obj) {
-            switch (obj.event) {
-                case 'AddIP':
-                    layer.open({
-                        type: 1,
-                        title: '添加用户',
-                        shadeClose: true,
-                        shade: 0.8,
-                        fixed: false,
-                        maxmin: true,
-                        content: $("#formAddIP").html(),
-                        btn: ['保存', '取消'],
-                        area: '700px',
-                        yes: function (index, obj) {
-                            obj.find('button[lay-filter=submitAddIP]').click();
-                        },
-                        success: function (d, index) {
-                            form.on('submit(submitAddIP)', function (obj) {
-                                let field = obj.field;
-                                field.Act = 'Add';
-                                main.request({
-                                    url: url,
-                                    data: field,
-                                    index: index,
-                                    done: 'table-list',
-                                });
-                                return false;
+            ]], page: false
+        }, {
+            addIP: function () {
+                layer.open({
+                    type: 1,
+                    title: '添加用户',
+                    shadeClose: true,
+                    shade: 0.8,
+                    fixed: false,
+                    maxmin: true,
+                    content: $("#formAddIP").html(),
+                    btn: ['保存', '取消'],
+                    area: '700px',
+                    yes: function (index, obj) {
+                        obj.find('button[lay-filter=submitAddIP]').click();
+                    },
+                    success: function (d, index) {
+                        form.on('submit(submitAddIP)', function (obj) {
+                            let field = obj.field;
+                            field.Act = 'Add';
+                            main.request({
+                                url: url,
+                                data: field,
+                                index: index,
+                                done: 'table-list',
                             });
-                        }
+                            return false;
+                        });
+                    }
+                });
+                form.render();
+            },
+            stop: function (obj) {
+                layer.confirm('重启服务器恢复，确定停用？', function (index) {
+                    main.request({
+                        url: url,
+                        data: obj.data,
+                        index: index,
+                        done: obj.del
                     });
-                    form.render();
-                    break;
-            }
+                });
+            },
+            del: function (obj) {
+                layer.confirm('删除后不可恢复，确定删除？', function (index) {
+                    main.request({
+                        url: url,
+                        data: obj.data,
+                        index: index,
+                        done: obj.del
+                    });
+                });
+            },
         });
     });
 </script>

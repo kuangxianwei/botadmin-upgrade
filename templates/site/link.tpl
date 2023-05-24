@@ -20,15 +20,15 @@
     <div class="layui-card">
         <div class="layui-card-body layui-form">
             <div class="layui-form-item">
-                <label class="layui-form-label">关键词:</label>
+                <label for="keyword" class="layui-form-label">关键词:</label>
                 <div class="layui-input-block">
-                    <input name="keyword" value="" class="layui-input" lay-verify="required">
+                    <input name="keyword" id="keyword" value="" class="layui-input" lay-verify="required">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">URL:</label>
+                <label for="url" class="layui-form-label">URL:</label>
                 <div class="layui-input-block">
-                    <input name="url" value="" class="layui-input" lay-verify="required">
+                    <input name="url" id="url" value="" class="layui-input" lay-verify="required">
                 </div>
             </div>
             <div class="layui-form-item layui-hide">
@@ -64,82 +64,8 @@
 <script>
     layui.use(['index', 'main'], function () {
         let id = parseInt({{.id}}) || 0,
-            table = layui.table,
-            main = layui.main,
-            active = {
-                "edit": function (obj) {
-                    main.popup({
-                        title: "修改友情链接",
-                        url: url + "/modify",
-                        area: ['500px', '240px'],
-                        content: $('#modify-html').html(),
-                        success: function (dom) {
-                            dom.find("[name=id]").val(id);
-                            dom.find("[name=keyword]").val(obj.data.keyword);
-                            dom.find("[name=url]").val(obj.data.url);
-                            dom.find("[name=index]").val(obj.data.index);
-                        },
-                        yes: function (index, dom) {
-                            dom.find("[name=links]").val(JSON.stringify([{
-                                index: parseInt(dom.find('[name=index]').val()) || 0,
-                                keyword: dom.find('[name=keyword]').val(),
-                                url: dom.find('[name=url]').val(),
-                            }]));
-                        },
-                        done: "table-list",
-                    });
-                },
-                "del": function (obj) {
-                    let links = [];
-                    links.push(obj.data);
-                    layer.confirm('去除友情链接？', function (index) {
-                        main.request({
-                            url: url + '/del',
-                            data: {id: id, links: JSON.stringify(links)},
-                            index: index,
-                            done: obj.del(),
-                        });
-                    });
-                }
-            },
-            activeBar = {
-                "add": function () {
-                    main.popup({
-                        title: "添加友情链接",
-                        url: url + "/add",
-                        area: ['500px', '300px'],
-                        content: $('#add-html').html(),
-                        success: function (dom) {
-                            dom.find("[name=id]").val(id);
-                        },
-                        done: "table-list",
-                    });
-                },
-                "del": function (data) {
-                    if (data.length === 0) {
-                        layer.msg("未选择", {icon: 2});
-                        return false;
-                    }
-                    let links = [];
-                    for (let i = 0; i < data.length; i++) {
-                        links[i] = data[i];
-                    }
-                    layer.confirm('去除友情链接？', function (index) {
-                        main.request({
-                            url: url + '/del',
-                            data: {id: id, links: JSON.stringify(links)},
-                            index: index,
-                            done: 'table-list',
-                        });
-                    });
-                }
-            };
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            toolbar: '#toolbar',
-            url: url,
+            main = layui.main;
+        main.table({
             where: {id: id},
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
@@ -148,20 +74,41 @@
                 {field: 'url', title: 'URL'},
                 {title: '操作', width: 280, align: 'center', fixed: 'right', toolbar: '#tool'}
             ]],
-            page: true,
-            limit: 10,
-            limits: [10, 50, 100, 200],
-            text: '对不起，加载出现异常！',
-        });
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call($(this), obj);
-        });
-
-        //头工具栏事件
-        table.on('toolbar(table-list)', function (obj) {
-            let data = table.checkStatus(obj.config.id).data;
-            activeBar[obj.event] && activeBar[obj.event].call(obj, data);
+        }, {
+            edit: function (obj) {
+                main.popup({
+                    title: "修改友情链接",
+                    url: url + "/modify",
+                    area: ['500px', '240px'],
+                    content: $('#modify-html').html(),
+                    success: function (dom) {
+                        dom.find("[name=id]").val(id);
+                        dom.find("[name=keyword]").val(obj.data.keyword);
+                        dom.find("[name=url]").val(obj.data.url);
+                        dom.find("[name=index]").val(obj.data.index);
+                    },
+                    yes: function (index, dom) {
+                        dom.find("[name=links]").val(JSON.stringify([{
+                            index: parseInt(dom.find('[name=index]').val()) || 0,
+                            keyword: dom.find('[name=keyword]').val(),
+                            url: dom.find('[name=url]').val(),
+                        }]));
+                    },
+                    done: "table-list",
+                });
+            },
+            add: function () {
+                main.popup({
+                    title: "添加友情链接",
+                    url: url + "/add",
+                    area: ['500px', '300px'],
+                    content: $('#add-html').html(),
+                    success: function (dom) {
+                        dom.find("[name=id]").val(id);
+                    },
+                    done: "table-list",
+                });
+            },
         });
     });
 </script>

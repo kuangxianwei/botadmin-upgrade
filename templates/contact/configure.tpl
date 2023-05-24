@@ -20,7 +20,7 @@
             <div id="field"></div>
         </fieldset>
         <div class="layui-hide">
-            <input name="ids" value="{{.ids}}">
+            <input name="ids" id="ids" value="{{.ids}}">
             <button lay-submit></button>
         </div>
     </div>
@@ -33,7 +33,7 @@
         let active = {
             pc_enabled: function (enabled) {
                 if (enabled) {
-                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">启用PC:</label><div class="layui-input-block"><input type="checkbox" name="pc_enabled" lay-skin="switch" lay-text="启用|禁用" checked></div></div>');
+                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">启用PC:</label><div class="layui-input-block"><input type="checkbox" name="pc_enabled" id="pc_enabled" lay-skin="switch" lay-text="启用|禁用" checked></div></div>');
                     form.render('checkbox');
                 } else {
                     fieldElem.find('[name=pc_enabled]').closest('.layui-form-item').remove();
@@ -41,7 +41,7 @@
             },
             mobile_enabled: function (enabled) {
                 if (enabled) {
-                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">启用Mobile:</label><div class="layui-input-block"><input type="checkbox" name="mobile_enabled" lay-skin="switch" lay-text="是|否" checked></div></div>');
+                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">启用Mobile:</label><div class="layui-input-block"><input type="checkbox" name="mobile_enabled" id="mobile_enabled" lay-skin="switch" lay-text="是|否" checked></div></div>');
                     form.render('checkbox');
                 } else {
                     fieldElem.find('[name=mobile_enabled]').closest('.layui-form-item').remove();
@@ -49,7 +49,7 @@
             },
             max: function (enabled) {
                 if (enabled) {
-                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">最大限制:</label><div class="layui-input-inline"><input type="number" name="max" value="0" min="0" class="layui-input"></div><div class="layui-form-mid layui-word-aux">0为不限制</div></div>');
+                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">最大限制:</label><div class="layui-input-inline"><input type="number" autocomplete="off" name="max" id="max" value="0" min="0" class="layui-input"></div><div class="layui-form-mid layui-word-aux">0为不限制</div></div>');
                     form.render('checkbox');
                 } else {
                     fieldElem.find('[name=max]').closest('.layui-form-item').remove();
@@ -67,9 +67,9 @@
             consult: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-            <label class="layui-form-label">在线咨询:</label>
+            <label for="consult" class="layui-form-label">在线咨询:</label>
             <div class="layui-input-inline" style="width: 50%">
-                <input name="consult" value="" placeholder="https://domain.com" class="layui-input">
+                <input name="consult" id="consult" value="" placeholder="https://domain.com" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">如QQ在线</div>
             <button class="layui-btn" lay-event="fill-consult">填充默认</button>

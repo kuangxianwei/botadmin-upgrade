@@ -26,9 +26,9 @@
     <div class="layui-card">
         <div class="layui-card-body layui-form">
             <div class="layui-form-item">
-                <label class="layui-form-label">提取状态:</label>
+                <label for="used" class="layui-form-label">提取状态:</label>
                 <div class="layui-input-inline">
-                    <input type="checkbox" name="used" lay-skin="switch" lay-text="已取|未取">
+                    <input type="checkbox" name="used" id="used" lay-skin="switch" lay-text="已取|未取">
                 </div>
             </div>
             <div class="layui-hide">
@@ -62,7 +62,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
         </button>
-        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetRecord" lay-tips="重置日志">
+        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
             <i class="layui-icon iconfont icon-reset"></i>Log
         </button>
     </div>
@@ -77,36 +77,29 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table,
-            form = layui.form,
+        let form = layui.form,
             main = layui.main;
 
         //日志管理
-        main.table({
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
-                {
-                    field: 'used', title: '提取', width: 100, align: 'center',
-                    event: 'used', templet: function (d) {
-                        return '<input type="checkbox" lay-skin="switch" lay-text="已取|未取"' + (d.used ? ' checked' : '') + '>';
-                    }
-                },
-                {field: 'url', title: 'URL', sort: true},
-                {
-                    field: 'updated', title: '时间', align: 'center', sort: true, width: 180, templet: function (d) {
-                        return main.timestampFormat(d['updated']);
-                    }
-                },
-                {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-            ]],
-            limit: 30,
-            limits: [30, 50, 100, 500, 800],
-        });
-
-        let active = {
+        main.table([[
+            {type: 'checkbox', fixed: 'left'},
+            {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
+            {
+                field: 'used', title: '提取', width: 100, align: 'center',
+                event: 'used', templet: function (d) {
+                    return '<input type="checkbox" lay-skin="switch" lay-text="已取|未取"' + (d.used ? ' checked' : '') + '>';
+                }
+            },
+            {field: 'url', title: 'URL', sort: true},
+            {
+                field: 'updated', title: '时间', align: 'center', sort: true, width: 180, templet: function (d) {
+                    return main.timestampFormat(d['updated']);
+                }
+            },
+            {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+        ]], {
             used: function (obj) {
-                let $this = this;
+                let $this = $(this);
                 let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
                 main.request({
                     url: url + "/modify",
@@ -117,34 +110,10 @@
                     }
                 });
             },
-            del: function (obj) {
-                let data = {}, done = obj.del;
-                if (obj.config) {
-                    let ids = [];
-                    $.each(table.checkStatus(obj.config.id).data, function () {
-                        ids.push(this.id);
-                    });
-                    if (ids.length === 0) {
-                        return layer.msg('请选择数据');
-                    }
-                    data.ids = ids.join();
-                    done = 'table-list';
-                } else {
-                    data = obj.data;
-                }
-                layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                    main.request({
-                        url: url + '/del',
-                        data: data,
-                        index: index,
-                        done: done
-                    });
-                });
-            },
             modify: function (obj) {
-                let loading = layui.main.loading();
-                $.get(url + '/modify', {id: obj.data.id}, function (html) {
-                    loading.close();
+
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+
                     main.popup({
                         title: '修改MySQL',
                         content: html,
@@ -154,30 +123,7 @@
                     });
                 });
             },
-            truncate: function () {
-                layer.confirm('清空全部数据，确定清空？', function (index) {
-                    main.request({
-                        url: url + '/truncate',
-                        index: index,
-                        done: 'table-list'
-                    });
-                });
-            },
-            log: function () {
-                main.ws.log('ad_result.0');
-            },
-            resetRecord: function (obj) {
-                let ids = [];
-                $.each(table.checkStatus(obj.config.id).data, function () {
-                    ids.push(this.id);
-                });
-                main.reset.log('ad_result', ids);
-            },
-            configure: function (obj) {
-                let ids = [];
-                $.each(table.checkStatus(obj.config.id).data, function () {
-                    ids.push(this.id);
-                });
+            configure: function (obj, ids) {
                 if (ids.length === 0) {
                     return layer.msg('请选择数据');
                 }
@@ -193,25 +139,7 @@
                     done: 'table-list',
                 });
             },
-            export: function (obj) {
-                let ids = [];
-                $.each(table.checkStatus(obj.config.id).data, function () {
-                    ids.push(this.id);
-                });
-                window.open(encodeURI('/ad/result/export?ids=' + ids.join()));
-            }
-        };
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call($(this), obj);
         });
-
-        //监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call(this, obj);
-        });
-        // 监听搜索
-        main.onSearch();
         main.checkLNMP();
     });
 </script>

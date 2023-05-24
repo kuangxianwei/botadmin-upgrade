@@ -11,7 +11,7 @@
             <div class="layui-tab-content">
                 <div class="layui-form table-search" style="top:75px">
                     <div class="layui-inline">
-                        <input type="text" name="search" class="layui-input" placeholder="输入搜索...">
+                        <input type="text" autocomplete="off" name="search" class="layui-input" placeholder="输入搜索...">
                     </div>
                     <button class="layui-btn layui-btn-sm" lay-submit lay-filter="search">
                         <i class="layui-icon layui-icon-search"></i>
@@ -49,7 +49,7 @@
         <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
-        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="reset" lay-tips="清空全部 已读和未读都会被清空">
+        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="truncate" lay-tips="清空全部 已读和未读都会被清空">
             清空
         </button>
     </div>
@@ -60,14 +60,8 @@
         let table = layui.table,
             main = layui.main,
             form = layui.form;
-
         // 未读消息
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            toolbar: '#toolbar',
-            url: url,
+        main.table({
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},
@@ -81,19 +75,58 @@
                 },
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#tool'}
             ]],
-            page: true,
             where: {read: false},
-            limit: 10,
-            limits: [10, 15, 20, 25, 30],
-            text: '对不起，加载出现异常！'
+        }, {
+            del: function (obj, ids) {
+                if (main.isArray(ids)) {
+                    if (ids.length === 0) {
+                        return layer.msg('请选择数据');
+                    }
+                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
+                        main.request({
+                            url: url + '/sql/del',
+                            data: {ids: ids.join()},
+                            index: index,
+                            done: 'table-list'
+                        });
+                    });
+                    return
+                }
+                layer.confirm('确定删除此条日志？', function (index) {
+                    main.request({
+                        url: url + '/sql/del',
+                        data: {id: obj.data.id},
+                        index: index,
+                        done: obj.del
+                    });
+                });
+            },
+            read: function (obj, ids) {
+                if (main.isArray(ids)) {
+                    main.request({
+                        url: url + '/update',
+                        data: {ids: ids.join(), read: true},
+                        done: function () {
+                            table.reload('table-list');
+                            table.reload('table-list-read');
+                        }
+                    });
+                    return
+                }
+                main.get(url + '/update', {'id': obj.data.id, read: true}, function (res) {
+                    if (res.code === 0) {
+                        table.reload('table-list');
+                        table.reload('table-list-read');
+                    } else {
+                        layer.alert(res.msg, {icon: 2});
+                    }
+                });
+                main.textarea(obj.data.feedback, {area: ['60%', '200px']});
+            }
         });
         // 已读消息
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list-read',
+        main.table('table-list-read', {
             toolbar: '#toolbar-read',
-            url: url,
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', title: 'ID', hide: true},
@@ -107,74 +140,10 @@
                 },
                 {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#tool'}
             ]],
-            page: true,
             where: {read: true},
-            limit: 10,
-            limits: [10, 15, 20, 25, 30],
-            text: '对不起，加载出现异常！'
         });
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case 'del':
-                    layer.confirm('确定删除此条日志？', function (index) {
-                        main.request({
-                            url: url + '/sql/del',
-                            data: {'id': data.id},
-                            index: index,
-                            done: obj.del
-                        });
-                    });
-                    break;
-                case 'read':
-                    let loading = layui.main.loading();
-                    $.get(url + '/update', {'id': data.id, read: true}, function (res) {
-                        loading.close();
-                        if (res.code !== 0) {
-                            layer.alert(res.msg, {icon: 2});
-                        } else {
-                            table.reload('table-list');
-                            table.reload('table-list-read');
-                        }
-                    });
-                    main.textarea(obj.data.feedback, {area: ['60%', '200px']});
-                    break
-            }
-        });
-        //头工具栏事件
-        table.on('toolbar(table-list)', function (obj) {
-            let checkStatus = table.checkStatus(obj.config.id),
-                data = checkStatus.data, ids = [];
-            for (let i = 0; i < data.length; i++) {
-                ids[i] = data[i].id;
-            }
-            switch (obj.event) {
-                case 'del':
-                    if (data.length === 0) {
-                        return layer.msg('请选择数据');
-                    }
-                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.request({
-                            url: url + '/sql/del',
-                            data: {'ids': ids.join()},
-                            index: index,
-                            done: 'table-list'
-                        });
-                    });
-                    break;
-                case 'read':
-                    main.request({
-                        url: url + '/update',
-                        data: {'ids': ids.join(), read: true},
-                        done: function () {
-                            table.reload('table-list');
-                            table.reload('table-list-read');
-                        }
-                    });
-                    break
-            }
-        });
+
+
         //监听工具条
         table.on('tool(table-list-read)', function (obj) {
             let data = obj.data;
@@ -215,10 +184,10 @@
                         });
                     });
                     break;
-                case 'reset':
+                case 'truncate':
                     layer.confirm('清空全部，未读和已读信息全部会被清空', function (index) {
                         main.request({
-                            url: url + '/sql/reset',
+                            url: url + '/truncate',
                             index: index,
                             done: function () {
                                 table.reload('table-list');

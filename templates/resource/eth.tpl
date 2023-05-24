@@ -12,14 +12,7 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table;
-
-        //规则管理
-        table.render({
-            headers: {'X-CSRF-Token':csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            url: url,
+        layui.main.table({
             cols: [[
                 {field: 'Face', title: '网卡', align: 'center'},
                 {field: 'Flow', title: '流向', align: 'center'},
@@ -32,10 +25,7 @@
                 {field: 'Compressed', title: '压缩', align: 'center'},
                 {field: 'Multicast', title: '并发', align: 'center'}
             ]],
-            page: false,
-            limit: 10,
-            limits: [10, 15, 20, 25, 30],
-            text: '对不起，加载出现异常！'
+            page: false
         });
     });
 </script>

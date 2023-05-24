@@ -5,9 +5,9 @@
             <div class="layui-card-body">
                 <div class="layui-form">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">修改端口</label>
+                        <label for="port" class="layui-form-label">修改端口</label>
                         <div class="layui-input-inline" style="width:100px">
-                            <input type="text" name="port" value="{{.sshPort}}" required lay-verify="number"
+                            <input type="text" name="port" id="port" value="{{.sshPort}}" required lay-verify="number"
                                    placeholder="{{.sshPort}}" autocomplete="on"
                                    class="layui-input layui-input-small">
                         </div>
@@ -49,7 +49,8 @@
                                             lay-href="/file?path=/root/.ssh">管理SSH
                                     </button>
                                 {{else -}}
-                                    <button class="layui-btn layui-btn-mini" data-type="create_key">首次生成密钥</button>
+                                    <button class="layui-btn layui-btn-mini" data-type="create_key">首次生成密钥
+                                    </button>
                                 {{end}}
                             </div>
                         </div>

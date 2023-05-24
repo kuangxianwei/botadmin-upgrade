@@ -4,20 +4,19 @@
             <div class="layui-inline">
                 <label class="layui-form-label">IDS</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="ids" placeholder="1,2,4,5" class="layui-input">
+                    <input type="text" autocomplete="off" name="ids" placeholder="1,2,4,5" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">用户名:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="username" placeholder="请输入数据库用户名"
-                           class="layui-input">
+                    <input type="text" autocomplete="off" name="username" placeholder="请输入数据库用户名" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">数据库名:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="dbname" placeholder="请输入数据库名称" class="layui-input">
+                    <input type="text" autocomplete="off" name="dbname" placeholder="请输入数据库名称" class="layui-input">
                 </div>
             </div>
             <div class="layui-hide">
@@ -65,130 +64,81 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table,
-            main = layui.main;
-
-        //日志管理
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            url: url,
-            toolbar: '#toolbar',
-            cols: [[
-                {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},
-                {field: 'username', title: '用户名', align: 'center'},
-                {field: 'password', title: '密码', align: 'center'},
-                {field: 'dbname', title: '数据库名', align: 'center'},
-                {field: 'charset', title: '编码', align: 'center', width: 66},
-                {field: 'prefix', title: '前缀', hide: true},
-                {field: 'hosts', title: '访问地址', align: 'center', width: 90},
-                {field: 'site_id', title: '绑定站点', align: 'center'},
-                {
-                    field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
-                        return main.timestampFormat(d['updated']);
-                    }
-                },
-                {field: 'note', title: '备注', align: 'center', hide: true},
-                {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-            ]],
-            page: true,
-
-            limit: 10,
-            limits: [10, 15, 20, 25, 30],
-            text: '对不起，加载出现异常！'
-        });
-        let active = {
-                'del': function (obj) {
-                    layer.confirm('删除后不可恢复，确定删除？', function (index) {
-                        main.request({
-                            url: url + '/del',
-                            data: obj.data,
-                            index: index,
-                            done: obj.del
-                        });
-                    });
-                },
-                'modify': function (obj) {
-                    let loading = layui.main.loading();
-                    $.get(url + '/modify', {id: obj.data.id}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '修改MySQL',
-                            content: html,
-                            area: ['600px', '550px'],
-                            url: url + '/modify',
-                            done: 'table-list',
-                        });
-                    });
-                },
+        let main = layui.main;
+        main.table([[
+            {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},
+            {field: 'username', title: '用户名', align: 'center'},
+            {field: 'password', title: '密码', align: 'center'},
+            {field: 'dbname', title: '数据库名', align: 'center'},
+            {field: 'charset', title: '编码', align: 'center', width: 66},
+            {field: 'prefix', title: '前缀', hide: true},
+            {field: 'hosts', title: '访问地址', align: 'center', width: 90},
+            {field: 'site_id', title: '绑定站点', align: 'center'},
+            {
+                field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
+                    return main.timestampFormat(d['updated']);
+                }
             },
-            activeBar = {
-                'add': function () {
-                    let loading = layui.main.loading();
-                    $.get(url + '/add', {}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '创建数据库',
-                            content: html,
-                            area: ['600px', '550px'],
-                            url: url + '/add',
-                            done: 'table-list',
-                        });
+            {field: 'note', title: '备注', align: 'center', hide: true},
+            {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+        ]], {
+            modify: function (obj) {
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                    main.popup({
+                        title: '修改MySQL',
+                        content: html,
+                        area: ['600px', '550px'],
+                        url: url + '/modify',
+                        done: 'table-list',
                     });
-                },
-                'modifyroot': function () {
-                    let loading = layui.main.loading();
-                    $.get(url + '/modifyroot', {}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '修改root密码',
-                            content: html,
-                            url: url + '/modifyroot',
-                            area: '400px',
-                        });
+                });
+            },
+            add: function () {
+                main.get(url + '/add', function (html) {
+                    main.popup({
+                        title: '创建数据库',
+                        content: html,
+                        area: ['600px', '550px'],
+                        url: url + '/add',
+                        done: 'table-list',
                     });
-                },
-                'resetroot': function () {
-                    let loading = layui.main.loading();
-                    $.get(url + '/resetroot', {}, function (html) {
-                        loading.close();
-                        main.popup({
-                            title: '重置root密码',
-                            content: html,
-                            url: url + '/resetroot',
-                            area: '400px',
-                        });
+                });
+            },
+            modifyroot: function () {
+                main.get(url + '/modifyroot', function (html) {
+                    main.popup({
+                        title: '修改root密码',
+                        content: html,
+                        url: url + '/modifyroot',
+                        area: '400px',
                     });
-                },
-                'viewRoot': function () {
-                    let loading = layui.main.loading();
-                    $.get(url + '/view', {}, function (pwd) {
-                        loading.close();
-                        main.copy(pwd, layer.msg('root密码复制成功'));
+                });
+            },
+            resetroot: function () {
+                main.get(url + '/resetroot', function (html) {
+                    main.popup({
+                        title: '重置root密码',
+                        content: html,
+                        url: url + '/resetroot',
+                        area: '400px',
                     });
-                },
-                'sync': function () {
-                    layer.confirm('如无错误且无需同步，确定同步？', function (index) {
-                        main.request({
-                            url: url + '/sync',
-                            index: index,
-                            done: 'table-list',
-                        });
+                });
+            },
+            viewRoot: function () {
+                main.get(url + '/view', function (pwd) {
+                    main.copy(pwd, layer.msg('root密码复制成功'));
+                });
+            },
+            sync: function () {
+                layer.confirm('如无错误且无需同步，确定同步？', function (index) {
+                    main.request({
+                        url: url + '/sync',
+                        index: index,
+                        done: 'table-list',
                     });
-                },
-            };
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call(this, obj);
+                });
+            },
         });
-
-        //监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            activeBar[obj.event] && activeBar[obj.event].call(this, obj);
-        });
-        // 监听搜索
-        main.onSearch();
         main.checkLNMP();
     });
 </script>

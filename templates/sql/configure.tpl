@@ -28,9 +28,9 @@
         $('button[lay-event]').off('click').on('click', function () {
             switch ($(this).attr('lay-event')) {
                 case 'edit-sql':
-                    let loading = main.loading();
-                    $.get('/file/editor?path={{.mycnf_path}}', {hide: true}, function (html) {
-                        loading.close();
+
+                    main.get('/file/editor?path={{.mycnf_path}}', {hide: true}, function (html) {
+
                         main.popup({
                             url: "/file/editor",
                             title: '编辑文件',

@@ -18,7 +18,7 @@
             <div id="field"></div>
         </fieldset>
         <div class="layui-hide">
-            <input name="ids" value="{{.ids}}">
+            <input name="ids" id="ids" value="{{.ids}}">
             <button lay-submit></button>
         </div>
     </div>
@@ -26,9 +26,9 @@
 <script type="text/html" id="site-id">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">网站ID:</label>
+            <label for="site_id" class="layui-form-label">网站ID:</label>
             <div class="layui-input-inline">
-                <select name="site_id" lay-search lay-filter="site_id">
+                <select name="site_id" id="site_id" lay-search lay-filter="site_id">
                     <option value="">搜索...</option>
                     {{range .sites -}}
                         <option value="{{.Id}}">{{.Vhost}}</option>
@@ -37,9 +37,9 @@
             </div>
         </div>
         <div class="layui-inline" lay-tips="选择栏目ID">
-            <label class="layui-form-label">栏目ID:</label>
+            <label for="class_id" class="layui-form-label">栏目ID:</label>
             <div class="layui-input-block" lay-filter="class_id">
-                <select name="class_id">
+                <select name="class_id" id="class_id">
                     <option value="">无...</option>
                 </select>
             </div>
@@ -57,16 +57,15 @@
                     form.render('select');
                     form.on('select(site_id)', function (obj) {
                         if (obj.value === 0 || obj.value === "") {
-                            $('div[lay-filter=class_id]').html('<select name="class_id"><option value="">无...</option></select>');
+                            $('div[lay-filter=class_id]').html('<select name="class_id" id="class_id"><option value="">无...</option></select>');
                             form.render('select');
                             return false;
                         }
-                        let loading = layui.main.loading();
-                        $.get('/site/class', {
+                        layui.main.get('/site/class', {
                             id: obj.value,
                             class_id: $('select[name=class_id]').val()
                         }, function (res) {
-                            loading.close();
+
                             switch (res.code) {
                                 case -1:
                                     layer.alert(res.msg, {icon: 2});
@@ -85,9 +84,9 @@
             'used': function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-            <label class="layui-form-label">已使用:</label>
+            <label for="used" class="layui-form-label">已使用:</label>
             <div class="layui-input-inline">
-                <input type="checkbox" name="used" lay-skin="switch" lay-text="是|否">
+                <input type="checkbox" name="used" id="used" lay-skin="switch" lay-text="是|否">
             </div>
         </div>`);
                     form.render('checkbox');
@@ -98,9 +97,9 @@
             'trans_failed': function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-            <label class="layui-form-label" lay-tips="切换翻译错误">译错:</label>
+            <label for="trans_failed" class="layui-form-label" lay-tips="切换翻译错误">译错:</label>
             <div class="layui-input-inline">
-                <input type="checkbox" name="trans_failed" lay-skin="switch" lay-text="是|否">
+                <input type="checkbox" name="trans_failed" id="trans_failed" lay-skin="switch" lay-text="是|否">
             </div>
         </div>`);
                     form.render('checkbox');
@@ -136,9 +135,9 @@
             'order': function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-    <label class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
+    <label for="order" class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
     <div class="layui-input-block">
-        <select name="order" class="layui-select">
+        <select name="order" id="order" class="layui-select">
             <option value="0" selected>正序</option>
             <option value="1">倒序</option>
             <option value="2">URL升序</option>

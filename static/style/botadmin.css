@@ -20,7 +20,7 @@
     position: absolute;
     z-index: 999;
     left: 200px;
-    top: 22px
+    top: 22px;
 }
 
 .table-search input {
@@ -294,4 +294,28 @@ textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
 
 textarea:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: rgb(255, 255, 255, 0.28) !important;
+}
+
+input + span {
+    position: relative;
+}
+
+input + span::before {
+    position: absolute;
+    right: -20px;
+    top: 2px;
+}
+
+input:invalid {
+    border: 2px solid red;
+}
+
+input:invalid + span::before {
+    content: "✖";
+    color: red;
+}
+
+input:valid + span::before {
+    content: "✓";
+    color: green;
 }

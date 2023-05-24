@@ -9,35 +9,35 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="为了防封IP，请设置合适的间隔时间（秒）采集">期间延迟:</label>
+                <label for="delay" class="layui-form-label" lay-tips="为了防封IP，请设置合适的间隔时间（秒）采集">期间延迟:</label>
                 <div class="layui-input-block">
-                    <input type="number" name="delay" max="500" min="1" class="layui-input" value="{{.obj.Delay}}" placeholder="5">
+                    <input type="number" autocomplete="off" name="delay" id="delay" max="500" min="0" class="layui-input" value="{{.obj.Delay}}" placeholder="5">
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="是否启用定时更新">启用定时:</label>
+                <label for="enabled" class="layui-form-label" lay-tips="是否启用定时更新">启用定时:</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="enabled" lay-skin="switch" lay-text="开启|关闭"{{if .obj.Enabled}} checked{{end}}>
+                    <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="开启|关闭"{{if .obj.Enabled}} checked{{end}}>
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">Spec:</label>
+                <label for="spec" class="layui-form-label">Spec:</label>
                 <div class="layui-input-block" lay-tips="双击修改定时任务">
-                    <input type="text" name="spec" class="layui-input" value="{{.obj.Spec}}" placeholder="0 0 * * * ?">
+                    <input type="text" autocomplete="off" name="spec" id="spec" class="layui-input" value="{{.obj.Spec}}" placeholder="0 0 * * * ?">
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="采集最多tag个数">上限:</label>
+                <label for="max" class="layui-form-label" lay-tips="采集最多tag个数">上限:</label>
                 <div class="layui-input-block">
-                    <input type="number" name="max" max="5000" min="1" class="layui-input" value="{{.obj.Max}}" placeholder="500">
+                    <input type="number" autocomplete="off" name="max" id="max" max="5000" min="1" class="layui-input" value="{{.obj.Max}}" placeholder="500">
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="采集前清空以前存在的Tags">置零:</label>
+                <label for="truncate" class="layui-form-label" lay-tips="采集前清空以前存在的Tags">置零:</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="truncate" lay-skin="switch" lay-text="开启|关闭"{{if .obj.Truncate}} checked{{end}}>
+                    <input type="checkbox" name="truncate" id="truncate" lay-skin="switch" lay-text="开启|关闭"{{if .obj.Truncate}} checked{{end}}>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
             },
             "copy-keywords": function () {
                 let val = $('#collect-display').val(), values = val.split("\n"), result = [],
-                    reg = /(?:入库成功|seed)=(.*?)$/;
+                    reg = /(?:入库成功|seed)=.*?$/;
                 for (let i = 0; i < values.length; i++) {
                     let rs = reg.exec(values[i]);
                     if (rs) {

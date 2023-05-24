@@ -1,22 +1,22 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form" id="theme-form">
         <div class="layui-hide">
-            <input name="driver" value="{{.obj.Driver}}">
-            <input name="id" value="{{.obj.Id}}">
+            <input name="driver" id="driver" value="{{.obj.Driver}}">
+            <input name="id" id="id" value="{{.obj.Id}}">
             <button lay-submit></button>
             <div id="uploadSubmit"></div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="由3-30个英文数字或下划线组成">名称:</label>
+                <label for="name" class="layui-form-label" lay-tips="由3-30个英文数字或下划线组成">名称:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="name" value="{{.obj.Name}}" lay-verify="required" placeholder="blog-1" class="layui-input"{{if gt .obj.Id 0}} disabled{{end}}>
+                    <input type="text" autocomplete="off" name="name" id="name" value="{{.obj.Name}}" lay-verify="required" placeholder="blog-1" class="layui-input"{{if gt .obj.Id 0}} disabled{{end}}>
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">别名:</label>
+                <label for="alias" class="layui-form-label">别名:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="alias" value="{{.obj.Alias}}" placeholder="仿博客模板" class="layui-input">
+                    <input type="text" autocomplete="off" name="alias" id="alias" value="{{.obj.Alias}}" placeholder="仿博客模板" class="layui-input">
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <label class="layui-form-label">Tags:</label>
             <div class="layui-form-mid layui-word-aux" id="tags-box"></div>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" placeholder="用空格分隔多个标签" lay-event="tags">
+                <input type="text" autocomplete="off" class="layui-input" placeholder="用空格分隔多个标签" lay-event="tags">
                 <input type="hidden" name="tags" value="{{join .obj.Tags ","}}">
             </div>
         </div>

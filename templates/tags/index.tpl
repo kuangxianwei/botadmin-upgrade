@@ -2,7 +2,7 @@
     <div class="layui-card-body">
         <div class="layui-form table-search" style="left: 400px">
             <div class="layui-inline">
-                <input type="text" name="value" class="layui-input" placeholder="输入搜索...">
+                <input type="text" autocomplete="off" name="value" class="layui-input" placeholder="输入搜索...">
             </div>
             <button class="layui-btn layui-btn-sm" lay-submit lay-filter="search">
                 <i class="layui-icon layui-icon-search"></i>
@@ -11,7 +11,6 @@
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
-<div class="layui-hide" id="import"></div>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
         <a class="layui-btn layui-btn-sm" lay-href="/tags/collect" lay-text="定时采集Tags">
@@ -46,106 +45,31 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let form = layui.form,
-            table = layui.table,
-            main = layui.main;
-        url = url || '';
+        let main = layui.main;
         main.upload();
-        //日志管理
-        table.render({
-            headers: {'X-CSRF-Token': csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            toolbar: '#toolbar',
-            url: url,
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {field: 'id', hide: true},
-                {type: 'numbers', width: 80, title: 'ID', sort: true},
-                {field: 'value', title: 'Tag'},
-                {
-                    field: 'updated', title: '时间', width: 150, sort: true, templet: function (d) {
-                        return main.timestampFormat(d['updated']);
-                    }
-                },
-                {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-            ]],
-            page: true,
-            limit: 10,
-            limits: [10, 50, 100, 500],
-            text: '对不起，加载出现异常！'
-        });
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            if (obj.event === 'del') {
-                layer.confirm('确定删除此条日志？', function (index) {
-                    main.request({
-                        url: url + '/del',
-                        data: {'id': data.id},
-                        index: index,
-                        done: obj.del
-                    });
+        main.table([[
+            {type: 'checkbox', fixed: 'left'},
+            {field: 'id', hide: true},
+            {type: 'numbers', width: 80, title: 'ID', sort: true},
+            {field: 'value', title: 'Tag'},
+            {
+                field: 'updated', title: '时间', width: 150, sort: true, templet: function (d) {
+                    return main.timestampFormat(d['updated']);
+                }
+            },
+            {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+        ]], {
+            add: function () {
+                main.popup({
+                    title: '添加Tags',
+                    url: url + '/add',
+                    content: '<div class="layui-card layui-form" style="height: 98%">' +
+                        '<textarea class="layui-textarea" name="values" style="height: 100%" placeholder="输入关键词一行一个"></textarea>' +
+                        '<button class="layui-hide" lay-submit lay-filter="submit"></button>' +
+                        '</div>',
+                    done: 'table-list'
                 });
             }
         });
-
-        //头工具栏事件
-        table.on('toolbar(table-list)', function (obj) {
-            let checkStatus = table.checkStatus(obj.config.id),
-                data = checkStatus.data, ids = [];
-            for (let i = 0; i < data.length; i++) {
-                ids[i] = data[i].id;
-            }
-            switch (obj.event) {
-                case 'del':
-                    if (data.length === 0) {
-                        return layer.msg('请选择数据');
-                    }
-                    layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
-                        main.request({
-                            url: url + '/del',
-                            data: {'ids': ids.join()},
-                            index: index,
-                            done: 'table-list'
-                        });
-                    });
-                    break;
-                case 'add':
-                    main.popup({
-                        title: '添加Tags',
-                        url: url + '/add',
-                        content: '<div class="layui-card layui-form" style="height: 98%">' +
-                            '<textarea class="layui-textarea" name="values" style="height: 100%" placeholder="输入关键词一行一个"></textarea>' +
-                            '<button class="layui-hide" lay-submit lay-filter="submit"></button>' +
-                            '</div>',
-                        done: 'table-list'
-                    });
-                    break;
-                case 'truncate':
-                    layer.confirm('清空全部Tags', function (index) {
-                        main.request({
-                            url: url + '/reset',
-                            index: index,
-                            done: function () {
-                                table.reload('table-list');
-                            }
-                        });
-                    });
-                    break;
-                case 'log':
-                    main.ws.log("tags.0");
-                    break;
-                case 'export':
-                    window.open(encodeURI(url + '/export?ids=' + ids.join()));
-                    break;
-                case 'import':
-                    $('#import').click();
-                    break;
-            }
-        });
-
-        // 监听搜索
-        main.onSearch();
     });
 </script>

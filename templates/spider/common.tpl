@@ -6,22 +6,21 @@
                 <label class="layui-form-label" lay-tips="任务名称必须由中文、数字、字母、下划线组成 唯一">任务名称:</label>
                 <div class="layui-input-block">
                     <input type="hidden" name="id" value="{{.obj.Id}}" placeholder="本ID">
-                    <input type="text" name="name" value="{{.obj.Name}}" class="layui-input" required
-                           lay-verify="name" placeholder="采集名称">
+                    <input type="text" autocomplete="off" name="name" value="{{.obj.Name}}" class="layui-input" required lay-verify="name" placeholder="采集名称">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-row layui-col-space10">
                     <div class="layui-col-sm6">
-                        <label class="layui-form-label">初始种子:</label>
+                        <label for="seeds" class="layui-form-label">初始种子:</label>
                         <div class="layui-input-block">
-                            <textarea name="seeds" class="layui-textarea" required lay-verify="seeds" placeholder="http://www.botadmin.cn&#13;http://www.nfivf.com">{{join .obj.Seeds "\n"}}</textarea>
+                            <textarea name="seeds" id="seeds" class="layui-textarea" required lay-verify="seeds" placeholder="http://www.botadmin.cn&#13;http://www.nfivf.com">{{join .obj.Seeds "\n"}}</textarea>
                         </div>
                     </div>
                     <div class="layui-col-sm6">
-                        <label class="layui-form-label">备注:</label>
+                        <label for="note" class="layui-form-label">备注:</label>
                         <div class="layui-input-block">
-                            <textarea name="note" class="layui-textarea" placeholder="这是一个seo网站">{{.obj.Note}}</textarea>
+                            <textarea name="note" id="note" class="layui-textarea" placeholder="这是一个seo网站">{{.obj.Note}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -45,9 +44,9 @@
                         <div class="layui-colla-content">
                             <div class="layui-form-item">
                                 <div class="layui-inline">
-                                    <label class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
+                                    <label for="user_agent" class="layui-form-label" lay-tips="模拟访问 默认为百度蜘蛛">模拟访问:</label>
                                     <div class="layui-input-inline">
-                                        <select name="user_agent" class="layui-select" lay-search>
+                                        <select name="user_agent" id="user_agent" class="layui-select" lay-search>
                                             {{range .userAgents -}}
                                                 <option value="{{.Value}}"{{if eq $.obj.UserAgent .Value}} selected{{end}}>{{.Alias}}</option>
                                             {{end -}}
@@ -68,9 +67,9 @@
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-inline">
-                                    <label class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
+                                    <label for="order" class="layui-form-label" lay-tips="采集入库顺序">入库:</label>
                                     <div class="layui-input-block">
-                                        <select name="order" class="layui-select">
+                                        <select name="order" id="order" class="layui-select">
                                             <option value="0"{{if eq .obj.Order 0}} selected{{end}}>正序</option>
                                             <option value="1"{{if eq .obj.Order 1}} selected{{end}}>倒序</option>
                                             <option value="2"{{if eq .obj.Order 2}} selected{{end}}>URL升序</option>
@@ -79,16 +78,16 @@
                                     </div>
                                 </div>
                                 <div class="layui-inline">
-                                    <label class="layui-form-label"
+                                    <label for="delay" class="layui-form-label"
                                            lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="delay" class="layui-input" value="{{print .obj.Delay}}" placeholder="10-20">
+                                        <input type="text" autocomplete="off" name="delay" id="delay" class="layui-input" value="{{print .obj.Delay}}" placeholder="10-20">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
-                                    <label class="layui-form-label" lay-tips="指定字符集">字符集:</label>
+                                    <label for="charset" class="layui-form-label" lay-tips="指定字符集">字符集:</label>
                                     <div class="layui-input-block">
-                                        <select name="charset" class="layui-select">
+                                        <select name="charset" id="charset" class="layui-select">
                                             <option value="">自动</option>
                                             <option value="utf-8"{{if eq .obj.Charset "utf-8"}} selected{{end}}>UTF-8
                                             </option>
@@ -100,9 +99,9 @@
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-inline">
-                                    <label class="layui-form-label" lay-tips="内容解码">解码:</label>
+                                    <label for="decode" class="layui-form-label" lay-tips="内容解码">解码:</label>
                                     <div class="layui-input-block">
-                                        <select name="decode" class="layui-select">
+                                        <select name="decode" id="decode" class="layui-select">
                                             <option>无</option>
                                             {{range .decodes -}}
                                                 <option value="{{.}}"{{if eq $.obj.Decode . }} selected{{end}}>{{.}}</option>
@@ -111,9 +110,9 @@
                                     </div>
                                 </div>
                                 <div class="layui-inline">
-                                    <label class="layui-form-label" lay-tips="繁体中文和简体中文转换">繁简转换:</label>
+                                    <label for="conversion" class="layui-form-label" lay-tips="繁体中文和简体中文转换">繁简转换:</label>
                                     <div class="layui-input-block">
-                                        <select name="conversion" class="layui-select">
+                                        <select name="conversion" id="conversion" class="layui-select">
                                             <option>无...</option>
                                             {{range .conversions -}}
                                                 <option value="{{.Name}}"{{if eq $.obj.Conversion .Name }} selected{{end}}>{{.Alias}}</option>
@@ -124,13 +123,13 @@
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-inline" style="width: 48%">
-                                    <label class="layui-form-label">cookies:</label>
+                                    <label for="next_dom" class="layui-form-label">cookies:</label>
                                     <div class="layui-input-block">
                                         <textarea name="cookies" class="layui-textarea" placeholder="格式 key1=value1; key2=value2; 或者一行一条">{{.obj.Cookies}}</textarea>
                                     </div>
                                 </div>
                                 <div class="layui-inline" style="width: 48%">
-                                    <label class="layui-form-label">允许域名:</label>
+                                    <label for="next_dom" class="layui-form-label">允许域名:</label>
                                     <div class="layui-input-block">
                                         <textarea name="allow_domains" class="layui-textarea" placeholder="*.nfivf.com&#13;*.botadmin.cn">{{.obj.AllowDomains}}</textarea>
                                     </div>
@@ -174,13 +173,13 @@
                 <div class="layui-inline">
                     <div class="parse-method">
                         <div class="layui-inline">
-                            <label class="layui-form-label-col" lay-tips="DOM匹配下一篇文章URL">NextLink:</label>
+                            <label for="next_dom" class="layui-form-label-col" lay-tips="DOM匹配下一篇文章URL">NextLink:</label>
                         </div>
                         <div class="layui-inline" style="width: 280px">
-                            <input class="layui-input" type="text" name="next_dom" value="{{.obj.NextDom}}" placeholder="div.next > a">
+                            <input class="layui-input" type="text" autocomplete="off" name="next_dom" id="next_dom" value="{{.obj.NextDom}}" placeholder="div.next > a">
                         </div>
                         <div class="layui-inline" lay-tips="属性名称 默认为 href" style="width: 100px">
-                            <input class="layui-input" type="text" name="next_attr_name" value="{{.obj.NextAttrName}}" placeholder="href">
+                            <input class="layui-input" type="text" autocomplete="off" name="next_attr_name" id="next_attr_name" value="{{.obj.NextAttrName}}" placeholder="href">
                         </div>
                         <div class="layui-inline">
                             <button class="layui-btn layui-btn-radius" data-event="regMethod">转为正则解析</button>
@@ -188,10 +187,10 @@
                     </div>
                     <div class="parse-method" style="display:none;">
                         <div class="layui-inline">
-                            <label class="layui-form-label-col" lay-tips="正则匹配下一篇文章URL">NextLink:</label>
+                            <label for="next_reg" class="layui-form-label-col" lay-tips="正则匹配下一篇文章URL">NextLink:</label>
                         </div>
                         <div class="layui-inline" style="width: 390px">
-                            <input class="layui-input" type="text" name="next_reg" value="{{.obj.NextReg}}" placeholder="<a href='(.*?)'">
+                            <input class="layui-input" type="text" autocomplete="off" name="next_reg" id="next_reg" value="{{.obj.NextReg}}" placeholder="<a href='(.*?)'">
                         </div>
                         <div class="layui-inline">
                             <button class="layui-btn layui-btn-radius" data-event="domMethod">转为DOM解析</button>
@@ -226,7 +225,7 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">绑定栏目:</label>
+                    <label for="cron_enabled" class="layui-form-label">绑定栏目:</label>
                     <div class="layui-input-block" lay-filter="class_id">
                         {{.class_html}}
                     </div>
@@ -234,16 +233,16 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">启用定时:</label>
+                    <label for="cron_enabled" class="layui-form-label">启用定时:</label>
                     <div class="layui-input-inline">
-                        <input type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否"
+                        <input type="checkbox" name="cron_enabled" id="cron_enabled" lay-skin="switch" lay-text="是|否"
                                 {{if .obj.CronEnabled}} checked{{end}}>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">Spec:</label>
+                    <label for="spec" class="layui-form-label">Spec:</label>
                     <div class="layui-input-inline" lay-tips="双击修改定时任务">
-                        <input type="text" name="spec" value="{{.obj.Spec}}" class="layui-input">
+                        <input type="text" autocomplete="off" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -251,7 +250,7 @@
     </div>
     <button class="layui-hide" lay-submit lay-filter="stepsSubmit"></button>
 </div>
-<input type="hidden" id="config">
+<input id="config" type="hidden">
 <script>
     $('#config').val(JSON.stringify({
         engines:{{.engines}}, // 翻译引擎列表

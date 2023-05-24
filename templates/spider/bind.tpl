@@ -12,13 +12,13 @@
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">绑定栏目:</label>
+            <label for="id" class="layui-form-label">绑定栏目:</label>
             <div class="layui-input-block" lay-filter="class_id">
                 {{.class_html}}
             </div>
         </div>
         <div class="layui-hide">
-            <input name="id" value="{{.obj.Id}}">
+            <input name="id" id="id" value="{{.obj.Id}}">
             <button class="layui-btn" lay-submit lay-filter="submit"></button>
         </div>
     </div>
@@ -31,7 +31,7 @@
             classes = {},
             bindClass = function (id, classId) {
                 if (isNaN(parseInt(id))) {
-                    $('select[name=class_id]').replaceWith(`<select name="class_id" lay-search><option value="">搜索...</option></select>`);
+                    $('select[name=class_id]').replaceWith(`<select name="class_id" id="class_id" lay-search><option value="">搜索...</option></select>`);
                     form.render('select');
                     return false
                 }
@@ -40,9 +40,9 @@
                     form.render();
                     return false;
                 }
-                let loading = layui.main.loading();
-                $.get('/site/class', {id: id, class_id: classId}, function (res) {
-                    loading.close();
+
+                main.get('/site/class', {id: id, class_id: classId}, function (res) {
+
                     if (res.code === 0) {
                         classes[id] = res.data;
                         $('[lay-filter=class_id]').html(res.data);

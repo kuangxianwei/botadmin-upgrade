@@ -9,46 +9,26 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table,
-            main = layui.main;
-
-        //规则管理
-        table.render({
-            headers: {'X-CSRF-Token':csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            url: url,
+        let main = layui.main;
+        main.table({
             cols: [[
-                {type: 'numbers', width: 50, title: 'ID', sort: true},
+                {type: 'numbers', width: 80, title: 'ID', sort: true},
                 {field: 'Filesystem', title: '文件系统', minWidth: 250},
                 {field: 'Size', title: '总大小'},
                 {field: 'Used', title: '已使用'},
                 {field: 'Avail', title: '空闲'},
                 {field: 'UsePer', title: '使用率'},
                 {field: 'Mounted', title: '挂载', minWidth: 250}
-            ]],
-            page: false,
-
-            limit: 10,
-            limits: [10, 15, 20, 25, 30],
-            text: '对不起，加载出现异常！'
-        });
-
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            let data = obj.data;
-            switch (obj.event) {
-                case "kill":
-                    data.act = 'kill';
-                    break;
-                default:
-                    return false
+            ]], page: false
+        }, {
+            kill: function (obj) {
+                obj.data.act = 'kill';
+                main.request({
+                    url: url,
+                    data: obj.data,
+                    done: 'table-list',
+                });
             }
-            main.request({
-                url: url,
-                data: data,
-                done: 'table-list',
-            });
         });
     });
 </script>

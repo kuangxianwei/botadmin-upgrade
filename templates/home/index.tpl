@@ -253,7 +253,9 @@
                     </tr>
                     <tr>
                         <td>服务器IP：</td>
-                        <td><textarea class="layui-textarea" rows="5">{{join .obj.Ips "\n"}}</textarea></td>
+                        <td>
+                            <textarea name="address" autocomplete="off" class="layui-textarea" rows="5">{{join .obj.Ips "\n"}}</textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>内存使用：</td>
@@ -280,12 +282,12 @@
             <button class="layui-hide" lay-submit></button>
             <input type="radio" name="mirror" value="0" title="国外源" checked>
             <input type="radio" name="mirror" value="1" title="国内源">
-            <input type="checkbox" name="force" lay-skin="switch" lay-text="启用强制|关闭强制">
+            <input type="checkbox" name="force" id="force" lay-skin="switch" lay-text="启用强制|关闭强制">
         </div>
     </div>
 </script>
 <script>
-    layui.use(['index', 'main', 'sample'], function () {
+    layui.use(['index', 'console', 'main'], function () {
         let main = layui.main;
         {{if .reminded -}}
         main.display({

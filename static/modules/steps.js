@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 /* 翻译*/
 layui.define(['form'], function (exports) {
     let $ = layui.$, form = layui.form;
@@ -161,8 +162,6 @@ layui.define(['form'], function (exports) {
         (new Translate(options['engines'])).render(options['items']);
     });
 });
-
-
 /*采集爬虫*/
 layui.define(['form', 'trans', 'main'], function (exports) {
     let $ = layui.jquery, form = layui.form, main = layui.main,

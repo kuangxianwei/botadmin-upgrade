@@ -1,5 +1,13 @@
 <div class="layui-card">
     <div class="layui-card-body">
+        <div class="layui-form table-search" style="left: 20px">
+            <div class="layui-inline">
+                <input type="text" autocomplete="off" name="search" class="layui-input" placeholder="输入搜索...">
+            </div>
+            <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="search">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+        </div>
         <table id="table-list" lay-filter="table-list"></table>
     </div>
     <div class="layui-card-body">
@@ -18,17 +26,10 @@
 <script>
     layui.use(['index', 'main'], function () {
         let table = layui.table,
-            main = layui.main,
-            loadindex = layer.load(1, {shade: [0.5, '#000']});
-
-        //规则管理
-        table.render({
-            headers: {'X-CSRF-Token':csrfToken},
-            method: 'post',
-            elem: '#table-list',
-            url: url,
+            main = layui.main;
+        main.table({
             cols: [[
-                {type: 'numbers', width: 50, title: 'ID', sort: true},
+                {type: 'numbers', width: 80, title: 'ID', sort: true},
                 {field: 'name', title: '名称', sort: true},
                 {
                     field: 'enabled', title: '开机启动', event: 'enabled', align: 'center', sort: true,
@@ -42,16 +43,8 @@
                         return msg;
                     }
                 }
-            ]],
-            done: function () {
-                layer.close(loadindex);
-            },
-            page: false,
-            limit: 10,
-            limits: [10, 15, 20, 25, 30],
-            text: '对不起，加载出现异常！'
+            ]], page: false
         });
-
         layui.form.on('switch(switchEnabled)', function (obj) {
             let name = this.id,
                 checked = this.checked;
@@ -61,7 +54,7 @@
             }
             main.request({
                 url: url + '/enable',
-                data: {'name': name, "enabled": checked},
+                data: {name: name, enabled: checked},
                 error: function () {
                     table.reload('table-list');
                 }

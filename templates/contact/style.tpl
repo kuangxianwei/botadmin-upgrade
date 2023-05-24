@@ -30,9 +30,9 @@
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">名称:</label>
+                <label for="name" class="layui-form-label">名称:</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="name" value="{{.obj.Name}}" placeholder="名称" class="layui-input">
+                    <input type="text" autocomplete="off" name="name" id="name" value="{{.obj.Name}}" placeholder="名称" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">样式名称</div>
             </div>
@@ -46,14 +46,14 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">遮罩关闭:</label>
-                <input type="checkbox" name="shade_close" lay-skin="switch" lay-text="打开|关闭"{{if .obj.ShadeClose}} checked{{end}}>
+                <label for="shade_close" class="layui-form-label">遮罩关闭:</label>
+                <input type="checkbox" name="shade_close" id="shade_close" lay-skin="switch" lay-text="打开|关闭"{{if .obj.ShadeClose}} checked{{end}}>
             </div>
         </div>
         <div class="layui-row">
             <div class="layui-col-md4">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">浮动:</label>
+                    <label for="shade_close" class="layui-form-label">浮动:</label>
                     <div class="layui-input-block">
                         <input type="radio" name="float" value="1" title="靠左"{{if gt .obj.Float 0}} checked{{end}}>
                         <input type="radio" name="float" value="0" title="靠右"{{if eq .obj.Float 0}} checked{{end}}>
@@ -62,9 +62,9 @@
             </div>
             <div class="layui-col-md6">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">距顶:</label>
+                    <label for="top" class="layui-form-label">距顶:</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="top" value="{{.obj.Top}}" placeholder="22%"
+                        <input type="text" autocomplete="off" name="top" id="top" value="{{.obj.Top}}" placeholder="22%"
                                class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">到网页顶部的距离 %或者px</div>
@@ -73,18 +73,18 @@
         </div>
         <div class="layui-row layui-col-space5">
             <div class="layui-col-md3">
-                <label class="layui-form-label">文本颜色:</label>
+                <label for="color" class="layui-form-label">文本颜色:</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="color" value="{{.obj.Color}}" placeholder="请选择颜色" class="layui-input">
+                    <input type="text" autocomplete="off" name="color" id="color" value="{{.obj.Color}}" placeholder="请选择颜色" class="layui-input">
                 </div>
                 <div class="layui-inline" style="left: -11px;">
                     <div id="color"></div>
                 </div>
             </div>
             <div class="layui-col-md3">
-                <label class="layui-form-label">背景颜色:</label>
+                <label for="bg_color" class="layui-form-label">背景颜色:</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="bg_color" value="{{.obj.BgColor}}" placeholder="请选择颜色"
+                    <input type="text" autocomplete="off" name="bg_color" id="bg_color" value="{{.obj.BgColor}}" placeholder="请选择颜色"
                            class="layui-input">
                 </div>
                 <div class="layui-inline" style="left: -11px;">
@@ -92,9 +92,9 @@
                 </div>
             </div>
             <div class="layui-col-md3">
-                <label class="layui-form-label">图标颜色:</label>
+                <label for="svg_color" class="layui-form-label">图标颜色:</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="svg_color" value="{{.obj.SvgColor}}" placeholder="请选择颜色"
+                    <input type="text" autocomplete="off" name="svg_color" id="svg_color" value="{{.obj.SvgColor}}" placeholder="请选择颜色"
                            class="layui-input">
                 </div>
                 <div class="layui-inline" style="left: -11px;">
@@ -102,9 +102,9 @@
                 </div>
             </div>
             <div class="layui-col-md3">
-                <label class="layui-form-label" lay-tips="鼠标在上面时候的颜色">Hover颜色:</label>
+                <label for="hover_color" class="layui-form-label" lay-tips="鼠标在上面时候的颜色">Hover颜色:</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="hover_color" value="{{.obj.HoverColor}}" placeholder="请选择颜色"
+                    <input type="text" autocomplete="off" name="hover_color" id="hover_color" value="{{.obj.HoverColor}}" placeholder="请选择颜色"
                            class="layui-input">
                 </div>
                 <div class="layui-inline" style="left: -11px;">
@@ -123,44 +123,44 @@
                         <div class="layui-card">
                             <div class="layui-card-body">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">启用:</label>
+                                    <label for="phone.enabled" class="layui-form-label">启用:</label>
                                     <div class="layui-input-block">
-                                        <input lay-skin="switch" lay-text="启用|关闭" name="phone.enabled" type="checkbox"{{if .obj.Phone.Enabled}} checked{{end}}>
+                                        <input lay-skin="switch" lay-text="启用|关闭" name="phone.enabled" id="phone.enabled" type="checkbox"{{if .obj.Phone.Enabled}} checked{{end}}>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">图标:</label>
+                                    <label for="phone.icon" class="layui-form-label">图标:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="phone.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" value="{{.obj.Phone.Icon}}">
+                                        <input class="layui-input" name="phone.icon" id="phone.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" autocomplete="off" value="{{.obj.Phone.Icon}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">文字:</label>
+                                    <label for="phone.text" class="layui-form-label">文字:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="phone.text" placeholder="提示文字" type="text" value="{{.obj.Phone.Text}}">
+                                        <input class="layui-input" name="phone.text" id="phone.text" placeholder="提示文字" type="text" autocomplete="off" value="{{.obj.Phone.Text}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">链接地址:</label>
+                                    <label for="phone.href" class="layui-form-label">链接地址:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="phone.href" placeholder="http://www.nfivf.com" type="text" value="{{.obj.Phone.Href}}">
+                                        <input class="layui-input" name="phone.href" id="phone.href" placeholder="http://www.nfivf.com" type="text" autocomplete="off" value="{{.obj.Phone.Href}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">广告跟踪:</label>
+                                    <label for="phone.trace" class="layui-form-label">广告跟踪:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="phone.trace" placeholder="跟踪名称 例如:拨打电话" type="text" value="{{.obj.Phone.Trace}}">
+                                        <input class="layui-input" name="phone.trace" id="phone.trace" placeholder="跟踪名称 例如:拨打电话" type="text" autocomplete="off" value="{{.obj.Phone.Trace}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">弹窗代码:</label>
+                                    <label for="wechat.enabled" class="layui-form-label">弹窗代码:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="phone.html" placeholder="输入弹窗的HTML代码">{{.obj.Phone.Html}}</textarea>
                                     </div>
                                     <div class="layui-input-block fill-contact" style="margin-top:-5px;"></div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">选项:</label>
+                                    <label for="wechat.enabled" class="layui-form-label">选项:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="phone.options" placeholder="{&#34;style&#34;: {&#34;top&#34;: &#34;50px&#34;, &#34;left&#34;: &#34;50px&#34;}}">{{.obj.Phone.Options}}</textarea>
                                     </div>
@@ -168,7 +168,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="layui-layer-setwin" data-event="close"><a class="layui-layer-ico layui-layer-close2" href="javascript:void(0);"></a></span>
+                    <span class="layui-layer-setwin" data-event="close"><a class="layui-icon layui-icon-close layui-layer-close2" href="javascript:"></a></span>
                 </div>
                 <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-wechat-full"{{if not .obj.Wechat.Enabled}} style="color:grey"{{end}}></i>
@@ -179,44 +179,44 @@
                         <div class="layui-card">
                             <div class="layui-card-body">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">启用:</label>
+                                    <label for="wechat.enabled" class="layui-form-label">启用:</label>
                                     <div class="layui-input-block">
-                                        <input lay-skin="switch" lay-text="启用|关闭" name="wechat.enabled" type="checkbox"{{if .obj.Wechat.Enabled}} checked{{end}}>
+                                        <input lay-skin="switch" lay-text="启用|关闭" name="wechat.enabled" id="wechat.enabled" type="checkbox"{{if .obj.Wechat.Enabled}} checked{{end}}>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">图标:</label>
+                                    <label for="wechat.icon" class="layui-form-label">图标:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="wechat.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" value="{{.obj.Wechat.Icon}}">
+                                        <input class="layui-input" name="wechat.icon" id="wechat.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" autocomplete="off" value="{{.obj.Wechat.Icon}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">文字:</label>
+                                    <label for="wechat.text" class="layui-form-label">文字:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="wechat.text" placeholder="提示文字" type="text" value="{{.obj.Wechat.Text}}">
+                                        <input class="layui-input" name="wechat.text" id="wechat.text" placeholder="提示文字" type="text" autocomplete="off" value="{{.obj.Wechat.Text}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">链接地址:</label>
+                                    <label for="wechat.href" class="layui-form-label">链接地址:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="wechat.href" placeholder="http://www.nfivf.com" type="text" value="{{.obj.Wechat.Href}}">
+                                        <input class="layui-input" name="wechat.href" id="wechat.href" placeholder="http://www.nfivf.com" type="text" autocomplete="off" value="{{.obj.Wechat.Href}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">广告跟踪:</label>
+                                    <label for="wechat.trace" class="layui-form-label">广告跟踪:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="wechat.trace" placeholder="跟踪名称 例如:拨打电话" type="text" value="{{.obj.Wechat.Trace}}">
+                                        <input class="layui-input" name="wechat.trace" id="wechat.trace" placeholder="跟踪名称 例如:拨打电话" type="text" autocomplete="off" value="{{.obj.Wechat.Trace}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">弹窗代码:</label>
+                                    <label for="consult.enabled" class="layui-form-label">弹窗代码:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="wechat.html" placeholder="输入弹窗的HTML代码">{{.obj.Wechat.Html}}</textarea>
                                     </div>
                                     <div class="layui-input-block fill-contact" style="margin-top:-5px;"></div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">选项:</label>
+                                    <label for="consult.enabled" class="layui-form-label">选项:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="wechat.options" placeholder="{&#34;style&#34;: {&#34;top&#34;: &#34;50px&#34;, &#34;left&#34;: &#34;50px&#34;}}">{{.obj.Wechat.Options}}</textarea>
                                     </div>
@@ -224,7 +224,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="layui-layer-setwin" data-event="close"><a class="layui-layer-ico layui-layer-close2" href="javascript:void(0);"></a></span>
+                    <span class="layui-layer-setwin" data-event="close"><a class="layui-icon layui-icon-close layui-layer-close2" href="javascript:"></a></span>
                 </div>
                 <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-consulting"{{if not .obj.Consult.Enabled}} style="color:grey"{{end}}></i>
@@ -235,44 +235,44 @@
                         <div class="layui-card">
                             <div class="layui-card-body">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">启用:</label>
+                                    <label for="consult.enabled" class="layui-form-label">启用:</label>
                                     <div class="layui-input-block">
-                                        <input lay-skin="switch" lay-text="启用|关闭" name="consult.enabled" type="checkbox"{{if .obj.Consult.Enabled}} checked{{end}}>
+                                        <input lay-skin="switch" lay-text="启用|关闭" name="consult.enabled" id="consult.enabled" type="checkbox"{{if .obj.Consult.Enabled}} checked{{end}}>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">图标:</label>
+                                    <label for="consult.icon" class="layui-form-label">图标:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="consult.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" value="{{.obj.Consult.Icon}}">
+                                        <input class="layui-input" name="consult.icon" id="consult.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" autocomplete="off" value="{{.obj.Consult.Icon}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">文字:</label>
+                                    <label for="consult.text" class="layui-form-label">文字:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="consult.text" placeholder="提示文字" type="text" value="{{.obj.Consult.Text}}">
+                                        <input class="layui-input" name="consult.text" id="consult.text" placeholder="提示文字" type="text" autocomplete="off" value="{{.obj.Consult.Text}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">链接地址:</label>
+                                    <label for="consult.href" class="layui-form-label">链接地址:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="consult.href" placeholder="http://www.nfivf.com" type="text" value="{{.obj.Consult.Href}}">
+                                        <input class="layui-input" name="consult.href" id="consult.href" placeholder="http://www.nfivf.com" type="text" autocomplete="off" value="{{.obj.Consult.Href}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">广告跟踪:</label>
+                                    <label for="consult.trace" class="layui-form-label">广告跟踪:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="consult.trace" placeholder="跟踪名称 例如:拨打电话" type="text" value="{{.obj.Consult.Trace}}">
+                                        <input class="layui-input" name="consult.trace" id="consult.trace" placeholder="跟踪名称 例如:拨打电话" type="text" autocomplete="off" value="{{.obj.Consult.Trace}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">弹窗代码:</label>
+                                    <label for="feedback.enabled" class="layui-form-label">弹窗代码:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="consult.html" placeholder="输入弹窗的HTML代码">{{.obj.Consult.Html}}</textarea>
                                     </div>
                                     <div class="layui-input-block fill-contact" style="margin-top:-5px;"></div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">选项:</label>
+                                    <label for="feedback.enabled" class="layui-form-label">选项:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="consult.options" placeholder="{&#34;style&#34;: {&#34;top&#34;: &#34;50px&#34;, &#34;left&#34;: &#34;50px&#34;}}">{{.obj.Consult.Options}}</textarea>
                                     </div>
@@ -280,7 +280,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="layui-layer-setwin" data-event="close"><a class="layui-layer-ico layui-layer-close2" href="javascript:void(0);"></a></span>
+                    <span class="layui-layer-setwin" data-event="close"><a class="layui-icon layui-icon-close layui-layer-close2" href="javascript:"></a></span>
                 </div>
                 <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-feedback-1"{{if not .obj.Feedback.Enabled}} style="color:grey"{{end}}></i>
@@ -291,44 +291,44 @@
                         <div class="layui-card">
                             <div class="layui-card-body">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">启用:</label>
+                                    <label for="feedback.enabled" class="layui-form-label">启用:</label>
                                     <div class="layui-input-block">
-                                        <input lay-skin="switch" lay-text="启用|关闭" name="feedback.enabled" type="checkbox"{{if .obj.Feedback.Enabled}} checked{{end}}>
+                                        <input lay-skin="switch" lay-text="启用|关闭" name="feedback.enabled" id="feedback.enabled" type="checkbox"{{if .obj.Feedback.Enabled}} checked{{end}}>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">图标:</label>
+                                    <label for="feedback.icon" class="layui-form-label">图标:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="feedback.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" value="{{.obj.Feedback.Icon}}">
+                                        <input class="layui-input" name="feedback.icon" id="feedback.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" autocomplete="off" value="{{.obj.Feedback.Icon}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">文字:</label>
+                                    <label for="feedback.text" class="layui-form-label">文字:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="feedback.text" placeholder="提示文字" type="text" value="{{.obj.Feedback.Text}}">
+                                        <input class="layui-input" name="feedback.text" id="feedback.text" placeholder="提示文字" type="text" autocomplete="off" value="{{.obj.Feedback.Text}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">链接地址:</label>
+                                    <label for="feedback.href" class="layui-form-label">链接地址:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="feedback.href" placeholder="http://www.nfivf.com" type="text" value="{{.obj.Feedback.Href}}">
+                                        <input class="layui-input" name="feedback.href" id="feedback.href" placeholder="http://www.nfivf.com" type="text" autocomplete="off" value="{{.obj.Feedback.Href}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">广告跟踪:</label>
+                                    <label for="feedback.trace" class="layui-form-label">广告跟踪:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="feedback.trace" placeholder="跟踪名称 例如:拨打电话" type="text" value="{{.obj.Feedback.Trace}}">
+                                        <input class="layui-input" name="feedback.trace" id="feedback.trace" placeholder="跟踪名称 例如:拨打电话" type="text" autocomplete="off" value="{{.obj.Feedback.Trace}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">弹窗代码:</label>
+                                    <label for="menu.enabled" class="layui-form-label">弹窗代码:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="feedback.html" placeholder="输入弹窗的HTML代码">{{.obj.Feedback.Html}}</textarea>
                                     </div>
                                     <div class="layui-input-block fill-contact" style="margin-top:-5px;"></div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">选项:</label>
+                                    <label for="menu.enabled" class="layui-form-label">选项:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="feedback.options" placeholder="{&#34;style&#34;: {&#34;top&#34;: &#34;50px&#34;, &#34;left&#34;: &#34;50px&#34;}}">{{.obj.Feedback.Options}}</textarea>
                                     </div>
@@ -336,7 +336,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="layui-layer-setwin" data-event="close"><a class="layui-layer-ico layui-layer-close2" href="javascript:void(0);"></a></span>
+                    <span class="layui-layer-setwin" data-event="close"><a class="layui-icon layui-icon-close layui-layer-close2" href="javascript:"></a></span>
                 </div>
                 <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-menu"{{if not .obj.Menu.Enabled}} style="color:grey"{{end}}></i>
@@ -347,44 +347,44 @@
                         <div class="layui-card">
                             <div class="layui-card-body">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">启用:</label>
+                                    <label for="menu.enabled" class="layui-form-label">启用:</label>
                                     <div class="layui-input-block">
-                                        <input lay-skin="switch" lay-text="启用|关闭" name="menu.enabled" type="checkbox"{{if .obj.Menu.Enabled}} checked{{end}}>
+                                        <input lay-skin="switch" lay-text="启用|关闭" name="menu.enabled" id="menu.enabled" type="checkbox"{{if .obj.Menu.Enabled}} checked{{end}}>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">图标:</label>
+                                    <label for="menu.icon" class="layui-form-label">图标:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="menu.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" value="{{.obj.Menu.Icon}}">
+                                        <input class="layui-input" name="menu.icon" id="menu.icon" placeholder="iconfont图标 www.iconfont.cn去搜索" type="text" autocomplete="off" value="{{.obj.Menu.Icon}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">文字:</label>
+                                    <label for="menu.text" class="layui-form-label">文字:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="menu.text" placeholder="提示文字" type="text" value="{{.obj.Menu.Text}}">
+                                        <input class="layui-input" name="menu.text" id="menu.text" placeholder="提示文字" type="text" autocomplete="off" value="{{.obj.Menu.Text}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">链接地址:</label>
+                                    <label for="menu.href" class="layui-form-label">链接地址:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="menu.href" placeholder="http://www.nfivf.com" type="text" value="{{.obj.Menu.Href}}">
+                                        <input class="layui-input" name="menu.href" id="menu.href" placeholder="http://www.nfivf.com" type="text" autocomplete="off" value="{{.obj.Menu.Href}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">广告跟踪:</label>
+                                    <label for="menu.trace" class="layui-form-label">广告跟踪:</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" name="menu.trace" placeholder="跟踪名称 例如:拨打电话" type="text" value="{{.obj.Menu.Trace}}">
+                                        <input class="layui-input" name="menu.trace" id="menu.trace" placeholder="跟踪名称 例如:拨打电话" type="text" autocomplete="off" value="{{.obj.Menu.Trace}}">
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">弹窗代码:</label>
+                                    <label for="id" class="layui-form-label">弹窗代码:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="menu.html" placeholder="输入弹窗的HTML代码">{{.obj.Menu.Html}}</textarea>
                                     </div>
                                     <div class="layui-input-block fill-contact" style="margin-top:-5px;"></div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">选项:</label>
+                                    <label for="id" class="layui-form-label">选项:</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="menu.options" placeholder="{&#34;style&#34;: {&#34;top&#34;: &#34;50px&#34;, &#34;left&#34;: &#34;50px&#34;}}">{{.obj.Menu.Options}}</textarea>
                                     </div>
@@ -392,7 +392,7 @@
                             </div>
                         </div>
                     </div>
-                    <span class="layui-layer-setwin" data-event="close"><a class="layui-layer-ico layui-layer-close2" href="javascript:void(0);"></a></span>
+                    <span class="layui-layer-setwin" data-event="close"><a class="layui-icon layui-icon-close layui-layer-close2" href="javascript:"></a></span>
                 </div>
                 <li class="layui-col-xs3" data-event="field">
                     <i class="layui-icon iconfont icon-css"{{if not .obj.CSS}} style="color:grey"{{end}}></i>
@@ -408,18 +408,18 @@
                             </div>
                         </div>
                     </div>
-                    <span class="layui-layer-setwin" data-event="close"><a class="layui-layer-ico layui-layer-close2" href="javascript:void(0);"></a></span>
+                    <span class="layui-layer-setwin" data-event="close"><a class="layui-icon layui-icon-close layui-layer-close2" href="javascript:"></a></span>
                 </div>
             </ul>
         </div>
         <div class="layui-hide">
-            <input name="id" value="{{.obj.Id}}">
+            <input name="id" id="id" value="{{.obj.Id}}">
             <button lay-submit>提交</button>
         </div>
         <fieldset class="layui-elem-field">
             <legend>
                 <i class="layui-icon iconfont icon-menu"></i>
-                <a href="javascript:void(0);" data-event="addMenu" lay-tips="新增子菜单">
+                <a href="javascript:" data-event="addMenu" lay-tips="新增子菜单">
                     <i class="layui-icon layui-icon-add-circle"></i>子菜单
                 </a>
             </legend>
@@ -436,17 +436,17 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">弹窗延时:</label>
+                <label for="ad_delay" class="layui-form-label">弹窗延时:</label>
                 <div class="layui-input-inline">
-                    <input type="number" name="ad_delay" value="{{.obj.AdDelay}}" min="0" class="layui-input">
+                    <input type="number" autocomplete="off" name="ad_delay" id="ad_delay" value="{{.obj.AdDelay}}" min="0" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">单位为秒 0为禁止弹窗</div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">弹窗HTML:</label>
+            <label for="ad_html" class="layui-form-label">弹窗HTML:</label>
             <div class="layui-input-block">
-                <textarea name="ad_html" class="layui-textarea" placeholder="弹窗宣传语HTML代码">{{.obj.AdHTML}}</textarea>
+                <textarea name="ad_html" id="ad_html" class="layui-textarea" placeholder="弹窗宣传语HTML代码">{{.obj.AdHTML}}</textarea>
             </div>
             <div class="layui-input-block fill-contact" style="margin-top:-5px;"></div>
         </div>
@@ -454,13 +454,16 @@
 </div>
 <script type="text/html" id="insert-submenu">
     <div class="layui-form-item">
-        <div class="layui-inline"><label class="layui-form-label-col">文本:</label></div>
-        <div class="layui-inline width120"><input type="text" name="text" value="" class="layui-input"></div>
+        <div class="layui-inline"><label for="text" class="layui-form-label-col">文本:</label></div>
+        <div class="layui-inline width120">
+            <input type="text" autocomplete="off" name="text" id="text" value="" class="layui-input"></div>
         <div class="layui-inline"><label class="layui-form-label-col">链接:</label></div>
-        <div class="layui-inline" style="min-width:320px"><input type="text" name="href" value="" class="layui-input">
+        <div class="layui-inline" style="min-width:320px">
+            <input type="text" autocomplete="off" name="href" id="href" value="" class="layui-input">
         </div>
         <div class="layui-inline"><label class="layui-form-label-col">跟踪:</label></div>
-        <div class="layui-inline width120"><input type="text" name="trace" value="" class="layui-input"></div>
+        <div class="layui-inline width120">
+            <input type="text" autocomplete="off" name="trace" id="trace" value="" class="layui-input"></div>
         <i class="layui-icon layui-icon-delete" style="color: red" lay-tips="删除该项" data-event="delMenu"></i>
     </div>
 </script>

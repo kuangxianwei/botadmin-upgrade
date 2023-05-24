@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 layui.define(['main'], function (exports) {
     const main = layui.main,
         faceTool = '<div class="layui-btn-group"><i data-event="add" class="layui-icon layui-icon-add-circle" lay-tips="添加子栏目"></i><i data-event="edit" class="layui-icon layui-icon-edit"></i></div>',

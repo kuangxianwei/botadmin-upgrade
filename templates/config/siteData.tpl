@@ -19,7 +19,8 @@
                         <label class="layui-form-label">插入标签:</label>
                         <div class="layui-input-block">
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
-                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称
+                            </button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="tag">Tag</button>
@@ -52,7 +53,8 @@
                         <label class="layui-form-label">插入标签:</label>
                         <div class="layui-input-block">
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
-                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称
+                            </button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="tag">Tag</button>
@@ -92,7 +94,8 @@
                         <label class="layui-form-label">插入标签:</label>
                         <div class="layui-input-block">
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
-                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称
+                            </button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="title">标题</button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
                             <button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>

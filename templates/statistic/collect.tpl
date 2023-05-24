@@ -17,13 +17,13 @@
                     </div>
                 </div>
                 <div class="layui-col-md2 depth">
-                    <label class="layui-form-label" lay-tips="百度搜索关键词的深度">Depth:</label>
+                    <label for="depth" class="layui-form-label" lay-tips="百度搜索关键词的深度">Depth:</label>
                     <div class="layui-input-block">
-                        <input type="number" name="depth" value="{{$.obj.Depth}}" class="layui-input">
+                        <input type="number" autocomplete="off" name="depth" id="depth" value="{{$.obj.Depth}}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-col-md7">
-                    <label class="layui-form-label" lay-tips="协程太多会卡死服务器">多协程:</label>
+                    <label for="thread" class="layui-form-label" lay-tips="协程太多会卡死服务器">多协程:</label>
                     <div class="layui-input-block">
                         <div id="thread" class="slider-block"></div>
                         <input type="hidden" name="thread" value="{{$.obj.Thread}}">
