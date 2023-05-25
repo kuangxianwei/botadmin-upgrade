@@ -42,6 +42,22 @@ layui.define(function (exports) {
     exports('init', {});
 });
 layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
+    Array.prototype.delete = function (v) {
+        for (let i = 0; i < this.length; i++) {
+            if (this[i] === v) {
+                this.splice(i, 1);
+                i--
+            }
+        }
+        return this;
+    };
+    String.prototype.unescapeHTML = function () {
+        return this.replace(/&#123;/g, '{')
+            .replace(/&#125;/g, '}')
+            .replace(/&#60;/g, '<')
+            .replace(/&#62;/g, '>')
+            .replace(/&#34;/g, '"')
+    };
     const textareaHtml = `<style>.layui-layer-page .layui-layer-content {overflow:unset;}</style><textarea class="layui-textarea" style="border-radius:10px;margin:1%;padding:%0.5;height:94%;width:98%">`;
     let $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table, slider = layui.slider;
 
@@ -537,6 +553,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     });
                 },
             };
+            this.copyHTML = function (value, success, error) {
+                return this.copy(value.unescapeHTML(), success, error)
+            };
             // 复制
             this.copy = function (value, success, error) {
                 if (navigator.clipboard && navigator.permissions) {
@@ -701,14 +720,13 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 elem: '#upload',
                 url: url + '/import',
                 accept: 'file',
-                exts: 'conf|txt|json|tar.gz|zip',
                 before: function () {
                     layer.load(); //上传loading
                 },
                 done: function (res) {
                     layer.closeAll('loading'); //关闭loading
                     if (res.code === 0) {
-                        layer.msg(res.msg);
+                        layer.msg(res.msg + "9999999");
                         if ($('#' + filter).length > 0) table.reload(filter);
                     } else {
                         layer.alert(res.msg, {icon: 2});

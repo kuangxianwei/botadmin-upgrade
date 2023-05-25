@@ -5,8 +5,17 @@ layui.define(['main'], function (exports) {
         }
         return false;
     };
+    Array.prototype.delete = function (v) {
+        for (let i = 0; i < this.length; i++) {
+            if (this[i] === v) {
+                this.splice(i, 1);
+                i--
+            }
+        }
+        return this;
+    };
     let okIconHTML = '<span class="icon"><i class="iconfont icon-ok" aria-hidden="true"></i></span>',
-        main = layui.main, form = layui.form, table = layui.table, upload = layui.upload,
+        main = layui.main, form = layui.form, table = layui.table,
         getUpper = function (path) {
             if (!path || path === '/') return '/';
             let arr = path.split('/');
@@ -339,7 +348,7 @@ layui.define(['main'], function (exports) {
             this.editors[options.id] = {
                 ace: ace.edit("ace-editor-" + options.id, {
                     theme: "ace/theme/" + othis.aceConfig['aceEditor'].editorTheme, //主题
-                    mode: "ace/mode/" + (options.filename !== undefined ? options.mode : 'text'), // 语言类型
+                    mode: "ace/mode/" + (options.filename === undefined ? 'text' : options.mode), // 语言类型
                     wrap: othis.aceConfig['aceEditor'].wrap,
                     showInvisibles: othis.aceConfig['aceEditor'].showInvisibles,
                     showPrintMargin: false,
@@ -850,10 +859,10 @@ layui.define(['main'], function (exports) {
                         othis.dom.find('.ace-toolbar-menu').show().find('.menu-themes').show().siblings().hide();
                         let HTML = '', arr = ['白色主题', '黑色主题'];
                         for (let i = 0; i < othis.aceConfig['themeList'].length; i++) {
-                            if (othis.aceConfig['themeList'][i] !== othis.aceConfig['aceEditor'].editorTheme) {
-                                HTML += '<li data-value="' + othis.aceConfig['themeList'][i] + '">' + othis.aceConfig['themeList'][i] + '【' + arr[i] + '】</li>';
-                            } else {
+                            if (othis.aceConfig['themeList'][i] === othis.aceConfig['aceEditor'].editorTheme) {
                                 HTML += '<li data-value="' + othis.aceConfig['themeList'][i] + '" class="active">' + othis.aceConfig['themeList'][i] + '【' + arr[i] + '】' + okIconHTML + '</li>';
+                            } else {
+                                HTML += '<li data-value="' + othis.aceConfig['themeList'][i] + '">' + othis.aceConfig['themeList'][i] + '【' + arr[i] + '】</li>';
                             }
                         }
                         othis.dom.find('.menu-themes ul').html(HTML);
@@ -907,305 +916,23 @@ layui.define(['main'], function (exports) {
                     template: function () {
                         othis.dom.find('span.ace_searchbtn_close').click();
                         if (othis.dom.find('[data-type=template]').length === 0) {
-                            othis.addEditorView({
-                                title: '复制模板语法',
-                                type: 'template',
-                                html: `<div class="keysUp_left">
-    <div class="keysUp-row">
-        <div class="keysUp-title">全局标签</div>
-        <div class="keysUp-content">
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Config.Hostname}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Config.Hostname}}">复制</span>
-                <span class="keysUp-tips">域名链接</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Config.Title}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Config.Title}}">复制</span>
-                <span class="keysUp-tips">首页标题</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Config.Subtitle}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Config.Subtitle}}">复制</span>
-                <span class="keysUp-tips">网站副标题</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Config.Keywords}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Config.Keywords}}">复制</span>
-                <span class="keysUp-tips">首页关键词</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Config.City}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Config.City}}">复制</span>
-                <span class="keysUp-tips">城市名称</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Config.Province}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Config.Province}}">复制</span>
-                <span class="keysUp-tips">省名称</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Config.About}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Config.About}}">复制</span>
-                <span class="keysUp-tips">关于我们</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Pager}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Pager}}">复制</span>
-                <span class="keysUp-tips">页面标识</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{HTML .Config.Copyright}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{HTML .Config.Copyright}}">复制</span>
-                <span class="keysUp-tips">版权</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{template "模板.tpl" .}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value='{{template "模板.tpl" .}}'>复制</span>
-                <span class="keysUp-tips">导入模板</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">nav...</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="nav">复制</span>
-                <span class="keysUp-tips">导航HTML</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">link...</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="link">复制</span>
-                <span class="keysUp-tips">友情链接</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">tags...</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="tags">复制</span>
-                <span class="keysUp-tips">TagHTML</span>
-            </div>
-        </div>
-    </div>
-    <div class="keysUp-row">
-        <div class="keysUp-title">头部标签</div>
-        <div class="keysUp-content">
-            <div class="keysUp-item">
-                <span class="keysUp-btn">head...</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="head">复制</span>
-                <span class="keysUp-tips">头部整体</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Title}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Title}}">复制</span>
-                <span class="keysUp-tips">标题</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Keywords}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Keywords}}">复制</span>
-                <span class="keysUp-tips">关键词</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Description}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Description}}">复制</span>
-                <span class="keysUp-tips">描述</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{canonicalLabel .Url}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{canonicalLabel .Url}}">复制</span>
-                <span class="keysUp-tips">聚权标签</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Theme}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Theme}}">复制</span>
-                <span class="keysUp-tips">主题路径</span>
-            </div>
-        </div>
-    </div>
-    <div class="keysUp-row">
-        <div class="keysUp-title">列表标签</div>
-        <div class="keysUp-content">
-            <div class="keysUp-item">
-                <span class="keysUp-btn">list...</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="list">复制</span>
-                <span class="keysUp-tips">列表整体</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{HTML .Positions}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{HTML .Positions}}">复制</span>
-                <span class="keysUp-tips">当前位置</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{HTML .Paginator}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{HTML .Paginator}}">复制</span>
-                <span class="keysUp-tips">分页标签</span>
-            </div>
-        </div>
-    </div>
-</div>;
-<div class="keysUp_right">
-    <div class="keysUp-row">
-        <div class="keysUp-title">循环标签</div>
-        <div class="keysUp-content">
-            <div class="keysUp-item">
-                <span class="keysUp-btn">loop...</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="loop">复制</span>
-                <span class="keysUp-tips">循环整体</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Title}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Title}}">复制</span>
-                <span class="keysUp-tips">循环标题</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Subtitle}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Subtitle}}">复制</span>
-                <span class="keysUp-tips">循环副标题</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Url}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Url}}">复制</span>
-                <span class="keysUp-tips">循环链接</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.TitlePic}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.TitlePic}}">复制</span>
-                <span class="keysUp-tips">标题图片</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{sub .Title 30}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{sub .Title 30}}">复制</span>
-                <span class="keysUp-tips">剪切标题</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{sub .Description 150}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{sub .Description 150}}">复制</span>
-                <span class="keysUp-tips">剪切描述</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{date .Updated "2006-01-02 15:04:05"}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value='{{date .Updated "2006-01-02 15:04:05"}}'>复制</span>
-                <span class="keysUp-tips">发布时间</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{class .Cid | HTML}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{class .Cid | HTML}}">复制</span>
-                <span class="keysUp-tips">栏目link</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{HTML .}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{HTML .}}">复制</span>
-                <span class="keysUp-tips">HTML</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{imgHTML .}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{imgHTML .}}">复制</span>
-                <span class="keysUp-tips">图片HTML</span>
-            </div>
-        </div>
-    </div>
-    <div class="keysUp-row">
-        <div class="keysUp-title">文章标签</div>
-        <div class="keysUp-content">
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{HTML .Positions}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{HTML .Positions}}">复制</span>
-                <span class="keysUp-tips">当前位置</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Article.Title}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.Article.Title}}">复制</span>
-                <span class="keysUp-tips">标题</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{date .Article.Created "2006-01-02 15:04:05"}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value='{{date .Article.Created "2006-01-02 15:04:05"}}'>复制</span>
-                <span class="keysUp-tips">时间</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.Config.Hostname}}/hot.js?aid={{.Article.Id}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value='<script src="{{.Config.Hostname}}/hot.js?aid={{.Article.Id}}"></script>'>复制</span>
-                <span class="keysUp-tips">点击量</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{source}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{source}}">复制</span>
-                <span class="keysUp-tips">文章来源</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{HTML .Article.Content}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{HTML .Article.Content}}">复制</span>
-                <span class="keysUp-tips">内容HTML</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{call .Article.MipContent}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{call .Article.MipContent}}">复制</span>
-                <span class="keysUp-tips">MIP内容</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.PreNext.Pre}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.PreNext.Pre}}">复制</span>
-                <span class="keysUp-tips">上一篇</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">{{.PreNext.Next}}</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="{{.PreNext.Next}}">复制</span>
-                <span class="keysUp-tips">下一篇</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">like...</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="like">复制</span>
-                <span class="keysUp-tips">相关文章</span>
-            </div>
-            <div class="keysUp-item">
-                <span class="keysUp-btn">tag...</span>
-                <span class="keysUp-symbol">-></span>
-                <span class="keysUp-btn" data-value="tag">复制</span>
-                <span class="keysUp-tips">TagHTML</span>
-            </div>
-        </div>
-    </div>
-</div>`,
-                            }, function () {
-
-                            });
+                            let templateHTML = localStorage.getItem('templateHTML');
+                            if (templateHTML) {
+                                othis.addEditorView({
+                                    title: '复制模板语法',
+                                    type: 'template',
+                                    html: templateHTML,
+                                });
+                            } else {
+                                main.get('/file/template', function (html) {
+                                    localStorage.setItem('templateHTML', html);
+                                    othis.addEditorView({
+                                        title: '复制模板语法',
+                                        type: 'template',
+                                        html: html,
+                                    });
+                                });
+                            }
                         } else {
                             othis.dom.find('[data-type=template]').click();
                         }
@@ -1241,12 +968,12 @@ layui.define(['main'], function (exports) {
                         data: {path: encodeURIComponent('static/file/ace/ace.config.json')}
                     });
                 request.done(function (res) {
-                    if (res.code !== 0) {
-                        main.error(res.msg);
-                        layer.closeAll();
-                    } else {
+                    if (res.code === 0) {
                         localStorage.setItem('aceConfig', res.data.content);
                         othis.aceConfig = JSON.parse(res.data.content);
+                    } else {
+                        main.error(res.msg);
+                        layer.closeAll();
                     }
                 });
                 request.fail(function (xhr, status, error) {
@@ -1405,86 +1132,16 @@ layui.define(['main'], function (exports) {
                 e.stopPropagation();
                 e.preventDefault();
             });
-            let formHTML = '<div class="layui-card"><div class="layui-card-body layui-form"></div></div>',
-                headHTML = `<head>
-    <meta charset="UTF-8">
-    <meta content="IE=11,IE=10,IE=9,IE=8" http-equiv="X-UA-Compatible">
-    <meta content="pc,mobile" name="applicable-device">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-    <title>{{.Title}}</title>
-    <meta content="{{.Keywords}}" name="keywords">
-    <meta content="{{.Description}}" name="description">
-    <link href="{{.Theme}}/css/style.css" media="all" rel="stylesheet" type="text/css"/>
-    <script src="{{.Theme}}/js/bootstrap.min.js" type="text/javascript"></script>
-    {{canonicalLabel .Url}}
-    <meta content="webpage" property="og:type"/>
-    <meta content="{{.Url}}" property="og:url"/>
-    <meta content="{{.Config.Subtitle}}" property="og:site_name"/>
-    <meta content="{{.Title}}" property="og:title"/>
-    <meta content="{{.Description}}" property="og:description"/>
-    <meta content="{{.TitlePic}}" property="og:image"/>
-</head>`,
-                navHTML = `<ul class="nav">
-    <li>
-        <a href="{{.Config.Hostname}}/">首页</a>
-    <li>
-        {{- range classes 12}}
-    <li{{if eq .Id $.Class.Id}} class="cur"{{end}}>
-        <a href="{{.Url}}">{{.Name}}</a>
-        {{- if .Children}}
-        <ul>
-            {{- range .Children}}
-            <li{{if eq .Id $.Class.Id}} class="cur"{{end}}><a href="{{.Url}}">{{.Name}}</a></li>
-            {{- end}}
-        </ul>
-        {{- end}}
-    </li>
-    {{- end}}
-</ul>`,
-                linkHTML = `<div class="layui-form-item">
-    <label class="layui-form-label">限制:</label>
-    <div class="layui-input-inline">
-        <input class="layui-input" min="1" name="limit" type="number" value="30">
-    </div>
-</div><div class="layui-form-item">
-    <label class="layui-form-label">显示:</label>
-    <div class="layui-input-block">
-        <input name="pager" title="全部" type="radio" value="all">
-        <input checked name="pager" title="首页" type="radio" value="index">
-        <input name="pager" title="封面" type="radio" value="face">
-        <input name="pager" title="文章" type="radio" value="article">
-        <input name="pager" title="TAG" type="radio" value="tag">
-    </div>
-</div>`,
-                tagsHTML = `<div class="layui-form-item">
-    <label class="layui-form-label">限制:</label>
-    <div class="layui-input-inline">
-        <input class="layui-input" min="1" name="limit" type="number" value="30">
-    </div>
-</div><div class="layui-form-item">
-    <label class="layui-form-label">推荐:</label>
-    <div class="layui-input-block">
-        <input name="level" title="荐1" type="checkbox" value="1">
-        <input name="level" title="荐2" type="checkbox" value="2">
-        <input name="level" title="荐3" type="checkbox" value="3">
-    </div>
-</div><div class="layui-form-item">
-    <label class="layui-form-label">排序:</label>
-    <div class="layui-input-block">
-        <input checked name="order" title="最火" type="radio" value="0">
-        <input name="order" title="最新" type="radio" value="1">
-        <input name="order" title="随机" type="radio" value="2">
-    </div>
-</div>`;
+            let formHTML = '<div class="layui-card"><div class="layui-card-body layui-form"></div></div>';
             // 复制模板标签
             this.dom.find('.ace-container-editor').on('click', '[data-value]', function (e) {
                 let val = $(this).data('value');
                 switch (val) {
                     case "head":
-                        main.copy(headHTML);
+                        main.copyHTML($('#templateHeadHTML').html());
                         break;
                     case "nav":
-                        main.copy(navHTML);
+                        main.copyHTML('<ul class="nav">\n    <li>\n        <a href="&#123;&#123;.Config.Hostname&#125;&#125;/">首页</a>\n    <li>\n        &#123;&#123;- range classes 12&#125;&#125;\n    <li&#123;&#123;if eq .Id $.Class.Id&#125;&#125; class="cur"&#123;&#123;end&#125;&#125;>\n        <a href="&#123;&#123;.Url&#125;&#125;">&#123;&#123;.Name&#125;&#125;</a>\n        &#123;&#123;- if .Children&#125;&#125;\n        <ul>\n            &#123;&#123;- range .Children&#125;&#125;\n            <li&#123;&#123;if eq .Id $.Class.Id&#125;&#125; class="cur"&#123;&#123;end&#125;&#125;><a href="&#123;&#123;.Url&#125;&#125;">&#123;&#123;.Name&#125;&#125;</a></li>\n            &#123;&#123;- end&#125;&#125;\n        </ul>\n        &#123;&#123;- end&#125;&#125;\n    </li>\n    &#123;&#123;- end&#125;&#125;\n</ul>');
                         break;
                     case "link":
                         main.open({
@@ -1493,25 +1150,15 @@ layui.define(['main'], function (exports) {
                             title: false,
                             content: formHTML,
                             success: function (dom) {
-                                dom.find(".layui-form").html(linkHTML);
+                                dom.find(".layui-form").html($('#templateLinkHTML').html());
                                 form.render();
                             },
                             yes: function (index, dom) {
                                 let data = main.formData(dom);
                                 if (data.pager === 'all') {
-                                    main.copy(`<ul class="link">
-    {{- range links ` + data.limit + `}}
-    <li>{{HTML .}}</li>
-    {{- end}}
-</ul>`);
+                                    main.copyHTML('<ul class="link">\n    &#123;&#123;- range links ' + data.limit + '&#125;&#125;\n    <li>&#123;&#123;HTML .&#125;&#125;</li>\n    &#123;&#123;- end&#125;&#125;\n</ul>');
                                 } else {
-                                    main.copy(`{{if eq .Pager "` + data.pager + `"}}
-<ul class="link">
-    {{- range links ` + data.limit + `}}
-    <li>{{HTML .}}</li>
-    {{- end}}
-</ul>
-{{end}}`);
+                                    main.copyHTML('&#123;&#123;if eq .Pager "' + data.pager + '"&#125;&#125;\n<ul class="link">\n    &#123;&#123;- range links ' + data.limit + '&#125;&#125;\n    <li>&#123;&#123;HTML .&#125;&#125;</li>\n    &#123;&#123;- end&#125;&#125;\n</ul>\n&#123;&#123;end&#125;&#125;');
                                 }
                                 layer.close(index);
                             },
@@ -1521,7 +1168,7 @@ layui.define(['main'], function (exports) {
                         main.open({
                             area: ["600px", "220px"], maxmin: false,
                             title: false, content: formHTML, success: function (dom) {
-                                dom.find(".layui-form").html(tagsHTML);
+                                dom.find(".layui-form").html($('#templateTagsHTML').html());
                                 form.render();
                             }, yes: function (index, dom) {
                                 let data = main.formData(dom),
@@ -1530,11 +1177,7 @@ layui.define(['main'], function (exports) {
                                     begin += " \"level=" + (Array.isArray(data.level) ? data.level.join(",") : data.level) + "\"";
                                 }
                                 begin += "}}";
-                                main.copy(`<ul class="tags">
-    ` + begin + `
-    <li>{{HTML .}}</li>
-    {{- end}}
-</ul>`);
+                                main.copyHTML('<ul class="tags">\n    ' + begin + '\n    <li>&#123;&#123;HTML .&#125;&#125;</li>\n    &#123;&#123;- end&#125;&#125;\n</ul>');
                                 layer.close(index);
                             },
                         });
@@ -1546,21 +1189,12 @@ layui.define(['main'], function (exports) {
                             title: false,
                             content: formHTML,
                             success: function (dom) {
-                                dom.find(".layui-form").html(`<div class="layui-form-item">
-    <label class="layui-form-label">限制:</label>
-    <div class="layui-input-inline">
-        <input class="layui-input" min="1" name="limit" type="number" value="30">
-    </div>
-</div>`);
+                                dom.find(".layui-form").html('<div class="layui-form-item">\n    <label class="layui-form-label">限制:</label>\n    <div class="layui-input-inline">\n        <input class="layui-input" min="1" name="limit" type="number" value="30">\n    </div>\n</div>');
                                 form.render();
                             },
                             yes: function (index, dom) {
                                 let data = main.formData(dom);
-                                main.copy(`<ul class="like">
-    {{- range like ` + data.limit + `}}
-    <li>{{HTML .}}</li>
-    {{- end}}
-</ul>`);
+                                main.copyHTML('<ul class="like">\n    &#123;&#123;- range like ' + data.limit + '&#125;&#125;\n    <li>&#123;&#123;HTML .&#125;&#125;</li>\n    &#123;&#123;- end&#125;&#125;\n</ul>');
                                 layer.close(index);
                             },
                         });
@@ -1572,80 +1206,15 @@ layui.define(['main'], function (exports) {
                             title: false,
                             content: formHTML,
                             success: function (dom) {
-                                dom.find(".layui-form").html(`<div class="layui-form-item">
-    <div class="layui-inline">
-        <label class="layui-form-label" lay-tips="留空为当前栏目">栏目ID:</label>
-        <div class="layui-input-block">
-            <input class="layui-input" name="id" placeholder="1,2,3,5,6" type="text" value="">
-        </div>
-    </div>
-    <div class="layui-inline">
-        <label class="layui-form-label">循环限制:</label>
-        <div class="layui-input-block">
-            <input class="layui-input" min="1" name="limit" type="number" value="8">
-        </div>
-    </div>
-</div>
-<div class="layui-form-item">
-    <div class="layui-inline">
-        <label class="layui-form-label">标题截取:</label>
-        <div class="layui-input-block">
-            <input class="layui-input" min="1" name="sub_title" type="number" value="60">
-        </div>
-    </div>
-    <div class="layui-inline">
-        <label class="layui-form-label">描述截取:</label>
-        <div class="layui-input-block">
-            <input class="layui-input" min="1" name="sub_description" type="number" value="180">
-        </div>
-    </div>
-</div>
-<div class="layui-form-item">
-    <label class="layui-form-label">推荐:</label>
-    <div class="layui-input-block">
-        <input name="level" title="荐1" type="checkbox" value="1">
-        <input name="level" title="荐2" type="checkbox" value="2">
-        <input name="level" title="荐3" type="checkbox" value="3">
-        <input name="level" title="荐4" type="checkbox" value="4">
-        <input name="level" title="荐5" type="checkbox" value="5">
-        <input name="level" title="荐6" type="checkbox" value="6">
-    </div>
-</div>
-<div class="layui-form-item">
-    <label class="layui-form-label">时间格式:</label>
-    <div class="layui-input-block">
-        <input checked name="time" title="01-02 15:04" type="radio" value="01-02 15:04:05">
-        <input name="time" title="2006-01-02 15:04" type="radio" value="2006-01-02 15:04:05">
-        <input name="time" title="2006-01-02" type="radio" value="2006-01-02">
-    </div>
-</div>
-<div class="layui-form-item">
-    <div class="layui-inline">
-        <label class="layui-form-label">条件:</label>
-        <div class="layui-input-block">
-            <input checked name="where" title="任意" type="radio" value="">
-            <input name="where" title="有图片" type="radio" value="title_pic=1">
-        </div>
-    </div>
-    <div class="layui-inline">
-        <label class="layui-form-label">排序:</label>
-        <div class="layui-input-block">
-            <input checked name="order" title="最新" type="radio" value="0">
-            <input name="order" title="最火" type="radio" value="1">
-            <input name="order" title="ID升序" type="radio" value="2">
-            <input name="order" title="ID降序" type="radio" value="3">
-            <input name="order" title="随机" type="radio" value="4">
-        </div>
-    </div>
-</div>`);
+                                dom.find(".layui-form").html('<div class="layui-form-item">\n    <div class="layui-inline">\n        <label class="layui-form-label" lay-tips="留空为当前栏目">栏目ID:</label>\n        <div class="layui-input-block">\n            <input class="layui-input" name="id" placeholder="1,2,3,5,6" type="text" value="">\n        </div>\n    </div>\n    <div class="layui-inline">\n        <label class="layui-form-label">循环限制:</label>\n        <div class="layui-input-block">\n            <input class="layui-input" min="1" name="limit" type="number" value="8">\n        </div>\n    </div>\n</div>\n<div class="layui-form-item">\n    <div class="layui-inline">\n        <label class="layui-form-label">标题截取:</label>\n        <div class="layui-input-block">\n            <input class="layui-input" min="1" name="sub_title" type="number" value="60">\n        </div>\n    </div>\n    <div class="layui-inline">\n        <label class="layui-form-label">描述截取:</label>\n        <div class="layui-input-block">\n            <input class="layui-input" min="1" name="sub_description" type="number" value="180">\n        </div>\n    </div>\n</div>\n<div class="layui-form-item">\n    <label class="layui-form-label">推荐:</label>\n    <div class="layui-input-block">\n        <input name="level" title="荐1" type="checkbox" value="1">\n        <input name="level" title="荐2" type="checkbox" value="2">\n        <input name="level" title="荐3" type="checkbox" value="3">\n        <input name="level" title="荐4" type="checkbox" value="4">\n        <input name="level" title="荐5" type="checkbox" value="5">\n        <input name="level" title="荐6" type="checkbox" value="6">\n    </div>\n</div>\n<div class="layui-form-item">\n    <label class="layui-form-label">时间格式:</label>\n    <div class="layui-input-block">\n        <input checked name="time" title="01-02 15:04" type="radio" value="01-02 15:04:05">\n        <input name="time" title="2006-01-02 15:04" type="radio" value="2006-01-02 15:04:05">\n        <input name="time" title="2006-01-02" type="radio" value="2006-01-02">\n    </div>\n</div>\n<div class="layui-form-item">\n    <div class="layui-inline">\n        <label class="layui-form-label">条件:</label>\n        <div class="layui-input-block">\n            <input checked name="where" title="任意" type="radio" value="">\n            <input name="where" title="有图片" type="radio" value="title_pic=1">\n        </div>\n    </div>\n    <div class="layui-inline">\n        <label class="layui-form-label">排序:</label>\n        <div class="layui-input-block">\n            <input checked name="order" title="最新" type="radio" value="0">\n            <input name="order" title="最火" type="radio" value="1">\n            <input name="order" title="ID升序" type="radio" value="2">\n            <input name="order" title="ID降序" type="radio" value="3">\n            <input name="order" title="随机" type="radio" value="4">\n        </div>\n    </div>\n</div>');
                                 form.render();
                             },
                             yes: function (index, dom) {
                                 let data = main.formData(dom), range = '{{- range loop';
-                                if (data.id !== "") {
-                                    range += ' "' + data.id + '"';
-                                } else {
+                                if (data.id === "") {
                                     range += ' ""';
+                                } else {
+                                    range += ' "' + data.id + '"';
                                 }
                                 range += ' ' + data.order;
                                 range += ' ' + data.limit;
@@ -1655,54 +1224,22 @@ layui.define(['main'], function (exports) {
                                     range += ' "level=' + data.level + '"';
                                 }
                                 if (data['where']) {
-                                    range += ` "` + data['where'] + `"`;
+                                    range += ' "' + data['where'] + '"';
                                 }
                                 range += "}}";
-                                main.copy(`<ul>
-    ` + range + `
-    <li>
-        {{- if .TitlePic -}}
-        <!--标题图片-->
-        <img alt="{{.Subtitle}}" src="{{.TitlePic}}" title="{{.Title}}">
-        {{- end -}}
-        <!--标题链接-->
-        <a href="{{.Url}}">{{sub .Title ` + data['sub_title'] + `}}</a>
-        <!--描述-->
-        <p>{{sub .Description ` + data['sub_description'] + `}}</p>
-        <time>{{date .Updated "` + data.time + `"}}</time>
-    </li>
-    {{- end}}
-</ul>`);
+                                main.copyHTML('<ul>\n    ' + range + '\n    <li>\n        &#123;&#123;- if .TitlePic -&#125;&#125;\n        <!--标题图片-->\n        <img alt="&#123;&#123;.Subtitle&#125;&#125;" src="&#123;&#123;.TitlePic&#125;&#125;" title="&#123;&#123;.Title&#125;&#125;">\n        &#123;&#123;- end -&#125;&#125;\n        <!--标题链接-->\n        <a href="&#123;&#123;.Url&#125;&#125;">&#123;&#123;sub .Title ' + data['sub_title'] + '&#125;&#125;</a>\n        <!--描述-->\n        <p>&#123;&#123;sub .Description ' + data['sub_description'] + '&#125;&#125;</p>\n        <time>&#123;&#123;date .Updated "' + data.time + '"&#125;&#125;</time>\n    </li>\n    &#123;&#123;- end&#125;&#125;\n</ul>');
                                 layer.close(index);
                             },
                         });
                         break;
                     case "list":
-                        main.copy(`<ul>
-    {{- range .List}}
-    <li>
-        {{- if .TitlePic -}}
-        <!--标题图片-->
-        <img alt="{{.Subtitle}}" src="{{.TitlePic}}" title="{{.Title}}">
-        {{- end -}}
-        <!--标题链接-->
-        <a href="{{.Url}}">{{sub .Title 30}}</a>
-        <!--描述-->
-        <p>{{sub .Description 150}}</p>
-        <time>{{date .Updated "2006-01-02 15:04"}}</time>
-    </li>
-    {{- end}}
-</ul>`);
+                        main.copyHTML('<ul>\n    &#123;&#123;- range .List&#125;&#125;\n    <li>\n        &#123;&#123;- if .TitlePic -&#125;&#125;\n        <!--标题图片-->\n        <img alt="&#123;&#123;.Subtitle&#125;&#125;" src="&#123;&#123;.TitlePic&#125;&#125;" title="&#123;&#123;.Title&#125;&#125;">\n        &#123;&#123;- end -&#125;&#125;\n        <!--标题链接-->\n        <a href="&#123;&#123;.Url&#125;&#125;">&#123;&#123;sub .Title 30&#125;&#125;</a>\n        <!--描述-->\n        <p>&#123;&#123;sub .Description 150&#125;&#125;</p>\n        <time>&#123;&#123;date .Updated "2006-01-02 15:04"&#125;&#125;</time>\n    </li>\n    &#123;&#123;- end&#125;&#125;\n</ul>');
                         break;
                     case "tag":
-                        main.copy(`<ul>
-    {{- range .Tags}}
-    <li>{{.}}</li>
-    {{- end}}
-</ul>`);
+                        main.copyHTML('<ul>\n    &#123;&#123;- range .Tags&#125;&#125;\n    <li>&#123;&#123;.&#125;&#125;</li>\n    &#123;&#123;- end&#125;&#125;\n</ul>');
                         break;
                     default:
-                        main.copy(val);
+                        main.copyHTML(val);
                 }
                 e.stopPropagation();
                 e.preventDefault();
@@ -1786,53 +1323,147 @@ layui.define(['main'], function (exports) {
         }
     }
 
-    exports('file', function (options) {
-        options = options || {};
-        let url = options.url || $('meta[name=url]').attr('content'),
-            csrfToken = options['csrfToken'] || $('meta[name=csrf_token]').attr('content'),
-            pathElem = typeof options.elem === 'string' ? $(options.elem) : $('#current-path'),
-            root = options.root || '/data/botadmin',
-            data = {path: options.path || main.getParam('path') || '/home/wwwroot'},
-            renderPath = function () {
-                data.path = data.path || '/';
-                if (data.path.substring(0, 1) !== '/') {
-                    data.path = root + '/' + data.path;
+    class File {
+        constructor(options) {
+            options = options || {};
+            this.root = options.root || '/data/botadmin';
+            this.config = {path: options.path || main.getParam('path') || '/home/wwwroot'};
+            this.pathElem = typeof options.elem === 'string' ? $(options.elem) : $('#current-path');
+        }
+
+        // 刷新
+        refresh(path) {
+            $('.table-search input[name=search]').val('');
+            $('.table-search input[name=recursion]').prop('checked', false);
+            $('.table-search input[name=path]').val(path || '/');
+            form.render('checkbox');
+            table.reload('table-list', {where: {path: path || '/'}});
+        }
+
+        // 渲染路径
+        renderPath() {
+            this.config.path = this.config.path || '/';
+            if (this.config.path.substring(0, 1) !== '/') {
+                this.config.path = this.root + '/' + this.config.path;
+            }
+            this.pathElem.attr('title', this.config.path).show().parent().find('input').attr('type', 'hidden');
+            let paths = this.config.path.split('/'), p = [], elem = '<span title="/">根目录</span>';
+            for (let i = 1; i < paths.length; i++) {
+                paths[i] = paths[i].trim();
+                if (paths[i]) {
+                    p.push(paths[i]);
+                    elem += '<span>></span></span><span title="/' + p.join('/') + '">' + paths[i] + '</span>';
                 }
-                pathElem.attr('title', data.path).show().parent().find('input').attr('type', 'hidden');
-                let paths = data.path.split('/'), p = [], elem = '<span title="/">根目录</span>';
-                for (let i = 1; i < paths.length; i++) {
-                    paths[i] = paths[i].trim();
-                    if (paths[i]) {
-                        p.push(paths[i]);
-                        elem += '<span>></span></span><span title="/' + p.join('/') + '">' + paths[i] + '</span>';
+            }
+            this.pathElem.html(elem);
+            $('.table-search input[name=path]').val(this.config.path);
+            if ($('select[name=action]').val() === 'compress') {
+                $('input[name=value]').val(main.basename(this.pathElem.attr('title')) + '.tar.gz');
+            }
+            form.render('input');
+        }
+
+        // 监听
+        listen(active) {
+            let othis = this;
+            othis.pathElem.on('click', '>span[title]', function () {
+                othis.refresh(this.title);
+            });
+            // 渲染
+            othis.pathElem.on('click', function () {
+                $('.table-search input[name=search]').val('');
+                $('.table-search input[name=recursion]').prop('checked', false);
+                form.render('checkbox');
+                othis.pathElem.hide();
+                $('.table-search input[name=path]').attr('type', 'search');
+                form.render('input');
+            });
+            $(document).on('click', '[data-event]', function () {
+                let $this = $(this), event = $this.data('event');
+                active[event] && active[event].call($this);
+            });
+            $('.table-search').on('blur', 'input[name=path]', function () {
+                othis.renderPath()
+            });
+            // 监听操作
+            form.on('submit(submit-acts)', function (obj) {
+                let checkData = table.checkStatus('table-list').data, // 得到选中的数据
+                    names = [];
+                if (checkData.length === 0) {
+                    return layer.msg('请选择数据');
+                }
+                layui.each(checkData, function (k, v) {
+                    if (v.name !== undefined) {
+                        names[k] = v.name;
                     }
-                }
-                pathElem.html(elem);
-                if ($('select[name=action]').val() === 'compress') {
-                    $('input[name=value]').val(main.basename(pathElem.attr('title')) + '.tar.gz');
-                }
-                $('#current-path>span[title]').off('click').on('click', function () {
-                    refresh(this.title);
                 });
-            },
-            uploaded = upload.render({
-                headers: {'X-CSRF-Token': csrfToken},
-                elem: '#upload',
+                let field = obj.field;
+                field.names = names.join('\n');
+                field.path = othis.config.path;
+                if (field.action === 'del') {
+                    layer.confirm('删除后不可恢复，确定批量删除吗？', function (index) {
+                        main.request({
+                            url: url + '/del',
+                            data: field,
+                            index: index,
+                            done: function () {
+                                othis.refresh(othis.config.path);
+                            },
+                        });
+                    });
+                } else {
+                    main.request({
+                        url: url + '/' + field.action,
+                        data: field,
+                        done: function () {
+                            othis.refresh(othis.config.path);
+                        },
+                    });
+                }
+                return false;
+            });
+            form.on('select(action)', function (obj) {
+                let parentName = main.basename(othis.pathElem.attr('title')),
+                    valElem = obj.othis.closest('.layui-form').find('input[name=value]');
+                switch (obj.value) {
+                    case 'compress':
+                        valElem.val(parentName + '.tar.gz');
+                        break;
+                    case 'del':
+                        valElem.val('');
+                        break;
+                    case 'copy':
+                    case 'move':
+                        valElem.val('新文件名');
+                        break;
+                    case 'chmod':
+                        valElem.val('0755');
+                        break;
+                    case 'chgroup':
+                        valElem.val('www:www');
+                        break;
+                }
+            });
+        }
+
+        // 渲染
+        render() {
+            let othis = this;
+            main.upload({
                 url: url + '/upload',
-                data: {path: data.path},
-                accept: 'file',
+                data: {
+                    path: function () {
+                        return othis.config.path
+                    }
+                },
                 done: function (res) {
-                    refresh();
+                    layer.closeAll('loading'); //关闭loading
+                    othis.refresh(othis.config.path);
                     layer.msg(res.msg);
                 },
-            }),
-            tabled = table.render({
-                headers: {'X-CSRF-Token': csrfToken},
-                method: 'post',
-                elem: '#table-list',
-                url: url,
-                toolbar: '#toolbar',
-                where: {path: data.path},
+            });
+            let tabled = main.table({
+                where: {path: this.config.path},
                 cols: [[{type: 'checkbox', fixed: 'left'},
                     {field: 'path', title: '目录', hide: true},
                     {
@@ -1903,7 +1534,7 @@ layui.define(['main'], function (exports) {
                     {
                         title: '操作', minWidth: 180, align: 'center', fixed: 'right', templet: (d) => {
                             let html = '<div class="layui-btn-group">';
-                            if (/data\/contact\/images\/[^\/]+\.(jpeg|gif|jpg|png)/i.test(d.path)) {
+                            if (/data\/contact\/images\/[^\/]+\.(?:jpeg|gif|jpg|png)/i.test(d.path)) {
                                 html += '<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="copy" lay-tips="复制图片地址"><i class="layui-icon iconfont icon-copy"></i></button>';
                             }
                             switch (d.type) {
@@ -1923,56 +1554,44 @@ layui.define(['main'], function (exports) {
                             return html + '<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></button></div>';
                         }
                     }]],
-                page: true,
-                limit: 50,
                 limits: [50, 100, 200, 500, 1000],
-                text: '对不起，加载出现异常！',
+                limit: 50,
                 done: function (res) {
                     if (this.where) {
                         delete this.where.search
                     }
-                    data = res;
+                    $.extend(othis.config, res);
                     // 添加到历史记录
                     let histories = JSON.parse(localStorage.getItem('histories')) || [];
-                    if (data.path && histories.length === 0 || histories[histories.length - 1] !== data.path) {
-                        histories.push(data.path);
-                        localStorage.setItem('histories', JSON.stringify(histories));
-                    }
-                    window.scrollTo(0, 0);
-                    renderPath();
-                    uploaded.reload({
-                        data: {path: data.path},
-                        done: function (res) {
-                            refresh();
-                            layer.msg(res.msg);
-                        },
+                    histories.delete(othis.config.path);
+                    histories.unshift(othis.config.path);
+                    localStorage.setItem('histories', JSON.stringify(histories));
+                    let datalist = '';
+                    $.each(histories, function (i, v) {
+                        datalist += '<option value="' + v + '">';
                     });
+                    $('#searchHistories').html(datalist);
+                    window.scrollTo(0, 0);
+                    othis.renderPath();
                 }
-            }),
-            refresh = function (path) {
-                $('input[name=search]').val('');
-                $('input[name=recursion]').prop('checked', false);
-                form.render('checkbox');
-                tabled.reload({where: {path: path || data.path}});
-            },
-            active = {
+            }, {
                 terminal: function () {
-                    main.webssh({stdin: 'cd ' + data.path});
+                    main.webssh({stdin: 'cd ' + othis.config.path});
                 },
-                refresh: refresh,
+                refresh: function () {
+                    othis.refresh(othis.config.path);
+                },
                 history: function () {
-                    let path = data.path, histories = JSON.parse(localStorage.getItem('histories'));
+                    let path = othis.config.path, histories = JSON.parse(localStorage.getItem('histories'));
                     if (Array.isArray(histories) && histories.length > 1) {
-                        path = histories[histories.length - 2];
-                        histories.pop();
-                        localStorage.setItem('histories', JSON.stringify(histories));
+                        path = histories[histories.length - 1];
                     }
-                    refresh(path);
+                    othis.refresh(path)
                 },
                 copy: function (obj) {
                     let name = obj.data.path.split('/images/', 2)[1];
                     if (name) {
-                        main.copy('{{hostname}}/images/' + name);
+                        main.copyHTML('&#123;&#123;hostname&#125;&#125;/images/' + name);
                     }
                 },
                 size: function (obj) {
@@ -1980,7 +1599,7 @@ layui.define(['main'], function (exports) {
                     if (elem.find('img[src$=".svg"]').length > 0) {
                         return false;
                     }
-                    elem.html(`<img alt="等待计算结果" src="/static/images/loading-small.svg">`);
+                    elem.html('<img alt="等待计算结果" src="/static/images/loading-small.svg">');
                     $.get(url + '/size', obj.data, function (res) {
                         elem.text(res);
                     });
@@ -2000,7 +1619,7 @@ layui.define(['main'], function (exports) {
                     let filename = obj.data.path + '/' + obj.data.name;
                     switch (obj.data.type) {
                         case 0:
-                            refresh(filename);
+                            othis.refresh(filename);
                             break;
                         case 7:
                             main.preview(filename);
@@ -2044,7 +1663,7 @@ layui.define(['main'], function (exports) {
                         url: url + '/compress',
                         data: {path: obj.data.path, names: obj.data.name},
                         done: function () {
-                            refresh();
+                            othis.refresh(othis.config.path);
                         },
                     });
                 },
@@ -2053,7 +1672,7 @@ layui.define(['main'], function (exports) {
                         url: url + '/decompress',
                         data: obj.data,
                         done: function () {
-                            refresh();
+                            othis.refresh(othis.config.path);
                         },
                     });
                 },
@@ -2061,10 +1680,10 @@ layui.define(['main'], function (exports) {
                     main.download(obj.data.path + '/' + obj.data.name);
                 },
                 gotoWww: function () {
-                    refresh('/home/wwwroot');
+                    othis.refresh('/home/wwwroot');
                 },
                 gotoRoot: function () {
-                    refresh('/root');
+                    othis.refresh('/root');
                 },
                 newFolder: function () {
                     layer.prompt({
@@ -2072,10 +1691,10 @@ layui.define(['main'], function (exports) {
                     }, function (value, index) {
                         main.request({
                             url: url + '/new/folder',
-                            data: {name: value, path: data.path},
+                            data: {name: value, path: othis.config.path},
                             index: index,
                             done: function () {
-                                refresh();
+                                othis.refresh(othis.config.path);
                             },
                         });
                     });
@@ -2086,10 +1705,10 @@ layui.define(['main'], function (exports) {
                     }, function (value, index) {
                         main.request({
                             url: url + '/new/file',
-                            data: {name: value, path: data.path},
+                            data: {name: value, path: othis.config.path},
                             index: index,
                             done: function () {
-                                refresh();
+                                othis.refresh(othis.config.path);
                             },
                         });
                     });
@@ -2108,118 +1727,13 @@ layui.define(['main'], function (exports) {
                 scanned: function (obj) {
                     main.ws.scanned(obj.data.path + '/' + obj.data.name);
                 }
-            };
-        // 监听工具条
-        table.on('tool(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call(this, obj);
-        });
-        // 监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call(this, obj);
-        });
-        // 转到
-        form.on('submit(submit-goto)', function (obj) {
-            refresh(obj.field['goto']);
-        });
-        // 监听搜索
-        form.on('submit(search)', function (obj) {
-            let field = obj.field, cols = [];
-            $.each(field, function (k, v) {
-                let col = k.split('.')[0];
-                if (v && col !== 'cols' && cols.indexOf(col) === -1) {
-                    cols.push(col);
-                } else {
-                    delete field[k];
-                }
             });
-            field.cols = cols.join(',');
-            if (!field.cols) {
-                return location.reload();
-            }
-            field.path = data.path;
-            //执行重载
-            tabled.reload({where: field});
-        });
-        // 监听操作
-        form.on('submit(submit-acts)', function (obj) {
-            let checkData = table.checkStatus('table-list').data, // 得到选中的数据
-                names = [];
-            if (checkData.length === 0) {
-                return layer.msg('请选择数据');
-            }
-            layui.each(checkData, function (k, v) {
-                if (v.name !== undefined) {
-                    names[k] = v.name;
-                }
-            });
-            let field = obj.field;
-            field.names = names.join('\n');
-            field.path = data.path;
-            if (field.action === 'del') {
-                layer.confirm('删除后不可恢复，确定批量删除吗？', function (index) {
-                    main.request({
-                        url: url + '/del',
-                        data: field,
-                        index: index,
-                        done: function () {
-                            refresh();
-                        },
-                    });
-                });
-            } else {
-                main.request({
-                    url: url + '/' + field.action,
-                    data: field,
-                    done: function () {
-                        refresh();
-                    },
-                });
-            }
-            return false;
-        });
-        form.on('select(action)', function (obj) {
-            let parentName = main.basename(pathElem.attr('title')),
-                valElem = obj.othis.closest('.layui-form').find('input[name=value]');
-            switch (obj.value) {
-                case 'compress':
-                    valElem.val(parentName + '.tar.gz');
-                    break;
-                case 'del':
-                    valElem.val('');
-                    break;
-                case 'copy':
-                case 'move':
-                    valElem.val('新文件名');
-                    break;
-                case 'chmod':
-                    valElem.val('0755');
-                    break;
-                case 'chgroup':
-                    valElem.val('www:www');
-                    break;
-            }
-        });
-        // 渲染路径
-        renderPath();
-        // 渲染
-        pathElem.off('click').on('click', function () {
-            pathElem.hide();
-            $('input[name=goto]').attr('type', 'text').val(pathElem.attr('title'));
-            form.render('input');
-        });
-        $('[data-event]').off('click').on('click', function () {
-            let $this = $(this), event = $this.data('event');
-            active[event] && active[event].call($this);
-        });
-        $('input[name=goto]').keydown(function (event) {
-            if (event.keyCode === 13 && this.value) {
-                $('[lay-filter=submit-goto]').click();
-            }
-        });
-        $('input[name=search]').keydown(function (event) {
-            if (event.keyCode === 13) {
-                $('[lay-filter=search]').click();
-            }
-        });
+            this.listen(tabled.active);
+        }
+    }
+
+    exports('file', function (options) {
+        let file = new File(options);
+        file.render();
     });
 });

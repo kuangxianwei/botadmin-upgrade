@@ -2,43 +2,46 @@
 <link rel="stylesheet" type="text/css" href="/static/file/file.css">
 <div class="layui-card">
     <div class="layui-card-body">
-        <div class="table-search" style="left:245px">
-            <div class="layui-btn-group">
-                <button class="layui-btn layui-btn-sm layui-btn-primary" data-event="terminal" lay-tips="打开终端">
-                    <i class="layui-icon iconfont icon-terminal"></i>
-                </button>
-                <button class="layui-btn layui-btn-sm" lay-event="upload" id="upload" lay-tips="上传文件">
-                    <i class="layui-icon layui-icon-upload"></i>
-                </button>
-            </div>
-            <div class="layui-inline layui-form">
-                <div class="layui-inline">
-                    <div class="layui-input-inline">
-                        <input type="text" autocomplete="off" name="search" placeholder="搜索文件/目录" class="layui-input">
-                    </div>
+        <div class="layui-form">
+            <div class="table-search" style="left:245px">
+                <div class="layui-btn-group">
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" data-event="terminal" lay-tips="打开终端">
+                        <i class="layui-icon iconfont icon-terminal"></i>
+                    </button>
+                    <button class="layui-btn layui-btn-sm" data-event="import" lay-tips="上传文件">
+                        <i class="layui-icon layui-icon-upload"></i>
+                    </button>
                 </div>
                 <div class="layui-inline">
-                    <div class="layui-input-inline">
-                        <input type="checkbox" name="recursion" title="包含子目录">
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="search" autocomplete="off" name="search" placeholder="搜索文件/目录" class="layui-input">
+                        </div>
                     </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="checkbox" name="recursion" title="包含子目录">
+                        </div>
+                    </div>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary" lay-submit lay-filter="search">
+                        <i class="layui-icon layui-icon-search"></i>
+                    </button>
                 </div>
-                <button class="layui-btn layui-btn-sm layui-btn-primary" lay-submit lay-filter="search">
-                    <i class="layui-icon layui-icon-search"></i>
+            </div>
+            <div class="table-search file-toolbar" style="left:32px;top:56px">
+                <button class="layui-btn layui-btn-sm layui-btn-primary" data-event="history" lay-tips="返回到前一次浏览">
+                    <i class="layui-icon layui-icon-return"></i>
+                </button>
+                <div class="layui-input-inline">
+                    <div id="current-path"></div>
+                    <input type="hidden" list="searchHistories" name="path" value="" class="layui-input" lay-verify="required">
+                    <button class="layui-hide" lay-submit lay-filter="submit"></button>
+                    <datalist id="searchHistories"></datalist>
+                </div>
+                <button class="layui-btn layui-btn-sm" data-event="refresh" lay-tips="刷新当前目录">
+                    <i class="layui-icon layui-icon-refresh"></i>
                 </button>
             </div>
-        </div>
-        <div class="table-search file-toolbar" style="left:32px;top:56px">
-            <button class="layui-btn layui-btn-sm layui-btn-primary" data-event="history" lay-tips="返回到前一次浏览">
-                <i class="layui-icon layui-icon-return"></i>
-            </button>
-            <div class="layui-input-inline layui-form">
-                <div id="current-path"></div>
-                <input type="hidden" name="goto" value="" class="layui-input" lay-verify="required">
-                <button class="layui-hide" lay-submit lay-filter="submit-goto"></button>
-            </div>
-            <button class="layui-btn layui-btn-sm" data-event="refresh" lay-tips="刷新当前目录">
-                <i class="layui-icon layui-icon-refresh"></i>
-            </button>
         </div>
         <table class="layui-font" id="table-list" lay-filter="table-list"></table>
     </div>
