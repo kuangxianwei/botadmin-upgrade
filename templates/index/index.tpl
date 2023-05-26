@@ -337,13 +337,13 @@
                     <li data-name="push-ad" class="layui-nav-item">
                         <a href="javascript:" lay-tips="广告推送" lay-direction="2">
                             <i class="layui-icon iconfont icon-ad-big"></i>
-                            <cite>广告推送</cite>
+                            <cite>广告</cite>
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="ad">
                                 <a href="javascript:" lay-tips="广告推送" lay-direction="2">
                                     <i class="iconfont icon-ad-small"></i>
-                                    <cite>广告推送</cite>
+                                    <cite>推送</cite>
                                 </a>
                                 <dl class="layui-nav-child">
                                     <dd data-name="ad-push">
@@ -362,33 +362,6 @@
                                         <a lay-href="/ad/configure" lay-tips="推送配置" lay-direction="2">
                                             <i class="iconfont icon-list-view"></i>
                                             <cite>推送配置</cite>
-                                        </a>
-                                    </dd>
-                                </dl>
-                            </dd>
-                        </dl>
-                        <dl class="layui-nav-child">
-                            <dd data-name="statistic">
-                                <a href="javascript:" lay-tips="统计广告推送" lay-direction="2">
-                                    <i class="iconfont icon-statistic"></i>
-                                    <cite>统计广告</cite>
-                                </a>
-                                <dl class="layui-nav-child">
-                                    <dd data-name="statistic-push">
-                                        <a lay-href="/statistic/push" lay-tips="广告推送列表" lay-direction="2">
-                                            <i class="iconfont icon-list-view"></i>
-                                            <cite>推送列表</cite>
-                                        </a>
-                                    </dd>
-                                    <dd data-name="statistic">
-                                        <a lay-href="/statistic" lay-tips="统计广告列表" lay-direction="2">
-                                            <i class="iconfont icon-list-view"></i>
-                                            <cite>数据列表</cite>
-                                        </a>
-                                    </dd>
-                                    <dd data-name="statistic-collect">
-                                        <a lay-href="/statistic/collect" lay-tips="采集统计广告数据" lay-direction="2">
-                                            <cite>采集数据</cite>
                                         </a>
                                     </dd>
                                 </dl>
