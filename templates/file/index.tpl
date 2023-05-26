@@ -64,7 +64,7 @@
         <div class="layui-inline">
             <label for="value" class="layui-form-label" lay-tips="打包名/权限值/用户名/组名/目标文件或目录名">值:</label>
             <div class="layui-input-block">
-                <input name="value" id="value" type="text" autocomplete="off" class="layui-input layui-input-small"/>
+                <input name="value" id="value" type="search" autocomplete="off" class="layui-input layui-input-small"/>
             </div>
         </div>
         <div class="layui-inline">
