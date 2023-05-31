@@ -117,8 +117,7 @@
                 }
             },
             {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-        ]]);
-        let active = {
+        ]], {
             add: function () {
                 main.popup({
                     title: '添加推送配置',
@@ -153,15 +152,6 @@
                     });
                 });
             },
-            truncate: function () {
-                layer.confirm('清空全部数据，确定清空？', function (index) {
-                    main.request({
-                        url: url + '/truncate',
-                        index: index,
-                        done: 'table-list'
-                    });
-                });
-            },
             log: function (obj) {
                 main.ws.log('ad_configure.' + (obj.data ? obj.data.id : 0));
             },
@@ -185,24 +175,6 @@
                     done: 'table-list',
                 });
             },
-            import: function () {
-                $('#import').click();
-            },
-            export: function (obj) {
-                let ids = [];
-                $.each(table.checkStatus(obj.config.id).data, function () {
-                    ids.push(this.id);
-                });
-                window.open(encodeURI('/ad/configure/export?ids=' + ids.join()));
-            },
-        };
-        //监听工具条
-        table.on('tool(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call($(this), obj);
-        });
-        //监听工具栏
-        table.on('toolbar(table-list)', function (obj) {
-            active[obj.event] && active[obj.event].call(this, obj);
         });
         main.checkLNMP();
     });

@@ -312,23 +312,23 @@
             import: function () {
                 layer.open({
                     type: 1,
-                    title: "导入配置",
+                    title: false,
                     btn: ['导入', '取消'],
                     shadeClose: true,
                     scrollbar: false,
                     shade: 0.8,
                     fixed: false,
-                    maxmin: true,
+                    maxmin: false,
                     btnAlign: 'c',
                     content: $('#import-form').html(),
                     yes: function (index, dom) {
-                        dom.find('.layui-form button[lay-submit]button[lay-filter=submit-import]').click();
+                        dom.find('[lay-filter=submit-import]').click();
                         layer.close(index);
                     },
                     success: function () {
                         form.on('submit(submit-import)', function (obj) {
                             importConfig.reload({data: obj.field});
-                            $('#import').click();
+                            $('#upload').click();
                             return false;
                         });
                     }

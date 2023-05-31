@@ -33,12 +33,6 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="install_innodb" class="layui-form-label">启用InnoDB:</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="install_innodb" id="install_innodb" lay-skin="switch" lay-text="启用|禁用" checked>
-            </div>
-        </div>
-        <div class="layui-form-item">
             <div class="layui-inline">
                 <label for="php_select" class="layui-form-label">PHP版本:</label>
                 <div class="layui-input-inline" style="width: 120px">
@@ -87,10 +81,20 @@
                 <div class="layui-form-mid layui-word-aux">仅LNMPA</div>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label for="check_mirror" class="layui-form-label">离线安装:</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="check_mirror" id="check_mirror" lay-skin="switch" lay-text="打开|关闭">
+
+
+        <div class="layui-form-item layui-row">
+            <div class="layui-col-md6">
+                <label for="install_innodb" class="layui-form-label">启用InnoDB:</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="install_innodb" id="install_innodb" lay-skin="switch" lay-text="启用|禁用">
+                </div>
+            </div>
+            <div class="layui-col-md6">
+                <label for="check_mirror" class="layui-form-label">离线安装:</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="check_mirror" id="check_mirror" lay-skin="switch" lay-text="打开|关闭">
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
