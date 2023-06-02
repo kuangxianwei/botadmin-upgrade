@@ -41,9 +41,9 @@
             </div>
         </div>
         <div class="layui-inline" lay-tips="选择栏目ID">
-            <label for="class_id" class="layui-form-label">栏目ID:</label>
+            <label class="layui-form-label">栏目ID:</label>
             <div class="layui-input-block" lay-filter="class_id">
-                <select name="class_id" id="class_id">
+                <select name="class_id">
                     <option value="">无...</option>
                 </select>
             </div>

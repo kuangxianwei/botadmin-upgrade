@@ -15,12 +15,12 @@
                 <select name="source" id="source" lay-search=""></select>
             </div>
             <div class="layui-inline">
-                <label for="target" class="layui-form-label-col" style="color: #009688;">
+                <label class="layui-form-label-col" style="color: #009688;">
                     <i class="layui-icon layui-icon-spread-left"></i>
                 </label>
             </div>
             <div class="layui-inline" style="width: 160px;">
-                <select name="target" id="target" lay-search=""></select>
+                <select name="target" lay-search=""></select>
             </div>
             <div class="layui-inline">
                 <label for="thread" class="layui-form-label-col">线程:</label>
