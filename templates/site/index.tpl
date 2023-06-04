@@ -322,7 +322,7 @@
         </div>
     </div>
 </script>
-<script type="text/template" id="links-add-html">
+<script type="text/html" id="links-add-html">
     <div class="layui-card">
         <div class="layui-card-body layui-form">
             <div class="layui-form-item">
@@ -335,6 +335,17 @@
         </div>
     </div>
 </script>
+<script type="text/html" id="selector-html">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-form-item">
+                <select lay-search></select>
+            </div>
+            <input type="hidden" name="id" value="">
+            <button class="layui-hide" lay-submit lay-filter="submit">提交</button>
+        </div>
+    </div>
+</script>
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
@@ -343,8 +354,8 @@
             element = layui.element,
             main = layui.main,
             status = {{.status}};
-        //渲染上传配置
-        //  importConfig = main.upload();
+
+
         status = status || [];
         let tabActive = main.table({
             cols: [[
@@ -382,16 +393,18 @@
                     }
                 },
                 {
-                    field: 'ftp_id', width: 120, title: 'FTP', align: 'center',
+                    field: 'ftp_id', width: 130, title: 'FTP', align: 'center', event: 'ftp_id',
+                    style: 'cursor:pointer;color:#01aaed;font-weight:bold',
                     templet: function (d) {
                         return d['ftp_id'] ? d['ftp_name'] : '未绑定';
                     }
                 },
                 {
-                    field: 'sql_id', width: 120, title: 'MySQL', align: 'center',
+                    field: 'sql_id', width: 130, title: 'MySQL', align: 'center', event: 'sql_id',
+                    style: 'cursor:pointer;color:#01aaed;font-weight:bold',
                     templet: function (d) {
-                        return d['sql_id'] ? d.dbname : '未绑定';
-                    }
+                        return d.dbname || '未绑定';
+                    },
                 },
                 {
                     field: 'admin_url', title: 'admin', align: 'center', event: 'login',
@@ -908,6 +921,64 @@
                     success: function (dom) {
                         dom.find("[name=ids]").val(ids.join());
                     },
+                });
+            },
+            sql_id: function (obj) {
+                main.request({
+                    url: url + '/sqls',
+                    data: obj.data,
+                    done: function (res) {
+                        res.data = Array.isArray(res.data) ? res.data : [];
+                        res.data.push({id: 0, dbname: '未绑定'});
+                        main.popup({
+                            title: false,
+                            maxmin: false,
+                            url: url + '/relationship',
+                            content: $('#selector-html').html(),
+                            area: ['220px', '300px'],
+                            success: function (dom) {
+                                dom.find('.layui-form [name=id]').val(obj.data.id);
+                                let elem = dom.find('select').attr('name', 'sql_id').html('');
+                                $.each(res.data, function () {
+                                    elem.append('<option value="' + this.id + '">' + this.dbname + '</option>');
+                                });
+                                layui.form.render('select');
+                            },
+                            done: function () {
+                                layui.table.reload('table-list');
+                            }
+                        });
+                        return false;
+                    }
+                });
+            },
+            ftp_id: function (obj) {
+                main.request({
+                    url: url + '/ftps',
+                    data: obj.data,
+                    done: function (res) {
+                        res.data = Array.isArray(res.data) ? res.data : [];
+                        res.data.push({id: 0, username: '未绑定'});
+                        main.popup({
+                            title: false,
+                            maxmin: false,
+                            url: url + '/relationship',
+                            content: $('#selector-html').html(),
+                            area: ['220px', '300px'],
+                            success: function (dom) {
+                                dom.find('.layui-form [name=id]').val(obj.data.id);
+                                let elem = dom.find('select').attr('name', 'ftp_id').html('');
+                                $.each(res.data, function () {
+                                    elem.append('<option value="' + this.id + '">' + this.username + '</option>');
+                                });
+                                layui.form.render('select');
+                            },
+                            done: function () {
+                                layui.table.reload('table-list');
+                            }
+                        });
+                        return false;
+                    }
                 });
             },
         });

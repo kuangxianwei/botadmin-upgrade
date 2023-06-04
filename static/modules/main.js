@@ -726,7 +726,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 done: function (res) {
                     layer.closeAll('loading'); //关闭loading
                     if (res.code === 0) {
-                        layer.msg(res.msg + "9999999");
                         if ($('#' + filter).length > 0) table.reload(filter);
                     } else {
                         layer.alert(res.msg, {icon: 2});
@@ -767,7 +766,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     case 0:
                         if (options.index) layer.close(options.index);
                         if (typeof options.done === 'string') {
-                            table.reload(options.done, {page: {curr: 1}});
+                            table.reload(options.done);
                         } else if (typeof options.done === 'function' && options.done(res) === false) {
                             return false;
                         }
