@@ -141,8 +141,7 @@
                 });
             },
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}).always(function () {
-                }).done(function (html) {
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改规则',
                         content: html,

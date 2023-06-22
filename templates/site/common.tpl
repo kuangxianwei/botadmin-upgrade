@@ -850,10 +850,7 @@
                 addSql: function () {
                     let vhost = getVhost();
                     if (vhost) {
-
-                        main.get('/sql/add', {dbname: vhost}).always(function () {
-
-                        }).done(function (html) {
+                        main.get('/sql/add', {dbname: vhost}, function (html) {
                             main.popup({
                                 title: "添加SQL",
                                 url: '/sql/add',
@@ -887,9 +884,7 @@
                     let vhost = getVhost();
                     if (vhost) {
 
-                        main.get('/ftp/add', {username: vhost}).always(function () {
-
-                        }).done(function (html) {
+                        main.get('/ftp/add', {username: vhost}, function (html) {
                             main.popup({
                                 title: "添加FTP",
                                 url: '/ftp/add',

@@ -102,8 +102,7 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table,
-            form = layui.form,
+        let form = layui.form,
             main = layui.main;
         main.upload();
         //日志管理
@@ -134,9 +133,7 @@
             {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             add: function () {
-                main.get(url + '/add').always(function () {
-
-                }).done(function (html) {
+                main.get(url + '/add', function (html) {
                     main.popup({
                         url: url + '/add',
                         title: '添加规则',
@@ -170,9 +167,7 @@
                 });
             },
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}).always(function () {
-
-                }).done(function (html) {
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改推送规则',
                         content: html,

@@ -58,8 +58,7 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let table = layui.table,
-            main = layui.main;
+        let main = layui.main;
         //渲染上传配置
         main.upload();
         //日志管理

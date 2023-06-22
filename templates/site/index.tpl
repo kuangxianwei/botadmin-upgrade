@@ -454,8 +454,7 @@
                 });
             },
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}).always(function () {
-                }).done(function (html) {
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         url: url + '/modify',
                         title: '修改网站设置',
