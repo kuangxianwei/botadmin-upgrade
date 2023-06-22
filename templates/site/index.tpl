@@ -441,7 +441,7 @@
             },
         }, {
             cron_switch: function (obj) {
-                let $this = this;
+                let $this = $(this);
                 let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
                 main.request({
                     url: url + "/cron/switch",

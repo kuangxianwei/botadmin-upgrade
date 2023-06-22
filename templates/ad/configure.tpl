@@ -130,7 +130,7 @@
                 });
             },
             enabled: function (obj) {
-                let $this = this, enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
+                let $this = $(this), enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
                 main.request({
                     url: url + "/modify",
                     data: {id: obj.data.id, enabled: enabled, cols: 'enabled'},
