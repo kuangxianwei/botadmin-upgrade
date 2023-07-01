@@ -14,6 +14,8 @@ CUR_DIR=$(dirname "$(readlink -f "$0")")
 
 # 安装
 Install() {
+  #  wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+  #  yum localinstall -y google-chrome-stable_current_x86_64.rpm
   if ! cd "$SRC_DIR"; then
     Error "$SRC_DIR 目录不存在"
   fi

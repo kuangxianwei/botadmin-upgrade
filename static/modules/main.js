@@ -369,7 +369,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 return colName.hasSuffix("password") || colName.hasSuffix("passwd")
             };
             let paths = layui.url().pathname;
-            this.currentBasename = paths[paths.length - 1];
+            this.logPreffix = paths.length > 2 ? paths.slice(-2).join('_') : paths.join('_');
             // 设置cols
             this.setCols = function (data, dom) {
                 if (data && dom && !data.cols) {
@@ -664,10 +664,10 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     $('#upload').click();
                 },
                 log: function (obj, ids) {
-                    othis.ws.log(othis.currentBasename + '.' + (othis.isArray(ids) ? '0' : obj.data.id));
+                    othis.ws.log(($(this).data('value') || othis.logPreffix) + '.' + (othis.isArray(ids) ? '0' : obj.data.id));
                 },
                 resetLog: function (obj, ids) {
-                    othis.reset.log(othis.currentBasename, ids);
+                    othis.reset.log($(this).data('value') || othis.logPreffix, ids);
                 },
                 truncate: function () {
                     layer.confirm('清空全部数据不可恢复，确定清空？', function (index) {
@@ -678,6 +678,11 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 },
                 crontab: function () {
                     othis.crontab($(this).attr('data-crontab'));
+                },
+                copy: function (obj, ids) {
+                    if (!main.isArray(ids)) {
+                        main.copy(obj.data[$(this).data('field')]);
+                    }
                 },
             }, active || {});
             let tab = table.render($.extend({
@@ -1349,8 +1354,8 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         log: function (token, callback) {
             if (main.isFunction(token)) {
                 callback = token;
-                token = main.currentBasename + ".0";
-            } else if (!token) token = main.currentBasename + ".0";
+                token = main.logPreffix + ".0";
+            } else if (!token) token = main.logPreffix + ".0";
             let ws = main.newWS();
             main.textarea("", {
                 area: ["75%", "75%"], success: function (dom) {

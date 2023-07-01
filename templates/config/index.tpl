@@ -134,6 +134,13 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
+                        <label for="browser_limit" class="layui-form-label">浏览器:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="browser_limit" id="browser_limit" value="{{.base.BrowserLimit}}" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">浏览器同时开启最多个数修改后需要重启APP才生效</div>
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label"></label>
                         <div class="layui-btn-group">
                             <button class="layui-btn" lay-submit lay-filter="submit-base">立即提交</button>

@@ -334,34 +334,54 @@
                             </dd>
                         </dl>
                     </li>
-                    <li data-name="push-ad" class="layui-nav-item">
+                    <li data-name="ad" class="layui-nav-item">
                         <a href="javascript:" lay-tips="广告推送" lay-direction="2">
                             <i class="layui-icon iconfont icon-ad-big"></i>
                             <cite>广告</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="ad">
-                                <a href="javascript:" lay-tips="广告推送" lay-direction="2">
+                            <dd data-name="twitter">
+                                <a href="javascript:" lay-tips="推特广告" lay-direction="2">
                                     <i class="iconfont icon-ad-small"></i>
-                                    <cite>推送</cite>
+                                    <cite>推特</cite>
                                 </a>
                                 <dl class="layui-nav-child">
-                                    <dd data-name="ad-push">
-                                        <a lay-href="/ad/push" lay-tips="推送规则列表" lay-direction="2">
+                                    <dd data-name="twitter-execute">
+                                        <a lay-href="/ad/twitter" lay-tips="执行推特广告" lay-direction="2">
                                             <i class="iconfont icon-list-view"></i>
-                                            <cite>推送</cite>
+                                            <cite>执行</cite>
                                         </a>
                                     </dd>
-                                    <dd data-name="ad-result">
-                                        <a lay-href="/ad/result" lay-tips="推送结果列表" lay-direction="2">
+                                    <dd data-name="twitter-user">
+                                        <a lay-href="/ad/twitter/user" lay-tips="推特账号列表" lay-direction="2">
                                             <i class="iconfont icon-list-view"></i>
-                                            <cite>推送结果</cite>
+                                            <cite>账号列表</cite>
                                         </a>
                                     </dd>
-                                    <dd data-name="ad-configure">
-                                        <a lay-href="/ad/configure" lay-tips="推送配置" lay-direction="2">
+                                </dl>
+                            </dd>
+                            <dd data-name="mark">
+                                <a href="javascript:" lay-tips="广告留痕" lay-direction="2">
+                                    <i class="iconfont icon-ad-small"></i>
+                                    <cite>留痕</cite>
+                                </a>
+                                <dl class="layui-nav-child">
+                                    <dd data-name="mark-execute">
+                                        <a lay-href="/ad/mark" lay-tips="执行留痕" lay-direction="2">
                                             <i class="iconfont icon-list-view"></i>
-                                            <cite>推送配置</cite>
+                                            <cite>执行</cite>
+                                        </a>
+                                    </dd>
+                                    <dd data-name="mark-result">
+                                        <a lay-href="/ad/mark/result" lay-tips="留痕结果列表" lay-direction="2">
+                                            <i class="iconfont icon-list-view"></i>
+                                            <cite>结果</cite>
+                                        </a>
+                                    </dd>
+                                    <dd data-name="mark-config">
+                                        <a lay-href="/ad/mark/config" lay-tips="留痕配置" lay-direction="2">
+                                            <i class="iconfont icon-list-view"></i>
+                                            <cite>配置</cite>
                                         </a>
                                     </dd>
                                 </dl>

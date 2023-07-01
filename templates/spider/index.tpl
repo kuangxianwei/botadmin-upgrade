@@ -75,7 +75,6 @@
                     <a href="javascript:" lay-tips="批量删除或清除" lay-direction="2" class="layui-bg-red">
                         <i class="layui-icon layui-icon-fonts-del"></i>
                         <cite>清除</cite>
-                        <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -98,7 +97,6 @@
                     <a href="javascript:" lay-tips="定时采集任务" lay-direction="2">
                         <i class="layui-icon iconfont icon-work"></i>
                         <cite>任务</cite>
-                        <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
                         <dd>

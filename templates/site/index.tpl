@@ -91,8 +91,7 @@
                 <li class="layui-nav-item">
                     <a href="javascript:" lay-tips="建站" lay-direction="2">
                         <i class="layui-icon layui-icon-website"></i>
-                        <cite>建站 </cite>
-                        <span class="layui-nav-more"></span>
+                        <cite>建站</cite>
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -114,7 +113,6 @@
                     <a href="javascript:" lay-tips="重载" lay-direction="2">
                         <i class="layui-icon layui-icon-refresh"></i>
                         <cite>重载</cite>
-                        <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -161,7 +159,6 @@
                     <a href="javascript:" lay-tips="SEO" lay-direction="2">
                         <i class="layui-icon layui-icon-service"></i>
                         <cite>SEO</cite>
-                        <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -194,7 +191,6 @@
                     <a href="javascript:" lay-tips="定时发布文章" lay-direction="2">
                         <i class="layui-icon iconfont icon-work"></i>
                         <cite>任务</cite>
-                        <span class="layui-nav-more"></span>
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -354,8 +350,6 @@
             element = layui.element,
             main = layui.main,
             status = {{.status}};
-
-
         status = status || [];
         let tabActive = main.table({
             cols: [[

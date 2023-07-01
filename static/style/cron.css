@@ -72,7 +72,7 @@ html #layuicss-cron {
 .cron-input {
     display: inline-block;
     vertical-align: middle;
-    margin-bottom: 0;
+    margin-top: 6px;
     padding: 0 8px;
     background-color: #fff;
     border: 1px solid #ccc;

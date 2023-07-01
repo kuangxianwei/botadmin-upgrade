@@ -24,8 +24,10 @@
 }
 
 .table-search input {
+    margin-top: 0;
     height: 30px
 }
+
 
 textarea.layui-textarea {
     line-height: 1.3rem;
@@ -79,6 +81,10 @@ div.parse-method > div:nth-child(2) {
 
 .botadmin-nav, .botadmin-nav > .layui-nav-item, .botadmin-nav .layui-nav-child {
     padding: 0
+}
+
+.botadmin-nav .layui-nav-child dd > .layui-btn {
+    margin-bottom: 0;
 }
 
 .botadmin-nav > .layui-nav-item {
