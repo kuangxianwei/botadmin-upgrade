@@ -198,6 +198,5 @@
                 }
             });
         });
-        main.checkLNMP();
     });
 </script>

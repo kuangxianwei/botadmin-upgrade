@@ -242,6 +242,5 @@
                 $('[data-event=delDuration]').show(200);
             });
         }
-        main.checkLNMP();
     });
 </script>

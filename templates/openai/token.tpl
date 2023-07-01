@@ -212,6 +212,5 @@
                     table.reload('table-list', {where: {page: {curr: 1}}});
             }
         });
-        main.checkLNMP();
     });
 </script>

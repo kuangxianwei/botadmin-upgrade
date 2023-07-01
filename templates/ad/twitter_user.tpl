@@ -145,8 +145,15 @@
                 },
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
-            done: function () {
+            done: function (res) {
                 element.render();
+                if (Array.isArray(res.data)) {
+                    $.each(res.data, function (i, d) {
+                        if (d.status && d.status.indexOf("未检测") === -1 && d.status.indexOf("账号正常") === -1) {
+                            $('td[data-field=username]').parent('tr[data-index=' + i + ']').css('background-color', '#ffb800')
+                        }
+                    });
+                }
             },
         }, {
             enabled: function (obj) {

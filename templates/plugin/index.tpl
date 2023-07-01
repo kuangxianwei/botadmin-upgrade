@@ -86,6 +86,5 @@
                 });
             },
         });
-        main.checkLNMP();
     });
 </script>

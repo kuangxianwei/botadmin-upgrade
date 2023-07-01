@@ -283,6 +283,5 @@
             });
             return false;
         });
-        main.checkLNMP();
     });
 </script>
