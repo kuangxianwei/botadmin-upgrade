@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="layui-col-md6">
-                <label for="made" class="layui-form-label" lay-tips="编译成背景图加广告图">编译图片:</label>
+                <label for="made" class="layui-form-label" lay-tips="合成背景图加广告图">合成推图:</label>
                 <div class="layui-input-inline" style="width: 100px">
                     <input type="checkbox" name="made" id="made" lay-skin="switch" lay-text="启用|禁用" title="启用|禁用"{{if .obj.Made}} checked{{end}}>
                 </div>

@@ -57,6 +57,23 @@
                         </dd>
                     </dl>
                 </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:" lay-tips="启用或禁用合成图片" lay-direction="2">
+                        <i class="iconfont icon-img"></i>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <button class="layui-btn layui-btn-sm" lay-event="made" data-value="true">
+                                启用合成推图
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="made" data-value="false">
+                                禁用合成推图
+                            </button>
+                        </dd>
+                    </dl>
+                </li>
             </ul>
         </div>
         <div class="layui-btn-group">
@@ -141,7 +158,7 @@
                     }
                 },
                 {
-                    field: 'made', title: '编译推图', width: 100, align: 'center',
+                    field: 'made', title: '合成推图', width: 100, align: 'center',
                     event: 'made', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d['made'] ? ' checked' : '') + '>';
                     }
@@ -181,7 +198,17 @@
                     }
                 });
             },
-            made: function (obj) {
+            made: function (obj, ids) {
+                if (main.isArray(ids)) {
+                    if (ids.length === 0) {
+                        return layer.msg("未选择")
+                    }
+                    return main.request({
+                        url: url + "/modify",
+                        data: {ids: ids.join(), made: $(this).attr('data-value') === 'true', cols: 'made'},
+                        done: 'table-list',
+                    });
+                }
                 let $this = $(this);
                 let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
                 main.request({
