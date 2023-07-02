@@ -136,9 +136,10 @@
                 {field: 'alias', title: '网名'},
                 {field: 'description', title: '简介', hide: true},
                 {field: 'token', title: 'Token', event: 'copy'},
-                {field: 'status', title: '状态', width: 120,},
+                {field: 'status', title: '状态', width: 120},
+                {field: 'note', title: '备注', width: 120},
                 {
-                    field: 'updated', title: '时间', align: 'center', sort: true, width: 180,
+                    field: 'updated', title: '时间', align: 'center', sort: true, width: 180, hide: true,
                     templet: function (d) {
                         return main.timestampFormat(d['updated']);
                     }

@@ -84,6 +84,12 @@
                 </div>
             </div>
         </div>
+        <div class="layui-form-item">
+            <label for="note" class="layui-form-label">备注:</label>
+            <div class="layui-input-block">
+                <input type="text" name="note" value="{{.obj.Note}}" placeholder="备注信息" id="note" class="layui-input">
+            </div>
+        </div>
         <div class="layui-hide">
             <input type="hidden" name="id" value="{{.obj.Id}}">
             <button class="layui-btn layui-btn-small" lay-submit id="submit">提交</button>
