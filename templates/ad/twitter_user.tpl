@@ -174,7 +174,7 @@
                     main.popup({
                         title: '添加账号',
                         url: url + '/add',
-                        area: ['800px', '500px'],
+                        area: ['800px', '550px'],
                         content: html,
                         done: 'table-list'
                     });
@@ -196,7 +196,7 @@
                     main.popup({
                         title: '修改规则',
                         content: html,
-                        area: ['800px', '500px'],
+                        area: ['800px', '550px'],
                         url: url + '/modify',
                         done: 'table-list',
                     });
