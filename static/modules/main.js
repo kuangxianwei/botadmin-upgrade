@@ -1643,6 +1643,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         }
     };
     main.checkLNMP = function () {
+        if (localStorage.getItem("checkLNMP") === '1') {
+            return
+        }
         $.get("/plugin/lnmp", {}, function (html) {
             if (html) {
                 if (html === 'lnmp.0') {
@@ -1654,6 +1657,15 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     title: "安装web服务器",
                     content: html,
                     area: ['560px', 'auto'],
+                    btn: ['提交', '取消', '不再提示'],
+                    btn3: function (index) {
+                        layer.confirm('以后不会再弹出提示框,清除浏览器缓存会再次弹出', function (index2) {
+                            localStorage.setItem('checkLNMP', '1');
+                            layer.close(index);
+                            layer.close(index2);
+                        });
+                        return false;
+                    },
                     tips: function () {
                         main.ws.log("lnmp.0");
                     }
