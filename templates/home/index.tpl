@@ -329,5 +329,6 @@
             let $this = $(this), event = $this.data("event");
             active[event] && active[event].call($this);
         });
+        main.checkLNMP();
     });
 </script>

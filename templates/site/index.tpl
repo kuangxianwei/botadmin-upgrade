@@ -637,24 +637,16 @@
                     layer.msg("未选择", {icon: 2});
                     return false;
                 }
-                layer.prompt({
-                        formType: 0,
-                        value: obj.data.length,
-                        title: '选中的网站发布文章，请输入线程数量 太多会卡死'
-                    },
-                    function (value, index) {
-                        main.request({
-                            url: url + '/publish',
-                            data: {ids: ids.join(), thread: value},
-                            index: index,
-                            done: function () {
-                                main.ws.log(function () {
-                                    table.reload('table-list');
-                                });
-                                return false;
-                            }
+                main.request({
+                    url: url + '/publish',
+                    data: {ids: ids.join()},
+                    done: function () {
+                        main.ws.log(function () {
+                            table.reload('table-list');
                         });
-                    });
+                        return false;
+                    }
+                });
             },
             reload_nginx: function (obj, ids) {
                 main.request({
@@ -975,7 +967,6 @@
                 });
             },
         });
-        main.checkLNMP();
         $(document).on('click', '.layui-form [data-event]', function (e) {
             let $this = $(this), event = $this.data('event');
             tabActive.active[event] && tabActive.active[event].call($this);

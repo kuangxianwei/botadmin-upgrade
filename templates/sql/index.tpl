@@ -139,6 +139,5 @@
                 });
             },
         });
-        main.checkLNMP();
     });
 </script>

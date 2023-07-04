@@ -46,13 +46,13 @@
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm" lay-href="/file?path=data/ad/twitter/images/done" lay-text="已译图库">
-                                已译图库
+                            <button class="layui-btn layui-btn-sm" lay-href="/file?path=data/ad/twitter/images/done" lay-text="媒体库" style="width:100%">
+                                媒体库
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-href="/file?path=data/ad/twitter/tweet" lay-text="推文库">
-                                推文文库
+                            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-href="/file?path=data/ad/twitter/tweet" lay-text="推文库" style="width:100%">
+                                推文库
                             </button>
                         </dd>
                     </dl>
@@ -150,7 +150,7 @@
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
-                {field: 'name', title: '名称', width: 150, sort: true},
+                {field: 'name', title: '名称', width: 120, sort: true},
                 {
                     field: 'enabled', title: '启用定时', width: 100, align: 'center',
                     event: 'enabled', templet: function (d) {
@@ -164,19 +164,26 @@
                     }
                 },
                 {field: 'spec', title: '定时规则', hide: true},
-                {field: 'user_ids', title: '用户列表', hide: true},
                 {field: 'texts', title: '文本列表', hide: true},
                 {field: 'tags', title: 'Tag列表'},
+                {field: 'user_ids', title: '用户列表', hide: true},
                 {
-                    field: 'updated', title: '时间', align: 'center', sort: true, width: 180,
+                    field: 'updated', title: '时间', align: 'center', sort: true, width: 180, hide: true,
                     templet: function (d) {
                         return main.timestampFormat(d['updated']);
                     }
                 },
                 {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
-            done: function () {
+            done: function (res) {
                 element.render();
+                if (Array.isArray(res.data)) {
+                    $.each(res.data, function (i, d) {
+                        if (!d['user_ids'] || d['user_ids'].length === 0) {
+                            $('div[lay-id=table-list] tr[data-index=' + i + ']>td').css('background-color', '#ffb800').attr('lay-tips', '用户列表为空，请指定用户列表')
+                        }
+                    });
+                }
             },
         }, {
             tweet: function (obj, ids) {
@@ -260,7 +267,7 @@
                 });
             },
             modify: function (obj) {
-                main.get(url + '/modify', obj.data, function (html) {
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改规则',
                         content: html,

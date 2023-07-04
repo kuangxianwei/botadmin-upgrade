@@ -27,41 +27,41 @@
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show layui-form">
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
+                    <div class="layui-form-item layui-row">
+                        <div class="layui-col-md3">
                             <label for="username" class="layui-form-label">用户名:</label>
                             <div class="layui-input-block">
                                 <input type="text" autocomplete="off" name="username" id="username" value="{{.base.Username}}" class="layui-input" placeholder="用户名">
                             </div>
                         </div>
-                        <div class="layui-inline">
+                        <div class="layui-col-md3">
                             <label for="addr" class="layui-form-label">Host:</label>
                             <div class="layui-input-block">
                                 <input type="text" autocomplete="off" name="addr" id="addr" value="{{.base.Addr}}" class="layui-input" placeholder="localhost">
                             </div>
                         </div>
-                        <div class="layui-inline">
+                        <div class="layui-col-md3">
                             <label for="port" class="layui-form-label">端口:</label>
                             <div class="layui-input-block">
                                 <input type="number" autocomplete="off" name="port" id="port" value="{{.base.Port}}" class="layui-input" placeholder="8080">
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
+                    <div class="layui-form-item layui-row">
+                        <div class="layui-col-md3">
                             <label class="layui-form-label">运行模式:</label>
                             <div class="layui-input-block">
                                 <input type="radio" name="run_mode" value="prod" title="正常"{{if eq .base.RunMode "prod"}} checked{{end}}>
                                 <input type="radio" name="run_mode" value="dev" title="调试"{{if eq .base.RunMode "dev"}} checked{{end}}>
                             </div>
                         </div>
-                        <div class="layui-inline">
+                        <div class="layui-col-md3">
                             <label for="gzip_enabled" class="layui-form-label">Gzip:</label>
                             <div class="layui-input-block">
                                 <input type="checkbox" name="gzip_enabled" id="gzip_enabled" lay-skin="switch" lay-text="打开|关闭"{{if .base.GzipEnabled}} checked{{end}}>
                             </div>
                         </div>
-                        <div class="layui-inline">
+                        <div class="layui-col-md3">
                             <label for="csrf_enabled" class="layui-form-label">CSRF:</label>
                             <div class="layui-input-block">
                                 <input type="checkbox" name="csrf_enabled" id="csrf_enabled" lay-skin="switch" lay-text="打开|关闭"{{if .base.CsrfEnabled}} checked{{end}}>
@@ -97,13 +97,6 @@
                             仅调试启用(开发人员<a lay-href="/debug/pprof" lay-text="pprof">查看性能</a>)
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label for="limit_login" class="layui-form-label">登录限制:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" autocomplete="off" name="limit_login" id="limit_login" value="{{.base.LimitLogin}}" class="layui-input">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">登录错误次数超过将限制N分钟后登录 0为不限制录</div>
-                    </div>
                     <div class="layui-form-item layui-row">
                         <div class="layui-col-md5">
                             <label for="csrf_secret" class="layui-form-label">csrf秘钥:</label>
@@ -133,14 +126,46 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label for="browser_limit" class="layui-form-label">浏览器:</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="browser_limit" id="browser_limit" value="{{.base.BrowserLimit}}" class="layui-input">
+                    <div class="layui-collapse" lay-accordion>
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">限制设置，重启APP后生效</h2>
+                            <div class="layui-colla-content layui-show">
+                                <div class="layui-form-item layui-row">
+                                    <div class="layui-col-md6">
+                                        <label class="layui-form-label" lay-tips="登录错误次数超过将限制N分钟后登录,0为不限制录">登录限制:</label>
+                                        <div class="layui-input-block">
+                                            <div id="login_limit" class="slider-block"></div>
+                                            <input type="hidden" name="login_limit" value="{{.base.LoginLimit}}">
+                                        </div>
+                                    </div>
+                                    <div class="layui-col-md6">
+                                        <label for="browser_limit" class="layui-form-label" lay-tips="浏览器同时开启最多个数,同时开启太多会卡死">浏览器:</label>
+                                        <div class="layui-input-block">
+                                            <div id="browser_limit" class="slider-block"></div>
+                                            <input type="hidden" name="browser_limit" value="{{.base.BrowserLimit}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-row">
+                                    <div class="layui-col-md6">
+                                        <label class="layui-form-label" lay-tips="同时开启采集器的最大限制">采集限制:</label>
+                                        <div class="layui-input-block">
+                                            <div id="spider_limit" class="slider-block"></div>
+                                            <input type="hidden" name="spider_limit" value="{{.base.SpiderLimit}}">
+                                        </div>
+                                    </div>
+                                    <div class="layui-col-md6">
+                                        <label class="layui-form-label" lay-tips="同时发布文章的最大限制">发布限制:</label>
+                                        <div class="layui-input-block">
+                                            <div id="site_limit" class="slider-block"></div>
+                                            <input type="hidden" name="site_limit" value="{{.base.SiteLimit}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">浏览器同时开启最多个数修改后需要重启APP才生效</div>
                     </div>
-                    <div class="layui-form-item">
+                    <div class="layui-form-item" style="margin-top:20px">
                         <label class="layui-form-label"></label>
                         <div class="layui-btn-group">
                             <button class="layui-btn" lay-submit lay-filter="submit-base">立即提交</button>
@@ -342,10 +367,10 @@
                             <button class="layui-btn layui-btn-danger" data-event="reset" data-name="ban" data-tip="违禁设置恢复到出厂设置?">
                                 <i class="layui-icon iconfont icon-reset"></i>默认
                             </button>
-                            <button class="layui-btn" data-event="ban-test">测试</button>
-                            <button class="layui-btn layui-btn-small layui-btn-normal" data-event="edit-ban">编辑禁词
+                            <button class="layui-btn" data-event="banTest">测试</button>
+                            <button class="layui-btn layui-btn-small layui-btn-normal" data-event="banEdit">编辑禁词
                             </button>
-                            <button class="layui-btn" data-event="ban-update" lay-tips="远程更新禁词">更新禁词</button>
+                            <button class="layui-btn" data-event="banUpdate" lay-tips="远程更新禁词">更新禁词</button>
                         </div>
                     </div>
                 </div>
@@ -365,7 +390,7 @@
                                     <input type="text" autocomplete="off" name="spec" id="spec" value="{{.monitor.Spec}}" class="layui-input">
                                 </div>
                             </div>
-                            <button class="layui-btn layui-btn-radius" data-event="monitor-log">查看监控日志</button>
+                            <button class="layui-btn layui-btn-radius" data-event="monitorLog">查看监控日志</button>
                         </div>
                     </fieldset>
                     <fieldset class="layui-elem-field">
@@ -450,7 +475,7 @@
             return false;
         });
         let active = {
-            'ban-update': function () {
+            banUpdate: function () {
                 main.request({url: url + '/ban/update'});
             },
             reset: function () {
@@ -470,7 +495,7 @@
                     });
                 });
             },
-            'ban-test': function () {
+            banTest: function () {
                 main.popup({
                     title: '测试违禁词',
                     url: url + '/ban/test',
@@ -482,8 +507,7 @@
                     content: '<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" name="content" rows="15" placeholder="输入需要检查的内容..."></textarea></div><div class="layui-hide"><button class="layui-btn" lay-submit lay-filter="submit"></button></div></div></div>'
                 });
             },
-            'edit-ban': function () {
-
+            banEdit: function () {
                 main.get('/config/ban/data', function (html) {
 
                     main.popup({
@@ -493,7 +517,7 @@
                     });
                 });
             },
-            'monitor-log': function () {
+            monitorLog: function () {
                 main.ws.log("monitor_service.0");
             }
         };
@@ -503,5 +527,11 @@
             active[event] && active[event].call(othis);
         });
         main.cron('[name=reboot_spec]', '[name=rank_spec]', '[name=spec]');
+        main.slider(
+            {elem: '#login_limit', value: $('input[name=login_limit]').val(), min: 0, max: 10},
+            {elem: '#browser_limit', value: $('input[name=browser_limit]').val(), min: 1, max: 50},
+            {elem: '#spider_limit', value: $('input[name=spider_limit]').val(), min: 1, max: 100},
+            {elem: '#site_limit', value: $('input[name=site_limit]').val(), min: 1, max: 100},
+        );
     });
 </script>

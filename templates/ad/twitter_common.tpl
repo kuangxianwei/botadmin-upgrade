@@ -18,16 +18,23 @@
             </div>
         </div>
         <div class="layui-form-item layui-row">
-            <div class="layui-col-md6">
+            <div class="layui-col-md4">
                 <label for="enabled" class="layui-form-label">定时启用:</label>
                 <div class="layui-input-block">
                     <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="启用|禁用" title="启用|禁用"{{if .obj.Enabled}} checked{{end}}>
                 </div>
             </div>
-            <div class="layui-col-md6">
+            <div class="layui-col-md4">
                 <label for="spec" class="layui-form-label">定时规则:</label>
                 <div class="layui-input-block">
                     <input class="layui-input" type="text" name="spec" id="spec" value="{{.obj.Spec}}">
+                </div>
+            </div>
+            <div class="layui-col-md4">
+                <label class="layui-form-label">Tags范围:</label>
+                <div class="layui-input-block">
+                    <div id="tags_range" class="slider-block"></div>
+                    <input type="hidden" name="tags_range" value="{{print .obj.TagsRange}}"/>
                 </div>
             </div>
         </div>
@@ -35,7 +42,7 @@
             <div class="layui-col-md6">
                 <label for="tags" class="layui-form-label">Tag列表:</label>
                 <div class="layui-input-block">
-                    <textarea id="tags" name="tags" class="layui-textarea" rows="3" placeholder="试管婴儿&#10;广州试管婴儿&#10;试管婴儿机构">{{join .obj.Tags "\n"}}</textarea>
+                    <textarea id="tags" name="tags" class="layui-textarea" placeholder="试管婴儿&#10;广州试管婴儿&#10;试管婴儿机构">{{join .obj.Tags "\n"}}</textarea>
                 </div>
             </div>
             <div class="layui-col-md6">
@@ -45,7 +52,7 @@
                     </div>
                 </label>
                 <div class="layui-input-block">
-                    <textarea id="texts" name="texts" class="layui-textarea" rows="3" placeholder="推文一&#10;推文二&#10;推文三">{{join .obj.Texts "\n"}}</textarea>
+                    <textarea id="texts" name="texts" class="layui-textarea" placeholder="推文一&#10;推文二&#10;推文三">{{join .obj.Texts "\n"}}</textarea>
                 </div>
             </div>
         </div>
@@ -78,6 +85,7 @@
             $('input[name=user_ids]').val(ids.join(','))
         }
     });
+    layui.main.slider({elem: '#tags_range', range: true, min: 1, max: 10});
     layui.form.verify({
         userIds: function (value) {
             if (!value) {

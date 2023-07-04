@@ -45,7 +45,7 @@
     <div class="layui-form-item">
         <label for="pic_autoed" class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
         <div class="layui-input-block">
-            <textarea name="contact" class="layui-textarea" placeholder="李谊:139-2235-2985&#13;韩晶:135-3983-5229"></textarea>
+            <textarea name="contact" id="pic_autoed" class="layui-textarea" placeholder="李谊:139-2235-2985&#13;韩晶:135-3983-5229"></textarea>
         </div>
     </div>
 </script>
@@ -57,7 +57,7 @@
         let active = {
             ad: function (enabled) {
                 if (enabled) {
-                    fieldElem.append(`<div class="layui-form-item"><label for="pic_autoed" class="layui-form-label" lay-tips="网站广告代码一般为js代码">广告:</label><div class="layui-input-block"><textarea name="ad" class="layui-textarea" placeholder="网站广告代码一般为js代码"></textarea></div></div>`);
+                    fieldElem.append(`<div class="layui-form-item"><label class="layui-form-label" lay-tips="网站广告代码一般为js代码">广告:</label><div class="layui-input-block"><textarea name="ad" class="layui-textarea" placeholder="网站广告代码一般为js代码"></textarea></div></div>`);
                 } else {
                     fieldElem.find('[name=ad]').closest('.layui-form-item').remove();
                 }
@@ -65,7 +65,7 @@
             replaces: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-    <label for="pic_autoed" class="layui-form-label" lay-tips="灰词=>替换成的是词 一行一条">灰词替换:</label>
+    <label class="layui-form-label" lay-tips="灰词=>替换成的是词 一行一条">灰词替换:</label>
     <div class="layui-input-block">
         <textarea name="replaces" class="layui-textarea"></textarea>
     </div>
@@ -113,7 +113,7 @@
             pub_deg: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-                        <label for="pub_deg" class="layui-form-label" lay-tips="随机发布指定数量的文章">发布阈值:</label>
+                        <label class="layui-form-label" lay-tips="随机发布指定数量的文章">发布阈值:</label>
                         <div class="layui-input-block">
                             <div id="pub_deg" class="slider-block"></div>
                             <input type="hidden" name="pub_deg" value="1-3"/>
@@ -229,7 +229,7 @@
             push_config: function (enabled) {
                 if (enabled) {
                     fieldElem.append(`<div class="layui-form-item">
-    <label for="originality_rate" class="layui-form-label">推送配置:</label>
+    <label class="layui-form-label">推送配置:</label>
     <div class="layui-input-block">
 <textarea name="push_config" class="layui-textarea" rows="3"
           placeholder="http://data.zz.baidu.com/urls?site=&#123;&#123;site&#125;&#125;&token=zjoYZiTU6B1rgblL 百度普通推送 账号=username 密码=password"></textarea>

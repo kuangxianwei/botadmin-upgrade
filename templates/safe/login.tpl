@@ -3,11 +3,11 @@
     <div class="layui-card-body layui-form">
         <div class="layui-form" lay-filter="component-form-element">
             <div class="layui-form-item">
-                <label for="limit_login" class="layui-form-label">登录限制:</label>
-                <div class="layui-input-inline">
-                    <input type="number" autocomplete="off" min="0" name="limit_login" id="limit_login" value="{{.obj.LimitLogin}}" class="layui-input"/>
+                <label class="layui-form-label" lay-tips="登录错误次数超过将限制N分钟后登录,0为不限制录">登录限制:</label>
+                <div class="layui-input-block">
+                    <div id="login_limit" class="slider-block"></div>
+                    <input type="hidden" name="login_limit" value="{{.obj.LoginLimit}}">
                 </div>
-                <div class="layui-word-aux layui-form-mid">登录错误次数超过将限制N分钟后登录 0为不限制</div>
             </div>
             <div class="layui-form-item">
                 <label for="addr" class="layui-form-label">授权域名:</label>
@@ -47,5 +47,8 @@
             });
             return false;
         });
+        main.slider(
+            {elem: '#login_limit', value: $('input[name=login_limit]').val(), min: 0, max: 10},
+        );
     });
 </script>

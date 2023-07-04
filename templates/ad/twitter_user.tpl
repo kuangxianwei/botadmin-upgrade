@@ -96,17 +96,21 @@
 </script>
 <script type="text/html" id="config">
     <div class="layui-card">
-        <div class="layui-card-body layui-form">
-            <div class="layui-form-item">
-                <label for="enabled" class="layui-form-label">启用:</label>
-                <div class="layui-input-inline">
-                    <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="启用|禁用">
+        <div class="layui-card-body">
+            <fieldset class="layui-elem-field layui-form">
+                <legend>修改目标</legend>
+                <input type="checkbox" data-field="enabled" title="启用/禁用" lay-filter="field">
+                <input type="checkbox" data-field="alias" title="修改网名" lay-filter="field">
+                <input type="checkbox" data-field="description" title="修改简介" lay-filter="field">
+            </fieldset>
+            <fieldset class="layui-elem-field layui-form">
+                <legend>操作</legend>
+                <div id="field"></div>
+                <div class="layui-hide">
+                    <input name="ids" id="ids" value="">
+                    <button lay-submit></button>
                 </div>
-            </div>
-            <div class="layui-hide">
-                <input type="hidden" name="ids" value="">
-                <button class="layui-hide" lay-submit lay-filter="submit">提交</button>
-            </div>
+            </fieldset>
         </div>
     </div>
 </script>
@@ -126,16 +130,17 @@
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
                     }
                 },
-                {field: 'username', title: '用户名', width: 150, sort: true},
-                {field: 'password', title: '密码', hide: true},
-                {field: 'email', title: '邮箱', hide: true},
-                {field: 'email_password', title: '邮箱密码', hide: true},
-                {field: 'phone', title: '手机', hide: true},
-                {field: 'verify', title: '双重验证', hide: true},
-                {field: 'spare', title: '备用码', hide: true},
-                {field: 'alias', title: '网名'},
+                {field: 'username', title: '用户名', width: 150, event: 'copy', sort: true},
+                {field: 'password', title: '密码', event: 'copy', hide: true},
+                {field: 'email', title: '邮箱', event: 'copy', hide: true},
+                {field: 'email_password', title: '邮箱密码', event: 'copy', hide: true},
+                {field: 'phone', title: '手机', event: 'copy', hide: true},
+                {field: 'verify', title: '双重验证', event: 'copy', hide: true},
+                {field: 'spare', title: '备用码', event: 'copy', hide: true},
+                {field: 'alias', title: '网名', event: 'copy'},
                 {field: 'description', title: '简介', hide: true},
                 {field: 'token', title: 'Token', event: 'copy'},
+                {field: 'twitter_id', title: '规则ID', width: 80, align: 'center', hide: true},
                 {field: 'status', title: '状态', width: 120},
                 {field: 'note', title: '备注', width: 120},
                 {
@@ -150,8 +155,8 @@
                 element.render();
                 if (Array.isArray(res.data)) {
                     $.each(res.data, function (i, d) {
-                        if (d.status && d.status.indexOf("未检测") === -1 && d.status.indexOf("账号正常") === -1) {
-                            $('td[data-field=username]').parent('tr[data-index=' + i + ']').css('background-color', '#ffb800')
+                        if (d.status.indexOf("ERR") !== -1) {
+                            $('div[lay-id=table-list] tr[data-index=' + i + ']').css('background-color', '#ffb800')
                         }
                     });
                 }
@@ -192,7 +197,7 @@
                 });
             },
             modify: function (obj) {
-                main.get(url + '/modify', obj.data, function (html) {
+                main.get(url + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改规则',
                         content: html,
@@ -209,10 +214,52 @@
                 main.popup({
                     title: '批量修改配置',
                     content: $('#config').html(),
-                    area: '400px',
+                    area: ['500px', '580px'],
                     success: function (dom) {
                         dom.find('[name=ids]').val(ids.join());
-                        main.on.del();
+                        let form = layui.form, fieldElem = $("#field"), active = {
+                            enabled: function (show) {
+                                if (show) {
+                                    fieldElem.append(`<div class="layui-form-item">
+                <label for="enabled" class="layui-form-label">启用:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="启用|禁用" checked>
+                </div>
+            </div>`);
+                                    form.render('checkbox');
+                                } else {
+                                    fieldElem.find('input[name=enabled]').closest('.layui-form-item').remove();
+                                }
+                            },
+                            alias: function (show) {
+                                if (show) {
+                                    fieldElem.append(`<div class="layui-form-item">
+                <label for="alias" class="layui-form-label">网名:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="alias" id="alias" class="layui-input" placeholder="随机字符串变量:&#123;&#123;random&#125;&#125;">
+                <div class="layui-form-mid layui-word-aux">随机字符串变量:&#123;&#123;random&#125;&#125;&#10;</div></div></div>`);
+                                    form.render('input');
+                                } else {
+                                    fieldElem.find('input[name=alias]').closest('.layui-form-item').remove();
+                                }
+                            },
+                            description: function (show) {
+                                if (show) {
+                                    fieldElem.append(`<div class="layui-form-item">
+                <label for="description" class="layui-form-label">简介:</label>
+                <div class="layui-input-block">
+                    <textarea class="layui-textarea" name="description" id="description" rows="3" placeholder="这是我的简介"></textarea>
+<div class="layui-form-mid layui-word-aux">随机字符串变量:&#123;&#123;random&#125;&#125;&#10;网名变量:&#123;&#123;alias&#125;&#125;</div></div></div>`);
+                                    form.render('input');
+                                } else {
+                                    fieldElem.find('input[name=description]').closest('.layui-form-item').remove();
+                                }
+                            },
+                        };
+                        form.on('checkbox(field)', function (obj) {
+                            let $this = $(this), field = $this.data("field");
+                            active[field] && active[field].call($this, (obj.othis.attr('class').indexOf('layui-form-checked') !== -1));
+                        });
                     },
                     url: url + '/modify',
                     done: 'table-list',

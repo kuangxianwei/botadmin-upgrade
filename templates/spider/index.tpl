@@ -339,6 +339,5 @@
             $('button[lay-filter=search]').click();
             return false;
         });
-        main.checkLNMP();
     });
 </script>
