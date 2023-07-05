@@ -6,7 +6,7 @@
             </button>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" autocomplete="off" name="host" value="" placeholder="搜索:host/别名" class="layui-input">
+                    <input type="text" autocomplete="off" name="search" value="" placeholder="搜索:host/别名" class="layui-input">
                 </div>
             </div>
         </div>
