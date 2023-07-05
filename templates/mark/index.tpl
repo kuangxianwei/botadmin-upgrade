@@ -66,7 +66,7 @@
         <button class="layui-btn layui-btn-sm" lay-event="log" data-value="mark" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
         </button>
-        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" data-value="mark" lay-tips="重置日志">
+        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
             <i class="layui-icon iconfont icon-reset"></i>Log
         </button>
     </div>

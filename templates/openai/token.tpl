@@ -135,13 +135,6 @@
                     }
                 });
             },
-            log: function (obj) {
-                let id = 0;
-                if (obj.data) {
-                    id = obj.data.id
-                }
-                main.ws.log('openai.token.' + id);
-            },
             add: function () {
                 main.popup({
                     title: '添加Token',

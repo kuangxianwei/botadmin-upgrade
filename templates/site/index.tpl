@@ -74,7 +74,7 @@
     </div>
 </script>
 <script type="text/html" id="toolbar">
-    <div class="layui-btn-container">
+    <div class="layui-btn-container" lay-tips="空白处双击显示删除和清空数据库按钮">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" lay-event="add" lay-tips="单个添加网站">
                 <i class="layui-icon layui-icon-add-1"></i>
@@ -218,6 +218,14 @@
             </button>
             <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
+            </button>
+        </div>
+        <div id="del" class="layui-btn-group" style="display: none;">
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中的数据，不可恢复！">
+                删除
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate" lay-tips="清空所有的数据，不可恢复！">
+                清空
             </button>
         </div>
     </div>
@@ -970,6 +978,14 @@
         $(document).on('click', '.layui-form [data-event]', function (e) {
             let $this = $(this), event = $this.data('event');
             tabActive.active[event] && tabActive.active[event].call($this);
+            e.stopPropagation();
+        });
+        $(document).on('dblclick', '.layui-btn-container', function (e) {
+            $('#del').show();
+            e.stopPropagation();
+        });
+        $(document).on('click', '.layui-btn-container', function (e) {
+            $('#del').hide();
             e.stopPropagation();
         });
     });
