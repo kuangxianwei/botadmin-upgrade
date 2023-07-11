@@ -1561,18 +1561,9 @@ layui.define(['main'], function (exports) {
                         delete this.where.search
                     }
                     $.extend(othis.config, res);
-                    // 添加到历史记录
-                    let histories = JSON.parse(localStorage.getItem('histories')) || [];
-                    histories.delete(othis.config.path);
-                    histories.unshift(othis.config.path);
-                    localStorage.setItem('histories', JSON.stringify(histories));
-                    let datalist = '';
-                    $.each(histories, function (i, v) {
-                        datalist += '<option value="' + v + '">';
-                    });
-                    $('#searchHistories').html(datalist);
                     window.scrollTo(0, 0);
                     othis.renderPath();
+                    layui.main.history('gotoHistories');
                 }
             }, {
                 terminal: function () {

@@ -4,7 +4,7 @@
             <div class="layui-inline layui-form">
                 <div class="layui-inline">
                     <div class="layui-input-inline">
-                        <input type="text" autocomplete="off" name="search" placeholder="搜索唯一码" value="{{.search}}" class="layui-input">
+                        <input type="search" name="search" placeholder="搜索唯一码" value="{{.search}}" class="layui-input">
                     </div>
                 </div>
                 <button class="layui-btn layui-btn-sm" lay-submit lay-filter="search">

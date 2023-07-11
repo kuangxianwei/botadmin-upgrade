@@ -470,6 +470,24 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 }
                 return shuffled.slice(min);
             };
+            this.history = function (datalistName) {
+                datalistName = datalistName || 'searchHistories';
+                let val = $('input[list="' + datalistName + '"]').val();
+                if (val) {
+                    let historiesName = datalistName + "_" + this.logPreffix;
+                    let histories = JSON.parse(localStorage.getItem(historiesName)) || [];
+                    if (histories.indexOf(val) === -1) {
+                        histories.unshift(val);
+                        localStorage.setItem(historiesName, JSON.stringify(histories));
+                        let datalistEl = $('#' + datalistName).empty();
+                        $.each(histories, function () {
+                            datalistEl.append('<option value="' + this + '"></option>');
+                        });
+                        return true
+                    }
+                }
+                return false;
+            };
             let othis = this;
             // 监控
             this.on = {
@@ -492,7 +510,8 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 search: function (filter, options) {
                     if (othis.searchRendered) return false;
                     othis.searchRendered = true;
-                    if ($('[lay-filter=search]').length === 0) {
+                    let searchCommit = $('[lay-filter=search]');
+                    if (searchCommit.length === 0) {
                         return false;
                     }
                     if (main.isObject(filter)) options = filter;
@@ -520,13 +539,19 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     });
                     // 监控select
                     form.on('select(search-select)', function () {
-                        $('[lay-filter=search]').click();
+                        searchCommit.click();
                     });
                     $('.table-search,[lay-event=search]').on('keydown', 'input', function (event) {
                         if (event.keyCode === 13) {
-                            $('[lay-filter=search]').click();
+                            searchCommit.click();
                         }
                     });
+                    if ($('#searchHistories').length === 0) {
+                        $('input[type=search]').attr("list", "searchHistories").after('<datalist id="searchHistories"></datalist>');
+                        searchCommit.on('click', function () {
+                            othis.history('searchHistories');
+                        });
+                    }
                     return true;
                 },
             };

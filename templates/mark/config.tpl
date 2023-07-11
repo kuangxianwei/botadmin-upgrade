@@ -2,7 +2,7 @@
     <div class="layui-card-body">
         <div class="layui-form table-search" style="left: 520px">
             <div class="layui-inline">
-                <input type="text" autocomplete="off" name="search" class="layui-input" placeholder="输入搜索...">
+                <input type="search" name="search" class="layui-input" placeholder="输入搜索...">
             </div>
             <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="search">
                 <i class="layui-icon layui-icon-search"></i>

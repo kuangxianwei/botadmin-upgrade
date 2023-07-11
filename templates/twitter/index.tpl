@@ -9,7 +9,7 @@
                 </select>
             </div>
             <div class="layui-inline">
-                <input type="text" autocomplete="off" name="search" class="layui-input" placeholder="输入搜索...">
+                <input type="search" name="search" class="layui-input" placeholder="输入搜索...">
             </div>
             <button class="layui-hide" lay-submit="" lay-filter="search">
                 <i class="layui-icon layui-icon-search"></i>

@@ -11,7 +11,7 @@
                         </div>
                         <div class="layui-inline">
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" name="name" value="" class="layui-input" placeholder="模糊匹配名称">
+                                <input type="search" name="name" value="" class="layui-input" placeholder="模糊匹配名称">
                             </div>
                         </div>
                         <div class="layui-inline">

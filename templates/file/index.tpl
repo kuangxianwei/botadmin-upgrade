@@ -15,7 +15,7 @@
                 <div class="layui-inline">
                     <div class="layui-inline">
                         <div class="layui-input-inline">
-                            <input type="search" autocomplete="off" name="search" placeholder="搜索文件/目录" class="layui-input">
+                            <input type="search" name="search" placeholder="搜索文件/目录" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-inline">
@@ -34,9 +34,9 @@
                 </button>
                 <div class="layui-input-inline">
                     <div id="current-path"></div>
-                    <input type="hidden" list="searchHistories" name="path" value="" class="layui-input" lay-verify="required">
+                    <input type="hidden" list="gotoHistories" name="path" value="" class="layui-input" lay-verify="required">
+                    <datalist id="gotoHistories"></datalist>
                     <button class="layui-hide" lay-submit lay-filter="submit"></button>
-                    <datalist id="searchHistories"></datalist>
                 </div>
                 <button class="layui-btn layui-btn-sm" data-event="refresh" lay-tips="刷新当前目录">
                     <i class="layui-icon layui-icon-refresh"></i>

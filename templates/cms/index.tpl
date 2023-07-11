@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                    <input type="text" name="search" autocomplete="off" placeholder="搜索..." class="layui-input layui-input-search"
+                    <input type="search" name="search" autocomplete="off" placeholder="搜索..." class="layui-input layui-input-search"
                            layadmin-event="search" lay-action="template/search.html?keywords=">
                 </li>
             </ul>

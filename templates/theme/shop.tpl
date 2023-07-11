@@ -3,7 +3,7 @@
     <div class="layui-card-body">
         <header class="layui-inline">
             <div class="layui-input-inline">
-                <input name="search" id="search" placeholder="搜索..." data-type="search" class="layui-input" style="height: 30px">
+                <input name="search" placeholder="搜索..." data-type="search" class="layui-input" style="height: 30px">
             </div>
             <button class="layui-btn layui-btn-sm" data-event="search">
                 <i class="layui-icon layui-icon-search"></i>

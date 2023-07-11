@@ -4,7 +4,7 @@
             <div class="layui-inline layui-form">
                 <div class="layui-input-inline">
                     <input type="hidden" name="id" value="{{.obj.Id}}">
-                    <input type="text" autocomplete="off" name="search" placeholder="搜索标题" class="layui-input">
+                    <input type="search" name="search" placeholder="搜索标题" class="layui-input">
                 </div>
                 <button class="layui-btn layui-btn-sm layui-btn-primary" lay-submit lay-filter="search">
                     <i class="layui-icon layui-icon-search"></i>
