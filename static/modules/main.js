@@ -557,9 +557,16 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             };
             this.reset = {
                 log: function (prefix, ids, options) {
-                    if (!prefix) {
-                        return;
+                    if (othis.isObject(prefix)) {
+                        options = prefix;
+                        prefix = othis.logPreffix;
+                    } else if (Array.isArray(prefix)) {
+                        ids = prefix;
+                        prefix = othis.logPreffix;
+                    } else if (othis.isObject(ids)) {
+                        options = ids;
                     }
+                    prefix = prefix || othis.logPreffix;
                     let tokens = prefix;
                     if (Array.isArray(ids)) {
                         for (let i = 0; i < ids.length; i++) {
@@ -572,7 +579,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     }
                     layer.confirm('清空日志记录? Tokens: <br/>' + tokens, function (index) {
                         othis.request($.extend({
-                            url: '/record/reset', index: index, data: {tokens: tokens}
+                            url: '/record/reset',
+                            index: index,
+                            data: {tokens: tokens}
                         }, options || {}));
                     });
                 },

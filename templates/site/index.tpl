@@ -149,6 +149,9 @@
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="mysql" lay-tips="备份/还原数据库">
                 <i class="layui-icon iconfont icon-sql"></i>
             </button>
+            <button class="layui-btn layui-btn-sm layui-btn-warm" lay-text="nginx配置" lay-href="/file?path={{.NginxConfPath}}/vhost" lay-tips="查看nginx配置">
+                <i class="layui-icon iconfont icon-nginx"></i>
+            </button>
             <button class="layui-btn layui-btn-sm" lay-event="vhosts" lay-tips="获取全部主机列表">
                 <i class="layui-icon layui-icon-fonts-code"></i>
             </button>

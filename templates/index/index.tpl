@@ -181,26 +181,6 @@
                                     <cite>网站列表</cite>
                                 </a>
                             </dd>
-                            <dd data-name="seo">
-                                <a href="javascript:" lay-tips="SEO设置" lay-direction="2">
-                                    <i class="iconfont icon-seo-1"></i>
-                                    <cite>SEO</cite>
-                                </a>
-                                <dl class="layui-nav-child">
-                                    <dd data-name="site-baidu">
-                                        <a lay-href="/file?path={{.rankDir}}" lay-tips="下载关键词" lay-direction="2">
-                                            <i class="iconfont icon-download"></i>
-                                            <cite>关键词</cite>
-                                        </a>
-                                    </dd>
-                                    <dd data-name="site-rank">
-                                        <a lay-href="/rank" lay-tips="关键词排名" lay-direction="2">
-                                            <i class="iconfont icon-sort"></i>
-                                            <cite>排名</cite>
-                                        </a>
-                                    </dd>
-                                </dl>
-                            </dd>
                             <dd data-name="modify-hosts">
                                 <a lay-href="/file/editor?path=/etc/hosts" lay-tips="修改Hosts" lay-direction="2">
                                     <i class="iconfont icon-host"></i>

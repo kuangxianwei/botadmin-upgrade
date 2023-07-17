@@ -68,9 +68,9 @@
                     <label class="layui-form-label">结果<i class="layui-icon layui-icon-down"></i></label>
                     <label class="layui-form-label" id="collect-status" style="min-width: 100px">状态:
                         <strong style="color: red" title="0">未运行</strong></label>
-                    <label class="layui-form-label" style="color:#22849b;cursor:pointer" data-event="copy-keywords" lay-tips="复制关键词">
+                    <label class="layui-form-label" style="color:#22849b;cursor:pointer" data-event="copyKeywords" lay-tips="复制关键词">
                         <i class="layui-icon iconfont icon-copy"></i>关键词</label>
-                    <label class="layui-form-label" style="color:red;cursor: pointer" data-event="reset-record" lay-tips="清空记录">
+                    <label class="layui-form-label" style="color:red;cursor: pointer" data-event="resetRecord" lay-tips="清空记录">
                         <i class="layui-icon layui-icon-delete"></i>记录</label>
                     <label class="layui-form-label" style="cursor:pointer" data-event="log" lay-tips="查看日志">
                         <i class="layui-icon layui-icon-log"></i>日志</label>
@@ -106,16 +106,23 @@
                 url: url,
                 data: obj.field,
                 done: function () {
-                    main.ws.log("tags.0");
-                    return false;
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
                 }
             });
         });
         form.on('submit(submit-stop)', function () {
-            main.request({url: url + '/stop'});
+            main.request({
+                url: url + '/stop', done: function () {
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                }
+            });
         });
         main.ws.display({
-            name: 'tags_collect.0',
+            name: 'tags_collect',
             displaySelector: '#collect-display',
             statusSelector: '#collect-status'
         }, function (status) {
@@ -130,22 +137,21 @@
             }
         });
         let active = {
-            "reset-record": function () {
-                main.reset.log('tags_collect', [0], {
+            resetRecord: function () {
+                main.reset.log('tags_collect', {
                     done: function () {
                         $('#collect-display').val('');
                     }
                 })
             },
-            "copy-keywords": function () {
+            copyKeywords: function () {
                 let val = $('#collect-display').val(), values = val.split("\n"), result = [],
-                    reg = /(?:入库成功|seed)=.*?$/;
+                    reg = /入库成功:\s*(?<keyword>.*?)$/;
                 for (let i = 0; i < values.length; i++) {
                     let rs = reg.exec(values[i]);
                     if (rs) {
-                        let keyword = rs[1].trim();
-                        if (result.indexOf(keyword) === -1) {
-                            result.push(keyword);
+                        if (result.indexOf(rs.groups.keyword) === -1) {
+                            result.push(rs.groups.keyword);
                         }
                     }
                 }
@@ -155,7 +161,7 @@
                 }
                 main.copy(result.join("\n"));
             },
-            "log": function () {
+            log: function () {
                 main.ws.log("tags.0");
             }
         };

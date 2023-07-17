@@ -113,12 +113,6 @@
                     </div>
                     <div class="layui-form-item layui-row">
                         <div class="layui-col-md5">
-                            <label for="rank_spec" class="layui-form-label">定时排名:</label>
-                            <div class="layui-input-block" lay-tips="双击修改定时任务">
-                                <input type="text" autocomplete="off" name="rank_spec" id="rank_spec" value="{{.base.RankSpec}}" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-col-md5">
                             <label for="reboot_spec" class="layui-form-label">定时重启:</label>
                             <div class="layui-input-block">
                                 <input type="text" autocomplete="off" name="reboot_spec" id="reboot_spec" value="{{.base.RebootSpec}}"
