@@ -30,17 +30,13 @@
                 <li class="layui-nav-item" lay-unselect>
                     <a data-event="log" lay-text="全局日志">
                         <i class="layui-icon layui-icon-log"></i>
-                        {{if .changed -}}
-                            <span class="layui-badge-dot"></span>
-                        {{end -}}
+                        <span id="logDot" class="layui-badge-dot layui-hide"></span>
                     </a>
                 </li>
                 <li class="layui-nav-item" lay-unselect>
-                    <a lay-href="/record" layadmin-event="message" lay-text="消息中心">
+                    <a lay-href="/record" lay-text="消息中心">
                         <i class="layui-icon layui-icon-notice"></i>
-                        {{if .latest -}}
-                            <span class="layui-badge-dot"></span>
-                        {{end -}}
+                        <span id="latest" class="layui-badge-dot layui-hide"></span>
                     </a>
                 </li>
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>
@@ -181,6 +177,12 @@
                                     <cite>网站列表</cite>
                                 </a>
                             </dd>
+                            <dd data-name="links">
+                                <a lay-href="/links" lay-tips="蜘蛛池" lay-direction="2">
+                                    <i class="iconfont icon-list"></i>
+                                    <cite>蜘蛛池</cite>
+                                </a>
+                            </dd>
                             <dd data-name="modify-hosts">
                                 <a lay-href="/file/editor?path=/etc/hosts" lay-tips="修改Hosts" lay-direction="2">
                                     <i class="iconfont icon-host"></i>
@@ -317,7 +319,7 @@
                     <li data-name="ad" class="layui-nav-item">
                         <a href="javascript:" lay-tips="广告推送" lay-direction="2">
                             <i class="layui-icon iconfont icon-ad-big"></i>
-                            <cite>广告</cite>
+                            <cite>广告推广</cite>
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="twitter">
@@ -326,10 +328,16 @@
                                     <cite>推特</cite>
                                 </a>
                                 <dl class="layui-nav-child">
-                                    <dd data-name="twitter-execute">
+                                    <dd data-name="twitter-tweet">
                                         <a lay-href="/twitter" lay-tips="发推特广告" lay-direction="2">
                                             <i class="iconfont icon-list-view"></i>
                                             <cite>发推列表</cite>
+                                        </a>
+                                    </dd>
+                                    <dd data-name="twitter-interaction">
+                                        <a lay-href="/twitter/interaction" lay-tips="推特互动" lay-direction="2">
+                                            <i class="iconfont icon-list-view"></i>
+                                            <cite>互动列表</cite>
                                         </a>
                                     </dd>
                                     <dd data-name="twitter-user">
@@ -581,21 +589,31 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let active = {
-            webssh: function () {
-                layui.main.webssh();
+        let logDotElem = $('#logDot'),
+            latestElem = $('#latest'),
+            getStatus = function () {
+                $.get('/status', function (res) {
+                    res['changed'] ? logDotElem.removeClass('layui-hide') : logDotElem.addClass('layui-hide');
+                    res['latest'] ? latestElem.removeClass('layui-hide') : latestElem.addClass('layui-hide');
+                });
             },
-            logout: function () {
-                layui.main.logout();
-            },
-            log: function () {
-                $(this).find('span.layui-badge-dot').hide();
-                layui.main.ws.log('record.global');
-            }
-        };
+            active = {
+                webssh: function () {
+                    layui.main.webssh();
+                },
+                logout: function () {
+                    layui.main.logout();
+                },
+                log: function () {
+                    $(this).find('span.layui-badge-dot').hide();
+                    layui.main.ws.log('record.global');
+                }
+            };
         $('[data-event]').off('click').on('click', function () {
             let $this = $(this), event = $this.data("event");
             active[event] && active[event].call($this);
         });
+        getStatus();
+        setInterval(getStatus, 10000)
     });
 </script>

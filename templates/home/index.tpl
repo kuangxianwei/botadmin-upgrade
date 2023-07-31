@@ -39,7 +39,7 @@
                 <span class="layui-badge layui-bg-orange layuiadmin-badge">Free</span>
             </div>
             <div class="layui-card-body layuiadmin-card-list">
-                <p class="layuiadmin-big-font">{{.obj.Mem.Free}} MB</p>
+                <p id="free" class="layuiadmin-big-font"></p>
             </div>
         </div>
     </div>
@@ -257,10 +257,6 @@
                             <textarea name="address" autocomplete="off" class="layui-textarea" rows="5">{{join .obj.Ips "\n"}}</textarea>
                         </td>
                     </tr>
-                    <tr>
-                        <td>内存使用：</td>
-                        <td>{{.obj.Mem.Info}}</td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -268,9 +264,44 @@
     </div>
     <div class="layui-col-md6">
         <div class="layui-card">
-            <div class="layui-card-header">最新资讯</div>
+            <div class="layui-card-header" id="total"></div>
             <div class="layui-card-body">
-                <iframe id="iframeSRC" src="" style="border:0" height="440px" width="100%"></iframe>
+                <div class="layuiadmin-card-list">
+                    <span></span>
+                    <div class="layui-progress layui-progress-big" lay-filter="free-progress">
+                        <div class="layui-progress-bar" lay-percent="0%"></div>
+                    </div>
+                </div>
+                <div class="layuiadmin-card-list">
+                    <span></span>
+                    <div class="layui-progress layui-progress-big" lay-filter="active-progress">
+                        <div class="layui-progress-bar layui-bg-cyan" lay-percent="0%"></div>
+                    </div>
+                </div>
+                <div class="layuiadmin-card-list">
+                    <span></span>
+                    <div class="layui-progress layui-progress-big" lay-filter="inactive-progress">
+                        <div class="layui-progress-bar layui-bg-orange" lay-percent="0%"></div>
+                    </div>
+                </div>
+                <div class="layuiadmin-card-list">
+                    <span></span>
+                    <div class="layui-progress layui-progress-big" lay-filter="used-progress">
+                        <div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+                    </div>
+                </div>
+                <div class="layuiadmin-card-list">
+                    <span></span>
+                    <div class="layui-progress layui-progress-big" lay-filter="available-progress">
+                        <div class="layui-progress-bar" lay-percent="0%"></div>
+                    </div>
+                </div>
+                <div class="layuiadmin-card-list">
+                    <span></span>
+                    <div class="layui-progress layui-progress-big" lay-filter="wired-progress">
+                        <div class="layui-progress-bar layui-bg-cyan" lay-percent="0%"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -288,7 +319,7 @@
 </script>
 <script>
     layui.use(['index', 'console', 'main'], function () {
-        let main = layui.main;
+        let main = layui.main, element = layui.element;
         {{if .reminded -}}
         main.display({
             type: 1,
@@ -330,5 +361,26 @@
             active[event] && active[event].call($this);
         });
         main.checkLNMP();
+        element.render('progress');
+        let progress = function (field, name, text) {
+            element.progress(name + '-progress', field.percent);
+            $('[lay-filter=' + name + '-progress]>.layui-progress-bar').html('<span class="layui-progress-text">' + field.percent + '</span>').parent().parent().find('>span').text(text + ': ' + field.value)
+        };
+        let getMemory = function () {
+            $.get(url + '/memory', function (res) {
+                if (res) {
+                    $('#free').text(res.free.value);
+                    $('#total').text('总内存: ' + res.total.value);
+                    progress(res['free'], 'free', '空闲内存');
+                    progress(res['used'], 'used', '已用内存');
+                    progress(res['active'], 'active', '活动内存');
+                    progress(res['inactive'], 'inactive', '非活动内存');
+                    progress(res['available'], 'available', '可申请内存');
+                    progress(res['wired'], 'wired', '有线内存');
+                }
+            })
+        };
+        getMemory();
+        setInterval(getMemory, 5000);
     });
 </script>

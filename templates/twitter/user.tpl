@@ -140,7 +140,8 @@
                 {field: 'alias', title: '网名', event: 'copy'},
                 {field: 'description', title: '简介', hide: true},
                 {field: 'token', title: 'Token', event: 'copy'},
-                {field: 'twitter_id', title: '规则ID', width: 80, align: 'center', hide: true},
+                {field: 'twitter_id', title: '推文ID', width: 80, align: 'center', hide: true},
+                {field: 'interaction_id', title: '互动ID', width: 80, align: 'center', hide: true},
                 {field: 'status', title: '状态', width: 120},
                 {field: 'note', title: '备注', width: 120},
                 {

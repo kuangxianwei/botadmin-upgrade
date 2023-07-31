@@ -646,6 +646,19 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             });
         }
 
+        // 点击选择框
+        switcher(dataHandler) {
+            let $this = $(this), enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
+            main.request({
+                url: url + "/modify",
+                data: dataHandler(enabled),
+                error: function () {
+                    $this.find('input[type=checkbox]').prop('checked', !enabled);
+                    form.render('checkbox');
+                }
+            });
+        };
+
         get(url, data, callback) {
             if (this.isFunction(data)) {
                 callback = data;
@@ -906,28 +919,28 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         slider() {
             let othis = this;
             $.each(arguments, function (i, v) {
-                let obj = othis.tidyObj(v);
-                if (typeof obj.value === 'undefined') {
-                    let val = $(obj.elem).siblings('input[name]').first().val() || '';
-                    if (obj.range) {
-                        obj.value = [];
+                let field = othis.tidyObj(v), elem = $(field.elem);
+                if (typeof field.value === 'undefined') {
+                    let val = elem.siblings('input[name]').first().val() || '';
+                    if (field.range) {
+                        field.value = [];
                         $.each(val.split('-'), function (index, value) {
-                            obj.value[index] = parseInt(value) || 0;
+                            field.value[index] = parseInt(value) || 0;
                         });
                     } else {
-                        obj.value = parseInt(val) || 0;
+                        field.value = parseInt(val) || 0;
                     }
                 }
-                if (typeof obj.change !== 'function') {
-                    obj.change = function (value) {
-                        if (obj.range) {
-                            $(obj.elem).siblings('input[name]').first().val(value[0] + '-' + value[1]);
+                if (!othis.isFunction(field.change)) {
+                    field.change = function (value) {
+                        if (field.range) {
+                            elem.siblings('input[name]').first().val(value[0] + '-' + value[1]);
                         } else {
-                            $(obj.elem).siblings('input[name]').first().val(value);
+                            elem.siblings('input[name]').first().val(value);
                         }
                     }
                 }
-                slider.render($.extend({value: 0, min: 0, max: 10, input: true}, obj));
+                slider.render($.extend({value: 0, min: 0, max: 10, input: true}, field));
             });
         }
 
@@ -1313,6 +1326,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 });
             }
         }
+
     }
 
     let main = new Main();
