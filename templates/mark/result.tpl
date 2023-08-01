@@ -92,15 +92,8 @@
             {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             used: function (obj) {
-                let $this = $(this);
-                let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
-                main.request({
-                    url: url + "/modify",
-                    data: {id: obj.data.id, used: enabled, cols: 'used'},
-                    error: function () {
-                        $this.find('input[type=checkbox]').prop('checked', !enabled);
-                        form.render('checkbox');
-                    }
+                main.switcher($(this), function (enabled) {
+                    return {id: obj.data.id, used: enabled, cols: 'used'}
                 });
             },
             modify: function (obj) {

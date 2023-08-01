@@ -50,12 +50,14 @@
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="disable">
+                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="enabled">
                                 关闭任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="enabled">开启任务</button>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="enabled" data-value="true">
+                                开启任务
+                            </button>
                         </dd>
                     </dl>
                 </li>
@@ -179,25 +181,6 @@
                     }
                 });
             },
-            enabled: function (obj, ids) {
-                if (main.isArray(ids)) {
-                    return main.request({
-                        url: url + "/modify",
-                        data: {ids: ids.join(), enabled: true, cols: 'enabled'},
-                        done: 'table-list',
-                    });
-                }
-                let $this = $(this);
-                let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
-                main.request({
-                    url: url + "/modify",
-                    data: {id: obj.data.id, enabled: enabled, cols: 'enabled'},
-                    error: function () {
-                        $this.find('input[type=checkbox]').prop('checked', !enabled);
-                        form.render('checkbox');
-                    }
-                });
-            },
             is_global: function (obj, ids) {
                 if (main.isArray(ids)) {
                     return main.request({
@@ -206,25 +189,9 @@
                         done: 'table-list',
                     });
                 }
-                let $this = $(this);
-                let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
-                main.request({
-                    url: url + "/modify",
-                    data: {id: obj.data.id, is_global: enabled, cols: 'is_global'},
-                    error: function () {
-                        $this.find('input[type=checkbox]').prop('checked', !enabled);
-                        form.render('checkbox');
-                    }
+                main.switcher($(this), function (enabled) {
+                    return {id: obj.data.id, is_global: enabled, cols: 'is_global'}
                 });
-            },
-            disable: function (obj, ids) {
-                if (main.isArray(ids)) {
-                    return main.request({
-                        url: url + "/modify",
-                        data: {ids: ids.join(), enabled: false, cols: 'enabled'},
-                        done: 'table-list',
-                    });
-                }
             },
             add: function () {
                 main.get(url + '/add', function (html) {

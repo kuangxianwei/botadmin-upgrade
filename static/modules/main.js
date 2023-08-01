@@ -514,8 +514,8 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     if (searchCommit.length === 0) {
                         return false;
                     }
-                    if (main.isObject(filter)) options = filter;
-                    if (!main.isString(filter)) filter = 'table-list';
+                    if (othis.isObject(filter)) options = filter;
+                    if (!othis.isString(filter)) filter = 'table-list';
                     form.on('submit(search)', function (data) {
                         let cols = [];
                         $.each(data.field, function (k, v) {
@@ -647,13 +647,13 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         }
 
         // 点击选择框
-        switcher(dataHandler) {
-            let $this = $(this), enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
-            main.request({
+        switcher(dom, dataHandler) {
+            let enabled = !!dom.find('div.layui-unselect.layui-form-onswitch').size();
+            this.request({
                 url: url + "/modify",
                 data: dataHandler(enabled),
                 error: function () {
-                    $this.find('input[type=checkbox]').prop('checked', !enabled);
+                    dom.find('input[type=checkbox]').prop('checked', !enabled);
                     form.render('checkbox');
                 }
             });
@@ -686,6 +686,28 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             }
             if (!othis.isString(filter)) filter = 'table-list';
             active = $.extend({
+                enabled: function (obj, ids) {
+                    if (othis.isArray(ids)) {
+                        if (ids.length === 0) {
+                            layer.msg("最少需要选中一条！", {icon: 2});
+                            return false;
+                        }
+                        return othis.request({
+                            url: url + "/modify",
+                            data: {ids: ids.join(), enabled: $(this).attr('data-value') === 'true', cols: 'enabled'},
+                            done: 'table-list',
+                        });
+                    }
+                    othis.switcher($(this), function (enabled) {
+                        if (obj.data.spec) return {
+                            id: obj.data.id,
+                            spec: obj.data.spec,
+                            enabled: enabled,
+                            cols: 'enabled,spec'
+                        };
+                        return {id: obj.data.id, enabled: enabled, cols: 'enabled'}
+                    });
+                },
                 del: function (obj, ids) {
                     if (othis.isArray(obj.data)) {
                         if (obj.data.length === 0) {
@@ -717,7 +739,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 },
                 truncate: function () {
                     layer.confirm('清空全部数据不可恢复，确定清空？', function (index) {
-                        main.request({
+                        othis.request({
                             url: url + '/truncate', index: index, done: filter,
                         });
                     });
@@ -726,8 +748,8 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     othis.crontab($(this).attr('data-crontab'));
                 },
                 copy: function (obj, ids) {
-                    if (!main.isArray(ids)) {
-                        main.copy(obj.data[$(this).data('field')]);
+                    if (!othis.isArray(ids)) {
+                        othis.copy(obj.data[$(this).data('field')]);
                     }
                 },
             }, active || {});
@@ -1306,10 +1328,10 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
 
         displayTheme(tplName) {
             tplName = tplName || $('#site select[name=tpl_name]').val() || $('select[name=tpl_name]').val();
-            let system = $('#site select[name=system]').val() || $('select[name=system]').val();
+            let othis = this, system = $('#site select[name=system]').val() || $('select[name=system]').val();
             // 渲染模板图片
             if (tplName && system) {
-                let loading = main.loading();
+                let loading = this.loading();
                 $.get('/site/theme', {system: system, tpl_name: tplName}).always(function () {
                     loading.close();
                 }).done(function (res) {
@@ -1321,26 +1343,137 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                             title: res.data['intro'],
                         }));
                     } else {
-                        main.error(res.msg);
+                        othis.error(res.msg);
                     }
                 });
             }
         }
 
+// 信息提示框
+        msg(msg, options) {
+            this.display($.extend({
+                type: 0, area: "auto", content: msg, success: function (dom) {
+                    dom.find("textarea").css("border-radius", "10px");
+                }
+            }, options || {}));
+        };
+
+        newWS() {
+            return new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws');
+        };
+
+        // 定时任务列表
+        crontab(token, options) {
+            this.open($.extend({
+                type: 2,
+                title: false,
+                btn: false,
+                area: ['800px', '600px'],
+                maxmin: false,
+                content: '/crontab?search=' + (token ? token : ''),
+            }, options || {}));
+        };
+
+        // 定时任务规则
+        cron() {
+            let othis = this;
+            layui.link('/static/style/cron.css');
+            $.each(arguments, function (i, selector) {
+                if (selector) {
+                    // 绑定聚焦事件
+                    $(selector).focus(function () {
+                        $(this).off('dblclick').on('dblclick', function () {
+                            let cron = new Cron(selector);
+                            othis.display({
+                                area: ['560px', '430px'],
+                                btn: '确定',
+                                fixed: true,
+                                content: cron.getHTML(),
+                                success: function (dom) {
+                                    form.render();
+                                    layui.element.render();
+                                    dom.find('input').focus(function () {
+                                        $(this).siblings('input[type=radio]').prop('checked', true);
+                                        form.render('radio');
+                                    });
+                                    dom.find('.layui-form-checkbox').on('click', function () {
+                                        $(this).parent().find('input[type=radio]').prop('checked', true);
+                                        form.render('radio');
+                                    });
+                                    return true;
+                                },
+                                yes: function (index, dom) {
+                                    if (cron.done(dom)) {
+                                        layer.close(index)
+                                    }
+                                }
+                            });
+                        });
+                    });
+                }
+            });
+        };
+
+        logout() {
+            layui.view.exit();
+            window.location.href = '/auth/logout?next=' + window.location.pathname;
+        };
+
+        // 暂停函数
+        sleep(d) {
+            for (let t = Date.now(); Date.now() - t <= d;) {
+            }
+        };
+
+        checkLNMP() {
+            if (localStorage.getItem("checkLNMP") === '1') {
+                return
+            }
+            let othis = this;
+            $.get("/plugin/lnmp", {}, function (html) {
+                if (html) {
+                    if (html === 'lnmp.0') {
+                        othis.ws.log("lnmp.0");
+                        return false;
+                    }
+                    othis.popup({
+                        url: "/plugin/lnmp",
+                        title: "安装web服务器",
+                        content: html,
+                        area: ['560px', 'auto'],
+                        btn: ['提交', '取消', '不再提示'],
+                        btn3: function (index) {
+                            layer.confirm('以后不会再弹出提示框,清除浏览器缓存会再次弹出', function (index2) {
+                                localStorage.setItem('checkLNMP', '1');
+                                layer.close(index);
+                                layer.close(index2);
+                            });
+                            return false;
+                        },
+                        tips: function () {
+                            othis.ws.log("lnmp.0");
+                        }
+                    });
+                }
+            });
+        };
+
+        webssh(options) {
+            options = $.extend({id: 0, stdin: ""}, options);
+            layer.open({
+                type: 2,
+                shade: 0.8,
+                maxmin: true,
+                title: "连接ssh 执行cmd命令行",
+                area: ["800px", "500px"],
+                content: ["/webssh/terminal?id=" + options.id + "&stdin=" + options.stdin, 'no'],
+            });
+        };
+
     }
 
     let main = new Main();
     main.init();
-
-
-// 信息提示框
-    main.msg = function (msg, options) {
-        main.display($.extend({
-            type: 0, area: "auto", content: msg, success: function (dom) {
-                dom.find("textarea").css("border-radius", "10px");
-            }
-        }, options || {}));
-    };
 // 渲染
     main.render = {
         fill: function (options) {
@@ -1381,20 +1514,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             });
             main.displayTheme();
         },
-    };
-    main.newWS = function () {
-        return new WebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/ws');
-    };
-// 定时任务列表
-    main.crontab = function (token, options) {
-        main.open($.extend({
-            type: 2,
-            title: false,
-            btn: false,
-            area: ['800px', '600px'],
-            maxmin: false,
-            content: '/crontab?search=' + (token ? token : ''),
-        }, options || {}));
     };
 // websocket
     main.ws = {
@@ -1613,44 +1732,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             };
         }
     };
-// 定时任务规则
-    main.cron = function () {
-        layui.link('/static/style/cron.css');
-        $.each(arguments, function (i, selector) {
-            if (selector) {
-                // 绑定聚焦事件
-                $(selector).focus(function () {
-                    $(this).off('dblclick').on('dblclick', function () {
-                        let cron = new Cron(selector);
-                        main.display({
-                            area: ['560px', '430px'],
-                            btn: '确定',
-                            fixed: true,
-                            content: cron.getHTML(),
-                            success: function (dom) {
-                                form.render();
-                                layui.element.render();
-                                dom.find('input').focus(function () {
-                                    $(this).siblings('input[type=radio]').prop('checked', true);
-                                    form.render('radio');
-                                });
-                                dom.find('.layui-form-checkbox').on('click', function () {
-                                    $(this).parent().find('input[type=radio]').prop('checked', true);
-                                    form.render('radio');
-                                });
-                                return true;
-                            },
-                            yes: function (index, dom) {
-                                if (cron.done(dom)) {
-                                    layer.close(index)
-                                }
-                            }
-                        });
-                    });
-                });
-            }
-        });
-    };
     main.reboot = {
         app: function () {
             layer.confirm("确定重启App?", {icon: 3, title: false}, function (index) {
@@ -1679,57 +1760,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 });
             });
         },
-    };
-    main.logout = function () {
-        layui.view.exit();
-        window.location.href = '/auth/logout?next=' + window.location.pathname;
-    };
-// 暂停函数
-    main.sleep = function (d) {
-        for (let t = Date.now(); Date.now() - t <= d;) {
-        }
-    };
-    main.checkLNMP = function () {
-        if (localStorage.getItem("checkLNMP") === '1') {
-            return
-        }
-        $.get("/plugin/lnmp", {}, function (html) {
-            if (html) {
-                if (html === 'lnmp.0') {
-                    main.ws.log("lnmp.0");
-                    return false;
-                }
-                main.popup({
-                    url: "/plugin/lnmp",
-                    title: "安装web服务器",
-                    content: html,
-                    area: ['560px', 'auto'],
-                    btn: ['提交', '取消', '不再提示'],
-                    btn3: function (index) {
-                        layer.confirm('以后不会再弹出提示框,清除浏览器缓存会再次弹出', function (index2) {
-                            localStorage.setItem('checkLNMP', '1');
-                            layer.close(index);
-                            layer.close(index2);
-                        });
-                        return false;
-                    },
-                    tips: function () {
-                        main.ws.log("lnmp.0");
-                    }
-                });
-            }
-        });
-    };
-    main.webssh = function (options) {
-        options = $.extend({id: 0, stdin: ""}, options);
-        layer.open({
-            type: 2,
-            shade: 0.8,
-            maxmin: true,
-            title: "连接ssh 执行cmd命令行",
-            area: ["800px", "500px"],
-            content: ["/webssh/terminal?id=" + options.id + "&stdin=" + options.stdin, 'no'],
-        });
     };
     exports('main', main);
 });

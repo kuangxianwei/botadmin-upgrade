@@ -27,32 +27,9 @@
             <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="config">
                 <i class="layui-icon layui-icon-set"></i>
             </button>
-        </div>
-        <div class="layui-btn-group">
-            <ul class="layui-nav layui-bg-green botadmin-nav">
-                <li class="layui-nav-item">
-                    <a href="javascript:" lay-tips="操作用户信息" lay-direction="2">
-                        <i class="layui-icon layui-icon-user"></i>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="setProfile" lay-tips="设置用户信息">
-                                设置信息
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm" lay-event="getProfile" lay-tips="拉取用户信息">
-                                拉取信息
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="validProfile" lay-tips="拉取用户信息">
-                                检验账号
-                            </button>
-                        </dd>
-                    </dl>
-                </li>
-            </ul>
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="do" lay-tips="开始互动">
+                <i class="layui-icon layui-icon-play"></i>
+            </button>
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出配置列表">
@@ -63,16 +40,43 @@
             </button>
         </div>
         <div class="layui-btn-group">
+            <ul class="layui-nav layui-bg-green botadmin-nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:" lay-tips="定时发布推文任务" lay-direction="2">
+                        <i class="layui-icon iconfont icon-work"></i>
+                        <cite>任务</cite>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-crontab="interaction.">
+                                查看任务
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="enabled">
+                                关闭任务
+                            </button>
+                        </dd>
+                        <dd>
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="enabled" data-value="true">
+                                开启任务
+                            </button>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="del">删除</button>
             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate" lay-tips="清空所有的数据，不可恢复！">
                 清空
             </button>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
+            <button class="layui-btn layui-btn-sm" lay-event="log" data-value="interaction" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" data-value="interaction" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
             </button>
         </div>
@@ -80,13 +84,15 @@
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="do" lay-tips="开始互动">
+            <i class="layui-icon layui-icon-play"></i></button>
         <button class="layui-btn layui-btn-xs" lay-event="modify">
             <i class="layui-icon layui-icon-edit"></i>
         </button>
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
-        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
+        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" data-value="interaction" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
         </button>
     </div>
@@ -96,9 +102,11 @@
         <div class="layui-card-body">
             <fieldset class="layui-elem-field layui-form">
                 <legend>修改目标</legend>
-                <input type="checkbox" data-field="enabled" title="启用/禁用" lay-filter="field">
-                <input type="checkbox" data-field="alias" title="修改网名" lay-filter="field">
-                <input type="checkbox" data-field="description" title="修改简介" lay-filter="field">
+                <input type="checkbox" data-field="retweet" title="转发" lay-filter="field">
+                <input type="checkbox" data-field="reply" title="回复" lay-filter="field">
+                <input type="checkbox" data-field="like" title="点赞" lay-filter="field">
+                <input type="checkbox" data-field="share" title="分享" lay-filter="field">
+                <input type="checkbox" data-field="follow" title="关注" lay-filter="field">
             </fieldset>
             <fieldset class="layui-elem-field layui-form">
                 <legend>操作</legend>
@@ -183,33 +191,28 @@
                 }
             },
         }, {
-            enabled: function (obj) {
-                main.switcher.call(this, function (enabled) {
-                    return {id: obj.data.id, enabled: enabled, cols: 'enabled'}
-                });
-            },
             retweet: function (obj) {
-                main.switcher.call(this, function (enabled) {
+                main.switcher($(this), function (enabled) {
                     return {id: obj.data.id, retweet: enabled, cols: 'retweet'}
                 });
             },
             reply: function (obj) {
-                main.switcher.call(this, function (enabled) {
+                main.switcher($(this), function (enabled) {
                     return {id: obj.data.id, reply: enabled, cols: 'reply'}
                 });
             },
             like: function (obj) {
-                main.switcher.call(this, function (enabled) {
+                main.switcher($(this), function (enabled) {
                     return {id: obj.data.id, like: enabled, cols: 'like'}
                 });
             },
             share: function (obj) {
-                main.switcher.call(this, function (enabled) {
+                main.switcher($(this), function (enabled) {
                     return {id: obj.data.id, share: enabled, cols: 'share'}
                 });
             },
             follow: function (obj) {
-                main.switcher.call(this, function (enabled) {
+                main.switcher($(this), function (enabled) {
                     return {id: obj.data.id, follow: enabled, cols: 'follow'}
                 });
             },
@@ -245,98 +248,39 @@
                     area: ['500px', '580px'],
                     success: function (dom) {
                         dom.find('[name=ids]').val(ids.join());
-                        let form = layui.form, fieldElem = $("#field"), active = {
-                            enabled: function (show) {
+                        let form = layui.form, fieldElem = $("#field"),
+                            buildHTML = function (show, name, label) {
                                 if (show) {
-                                    fieldElem.append(`<div class="layui-form-item">
-                <label for="enabled" class="layui-form-label">启用:</label>
-                <div class="layui-input-inline">
-                    <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="启用|禁用" checked>
-                </div>
-            </div>`);
+                                    fieldElem.append('<div class="layui-form-item"><label for="' + name + '" class="layui-form-label">' + label + ':</label><div class="layui-input-inline"><input type="checkbox" name="' + name + '" id="' + name + '" lay-skin="switch" lay-text="启用|禁用" checked></div></div>');
                                     form.render('checkbox');
                                 } else {
-                                    fieldElem.find('input[name=enabled]').closest('.layui-form-item').remove();
+                                    fieldElem.find('input[name=' + name + ']').closest('.layui-form-item').remove();
                                 }
-                            },
-                            alias: function (show) {
-                                if (show) {
-                                    fieldElem.append(`<div class="layui-form-item">
-                <label for="alias" class="layui-form-label">网名:</label>
-                <div class="layui-input-block">
-                    <input type="text" name="alias" id="alias" class="layui-input" placeholder="随机字符串变量:&#123;&#123;random&#125;&#125;">
-                <div class="layui-form-mid layui-word-aux">随机字符串变量:&#123;&#123;random&#125;&#125;&#10;</div></div></div>`);
-                                    form.render('input');
-                                } else {
-                                    fieldElem.find('input[name=alias]').closest('.layui-form-item').remove();
-                                }
-                            },
-                            description: function (show) {
-                                if (show) {
-                                    fieldElem.append(`<div class="layui-form-item">
-                <label for="description" class="layui-form-label">简介:</label>
-                <div class="layui-input-block">
-                    <textarea class="layui-textarea" name="description" id="description" rows="3" placeholder="这是我的简介"></textarea>
-<div class="layui-form-mid layui-word-aux">随机字符串变量:&#123;&#123;random&#125;&#125;&#10;网名变量:&#123;&#123;alias&#125;&#125;</div></div></div>`);
-                                    form.render('input');
-                                } else {
-                                    fieldElem.find('input[name=description]').closest('.layui-form-item').remove();
-                                }
-                            },
-                        };
+                            };
                         form.on('checkbox(field)', function (obj) {
                             let $this = $(this), field = $this.data("field");
-                            active[field] && active[field].call($this, (obj.othis.attr('class').indexOf('layui-form-checked') !== -1));
+                            buildHTML(obj.othis.attr('class').indexOf('layui-form-checked') !== -1, field, $this.attr("title"));
                         });
                     },
                     url: url + '/modify',
                     done: 'table-list',
                 });
             },
-            setProfile: function (obj, ids) {
+            do: function (obj, ids) {
                 if (main.isArray(ids)) {
-                    return main.request({
-                        url: url,
-                        data: {ids: ids.join(','), action: 'set_profile'},
-                    });
-                }
-                main.request({
-                    url: url,
-                    data: {id: obj.data.id, action: 'set_profile'},
-                    done: function () {
-                        main.ws.log("twitter_user." + obj.data.id);
-                        return false
+                    if (ids.length === 0) {
+                        return layer.msg("未选择")
                     }
-                });
-            },
-            getProfile: function (obj, ids) {
-                if (main.isArray(ids)) {
                     return main.request({
                         url: url,
-                        data: {ids: ids.join(','), action: 'get_profile'},
+                        data: {ids: ids.join(), action: 'do'},
                     });
                 }
                 main.request({
                     url: url,
-                    data: {id: obj.data.id, action: 'get_profile'},
+                    data: {id: obj.data.id, action: 'do'},
                     done: function () {
-                        main.ws.log("twitter_user." + obj.data.id);
-                        return false
-                    }
-                });
-            },
-            validProfile: function (obj, ids) {
-                if (main.isArray(ids)) {
-                    return main.request({
-                        url: url,
-                        data: {ids: ids.join(','), action: 'valid_profile'},
-                    });
-                }
-                main.request({
-                    url: url,
-                    data: {id: obj.data.id, action: 'valid_profile'},
-                    done: function () {
-                        main.ws.log("twitter_user." + obj.data.id);
+                        main.ws.log("interaction." + obj.data.id);
                         return false
                     }
                 });

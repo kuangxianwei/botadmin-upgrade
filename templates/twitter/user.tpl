@@ -163,18 +163,6 @@
                 }
             },
         }, {
-            enabled: function (obj) {
-                let $this = $(this);
-                let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
-                main.request({
-                    url: url + "/modify",
-                    data: {id: obj.data.id, enabled: enabled, cols: 'enabled'},
-                    error: function () {
-                        $this.find('input[type=checkbox]').prop('checked', !enabled);
-                        form.render('checkbox');
-                    }
-                });
-            },
             add: function () {
                 main.get(url + '/add', function (html) {
                     main.popup({

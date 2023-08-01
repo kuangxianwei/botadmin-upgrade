@@ -28,8 +28,8 @@
             </button>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="enabled">开启</button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="disabled">关闭</button>
+            <button class="layui-btn layui-btn-sm" lay-event="enabled" data-value="true">开启</button>
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="enabled">关闭</button>
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
@@ -84,39 +84,8 @@
             },
             {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
-            enabled: function (obj, ids) {
-                if (main.isArray(ids)) {
-                    if (ids.length === 0) {
-                        return main.error('请选择数据');
-                    }
-                    main.request({
-                        url: url + '/switch',
-                        data: {ids: ids.join(), enabled: true},
-                        done: 'table-list'
-                    });
-                    return
-                }
-                let othis = $(this),
-                    enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
-                main.request({
-                    url: url + "/switch",
-                    data: {
-                        id: obj.data.id,
-                        enabled: enabled
-                    },
-                    error: function () {
-                        if (enabled) {
-                            othis.find('div.layui-unselect.layui-form-switch').removeClass('layui-form-onswitch');
-                        } else {
-                            othis.find('div.layui-unselect.layui-form-switch').addClass('layui-form-onswitch');
-                        }
-                    }
-                });
-            },
             modify: function (obj) {
-
                 main.get(url + '/modify', {id: obj.data.id}, function (html) {
-
                     main.popup({
                         title: '修改翻译配置',
                         url: url + '/modify',
@@ -135,16 +104,6 @@
                         content: html,
                         done: 'table-list',
                     });
-                });
-            },
-            disabled: function (obj, ids) {
-                if (ids.length === 0) {
-                    return main.error('请选择数据');
-                }
-                main.request({
-                    url: url + '/switch',
-                    data: {ids: ids.join(), enabled: false},
-                    done: 'table-list'
                 });
             },
         });

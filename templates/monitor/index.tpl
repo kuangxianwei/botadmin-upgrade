@@ -23,10 +23,10 @@
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="enabled">
+        <button class="layui-btn layui-btn-sm" lay-event="enabled" data-value="true">
             <i class="layui-icon layui-icon-email"></i>启用
         </button>
-        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="disabled">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="enabled">
             <i class="layui-icon layui-icon-email"></i>关闭
         </button>
     </div>

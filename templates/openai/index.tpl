@@ -56,10 +56,10 @@
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="enableCron" lay-tips="启用定时任务">
+        <button class="layui-btn layui-btn-sm" lay-event="enabled" data-value="true" lay-tips="启用定时任务">
             <i class="layui-icon layui-icon-play"></i>
         </button>
-        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="disableCron" lay-tips="关闭定时任务">
+        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="enabled" lay-tips="关闭定时任务">
             <i class="layui-icon iconfont icon-stop-circle"></i>
         </button>
         <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="crontab" data-crontab="openai." lay-tips="查看定时任务">
@@ -89,8 +89,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main,
-            table = layui.table,
-            form = layui.form;
+            table = layui.table;
         main.upload();
         main.table([[
             {type: 'checkbox', fixed: 'left'},
@@ -135,26 +134,6 @@
                     });
                 });
             },
-            enableCron: function (obj, ids) {
-                if (ids.length === 0) {
-                    return layer.msg('请选中数据');
-                }
-                main.request({
-                    url: url + '/modify',
-                    data: {ids: ids.join(), cols: 'enabled', enabled: true},
-                    done: 'table-list',
-                });
-            },
-            disableCron: function (obj, ids) {
-                if (ids.length === 0) {
-                    return layer.msg('请选中数据');
-                }
-                main.request({
-                    url: url + '/modify',
-                    data: {ids: ids.join(), cols: 'enabled', enabled: false},
-                    done: 'table-list',
-                });
-            },
             askRecorded: function () {
                 main.get('/openai/recorded', function (html) {
                     main.popup({
@@ -174,18 +153,6 @@
                         content: html,
                         done: 'table-list',
                     });
-                });
-            },
-            enabled: function (obj) {
-                let othis = this;
-                let enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
-                main.request({
-                    url: url + '/modify',
-                    data: {id: obj.data.id, enabled: enabled, cols: 'enabled'},
-                    error: function () {
-                        othis.find('input[type=checkbox]').prop("checked", !enabled);
-                        form.render('checkbox');
-                    }
                 });
             },
         });

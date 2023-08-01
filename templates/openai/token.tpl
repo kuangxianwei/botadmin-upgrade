@@ -123,18 +123,6 @@
             },
             {title: '操作', width: 100, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
-            enabled: function (obj) {
-                let othis = this;
-                let enabled = !!othis.find('div.layui-unselect.layui-form-onswitch').size();
-                main.request({
-                    url: url + '/modify',
-                    data: {id: obj.data.id, enabled: enabled, cols: 'enabled'},
-                    error: function () {
-                        othis.find('input[type=checkbox]').prop("checked", !enabled);
-                        form.render('checkbox');
-                    }
-                });
-            },
             add: function () {
                 main.popup({
                     title: '添加Token',

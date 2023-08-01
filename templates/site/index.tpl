@@ -446,16 +446,8 @@
             },
         }, {
             cron_switch: function (obj) {
-                let $this = $(this);
-                let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size();
-                main.request({
-                    url: url + "/cron/switch",
-                    data: {id: obj.data.id, cron_enabled: enabled},
-                    error: function () {
-                        $this.find('input[type=checkbox]').prop("checked", !enabled);
-                        form.render('checkbox');
-                        return false;
-                    }
+                main.switcher($(this), function (enabled) {
+                    return {id: obj.data.id, cron_enabled: enabled, cols: 'cron_enabled'}
                 });
             },
             modify: function (obj) {
