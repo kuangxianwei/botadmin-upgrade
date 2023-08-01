@@ -299,6 +299,7 @@ layui.define(['main'], function (exports) {
                                 fields = JSON.parse(value);
                             } catch (e) {
                                 main.error('格式错误,正确为:<br/>[{"name":"栏目1"},{"name":"栏目2"}]');
+                                console.error(e);
                                 return false;
                             }
                             layer.close(index);
