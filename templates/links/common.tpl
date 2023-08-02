@@ -19,15 +19,20 @@
             </div>
         </div>
         <div class="layui-form-item layui-row">
-            <div class="layui-col-md10">
+            <div class="layui-col-md9">
                 <label class="layui-form-label" lay-tips="随机插入链接数量范围">链接范围:</label>
                 <div class="layui-input-block">
                     <div id="range" class="slider-block"></div>
                     <input type="hidden" name="range" value="{{print .obj.Range}}"/>
                 </div>
             </div>
-            <div class="layui-col-md2" lay-tips="外连库为空则会在留痕结果中抽取,一般不用设置外链库" style="padding-top:8px;padding-left:10px;float:right">
-                <a lay-href="/file?path=data/ad/links" lay-text="外链库" style="color: #0a93bf">管理外链库</a>
+            <div class="layui-col-md3" lay-tips="不选择则会在留痕结果中抽取,默认不选择" style="padding-left:10px;">
+                <div class="layui-input-inline">
+                    <input name="customize" type="checkbox" lay-filter="customize" title="定制链接" {{if .obj.Customize}} checked{{end}}/>
+                    <div class="layui-form-mid" style="float:right;">
+                        <a lay-href="/file?path=data/ad/links" class="layui-inline" lay-text="外链库" style="color:#0a93bf">定制外链库</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="layui-form-item">

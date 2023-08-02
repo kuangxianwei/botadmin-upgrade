@@ -115,6 +115,12 @@
                     }
                 },
                 {
+                    field: 'customize', title: '定制链接', width: 100, align: 'center',
+                    event: 'customize', templet: function (d) {
+                        return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d['customize'] ? ' checked' : '') + '>';
+                    }
+                },
+                {
                     field: 'enabled', title: '启用定时', width: 100, align: 'center',
                     event: 'enabled', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
@@ -179,6 +185,18 @@
                         main.ws.log("links." + obj.data.id);
                         return false
                     }
+                });
+            },
+            customize: function (obj, ids) {
+                if (main.isArray(ids)) {
+                    return main.request({
+                        url: url + "/modify",
+                        data: {ids: ids.join(), customize: true, cols: 'customize'},
+                        done: 'table-list',
+                    });
+                }
+                main.switcher($(this), function (enabled) {
+                    return {id: obj.data.id, customize: enabled, cols: 'customize'}
                 });
             },
             is_global: function (obj, ids) {
