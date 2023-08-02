@@ -361,6 +361,7 @@
             element = layui.element,
             main = layui.main,
             status = {{.status}};
+        main.upload();
         status = status || [];
         let tabActive = main.table({
             cols: [[
