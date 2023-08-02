@@ -42,10 +42,10 @@ if [ "${#upgradeDirname[@]}" -eq 1 ]; then
   cd "$upgradeDirname" || Error "进入解压目录失败" "$UpgradeTmp"
 fi
 # 如果前期设置的shell脚本存在
-if test -s upgrade.before; then
+if test -s before.sh; then
   echo "前期设置开始..."
-  chmod +x upgrade.before
-  . upgrade.before
+  chmod +x before.sh
+  . before.sh
   echo "前期设置结束"
 fi
 
@@ -57,10 +57,10 @@ fi
 chmod +x "${RootPath}/botadmin"
 
 # 如果存在则执行
-if test -s upgrade.after; then
+if test -s after.sh; then
   echo "后期设置开始..."
-  chmod +x upgrade.after
-  . upgrade.after
+  chmod +x after.sh
+  . after.sh
   echo "后期设置结束"
 fi
 

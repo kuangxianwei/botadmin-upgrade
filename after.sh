@@ -7,6 +7,6 @@ protoPath=$(pwd)
 # shellcheck disable=SC2154
 cd "${RootPath}" || exit 1
 # 逻辑代码开始
-rm -rf upgrade.before upgrade.after
+rm -rf before.sh after.sh
 # 逻辑代码结束
 cd "$protoPath" || exit 1
