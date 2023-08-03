@@ -23,15 +23,15 @@
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="enabled" data-value="true">
+        <button class="layui-btn layui-btn-sm" lay-event="switch" data-field="enabled" data-value="true">
             <i class="layui-icon layui-icon-email"></i>启用
         </button>
-        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="enabled">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="switch" data-field="enabled">
             <i class="layui-icon layui-icon-email"></i>关闭
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="crontab" data-crontab="monitor." lay-tips="查看运行中的任务">
+        <button class="layui-btn layui-btn-sm" lay-event="crontab" data-value="monitor." lay-tips="查看运行中的任务">
             <i class="layui-icon iconfont icon-work"></i>
         </button>
     </div>
@@ -68,15 +68,9 @@
                 title: '启用',
                 align: 'center',
                 width: 92,
-                unresize: true,
+                event: 'switch',
                 templet: function (d) {
-                    let msg = '<input id="' + d.id + '" type="checkbox" name="cron_enabled" lay-skin="switch" lay-text="是|否" lay-filter="switchCronEnabled"';
-                    if (d.cron_enabled) {
-                        msg += ' checked>';
-                    } else {
-                        msg += '>';
-                    }
-                    return msg;
+                    return '<input type="checkbox" lay-skin="switch" lay-text="是|否"' + (d.cron_enabled ? ' checked' : '') + '>';
                 }
             },
             {field: 'addr', title: '目标地址', sort: true},
@@ -116,40 +110,6 @@
                     });
                 });
             },
-            enabled: function (obj, ids) {
-                if (ids.length === 0) {
-                    return layer.msg('请选择数据');
-                }
-                main.request({
-                    url: url + '/switch',
-                    data: {ids: ids.join(), cron_enabled: true},
-                    done: 'table-list'
-                });
-            },
-            disabled: function (obj, ids) {
-                if (ids.length === 0) {
-                    return layer.msg('请选择数据');
-                }
-                main.request({
-                    url: url + '/switch',
-                    data: {ids: ids.join(), cron_enabled: false},
-                    done: 'table-list'
-                });
-            },
-        });
-        form.on('switch(switchCronEnabled)', function (obj) {
-            let id = this.id,
-                checked = this.checked;
-            if (!id) {
-                layer.tips('ID为空，无法操作！', obj.othis);
-                return false;
-            }
-            main.request({
-                url: url + '/switch',
-                data: {id: id, cron_enabled: checked},
-                done: 'table-list',
-            });
-            return false;
         });
     });
 </script>

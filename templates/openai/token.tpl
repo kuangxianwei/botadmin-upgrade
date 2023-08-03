@@ -104,7 +104,7 @@
             {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
             {
                 field: 'enabled', title: '启用', width: 100, align: 'center',
-                event: 'enabled', templet: function (d) {
+                event: 'switch', templet: function (d) {
                     return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
                 }
             },

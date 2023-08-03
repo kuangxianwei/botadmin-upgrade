@@ -197,7 +197,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-crontab="site.">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-value="site.">
                                 查看任务
                             </button>
                         </dd>
@@ -369,7 +369,7 @@
                 {field: 'id', title: 'ID', sort: true, width: 60, align: 'center', hide: true},
                 {
                     field: 'cron_enabled', title: '定时发布', width: 100, align: 'center',
-                    event: 'cron_switch', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|关闭"' + (d.cron_enabled ? ' checked' : '') + '>';
                     }
                 },
@@ -446,11 +446,6 @@
                 element.render();
             },
         }, {
-            cron_switch: function (obj) {
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, cron_enabled: enabled, cols: 'cron_enabled'}
-                });
-            },
             modify: function (obj) {
                 main.get(url + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({

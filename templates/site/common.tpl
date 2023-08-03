@@ -811,12 +811,11 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-form-item layui-hide">
-                <div class="layui-input-block">
-                    <input type="hidden" name="id" value="{{.obj.Id}}">
-                    <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
-                    <div class="layui-hide" data-class-names="{{json .class_names}}"></div>
-                </div>
+            <div class="layui-hide">
+                <input type="hidden" name="webroot_path" value="{{.obj.WebrootPath}}">
+                <input type="hidden" name="id" value="{{.obj.Id}}">
+                <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
+                <div class="layui-hide" data-class-names="{{json .class_names}}"></div>
             </div>
         </div>
     </div>

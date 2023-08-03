@@ -70,8 +70,7 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let form = layui.form,
-            main = layui.main;
+        let main = layui.main;
 
         //日志管理
         main.table([[
@@ -79,11 +78,11 @@
             {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
             {
                 field: 'used', title: '提取', width: 100, align: 'center',
-                event: 'used', templet: function (d) {
+                event: 'switch', templet: function (d) {
                     return '<input type="checkbox" lay-skin="switch" lay-text="已取|未取"' + (d.used ? ' checked' : '') + '>';
                 }
             },
-            {field: 'url', title: 'URL', sort: true},
+            {field: 'url', title: 'URL', event: 'copy', sort: true},
             {
                 field: 'updated', title: '时间', align: 'center', sort: true, width: 180, templet: function (d) {
                     return main.timestampFormat(d['updated']);
@@ -91,11 +90,6 @@
             },
             {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
-            used: function (obj) {
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, used: enabled, cols: 'used'}
-                });
-            },
             modify: function (obj) {
 
                 main.get(url + '/modify', {id: obj.data.id}, function (html) {

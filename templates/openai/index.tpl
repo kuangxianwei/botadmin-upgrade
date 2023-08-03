@@ -56,13 +56,13 @@
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="enabled" data-value="true" lay-tips="启用定时任务">
+        <button class="layui-btn layui-btn-sm" lay-event="switch" data-field="enabled" data-value="true" lay-tips="启用定时任务">
             <i class="layui-icon layui-icon-play"></i>
         </button>
-        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="enabled" lay-tips="关闭定时任务">
+        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="switch" data-field="enabled" lay-tips="关闭定时任务">
             <i class="layui-icon iconfont icon-stop-circle"></i>
         </button>
-        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="crontab" data-crontab="openai." lay-tips="查看定时任务">
+        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="crontab" data-value="openai." lay-tips="查看定时任务">
             <i class="layui-icon iconfont icon-view"></i>
         </button>
     </div>
@@ -96,7 +96,7 @@
             {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
             {
                 field: 'enabled', title: '定时任务', width: 100, align: 'center',
-                event: 'enabled', templet: function (d) {
+                event: 'switch', templet: function (d) {
                     return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
                 }
             },

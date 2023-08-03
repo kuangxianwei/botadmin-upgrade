@@ -32,15 +32,9 @@
                 {type: 'numbers', width: 80, title: 'ID', sort: true},
                 {field: 'name', title: '名称', sort: true},
                 {
-                    field: 'enabled', title: '开机启动', event: 'enabled', align: 'center', sort: true,
+                    field: 'enabled', title: '开机启动', align: 'center', sort: true,
                     templet: function (d) {
-                        let msg = '<input id="' + d.name + '" type="checkbox" lay-skin="switch" lay-text="开启|关闭" lay-filter="switchEnabled"';
-                        if (d.enabled) {
-                            msg += ' checked>';
-                        } else {
-                            msg += '>';
-                        }
-                        return msg;
+                        return '<input id="' + d.name + '" type="checkbox" lay-skin="switch" lay-text="开启|关闭" lay-filter="switchEnabled"' + (d.enabled ? ' checked>' : '>');
                     }
                 }
             ]], page: false

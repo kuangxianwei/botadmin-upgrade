@@ -100,17 +100,18 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-crontab="spider.">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-value="spider.">
                                 查看任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid layui-bg-red" lay-event="disableCron">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid layui-bg-red" lay-event="switch" data-field="cron_enabled">
                                 关闭任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="enableCron">启用任务
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="switch" data-field="cron_enabled" data-value="true">
+                                启用任务
                             </button>
                         </dd>
                     </dl>
@@ -157,16 +158,16 @@
     layui.extend({steps: 'steps'}).use(['index', 'main', 'steps'], function () {
         let form = layui.form,
             table = layui.table,
-            main = layui.main,
-            //渲染上传配置
-            importConfig = main.upload();
+            main = layui.main;
+        //渲染上传配置
+        main.upload();
         main.table({
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field: 'id', width: 80, title: 'ID'},
                 {
                     field: 'cron_enabled', title: '定时任务', width: 100, align: 'center',
-                    event: 'cron_switch', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" name="cron_switch" lay-skin="switch" lay-text="启用|关闭"' + (d.cron_enabled ? ' checked' : '') + '>';
                     }
                 },
@@ -194,11 +195,6 @@
                 layui.element.render();
             }
         }, {
-            cron_switch: function (obj) {
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, cron_enabled: enabled, cols: 'cron_enabled'}
-                });
-            },
             modify: function (obj) {
                 layui.steps({url: url + '/modify', data: {id: obj.data.id}});
             },
@@ -284,46 +280,6 @@
                         index: index
                     });
                 });
-            },
-            enableCron: function (obj, ids) {
-                main.request({
-                    url: url + '/modify',
-                    data: {ids: ids.join(), cron_enabled: true, cols: 'cron_enabled'},
-                    done: 'table-list'
-                });
-            },
-            disableCron: function (obj, ids) {
-                main.request({
-                    url: url + '/modify',
-                    data: {ids: ids.join(), cron_enabled: false, cols: 'cron_enabled'},
-                    done: 'table-list'
-                });
-            },
-            import: function () {
-                layer.open({
-                    type: 1,
-                    title: false,
-                    btn: ['导入', '取消'],
-                    shadeClose: true,
-                    scrollbar: false,
-                    shade: 0.8,
-                    fixed: false,
-                    maxmin: false,
-                    btnAlign: 'c',
-                    content: $('#import-form').html(),
-                    yes: function (index, dom) {
-                        dom.find('[lay-filter=submit-import]').click();
-                        layer.close(index);
-                    },
-                    success: function () {
-                        form.on('submit(submit-import)', function (obj) {
-                            importConfig.reload({data: obj.field});
-                            $('#upload').click();
-                            return false;
-                        });
-                    }
-                });
-                form.render();
             },
         });
         //监控选择site id

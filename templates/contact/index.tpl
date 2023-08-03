@@ -57,9 +57,10 @@
             {type: 'checkbox', fixed: 'left'},
             {field: 'id', title: 'ID', hide: true},
             {
-                field: 'pc_enabled', title: 'PC', align: 'center', width: 100, unresize: true, event: 'pc_enabled',
+                field: 'pc_enabled', title: 'PC', align: 'center', width: 100, unresize: true,
+                event: 'switch',
                 templet: function (d) {
-                    return '<input data-id="' + d.id + '" type="checkbox" lay-skin="switch" lay-text="启用|关闭" lay-filter="togglePcEnabled"' + (d['pc_enabled'] ? ' checked>' : '>');
+                    return '<input type="checkbox" lay-skin="switch" lay-text="启用|关闭"' + (d['pc_enabled'] ? ' checked>' : '>');
                 }
             },
             {
@@ -67,10 +68,9 @@
                 title: 'Mobile',
                 align: 'center',
                 width: 100,
-                unresize: true,
-                event: 'mobile_enabled',
+                event: 'switch',
                 templet: function (d) {
-                    return '<input data-id="' + d.id + '" type="checkbox" lay-skin="switch" lay-text="启用|关闭" lay-filter="toggleMobileEnabled"' + (d['mobile_enabled'] ? ' checked>' : '>');
+                    return '<input type="checkbox" lay-skin="switch" lay-text="启用|关闭"' + (d['mobile_enabled'] ? ' checked>' : '>');
                 }
             },
             {field: 'username', title: '用户名', hide: true},
@@ -240,7 +240,7 @@
                     main.popup({
                         title: '批量设置',
                         content: html,
-                        url: url + '/configure',
+                        url: url + '/modify',
                         done: 'table-list',
                         area: ['95%', '95%'],
                         yes: function (index, dom) {
@@ -252,36 +252,6 @@
                     });
                 });
             },
-        });
-        // 切换PC端
-        form.on('switch(togglePcEnabled)', function (obj) {
-            let id = $(this).attr('data-id'),
-                checked = this.checked;
-            if (!id) {
-                layer.tips('ID为空，无法操作！', obj.othis);
-                return false;
-            }
-            main.request({
-                url: url + '/configure',
-                data: {id: id, pc_enabled: checked, cols: 'pc_enabled'},
-                done: 'table-list',
-            });
-            return false;
-        });
-        // 切换移动端
-        form.on('switch(toggleMobileEnabled)', function (obj) {
-            let id = $(this).attr('data-id'),
-                checked = this.checked;
-            if (!id) {
-                layer.tips('ID为空，无法操作！', obj.othis);
-                return false;
-            }
-            main.request({
-                url: url + '/configure',
-                data: {id: id, mobile_enabled: checked, cols: 'mobile_enabled'},
-                done: 'table-list',
-            });
-            return false;
         });
     });
 </script>

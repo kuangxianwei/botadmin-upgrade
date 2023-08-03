@@ -8,8 +8,9 @@
                 </div>
             </div>
             <div class="layui-col-md4" style="text-align:center">
-                <input name="is_global" type="checkbox" lay-tips="默认不选，只在主页和栏目也添加链接" title="全局添加" {{if .obj.IsGlobal}} checked{{end}}/>
-                <input name="enabled" type="checkbox" title="启用定时" {{if .obj.Enabled}} checked{{end}}/>
+                <input name="global" type="checkbox" lay-tips="默认不选，只在主页和栏目也添加链接" title="全局" {{if .obj.Global}} checked{{end}}/>
+                <input name="enabled" type="checkbox" title="定时" {{if .obj.Enabled}} checked{{end}}/>
+                <input name="anchored" type="checkbox" title="锚链" {{if .obj.Anchored}} checked{{end}}/>
             </div>
             <div class="layui-col-md4">
                 <label for="spec" class="layui-form-label">定时规则:</label>

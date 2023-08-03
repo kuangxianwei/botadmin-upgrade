@@ -400,7 +400,7 @@
                                     data-tip="监控设置恢复到出厂设置?">
                                 <i class="layui-icon iconfont icon-reset"></i>默认
                             </button>
-                            <button class="layui-btn" data-crontab="monitor_service" lay-tips="查看定时监控服务状态">
+                            <button class="layui-btn" lay-event="crontab" data-value="monitor_service" lay-tips="查看定时监控服务状态">
                                 查看状态
                             </button>
                         </div>

@@ -88,7 +88,7 @@
         main.table([[
             {type: 'checkbox', fixed: 'left'},
             {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
-            {field: 'url', title: 'URL', sort: true},
+            {field: 'url', title: 'URL', event: 'copy', sort: true},
             {field: 'note', title: '备注', width: 180},
             {
                 field: 'updated', title: '时间', align: 'center', sort: true, width: 180, templet: function (d) {

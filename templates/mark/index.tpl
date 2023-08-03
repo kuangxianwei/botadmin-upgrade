@@ -71,7 +71,7 @@
         </button>
     </div>
     <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="crontab" data-crontab="mark." lay-tips="查看定时任务">
+        <button class="layui-btn layui-btn-sm" lay-event="crontab" data-value="mark." lay-tips="查看定时任务">
             <i class="layui-icon iconfont icon-work"></i>
         </button>
     </div>
@@ -105,7 +105,7 @@
             {field: 'name', title: '名称', width: 100, align: 'center'},
             {
                 field: 'enabled', title: '启用', width: 100, align: 'center',
-                event: 'enabled', templet: function (d) {
+                event: 'switch', templet: function (d) {
                     return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
                 }
             },
@@ -127,11 +127,6 @@
                         content: html,
                         done: 'table-list',
                     });
-                });
-            },
-            enabled: function (obj) {
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, enabled: enabled, spec: obj.data.spec, cols: 'spec,enabled'}
                 });
             },
             modify: function (obj) {

@@ -48,17 +48,17 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-crontab="interaction.">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-value="interaction.">
                                 查看任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="enabled">
+                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="switch" data-field="enabled">
                                 关闭任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="enabled" data-value="true">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="switch" data-field="enabled" data-value="true">
                                 开启任务
                             </button>
                         </dd>
@@ -133,37 +133,37 @@
                 {field: 'name', title: '名称', width: 150, event: 'copy', sort: true},
                 {
                     field: 'enabled', title: '定时', width: 100, align: 'center',
-                    event: 'enabled', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
                     }
                 },
                 {
                     field: 'retweet', title: '转推', width: 100, align: 'center',
-                    event: 'retweet', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d['retweet'] ? ' checked' : '') + '>';
                     }
                 },
                 {
                     field: 'reply', title: '回复', width: 100, align: 'center',
-                    event: 'reply', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.reply ? ' checked' : '') + '>';
                     }
                 },
                 {
                     field: 'like', title: '点赞', width: 100, align: 'center',
-                    event: 'like', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d['like'] ? ' checked' : '') + '>';
                     }
                 },
                 {
                     field: 'share', title: '分享', width: 100, align: 'center',
-                    event: 'share', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.share ? ' checked' : '') + '>';
                     }
                 },
                 {
                     field: 'follow', title: '关注', width: 100, align: 'center',
-                    event: 'follow', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.follow ? ' checked' : '') + '>';
                     }
                 },
@@ -191,31 +191,6 @@
                 }
             },
         }, {
-            retweet: function (obj) {
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, retweet: enabled, cols: 'retweet'}
-                });
-            },
-            reply: function (obj) {
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, reply: enabled, cols: 'reply'}
-                });
-            },
-            like: function (obj) {
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, like: enabled, cols: 'like'}
-                });
-            },
-            share: function (obj) {
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, share: enabled, cols: 'share'}
-                });
-            },
-            follow: function (obj) {
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, follow: enabled, cols: 'follow'}
-                });
-            },
             add: function () {
                 main.get(url + '/add', function (html) {
                     main.popup({

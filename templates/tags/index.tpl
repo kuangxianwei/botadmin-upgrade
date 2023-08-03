@@ -2,7 +2,7 @@
     <div class="layui-card-body">
         <div class="layui-form table-search" style="left: 400px">
             <div class="layui-inline">
-                <input type="search"  name="value" class="layui-input" placeholder="输入搜索...">
+                <input type="search" name="value" class="layui-input" placeholder="输入搜索...">
             </div>
             <button class="layui-btn layui-btn-sm" lay-submit lay-filter="search">
                 <i class="layui-icon layui-icon-search"></i>
@@ -51,7 +51,7 @@
             {type: 'checkbox', fixed: 'left'},
             {field: 'id', hide: true},
             {type: 'numbers', width: 80, title: 'ID', sort: true},
-            {field: 'value', title: 'Tag'},
+            {field: 'value', title: 'Tag', event: 'copy'},
             {
                 field: 'updated', title: '时间', width: 150, sort: true, templet: function (d) {
                     return main.timestampFormat(d['updated']);

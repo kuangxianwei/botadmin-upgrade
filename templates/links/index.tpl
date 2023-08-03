@@ -45,17 +45,17 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-crontab="links.">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-value="links.">
                                 查看任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="enabled">
+                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="switch" data-field="enabled">
                                 关闭任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="enabled" data-value="true">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="switch" data-field="enabled" data-value="true">
                                 开启任务
                             </button>
                         </dd>
@@ -109,20 +109,26 @@
                 {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
                 {field: 'name', title: '名称', width: 120, sort: true},
                 {
-                    field: 'is_global', title: '全局添加', width: 100, align: 'center',
-                    event: 'is_global', templet: function (d) {
-                        return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d['is_global'] ? ' checked' : '') + '>';
+                    field: 'anchored', title: '启用锚链', width: 100, align: 'center',
+                    event: 'switch', templet: function (d) {
+                        return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d['anchored'] ? ' checked' : '') + '>';
+                    }
+                },
+                {
+                    field: 'global', title: '全局添加', width: 100, align: 'center',
+                    event: 'switch', templet: function (d) {
+                        return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d['global'] ? ' checked' : '') + '>';
                     }
                 },
                 {
                     field: 'customize', title: '定制链接', width: 100, align: 'center',
-                    event: 'customize', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d['customize'] ? ' checked' : '') + '>';
                     }
                 },
                 {
                     field: 'enabled', title: '启用定时', width: 100, align: 'center',
-                    event: 'enabled', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
                     }
                 },
@@ -185,30 +191,6 @@
                         main.ws.log("links." + obj.data.id);
                         return false
                     }
-                });
-            },
-            customize: function (obj, ids) {
-                if (main.isArray(ids)) {
-                    return main.request({
-                        url: url + "/modify",
-                        data: {ids: ids.join(), customize: true, cols: 'customize'},
-                        done: 'table-list',
-                    });
-                }
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, customize: enabled, cols: 'customize'}
-                });
-            },
-            is_global: function (obj, ids) {
-                if (main.isArray(ids)) {
-                    return main.request({
-                        url: url + "/modify",
-                        data: {ids: ids.join(), is_global: true, cols: 'is_global'},
-                        done: 'table-list',
-                    });
-                }
-                main.switcher($(this), function (enabled) {
-                    return {id: obj.data.id, is_global: enabled, cols: 'is_global'}
                 });
             },
             add: function () {

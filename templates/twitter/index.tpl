@@ -93,17 +93,17 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-crontab="twitter.">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-value="twitter.">
                                 查看任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="enabled">
+                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="switch" data-field="enabled">
                                 关闭任务
                             </button>
                         </dd>
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="enabled" data-value="true">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="switch" data-field="enabled" data-value="true">
                                 开启任务
                             </button>
                         </dd>
@@ -155,13 +155,13 @@
                 {field: 'name', title: '名称', width: 120, sort: true},
                 {
                     field: 'enabled', title: '启用定时', width: 100, align: 'center',
-                    event: 'enabled', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
                     }
                 },
                 {
                     field: 'made', title: '合成推图', width: 100, align: 'center',
-                    event: 'made', templet: function (d) {
+                    event: 'switch', templet: function (d) {
                         return '<input type="checkbox" lay-skin="switch" lay-text="启用|禁用"' + (d['made'] ? ' checked' : '') + '>';
                     }
                 },
@@ -205,21 +205,6 @@
                         main.ws.log("twitter." + obj.data.id);
                         return false
                     }
-                });
-            },
-            made: function (obj, ids) {
-                if (main.isArray(ids)) {
-                    if (ids.length === 0) {
-                        return layer.msg("未选择")
-                    }
-                    return main.request({
-                        url: url + "/modify",
-                        data: {ids: ids.join(), made: $(this).attr('data-value') === 'true', cols: 'made'},
-                        done: 'table-list',
-                    });
-                }
-                main.switcher($(this),function (enabled) {
-                    return {id: obj.data.id, made: enabled, cols: 'made'}
                 });
             },
             add: function () {

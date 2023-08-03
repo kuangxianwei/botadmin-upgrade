@@ -28,8 +28,10 @@
             </button>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="enabled" data-value="true">开启</button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="enabled">关闭</button>
+            <button class="layui-btn layui-btn-sm" lay-event="switch" data-field="enabled" data-value="true">开启
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="switch" data-field="enabled">关闭
+            </button>
         </div>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
@@ -68,7 +70,7 @@
             {field: 'id', title: 'ID', width: 80, align: 'center', sort: true},
             {
                 field: 'enabled', title: '启用', width: 100, align: 'center',
-                event: 'enabled', templet: function (d) {
+                event: 'switch', templet: function (d) {
                     return '<input type="checkbox" lay-skin="switch" lay-text="启用|关闭"' + (d.enabled ? ' checked' : '') + '>';
                 }
             },

@@ -50,6 +50,11 @@
             <i class="layui-icon  layui-icon-about"></i>复制密码
         </button>
     </div>
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate" lay-tips="清空所有的数据，不可恢复！">
+            清空
+        </button>
+    </div>
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">

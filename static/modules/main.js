@@ -636,8 +636,8 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         init() {
             // 定时
             let othis = this;
-            $('.layui-btn-group').on('click', '[data-crontab]', function (e) {
-                othis.crontab($(this).attr('data-crontab'));
+            $(document).on('click', '[lay-event=crontab]', function (e) {
+                othis.crontab($(this).attr('data-value'));
                 e.stopPropagation();
             });
             $(document).on('click', 'img', function (e) {
@@ -645,19 +645,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 e.stopPropagation();
             });
         }
-
-        // 点击选择框
-        switcher(dom, dataHandler) {
-            let enabled = !!dom.find('div.layui-unselect.layui-form-onswitch').size();
-            this.request({
-                url: url + "/modify",
-                data: dataHandler(enabled),
-                error: function () {
-                    dom.find('input[type=checkbox]').prop('checked', !enabled);
-                    form.render('checkbox');
-                }
-            });
-        };
 
         get(url, data, callback) {
             if (this.isFunction(data)) {
@@ -686,26 +673,31 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             }
             if (!othis.isString(filter)) filter = 'table-list';
             active = $.extend({
-                enabled: function (obj, ids) {
+                switch: function (obj, ids) {
+                    let $this = $(this), field = $this.attr('data-field');
+                    if (!field) return layer.msg('缺少属性data-field', {icon: 2});
+                    // 多选操作
                     if (othis.isArray(ids)) {
-                        if (ids.length === 0) {
-                            layer.msg("最少需要选中一条！", {icon: 2});
-                            return false;
-                        }
-                        return othis.request({
-                            url: url + "/modify",
-                            data: {ids: ids.join(), enabled: $(this).attr('data-value') === 'true', cols: 'enabled'},
-                            done: 'table-list',
-                        });
+                        if (ids.length === 0) return layer.msg("最少需要选中一条！", {icon: 2});
+                        let data = {ids: ids.join(), cols: field};
+                        data[field] = $this.attr('data-value') === 'true';
+                        return othis.request({url: url + '/modify', data: data, done: 'table-list'});
                     }
-                    othis.switcher($(this), function (enabled) {
-                        if (obj.data.spec) return {
-                            id: obj.data.id,
-                            spec: obj.data.spec,
-                            enabled: enabled,
-                            cols: 'enabled,spec'
-                        };
-                        return {id: obj.data.id, enabled: enabled, cols: 'enabled'}
+                    // 单选操作
+                    let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size(),
+                        data = {id: obj.data.id, cols: field};
+                    data[field] = enabled;
+                    if (obj.data.spec) {
+                        data.spec = obj.data.spec;
+                        data.cols = field + ',spec';
+                    }
+                    othis.request({
+                        url: url + "/modify",
+                        data: data,
+                        error: function () {
+                            $this.find('input[type=checkbox]').prop('checked', !enabled);
+                            form.render('checkbox');
+                        }
                     });
                 },
                 del: function (obj, ids) {
@@ -745,7 +737,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     });
                 },
                 crontab: function () {
-                    othis.crontab($(this).attr('data-crontab'));
+                    othis.crontab($(this).attr('data-value'));
                 },
                 copy: function (obj, ids) {
                     if (!othis.isArray(ids)) {

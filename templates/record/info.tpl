@@ -11,7 +11,7 @@
                 <button class="layui-btn layui-btn-primary">总日志: <span id="count"></span>条</button>
                 <button class="layui-btn layui-btn-primary">运行中: <span id="active"></span>条</button>
                 <button class="layui-btn layui-btn-primary">总协程数: <span id="goroutine"></span></button>
-                <button class="layui-btn layui-btn-primary" data-crontab>定时任务: <span id="cron"></span>条
+                <button class="layui-btn layui-btn-primary" lay-event="crontab">定时任务: <span id="cron"></span>条
                 </button>
             </div>
         </div>

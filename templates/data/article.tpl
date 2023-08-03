@@ -138,6 +138,7 @@
                 align: 'center',
                 sort: true,
                 width: 120,
+                hide: true,
                 templet: function (d) {
                     let val = (d['originality_rate'] * 100).toFixed(2) + '%';
                     if (d['originality_rate'] < 0.35) {
@@ -154,52 +155,32 @@
             {field: 'site_id', title: '绑定网站ID', hide: true},
             {field: 'class_id', title: '文章ID', hide: true},
             {
-                field: 'used', title: '已使用', align: 'center', width: 92, unresize: true, event: 'used',
+                field: 'used', title: '已使用', align: 'center', width: 92, unresize: true, event: 'switch',
+                sort: true,
                 templet: function (d) {
-                    let msg = '<input data-id="' + d.id + '" type="checkbox" name="used" lay-skin="switch" lay-text="是|否" lay-filter="used"';
-                    if (d.used) {
-                        msg += ' checked>';
-                    } else {
-                        msg += '>';
-                    }
-                    return msg;
-                },
-                sort: true
+                    return '<input type="checkbox" lay-skin="switch" lay-text="是|否"' + (d.used ? ' checked>' : '>');
+                }
             },
             {
                 field: 'ban_vetted',
-                title: '过滤违禁',
+                title: '滤违禁',
                 align: 'center',
                 width: 92,
                 unresize: true,
-                event: 'ban_vetted',
-                templet: function (d) {
-                    let msg = '<input data-id="' + d.id + '" type="checkbox" name="ban_vetted" lay-skin="switch" lay-text="是|否" lay-filter="banVetted"';
-                    if (d.ban_vetted) {
-                        msg += ' checked>';
-                    } else {
-                        msg += '>';
-                    }
-                    return msg;
-                },
+                event: 'switch',
                 sort: true,
-                hide: true
+                templet: function (d) {
+                    return '<input type="checkbox" lay-skin="switch" lay-text="是|否"' + (d['ban_vetted'] ? ' checked>' : '>');
+                },
             },
             {
                 field: 'trans_failed',
                 title: '译错',
                 align: 'center',
                 width: 92,
-                unresize: true,
-                event: 'trans_failed',
+                event: 'switch',
                 templet: function (d) {
-                    let msg = '<input data-id="' + d.id + '" type="checkbox" name="trans_failed" lay-skin="switch" lay-text="是|否" lay-filter="transFailed"';
-                    if (d.trans_failed) {
-                        msg += ' checked>';
-                    } else {
-                        msg += '>';
-                    }
-                    return msg;
+                    return '<input type="checkbox" lay-skin="switch" lay-text="是|否"' + (d.trans_failed ? ' checked>' : '>');
                 },
                 sort: true
             },
@@ -329,50 +310,6 @@
                     });
                 });
             },
-        });
-        // 切换是否已经使用
-        form.on('switch(used)', function (obj) {
-            let id = $(this).attr('data-id'),
-                checked = this.checked;
-            if (!id) {
-                layer.tips('ID为空，无法操作！', obj.othis);
-                return false;
-            }
-            main.request({
-                url: url + '/configure',
-                data: {id: id, used: checked, cols: 'used'},
-                done: 'table-list',
-            });
-        });
-        // 切换翻译错误
-        form.on('switch(transFailed)', function (obj) {
-            let id = $(this).attr('data-id'),
-                checked = this.checked;
-            if (!id) {
-                layer.tips('ID为空，无法操作！', obj.othis);
-                return false;
-            }
-            main.request({
-                url: url + '/configure',
-                data: {id: id, trans_failed: checked, cols: 'trans_failed'},
-                done: 'table-list',
-            });
-            return false;
-        });
-        // 切换过滤
-        form.on('switch(banVetted)', function (obj) {
-            let id = $(this).attr('data-id'),
-                checked = this.checked;
-            if (!id) {
-                layer.tips('ID为空，无法操作！', obj.othis);
-                return false;
-            }
-            main.request({
-                url: url + '/toggle',
-                data: {'id': id, "ban_vetted": checked},
-                done: 'table-list',
-            });
-            return false;
         });
     });
 </script>
