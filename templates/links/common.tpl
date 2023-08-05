@@ -37,6 +37,12 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label" for="pattern" lay-tips="正则匹配目录,只有匹配的目录才插入链接">正则匹配:</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" name="pattern" id="pattern" value="{{ .obj.Pattern}}" placeholder=".*?"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <input type="hidden" name="site_ids" value="{{join .obj.SiteIds ","}}" lay-verify="siteIds">
             <div id="site_ids" style="text-align:center"></div>
         </div>
