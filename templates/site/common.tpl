@@ -83,7 +83,6 @@
                             <select name="ssl" id="ssl" {{if gt .obj.Status 0}} disabled{{end}}>
                                 <option value="0" {{if eq .obj.Ssl 0}} selected{{end}}>不启用</option>
                                 <option value="1" {{if eq .obj.Ssl 1}} selected{{end}}>启用</option>
-                                <option value="2" {{if eq .obj.Ssl 2}} selected{{end}}>强制启用</option>
                             </select>
                         </div>
                         <div class="layui-form-mid layui-word-aux">开启需要有SSL证书文件，否则无效。可后台创建或

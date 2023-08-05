@@ -210,7 +210,6 @@
                 });
             },
             copyJS: function () {
-
                 main.get(url + '/ad', {waiter: $('select[name=waiter]').val()}, function (jsCode) {
                     main.copy(jsCode, layer.msg('广告JS代码复制成功'));
                 });

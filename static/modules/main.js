@@ -371,7 +371,8 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             this.logPreffix = layui.url().pathname.join('_');
             // 设置cols
             this.setCols = function (data, dom) {
-                if (data && dom && !data.cols) {
+                dom = this.isObject(dom) ? dom : $('.layui-form');
+                if (data && !data.cols && dom.length > 0) {
                     let othis = this;
                     data.cols = [];
                     $(dom).find('[name]').each(function (i, v) {
