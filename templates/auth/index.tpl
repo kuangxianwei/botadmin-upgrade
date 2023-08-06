@@ -35,10 +35,10 @@
             {type: 'checkbox', fixed: 'left'},
             {field: 'id', hide: true},
             {type: 'numbers', width: 80, title: 'ID', sort: true},
-            {field: 'username', title: '用户名', minWidth: 100},
-            {field: 'password', title: '密码', minWidth: 100},
-            {field: 'ip', title: 'IP', minWidth: 100},
-            {field: 'status', title: '状态', minWidth: 100},
+            {field: 'username', title: '用户名', minWidth: 100, event: 'copy'},
+            {field: 'password', title: '密码', minWidth: 100, event: 'copy'},
+            {field: 'ip', title: 'IP', minWidth: 100, event: 'copy'},
+            {field: 'status', title: '状态', minWidth: 100, event: 'copy'},
             {
                 field: 'updated', title: '时间', minWidth: 100, sort: true, templet: function (d) {
                     return main.timestampFormat(d['updated']);

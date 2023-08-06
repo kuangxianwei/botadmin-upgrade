@@ -189,6 +189,12 @@
                                     <cite>Hosts</cite>
                                 </a>
                             </dd>
+                            <dd data-name="robot">
+                                <a lay-href="/robot" lay-tips="机器人爬虫" lay-direction="2">
+                                    <i class="iconfont icon-spider"></i>
+                                    <cite>Spider爬虫</cite>
+                                </a>
+                            </dd>
                         </dl>
                     </li>
                     <li data-name="theme" class="layui-nav-item">
