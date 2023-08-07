@@ -5,19 +5,19 @@
                 <i class="layui-icon layui-icon-search"></i>
             </button>
             <div class="layui-inline">
-                <div class="layui-input-inline">
-                    <select name="waiter_id" lay-filter="search-select" class="layui-select">
-                        <option value="">选择全部客服</option>
-
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <input type="search" name="search" class="layui-input" placeholder="广州">
+                <input type="search" name="search" class="layui-input" placeholder="Baiduspider">
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <select name="duration" lay-filter="search-select" class="layui-select">
+                    <select name="action" lay-filter="search-select" class="layui-select">
+                        <option value="">全部</option>
+                        <option value="Baiduspider">百度</option>
+                        <option value="Googlebot">谷歌</option>
+                        <option value="Sogou">搜狗</option>
+                        <option value="360Spider">360</option>
+                        <option value="Bytespider">头条</option>
+                        <option value="bingbot">必应</option>
+                        <option value="YisouSpider">神马</option>
                     </select>
                 </div>
             </div>
@@ -28,19 +28,19 @@
 <script type="text/html" id="toolbar">
     <div class="layui-btn-group">
         <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layui-bg-cyan" lay-event="roboter" lay-tips="编辑机器人蜘蛛列表">
+                <i class="iconfont icon-spider"></i>
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-href="/robot/chart" lay-text="机器人爬虫" lay-tips="以图表方式查看">
+                <i class="layui-icon layui-icon-chart"></i>
+            </button>
+        </div>
+        <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中项">
                 <i class="layui-icon layui-icon-delete"></i>
             </button>
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="truncate">清空</button>
         </div>
-    </div>
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
-            <i class="layui-icon layui-icon-log"></i>
-        </button>
-        <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
-            <i class="layui-icon iconfont icon-reset"></i>Log
-        </button>
     </div>
 </script>
 <script type="text/html" id="table-toolbar">
@@ -67,11 +67,22 @@
                 }
             },
             {
-                field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
+                field: 'updated', width: 150, title: '时间', align: 'center', sort: true, templet: function (d) {
                     return main.timestampFormat(d['updated']);
                 }
             },
             {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
-        ]]);
+        ]], {
+            roboter: function () {
+                main.get(url + '/roboter', function (html) {
+                    main.popup({
+                        title: "编辑机器人蜘蛛",
+                        url: url + '/roboter',
+                        content: html,
+                        area: ["300px", "500px"]
+                    });
+                });
+            }
+        });
     });
 </script>
