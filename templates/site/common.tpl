@@ -80,7 +80,7 @@
                     <div class="layui-form-item">
                         <label for="ssl" class="layui-form-label">https支持:</label>
                         <div class="layui-input-inline">
-                            <select name="ssl" id="ssl" {{if gt .obj.Status 0}} disabled{{end}}>
+                            <select name="ssl" id="ssl">
                                 <option value="0" {{if eq .obj.Ssl 0}} selected{{end}}>不启用</option>
                                 <option value="1" {{if eq .obj.Ssl 1}} selected{{end}}>启用</option>
                             </select>

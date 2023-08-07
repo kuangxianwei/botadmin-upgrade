@@ -24,6 +24,7 @@
                 <li>采集设置</li>
                 <li>违禁设置</li>
                 <li>监控服务</li>
+                <li>IP黑名单</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show layui-form">
@@ -406,6 +407,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="layui-tab-item layui-form">
+                    <div class="layui-form-item">
+                        <textarea class="layui-textarea" name="filter" rows="16">{{.filter}}</textarea>
+                        <input type="hidden" name="action" value="filter">
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <div class="layui-btn-group">
+                            <button class="layui-btn" lay-submit lay-filter="submit-filter">提交修改</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -467,6 +480,12 @@
                 data: obj.field,
             });
             return false;
+        });
+        form.on('submit(submit-filter)', function (obj) {
+            main.request({
+                url: url,
+                data: obj.field,
+            });
         });
         let active = {
             banUpdate: function () {
