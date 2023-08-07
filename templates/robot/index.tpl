@@ -57,9 +57,8 @@
         main.table([[
             {type: 'checkbox', fixed: 'left'},
             {field: 'id', title: 'ID', hide: true},
-            {field: 'roboter', width: 100, title: '机器人'},
+            {field: 'roboter', width: 120, title: '机器人'},
             {field: 'ip', title: 'IP', width: 110, align: 'center'},
-            {field: 'code', title: '状态码', width: 80, align: 'center'},
             {field: 'visit', title: '访问'},
             {
                 field: 'useragent', title: 'UA', hide: true, templet: function (d) {
