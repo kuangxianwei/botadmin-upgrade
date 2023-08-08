@@ -87,8 +87,8 @@
                         </div>
                         <div class="layui-inline">
                             <div class="layui-form-mid layui-word-aux">开启需要有SSL证书文件，否则无效</div>
-                            <button lay-href="/file?path={{.ssl_path}}" class="text-danger layui-btn layui-btn-primary">
-                                管理SSL证书
+                            <button lay-href="/file?path={{.ssl_path}}" class="text-danger layui-btn layui-btn-primary" lay-text="管理SSL证书">
+                                管理SSL证书文件
                             </button>
                         </div>
                     </div>

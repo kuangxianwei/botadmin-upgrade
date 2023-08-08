@@ -89,9 +89,13 @@
                                 <option value="1"{{if eq .obj.Ssl 1}} selected{{end}}>启用</option>
                             </select>
                         </div>
-                        <div class="layui-form-mid layui-word-aux">开启需要有SSL证书文件，否则无效。可后台创建或
-                            <a lay-href="/file?path={{.obj.SslPath}}" class="text-danger">自行上传</a>。
+                        <div class="layui-inline">
+                            <div class="layui-form-mid layui-word-aux">开启需要有SSL证书文件，否则无效</div>
+                            <button class="layui-btn layui-btn-primary" lay-text="管理SSL证书" lay-href="/file?path={{.server.SslPath}}">
+                                管理SSL证书文件
+                            </button>
                         </div>
+
                     </div>
                     <div class="layui-form-item">
                         <label for="wap_enabled" class="layui-form-label">启用手机站</label>
