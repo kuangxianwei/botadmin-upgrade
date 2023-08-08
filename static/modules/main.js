@@ -1726,10 +1726,11 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         }
     };
     main.reboot = {
-        app: function () {
+        app: function (rebootURL) {
+            rebootURL = rebootURL || url;
             layer.confirm("确定重启App?", {icon: 3, title: false}, function (index) {
                 main.request({
-                    url: "/system/reboot", data: {act: "botadmin"}, index: index, done: function () {
+                    url: rebootURL, data: {action: "botadmin"}, index: index, done: function () {
                         main.sleep(3000);
                         layer.alert('重启App成功!', {title: false, icon: 1, btn: "重新登录"}, function (index) {
                             layer.close(index);
@@ -1739,10 +1740,11 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     }
                 });
             });
-        }, service: function () {
+        }, service: function (rebootURL) {
+            rebootURL = rebootURL || url;
             layer.confirm("确定重启服务器?", {icon: 3, title: false}, function (index) {
                 main.request({
-                    url: "/system/reboot", data: {act: "reboot"}, index: index, done: function () {
+                    url: rebootURL, data: {action: "reboot"}, index: index, done: function () {
                         main.sleep(5000);
                         layer.alert('重启服务器成功!', {title: false, icon: 1, btn: "重新登录"}, function (index) {
                             layer.close(index);

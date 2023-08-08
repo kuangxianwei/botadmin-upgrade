@@ -165,9 +165,9 @@
         <div class="layui-card">
             <div class="layui-card-header">服务重启</div>
             <div class="layui-card-body">
-                <div class="layui-carousel layadmin-carousel layadmin-shortcut">
-                    <div carousel-item>
-                        <ul class="layui-row layui-col-space10">
+                <div class="layui-carousel layadmin-carousel layadmin-shortcut" lay-anim="" style="width: 100%; height: 280px;">
+                    <div carousel-item="">
+                        <ul class="layui-row layui-col-space10 layui-this">
                             <li class="layui-col-xs4" data-reboot="lnmp restart">
                                 <i class="layui-icon layui-icon-website"></i>
                                 <cite>重启Web</cite>
@@ -347,10 +347,10 @@
                 main.webssh();
             },
             app: function () {
-                main.reboot.app();
+                main.reboot.app(url + '/reboot');
             },
             service: function () {
-                main.reboot.service();
+                main.reboot.service(url + '/reboot');
             },
         };
         $('[data-reboot]').off('click').on('click', function () {
