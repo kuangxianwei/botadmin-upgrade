@@ -676,24 +676,16 @@
                 });
             },
             update_website: function (obj, ids) {
-                layer.prompt({
-                        formType: 0,
-                        value: obj.data.length,
-                        title: '更新选中网站的文章和目录，请输入线程数量 太多会卡死'
-                    },
-                    function (value, index) {
-                        main.request({
-                            url: url + '/update/website',
-                            data: {'ids': ids.join(), 'thread': value},
-                            index: index,
-                            done: function () {
-                                main.ws.log(function () {
-                                    table.reload('table-list');
-                                });
-                                return false;
-                            }
+                main.request({
+                    url: url + '/update/website',
+                    data: {'ids': ids.join()},
+                    done: function () {
+                        main.ws.log(function () {
+                            table.reload('table-list');
                         });
-                    });
+                        return false;
+                    }
+                });
             },
             pull_config: function (obj, ids) {
                 if (ids.length < 1) {

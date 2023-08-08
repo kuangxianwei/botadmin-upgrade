@@ -189,11 +189,6 @@
                             <input id="rewrite_path" type="text" name="rewrite_path" value="{{.server.RewritePath}}" class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-form-item"><label for="ssl_path" class="layui-form-label">Ssl目录:</label>
-                        <div class="layui-input-block">
-                            <input id="ssl_path" type="text" name="ssl_path" value="{{.server.SslPath}}" class="layui-input">
-                        </div>
-                    </div>
                     <div class="layui-form-item">
                         <label for="mysql_ini" class="layui-form-label">MySQL配置:</label>
                         <div class="layui-input-block">

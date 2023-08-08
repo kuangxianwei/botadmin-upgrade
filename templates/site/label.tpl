@@ -178,11 +178,6 @@
                 <td> 开启ssl 0 禁止 1 开启 2 强制开启</td>
             </tr>
             <tr>
-                <td>ssl_path</td>
-                <td>string</td>
-                <td> 开启ssl路径</td>
-            </tr>
-            <tr>
                 <td>class_num</td>
                 <td>int</td>
                 <td> 总栏目数</td>
