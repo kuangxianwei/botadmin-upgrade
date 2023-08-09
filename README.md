@@ -6,6 +6,6 @@
 ## 国内镜像安装
 ### wget http://auth.nfivf.com:9090/mirror/install.sh && sh ./install.sh -u http://auth.nfivf.com:9090/mirror/master.zip
 ## 手动下载升级文件
-### wget http://auth.nfivf.com:9090/mirror/v2.4.1.tar.gz
+### wget http://auth.nfivf.com:9090/mirror/v2.4.2.tar.gz
 #### 覆盖到服务器的 /data/botadmin/
-# v2.4.1
+# v2.4.2
