@@ -48,7 +48,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-value="interaction.">
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-value="twitter_interaction.">
                                 查看任务
                             </button>
                         </dd>
@@ -73,10 +73,10 @@
             </button>
         </div>
         <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="log" data-value="interaction" lay-tips="查看日志">
+            <button class="layui-btn layui-btn-sm" lay-event="log" data-value="twitter_interaction" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" data-value="interaction" lay-tips="重置日志">
+            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" data-value="twitter_interaction" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
             </button>
         </div>
@@ -92,7 +92,7 @@
         <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
             <i class="layui-icon layui-icon-delete"></i>
         </button>
-        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" data-value="interaction" lay-tips="查看日志">
+        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" data-value="twitter_interaction" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
         </button>
     </div>
@@ -255,7 +255,7 @@
                     url: url,
                     data: {id: obj.data.id, action: 'do'},
                     done: function () {
-                        main.ws.log("interaction." + obj.data.id);
+                        main.ws.log("twitter_interaction." + obj.data.id);
                         return false
                     }
                 });
