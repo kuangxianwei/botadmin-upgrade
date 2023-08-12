@@ -130,8 +130,11 @@
             <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
                 <i class="layui-icon layui-icon-log"></i>
             </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
+            <button class="layui-btn layui-btn-sm layui-bg-orange" lay-event="resetLog" lay-tips="重置日志">
                 <i class="layui-icon iconfont icon-reset"></i>Log
+            </button>
+            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate" lay-tips="清空所有的数据，不可恢复！">
+                清空
             </button>
         </div>
     </div>
@@ -160,7 +163,7 @@
             table = layui.table,
             main = layui.main;
         //渲染上传配置
-        main.upload();
+        let reupload = main.upload();
         main.table({
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
@@ -279,6 +282,20 @@
                         data: {ids: ids.join()},
                         index: index
                     });
+                });
+            },
+            import: function () {
+                layer.confirm('是否绑定网站ID？有可能网站ID不存在则会停止导入', {
+                    title: false,
+                    btn: ['绑定', '不绑定'] //按钮
+                }, function (index) {
+                    reupload.config.data = {site_id: true};
+                    $('#upload').click();
+                    layer.close(index)
+                }, function (index) {
+                    reupload.config.data = {site_id: false};
+                    $('#upload').click();
+                    layer.close(index)
                 });
             },
         });
