@@ -7,8 +7,15 @@ protoPath=$(pwd)
 # shellcheck disable=SC2154
 cd "${RootPath}" || exit 1
 # 逻辑代码开始
-#echo "进入：/data/botadmin/data/db"
-#cd /data/botadmin/data/db || exit 1
+echo "进入：${RootPath}/data/db"
+cd ./data/db || exit 1
+if [ ! -f "./data/db/useragent.db" ]; then
+  rm -rf "${RootPath}/data/db/client.db"
+  sqlite3 ./contact.db <<EOF
+  .DROP TABLE feedback;
+  .quit
+EOF
+fi
 #sqlite3 ./site.db <<EOF
 #.dump a.sql
 #.quit
