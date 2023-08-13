@@ -381,6 +381,6 @@
             })
         };
         getMemory();
-        setInterval(getMemory, 5000);
+        setInterval(getMemory, 10000);
     });
 </script>
