@@ -9,16 +9,14 @@ cd "${RootPath}" || exit 1
 # 逻辑代码开始
 echo "进入：${RootPath}/data/db"
 cd ./data/db || exit 1
-if [ ! -f "./data/db/useragent.db" ]; then
+if [ ! -f "useragent.db" ]; then
   \rm -rf client.db trace.db tags.db styles.json siteData.db safe.db plugin.db openai.db feedback.db \
-  contacts.json contactConfig.json config.db
+    contacts.json contactConfig.json config.db
   sqlite3 ./contact.db <<EOF
   .DROP TABLE feedback;
   .quit
 EOF
 fi
-
-
 
 #sqlite3 ./site.db <<EOF
 #.dump a.sql
