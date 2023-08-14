@@ -62,7 +62,7 @@
             {field: 'visit', title: '访问'},
             {
                 field: 'useragent', title: 'UA', hide: true, templet: function (d) {
-                    return d['useragent']['value'];
+                    return d['useragent'];
                 }
             },
             {
