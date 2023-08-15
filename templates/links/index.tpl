@@ -160,13 +160,9 @@
                     if (ids.length === 0) {
                         return layer.msg("未选择")
                     }
-                    return main.request({
-                        url: url,
-                        data: {ids: ids.join(), action: 'do'},
-                    });
+                    return main.request({data: {ids: ids.join(), action: 'do'}});
                 }
                 main.request({
-                    url: url,
                     data: {id: obj.data.id, action: 'do'},
                     done: function () {
                         main.ws.log("links." + obj.data.id);
@@ -180,12 +176,10 @@
                         return layer.msg("未选择")
                     }
                     return main.request({
-                        url: url,
                         data: {ids: ids.join(), action: 'remove'},
                     });
                 }
                 main.request({
-                    url: url,
                     data: {id: obj.data.id, action: 'remove'},
                     done: function () {
                         main.ws.log("links." + obj.data.id);
@@ -194,10 +188,10 @@
                 });
             },
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
                         title: '添加规则',
-                        url: url + '/add',
+                        url: URL + '/add',
                         area: ['800px', '95%'],
                         content: html,
                         done: 'table-list'
@@ -205,12 +199,12 @@
                 });
             },
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改规则',
                         content: html,
                         area: ['800px', '95%'],
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         done: 'table-list',
                     });
                 });

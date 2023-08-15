@@ -49,7 +49,7 @@
         ]], {
             install: function (obj) {
                 main.popup({
-                    url: url + '/install',
+                    url: URL + '/install',
                     title: false,
                     maxmin: false,
                     content: $('#args-html').html(),
@@ -68,7 +68,7 @@
             },
             uninstall: function (obj) {
                 main.popup({
-                    url: url + '/uninstall',
+                    url: URL + '/uninstall',
                     title: false,
                     maxmin: false,
                     content: $('#args-html').html(),

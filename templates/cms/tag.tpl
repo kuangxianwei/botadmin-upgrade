@@ -48,11 +48,11 @@
         ]], {
             edit: function () {
                 let othis = this;
-                main.get(url + "/modify", {id: id, ids: othis.data.index}, function (html) {
+                main.get(URL + "/modify", {id: id, ids: othis.data.index}, function (html) {
                     main.popup({
                         type: 1,
                         title: "修改TAG",
-                        url: url + "/modify",
+                        url: URL + "/modify",
                         content: html,
                         done: "table-list",
                         area: ['600px', '500px'],
@@ -60,11 +60,11 @@
                 });
             },
             add: function () {
-                main.get(url + "/add", {id: id}, function (html) {
+                main.get(URL + "/add", {id: id}, function (html) {
                     main.popup({
                         type: 1,
                         title: "添加TAG",
-                        url: url + "/add",
+                        url: URL + "/add",
                         content: html,
                         done: "table-list",
                         area: ['600px', '400px'],

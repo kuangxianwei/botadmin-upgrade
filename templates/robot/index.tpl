@@ -73,10 +73,10 @@
             {title: '操作', width: 80, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             roboter: function () {
-                main.get(url + '/roboter', function (html) {
+                main.get(URL + '/roboter', function (html) {
                     main.popup({
                         title: "编辑机器人蜘蛛",
-                        url: url + '/roboter',
+                        url: URL + '/roboter',
                         content: html,
                         area: ["300px", "500px"]
                     });

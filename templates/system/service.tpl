@@ -47,7 +47,7 @@
                 return false;
             }
             main.request({
-                url: url + '/enable',
+                url: URL + '/enable',
                 data: {name: name, enabled: checked},
                 error: function () {
                     table.reload('table-list');

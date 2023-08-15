@@ -117,7 +117,7 @@
             ]],
         }, {
             view: function (obj) {
-                main.get(url + "/view", {id: obj.data.id}, function (content) {
+                main.get(URL + "/view", {id: obj.data.id}, function (content) {
                     main.display({
                         content: '<textarea class="layui-textarea" style="border-radius:20px;width:98%;height:96%;margin:1%">' + content + '</textarea>',
                         area: ['80%', '80%'],

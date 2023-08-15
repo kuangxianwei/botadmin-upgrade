@@ -84,7 +84,7 @@
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
                         main.request({
-                            url: url + '/sql/del',
+                            url: URL + '/sql/del',
                             data: {ids: ids.join()},
                             index: index,
                             done: 'table-list'
@@ -94,7 +94,7 @@
                 }
                 layer.confirm('确定删除此条日志？', function (index) {
                     main.request({
-                        url: url + '/sql/del',
+                        url: URL + '/sql/del',
                         data: {id: obj.data.id},
                         index: index,
                         done: obj.del
@@ -104,7 +104,7 @@
             read: function (obj, ids) {
                 if (main.isArray(ids)) {
                     main.request({
-                        url: url + '/update',
+                        url: URL + '/update',
                         data: {ids: ids.join(), read: true},
                         done: function () {
                             table.reload('table-list');
@@ -113,7 +113,7 @@
                     });
                     return
                 }
-                main.get(url + '/update', {'id': obj.data.id, read: true}, function (res) {
+                main.get(URL + '/update', {'id': obj.data.id, read: true}, function (res) {
                     if (res.code === 0) {
                         table.reload('table-list');
                         table.reload('table-list-read');
@@ -151,7 +151,7 @@
                 case 'del':
                     layer.confirm('确定删除此条日志？', function (index) {
                         main.request({
-                            url: url + '/sql/del',
+                            url: URL + '/sql/del',
                             data: {'id': data.id},
                             index: index,
                             done: obj.del
@@ -177,7 +177,7 @@
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
                         main.request({
-                            url: url + '/sql/del',
+                            url: URL + '/sql/del',
                             data: {'ids': ids.join()},
                             index: index,
                             done: 'table-list-read'
@@ -187,7 +187,7 @@
                 case 'truncate':
                     layer.confirm('清空全部，未读和已读信息全部会被清空', function (index) {
                         main.request({
-                            url: url + '/truncate',
+                            url: URL + '/truncate',
                             index: index,
                             done: function () {
                                 table.reload('table-list');

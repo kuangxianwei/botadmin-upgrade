@@ -83,10 +83,10 @@
             {title: '操作', width: 160, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改监控',
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         area: '600px',
                         content: html,
                         done: 'table-list',
@@ -95,15 +95,15 @@
             },
             test: function (obj) {
                 main.request({
-                    url: url + '/test',
+                    url: URL + '/test',
                     data: {id: obj.data.id}
                 });
             },
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
                         title: '添加邮箱',
-                        url: url + '/add',
+                        url: URL + '/add',
                         area: '600px',
                         content: html,
                         done: 'table-list',

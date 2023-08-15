@@ -93,18 +93,18 @@
             {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             modify: function (obj) {
-                main.get(url + "/modify", {id: obj.data.id}, function (html) {
+                main.get(URL + "/modify", {id: obj.data.id}, function (html) {
                     let loading;
                     main.popup({
                         title: "修改客服",
-                        url: url + "/modify",
+                        url: URL + "/modify",
                         content: html,
                         area: ['95%', '95%'],
                         success: function (dom, layerIndex) {
                             upload.render({
                                 elem: '#uploadFile',
-                                url: url + '/modify',
-                                headers: {'X-CSRF-Token': csrfToken},
+                                url: URL + '/modify',
+                                headers: {'X-CSRF-Token': CSRF_TOKEN},
                                 size: 1024 * 50,
                                 accept: 'images',
                                 acceptMime: 'image/jpg,image/png',
@@ -161,23 +161,23 @@
             },
             testEmail: function (obj) {
                 main.request({
-                    url: url + "/email/test",
+                    url: URL + "/email/test",
                     data: {id: obj.data.id}
                 });
             },
             add: function () {
-                main.get(url + '/add', {}, function (html) {
+                main.get(URL + '/add', {}, function (html) {
                     let loading;
                     main.popup({
                         title: "添加客服",
-                        url: url + "/add",
+                        url: URL + "/add",
                         content: html,
                         area: ['95%', '95%'],
                         success: function (dom, layerIndex) {
                             upload.render({
                                 elem: '#uploadFile',
-                                url: url + '/add',
-                                headers: {'X-CSRF-Token': csrfToken},
+                                url: URL + '/add',
+                                headers: {'X-CSRF-Token': CSRF_TOKEN},
                                 size: 1024 * 50,
                                 accept: 'images',
                                 acceptMime: 'image/jpg,image/png',
@@ -236,11 +236,11 @@
                 if (obj.data.length === 0) {
                     return layer.msg('请选择数据');
                 }
-                main.get(url + '/configure', {ids: ids.join()}, function (html) {
+                main.get(URL + '/configure', {ids: ids.join()}, function (html) {
                     main.popup({
                         title: '批量设置',
                         content: html,
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         done: 'table-list',
                         area: ['95%', '95%'],
                         yes: function (index, dom) {

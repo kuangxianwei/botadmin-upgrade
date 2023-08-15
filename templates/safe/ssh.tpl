@@ -90,7 +90,7 @@
             let field = obj.field;
             field.act = 'modify_port';
             main.request({
-                url: url,
+                url: URL,
                 data: field,
             });
             return false;
@@ -99,7 +99,7 @@
         //允许或禁止root登录
         form.on('switch(used_root)', function (obj) {
             main.request({
-                url: url,
+                url: URL,
                 data: {'act': 'used_root', 'switch': obj.elem.checked},
                 done: function (res) {
                     layer.msg(res.msg);
@@ -109,14 +109,14 @@
         });
         form.on('switch(used_dns)', function (obj) {
             main.request({
-                url: url,
+                url: URL,
                 data: {'act': 'used_dns', 'switch': obj.elem.checked},
             });
             return false;
         });
         form.on('switch(used_password)', function (obj) {
             main.request({
-                url: url,
+                url: URL,
                 data: {'act': 'used_password', 'switch': obj.elem.checked},
             });
             return false;
@@ -124,13 +124,13 @@
         let active = {
             restart_sshd: function () {
                 main.request({
-                    url: url,
+                    url: URL,
                     data: {'act': 'restart'},
                 });
             },
             create_key: function () {
                 main.request({
-                    url: url,
+                    url: URL,
                     data: {'act': 'create_key'},
                     done: function () {
                         location.reload();
@@ -141,7 +141,7 @@
             recreate_key: function () {
                 layer.confirm('重新生成会删除以前生成的key,确定生成？', function () {
                     main.request({
-                        url: url,
+                        url: URL,
                         data: {'act': 'create_key'},
                     });
                 });

@@ -191,10 +191,10 @@
             },
             {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}]], {
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改文章',
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         content: html,
                         done: 'table-list',
                     });
@@ -205,11 +205,11 @@
                     layer.msg('请勾选数据', {icon: 2});
                     return false;
                 }
-                main.get(url + '/configure', {ids: ids.join()}, function (html) {
+                main.get(URL + '/configure', {ids: ids.join()}, function (html) {
                     main.popup({
                         title: "批量修改配置",
                         content: html,
-                        url: url + '/configure',
+                        url: URL + '/configure',
                         done: 'table-list',
                     });
                 });
@@ -220,7 +220,7 @@
                     return false;
                 }
                 main.request({
-                    url: url + '/original',
+                    url: URL + '/original',
                     data: {ids: ids.join()},
                     done: function () {
                         main.ws.log('article.0');
@@ -233,11 +233,11 @@
                     layer.msg('请勾选数据', {icon: 2});
                     return false;
                 }
-                main.get(url + '/convert', {ids: ids.join()}, function (html) {
+                main.get(URL + '/convert', {ids: ids.join()}, function (html) {
                     main.popup({
                         title: '简繁体转换',
                         content: html,
-                        url: url + '/convert',
+                        url: URL + '/convert',
                         area: ['280px', '300px'],
                         done: 'table-list'
                     });
@@ -250,7 +250,7 @@
                 }
                 let val = this.value;
                 main.request({
-                    url: url + '/original',
+                    url: URL + '/original',
                     data: {ids: ids.join(), originality: val},
                     done: "table-list"
                 });
@@ -261,7 +261,7 @@
                     return false;
                 }
                 main.request({
-                    url: url + '/ban',
+                    url: URL + '/ban',
                     data: {thread: obj.data.length, ids: ids.join()},
                     done: function () {
                         main.ws.log('article.0');
@@ -270,7 +270,7 @@
                 });
             },
             case: function () {
-                main.get(url + '/case', function (html) {
+                main.get(URL + '/case', function (html) {
                     main.popup({
                         title: '采集范本',
                         content: html,
@@ -287,11 +287,11 @@
                     layer.msg('请勾选数据', {icon: 2});
                     return false;
                 }
-                main.get(url + '/translate', {ids: ids.join()}, function (html) {
+                main.get(URL + '/translate', {ids: ids.join()}, function (html) {
                     main.popup({
                         title: '翻译',
                         content: html,
-                        url: url + '/translate',
+                        url: URL + '/translate',
                         area: ['750px', '300px'],
                         done: function () {
                             main.ws.log('article.0');
@@ -304,7 +304,7 @@
             delUsed: function () {
                 layer.confirm('删除所有已经发布是文章列表？', function (index) {
                     main.request({
-                        url: url + '/del/used',
+                        url: URL + '/del/used',
                         index: index,
                         done: 'table-list'
                     });

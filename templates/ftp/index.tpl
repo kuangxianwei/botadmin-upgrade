@@ -50,20 +50,20 @@
             {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改FTP',
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         content: html,
                         done: 'table-list',
                     });
                 });
             },
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
                         title: '添加FTP',
-                        url: url + '/add',
+                        url: URL + '/add',
                         area: ['70%', '95%'],
                         content: html,
                         done: 'table-list',
@@ -73,7 +73,7 @@
             sync: function () {
                 layer.confirm('如无错误且无需同步，确定同步？', function (index) {
                     main.request({
-                        url: url + '/sync',
+                        url: URL + '/sync',
                         index: index,
                     });
                 });

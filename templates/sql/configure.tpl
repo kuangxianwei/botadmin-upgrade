@@ -39,7 +39,7 @@
                     });
                     break;
                 case 'recover-sql':
-                    main.request({url: url + '/recover'});
+                    main.request({url: URL + '/recover'});
                     break;
                 case 'reboot-sql':
                     main.request({

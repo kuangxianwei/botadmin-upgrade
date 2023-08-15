@@ -126,7 +126,7 @@
             add: function () {
                 main.popup({
                     title: '添加Token',
-                    url: url + '/add',
+                    url: URL + '/add',
                     area: ['500px', '90%'],
                     content: '<div class="layui-card layui-form" style="height: 98%">' +
                         '<textarea class="layui-textarea" name="values" style="height: 100%" placeholder="输入Token一行一个&#10;sk-OcH55LhoKbJHvHsh5JCiT3BlbkF8FrmyJezBbd56XYKprXKJ"></textarea>' +
@@ -147,7 +147,7 @@
                         dom.find('[name=ids]').val(ids.join());
                         main.on.del();
                     },
-                    url: url + '/modify',
+                    url: URL + '/modify',
                     done: 'table-list',
                 });
             },
@@ -155,7 +155,7 @@
 
         table.on('edit(table-list)', function (obj) {
             main.request({
-                url: url + '/modify',
+                url: URL + '/modify',
                 data: {id: obj.data.id, key: obj.value, cols: 'key'},
                 error: function () {
                     table.reload('table-list');

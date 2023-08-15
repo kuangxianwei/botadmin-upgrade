@@ -164,10 +164,10 @@
             },
         }, {
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
                         title: '添加账号',
-                        url: url + '/add',
+                        url: URL + '/add',
                         area: ['800px', '550px'],
                         content: html,
                         done: 'table-list'
@@ -177,7 +177,7 @@
             addMany: function () {
                 main.popup({
                     title: '批量添加账号',
-                    url: url + '/add',
+                    url: URL + '/add',
                     content: '<div class="layui-card layui-form" style="height: 98%">' +
                         '<textarea class="layui-textarea" name="values" style="height: 100%" placeholder="账号-----密码----邮箱&#10;账号-----密码----邮箱----邮箱密码&#10;账号-----密码----邮箱----token&#10;账号-----密码----手机号----token&#10;账号-----密码----邮箱----邮箱密码----token&#10;账号-----密码----邮箱----邮箱密码---手机号----Token&#10;账号----密码----邮箱账号----邮箱密码----双重验证秘钥----备用码"></textarea>' +
                         '<button class="layui-hide" lay-submit lay-filter="submit"></button>' +
@@ -186,12 +186,12 @@
                 });
             },
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改规则',
                         content: html,
                         area: ['800px', '550px'],
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         done: 'table-list',
                     });
                 });
@@ -250,19 +250,19 @@
                             active[field] && active[field].call($this, (obj.othis.attr('class').indexOf('layui-form-checked') !== -1));
                         });
                     },
-                    url: url + '/modify',
+                    url: URL + '/modify',
                     done: 'table-list',
                 });
             },
             setProfile: function (obj, ids) {
                 if (main.isArray(ids)) {
                     return main.request({
-                        url: url,
+                        url: URL,
                         data: {ids: ids.join(','), action: 'set_profile'},
                     });
                 }
                 main.request({
-                    url: url,
+                    url: URL,
                     data: {id: obj.data.id, action: 'set_profile'},
                     done: function () {
                         main.ws.log("twitter_user." + obj.data.id);
@@ -273,12 +273,12 @@
             getProfile: function (obj, ids) {
                 if (main.isArray(ids)) {
                     return main.request({
-                        url: url,
+                        url: URL,
                         data: {ids: ids.join(','), action: 'get_profile'},
                     });
                 }
                 main.request({
-                    url: url,
+                    url: URL,
                     data: {id: obj.data.id, action: 'get_profile'},
                     done: function () {
                         main.ws.log("twitter_user." + obj.data.id);
@@ -289,12 +289,12 @@
             validProfile: function (obj, ids) {
                 if (main.isArray(ids)) {
                     return main.request({
-                        url: url,
+                        url: URL,
                         data: {ids: ids.join(','), action: 'valid_profile'},
                     });
                 }
                 main.request({
-                    url: url,
+                    url: URL,
                     data: {id: obj.data.id, action: 'valid_profile'},
                     done: function () {
                         main.ws.log("twitter_user." + obj.data.id);

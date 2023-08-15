@@ -249,7 +249,7 @@
             test: function () {
                 let data = main.formData(this.closest(".layui-form"));
                 main.request({
-                    url: url + "/test",
+                    url: URL + "/test",
                     data: data,
                     done: function (res) {
                         $('[name=prompt]').val(res.data);
@@ -260,7 +260,7 @@
             saveDefault: function () {
                 let data = main.formData(this.closest(".layui-form"));
                 main.request({
-                    url: url + "/default/save",
+                    url: URL + "/default/save",
                     data: data,
                     done: function (res) {
                         if (Array.isArray(res.data)) {

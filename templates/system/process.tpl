@@ -36,7 +36,7 @@
             kill: function (obj) {
                 obj.data.act = 'kill';
                 main.request({
-                    url: url,
+                    url: URL,
                     data: obj.data,
                     done: 'table-list',
                 });

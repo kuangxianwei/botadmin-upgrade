@@ -92,13 +92,13 @@
         ]], {
             modify: function (obj) {
 
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
 
                     main.popup({
                         title: '修改MySQL',
                         content: html,
                         area: ['600px', '550px'],
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         done: 'table-list',
                     });
                 });
@@ -115,7 +115,7 @@
                         dom.find('[name=ids]').val(ids.join());
                         main.on.del();
                     },
-                    url: url + '/modify',
+                    url: URL + '/modify',
                     done: 'table-list',
                 });
             },

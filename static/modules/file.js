@@ -95,7 +95,7 @@ layui.define(['main'], function (exports) {
             if (options.level < 1) options.level = 1;
             main.request({
                 type: 'GET',
-                url: url + '/files',
+                url: URL + '/files',
                 data: {
                     path: encodeURIComponent(options.path),
                     search: options.search,
@@ -194,7 +194,7 @@ layui.define(['main'], function (exports) {
             data.path = encodeURIComponent(data.path);
             main.request({
                 type: 'GET',
-                url: url + '/content',
+                url: URL + '/content',
                 data: data,
                 done: function (res) {
                     if (typeof done === 'function') {
@@ -217,7 +217,7 @@ layui.define(['main'], function (exports) {
         // 保存文件内容-请求
         saveFileContent(data, done, error) {
             main.request({
-                url: url + '/content',
+                url: URL + '/content',
                 timeout: 7000, //设置保存超时时间
                 data: data,
                 done: function (res) {
@@ -1403,7 +1403,7 @@ layui.define(['main'], function (exports) {
                 if (field.action === 'del') {
                     layer.confirm('删除后不可恢复，确定批量删除吗？', function (index) {
                         main.request({
-                            url: url + '/del',
+                            url: URL + '/del',
                             data: field,
                             index: index,
                             done: function () {
@@ -1413,7 +1413,7 @@ layui.define(['main'], function (exports) {
                     });
                 } else {
                     main.request({
-                        url: url + '/' + field.action,
+                        url: URL + '/' + field.action,
                         data: field,
                         done: function () {
                             othis.refresh(othis.config.path);
@@ -1450,7 +1450,7 @@ layui.define(['main'], function (exports) {
         render() {
             let othis = this;
             main.upload({
-                url: url + '/upload',
+                url: URL + '/upload',
                 data: {
                     path: function () {
                         return othis.config.path
@@ -1591,7 +1591,7 @@ layui.define(['main'], function (exports) {
                         return false;
                     }
                     elem.html('<img alt="等待计算结果" src="/static/images/loading-small.svg">');
-                    $.get(url + '/size', obj.data, function (res) {
+                    $.get(URL + '/size', obj.data, function (res) {
                         elem.text(res);
                     });
                 },
@@ -1599,7 +1599,7 @@ layui.define(['main'], function (exports) {
                     let filename = obj.data.path + '/' + obj.data.name;
                     layer.confirm('删除后不可恢复！确定删除 ' + filename + ' ?', function (index) {
                         main.request({
-                            url: url + '/del',
+                            url: URL + '/del',
                             data: {path: obj.data.path, names: filename},
                             index: index,
                             done: obj.del,
@@ -1651,7 +1651,7 @@ layui.define(['main'], function (exports) {
                 },
                 compress: function (obj) {
                     main.request({
-                        url: url + '/compress',
+                        url: URL + '/compress',
                         data: {path: obj.data.path, names: obj.data.name},
                         done: function () {
                             othis.refresh(othis.config.path);
@@ -1660,7 +1660,7 @@ layui.define(['main'], function (exports) {
                 },
                 decompress: function (obj) {
                     main.request({
-                        url: url + '/decompress',
+                        url: URL + '/decompress',
                         data: obj.data,
                         done: function () {
                             othis.refresh(othis.config.path);
@@ -1681,7 +1681,7 @@ layui.define(['main'], function (exports) {
                         formType: 0, value: 'folder', title: '请输入文件夹名不要有空格!'
                     }, function (value, index) {
                         main.request({
-                            url: url + '/new/folder',
+                            url: URL + '/new/folder',
                             data: {name: value, path: othis.config.path},
                             index: index,
                             done: function () {
@@ -1695,7 +1695,7 @@ layui.define(['main'], function (exports) {
                         formType: 0, value: 'filename.txt', title: '请输入文件名不要有空格!'
                     }, function (value, index) {
                         main.request({
-                            url: url + '/new/file',
+                            url: URL + '/new/file',
                             data: {name: value, path: othis.config.path},
                             index: index,
                             done: function () {

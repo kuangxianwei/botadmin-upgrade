@@ -27,7 +27,7 @@
         let main = layui.main;
         main.table('table-crontab',
             {
-                url: url + "?search=" + $('input[name=search]').val(),
+                url: URL + "?search=" + $('input[name=search]').val(),
                 cols: [[
                     {type: 'checkbox', fixed: 'left'},
                     {field: 'entry_id', width: 80, title: 'ID', align: 'center', sort: true},
@@ -49,7 +49,7 @@
                                 tokens[i] = obj.data[i].token;
                             }
                             main.request({
-                                url: url + '/del',
+                                url: URL + '/del',
                                 data: {tokens: tokens.join()},
                                 index: index,
                                 done: 'table-crontab'
@@ -59,7 +59,7 @@
                     }
                     layer.confirm('确定移除定时任务？', function (index) {
                         main.request({
-                            url: url + '/del',
+                            url: URL + '/del',
                             data: {tokens: obj.data.token},
                             index: index,
                             done: 'table-crontab'

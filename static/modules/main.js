@@ -2,6 +2,7 @@
 
 /*导出基本操作*/
 layui.define(function (exports) {
+    document.cookie;
     window.document.loadJS = function (src, fn) {
         let id = src.replace(/[./]/g, "");
         if (document.getElementById(id)) {
@@ -682,7 +683,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                         if (ids.length === 0) return layer.msg("最少需要选中一条！", {icon: 2});
                         let data = {ids: ids.join(), cols: field};
                         data[field] = $this.attr('data-value') === 'true';
-                        return othis.request({url: url + '/modify', data: data, done: 'table-list'});
+                        return othis.request({url: URL + '/modify', data: data, done: 'table-list'});
                     }
                     // 单选操作
                     let enabled = !!$this.find('div.layui-unselect.layui-form-onswitch').size(),
@@ -693,7 +694,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                         data.cols = field + ',spec';
                     }
                     othis.request({
-                        url: url + "/modify",
+                        url: URL + "/modify",
                         data: data,
                         error: function () {
                             $this.find('input[type=checkbox]').prop('checked', !enabled);
@@ -711,7 +712,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', {icon: 3}, function (index) {
                         othis.request({
-                            url: url + '/del',
+                            url: URL + '/del',
                             data: obj.data,
                             index: index,
                             done: filter,
@@ -719,7 +720,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     });
                 },
                 export: function (obj, ids) {
-                    window.open(encodeURI(url + '/export?ids=' + (othis.isArray(ids) ? ids.join() : '')));
+                    window.open(encodeURI(URL + '/export?ids=' + (othis.isArray(ids) ? ids.join() : '')));
                 },
                 import: function () {
                     $('#upload').click();
@@ -733,7 +734,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 truncate: function () {
                     layer.confirm('清空全部数据不可恢复，确定清空？', function (index) {
                         othis.request({
-                            url: url + '/truncate', index: index, done: filter,
+                            url: URL + '/truncate', index: index, done: filter,
                         });
                     });
                 },
@@ -747,11 +748,11 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 },
             }, active || {});
             let tab = table.render($.extend({
-                headers: {'X-CSRF-Token': csrfToken},
+                headers: {'X-CSRF-Token': CSRF_TOKEN},
                 method: 'post',
                 elem: '#' + filter,
                 toolbar: '#toolbar',
-                url: url,
+                url: URL,
                 cols: cols,
                 page: true,
                 limit: 10,
@@ -782,9 +783,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 $('body').append('<div class="layui-hide" id="upload"></div>');
             }
             return layui.upload.render($.extend({
-                headers: {'X-CSRF-Token': csrfToken},
+                headers: {'X-CSRF-Token': CSRF_TOKEN},
                 elem: '#upload',
-                url: url + '/import',
+                url: URL + '/import',
                 accept: 'file',
                 before: function () {
                     layer.load(); //上传loading
@@ -806,10 +807,10 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
 
         // ajax 请求
         request(options, dom) {
-            options = $.extend({type: 'POST', dataType: 'json'}, options);
+            options = $.extend({type: 'POST', dataType: 'json', url: URL}, options);
+            options.headers = $.extend({'X-CSRF-Token': CSRF_TOKEN}, options.headers || {});
             let othis = this, reloadOptions = $.extend({}, options), // 加载中...
                 loading = layer.load(1, {shade: [0.7, '#000', true]});
-            if (options.type.toUpperCase() === 'POST') options.headers = $.extend({'X-CSRF-Token': $('meta[name=csrf_token]').attr('content')}, options.headers || {});
             othis.setCols(options.data, dom);
             if (options.data) $.each(options.data, function (k, v) {
                 if ((k.hasSuffix("password") || k.hasSuffix("passwd")) && v) {
@@ -844,7 +845,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                         break;
                     case 1001:
                     case 403:
-                        window.location.replace('/auth/login?next=' + $('meta[name=url]').attr('content'));
+                        window.location.replace('/auth/login?next=' + URL);
                         break;
                     default:
                         if (typeof options.error === 'function' && options.error(res) === false) {
@@ -905,7 +906,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     let $this = this;
                     form.on('submit(' + options.submit + ')', function (obj) {
                         othis.request({
-                            url: options.url || obj.field.url,
+                            url: options.url || obj.field.url || URL,
                             data: obj.field,
                             index: index,
                             done: options.done,
@@ -1727,7 +1728,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
     };
     main.reboot = {
         app: function (rebootURL) {
-            rebootURL = rebootURL || url;
+            rebootURL = rebootURL || URL;
             layer.confirm("确定重启App?", {icon: 3, title: false}, function (index) {
                 main.request({
                     url: rebootURL, data: {action: "botadmin"}, index: index, done: function () {
@@ -1741,7 +1742,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 });
             });
         }, service: function (rebootURL) {
-            rebootURL = rebootURL || url;
+            rebootURL = rebootURL || URL;
             layer.confirm("确定重启服务器?", {icon: 3, title: false}, function (index) {
                 main.request({
                     url: rebootURL, data: {action: "reboot"}, index: index, done: function () {

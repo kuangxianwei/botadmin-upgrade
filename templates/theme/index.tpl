@@ -82,7 +82,7 @@
         class Util {
             constructor() {
                 this.init = function () {
-                    main.get(url + "/tags", {driver: driver}, function (res) {
+                    main.get(URL + "/tags", {driver: driver}, function (res) {
                         tagsEle.empty();
                         if (res.code === 0) {
                             for (let i = 0; i < res.data.length; i++) {
@@ -120,7 +120,7 @@
                 this.req = function (options) {
                     let othis = this;
                     options = $.extend(true, {
-                        url: url,
+                        url: URL,
                         data: {driver: driver, page: 1, limit: 24},
                         error: function (res) {
                             paginatorLast = true;
@@ -180,9 +180,9 @@
                     },
                     face: function (d) {
                         upload.render({
-                            headers: {'X-CSRF-Token': csrfToken},
+                            headers: {'X-CSRF-Token': CSRF_TOKEN},
                             elem: this,
-                            url: url + '/face',
+                            url: URL + '/face',
                             data: {driver: driver, id: d.id},
                             acceptMime: 'image/png',
                             exts: 'png',
@@ -209,17 +209,17 @@
                     },
                     // 一下是绑定事件
                     "add": function (othis) {
-                        main.get(url + "/add", {driver: driver}, function (html) {
+                        main.get(URL + "/add", {driver: driver}, function (html) {
                             main.popup({
                                 title: "添加主题",
-                                url: url + "/add",
+                                url: URL + "/add",
                                 content: html,
                                 area: '680px',
                                 success: function (dom, popIndex) {
                                     upload.render({
-                                        headers: {'X-CSRF-Token': $('meta[name=csrf_token]').attr("content")},
+                                        headers: {'X-CSRF-Token': CSRF_TOKEN},
                                         elem: '#uploadPackage',
-                                        url: url + "/add",
+                                        url: URL + "/add",
                                         size: 1024 * 50,
                                         accept: 'file',
                                         exts: 'tar.gz',
@@ -272,17 +272,17 @@
                     },
                     "modify": function (othis) {
                         let id = this.attr("data-id");
-                        main.get(url + "/modify", {driver: driver, id: id}, function (html) {
+                        main.get(URL + "/modify", {driver: driver, id: id}, function (html) {
                             main.popup({
                                 title: "修改主题",
-                                url: url + "/modify",
+                                url: URL + "/modify",
                                 content: html,
                                 area: '720px',
                                 success: function (dom, popIndex) {
                                     upload.render({
-                                        headers: {'X-CSRF-Token': $('meta[name=csrf_token]').attr("content")},
+                                        headers: {'X-CSRF-Token': CSRF_TOKEN},
                                         elem: '#uploadPackage',
-                                        url: url + "/modify",
+                                        url: URL + "/modify",
                                         size: 1024 * 50,
                                         accept: 'file',
                                         exts: 'tar.gz',
@@ -335,7 +335,7 @@
                         let id = this.data("id");
                         layer.confirm("删除不可恢复！确定删除该主题？", {icon: 3}, function (index) {
                             main.request({
-                                url: url + "/del",
+                                url: URL + "/del",
                                 data: {driver: driver, id: id},
                                 done: function () {
                                     $("#" + id).remove();
@@ -367,7 +367,7 @@
                         main.ws.log("theme." + driver + "." + this.data("id"));
                     },
                     "download": function () {
-                        window.open(encodeURI(url + "/download?driver=" + driver + "&id=" + this.data("id")), "blank");
+                        window.open(encodeURI(URL + "/download?driver=" + driver + "&id=" + this.data("id")), "blank");
                     },
                 };
                 this.buildItem = function (ele, d) {

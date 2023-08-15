@@ -642,7 +642,7 @@
 
         form.on('submit(submit)', function (obj) {
             main.request({
-                url: url,
+                url: URL,
                 data: obj.field,
             });
             return false;
@@ -652,9 +652,9 @@
             switch (event) {
                 case 'reset':
                     main.request({
-                        url: url + '/reset',
+                        url: URL + '/reset',
                         done: function () {
-                            location.replace(url);
+                            location.replace(URL);
                         }
                     });
                     break;

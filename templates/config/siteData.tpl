@@ -214,7 +214,6 @@
             });
             obj.field.cities = cities.join();
             main.request({
-                url: url,
                 multiple: true,
                 data: obj.field,
             });
@@ -223,13 +222,13 @@
         $('.layui-btn[data-event]').on('click', function () {
             switch ($(this).data("event")) {
                 case "sync":
-                    main.request({url: url + '/sync'});
+                    main.request({url: URL + '/sync'});
                     break;
                 case "reset":
                     main.request({
-                        url: url + '/reset',
+                        url: URL + '/reset',
                         done: function () {
-                            location.replace(url);
+                            location.replace(URL);
                         },
                     });
                     break;

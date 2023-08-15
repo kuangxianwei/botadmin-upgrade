@@ -100,7 +100,7 @@
             add: function () {
                 main.popup({
                     title: '添加推送配置 &#123;&#123;random1-8&#125;&#125;',
-                    url: url + '/add',
+                    url: URL + '/add',
                     content: '<div class="layui-card layui-form" style="height: 98%">' +
                         '<textarea class="layui-textarea" name="urls" style="height: 100%" placeholder="https://www.chowan.edu/search/&#123;{keyword}&#125;&#123;{random}&#125;   备注">https://www.chowan.edu/search/&#123;{keyword}&#125;.&#123;{random}&#125;   备注</textarea>' +
                         '<button class="layui-hide" lay-submit lay-filter="submit"></button>' +
@@ -118,7 +118,7 @@
                         dom.find('input[name=note]').val(obj.data.note);
                         dom.find('input[name=id]').val(obj.data.id);
                     },
-                    url: url + '/modify',
+                    url: URL + '/modify',
                     done: 'table-list',
                 });
             },

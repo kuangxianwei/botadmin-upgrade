@@ -63,7 +63,7 @@
                     }
                     layer.confirm('删除后不可恢复，确定删除吗？', function (index) {
                         main.request({
-                            url: url + '/del',
+                            url: URL + '/del',
                             data: {id: id, ids: ids.join()},
                             index: index,
                             done: 'table-list'
@@ -73,7 +73,7 @@
                 }
                 layer.confirm('确定删除此条日志？', function (index) {
                     main.request({
-                        url: url + '/del',
+                        url: URL + '/del',
                         data: {id: id, ids: obj.data.id},
                         index: index,
                         done: function () {
@@ -83,11 +83,11 @@
                 });
             },
             edit: function (obj) {
-                main.get(url + "/modify", {id: id, ids: obj.data.id}, function (html) {
+                main.get(URL + "/modify", {id: id, ids: obj.data.id}, function (html) {
                     main.popup({
                         type: 1,
                         title: "修改文章",
-                        url: url + "/modify",
+                        url: URL + "/modify",
                         content: html,
                         done: "table-list"
                     });
@@ -103,7 +103,7 @@
                 });
             },
             add: function () {
-                main.get(url + "/classes", {id: id}, function (res) {
+                main.get(URL + "/classes", {id: id}, function (res) {
                     if (res.code !== 0) {
                         return main.error(res.msg);
                     }
@@ -124,11 +124,11 @@
                         },
                         yes: function (index, dom) {
                             layer.close(index);
-                            main.get(url + "/add", {id: id, cid: main.formData(dom).cid}, function (html) {
+                            main.get(URL + "/add", {id: id, cid: main.formData(dom).cid}, function (html) {
                                 main.popup({
                                     type: 1,
                                     title: "添加文章",
-                                    url: url + "/add",
+                                    url: URL + "/add",
                                     content: html,
                                     done: "table-list"
                                 });

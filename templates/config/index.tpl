@@ -100,19 +100,11 @@
                     </div>
                     <div class="layui-form-item layui-row">
                         <div class="layui-col-md5">
-                            <label for="csrf_secret" class="layui-form-label">csrf秘钥:</label>
-                            <div class="layui-input-block">
-                                <input type="text" autocomplete="off" name="csrf_secret" id="csrf_secret" value="{{.base.CsrfSecret}}" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-col-md5">
                             <label for="php_my_admin_name" class="layui-form-label">PhpMyAdmin:</label>
                             <div class="layui-input-block">
                                 <input type="text" autocomplete="off" name="php_my_admin_name" id="php_my_admin_name" value="{{.base.PhpMyAdminName}}" class="layui-input">
                             </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item layui-row">
                         <div class="layui-col-md5">
                             <label for="reboot_spec" class="layui-form-label">定时重启:</label>
                             <div class="layui-input-block">
@@ -437,14 +429,14 @@
         });
         form.on('submit(submit-base)', function (obj) {
             main.request({
-                url: url + '/base',
+                url: URL + '/base',
                 data: obj.field,
             });
             return false;
         });
         form.on('submit(submit-server)', function (obj) {
             main.request({
-                url: url + '/server',
+                url: URL + '/server',
                 data: obj.field,
             });
             return false;
@@ -457,34 +449,34 @@
             });
             obj.field.services = obj.field.services.join();
             main.request({
-                url: url + '/monitor',
+                url: URL + '/monitor',
                 data: obj.field,
                 multiple: true,
             });
         });
         form.on('submit(submit-ban)', function (obj) {
             main.request({
-                url: url + '/ban',
+                url: URL + '/ban',
                 data: obj.field,
             });
             return false;
         });
         form.on('submit(submit-data)', function (obj) {
             main.request({
-                url: url + '/data',
+                url: URL + '/data',
                 data: obj.field,
             });
             return false;
         });
         form.on('submit(submit-filter)', function (obj) {
             main.request({
-                url: url,
+                url: URL,
                 data: obj.field,
             });
         });
         let active = {
             banUpdate: function () {
-                main.request({url: url + '/ban/update'});
+                main.request({url: URL + '/ban/update'});
             },
             reset: function () {
                 let name = this.data('name'),
@@ -494,7 +486,7 @@
                 }
                 layer.confirm(tip, function (index) {
                     main.request({
-                        url: url + '/reset',
+                        url: URL + '/reset',
                         data: {name: name},
                         index: index,
                         done: function () {
@@ -506,7 +498,7 @@
             banTest: function () {
                 main.popup({
                     title: '测试违禁词',
-                    url: url + '/ban/test',
+                    url: URL + '/ban/test',
                     area: '70%',
                     done: function (res) {
                         main.msg(`<textarea class="layui-textarea" name="content" rows="10">` + res.msg.replaceAll("<br/>", "\n") + `</textarea>`, {area: ['500px', 'auto']});

@@ -15,7 +15,6 @@
                 <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="password"></label>
                 <input type="password" autocomplete="off" name="password" id="password" lay-verify="required" pattern="^\S{6,18}$" placeholder="密码" class="layui-input" required>
                 <span></span>
-                <input type="hidden" name="csrf.Token" value="{{.token}}">
             </div>
             <div class="layui-form-item">
                 <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="login-submit">登 入</button>
@@ -69,7 +68,6 @@
         form.on('submit(login-submit)', function (obj) {
             main.request({
                 data: obj.field,
-                url: url,
                 done: function (res) {
                     layer.msg(res.msg, {}, function () {
                         location.replace(referer);

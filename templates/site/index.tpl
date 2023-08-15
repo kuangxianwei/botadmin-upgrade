@@ -399,7 +399,7 @@
                     }
                 },
                 {
-                    field: 'ftp_id', width: 130, title: 'FTP', align: 'center', event: 'ftp_id',
+                    field: 'ftp_id', width: 130, title: 'FTP', align: 'center', event: 'ftp_id', hide: true,
                     style: 'cursor:pointer;color:#01aaed;font-weight:bold',
                     templet: function (d) {
                         return d['ftp_id'] ? d['ftp_name'] : '未绑定';
@@ -447,9 +447,9 @@
             },
         }, {
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         title: '修改网站设置',
                         content: html,
                         done: 'table-list',
@@ -464,7 +464,7 @@
                     btn: ['内链', '外链'],
                     yes: function (index) {
                         layer.close(index);
-                        main.get(url + '/link', {id: obj.data.id, action: 'inner'}, function (res) {
+                        main.get(URL + '/link', {id: obj.data.id, action: 'inner'}, function (res) {
                             if (res.code !== 0) {
                                 main.error(res.msg);
                                 return false;
@@ -472,7 +472,7 @@
                             main.popup({
                                 title: "修改内链",
                                 area: ['500px', '450px'],
-                                url: url + '/link',
+                                url: URL + '/link',
                                 content: `<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" placeholder="关键词=>https://www.nfivf.com/&#13;关键词2=>https://www.nfivf.com/" rows="12" name="links"></textarea></div><input name="id" type="hidden" value=""><input name="action" type="hidden" value="inner"><button class="layui-hidden" lay-filter="submit" lay-submit></button></div></div>`,
                                 success: function (dom) {
                                     dom.find("[name=id]").val(obj.data.id);
@@ -492,15 +492,15 @@
                             btn: false,
                             area: ['95%', '95%'],
                             title: '友情链接',
-                            content: url + '/link?id=' + obj.data.id,
+                            content: URL + '/link?id=' + obj.data.id,
                         });
                     },
                 });
             },
             pic_dirname: function (obj) {
-                main.get(url + '/image', {id: obj.data.id}, function (html) {
+                main.get(URL + '/image', {id: obj.data.id}, function (html) {
                     main.popup({
-                        url: url + '/image',
+                        url: URL + '/image',
                         title: '添加图片',
                         content: html,
                         area: '800px',
@@ -552,9 +552,9 @@
                 });
             },
             add: function () {
-                main.get(url + '/add', {}, function (html) {
+                main.get(URL + '/add', {}, function (html) {
                     main.popup({
-                        url: url + '/add',
+                        url: URL + '/add',
                         title: '添加网站',
                         content: html,
                         done: 'table-list',
@@ -562,9 +562,9 @@
                 });
             },
             batch: function () {
-                main.get(url + '/batch', {}, function (html) {
+                main.get(URL + '/batch', {}, function (html) {
                     main.popup({
-                        url: url + '/batch',
+                        url: URL + '/batch',
                         title: '批量添加网站',
                         content: html,
                         done: 'table-list',
@@ -576,10 +576,10 @@
                     layer.msg("未选择", {icon: 2});
                     return false;
                 }
-                main.get(url + '/configure', {ids: ids.join()}, function (html) {
+                main.get(URL + '/configure', {ids: ids.join()}, function (html) {
                     main.popup({
                         title: "批量修改配置",
-                        url: url + '/configure',
+                        url: URL + '/configure',
                         content: html,
                         done: 'table-list',
                     });
@@ -591,7 +591,7 @@
                     return false;
                 }
                 main.request({
-                    url: url + '/found',
+                    url: URL + '/found',
                     data: {'ids': ids.join()},
                     done: function (res) {
                         table.reload('table-list');
@@ -606,7 +606,7 @@
                     return false;
                 }
                 main.request({
-                    url: url + '/install',
+                    url: URL + '/install',
                     data: {'ids': ids.join()},
                     done: function (res) {
                         table.reload('table-list');
@@ -621,7 +621,7 @@
                     return false;
                 }
                 main.request({
-                    url: url + '/setup',
+                    url: URL + '/setup',
                     data: {'ids': ids.join()},
                     done: function () {
                         main.ws.log(function () {
@@ -637,7 +637,7 @@
                     return false;
                 }
                 main.request({
-                    url: url + '/publish',
+                    url: URL + '/publish',
                     data: {ids: ids.join()},
                     done: function () {
                         main.ws.log(function () {
@@ -649,7 +649,7 @@
             },
             reload_nginx: function (obj, ids) {
                 main.request({
-                    url: url + '/reload/nginx',
+                    url: URL + '/reload/nginx',
                     data: {ids: ids.join()},
                     done: function (res) {
                         table.reload('table-list');
@@ -667,7 +667,7 @@
                 main.popup({
                     title: '重新设置网站后台',
                     content: contentObj.prop('outerHTML'),
-                    url: url + '/reload/website/setup',
+                    url: URL + '/reload/website/setup',
                     area: '400px',
                     done: function () {
                         main.ws.log();
@@ -677,7 +677,7 @@
             },
             update_website: function (obj, ids) {
                 main.request({
-                    url: url + '/update/website',
+                    url: URL + '/update/website',
                     data: {'ids': ids.join()},
                     done: function () {
                         main.ws.log(function () {
@@ -699,7 +699,7 @@
                     },
                     function (value, index) {
                         main.request({
-                            url: url + '/pull/config',
+                            url: URL + '/pull/config',
                             data: {'ids': ids.join(), 'thread': value},
                             index: index,
                             done: function () {
@@ -711,14 +711,14 @@
             },
             cron_enable: function (obj, ids) {
                 main.request({
-                    url: url + '/cron/switch',
+                    url: URL + '/cron/switch',
                     data: {ids: ids.join(), cron_enabled: true},
                     done: 'table-list'
                 });
             },
             cron_disable: function (obj, ids) {
                 main.request({
-                    url: url + '/cron/switch',
+                    url: URL + '/cron/switch',
                     data: {ids: ids.join(), cron_enabled: false},
                     done: 'table-list'
                 });
@@ -746,7 +746,7 @@
                                 if (event.value === 'revert') {
                                     layer.confirm('导入SQL脚本会覆盖本数据库,不可恢复，确定覆盖？', function (index) {
                                         layer.close(index);
-                                        main.get(url + "/sql/backup", {webroot_path: obj.data['webroot_path']}, function (res) {
+                                        main.get(URL + "/sql/backup", {webroot_path: obj.data['webroot_path']}, function (res) {
                                             if (res.code === 0) {
                                                 let selectElem = $('<div id="select-filename" class="layui-form-item"><label class="layui-form-label">选择备份:</label><div class="layui-input-block"><select name="filename" id="filename" class="layui-select"></select></div></div>'),
                                                     insertElem = selectElem.find('select');
@@ -767,7 +767,7 @@
                             });
                             form.on('submit(' + uuid + ')', function (obj) {
                                 main.request({
-                                    url: url + "/mysql",
+                                    url: URL + "/mysql",
                                     data: obj.field,
                                     index: index,
                                     done: function () {
@@ -807,7 +807,7 @@
                             field.field.id = obj.id;
                             field.field.ids = ids.join();
                             main.request({
-                                url: url + "/mysql",
+                                url: URL + "/mysql",
                                 data: field.field,
                                 index: index,
                                 done: function () {
@@ -863,7 +863,7 @@
             },
             vhosts: function (obj, ids) {
                 main.request({
-                    url: url + '/vhosts',
+                    url: URL + '/vhosts',
                     data: {ids: ids.join()},
                     done: function (res) {
                         main.msg(res.msg);
@@ -877,7 +877,7 @@
                 }
                 main.popup({
                     title: "添加友情链接",
-                    url: url + "/link/add",
+                    url: URL + "/link/add",
                     area: ['500px', '300px'],
                     content: $('#links-add-html').html(),
                     success: function (dom) {
@@ -891,7 +891,7 @@
                 }
                 main.popup({
                     title: "删除友情链接",
-                    url: url + "/link/del",
+                    url: URL + "/link/del",
                     area: ['500px', '300px'],
                     content: $('#links-add-html').html(),
                     success: function (dom) {
@@ -901,7 +901,7 @@
             },
             sql_id: function (obj) {
                 main.request({
-                    url: url + '/sqls',
+                    url: URL + '/sqls',
                     data: obj.data,
                     done: function (res) {
                         res.data = Array.isArray(res.data) ? res.data : [];
@@ -909,7 +909,7 @@
                         main.popup({
                             title: false,
                             maxmin: false,
-                            url: url + '/relationship',
+                            url: URL + '/relationship',
                             content: $('#selector-html').html(),
                             area: ['220px', '300px'],
                             success: function (dom) {
@@ -930,7 +930,7 @@
             },
             ftp_id: function (obj) {
                 main.request({
-                    url: url + '/ftps',
+                    url: URL + '/ftps',
                     data: obj.data,
                     done: function (res) {
                         res.data = Array.isArray(res.data) ? res.data : [];
@@ -938,7 +938,7 @@
                         main.popup({
                             title: false,
                             maxmin: false,
-                            url: url + '/relationship',
+                            url: URL + '/relationship',
                             content: $('#selector-html').html(),
                             area: ['220px', '300px'],
                             success: function (dom) {

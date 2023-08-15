@@ -42,9 +42,9 @@
             {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             modify: function (obj) {
-                main.get(url + "/modify", {id: obj.data.id}, function (html) {
+                main.get(URL + "/modify", {id: obj.data.id}, function (html) {
                     main.popup({
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         title: '修改样式',
                         content: html,
                         done: 'table-list',
@@ -52,9 +52,9 @@
                 })
             },
             add: function () {
-                main.get(url + "/add", function (html) {
+                main.get(URL + "/add", function (html) {
                     main.popup({
-                        url: url + '/add',
+                        url: URL + '/add',
                         title: '添加样式',
                         content: html,
                         done: "table-list",

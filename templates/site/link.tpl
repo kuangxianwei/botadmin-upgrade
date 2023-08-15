@@ -78,7 +78,7 @@
             edit: function (obj) {
                 main.popup({
                     title: "修改友情链接",
-                    url: url + "/modify",
+                    url: URL + "/modify",
                     area: ['500px', '240px'],
                     content: $('#modify-html').html(),
                     success: function (dom) {
@@ -100,7 +100,7 @@
             add: function () {
                 main.popup({
                     title: "添加友情链接",
-                    url: url + "/add",
+                    url: URL + "/add",
                     area: ['500px', '300px'],
                     content: $('#add-html').html(),
                     success: function (dom) {

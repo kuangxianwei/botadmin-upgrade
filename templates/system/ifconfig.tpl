@@ -124,7 +124,7 @@
                             let field = obj.field;
                             field.Act = 'Add';
                             main.request({
-                                url: url,
+                                url: URL,
                                 data: field,
                                 index: index,
                                 done: 'table-list',
@@ -138,7 +138,7 @@
             stop: function (obj) {
                 layer.confirm('重启服务器恢复，确定停用？', function (index) {
                     main.request({
-                        url: url,
+                        url: URL,
                         data: obj.data,
                         index: index,
                         done: obj.del
@@ -148,7 +148,7 @@
             del: function (obj) {
                 layer.confirm('删除后不可恢复，确定删除？', function (index) {
                     main.request({
-                        url: url,
+                        url: URL,
                         data: obj.data,
                         index: index,
                         done: obj.del

@@ -347,10 +347,10 @@
                 main.webssh();
             },
             app: function () {
-                main.reboot.app(url + '/reboot');
+                main.reboot.app(URL + '/reboot');
             },
             service: function () {
-                main.reboot.service(url + '/reboot');
+                main.reboot.service(URL + '/reboot');
             },
         };
         $('[data-reboot]').off('click').on('click', function () {
@@ -367,7 +367,7 @@
             $('[lay-filter=' + name + '-progress]>.layui-progress-bar').html('<span class="layui-progress-text">' + field.percent + '</span>').parent().parent().find('>span').text(text + ': ' + field.value)
         };
         let getMemory = function () {
-            $.get(url + '/memory', function (res) {
+            $.get(URL + '/memory', function (res) {
                 if (res) {
                     $('#free').text(res.free.value);
                     $('#total').text('总内存: ' + res.total.value);

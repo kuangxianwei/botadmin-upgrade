@@ -125,9 +125,9 @@
             {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
-                        url: url + '/add',
+                        url: URL + '/add',
                         title: '添加模块',
                         content: html,
                         done: 'table-list',
@@ -146,9 +146,9 @@
                 });
             },
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         title: '修改模块',
                         content: html,
                         done: 'table-list',
@@ -158,7 +158,7 @@
         });
         table.on('edit(table-list)', function (obj) {
             main.request({
-                url: url + '/modify',
+                url: URL + '/modify',
                 data: {id: obj.data.id, key: obj.value, cols: 'key'},
                 error: function () {
                     table.reload('table-list');

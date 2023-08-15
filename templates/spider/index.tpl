@@ -199,12 +199,12 @@
             }
         }, {
             modify: function (obj) {
-                layui.steps({url: url + '/modify', data: {id: obj.data.id}});
+                layui.steps({url: URL + '/modify', data: {id: obj.data.id}});
             },
             copy: function (obj) {
                 layer.confirm('确定复制:' + obj.data.name + '?', function (index) {
                     main.request({
-                        url: url + '/copy',
+                        url: URL + '/copy',
                         data: {id: obj.data.id},
                         index: index,
                         done: 'table-list',
@@ -213,31 +213,31 @@
             },
             site_id: function (obj) {
 
-                main.get(url + '/bind', {id: obj.data.id}, function (html) {
+                main.get(URL + '/bind', {id: obj.data.id}, function (html) {
 
                     main.popup({
                         title: '绑定网站',
                         content: html,
-                        url: url + '/bind',
+                        url: URL + '/bind',
                         area: ['720px', '300px'],
                         done: 'table-list',
                     });
                 });
             },
             addRule: function () {
-                layui.steps({url: url + '/add'});
+                layui.steps({url: URL + '/add'});
             },
             configure: function (obj, ids) {
                 if (ids.length === 0) {
                     return main.error('请选择数据');
                 }
 
-                main.get(url + '/configure', {ids: ids.join()}, function (html) {
+                main.get(URL + '/configure', {ids: ids.join()}, function (html) {
 
                     main.popup({
                         title: '批量修改配置',
                         content: html,
-                        url: url + '/configure',
+                        url: URL + '/configure',
                         done: 'table-list',
                     });
                 });
@@ -253,7 +253,7 @@
                         title: '采集入库:输入线程数,太多会卡死'
                     }, function (value, index) {
                         main.request({
-                            url: url + '/exec',
+                            url: URL + '/exec',
                             data: {ids: ids.join(), thread: value},
                             index: index,
                             done: 'table-list',
@@ -263,7 +263,7 @@
                 }
                 layer.confirm('开始采集入库？', function (index) {
                     main.request({
-                        url: url + '/exec',
+                        url: URL + '/exec',
                         data: {id: obj.data.id, thread: 1},
                         done: function () {
                             main.ws.log("spider." + obj.data.id, function () {
@@ -278,7 +278,7 @@
             recordDel: function (obj, ids) {
                 layer.confirm('确定清空采集记录?清空后可导致重复采集', function (index) {
                     main.request({
-                        url: url + '/record/del',
+                        url: URL + '/record/del',
                         data: {ids: ids.join()},
                         index: index
                     });

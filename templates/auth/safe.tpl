@@ -39,16 +39,10 @@
     layui.use(['index', 'main'], function () {
         let main = layui.main,
             form = layui.form;
-
         form.on('submit(submit)', function (obj) {
-            main.request({
-                url: url,
-                data: obj.field,
-            });
+            main.request({data: obj.field});
             return false;
         });
-        main.slider(
-            {elem: '#login_limit', value: $('input[name=login_limit]').val(), min: 0, max: 10},
-        );
+        main.slider({elem: '#login_limit', value: $('input[name=login_limit]').val(), min: 0, max: 10});
     });
 </script>

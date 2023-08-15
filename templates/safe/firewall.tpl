@@ -35,11 +35,11 @@
             ]], page: false
         }, {
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
                         title: '添加规则',
                         content: html,
-                        url: url + '/add',
+                        url: URL + '/add',
                         area: "50%",
                         done: 'table-list',
                     });

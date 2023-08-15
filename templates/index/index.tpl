@@ -61,7 +61,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a lay-href="/auth">登录日志</a></dd>
-                        <dd><a lay-href="/safe/login">登录设置</a></dd>
+                        <dd><a lay-href="/auth/safe">登录设置</a></dd>
                         <hr/>
                         <dd data-event="logout" style="text-align:center;"><a href="/auth/logout">退出</a></dd>
                     </dl>
@@ -535,7 +535,7 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="safe-login">
-                                <a lay-href="/safe/login" lay-tips="登录设置" lay-direction="2">
+                                <a lay-href="/auth/safe" lay-tips="登录设置" lay-direction="2">
                                     <i class="iconfont icon-login"></i>
                                     <cite>登录设置</cite>
                                 </a>

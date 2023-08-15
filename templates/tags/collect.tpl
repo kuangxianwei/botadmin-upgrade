@@ -96,14 +96,14 @@
             main = layui.main;
         form.on('submit(submit-save)', function (obj) {
             main.request({
-                url: url,
+                url: URL,
                 data: obj.field,
             });
         });
         form.on('submit(submit-start)', function (obj) {
             obj.field.action = 'run';
             main.request({
-                url: url,
+                url: URL,
                 data: obj.field,
                 done: function () {
                     setTimeout(function () {
@@ -114,7 +114,7 @@
         });
         form.on('submit(submit-stop)', function () {
             main.request({
-                url: url + '/stop', done: function () {
+                url: URL + '/stop', done: function () {
                     setTimeout(function () {
                         location.reload();
                     }, 2000);

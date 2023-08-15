@@ -62,7 +62,7 @@
             add: function () {
                 main.popup({
                     title: '添加Tags',
-                    url: url + '/add',
+                    url: URL + '/add',
                     content: '<div class="layui-card layui-form" style="height: 98%">' +
                         '<textarea class="layui-textarea" name="values" style="height: 100%" placeholder="输入关键词一行一个"></textarea>' +
                         '<button class="layui-hide" lay-submit lay-filter="submit"></button>' +

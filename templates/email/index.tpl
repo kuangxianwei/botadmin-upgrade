@@ -57,10 +57,10 @@
             {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             modify: function (obj) {
-                main.get(url + '/modify', obj.data, function (html) {
+                main.get(URL + '/modify', obj.data, function (html) {
                     main.popup({
                         title: '修改邮箱配置',
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         area: '500px',
                         content: html,
                         done: 'table-list',
@@ -70,17 +70,17 @@
             test: function (obj) {
                 layer.confirm('测试本配置有效果', function (index) {
                     main.request({
-                        url: url + '/test',
+                        url: URL + '/test',
                         data: obj.data,
                         index: index
                     });
                 });
             },
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
                         title: '添加邮箱',
-                        url: url + '/add',
+                        url: URL + '/add',
                         area: '500px',
                         content: html,
                         done: 'table-list',

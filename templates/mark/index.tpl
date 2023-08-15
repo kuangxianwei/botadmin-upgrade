@@ -120,9 +120,9 @@
             {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
-                        url: url + '/add',
+                        url: URL + '/add',
                         title: '添加规则',
                         content: html,
                         done: 'table-list',
@@ -130,18 +130,18 @@
                 });
             },
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改推送规则',
                         content: html,
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         done: 'table-list',
                     });
                 });
             },
             execute: function (obj) {
                 main.request({
-                    url: url + '/execute',
+                    url: URL + '/execute',
                     data: obj.data,
                     done: function () {
                         main.ws.log('mark.' + obj.data.id);
@@ -161,7 +161,7 @@
                         dom.find('[name=ids]').val(ids.join());
                         main.on.del();
                     },
-                    url: url + '/modify',
+                    url: URL + '/modify',
                     done: 'table-list',
                 });
             },

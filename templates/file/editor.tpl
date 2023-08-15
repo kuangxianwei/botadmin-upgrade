@@ -37,10 +37,7 @@
         form.render();
         $('.layui-form button[lay-submit]').attr('lay-filter', 'submit');
         form.on('submit(submit)', function (obj) {
-            main.request({
-                url: url,
-                data: obj.field
-            });
+            main.request({data: obj.field});
             return false;
         });
         $('[lay-filter=cancel]').on('click', function () {

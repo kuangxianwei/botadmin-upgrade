@@ -77,7 +77,7 @@
         class Util {
             constructor() {
                 this.init = function () {
-                    main.get(url + "/tags", {driver: driver}, function (res) {
+                    main.get(URL + "/tags", {driver: driver}, function (res) {
                         tagsEle.empty();
                         if (res.code === 0) {
                             for (let i = 0; i < res.data.length; i++) {
@@ -115,7 +115,7 @@
                 this.req = function (options) {
                     let othis = this;
                     options = $.extend(true, {
-                        url: url,
+                        url: URL,
                         data: {driver: driver, page: 1, limit: 24},
                         error: function (res) {
                             paginatorLast = true;
@@ -200,7 +200,7 @@
                     "buy": function (othis) {
                         let id = this.data("id");
                         main.request({
-                            url: url + "/buy",
+                            url: URL + "/buy",
                             data: {driver: driver, token: admin.token, id: id},
                             done: function () {
                                 let ele = $("#" + id + " [lay-filter=btn-group]");
@@ -213,7 +213,7 @@
                     "download": function (othis) {
                         let id = this.data("id");
                         main.request({
-                            url: url + "/download",
+                            url: URL + "/download",
                             data: {driver: driver, token: admin.token, id: id},
                             done: function () {
                                 main.ws.log("theme." + driver + "." + id, function () {

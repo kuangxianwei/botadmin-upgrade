@@ -134,10 +134,10 @@
             {title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改SSH配置',
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         area: '700px',
                         content: html,
                         done: 'table-list',
@@ -145,7 +145,7 @@
                 });
             },
             login: function (obj) {
-                main.get(url + '/login', {id: obj.data.id}, function (link) {
+                main.get(URL + '/login', {id: obj.data.id}, function (link) {
                     if (link) {
                         window.open(link, "_blank");
                     }
@@ -153,16 +153,16 @@
             },
             setDefault: function (obj) {
                 main.request({
-                    url: url + "/default",
+                    url: URL + "/default",
                     data: {id: obj.data.id},
                     done: 'table-list',
                 });
             },
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
                         title: '添加webSSH',
-                        url: url + '/add',
+                        url: URL + '/add',
                         area: '700px',
                         content: html,
                         done: 'table-list',
@@ -177,7 +177,7 @@
                     return main.error('请选择数据');
                 }
                 main.popup({
-                    url: url + "/execute",
+                    url: URL + "/execute",
                     title: "批量执行shell",
                     content: $("#execute").html(),
                     success: function (dom) {
@@ -215,7 +215,7 @@
                     return main.error('请选择数据');
                 }
                 main.request({
-                    url: url + "/scan",
+                    url: URL + "/scan",
                     data: {ids: ids.join()},
                     done: function () {
                         main.ws.log();
@@ -225,7 +225,7 @@
             },
             controlVersion: function () {
                 main.request({
-                    url: url + "/version", done: function () {
+                    url: URL + "/version", done: function () {
                         return false;
                     }
                 });

@@ -88,56 +88,56 @@
             {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
         ]], {
             modify: function (obj) {
-                main.get(url + '/modify', {id: obj.data.id}, function (html) {
+                main.get(URL + '/modify', {id: obj.data.id}, function (html) {
                     main.popup({
                         title: '修改MySQL',
                         content: html,
                         area: ['600px', '550px'],
-                        url: url + '/modify',
+                        url: URL + '/modify',
                         done: 'table-list',
                     });
                 });
             },
             add: function () {
-                main.get(url + '/add', function (html) {
+                main.get(URL + '/add', function (html) {
                     main.popup({
                         title: '创建数据库',
                         content: html,
                         area: ['600px', '550px'],
-                        url: url + '/add',
+                        url: URL + '/add',
                         done: 'table-list',
                     });
                 });
             },
             modifyroot: function () {
-                main.get(url + '/modifyroot', function (html) {
+                main.get(URL + '/modifyroot', function (html) {
                     main.popup({
                         title: '修改root密码',
                         content: html,
-                        url: url + '/modifyroot',
+                        url: URL + '/modifyroot',
                         area: '400px',
                     });
                 });
             },
             resetroot: function () {
-                main.get(url + '/resetroot', function (html) {
+                main.get(URL + '/resetroot', function (html) {
                     main.popup({
                         title: '重置root密码',
                         content: html,
-                        url: url + '/resetroot',
+                        url: URL + '/resetroot',
                         area: '400px',
                     });
                 });
             },
             viewRoot: function () {
-                main.get(url + '/view', function (pwd) {
+                main.get(URL + '/view', function (pwd) {
                     main.copy(pwd, layer.msg('root密码复制成功'));
                 });
             },
             sync: function () {
                 layer.confirm('如无错误且无需同步，确定同步？', function (index) {
                     main.request({
-                        url: url + '/sync',
+                        url: URL + '/sync',
                         index: index,
                         done: 'table-list',
                     });
