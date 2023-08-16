@@ -162,7 +162,7 @@ layui.define(['main'], function (exports) {
                 // 拉取数据
                 pull = {
                     name: function (field, isEdit) {
-                        if (!/^(\w|[\u4e00-\u9fa5]){2,10}$/.test(this.value)) {
+                        if (!/^(?:\w|[\u4e00-\u9fa5]){2,10}$/.test(this.value)) {
                             main.error('栏目名称不合法');
                             return false;
                         }

@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="/static/adminui/dist/css/admin.css" media="all">
-    <link rel="stylesheet" href="/static/layui/iconfont/iconfont.css" media="all">
+    <link rel="stylesheet" href="/static/style/iconfont/iconfont.css" media="all">
     <link rel="stylesheet" href="/static/style/botadmin.css" media="all">
     <script>const URL ={{.URL}}, CSRF_TOKEN ={{.CSRF_TOKEN}}, PUBLIC_KEY ={{.PUBLIC_KEY}};</script>
 </head>

@@ -14,7 +14,7 @@
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/modules/chart.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main;

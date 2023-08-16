@@ -318,8 +318,8 @@
     </div>
 </script>
 <script>
-    layui.use(['index', 'console', 'main'], function () {
-        let main = layui.main, element = layui.element;
+    layui.use(['index', 'carousel', 'main'], function () {
+        let main = layui.main, element = layui.element, carousel = layui.carousel, device = layui.device();
         {{if .reminded -}}
         main.display({
             type: 1,
@@ -361,6 +361,20 @@
             active[event] && active[event].call($this);
         });
         main.checkLNMP();
+        //轮播切换
+        $('.layadmin-carousel').each(function () {
+            let othis = $(this);
+            carousel.render({
+                elem: this
+                , width: '100%'
+                , arrow: 'none'
+                , interval: othis.data('interval')
+                , autoplay: othis.data('autoplay') === true
+                , trigger: (device.ios || device.android) ? 'click' : 'hover'
+                , anim: othis.data('anim')
+            });
+        });
+        // 进度条
         element.render('progress');
         let progress = function (field, name, text) {
             element.progress(name + '-progress', field.percent);
