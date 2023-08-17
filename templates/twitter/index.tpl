@@ -168,7 +168,7 @@
                 {field: 'spec', title: '定时规则', hide: true},
                 {field: 'texts', title: '文本列表', hide: true},
                 {field: 'tags', title: 'Tag列表'},
-                {field: 'user_ids', title: '用户列表', hide: true},
+                {field: 'user_ids', title: '用户列表'},
                 {
                     field: 'updated', title: '时间', align: 'center', sort: true, width: 180, hide: true,
                     templet: function (d) {
@@ -182,7 +182,7 @@
                 if (Array.isArray(res.data)) {
                     $.each(res.data, function (i, d) {
                         if (!d['user_ids'] || d['user_ids'].length === 0) {
-                            $('div[lay-id=table-list] tr[data-index=' + i + ']>td').css('background-color', '#ffb800').attr('lay-tips', '用户列表为空，请指定用户列表')
+                            $('div[lay-id=table-list] tr[data-index=' + i + ']>td[data-field=user_ids]').css('background-color', '#ffb800').attr('lay-tips', '用户列表为空，请指定用户列表')
                         }
                     });
                 }

@@ -156,8 +156,10 @@
                 element.render();
                 if (Array.isArray(res.data)) {
                     $.each(res.data, function (i, d) {
-                        if (d.status.indexOf("ERR") !== -1) {
-                            $('div[lay-id=table-list] tr[data-index=' + i + ']').css('background-color', '#ffb800')
+                        if (d.status.indexOf("账号异常") !== -1) {
+                            $('div[lay-id=table-list] tr[data-index=' + i + ']>td[data-field=status]').css('background-color', '#f10b0b')
+                        } else if (d.status.indexOf("ERR") !== -1) {
+                            $('div[lay-id=table-list] tr[data-index=' + i + ']>td[data-field=status]').css('background-color', '#ffb800')
                         }
                     });
                 }
