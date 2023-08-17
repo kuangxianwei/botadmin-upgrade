@@ -156,10 +156,13 @@
                 element.render();
                 if (Array.isArray(res.data)) {
                     $.each(res.data, function (i, d) {
-                        if (d.status.indexOf("账号异常") !== -1) {
-                            $('div[lay-id=table-list] tr[data-index=' + i + ']>td[data-field=status]').css('background-color', '#f10b0b')
+                        let elem = $('div[lay-id=table-list] tr[data-index=' + i + ']>td[data-field=status]');
+                        if (d.status.indexOf("账号锁定") !== -1) {
+                            elem.css('color', 'rgba(252,218,137,0.83)')
+                        } else if (d.status.indexOf("账号异常") !== -1) {
+                            elem.css('color', '#f10b0b')
                         } else if (d.status.indexOf("ERR") !== -1) {
-                            $('div[lay-id=table-list] tr[data-index=' + i + ']>td[data-field=status]').css('background-color', '#ffb800')
+                            elem.css('color', 'rgba(255,184,0,0.83)')
                         }
                     });
                 }
