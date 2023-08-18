@@ -83,6 +83,9 @@
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-xs" lay-event="open" lay-tips="查看或手动操作">
+            <i class="iconfont icon-view"></i>
+        </button>
         <button class="layui-btn layui-btn-xs" lay-event="modify">
             <i class="layui-icon layui-icon-edit"></i>
         </button>
@@ -118,6 +121,19 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main, element = layui.element;
+        let cookies = [{
+            "domain": ".twitter.com",
+            "expirationDate": 1722588645,
+            "hostOnly": false,
+            "httpOnly": false,
+            "name": "auth_token",
+            "path": "/",
+            "sameSite": null,
+            "secure": false,
+            "session": false,
+            "storeId": null,
+            "value": ""
+        }];
         main.upload();
         //日志管理
         main.table({
@@ -150,7 +166,7 @@
                         return main.timestampFormat(d['updated']);
                     }
                 },
-                {title: '操作', width: 120, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
             done: function (res) {
                 element.render();
@@ -168,6 +184,13 @@
                 }
             },
         }, {
+            open: function (obj) {
+                cookies[0].value = obj.data.token;
+                cookies[0].expirationDate = new Date().getTime();
+                main.copy(JSON.stringify(cookies), function () {
+                    window.open("https://twitter.com/" + obj.data.username, '_blank')
+                });
+            },
             add: function () {
                 main.get(URL + '/add', function (html) {
                     main.popup({
