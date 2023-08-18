@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <input type="search" name="search" class="layui-input" placeholder="广州">
+                <input type="search" name="search" class="layui-input" placeholder="搜索地理位置">
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
