@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "BotAdmin Cookie助手",
+  "description": "自动设置推特的Token",
+  "version": "1.0",
+  "action": {
+    "default_icon": "images/logo-48.png",
+    "default_title": "BotAdmin Cookie助手"
+  },
+  "icons": {
+    "16": "images/logo-16.png",
+    "32": "images/logo-32.png",
+    "48": "images/logo-48.png",
+    "128": "images/logo-128.png"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "scripts/cookies.js"
+      ],
+      "matches": [
+        "https://*.twitter.com/*",
+        "https://twitter.com/*"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "cookies",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.twitter.com/*",
+    "https://twitter.com/*"
+  ],
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "externally_connectable": {
+    "matches": [
+      "<all_urls>"
+    ]
+  }
+}

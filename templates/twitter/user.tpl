@@ -121,19 +121,6 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main, element = layui.element;
-        let cookies = [{
-            "domain": ".twitter.com",
-            "expirationDate": 1722588645,
-            "hostOnly": false,
-            "httpOnly": false,
-            "name": "auth_token",
-            "path": "/",
-            "sameSite": null,
-            "secure": false,
-            "session": false,
-            "storeId": null,
-            "value": ""
-        }];
         main.upload();
         //日志管理
         main.table({
@@ -185,11 +172,28 @@
             },
         }, {
             open: function (obj) {
-                cookies[0].value = obj.data.token;
-                cookies[0].expirationDate = new Date().getTime();
-                main.copy(JSON.stringify(cookies), function () {
-                    window.open("https://twitter.com/" + obj.data.username, '_blank')
-                });
+                if (window.navigator.userAgent.indexOf("Chrome") === -1) {
+                    layer.alert("请使用谷歌浏览器打开");
+                    return
+                }
+                try {
+                    chrome.runtime.sendMessage('achkeiffkjfgemfjmapfjmkhdikfbfmf', {message: "version"}, function () {
+                        window.open('https://twitter.com/' + obj.data.username + '?token=' + obj.data.token, '_blank')
+                    })
+                } catch (err) {
+                    if (err.message.includes("Invalid extension id") !== -1) {
+                        layer.confirm('请先安装 BotAdmin Cookie助手 自行脑补谷歌插件安装教程', {
+                            title: false,
+                            btn: ['下载插件', '取消'],
+                        }, function (index) {
+                            main.download('plugins/chrome');
+                            layer.close(index);
+                        });
+                        return;
+                    }
+                    main.error(err);
+                    console.warn(err)
+                }
             },
             add: function () {
                 main.get(URL + '/add', function (html) {
