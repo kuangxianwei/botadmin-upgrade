@@ -1,5 +1,8 @@
-chrome.runtime.sendMessage({type: "twitterCookies"}, function (url) {
-    if (url) {
-        window.open(url, "_self");
+chrome.runtime.sendMessage({type: "cookies"}, function (res) {
+    if (!res) return;
+    if (res.url) {
+        window.open(res.url, "_self");
+    } else if (res.error) {
+        console.warn(res.error)
     }
 });

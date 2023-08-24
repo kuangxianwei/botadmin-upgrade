@@ -178,7 +178,8 @@
                 }
                 try {
                     chrome.runtime.sendMessage('achkeiffkjfgemfjmapfjmkhdikfbfmf', {message: "version"}, function () {
-                        window.open('https://twitter.com/' + obj.data.username + '?token=' + obj.data.token, '_blank')
+                        let cookies = {name: 'auth_token', value: obj.data.token};
+                        window.open('https://twitter.com/' + obj.data.username + '?cookies=' + encodeURIComponent(JSON.stringify(cookies)), '_blank')
                     })
                 } catch (err) {
                     if (err.message.includes("Invalid extension id") !== -1) {
