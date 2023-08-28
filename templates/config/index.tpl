@@ -62,12 +62,6 @@
                                 <input type="checkbox" name="gzip_enabled" id="gzip_enabled" lay-skin="switch" lay-text="打开|关闭"{{if .base.GzipEnabled}} checked{{end}}>
                             </div>
                         </div>
-                        <div class="layui-col-md3">
-                            <label for="csrf_enabled" class="layui-form-label">CSRF:</label>
-                            <div class="layui-input-block">
-                                <input type="checkbox" name="csrf_enabled" id="csrf_enabled" lay-skin="switch" lay-text="打开|关闭"{{if .base.CsrfEnabled}} checked{{end}}>
-                            </div>
-                        </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-inline">

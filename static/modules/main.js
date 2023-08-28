@@ -365,9 +365,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             this.isArray = function (obj) {
                 return T.call(obj) === '[object Array]';
             };
-            // 判断是密码col
-            this.isPassword = function (colName) {
-                return colName.hasSuffix("password") || colName.hasSuffix("passwd")
+            // 判断是密码column
+            this.isPassword = function (column) {
+                return column.hasSuffix('password') || column.hasSuffix('passwd') || column.hasSuffix('password2')
             };
             this.logPreffix = layui.url().pathname.join('_');
             // 设置cols
@@ -743,7 +743,19 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 },
                 copy: function (obj, ids) {
                     if (!othis.isArray(ids)) {
-                        othis.copy(obj.data[$(this).data('field')]);
+                        let field = $(this).data('field');
+                        if (othis.isPassword(field)) {
+                            othis.request({
+                                url: '/tools/decrypt',
+                                data: {password: obj.data[field]},
+                                done: function (res) {
+                                    othis.copy(res.msg);
+                                    return false
+                                }
+                            })
+                        } else {
+                            othis.copy(obj.data[field]);
+                        }
                     }
                 },
             }, active || {});
@@ -813,7 +825,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 loading = layer.load(1, {shade: [0.7, '#000', true]});
             othis.setCols(options.data, dom);
             if (options.data) $.each(options.data, function (k, v) {
-                if ((k.hasSuffix("password") || k.hasSuffix("passwd")) && v) {
+                if (v && othis.isPassword(k)) {
                     options.data[k] = encrypt.encrypt(v);
                 }
             });

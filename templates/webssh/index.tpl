@@ -101,7 +101,6 @@
             {field: 'alias', title: '别名', sort: true},
             {field: 'host', title: '主机', width: 160},
             {field: 'port', title: '端口', hide: true},
-            {field: 'user', title: '用户名', hide: true},
             {
                 title: '控制台', width: 120, event: "login", align: 'center', templet: function (d) {
                     let controlVersion = d['control_version'] ? d['control_version'] : 'unknown',
@@ -112,6 +111,10 @@
                     return '<button class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-username"></i> ' + controlVersion + '</button>';
                 }
             },
+            {field: 'user', title: 'SSH用户名', hide: true},
+            {field: 'passwd', title: 'SSH密码', width: 100, event: 'copy'},
+            {field: 'control_username', title: '控制台用户', width: 100, event: 'copy'},
+            {field: 'control_password', title: '控制台密码', width: 100, event: 'copy'},
             {
                 title: '设为默认', width: 120, event: "setDefault", align: 'center', templet: function (d) {
                     if (d['is_default']) {
@@ -127,6 +130,7 @@
                 width: 160,
                 align: 'center',
                 sort: true,
+                hide: true,
                 templet: function (d) {
                     return main.timestampFormat(d['created']);
                 }
