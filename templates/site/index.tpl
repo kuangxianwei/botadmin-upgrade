@@ -46,33 +46,6 @@
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
-<script type="text/html" id="import-form">
-    <div class="layui-card">
-        <div class="layui-card-body layui-form">
-            <div class="layui-form-item">
-                <label for="status" class="layui-form-label">状态:</label>
-                <div class="layui-input-inline">
-                    <input type="checkbox" name="status" id="status" lay-skin="switch" lay-text="外站|保持" checked>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="sql" class="layui-form-label">MySQL:</label>
-                <div class="layui-input-inline">
-                    <input type="checkbox" name="sql" id="sql" lay-skin="switch" lay-text="外站|保持" checked>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="ftp" class="layui-form-label">FTP:</label>
-                <div class="layui-input-inline">
-                    <input type="checkbox" name="ftp" id="ftp" lay-skin="switch" lay-text="外站|保持" checked>
-                </div>
-            </div>
-            <div class="layui-form-item layui-hide">
-                <button lay-submit lay-filter="submit-import"></button>
-            </div>
-        </div>
-    </div>
-</script>
 <script type="text/html" id="toolbar">
     <div class="layui-btn-container" lay-tips="空白处双击显示删除和清空数据库按钮">
         <div class="layui-btn-group">
@@ -361,7 +334,8 @@
             element = layui.element,
             main = layui.main,
             status = {{.status}};
-        main.upload();
+        //渲染上传配置
+        let reupload = main.upload();
         status = status || [];
         let tabActive = main.table({
             cols: [[
@@ -955,6 +929,20 @@
                         });
                         return false;
                     }
+                });
+            },
+            import: function () {
+                layer.confirm('导入外部站还是本地站？', {
+                    title: false,
+                    btn: ['外部站', '本地站'] //按钮
+                }, function (index) {
+                    reupload.config.data = {local: false};
+                    $('#upload').click();
+                    layer.close(index)
+                }, function (index) {
+                    reupload.config.data = {local: true};
+                    $('#upload').click();
+                    layer.close(index)
                 });
             },
         });
