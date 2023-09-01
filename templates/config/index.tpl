@@ -120,7 +120,7 @@
                                         </div>
                                     </div>
                                     <div class="layui-col-md6">
-                                        <label for="browser_limit" class="layui-form-label" lay-tips="浏览器同时开启最多个数,同时开启太多会卡死">浏览器:</label>
+                                        <label class="layui-form-label" lay-tips="浏览器同时开启最多个数,同时开启太多会卡死">浏览器:</label>
                                         <div class="layui-input-block">
                                             <div id="browser_limit" class="slider-block"></div>
                                             <input type="hidden" name="browser_limit" value="{{.base.BrowserLimit}}">

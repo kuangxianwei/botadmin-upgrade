@@ -766,6 +766,12 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 toolbar: '#toolbar',
                 url: URL,
                 cols: cols,
+                parseData: function (res) {
+                    if (!res.hasOwnProperty('code')) {
+                        res.code = 0
+                    }
+                    return res
+                },
                 page: true,
                 limit: 10,
                 limits: [10, 20, 50, 100, 500, 900],
@@ -805,6 +811,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 done: function (res) {
                     layer.closeAll('loading'); //关闭loading
                     if (res.code === 0) {
+                        layer.msg(res.msg);
                         if ($('#' + filter).length > 0) table.reload(filter);
                     } else {
                         layer.alert(res.msg, {icon: 2});
@@ -1355,7 +1362,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             }
         }
 
-// 信息提示框
+        // 信息提示框
         msg(msg, options) {
             this.display($.extend({
                 type: 0, area: "auto", content: msg, success: function (dom) {
@@ -1532,28 +1539,31 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             main.textarea("", {
                 area: ["75%", "75%"], success: function (dom) {
                     let elem = dom.find("textarea");
-                    elem.css("margin-top", "-20px").before('<div style="position:relative;z-index:29821027;left:20px;width:90px;padding:6px;top:-20px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="0">未运行</strong></div>');
+                    elem.css("margin-top", "-20px").before('<div style="position:relative;z-index:29821027;left:20px;width:90px;padding:6px;top:-20px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="false">未运行</strong></div>');
                     let statusElem = dom.find('#log-status');
                     ws.onopen = function () {
                         ws.send(JSON.stringify({action: 'log', token: token}));
                     };
                     ws.onmessage = function (e) {
-                        if (e.data) {
-                            let statusCode = e.data.substr(0, 1);
-                            if (statusCode === '0') {
-                                statusElem.html('状态: <strong style="color:red" title="' + statusCode + '">未运行</strong>');
-                            } else {
-                                statusElem.html('状态: <strong style="color:#22849b" title="' + statusCode + '">运行中...</strong>');
-                            }
-                            elem.focus().append(e.data.substr(1)).scrollTop(elem[0].scrollHeight);
+                        let obj = JSON.parse(e.data);
+                        if (obj.error) {
+                            if (obj.error) main.error(obj.error);
+                            return ws.close();
                         }
+                        if (obj.running) {
+                            statusElem.html('状态: <strong style="color:#22849b" title="运行中">运行中...</strong>');
+                        } else {
+                            statusElem.html('状态: <strong style="color:red" title="未运行">未运行</strong>');
+                        }
+                        elem.focus().append(obj.data).scrollTop(elem[0].scrollHeight);
                     };
                 }, end: function () {
                     ws.close();
                     typeof callback === 'function' && callback();
                 }
             });
-        }, scanned: function (path) {
+        },
+        scanned: function (path) {
             if (typeof path !== 'string') {
                 return main.error('请输入扫描路径');
             }
@@ -1640,29 +1650,37 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     ws.close();
                 }
             });
-        }, info: function () {
+        },
+        info: function () {
             let ws = main.newWS(), inst = table.render({
-                elem: '#table-info', cols: [[{
-                    field: 'status', title: '状态', sort: true, templet: function (d) {
-                        return d.status === 0 ? '未运行' : '<b style="color:#226A62;">运行中</b>';
-                    }, width: 100, align: 'center'
-                }, {
-                    field: 'token',
-                    title: '日志标识',
-                    event: 'token',
-                    style: 'cursor:pointer;color:#01aaed;font-weight:bold',
-                }, {
-                    field: 'size', title: '字节', width: 200, templet: function (d) {
-                        return d.size > 0 ? ('<b style="color:#01aaed;">' + d.size + '</b>') : d.size;
-                    }
-                }, {
-                    title: '操作',
-                    width: 120,
-                    align: 'center',
-                    fixed: 'right',
-                    toolbar: '<div class="layui-btn-group"><button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></button></div>'
-                }]], data: [], page: true, // 是否显示分页
-                limits: [20, 40, 60], limit: 20, text: {none: '加载中...'}, done: function () {
+                elem: '#table-info',
+                cols: [[
+                    {
+                        field: 'running', title: '状态', sort: true, templet: function (d) {
+                            return d.running ? '<b style="color:#226A62;">运行中</b>' : '未运行';
+                        }, width: 100, align: 'center'
+                    }, {
+                        field: 'token',
+                        title: '日志标识',
+                        event: 'token',
+                        style: 'cursor:pointer;color:#01aaed;font-weight:bold',
+                    }, {
+                        field: 'size', title: '字节', width: 200, templet: function (d) {
+                            return d.size ? ('<b style="color:#01aaed;">' + d.size + '</b>') : 0;
+                        }
+                    }, {
+                        title: '操作',
+                        width: 120,
+                        align: 'center',
+                        fixed: 'right',
+                        toolbar: '<div class="layui-btn-group"><button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></button></div>'
+                    }]],
+                data: [],
+                page: true,
+                limits: [20, 40, 60],
+                limit: 20,
+                text: {none: '加载中...'},
+                done: function () {
                     $('input[type=radio][value="' + localStorage.getItem('log_info') + '"]').prop('checked', true);
                     form.render('radio');
                 }
@@ -1690,11 +1708,16 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 ws.send(JSON.stringify({action: 'info'}));
             };
             ws.onmessage = function (e) {
-                let field = JSON.parse(e.data);
+                let obj = JSON.parse(e.data);
+                if (obj.error) {
+                    if (obj.error) main.error(obj.error);
+                    return ws.close();
+                }
+                let field = obj.data;
                 if (field) {
                     if (field.data && (localStorage.getItem('log_info') || '1') === '1') {
                         for (let i = 0; i < field.data.length; i++) {
-                            if (field.data[i].size === 0) {
+                            if (!field.data[i].size) {
                                 field.data.splice(i, 1);
                                 i--
                             }
@@ -1707,7 +1730,8 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     $('#cron').text(field.cron);
                 }
             }
-        }, display: function (options, callback) {
+        },
+        display: function (options, callback) {
             options = $.extend({
                 name: '', displaySelector: '#display', statusSelector: '#status'
             }, options || {});
@@ -1719,22 +1743,24 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 ws.send(JSON.stringify({action: 'log', token: options.name}));
             };
             ws.onmessage = function (e) {
-                if (e.data) {
-                    let status = e.data.substr(0, 1),// 状态码
-                        data = e.data.substr(1);// 内容
-                    if (options.statusSelector) {
-                        if (status === '0') {
-                            $(options.statusSelector).html('状态: <strong style="color: red" title="' + status + '">未运行</strong>');
-                        } else {
-                            $(options.statusSelector).html('状态: <strong style="color: #22849b" title="' + status + '">运行中...</strong>');
-                        }
-                    }
-                    let el = $(options.displaySelector);
-                    el.val(el.val() + data).focus().scrollTop(el[0].scrollHeight);
-                    if (typeof callback === 'function') {
-                        callback(status, data);
+                let obj = JSON.parse(e.data);
+                if (obj.error) {
+                    if (obj.error) main.error(obj.error);
+                    return ws.close();
+                }
+                if (options.statusSelector) {
+                    if (obj.running) {
+                        $(options.statusSelector).html('状态: <strong style="color: #22849b" title="运行中">运行中...</strong>');
+                    } else {
+                        $(options.statusSelector).html('状态: <strong style="color: red" title="未运行">未运行</strong>');
                     }
                 }
+                let el = $(options.displaySelector);
+                el.val(el.val() + obj.data).focus().scrollTop(el[0].scrollHeight);
+                if (typeof callback === 'function') {
+                    callback(obj.running, obj.data);
+                }
+
             };
         }
     };

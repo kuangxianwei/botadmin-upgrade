@@ -315,7 +315,7 @@
                                 </a>
                             </dd>
                             <dd data-name="openai-token">
-                                <a lay-href="/openai/token" lay-tips="OpenAI 秘钥列表" lay-direction="2">
+                                <a lay-href="/openai/user" lay-tips="OpenAI 秘钥列表" lay-direction="2">
                                     <i class="iconfont icon-secretKey"></i>
                                     <cite>秘钥管理</cite>
                                 </a>

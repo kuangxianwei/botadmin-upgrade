@@ -63,7 +63,7 @@
             <i class="layui-icon iconfont icon-stop-circle"></i>
         </button>
         <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="crontab" data-value="openai." lay-tips="查看定时任务">
-            <i class="layui-icon iconfont icon-view"></i>
+            <i class="iconfont icon-work"></i>
         </button>
     </div>
     <div class="layui-btn-group">
@@ -101,22 +101,19 @@
                 }
             },
             {field: 'name', title: '名称'},
-            {field: 'model', title: '模型',},
-            {field: 'token_id', title: '秘钥ID', align: 'center', width: 80},
-            {field: 'suffix', title: '后缀', align: 'center', hide: true},
+            {field: 'driver', title: '类型', hide: true},
+            {field: 'model', title: '模型', hide: true},
+            {
+                field: 'user_id', title: '秘钥ID', align: 'center', width: 80, templet: (d) => {
+                    return d.user_id ? d.user_id : '循序'
+                }
+            },
             {field: 'max_tokens', title: '最大字节', align: 'center', width: 100},
-            {field: 'temperature', title: '随机率', align: 'center', width: 100},
+            {field: 'temperature', title: '温度', align: 'center', width: 100},
             {field: 'top_p', title: '质量', align: 'center', hide: true},
             {field: 'n', title: '回流进度', align: 'center', hide: true},
-            {field: 'stream', title: '数据流', align: 'center', hide: true},
-            {field: 'logprobs', title: '返回数量', align: 'center', hide: true},
-            {field: 'echo', title: '回显提示', align: 'center', hide: true},
-            {field: 'stop', title: '停止符', align: 'center', hide: true},
             {field: 'presence_penalty', title: '存在惩罚', align: 'center', hide: true},
             {field: 'frequency_penalty', title: '惩罚频率', align: 'center', hide: true},
-            {field: 'best_of', title: '最佳', align: 'center', hide: true},
-            {field: 'logit_bias', title: '可能性', align: 'center', hide: true},
-            {field: 'user', title: '用户', align: 'center', hide: true},
             {
                 field: 'updated', title: '时间', align: 'center', sort: true, width: 180, templet: function (d) {
                     return main.timestampFormat(d['updated']);
@@ -135,10 +132,10 @@
                 });
             },
             askRecorded: function () {
-                main.get('/openai/recorded', function (html) {
+                main.get(URL + '/recorded', function (html) {
                     main.popup({
-                        url: '/openai/recorded',
-                        title: false,
+                        url: URL + '/recorded',
+                        title: "问答记录",
                         area: ['600px', '600px'],
                         content: html,
                         done: '-',

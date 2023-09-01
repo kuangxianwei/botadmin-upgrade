@@ -19,11 +19,11 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label for="token_id" class="layui-form-label">秘钥:</label>
+                            <label for="user_id" class="layui-form-label">秘钥:</label>
                             <div class="layui-input-block">
-                                <select name="token_id" id="token_id" lay-search>
-                                    <option value="">随机秘钥</option>
-                                    {{range .tokens -}}
+                                <select name="user_id" id="user_id" lay-search>
+                                    <option value="">顺序秘钥</option>
+                                    {{range .users -}}
                                         <option value="{{.Id}}"{{if eq .Id $.Id}} selected{{end}}>{{.Key}}</option>
                                     {{end -}}
                                 </select>
@@ -108,61 +108,56 @@
                 <div class="layui-tab-item layui-row">
                     <div class="layui-col-sm4" id="sidebar">
                         <div class="layui-form-item">
-                            <label for="model" class="layui-form-label">模型:</label>
+                            <label for="driver" class="layui-form-label">接口:</label>
                             <div class="layui-input-block">
-                                <select name="model" id="model" lay-search>
-                                    {{range $k,$v:=$.obj.Models -}}
-                                        <option value="{{$v}}"{{if eq $v $.obj.Model}} selected{{end}}>{{$v}}</option>
+                                <select name="driver" id="driver" lay-filter="driver" lay-search>
+                                    {{range $i,$v:=$.adapters -}}
+                                        <option value="{{$v.Driver}}"{{if eq $v.Driver $.obj.Driver}} selected{{end}}>{{$v.Alias}}</option>
                                     {{end -}}
                                 </select>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="max_tokens" class="layui-form-label" lay-tips="Maximum length参数指定了OpenAI API中文本生成模型的最大输出长度。它可以防止模型生成过长的文本，从而减少计算资源的消耗。请求最多可以使用在提示和完成之间共享的 2048 或 4000个字符。确切的限制因型号而异。(对于普通英文文本，一个标记大约是4个字符)">最大长度:</label>
+                            <label for="model" class="layui-form-label">模型:</label>
+                            <div class="layui-input-block">
+                                <select name="model" id="model" lay-search>
+                                    <option value="{{.obj.Model}}">{{.obj.Model}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" lay-tips="Maximum length参数指定了OpenAI API中文本生成模型的最大输出长度。它可以防止模型生成过长的文本，从而减少计算资源的消耗。请求最多可以使用在提示和完成之间共享的 2048 或 4000个字符。确切的限制因型号而异。(对于普通英文文本，一个标记大约是4个字符)">最大长度:</label>
                             <div class="layui-input-block">
                                 <div id="max_tokens" class="slider-block"></div>
                                 <input type="hidden" name="max_tokens" value="{{.obj.MaxTokens}}">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="temperature" class="layui-form-label" lay-tips="它可以控制生成文本的多样性。Temperature参数越高，生成的文本就越多样化，但也可能会出现更多的语法错误和不通顺的句子。Temperature参数越低，生成的文本就越简单，但也可能会出现更多的重复句子。">温度:</label>
+                            <label class="layui-form-label" lay-tips="它可以控制生成文本的多样性。Temperature参数越高，生成的文本就越多样化，但也可能会出现更多的语法错误和不通顺的句子。Temperature参数越低，生成的文本就越简单，但也可能会出现更多的重复句子。">温度:</label>
                             <div class="layui-input-block">
                                 <div id="temperature" class="slider-block"></div>
                                 <input type="hidden" name="temperature" value="{{.obj.Temperature}}">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="top_p" class="layui-form-label" lay-tips="它用于控制生成的文本的多样性。它控制了模型生成的文本中最高概率的词语的比例，以便模型可以生成更多样化的文本。">TopP:</label>
+                            <label class="layui-form-label" lay-tips="它用于控制生成的文本的多样性。它控制了模型生成的文本中最高概率的词语的比例，以便模型可以生成更多样化的文本。">TopP:</label>
                             <div class="layui-input-block">
                                 <div id="top_p" class="slider-block"></div>
                                 <input type="hidden" name="top_p" value="{{.obj.TopP}}">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="frequency_penalty" class="layui-form-label" lay-tips="它的作用是控制算法在搜索过程中对频繁出现的结果的惩罚。它可以帮助算法更好地探索搜索空间，从而更有可能找到更好的结果。">频率惩罚:</label>
+                            <label class="layui-form-label" lay-tips="它的作用是控制算法在搜索过程中对频繁出现的结果的惩罚。它可以帮助算法更好地探索搜索空间，从而更有可能找到更好的结果。">频率惩罚:</label>
                             <div class="layui-input-block">
                                 <div id="frequency_penalty" class="slider-block"></div>
                                 <input type="hidden" name="frequency_penalty" value="{{.obj.FrequencyPenalty}}">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="presence_penalty" class="layui-form-label" lay-tips="它的作用是用来控制AI模型中的缺失值惩罚。它可以用来控制AI模型对缺失值的惩罚程度，从而改善模型的准确性和性能。">存在惩罚:</label>
+                            <label class="layui-form-label" lay-tips="它的作用是用来控制AI模型中的缺失值惩罚。它可以用来控制AI模型对缺失值的惩罚程度，从而改善模型的准确性和性能。">存在惩罚:</label>
                             <div class="layui-input-block">
                                 <div id="presence_penalty" class="slider-block"></div>
                                 <input type="hidden" name="presence_penalty" value="{{.obj.PresencePenalty}}">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label for="best_of" class="layui-form-label" lay-tips="用于控制OpenAI API返回的结果的数量。它可以设置为一个整数，表示OpenAI API将返回最佳的n个结果。">最佳项:</label>
-                            <div class="layui-input-block">
-                                <div id="best_of" class="slider-block"></div>
-                                <input type="hidden" name="best_of" value="{{.obj.BestOf}}">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label for="stop" class="layui-form-label" lay-tips="最大4个停止符合，返回的文本将不包含停止序列，Stop sequences参数用于控制OpenAI API的训练过程，它可以指定一系列的停止条件，以便在达到某个特定的条件时停止训练。例如，可以指定一个停止序列，当模型的准确率达到一定水平时停止训练，或者当模型的损失函数达到一定水平时停止训练。">停止符:</label>
-                            <div class="layui-input-block">
-                                <input class="layui-input" type="text" autocomplete="off" name="stop" id="stop" value="{{join .obj.Stop " "}}">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -183,8 +178,9 @@
                     <div class="layui-col-sm8">
                         <div class="layui-form-item">
                             <div class="layui-input-block" style="margin-left:30px;margin-right:15px;">
-                                <textarea name="prompt" rows="19" class="layui-textarea" placeholder="给我写一篇以《seo》为标题的文章">给我写一篇以《seo》为标题的文章</textarea>
-                                <button class="layui-btn" data-event="test">测试模块</button>
+                                <input type="search" class="layui-input" name="prompt" value="给我写一篇以 &#123;&#123;ask&#125;&#125; 为标题的文章" placeholder="测试请求" style="background-color: black;color:white">
+                                <textarea id="show-stream" rows="17" class="layui-textarea" placeholder="这里显示请求结果" style="margin-top: 10px"></textarea>
+                                <button class="layui-btn" id="test" data-event="test">测试模块</button>
                                 <button class="layui-btn layui-btn-primary" data-event="saveDefault" style="float:right">
                                     保存当前配置为系统默认
                                 </button>
@@ -230,6 +226,27 @@
                     }
                 });
             };
+        let model = {{.obj.Model}}, adapters = {{.adapters}}, resetModelDoc = function (driver) {
+            driver = driver || $('#driver').val();
+            for (let i = 0; i < adapters.length; i++) {
+                if (adapters[i].driver === driver) {
+                    let elem = $('#model').empty();
+                    $.each(adapters[i]['models'], function (i, v) {
+                        if (v === model) {
+                            elem.append(`<option value="` + v + `" selected>` + v + `</option>`);
+                        } else {
+                            elem.append(`<option value="` + v + `">` + v + `</option>`);
+                        }
+                    });
+                    form.render("select");
+                    return
+                }
+            }
+        };
+        resetModelDoc();
+        form.on('select(driver)', function (obj) {
+            resetModelDoc(obj.value);
+        });
         //监控选择网站ID
         form.on('select(site_id)', function (obj) {
             bindClass(obj.value);
@@ -239,11 +256,10 @@
         //滑块控制
         main.slider(
             {elem: '#max_tokens', min: 1, max: 4000},
-            {elem: '#temperature', min: 0, max: 100},
+            {elem: '#temperature', min: 0, max: 200},
             {elem: '#top_p', min: 0, max: 100},
             {elem: '#frequency_penalty', min: 0, max: 200},
             {elem: '#presence_penalty', min: 0, max: 200},
-            {elem: '#best_of', min: 1, max: 20},
         );
         let active = {
             test: function () {
@@ -251,8 +267,27 @@
                 main.request({
                     url: URL + "/test",
                     data: data,
-                    done: function (res) {
-                        $('[name=prompt]').val(res.data);
+                    done: function () {
+                        let testElem = $('#test'),
+                            promptElem = $('#show-stream').val(''),
+                            ws = main.newWS();
+                        ws.onopen = function () {
+                            ws.send(JSON.stringify({action: 'log', token: "openai.stream.0"}));
+                        };
+                        ws.onmessage = function (e) {
+                            let obj = JSON.parse(e.data);
+                            if (obj.error) {
+                                if (obj.error) main.error(obj.error);
+                                return ws.close();
+                            }
+                            if (obj.running) {
+                                testElem.addClass("layui-btn-disabled").removeAttr('data-event');
+                            } else {
+                                ws.close();
+                                testElem.removeClass("layui-btn-disabled").attr('data-event', 'test');
+                            }
+                            promptElem.val(promptElem.val() + obj.data).focus().scrollTop(promptElem[0].scrollHeight);
+                        };
                         return false;
                     }
                 });

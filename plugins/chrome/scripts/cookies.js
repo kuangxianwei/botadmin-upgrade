@@ -3,6 +3,6 @@ chrome.runtime.sendMessage({type: "cookies"}, function (res) {
     if (res.url) {
         window.open(res.url, "_self");
     } else if (res.error) {
-        console.warn(res.error)
+        console.log(res.error)
     }
 });
