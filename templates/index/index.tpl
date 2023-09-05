@@ -308,10 +308,16 @@
                             <cite>OpenAI</cite>
                         </a>
                         <dl class="layui-nav-child">
-                            <dd data-name="openai-models">
-                                <a lay-href="/openai" lay-tips="OpenAI 模块列表" lay-direction="2">
+                            <dd data-name="openai-models-pro">
+                                <a lay-href="/openai/pro" lay-tips="OpenAI 专业版" lay-direction="2">
                                     <i class="iconfont icon-models"></i>
-                                    <cite>模块列表</cite>
+                                    <cite>专业版模型</cite>
+                                </a>
+                            </dd>
+                            <dd data-name="openai-models">
+                                <a lay-href="/openai" lay-tips="OpenAI 普通版模型" lay-direction="2">
+                                    <i class="iconfont icon-models"></i>
+                                    <cite>普通版模型</cite>
                                 </a>
                             </dd>
                             <dd data-name="openai-token">

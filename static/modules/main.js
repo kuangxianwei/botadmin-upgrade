@@ -2,7 +2,6 @@
 
 /*导出基本操作*/
 layui.define(function (exports) {
-    document.cookie;
     window.document.loadJS = function (src, fn) {
         let id = src.replace(/[./]/g, "");
         if (document.getElementById(id)) {
@@ -40,6 +39,11 @@ layui.define(function (exports) {
         }
         return false;
     };
+    // 填充关键词变量
+    $(document).on('click', '[data-write]', function () {
+        let el = $(this).parent().prev('textarea');
+        (el.length > 0 ? el : $(this).parent().prev('div').find('textarea')).insertAt($(this).data('write'));
+    });
     exports('init', {});
 });
 layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {

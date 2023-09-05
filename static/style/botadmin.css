@@ -325,3 +325,14 @@ input:valid + span::before {
     content: "✓";
     color: green;
 }
+
+.insert-var {
+    margin: -5px 20px 0 20px;
+    display: inline-block;
+    float: left;
+}
+
+.insert-var > label {
+    padding: 5px 15px;
+    color: coral
+}

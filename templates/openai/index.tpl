@@ -66,11 +66,6 @@
             <i class="iconfont icon-work"></i>
         </button>
     </div>
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-sm" lay-event="askRecorded" lay-tips="已经问过的记录，如果要重复同样的问题请删除记录">
-            问答记录
-        </button>
-    </div>
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
@@ -104,14 +99,13 @@
             {field: 'driver', title: '类型', hide: true},
             {field: 'model', title: '模型', hide: true},
             {
-                field: 'user_id', title: '秘钥ID', align: 'center', width: 80, templet: (d) => {
-                    return d.user_id ? d.user_id : '循序'
+                field: 'user_id', title: '秘钥ID', align: 'center', width: 90, templet: (d) => {
+                    return d.user_id ? d.user_id : '随机秘钥'
                 }
             },
             {field: 'max_tokens', title: '最大字节', align: 'center', width: 100},
             {field: 'temperature', title: '温度', align: 'center', width: 100},
             {field: 'top_p', title: '质量', align: 'center', hide: true},
-            {field: 'n', title: '回流进度', align: 'center', hide: true},
             {field: 'presence_penalty', title: '存在惩罚', align: 'center', hide: true},
             {field: 'frequency_penalty', title: '惩罚频率', align: 'center', hide: true},
             {
@@ -128,17 +122,6 @@
                         title: '添加模块',
                         content: html,
                         done: 'table-list',
-                    });
-                });
-            },
-            askRecorded: function () {
-                main.get(URL + '/recorded', function (html) {
-                    main.popup({
-                        url: URL + '/recorded',
-                        title: "问答记录",
-                        area: ['600px', '600px'],
-                        content: html,
-                        done: '-',
                     });
                 });
             },

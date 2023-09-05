@@ -1,73 +1,35 @@
 <div class="layui-card">
     <div class="layui-card-body">
-        <div class="layui-tab layui-tab-card layui-form">
+        <div class="layui-tab layui-tab-card layui-form" lay-filter="form">
             <ul class="layui-tab-title">
                 <li class="layui-this">基本设置</li>
                 <li>模型设置</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
+                    <div class="layui-form-item layui-row">
+                        <div class="layui-col-md6">
                             <label for="name" class="layui-form-label">模块名称:</label>
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" name="name" id="name" required
+                                <input type="text" name="name" id="name" required
                                        class="layui-input" placeholder="文章模块1" autofocus="autofocus" value="{{.obj.Name}}">
                             </div>
                             <div class="layui-form-mid layui-word-aux">
                                 <span class="text-danger"><strong style="color:red;">*</strong>模块名称不可以重复</span>
                             </div>
                         </div>
-                        <div class="layui-inline">
-                            <label for="user_id" class="layui-form-label">秘钥:</label>
-                            <div class="layui-input-block">
-                                <select name="user_id" id="user_id" lay-search>
-                                    <option value="">顺序秘钥</option>
-                                    {{range .users -}}
-                                        <option value="{{.Id}}"{{if eq .Id $.Id}} selected{{end}}>{{.Key}}</option>
-                                    {{end -}}
-                                </select>
+                        <div class="layui-col-md6">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">定时启用</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="启用|禁用" {{if .obj.Enabled}} checked{{end}}>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item layui-row">
-                        <div class="layui-col-sm6">
-                            <label for="site_id" class="layui-form-label">问题列表:</label>
-                            <div class="layui-input-block">
-                                <textarea name="asks" class="layui-textarea" placeholder="免费b站推广网站有哪些?&#13;永久免费建站最好用的平台?" rows="5">{{join .obj.Asks "\n"}}</textarea>
-                            </div>
-                        </div>
-                        <div class="layui-col-sm6">
-                            <label for="site_id" class="layui-form-label">Tag列表:</label>
-                            <div class="layui-input-block">
-                                <textarea name="tags" rows="5" class="layui-textarea" placeholder="SEO公司&#13;SEO集团">{{join .obj.Tags "\n"}}</textarea>
-                            </div>
-                        </div>
-                        <div class="layui-col-sm6">
-                            <label for="site_id" class="layui-form-label">标题规则:</label>
-                            <div class="layui-input-block">
-                                <textarea name="titles" class="layui-textarea" placeholder="&#123;&#123;ask&#125;&#125;(&#123;&#123;ask&#125;&#125;)-&#123;&#123;tag&#125;&#125;" rows="5">{{join .obj.Titles "\n"}}</textarea>
-                            </div>
-                            <div class="layui-input-block fill-contact" style="margin-top:-5px;">
-                                <label for="site_id" class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
-                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;ask&#125;&#125;">
-                                    问题变量
-                                </button>
-                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;tag&#125;&#125;">
-                                    Tag变量
-                                </button>
-                            </div>
-                        </div>
-                        <div class="layui-col-sm6">
-                            <label for="site_id" class="layui-form-label">提问规则:</label>
-                            <div class="layui-input-block">
-                                <textarea name="rules" rows="5" class="layui-textarea" placeholder="给我写一篇以 &#123;&#123;ask&#125;&#125; 为标题的文章">{{join .obj.Rules "\n"}}</textarea>
-                            </div>
-                            <div class="layui-input-block fill-contact" style="margin-top:-5px;">
-                                <label for="site_id" class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
-                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;ask&#125;&#125;">
-                                    问题变量
-                                </button>
+                            <div class="layui-inline">
+                                <label for="spec" class="layui-form-label">定时规则:</label>
+                                <div class="layui-input-inline" lay-tips="双击修改定时任务">
+                                    <input type="text" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,23 +46,49 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label for="enabled" class="layui-form-label">绑定栏目:</label>
+                            <label class="layui-form-label">绑定栏目:</label>
                             <div class="layui-input-block" lay-filter="class_id">
                                 {{.classHTML}}
                             </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label for="enabled" class="layui-form-label">定时启用</label>
+                            <label for="user_id" class="layui-form-label">秘钥:</label>
                             <div class="layui-input-block">
-                                <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="启用|禁用" {{if .obj.Enabled}} checked{{end}}>
+                                <select name="user_id" id="user_id" lay-search>
+                                    <option value="">随机秘钥</option>
+                                    {{range .users -}}
+                                        <option value="{{.Id}}"{{if eq .Id $.obj.UserId}} selected{{end}}>{{.Key}}</option>
+                                    {{end -}}
+                                </select>
                             </div>
                         </div>
-                        <div class="layui-inline">
-                            <label for="spec" class="layui-form-label">定时规则:</label>
-                            <div class="layui-input-inline" lay-tips="双击修改定时任务">
-                                <input type="text" autocomplete="off" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
+                    </div>
+                    <div class="layui-form-item layui-row">
+                        <div class="layui-col-sm6">
+                            <label class="layui-form-label">关键词列表:</label>
+                            <div class="layui-input-block">
+                                <textarea name="keywords" rows="14" class="layui-textarea" placeholder="免费b站推广网站有哪些?&#13;永久免费建站最好用的平台?" rows="5">{{join .obj.Keywords "\n"}}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6">
+                            <label class="layui-form-label">品牌列表:</label>
+                            <div class="layui-input-block">
+                                <textarea name="brands" rows="6" class="layui-textarea" placeholder="SEO公司&#13;SEO集团">{{join .obj.Brands "\n"}}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6">
+                            <label class="layui-form-label">标题模版:</label>
+                            <div class="layui-input-block">
+                                <textarea name="titles" rows="7" class="layui-textarea" placeholder="&#123;&#123;title&#125;&#125;(&#123;&#123;title&#125;&#125;)-&#123;&#123;brand&#125;&#125;" rows="5">{{join .obj.Titles "\n"}}</textarea>
+                            </div>
+                            <div class="insert-var" style="margin-left: 80px">
+                                <label class="layui-form-label">插入变量:</label>
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;title&#125;&#125;">
+                                    标题变量
+                                </button>
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;brand&#125;&#125;">
+                                    品牌变量
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -160,30 +148,38 @@
                                 <input type="hidden" name="presence_penalty" value="{{.obj.PresencePenalty}}">
                             </div>
                         </div>
-                        <div class="layui-form-item">
-                            <div class="layui-col-sm6">
-                                <label for="text_begin" class="layui-form-label" lay-tips="文本段落开始标签,例如:<p>">Begin:</label>
-                                <div class="layui-input-block">
-                                    <input class="layui-input" type="text" autocomplete="off" name="text_begin" id="text_begin" value="{{.obj.TextBegin}}">
-                                </div>
-                            </div>
-                            <div class="layui-col-sm6">
-                                <label for="text_end" class="layui-form-label" lay-tips="文本段落结束标签,例如:</p>">End:</label>
-                                <div class="layui-input-block">
-                                    <input class="layui-input" type="text" autocomplete="off" name="text_end" id="text_end" value="{{.obj.TextEnd}}">
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="layui-col-sm8">
                         <div class="layui-form-item">
                             <div class="layui-input-block" style="margin-left:30px;margin-right:15px;">
-                                <input type="search" class="layui-input" name="prompt" value="给我写一篇以 &#123;&#123;ask&#125;&#125; 为标题的文章" placeholder="测试请求" style="background-color: black;color:white">
-                                <textarea id="show-stream" rows="17" class="layui-textarea" placeholder="这里显示请求结果" style="margin-top: 10px"></textarea>
-                                <button class="layui-btn" id="test" data-event="test">测试模块</button>
-                                <button class="layui-btn layui-btn-primary" data-event="saveDefault" style="float:right">
-                                    保存当前配置为系统默认
-                                </button>
+                                <div class="layui-col-sm8">
+                                    <textarea name="olds" class="layui-textarea" placeholder="正则表达式&#10;<([a-z]+?)>">{{join .obj.Olds "\n"}}</textarea>
+                                </div>
+                                <div class="layui-col-sm4">
+                                    <textarea name="news" class="layui-textarea" placeholder="替换为&#10;<${1}>">{{join .obj.News "\n"}}</textarea>
+                                </div>
+                                <textarea class="layui-textarea" rows="14" name="prompt" placeholder="写作要求">{{join .obj.Prompt "\n"}}</textarea>
+                                <div class="insert-var">
+                                    <label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;keyword&#125;&#125;">
+                                        关键词变量
+                                    </button>
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;brand&#125;&#125;">
+                                        品牌变量
+                                    </button>
+                                </div>
+                                <div class="layui-inline" style="float:right;">
+                                    <div class="layui-btn-group">
+                                        <button class="layui-btn layui-btn-xs" id="test" data-event="test">测试
+                                        </button>
+                                        <button class="layui-btn layui-btn-xs layui-btn-primary" data-event="result">
+                                            查看结果
+                                        </button>
+                                        <button class="layui-btn layui-btn-xs" data-event="saveDefault">
+                                            保存当前配置为系统默认
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -263,31 +259,15 @@
         );
         let active = {
             test: function () {
-                let data = main.formData(this.closest(".layui-form"));
+                let data = form.val('form');
+                if (!data.prompt) {
+                    return main.error('写作要求不可以为空');
+                }
                 main.request({
                     url: URL + "/test",
                     data: data,
                     done: function () {
-                        let testElem = $('#test'),
-                            promptElem = $('#show-stream').val(''),
-                            ws = main.newWS();
-                        ws.onopen = function () {
-                            ws.send(JSON.stringify({action: 'log', token: "openai.stream.0"}));
-                        };
-                        ws.onmessage = function (e) {
-                            let obj = JSON.parse(e.data);
-                            if (obj.error) {
-                                if (obj.error) main.error(obj.error);
-                                return ws.close();
-                            }
-                            if (obj.running) {
-                                testElem.addClass("layui-btn-disabled").removeAttr('data-event');
-                            } else {
-                                ws.close();
-                                testElem.removeClass("layui-btn-disabled").attr('data-event', 'test');
-                            }
-                            promptElem.val(promptElem.val() + obj.data).focus().scrollTop(promptElem[0].scrollHeight);
-                        };
+                        main.ws.log("openai.stream.0");
                         return false;
                     }
                 });
@@ -308,21 +288,14 @@
                         }
                     }
                 });
+            },
+            result: function () {
+                main.ws.log("openai.stream.0");
             }
         };
-        // 填充关键词变量
-        $('[data-write]').off("click").on("click", function () {
-            $(this).parent().prev().find('textarea').insertAt($(this).data('write'));
-        });
         $('[data-event]').off("click").on("click", function () {
             let $this = $(this), event = $this.data('event');
             active[event] && active[event].call($this);
-        });
-        $('[name=stop]').on("keydown", function (e) {
-            if (e.keyCode === 13) {
-                let val = $(e.target).val();
-                $(e.target).val(val ? val + " ↵" : val + "↵");
-            }
         });
     });
 </script>
