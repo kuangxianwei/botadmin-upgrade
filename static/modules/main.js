@@ -770,12 +770,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 toolbar: '#toolbar',
                 url: URL,
                 cols: cols,
-                parseData: function (res) {
-                    if (!res.hasOwnProperty('code')) {
-                        res.code = 0
-                    }
-                    return res
-                },
                 page: true,
                 limit: 10,
                 limits: [10, 20, 50, 100, 500, 900],
