@@ -63,8 +63,8 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             .replace(/&#62;/g, '>')
             .replace(/&#34;/g, '"')
     };
-    const textareaHtml = `<style>.layui-layer-page .layui-layer-content {overflow:unset;}</style><textarea class="layui-textarea" style="border-radius:10px;margin:1%;padding:%0.5;height:94%;width:98%">`;
-    let $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table, slider = layui.slider;
+    const codeHTML = '<pre class="layui-code popup-code layui-code-view layui-box layui-code-dark"><ol class="layui-code-ol"></ol><span class="layui-code-copy"><i class="layui-icon layui-icon-file-b" title="复制"></i></span></pre>',
+        $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table, slider = layui.slider;
 
     class Cron {
         constructor(selector) {
@@ -1050,12 +1050,43 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             }, options || {}));
         }
 
-        // 弹窗展示 textarea
-        textarea(text, options) {
-            if (typeof text !== 'string') {
-                return false;
+        // 构造Code HTML
+        __codeBuild(text) {
+            let html = '';
+            $.each(text.split('\n'), function () {
+                html += '<li>' + layui.util.escape(this) + '</li>'
+            });
+            return html
+        }
+
+        __codeInit(dom, text, isLog) {
+            const elem = dom.find('pre.popup-code'), othis = this;
+            if (text) {
+                elem.attr('data-value', text);
+                elem.find('ol.layui-code-ol').html(othis.__codeBuild(text));
             }
-            this.display($.extend(true, {content: textareaHtml + text + '</textarea>'}, options || {}));
+            if (isLog) {
+                elem.parent().css({'overflow': 'hidden', 'margin-top': '-40px', 'padding': '10px'})
+                    .before('<div style="position:relative;z-index:29821027;left:20px;width:90px;padding:6px;top:-20px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="false">未运行</strong></div>');
+            } else {
+                elem.parent().css({'overflow': 'hidden', 'margin-top': '-10px', 'padding': '10px'});
+            }
+            dom.find('pre.popup-code>.layui-code-copy').off('click').on('click', function () {
+                othis.copy(elem.attr('data-value') || '');
+            });
+            return elem;
+        }
+
+        // 弹窗展示 code
+        code(text, options) {
+            if (!this.isString(text)) return;
+            let othis = this;
+            this.display($.extend(true, {
+                content: codeHTML,
+                success: function (dom) {
+                    othis.__codeInit(dom, text);
+                },
+            }, options || {}));
         }
 
         // tags
@@ -1526,7 +1557,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             main.displayTheme();
         },
     };
-// websocket
+    // websocket
     main.ws = {
         log: function (token, callback) {
             if (main.isFunction(token)) {
@@ -1534,11 +1565,12 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 token = main.logPreffix + ".0";
             } else if (!token) token = main.logPreffix + ".0";
             let ws = main.newWS();
-            main.textarea("", {
-                area: ["75%", "75%"], success: function (dom) {
-                    let elem = dom.find("textarea");
-                    elem.css("margin-top", "-20px").before('<div style="position:relative;z-index:29821027;left:20px;width:90px;padding:6px;top:-20px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="false">未运行</strong></div>');
-                    let statusElem = dom.find('#log-status');
+            main.display({
+                area: ['75%', '75%'],
+                content: codeHTML,
+                success: function (dom) {
+                    let elem = main.__codeInit(dom, '', true),
+                        statusElem = dom.find('#log-status');
                     ws.onopen = function () {
                         ws.send(JSON.stringify({action: 'log', token: token}));
                     };
@@ -1553,9 +1585,15 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                         } else {
                             statusElem.html('状态: <strong style="color:red" title="未运行">未运行</strong>');
                         }
-                        elem.focus().append(obj.data).scrollTop(elem[0].scrollHeight);
+                        let data = elem.attr('data-value');
+                        obj.data = data + obj.data;
+                        elem.attr('data-value', obj.data);
+                        elem = elem.find('ol.layui-code-ol');
+                        elem.html(main.__codeBuild(obj.data))
+                            .scrollTop(elem[0].scrollHeight);
                     };
-                }, end: function () {
+                },
+                end: function () {
                     ws.close();
                     typeof callback === 'function' && callback();
                 }

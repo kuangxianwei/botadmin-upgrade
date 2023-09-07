@@ -13,7 +13,7 @@
 }
 
 .layui-layer, .layui-layer-content {
-    border-radius: 16px !important
+    border-radius: 12px !important
 }
 
 .table-search {
@@ -335,4 +335,10 @@ input:valid + span::before {
 .insert-var > label {
     padding: 5px 15px;
     color: coral
+}
+
+pre.popup-code {
+    border-radius: 6px;
+    height: 96%;
+    width: 100%;
 }

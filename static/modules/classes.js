@@ -18,7 +18,7 @@ layui.define(['main'], function (exports) {
             // 全部目录名称
             this.classNames = Array.isArray(options.names) ? options.names : ($('[data-class-names]').data('classNames') || []);
             // 默认目录数量
-            this.classNun = parseInt(options.classNun) || parseInt($('[name=class_num]').val()) || 8;
+            this.classNun = Number(options.classNun) || Number($('[name=class_num]').val()) || 8;
             // 内部私有
             this._names = {};
             this._index = 0;

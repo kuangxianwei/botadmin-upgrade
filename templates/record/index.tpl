@@ -121,7 +121,7 @@
                         layer.alert(res.msg, {icon: 2});
                     }
                 });
-                main.textarea(obj.data.feedback, {area: ['60%', '200px']});
+                main.code(obj.data.feedback, {area: ['60%', '200px']});
             }
         });
         // 已读消息
@@ -159,7 +159,7 @@
                     });
                     break;
                 case 'read':
-                    main.textarea(obj.data.feedback, {area: ['60%', '200px']});
+                    main.code(obj.data.feedback, {area: ['60%', '200px']});
                     break
             }
         });
