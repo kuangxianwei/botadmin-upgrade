@@ -1065,11 +1065,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 elem.attr('data-value', text);
                 elem.find('ol.layui-code-ol').html(othis.__codeBuild(text));
             }
+            elem.parent().css({'overflow': 'hidden', 'padding': '0 10px 10px 10px'});
             if (isLog) {
-                elem.parent().css({'overflow': 'hidden', 'margin-top': '-40px', 'padding': '10px'})
-                    .before('<div style="position:relative;z-index:29821027;left:20px;width:90px;padding:6px;top:-20px;background-color:#ffffff;border-radius:8px 8px 0 0" id="log-status">状态: <strong style="color: red" title="false">未运行</strong></div>');
-            } else {
-                elem.parent().css({'overflow': 'hidden', 'margin-top': '-10px', 'padding': '10px'});
+                elem.parent().before('<div class="layer-status"><strong style="color:red" title="false">未运行</strong></div>');
             }
             dom.find('pre.popup-code>.layui-code-copy').off('click').on('click', function () {
                 othis.copy(elem.attr('data-value') || '');
@@ -1570,7 +1568,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 content: codeHTML,
                 success: function (dom) {
                     let elem = main.__codeInit(dom, '', true),
-                        statusElem = dom.find('#log-status');
+                        statusElem = dom.find('.layer-status');
                     ws.onopen = function () {
                         ws.send(JSON.stringify({action: 'log', token: token}));
                     };
@@ -1581,9 +1579,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                             return ws.close();
                         }
                         if (obj.running) {
-                            statusElem.html('状态: <strong style="color:#22849b" title="运行中">运行中...</strong>');
+                            statusElem.html('<strong title="true">运行中...</strong>');
                         } else {
-                            statusElem.html('状态: <strong style="color:red" title="未运行">未运行</strong>');
+                            statusElem.html('<strong style="color:red" title="false">未运行</strong>');
                         }
                         let data = elem.attr('data-value') || '';
                         obj.data = data + obj.data;

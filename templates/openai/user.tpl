@@ -40,6 +40,9 @@
         <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="configure">
             <i class="layui-icon layui-icon-set"></i>
         </button>
+        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="validate" lay-tips="验证KEY正常">
+            <i class="layui-icon layui-icon-vercode"></i>
+        </button>
     </div>
     <div class="layui-btn-group">
         <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
@@ -116,11 +119,11 @@
             {field: 'key', title: '秘钥', event: 'copy'},
             {field: 'http_code', width: 90, title: '状态码', align: 'center'},
             {
-                field: 'type', title: '类型', sort: true, templet: function (d) {
+                field: 'type', title: '类型', sort: true, event: 'copy', templet: function (d) {
                     return d.type || 'Success';
                 }
             },
-            {field: 'message', title: '提示', sort: true},
+            {field: 'message', title: '提示', event: 'copy'},
             {
                 field: 'updated', hide: true, title: '时间', align: 'center', sort: true, templet: function (d) {
                     return main.timestampFormat(d['updated']);
@@ -167,6 +170,16 @@
                     });
                 });
             },
+            validate: function (obj, ids) {
+                main.request({
+                    url: URL + '/validate',
+                    data: {ids: ids.join()},
+                    done: function () {
+                        main.ws.log();
+                        return false;
+                    }
+                })
+            }
         });
         // 监听搜索
         form.on('select(search-type)', function (obj) {

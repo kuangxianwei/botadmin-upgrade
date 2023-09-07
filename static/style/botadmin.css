@@ -339,6 +339,24 @@ input:valid + span::before {
 
 pre.popup-code {
     border-radius: 6px;
-    height: 96%;
+    height: calc(100% - 20px);
     width: 100%;
+}
+
+.layer-status {
+    position: absolute;
+    z-index: 29821027;
+    left: 20px;
+    width: 80px;
+    height: 22px;
+    padding: 4px;
+    top: -20px;
+    background-color: #ffffff;
+    border-radius: 8px 8px 0;
+    right: -28px;
+    color: #226A62;
+    font-size: 16px;
+    font-weight: bolder;
+    _display: none;
+    text-align: center;
 }
