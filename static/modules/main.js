@@ -1585,12 +1585,12 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                         } else {
                             statusElem.html('状态: <strong style="color:red" title="未运行">未运行</strong>');
                         }
-                        let data = elem.attr('data-value');
+                        let data = elem.attr('data-value') || '';
                         obj.data = data + obj.data;
                         elem.attr('data-value', obj.data);
-                        elem = elem.find('ol.layui-code-ol');
-                        elem.html(main.__codeBuild(obj.data))
-                            .scrollTop(elem[0].scrollHeight);
+                        let contentElem = elem.find('ol.layui-code-ol');
+                        contentElem.html(main.__codeBuild(obj.data))
+                            .scrollTop(contentElem[0].scrollHeight);
                     };
                 },
                 end: function () {
