@@ -55,7 +55,8 @@
                             <label for="user_id" class="layui-form-label">秘钥:</label>
                             <div class="layui-input-block">
                                 <select name="user_id" id="user_id" lay-search>
-                                    <option value="">随机秘钥</option>
+                                    <option value="0">随机秘钥</option>
+                                    <option value="-1"{{if eq .obj.UserId -1}} selected{{end}}>最新秘钥</option>
                                     {{range .users -}}
                                         <option value="{{.Id}}"{{if eq .Id $.obj.UserId}} selected{{end}}>{{.Key}}</option>
                                     {{end -}}

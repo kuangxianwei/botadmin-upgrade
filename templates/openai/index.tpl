@@ -100,7 +100,9 @@
             {field: 'model', title: '模型', hide: true},
             {
                 field: 'user_id', title: '秘钥ID', align: 'center', width: 90, templet: (d) => {
-                    return d.user_id ? d.user_id : '随机秘钥'
+                    if (d['user_id'] === -1) return '最新秘钥';
+                    if (d['user_id']) return d['user_id'];
+                    return '随机秘钥'
                 }
             },
             {field: 'max_tokens', title: '最大字节', align: 'center', width: 100},

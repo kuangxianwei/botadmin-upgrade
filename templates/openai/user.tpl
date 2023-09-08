@@ -1,6 +1,6 @@
 <div class="layui-card">
-    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item" lay-event="search">
+    <div class="layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item layui-form" lay-event="search">
             <div class="layui-inline">
                 <label class="layui-form-label">搜索类型:</label>
                 <div class="layui-input-block">
@@ -18,7 +18,7 @@
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input id="search-input" type="text" autocomplete="off" name="search" placeholder="搜索..." class="layui-input">
+                    <input id="search-input" type="text" name="search" placeholder="搜索..." class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -42,6 +42,9 @@
         </button>
         <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="validate" lay-tips="验证KEY正常">
             <i class="layui-icon layui-icon-vercode"></i>
+        </button>
+        <button class="layui-btn layui-btn-sm" lay-event="speed" lay-tips="设置限速">
+            <i class="iconfont icon-speed"></i>
         </button>
     </div>
     <div class="layui-btn-group">
@@ -179,6 +182,16 @@
                         return false;
                     }
                 })
+            },
+            speed: function () {
+                main.get(URL + '/speed', function (html) {
+                    main.popup({
+                        title: '修改限速',
+                        content: html,
+                        url: URL + '/speed',
+                        area: ['620px', '300px'],
+                    });
+                });
             }
         });
         // 监听搜索
