@@ -309,15 +309,15 @@
                         </a>
                         <dl class="layui-nav-child">
                             <dd data-name="openai-models-pro">
-                                <a lay-href="/openai/pro" lay-tips="OpenAI 专业版" lay-direction="2">
+                                <a lay-href="/openai/pro" lay-tips="OpenAI 文章模型" lay-direction="2">
                                     <i class="iconfont icon-models"></i>
-                                    <cite>专业版模型</cite>
+                                    <cite>文章模型</cite>
                                 </a>
                             </dd>
                             <dd data-name="openai-models">
-                                <a lay-href="/openai" lay-tips="OpenAI 普通版模型" lay-direction="2">
-                                    <i class="iconfont icon-models"></i>
-                                    <cite>普通版模型</cite>
+                                <a lay-href="/openai" lay-tips="OpenAI 聊天机器人" lay-direction="2">
+                                    <i class="iconfont icon-feedback"></i>
+                                    <cite>聊天机器人</cite>
                                 </a>
                             </dd>
                             <dd data-name="openai-token">

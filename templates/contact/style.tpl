@@ -25,6 +25,10 @@
         display: inline-block;
     }
 
+    .layui-layer-setwin .layui-layer-close2 {
+        width: 18px;
+        height: 18px;
+    }
 </style>
 <div class="layui-card" id="custom-style">
     <div class="layui-card-body layui-form">

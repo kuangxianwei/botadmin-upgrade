@@ -3,6 +3,7 @@
         <div class="layui-tab layui-tab-card layui-form" lay-filter="form">
             <ul class="layui-tab-title">
                 <li class="layui-this">基本设置</li>
+                <li>标题模型</li>
                 <li>简介模型</li>
                 <li>内容模型</li>
                 <li>结尾模型</li>
@@ -51,14 +52,14 @@
                             <div class="layui-col-sm12">
                                 <label for="titles" class="layui-form-label">标题规则:</label>
                                 <div class="layui-input-block">
-                                    <textarea id="titles" name="titles" class="layui-textarea" placeholder="&#123;&#123;title&#125;&#125;(&#123;&#123;title&#125;&#125;)-&#123;&#123;brand&#125;&#125;" rows="5">{{join .obj.Titles "\n"}}</textarea>
+                                    <textarea id="titles" name="titles" class="layui-textarea" placeholder="${title}(${title})-${brand}" rows="5">{{join .obj.Titles "\n"}}</textarea>
                                 </div>
                                 <div class="layui-input-block" style="margin-top:-5px;">
                                     <label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
-                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;title&#125;&#125;">
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${title}">
                                         标题变量
                                     </button>
-                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;brand&#125;&#125;">
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${brand}">
                                         品牌变量
                                     </button>
                                 </div>
@@ -81,6 +82,108 @@
                             <label class="layui-form-label">绑定栏目:</label>
                             <div class="layui-input-block" lay-filter="class_id">
                                 {{.classHTML}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item layui-row">
+                    <div class="layui-col-sm4">
+                        <div class="layui-form-item">
+                            <label for="title-user_id" class="layui-form-label">秘钥:</label>
+                            <div class="layui-input-block">
+                                <select name="title.user_id" id="title-user_id" lay-search>
+                                    <option value="0">随机秘钥</option>
+                                    <option value="-1"{{if eq .obj.Title.UserId -1}} selected{{end}}>最新秘钥</option>
+                                    {{range .users -}}
+                                        <option value="{{.Id}}"{{if eq .Id $.obj.Title.UserId}} selected{{end}}>{{.Key}}</option>
+                                    {{end -}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="title-model" class="layui-form-label">模型:</label>
+                            <div class="layui-input-block">
+                                <select id="title-model" name="title.model" lay-search>
+                                    {{range $i,$v:= .models -}}
+                                        <option value="{{$v}}"{{if eq $v $.obj.Title.Model}} selected{{end}}>{{$v}}</option>
+                                    {{end -}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label for="title-role" class="layui-form-label">角色:</label>
+                            <div class="layui-input-block">
+                                <select id="title-role" name="title.role" lay-search>
+                                    {{range $i,$v:= .roles -}}
+                                        <option value="{{$v}}"{{if eq $v $.obj.Title.Role}} selected{{end}}>{{$v}}</option>
+                                    {{end -}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" lay-tips="Maximum length参数指定了OpenAI API中文本生成模型的最大输出长度。它可以防止模型生成过长的文本，从而减少计算资源的消耗。请求最多可以使用在提示和完成之间共享的 2048 或 4000个字符。确切的限制因型号而异。(对于普通英文文本，一个标记大约是4个字符)">最大长度:</label>
+                            <div class="layui-input-block">
+                                <div id="title-max_tokens" class="slider-block"></div>
+                                <input type="hidden" name="title.max_tokens" value="{{.obj.Title.MaxTokens}}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" lay-tips="它可以控制生成文本的多样性。Temperature参数越高，生成的文本就越多样化，但也可能会出现更多的语法错误和不通顺的句子。Temperature参数越低，生成的文本就越简单，但也可能会出现更多的重复句子。">温度:</label>
+                            <div class="layui-input-block">
+                                <div id="title-temperature" class="slider-block"></div>
+                                <input type="hidden" name="title.temperature" value="{{.obj.Title.Temperature}}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" lay-tips="它用于控制生成的文本的多样性。它控制了模型生成的文本中最高概率的词语的比例，以便模型可以生成更多样化的文本。">TopP:</label>
+                            <div class="layui-input-block">
+                                <div id="title-top_p" class="slider-block"></div>
+                                <input type="hidden" name="title.top_p" value="{{.obj.Title.TopP}}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" lay-tips="它的作用是控制算法在搜索过程中对频繁出现的结果的惩罚。它可以帮助算法更好地探索搜索空间，从而更有可能找到更好的结果。">频率惩罚:</label>
+                            <div class="layui-input-block">
+                                <div id="title-frequency_penalty" class="slider-block"></div>
+                                <input type="hidden" name="title.frequency_penalty" value="{{.obj.Title.FrequencyPenalty}}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label" lay-tips="它的作用是用来控制AI模型中的缺失值惩罚。它可以用来控制AI模型对缺失值的惩罚程度，从而改善模型的准确性和性能。">存在惩罚:</label>
+                            <div class="layui-input-block">
+                                <div id="title-presence_penalty" class="slider-block"></div>
+                                <input type="hidden" name="title.presence_penalty" value="{{.obj.Title.PresencePenalty}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-sm8">
+                        <div class="layui-input-block" style="margin:0 10px 0 10px;">
+                            <div class="layui-col-sm12">
+                                <textarea name="title.prompt" rows="16" class="layui-textarea" placeholder="标题写作要求，留空为系统默认规则，一般情况没有必要填写">{{.obj.Title.Prompt}}</textarea>
+                                <div class="insert-var">
+                                    <label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${keyword}">
+                                        关键词变量
+                                    </button>
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${brand}">
+                                        品牌变量
+                                    </button>
+                                </div>
+                                <div class="layui-inline" style="float: right">
+                                    <div class="layui-btn-group">
+                                        <button class="layui-btn layui-btn-xs" data-value="title" data-event="test">测试
+                                        </button>
+                                        <button class="layui-btn layui-btn-xs layui-btn-primary" data-value="title" data-event="result">
+                                            查看结果
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="layui-col-sm8">
+                                    <textarea name="title.olds" class="layui-textarea" placeholder="正则表达式&#10;<([a-z]+?)>">{{join .obj.Title.Olds "\n"}}</textarea>
+                                </div>
+                                <div class="layui-col-sm4">
+                                    <textarea name="title.news" class="layui-textarea" placeholder="替换为&#10;<${1}>">{{join .obj.Title.News "\n"}}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -161,10 +264,10 @@
                                 <textarea name="intro.prompt" rows="16" class="layui-textarea" placeholder="写作要求">{{.obj.Intro.Prompt}}</textarea>
                                 <div class="insert-var">
                                     <label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
-                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;keyword&#125;&#125;">
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${keyword}">
                                         关键词变量
                                     </button>
-                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;brand&#125;&#125;">
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${brand}">
                                         品牌变量
                                     </button>
                                 </div>
@@ -262,10 +365,10 @@
                             <textarea name="content.prompt" rows="16" class="layui-textarea" placeholder="写作要求">{{.obj.Content.Prompt}}</textarea>
                             <div class="insert-var">
                                 <label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
-                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;keyword&#125;&#125;">
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${keyword}">
                                     关键词变量
                                 </button>
-                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;brand&#125;&#125;">
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${brand}">
                                     品牌变量
                                 </button>
                             </div>
@@ -363,10 +466,10 @@
                                 <textarea name="end.prompt" rows="16" class="layui-textarea" placeholder="写作要求">{{.obj.End.Prompt}}</textarea>
                                 <div class="insert-var">
                                     <label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
-                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;keyword&#125;&#125;">
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${keyword}">
                                         关键词变量
                                     </button>
-                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="&#123;&#123;brand&#125;&#125;">
+                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${brand}">
                                         品牌变量
                                     </button>
                                 </div>
@@ -450,11 +553,18 @@
         });
         //滑块控制
         main.slider(
+            {elem: '#title-max_tokens', min: 1, max: 4000},
+            {elem: '#title-temperature', min: 0, max: 200},
+            {elem: '#title-top_p', min: 0, max: 100},
+            {elem: '#title-frequency_penalty', min: 0, max: 200},
+            {elem: '#title-presence_penalty', min: 0, max: 200},
+            
             {elem: '#intro-max_tokens', min: 1, max: 4000},
             {elem: '#intro-temperature', min: 0, max: 200},
             {elem: '#intro-top_p', min: 0, max: 100},
             {elem: '#intro-frequency_penalty', min: 0, max: 200},
             {elem: '#intro-presence_penalty', min: 0, max: 200},
+
             {elem: '#content-max_tokens', min: 1, max: 4000},
             {elem: '#content-temperature', min: 0, max: 200},
             {elem: '#content-top_p', min: 0, max: 100},
