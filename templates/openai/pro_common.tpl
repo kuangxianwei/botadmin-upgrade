@@ -35,34 +35,56 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-item layui-row">
+                    <div class="layui-form-item layui-row" style="margin-bottom: 0">
                         <div class="layui-col-sm6">
                             <label for="keywords" class="layui-form-label">关键词列表:</label>
                             <div class="layui-input-block">
-                                <textarea id="keywords" name="keywords" class="layui-textarea" placeholder="试管婴儿&#13;三代试管婴儿" rows="11">{{join .obj.Keywords "\n"}}</textarea>
+                                <textarea id="keywords" name="keywords" class="layui-textarea" placeholder="试管婴儿&#13;三代试管婴儿" rows="7">{{join .obj.Keywords "\n"}}</textarea>
                             </div>
                         </div>
                         <div class="layui-col-sm6">
-                            <div class="layui-col-sm12">
-                                <label for="brands" class="layui-form-label">品牌列表:</label>
-                                <div class="layui-input-block">
-                                    <textarea id="brands" name="brands" rows="5" class="layui-textarea" placeholder="南方39生殖中心&#13;南方39辅助生殖中心">{{join .obj.Brands "\n"}}</textarea>
-                                </div>
+                            <label for="brands" class="layui-form-label">品牌列表:</label>
+                            <div class="layui-input-block">
+                                <textarea id="brands" name="brands" rows="7" class="layui-textarea" placeholder="南方39生殖中心&#13;南方39辅助生殖中心">{{join .obj.Brands "\n"}}</textarea>
                             </div>
-                            <div class="layui-col-sm12">
-                                <label for="titles" class="layui-form-label">标题规则:</label>
-                                <div class="layui-input-block">
-                                    <textarea id="titles" name="titles" class="layui-textarea" placeholder="${title}(${title})-${brand}" rows="5">{{join .obj.Titles "\n"}}</textarea>
-                                </div>
-                                <div class="layui-input-block" style="margin-top:-5px;">
-                                    <label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
-                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${title}">
-                                        标题变量
-                                    </button>
-                                    <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${brand}">
-                                        品牌变量
-                                    </button>
-                                </div>
+                        </div>
+                        <div class="layui-col-sm6">
+                            <label for="tpl" class="layui-form-label">文章模板:</label>
+                            <div class="layui-input-block">
+                                <textarea id="tpl" name="tpl" class="layui-textarea" placeholder="&lt;h2&gt;${correlation}&lt;/h2&gt;&#10;&lt;h3&gt;${keyword}&lt;/h3&gt;&#10;&lt;div&gt;&#10;    ${intro}&#10;    &lt;i&gt;&lt;/i&gt;${content}&#10;    ${end}&#10;&lt;/div&gt;" rows="7">{{.obj.Tpl}}</textarea>
+                            </div>
+                            <div class="layui-input-block" style="margin-top:-5px;">
+                                <label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${correlation}">
+                                    相关词
+                                </button>
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${keyword}">
+                                    关键词
+                                </button>
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${intro}">
+                                    简介
+                                </button>
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${content}">
+                                    内容
+                                </button>
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${end}">
+                                    结尾
+                                </button>
+                            </div>
+                        </div>
+                        <div class="layui-col-sm6">
+                            <label for="titles" class="layui-form-label">标题规则:</label>
+                            <div class="layui-input-block">
+                                <textarea id="titles" name="titles" class="layui-textarea" placeholder="${title}(${title})-${brand}" rows="7">{{join .obj.Titles "\n"}}</textarea>
+                            </div>
+                            <div class="layui-input-block" style="margin-top:-5px;">
+                                <label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${title}">
+                                    标题变量
+                                </button>
+                                <button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="${brand}">
+                                    品牌变量
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -558,7 +580,7 @@
             {elem: '#title-top_p', min: 0, max: 100},
             {elem: '#title-frequency_penalty', min: 0, max: 200},
             {elem: '#title-presence_penalty', min: 0, max: 200},
-            
+
             {elem: '#intro-max_tokens', min: 1, max: 4000},
             {elem: '#intro-temperature', min: 0, max: 200},
             {elem: '#intro-top_p', min: 0, max: 100},
