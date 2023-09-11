@@ -89,12 +89,12 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_nginx">重启Nginx
+                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_nginx">重载Nginx
                             </button>
                         </dd>
                         <dd>
                             <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_website_setup">
-                                更新配置
+                                重载配置
                             </button>
                         </dd>
                         <dd>
@@ -268,28 +268,6 @@
         </div>
     </div>
 </script>
-<script type="text/html" id="reload-setup">
-    <div class="layui-card">
-        <div class="layui-card-body layui-form">
-            <div class="layui-form-item">
-                <label for="reload_tpl" class="layui-form-label">重载模板:</label>
-                <div class="layui-input-inline">
-                    <input type="checkbox" name="reload_tpl" id="reload_tpl" lay-skin="switch" lay-text="是|否"/>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="thread" class="layui-form-label" lay-tips="线程太多会卡死">线程:</label>
-                <div class="layui-input-inline">
-                    <input type="text" autocomplete="off" name="thread" id="thread" value="10" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item layui-hide">
-                <input name="ids" id="ids" value="">
-                <button lay-submit>提交</button>
-            </div>
-        </div>
-    </div>
-</script>
 <script type="text/html" id="mysql-html">
     <div class="layui-card">
         <div class="layui-card-body layui-form">
@@ -367,7 +345,7 @@
                     }
                 },
                 {
-                    field: 'status', title: '状态', sort: true, width: 80, templet: function (d) {
+                    field: 'status', title: '状态', sort: true, width: 100, templet: function (d) {
                         let stat = status[d.status];
                         return '<strong style="color:' + stat.color + '" lay-tips="' + stat.alias + '">' + stat.name + '</strong>';
                     }
@@ -567,10 +545,8 @@
                 main.request({
                     url: URL + '/found',
                     data: {'ids': ids.join()},
-                    done: function (res) {
+                    done: function () {
                         table.reload('table-list');
-                        main.msg(res.msg);
-                        return false;
                     },
                 });
             },
@@ -582,10 +558,8 @@
                 main.request({
                     url: URL + '/install',
                     data: {'ids': ids.join()},
-                    done: function (res) {
+                    done: function () {
                         table.reload('table-list');
-                        main.msg(res.msg);
-                        return false;
                     }
                 });
             },
@@ -598,6 +572,12 @@
                     url: URL + '/setup',
                     data: {'ids': ids.join()},
                     done: function () {
+                        if (ids.length === 1) {
+                            main.ws.log("site." + ids[0], function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        }
                         main.ws.log(function () {
                             table.reload('table-list');
                         });
@@ -614,6 +594,12 @@
                     url: URL + '/publish',
                     data: {ids: ids.join()},
                     done: function () {
+                        if (ids.length === 1) {
+                            main.ws.log("site." + ids[0], function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        }
                         main.ws.log(function () {
                             table.reload('table-list');
                         });
@@ -625,28 +611,35 @@
                 main.request({
                     url: URL + '/reload/nginx',
                     data: {ids: ids.join()},
-                    done: function (res) {
-                        table.reload('table-list');
-                        main.msg(res.msg);
-                        return false;
-                    },
                 });
             },
             reload_website_setup: function (obj, ids) {
                 if (ids.length === 0) {
                     return main.error('请选择数据');
                 }
-                let contentObj = $($("#reload-setup").html());
-                contentObj.find('*[name=ids]').attr('value', ids.join());
-                main.popup({
-                    title: '重新设置网站后台',
-                    content: contentObj.prop('outerHTML'),
-                    url: URL + '/reload/website/setup',
-                    area: '400px',
-                    done: function () {
-                        main.ws.log();
-                        return false;
-                    }
+                layer.confirm("是否重新载入模板文件？", {
+                    title: false,
+                    btn: ["不重载", "重载", "取消"]
+                }, function (index) {
+                    layer.close(index);
+                    main.request({
+                        url: URL + '/reload/website/setup',
+                        data: {ids: ids.join(), reload_tpl: false},
+                        done: function () {
+                            main.ws.log();
+                            return false;
+                        }
+                    })
+                }, function (index) {
+                    layer.close(index);
+                    main.request({
+                        url: URL + '/reload/website/setup',
+                        data: {ids: ids.join(), reload_tpl: true},
+                        done: function () {
+                            main.ws.log();
+                            return false;
+                        }
+                    })
                 });
             },
             update_website: function (obj, ids) {
@@ -666,22 +659,14 @@
                     layer.msg("未选择", {icon: 2});
                     return false;
                 }
-                layer.prompt({
-                        formType: 0,
-                        value: obj.data.length,
-                        title: '远程网站配置覆盖本地，请输入线程数量 太多会卡死'
-                    },
-                    function (value, index) {
-                        main.request({
-                            url: URL + '/pull/config',
-                            data: {'ids': ids.join(), 'thread': value},
-                            index: index,
-                            done: function () {
-                                main.ws.log();
-                                return false;
-                            }
-                        });
-                    });
+                main.request({
+                    url: URL + '/pull/config',
+                    data: {ids: ids.join()},
+                    done: function () {
+                        main.ws.log();
+                        return false;
+                    }
+                });
             },
             cron_enable: function (obj, ids) {
                 main.request({
@@ -839,10 +824,6 @@
                 main.request({
                     url: URL + '/vhosts',
                     data: {ids: ids.join()},
-                    done: function (res) {
-                        main.msg(res.msg);
-                        return false;
-                    },
                 });
             },
             links: function (obj, ids) {

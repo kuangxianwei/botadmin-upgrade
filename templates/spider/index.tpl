@@ -247,24 +247,17 @@
                     if (ids.length === 0) {
                         return main.error('请选择数据');
                     }
-                    layer.prompt({
-                        formType: 0,
-                        value: ids.length,
-                        title: '采集入库:输入线程数,太多会卡死'
-                    }, function (value, index) {
-                        main.request({
-                            url: URL + '/exec',
-                            data: {ids: ids.join(), thread: value},
-                            index: index,
-                            done: 'table-list',
-                        });
+                    main.request({
+                        url: URL + '/exec',
+                        data: {ids: ids.join()},
+                        done: 'table-list',
                     });
                     return
                 }
                 layer.confirm('开始采集入库？', function (index) {
                     main.request({
                         url: URL + '/exec',
-                        data: {id: obj.data.id, thread: 1},
+                        data: {id: obj.data.id},
                         done: function () {
                             main.ws.log("spider." + obj.data.id, function () {
                                 table.reload('table-list');
