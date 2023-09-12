@@ -11,7 +11,7 @@
             <div class="layui-inline">
                 <label for="delay" class="layui-form-label" lay-tips="为了防封IP，请设置合适的间隔时间（秒）采集">期间延迟:</label>
                 <div class="layui-input-block">
-                    <input type="number" autocomplete="off" name="delay" id="delay" max="500" min="0" class="layui-input" value="{{.obj.Delay}}" placeholder="5">
+                    <input type="number" name="delay" id="delay" max="500" min="0" class="layui-input" value="{{.obj.Delay}}" placeholder="5">
                 </div>
             </div>
         </div>
@@ -25,13 +25,13 @@
             <div class="layui-inline">
                 <label for="spec" class="layui-form-label">Spec:</label>
                 <div class="layui-input-block" lay-tips="双击修改定时任务">
-                    <input type="text" autocomplete="off" name="spec" id="spec" class="layui-input" value="{{.obj.Spec}}" placeholder="0 0 * * * ?">
+                    <input type="text" name="spec" id="spec" class="layui-input" value="{{.obj.Spec}}" placeholder="0 0 * * * ?">
                 </div>
             </div>
             <div class="layui-inline">
                 <label for="max" class="layui-form-label" lay-tips="采集最多tag个数">上限:</label>
                 <div class="layui-input-block">
-                    <input type="number" autocomplete="off" name="max" id="max" max="5000" min="1" class="layui-input" value="{{.obj.Max}}" placeholder="500">
+                    <input type="number" name="max" id="max" max="5000" min="1" class="layui-input" value="{{.obj.Max}}" placeholder="500">
                 </div>
             </div>
             <div class="layui-inline">
@@ -42,16 +42,25 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="必须包含关键词才采集">包含:</label>
-                <div class="layui-input-block">
-                    <textarea name="contains" class="layui-textarea" placeholder="必须包含的关键词一行一个">{{join .obj.Contains "\n"}}</textarea>
+            <div class="layui-col-sm7">
+                <div class="layui-inline">
+                    <label class="layui-form-label" lay-tips="必须包含关键词才采集">包含:</label>
+                    <div class="layui-input-block">
+                        <textarea name="contains" class="layui-textarea" placeholder="必须包含的关键词一行一个">{{join .obj.Contains "\n"}}</textarea>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" lay-tips="必须不包含关键词才采集">排除:</label>
+                    <div class="layui-input-block">
+                        <textarea name="excludes" class="layui-textarea" placeholder="排除关键词 一行一个">{{join .obj.Excludes "\n"}}</textarea>
+                    </div>
                 </div>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" lay-tips="必须不包含关键词才采集">排除:</label>
+            <div class="layui-col-sm5">
+                <label class="layui-form-label" lay-tips="tag长度限制，小于最小值或大于最大值则不采集">长度限制:</label>
                 <div class="layui-input-block">
-                    <textarea name="excludes" class="layui-textarea" placeholder="排除关键词 一行一个">{{join .obj.Excludes "\n"}}</textarea>
+                    <div id="range" class="slider-block"></div>
+                    <input type="hidden" name="range" value="{{.obj.Range}}">
                 </div>
             </div>
         </div>
@@ -126,14 +135,14 @@
             displaySelector: '#collect-display',
             statusSelector: '#collect-status'
         }, function (status) {
-            if (status === '0') {
-                $('#start-stop').attr('lay-filter', 'submit-start')
-                    .removeClass('layui-bg-red')
-                    .html('<i class="layui-icon layui-icon-play"></i>开始');
-            } else {
+            if (status) {
                 $('#start-stop').attr('lay-filter', 'submit-stop')
                     .addClass('layui-bg-red')
                     .html('<i class="layui-icon layui-icon-pause"></i>停止');
+            } else {
+                $('#start-stop').attr('lay-filter', 'submit-start')
+                    .removeClass('layui-bg-red')
+                    .html('<i class="layui-icon layui-icon-play"></i>开始');
             }
         });
         let active = {
@@ -170,5 +179,6 @@
             active[event] && active[event].call($this);
         });
         main.cron('[name=spec]');
+        main.slider({elem: '#range', range: true, min: 0, max: 50});
     });
 </script>
