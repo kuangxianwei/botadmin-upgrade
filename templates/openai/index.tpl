@@ -190,7 +190,6 @@
             },
             request: function () {
                 let data = form.val('form');
-                console.log(data);
                 if (!data.prompt) {
                     return main.error('写作要求不可以为空!');
                 }
@@ -198,7 +197,8 @@
                     url: URL + '/stream',
                     data: data,
                     done: function () {
-                        main.ws.log('openai.stream.' + ID)
+                        main.ws.log('openai.stream.' + ID);
+                        return false;
                     }
                 });
             },
