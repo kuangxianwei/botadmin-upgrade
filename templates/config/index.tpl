@@ -24,7 +24,8 @@
                 <li>采集设置</li>
                 <li>违禁设置</li>
                 <li>监控服务</li>
-                <li>IP黑名单</li>
+                <li>IP过滤名单</li>
+                <li>Nginx替换</li>
             </ul>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show layui-form">
@@ -390,13 +391,23 @@
                 </div>
                 <div class="layui-tab-item layui-form">
                     <div class="layui-form-item">
-                        <textarea class="layui-textarea" name="filter" rows="16">{{.filter}}</textarea>
-                        <input type="hidden" name="action" value="filter">
+                        <textarea class="layui-textarea" placeholder="# deny 10.211.55.2/20;&#10;# allow 127.0.0.1;" name="ip_filter" rows="16">{{.ipFilter}}</textarea>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label"></label>
                         <div class="layui-btn-group">
-                            <button class="layui-btn" lay-submit lay-filter="submit-filter">提交修改</button>
+                            <button class="layui-btn" data-event="ipFilter">提交修改</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item layui-form">
+                    <div class="layui-form-item">
+                        <textarea class="layui-textarea" placeholder="# sub_filter_once off;&#10;# sub_filter_types text/html;&#10;# sub_filter 捐精 助孕;&#10;# sub_filter 代孕 助孕;" name="sub_filter" rows="16">{{.subFilter}}</textarea>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"></label>
+                        <div class="layui-btn-group">
+                            <button class="layui-btn layui-btn-radius" data-event="subFilter">提交修改</button>
                         </div>
                     </div>
                 </div>
@@ -462,12 +473,6 @@
             });
             return false;
         });
-        form.on('submit(submit-filter)', function (obj) {
-            main.request({
-                url: URL,
-                data: obj.field,
-            });
-        });
         let active = {
             banUpdate: function () {
                 main.request({url: URL + '/ban/update'});
@@ -513,7 +518,19 @@
             },
             monitorLog: function () {
                 main.ws.log("monitor_service.0");
-            }
+            },
+            ipFilter: function () {
+                main.request({
+                    url: URL,
+                    data: {action: 'ip_filter', content: $('[name=ip_filter]').val()},
+                });
+            },
+            subFilter: function () {
+                main.request({
+                    url: URL,
+                    data: {action: 'sub_filter', content: $('[name=sub_filter]').val()},
+                });
+            },
         };
         $('[data-event]').on('click', function () {
             let othis = $(this),
