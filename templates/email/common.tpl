@@ -1,25 +1,39 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
+            <label for="enabled" class="layui-form-label">启用:</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" name="enabled" id="enabled" lay-skin="switch" lay-text="启用|关闭"{{if .obj.Enabled}} checked{{end}}>
+            </div>
+            <div class="layui-form-mid layui-word-aux">是否启用这个配置</div>
+        </div>
+        <div class="layui-form-item">
             <label for="host" class="layui-form-label">服务器:</label>
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="host" id="host" lay-verify="required" class="layui-input" placeholder="服务器地址" value="{{.obj.Host}}">
+                <input type="text" name="host" id="host" lay-verify="required" class="layui-input" placeholder="服务器地址" value="{{.obj.Host}}">
             </div>
             <div class="layui-form-mid layui-word-aux">smtp.qq.com:25</div>
         </div>
         <div class="layui-form-item">
+            <label for="alias" class="layui-form-label">别名:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="alias" id="alias" lay-verify="required" class="layui-input" placeholder="nfivf.com" value="{{.obj.Alias}}">
+            </div>
+            <div class="layui-form-mid layui-word-aux">BotAdmin</div>
+        </div>
+        <div class="layui-form-item">
             <label for="username" class="layui-form-label">用户名:</label>
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="username" id="username" lay-verify="required" class="layui-input" placeholder="邮箱用户名" value="{{.obj.Username}}">
+                <input type="text" name="username" id="username" lay-verify="required" class="layui-input" placeholder="邮箱用户名" value="{{.obj.Username}}">
             </div>
-            <div class="layui-form-mid layui-word-aux">88364809@qq.com</div>
+            <div class="layui-form-mid layui-word-aux">38050123@qq.com</div>
         </div>
         <div class="layui-form-item">
             <label for="password" class="layui-form-label">密码:</label>
             <div class="layui-input-inline">
-                <input type="password" autocomplete="off" name="password" id="password" lay-verify="required" class="layui-input" placeholder="邮箱登录密码" value="{{.obj.Password}}">
+                <input type="password" name="password" id="password" lay-verify="required" class="layui-input" placeholder="邮箱登录密码" value="{{.obj.Password}}">
             </div>
-            <div class="layui-form-mid layui-word-aux">邮箱登录密码</div>
+            <div class="layui-form-mid layui-word-aux">邮箱登录密码或授权码</div>
         </div>
         <div class="layui-form-item">
             <label for="id" class="layui-form-label">发送到:</label>

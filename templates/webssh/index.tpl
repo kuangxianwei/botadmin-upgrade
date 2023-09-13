@@ -20,7 +20,7 @@
             <div class="layui-form-item">
                 <label for="thread" class="layui-form-label">协程:</label>
                 <div class="layui-input-inline">
-                    <input type="number" autocomplete="off" name="thread" id="thread" value="10" max="30" class="layui-input">
+                    <input type="number" name="thread" id="thread" value="10" max="30" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">协程太多容易卡死或出错</div>
             </div>
@@ -195,7 +195,7 @@
                                     }).val(localStorage.getItem("ssh-code") || "");
                                     break;
                                 case "scp":
-                                    dom.find("#stdin").html(`<div class="layui-input-block"><input type="text" autocomplete="off" name="stdin" id="stdin" placeholder="/本地路径 /远程路径" class="layui-input" lay-verify="required"></div>`).find('input[name=stdin]').blur(function () {
+                                    dom.find("#stdin").html(`<div class="layui-input-block"><input type="text" name="stdin" id="stdin" placeholder="/本地路径 /远程路径" class="layui-input" lay-verify="required"></div>`).find('input[name=stdin]').blur(function () {
                                         localStorage.setItem("ssh-scp", $(this).val())
                                     }).val(localStorage.getItem("ssh-scp") || "");
                                     break;

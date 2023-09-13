@@ -49,7 +49,7 @@
             },
             max: function (enabled) {
                 if (enabled) {
-                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">最大限制:</label><div class="layui-input-inline"><input type="number" autocomplete="off" name="max" id="max" value="0" min="0" class="layui-input"></div><div class="layui-form-mid layui-word-aux">0为不限制</div></div>');
+                    fieldElem.append('<div class="layui-form-item"><label class="layui-form-label">最大限制:</label><div class="layui-input-inline"><input type="number" name="max" id="max" value="0" min="0" class="layui-input"></div><div class="layui-form-mid layui-word-aux">0为不限制</div></div>');
                     form.render('checkbox');
                 } else {
                     fieldElem.find('[name=max]').closest('.layui-form-item').remove();

@@ -11,13 +11,13 @@
             <label for="app_id" class="layui-form-label" lay-tips="翻译平台获取">AppId:</label>
             <div class="layui-input-block">
                 <input type="text" name="app_id" id="app_id" value="{{.obj.AppId}}"{{if not .hide}} lay-verify="required"{{end}}
-                       autocomplete="off" placeholder="翻译平台获取" class="layui-input">
+                       placeholder="翻译平台获取" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label for="token" class="layui-form-label" lay-tips="翻译平台获取">Token:</label>
             <div class="layui-input-block">
-                <input type="text" autocomplete="off" name="token" id="token" value="{{.obj.Token}}"
+                <input type="text" name="token" id="token" value="{{.obj.Token}}"
                        placeholder="翻译平台获取" class="layui-input">
             </div>
         </div>

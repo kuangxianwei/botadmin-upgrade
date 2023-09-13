@@ -27,25 +27,25 @@
                 <div class="layui-col-md3">
                     <label for="begin" class="layui-form-label" lay-tips="开始页">开始:</label>
                     <div class="layui-input-inline" style="width: 60px">
-                        <input type="number" autocomplete="off" name="begin" id="begin" value="{{.obj.Begin}}" class="layui-input">
+                        <input type="number" name="begin" id="begin" value="{{.obj.Begin}}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-col-md3">
                     <label for="end" class="layui-form-label" lay-tips="结束页">结束:</label>
                     <div class="layui-input-inline" style="width: 60px">
-                        <input type="number" autocomplete="off" name="end" id="end" value="{{.obj.End}}" class="layui-input">
+                        <input type="number" name="end" id="end" value="{{.obj.End}}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-col-md3">
                     <label for="limit" class="layui-form-label" lay-tips="每页显示量默认30个">页数:</label>
                     <div class="layui-input-inline" style="width: 60px">
-                        <input type="number" autocomplete="off" name="limit" id="limit" value="{{.obj.Limit}}" class="layui-input">
+                        <input type="number" name="limit" id="limit" value="{{.obj.Limit}}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-col-md3">
                     <label for="delay" class="layui-form-label" lay-tips="延迟时间秒">延迟:</label>
                     <div class="layui-input-inline" style="width: 60px">
-                        <input type="number" autocomplete="off" name="delay" id="delay" value="{{print .obj.Delay}}" class="layui-input">
+                        <input type="number" name="delay" id="delay" value="{{print .obj.Delay}}" class="layui-input">
                     </div>
                 </div>
             </div>

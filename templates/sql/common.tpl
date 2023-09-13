@@ -3,7 +3,7 @@
         <div class="layui-form-item">
             <label for="username" class="layui-form-label">用户名:</label>
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="username" id="username" value="{{.obj.Username}}" required lay-verify="required"
+                <input type="text" name="username" id="username" value="{{.obj.Username}}" required lay-verify="required"
                        class="layui-input"
                        placeholder="6-15个字符，由字母、数字、下划线组成"{{if ne .obj.Id 0}} disabled{{end}}>
             </div>
@@ -11,7 +11,7 @@
         <div class="layui-form-item">
             <label for="password" class="layui-form-label">密码:</label>
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="password" id="password" value="{{.obj.Password}}"
+                <input type="text" name="password" id="password" value="{{.obj.Password}}"
                        placeholder="6-15个字符，由字母、数字、下划线组成" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">留空为8位随机密码</div>
@@ -28,14 +28,14 @@
         <div class="layui-form-item">
             <label for="dbname" class="layui-form-label">数据库名:</label>
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="dbname" id="dbname" value="{{.obj.Dbname}}"
+                <input type="text" name="dbname" id="dbname" value="{{.obj.Dbname}}"
                        placeholder="留空为用户名" class="layui-input"{{if ne .obj.Id 0}} disabled{{end}}>
             </div>
         </div>
         <div class="layui-form-item">
             <label for="prefix" class="layui-form-label">数据库前缀:</label>
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="prefix" id="prefix" value="{{.obj.Prefix}}" placeholder="bot_" class="layui-input">
+                <input type="text" name="prefix" id="prefix" value="{{.obj.Prefix}}" placeholder="bot_" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">字母开头下划线结尾 如：bot_</div>
         </div>

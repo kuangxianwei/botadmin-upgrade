@@ -17,7 +17,7 @@
                 <div class="layui-inline">
                     <label for="sort" class="layui-form-label">排序:</label>
                     <div class="layui-input-inline">
-                        <input type="number" autocomplete="off" name="sort" id="sort" value="{{.obj.Sort}}" min="0" max="100" class="layui-input">
+                        <input type="number" name="sort" id="sort" value="{{.obj.Sort}}" min="0" max="100" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">值越大越排后面</div>
                 </div>
@@ -79,9 +79,9 @@
                     <label for="username" class="layui-form-label">用户名:</label>
                     <div class="layui-input-inline">
                         {{if .obj.Id -}}
-                            <input type="text" pattern="^[a-zA-Z]\w+$" autocomplete="off" name="username" id="username" value="{{.obj.Username}}" lay-verify="required" placeholder="liYi" class="layui-input layui-disabled" disabled>
+                            <input type="text" pattern="^[a-zA-Z]\w+$" name="username" id="username" value="{{.obj.Username}}" lay-verify="required" placeholder="liYi" class="layui-input layui-disabled" disabled>
                         {{else -}}
-                            <input type="text" pattern="^[a-zA-Z]\w+$" autocomplete="off" name="username" id="username" value="{{.obj.Username}}" lay-verify="required" placeholder="liYi" class="layui-input">
+                            <input type="text" pattern="^[a-zA-Z]\w+$" name="username" id="username" value="{{.obj.Username}}" lay-verify="required" placeholder="liYi" class="layui-input">
                         {{end -}}
                     </div>
                     <div class="layui-form-mid layui-word-aux">数字和字母组成</div>
@@ -89,7 +89,7 @@
                 <div class="layui-col-md6">
                     <label for="alias" class="layui-form-label">别名:</label>
                     <div class="layui-input-inline">
-                        <input type="text" autocomplete="off" name="alias" id="alias" value="{{.obj.Alias}}" placeholder="李谊" class="layui-input">
+                        <input type="text" name="alias" id="alias" value="{{.obj.Alias}}" placeholder="李谊" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">填写姓名</div>
                 </div>
@@ -98,14 +98,14 @@
                 <div class="layui-col-md6">
                     <label for="phone" class="layui-form-label">手机号:</label>
                     <div class="layui-input-inline">
-                        <input type="tel" autocomplete="off" name="phone" id="phone" value="{{.obj.Phone}}" lay-verify="phone" placeholder="13724184818" class="layui-input">
+                        <input type="tel" name="phone" id="phone" value="{{.obj.Phone}}" lay-verify="phone" placeholder="13724184818" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">填写手机号码</div>
                 </div>
                 <div class="layui-col-md6">
                     <label for="wechat" class="layui-form-label">微信号:</label>
                     <div class="layui-input-inline">
-                        <input type="text" autocomplete="off" name="wechat" id="wechat" value="{{.obj.Wechat}}" placeholder="13724184818" class="layui-input">
+                        <input type="text" name="wechat" id="wechat" value="{{.obj.Wechat}}" placeholder="13724184818" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">留空默认为手机号码</div>
                 </div>
@@ -114,7 +114,7 @@
                 <div class="layui-col-md6">
                     <label for="max" class="layui-form-label">最大限制:</label>
                     <div class="layui-input-inline">
-                        <input type="number" autocomplete="off" name="max" id="max" value="{{.obj.Max}}" min="0" placeholder="0" class="layui-input">
+                        <input type="number" name="max" id="max" value="{{.obj.Max}}" min="0" placeholder="0" class="layui-input">
                     </div>
                     <div class="layui-form-mid layui-word-aux">0为不限制</div>
                 </div>
@@ -245,6 +245,5 @@
                 }
             });
         }
-        main.onFillContact();
     });
 </script>

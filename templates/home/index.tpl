@@ -254,7 +254,7 @@
                     <tr>
                         <td>服务器IP：</td>
                         <td>
-                            <textarea name="address" autocomplete="off" class="layui-textarea" rows="5">{{join .obj.Ips "\n"}}</textarea>
+                            <textarea name="address" class="layui-textarea" rows="5">{{join .obj.Ips "\n"}}</textarea>
                         </td>
                     </tr>
                     </tbody>

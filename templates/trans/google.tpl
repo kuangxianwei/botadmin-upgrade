@@ -10,7 +10,7 @@
         <div class="layui-form-item">
             <label for="token" class="layui-form-label" lay-tips="翻译平台获取">Token:</label>
             <div class="layui-input-block">
-                <input type="text" autocomplete="off" name="token" id="token" value="{{.obj.Token}}"
+                <input type="text" name="token" id="token" value="{{.obj.Token}}"
                        placeholder="翻译平台获取" class="layui-input">
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="layui-form-item">
             <label for="delay" class="layui-form-label">延时:</label>
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="delay" id="delay" value="{{print .obj.Delay}}" placeholder="输入秒"
+                <input type="text" name="delay" id="delay" value="{{print .obj.Delay}}" placeholder="输入秒"
                        class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">每次请求间隔多少秒</div>

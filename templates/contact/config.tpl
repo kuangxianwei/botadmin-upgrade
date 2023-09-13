@@ -11,7 +11,7 @@
             <div class="layui-inline">
                 <label for="host" class="layui-form-label">绑定域名:</label>
                 <div class="layui-input-inline">
-                    <input type="text" autocomplete="off" name="host" id="host" value="{{.obj.Host}}" lay-verify="required" class="layui-input">
+                    <input type="text" name="host" id="host" value="{{.obj.Host}}" lay-verify="required" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -93,7 +93,7 @@
             <div class="layui-col-md6">
                 <label for="deny" class="layui-form-label" lay-tips="匹配(正则)的页面则不显示广告">拒绝广告:</label>
                 <div class="layui-input-block">
-                    <input name="deny" id="deny" value="{{.obj.Deny}}" type="text" autocomplete="off" class="layui-input" placeholder="\.(php|asp|js|css)(\?|$)">
+                    <input name="deny" id="deny" value="{{.obj.Deny}}" type="text" class="layui-input" placeholder="\.(php|asp|js|css)(\?|$)">
                 </div>
             </div>
         </div>
@@ -217,7 +217,7 @@
             addDuration: function () {
                 let layKey = this.parents('div.layui-form-item').find('input:last').attr('lay-key') || 0;
                 layKey++;
-                this.parent().before('<div class="layui-input-inline"><input type="text" autocomplete="off" name="duration" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
+                this.parent().before('<div class="layui-input-inline"><input type="text" name="duration" class="layui-input" id="date-' + layKey + '" placeholder=" - "></div>');
                 layDate.render({elem: '#date-' + layKey, type: 'time', range: true});
                 $('[data-event=delDuration]').show(200);
             },
@@ -236,7 +236,7 @@
         if (durations) {
             durations.forEach(function (item, index) {
                 index += 1;
-                $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" autocomplete="off" name="duration" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
+                $('div[lay-filter=duration]>div.layui-btn-group').before('<div class="layui-input-inline"><input type="text" name="duration" value="' + item + '" class="layui-input" id="date-' + index + '" placeholder=" - "></div>');
                 layDate.render({elem: '#date-' + index, type: 'time', range: true});
                 $('[data-event=delDuration]').show(200);
             });

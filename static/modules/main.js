@@ -1085,39 +1085,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             tags.render();
         }
 
-        // 填充客服变量
-        onFillContact() {
-            $('.fill-contact').html(`<label class="layui-form-label" style="padding:5px 15px;color:coral">插入变量:</label>
-<button class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" data-write="default">默认HTML</button>
-<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{phone}}">手机号</button>
-<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{wechat}}">微信号</button>
-<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="wechat">复制微信</button>
-<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{alias}}">别名</button>
-<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{email}}">邮箱</button>
-<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{qr}}">二维码URL</button>
-<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="qr">二维码HTML</button>
-<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{hostname}}">Host</button>
-<button class="layui-btn layui-btn-xs layui-btn-radius" data-write="{{consult}}">在线URL</button>
-<a class="layui-btn layui-btn-xs layui-btn-radius layui-btn-primary" lay-href="/file?path=data/contact/images" lay-text="图片管理">复制图片地址</a>
-`);
-            $('[data-write]').off("click").on("click", function () {
-                let elem = $(this).closest("div.layui-form-item").find("textarea"), write = $(this).data("write");
-                switch (write) {
-                    case "qr":
-                        elem.insertAt('<img src="{{qr}}" alt="微信号:{{wechat}}" title="{{wechat}}" width="150" height="150">');
-                        break;
-                    case "wechat":
-                        elem.insertAt('<cite data-trace="复制微信" data-event="copy" data-value="{{wechat}}" title="点击复制微信号:{{wechat}}">复制微信</cite>');
-                        break;
-                    case "default":
-                        elem.val('<img src="{{qr}}" alt="微信号:{{wechat}}" title="{{wechat}}" width="150" height="150">{{alias}}很高兴为您服务，您可以拨打电话{{phone}}、加微信{{wechat}}或者邮箱{{email}}联系我们!');
-                        break;
-                    default:
-                        elem.insertAt(write);
-                }
-            });
-        }
-
         // 获取文件名
         basename(path) {
             let paths = decodeURIComponent(path).split('/');

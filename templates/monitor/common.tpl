@@ -2,15 +2,9 @@
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
             <label class="layui-form-label">目标地址:</label>
-            {{if .obj.Addr -}}
-                <div class="layui-input-block">
-                    <input type="text" autocomplete="off" name="addr" value="{{.obj.Addr}}" lay-verify="required" class="layui-input" placeholder="http://www.botadmin.cn">
-                </div>
-            {{else -}}
-                <div class="layui-input-block">
-                    <textarea name="address" class="layui-textarea" rows="3" placeholder="http://www.botadmin.cn&#13;http://www.nfivf.com"></textarea>
-                </div>
-            {{end -}}
+            <div class="layui-input-block">
+                <input type="text" name="addr" value="{{.obj.Addr}}" lay-verify="required" class="layui-input" placeholder="http://www.botadmin.cn">
+            </div>
         </div>
         <div class="layui-form-item">
             <label for="method" class="layui-form-label">接收者:</label>
@@ -35,21 +29,18 @@
                        lay-text="是|否"{{if .obj.Detailed}} checked{{end}}>
             </div>
         </div>
-        <fieldset class="layui-elem-field">
-            <legend>定时设置</legend>
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label for="detailed" class="layui-form-label">启用:</label>
-                    <div class="layui-input-inline">
-                        <input type="checkbox" name="cron_enabled" id="cron_enabled" lay-skin="switch"
-                               lay-text="是|否"{{if .obj.CronEnabled}} checked{{end}}>
-                    </div>
-                </div>
-                <div class="layui-inline" lay-tips="双击修改定时任务">
-                    <input type="text" autocomplete="off" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label for="enabled" class="layui-form-label">启用:</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" name="enabled" id="enabled" lay-skin="switch"
+                           lay-text="是|否"{{if .obj.Enabled}} checked{{end}}>
                 </div>
             </div>
-        </fieldset>
+            <div class="layui-inline" lay-tips="双击修改定时任务">
+                <input type="text" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
+            </div>
+        </div>
         <div class="layui-form-item layui-hide">
             <input name="id" id="id" value="{{.obj.Id}}">
             <button lay-submit>提交</button>

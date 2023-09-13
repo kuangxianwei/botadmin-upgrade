@@ -1,19 +1,13 @@
-<div class="layui-card-header layuiadmin-card-header-auto layui-form">
-    <div class="layui-form-item">
-        <div class="layui-input-inline">
-            <input type="text" autocomplete="off" name="host" placeholder="输入服务器" class="layui-input">
-        </div>
-        <div class="layui-input-inline">
-            <input type="text" autocomplete="off" name="username" placeholder="输入用户名"
-                   class="layui-input">
-        </div>
-        <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
-            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-        </button>
-    </div>
-</div>
 <div class="layui-card">
     <div class="layui-card-body">
+        <div class="layui-form table-search" style="left: 200px">
+            <div class="layui-input-inline">
+                <input type="text" name="search" placeholder="输入搜索" class="layui-input">
+            </div>
+            <button class="layui-hide" lay-submit lay-filter="search">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+        </div>
         <table id="table-list" lay-filter="table-list"></table>
     </div>
 </div>
@@ -45,9 +39,16 @@
         main.table([[
             {type: 'checkbox', fixed: 'left'},
             {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},
+            {
+                field: 'enabled', title: '启用/禁用', width: 100, align: 'center',
+                event: 'switch', templet: function (d) {
+                    return '<input type="checkbox" name="enabled" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
+                }
+            },
             {field: 'host', title: '服务器'},
             {field: 'username', title: '用户名'},
             {field: 'password', title: '密码', hide: true},
+            {field: 'alias', title: '别名', hide: true},
             {field: 'to', title: '接收者'},
             {
                 field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {

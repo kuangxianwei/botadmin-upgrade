@@ -1,13 +1,13 @@
 <div class="layui-card">
     <div class="layui-form layui-card-header layuiadmin-card-header-auto" lay-event="search">
         <div class="layui-inline">
-            <input type="text" autocomplete="off" name="ids" placeholder="搜索ID:1,2,3" class="layui-input">
+            <input type="text" name="ids" placeholder="搜索ID:1,2,3" class="layui-input">
         </div>
         <div class="layui-inline">
-            <input class="layui-input" type="text" autocomplete="off" name="title" placeholder="请输入标题部分或全部">
+            <input class="layui-input" type="text" name="title" placeholder="请输入标题部分或全部">
         </div>
         <div class="layui-inline" style="width: 80px" lay-tips="原创度 例如:70.00">
-            <input type="number" autocomplete="off" name="originality_rate" placeholder="70.00" class="layui-input">
+            <input type="number" name="originality_rate" placeholder="70.00" class="layui-input">
         </div>
         <div class="layui-inline">
             <select name="site_id" lay-filter="search-select" lay-search>

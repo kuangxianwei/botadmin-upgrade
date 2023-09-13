@@ -4,7 +4,7 @@
             <div class="layui-col-md9">
                 <label for="title" class="layui-form-label">标题:</label>
                 <div class="layui-input-block">
-                    <input type="text" autocomplete="off" name="title" id="title" value="{{.obj.Title}}" lay-verify="required" class="layui-input">
+                    <input type="text" name="title" id="title" value="{{.obj.Title}}" lay-verify="required" class="layui-input">
                 </div>
             </div>
             <div class="layui-col-md3">
@@ -24,13 +24,13 @@
                 <div class="layui-col-md6">
                     <label for="keywords" class="layui-form-label">关键词:</label>
                     <div class="layui-input-block">
-                        <input type="text" autocomplete="off" name="keywords" id="keywords" value="{{join .obj.Keywords ","}}" class="layui-input">
+                        <input type="text" name="keywords" id="keywords" value="{{join .obj.Keywords ","}}" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-col-md6">
                     <label for="tags" class="layui-form-label">Tags:</label>
                     <div class="layui-input-block">
-                        <input type="text" autocomplete="off" name="tags" id="tags" value="{{join .obj.Tags ","}}" class="layui-input">
+                        <input type="text" name="tags" id="tags" value="{{join .obj.Tags ","}}" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -38,13 +38,13 @@
         <div class="layui-form-item">
             <label for="description" class="layui-form-label">描述:</label>
             <div class="layui-input-block">
-                <input type="text" autocomplete="off" name="description" id="description" value="{{.obj.Description}}" class="layui-input">
+                <input type="text" name="description" id="description" value="{{.obj.Description}}" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label for="title_pic" class="layui-form-label">标题图片:</label>
             <div class="layui-input-block">
-                <input type="text" autocomplete="off" name="title_pic" id="title_pic" value="{{.obj.TitlePic}}" class="layui-input">
+                <input type="text" name="title_pic" id="title_pic" value="{{.obj.TitlePic}}" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">

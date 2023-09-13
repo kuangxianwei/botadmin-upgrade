@@ -3,19 +3,19 @@
         <div class="layui-form-item">
             <label for="title" class="layui-form-label">标题:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" autocomplete="off" name="title" id="title" value="{{.obj.Title}}" lay-verify="required">
+                <input class="layui-input" type="text" name="title" id="title" value="{{.obj.Title}}" lay-verify="required">
             </div>
         </div>
         <div class="layui-form-item">
             <label for="keywords" class="layui-form-label">关键词:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" autocomplete="off" name="keywords" id="keywords" value="{{join .obj.Keywords ","}}">
+                <input class="layui-input" type="text" name="keywords" id="keywords" value="{{join .obj.Keywords ","}}">
             </div>
         </div>
         <div class="layui-form-item">
             <label for="description" class="layui-form-label">描述:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" autocomplete="off" name="description" id="description" value="{{.obj.Description}}">
+                <input class="layui-input" type="text" name="description" id="description" value="{{.obj.Description}}">
             </div>
         </div>
         <div class="layui-form-item">
@@ -27,7 +27,7 @@
         <div class="layui-form-item">
             <label for="title_pic" class="layui-form-label">图片地址:</label>
             <div class="layui-input-block">
-                <input class="layui-input" type="text" autocomplete="off" name="title_pic" id="title_pic" value="{{.obj.TitlePic}}">
+                <input class="layui-input" type="text" name="title_pic" id="title_pic" value="{{.obj.TitlePic}}">
             </div>
         </div>
         <div class="layui-form-item">
@@ -59,7 +59,7 @@
         <div class="layui-form-item">
             <label for="source" class="layui-form-label">采集源:</label>
             <div class="layui-input-block">
-                <input type="text" autocomplete="off" class="layui-input" name="source" id="source" value="{{.obj.Source}}">
+                <input type="text" class="layui-input" name="source" id="source" value="{{.obj.Source}}">
             </div>
         </div>
         <div class="layui-form-item">

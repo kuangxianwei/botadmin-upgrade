@@ -33,19 +33,19 @@
                         <div class="layui-col-md3">
                             <label for="username" class="layui-form-label">用户名:</label>
                             <div class="layui-input-block">
-                                <input type="text" autocomplete="off" name="username" id="username" value="{{.base.Username}}" class="layui-input" placeholder="用户名">
+                                <input type="text" name="username" id="username" value="{{.base.Username}}" class="layui-input" placeholder="用户名">
                             </div>
                         </div>
                         <div class="layui-col-md3">
                             <label for="addr" class="layui-form-label">Host:</label>
                             <div class="layui-input-block">
-                                <input type="text" autocomplete="off" name="addr" id="addr" value="{{.base.Addr}}" class="layui-input" placeholder="localhost">
+                                <input type="text" name="addr" id="addr" value="{{.base.Addr}}" class="layui-input" placeholder="localhost">
                             </div>
                         </div>
                         <div class="layui-col-md3">
                             <label for="port" class="layui-form-label">端口:</label>
                             <div class="layui-input-block">
-                                <input type="number" autocomplete="off" name="port" id="port" value="{{.base.Port}}" class="layui-input" placeholder="8080">
+                                <input type="number" name="port" id="port" value="{{.base.Port}}" class="layui-input" placeholder="8080">
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                         <div class="layui-inline">
                             <label for="ad_cache" class="layui-form-label">广告缓存:</label>
                             <div class="layui-input-inline">
-                                <input type="number" autocomplete="off" name="ad_cache" id="ad_cache" value="{{.base.AdCache}}" min="0" class="layui-input">
+                                <input type="number" name="ad_cache" id="ad_cache" value="{{.base.AdCache}}" min="0" class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">缓存过期时间(单位秒)</div>
                         </div>
@@ -97,13 +97,13 @@
                         <div class="layui-col-md5">
                             <label for="php_my_admin_name" class="layui-form-label">PhpMyAdmin:</label>
                             <div class="layui-input-block">
-                                <input type="text" autocomplete="off" name="php_my_admin_name" id="php_my_admin_name" value="{{.base.PhpMyAdminName}}" class="layui-input">
+                                <input type="text" name="php_my_admin_name" id="php_my_admin_name" value="{{.base.PhpMyAdminName}}" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-col-md5">
                             <label for="reboot_spec" class="layui-form-label">定时重启:</label>
                             <div class="layui-input-block">
-                                <input type="text" autocomplete="off" name="reboot_spec" id="reboot_spec" value="{{.base.RebootSpec}}"
+                                <input type="text" name="reboot_spec" id="reboot_spec" value="{{.base.RebootSpec}}"
                                        class="layui-input">
                             </div>
                         </div>
@@ -364,7 +364,7 @@
                             <div class="layui-inline">
                                 <label for="spec" class="layui-form-label">Spec:</label>
                                 <div class="layui-input-inline" lay-tips="双击修改定时任务">
-                                    <input type="text" autocomplete="off" name="spec" id="spec" value="{{.monitor.Spec}}" class="layui-input">
+                                    <input type="text" name="spec" id="spec" value="{{.monitor.Spec}}" class="layui-input">
                                 </div>
                             </div>
                             <button class="layui-btn layui-btn-radius" data-event="monitorLog">查看监控日志</button>

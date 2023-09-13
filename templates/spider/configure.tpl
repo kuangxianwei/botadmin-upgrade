@@ -124,7 +124,7 @@
                     fieldElem.append(`<div class="layui-form-item">
             <label for="delay" class="layui-form-label" lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="delay" id="delay" class="layui-input" value="" placeholder="10-20">
+                <input type="text" name="delay" id="delay" class="layui-input" value="" placeholder="10-20">
             </div>
         </div>`);
                     form.render('input');

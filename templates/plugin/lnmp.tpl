@@ -42,7 +42,7 @@
             <div class="layui-col-md6">
                 <label for="db_root_password" class="layui-form-label" lay-tips="数据库Root密码">密码:</label>
                 <div class="layui-input-block">
-                    <input type="text" autocomplete="off" name="db_root_password" id="db_root_password" value="{{.obj.DBRootPassword}}" class="layui-input">
+                    <input type="text" name="db_root_password" id="db_root_password" value="{{.obj.DBRootPassword}}" class="layui-input">
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" name="ids" value="" class="layui-input" placeholder="IDS 多个用逗号分开">
+                                <input type="text" name="ids" value="" class="layui-input" placeholder="IDS 多个用逗号分开">
                             </div>
                         </div>
                         <div class="layui-inline">

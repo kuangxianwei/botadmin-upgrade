@@ -56,19 +56,19 @@
                 </div>
                 <div class="layui-form-mid">定义</div>
                 <div class="layui-input-inline" style="width:100px">
-                    <input type="text" autocomplete="off" name="eths" id="eths" class="layui-input">
+                    <input type="text" name="eths" id="eths" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="ip" class="layui-form-label">IP地址</label>
                 <div class="layui-input-inline" style="width:248px">
-                    <input type="text" autocomplete="off" name="ip" id="ip" required lay-verify="required" class="layui-input">
+                    <input type="text" name="ip" id="ip" required lay-verify="required" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="mask" class="layui-form-label">子网掩码</label>
                 <div class="layui-input-inline" style="width:248px">
-                    <input type="text" autocomplete="off" name="mask" id="mask" required lay-verify="required"
+                    <input type="text" name="mask" id="mask" required lay-verify="required"
                            class="layui-input">
                 </div>
             </div>

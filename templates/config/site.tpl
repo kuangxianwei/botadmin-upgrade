@@ -53,7 +53,7 @@
                     <div class="layui-form-item">
                         <label for="webroot_path" class="layui-form-label">默认目录</label>
                         <div class="layui-input-inline">
-                            <input type="text" autocomplete="off" name="webroot_path" id="webroot_path" value="{{.obj.WebrootPath}}"
+                            <input type="text" name="webroot_path" id="webroot_path" value="{{.obj.WebrootPath}}"
                                    class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">创建网站和ftp时默认的根目录</div>
@@ -61,7 +61,7 @@
                     <div class="layui-form-item">
                         <label for="backup_path" class="layui-form-label">备份目录</label>
                         <div class="layui-input-inline">
-                            <input type="text" autocomplete="off" name="backup_path" id="backup_path" class="layui-input"
+                            <input type="text" name="backup_path" id="backup_path" class="layui-input"
                                    value="{{.obj.BackupPath}}">
                         </div>
                         <div class="layui-form-mid layui-word-aux">备份数据时默认的根目录</div>
@@ -110,7 +110,7 @@
                     <div class="layui-form-item">
                         <label for="wap_root_dir" class="layui-form-label">手机目录</label>
                         <div class="layui-input-inline">
-                            <input type="text" autocomplete="off" name="wap_root_dir" id="wap_root_dir" value="{{.obj.WapRootDir}}"
+                            <input type="text" name="wap_root_dir" id="wap_root_dir" value="{{.obj.WapRootDir}}"
                                    class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">手机站目录 一般为网站内目录</div>
@@ -129,7 +129,7 @@
                     <div class="layui-form-item">
                         <label for="db_prefix" class="layui-form-label">SQL前缀</label>
                         <div class="layui-input-inline">
-                            <input type="text" autocomplete="off" name="db_prefix" id="db_prefix" value="{{.obj.DbPrefix}}"
+                            <input type="text" name="db_prefix" id="db_prefix" value="{{.obj.DbPrefix}}"
                                    class="layui-input">
                         </div>
                         <div class="layui-form-mid layui-word-aux">由字母、数字、下划线组成<span
@@ -167,7 +167,7 @@
                     <div class="layui-form-item">
                         <label for="ftp_port" class="layui-form-label">FTP端口</label>
                         <div class="layui-input-inline">
-                            <input type="number" autocomplete="off" name="ftp_port" id="ftp_port" value="{{.obj.FtpPort}}"
+                            <input type="number" name="ftp_port" id="ftp_port" value="{{.obj.FtpPort}}"
                                    class="layui-input">
                         </div>
                     </div>
@@ -201,7 +201,7 @@
                                 </select>
                             </div>
                             <div class="layui-input-inline">
-                                <input type="text" autocomplete="off" name="redirects_url" id="redirects_url" value="{{.obj.RedirectsUrl}}"
+                                <input type="text" name="redirects_url" id="redirects_url" value="{{.obj.RedirectsUrl}}"
                                        class="layui-input" placeholder="http://www.botadmin.cn">
                             </div>
                             <div class="layui-form-mid layui-word-aux">跳转URL，如: http://www.webrobot.cn</div>
@@ -243,21 +243,21 @@
                         <div class="layui-form-item">
                             <label for="safe_img_type" class="layui-form-label">防盗链类型</label>
                             <div class="layui-input-block">
-                                <input type="text" autocomplete="off" name="safe_img_type" id="safe_img_type" value="{{.obj.SafeImgType}}"
+                                <input type="text" name="safe_img_type" id="safe_img_type" value="{{.obj.SafeImgType}}"
                                        class="layui-input" placeholder="jpg,gif,bmp">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="allow_domains" class="layui-form-label">允许的域名</label>
                             <div class="layui-input-block">
-                                <input type="text" autocomplete="off" name="allow_domains" id="allow_domains" value="{{.obj.AllowDomains}}"
+                                <input type="text" name="allow_domains" id="allow_domains" value="{{.obj.AllowDomains}}"
                                        class="layui-input" placeholder="botadmin.cn,nfivf.com">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label for="safe_img_src" class="layui-form-label">盗链URL</label>
                             <div class="layui-input-block">
-                                <input type="text" autocomplete="off" name="safe_img_src" id="safe_img_src" value="{{.obj.SafeImgSrc}}" class="layui-input"
+                                <input type="text" name="safe_img_src" id="safe_img_src" value="{{.obj.SafeImgSrc}}" class="layui-input"
                                        placeholder="http://www.webrobot.cn/images/logo.png">
                             </div>
                         </div>
@@ -348,7 +348,7 @@
                         <div class="layui-col-md6">
                             <label for="pub_interval" class="layui-form-label" lay-tips="单位为毫秒">发布间隔:</label>
                             <div class="layui-input-inline">
-                                <input type="number" autocomplete="off" min="100" name="pub_interval" id="pub_interval" value="{{.obj.PubInterval}}" class="layui-input"/>
+                                <input type="number" min="100" name="pub_interval" id="pub_interval" value="{{.obj.PubInterval}}" class="layui-input"/>
                             </div>
                             <div class="layui-form-mid layui-word-aux">单位为毫秒</div>
                         </div>
@@ -356,7 +356,7 @@
                     <div class="layui-form-item">
                         <label for="pic_dir" class="layui-form-label">图片路径:</label>
                         <div class="layui-input-inline">
-                            <input type="text" autocomplete="off" name="pic_dir" id="pic_dir" value="{{.obj.PicDir}}" class="layui-input"/>
+                            <input type="text" name="pic_dir" id="pic_dir" value="{{.obj.PicDir}}" class="layui-input"/>
                         </div>
                         <div class="layui-form-mid layui-word-aux">
                             <a lay-href="/file?path=data/pic/{{.obj.PicDir}}" lay-text="默认图片">点击添加或删除图片</a>
@@ -372,13 +372,13 @@
                         <div class="layui-col-md3">
                             <label for="pic_w" class="layui-form-label" lay-tips="自动生成图片的宽度">自动图宽:</label>
                             <div class="layui-input-block">
-                                <input type="number" autocomplete="off" name="pic_w" id="pic_w" value="{{.obj.PicW}}" class="layui-input"/>
+                                <input type="number" name="pic_w" id="pic_w" value="{{.obj.PicW}}" class="layui-input"/>
                             </div>
                         </div>
                         <div class="layui-col-md3">
                             <label for="pic_h" class="layui-form-label" lay-tips="自动生成图片的高度">自动图高:</label>
                             <div class="layui-input-block">
-                                <input type="number" autocomplete="off" name="pic_h" id="pic_h" value="{{.obj.PicH}}" class="layui-input"/>
+                                <input type="number" name="pic_h" id="pic_h" value="{{.obj.PicH}}" class="layui-input"/>
                             </div>
                         </div>
                         <div class="layui-col-md3">
@@ -561,7 +561,7 @@
                     <div class="layui-form-item">
                         <label for="port" class="layui-form-label">使用端口</label>
                         <div class="layui-input-inline">
-                            <input type="number" autocomplete="off" name="port" id="port" value="{{.obj.Port}}" class="layui-input" placeholder="80">
+                            <input type="number" name="port" id="port" value="{{.obj.Port}}" class="layui-input" placeholder="80">
                         </div>
                         <div class="layui-form-mid layui-word-aux">
                             只在需要使用非80端口时使用，否则请使用默认值。可在系统设置里设置或增加端口
@@ -571,14 +571,14 @@
                         <div class="layui-col-md6">
                             <label for="conn" class="layui-form-label">IP并发数</label>
                             <div class="layui-input-inline">
-                                <input type="number" autocomplete="off" name="conn" id="conn" class="layui-input" value="{{.obj.Conn}}" placeholder="0">
+                                <input type="number" name="conn" id="conn" class="layui-input" value="{{.obj.Conn}}" placeholder="0">
                             </div>
                             <div class="layui-form-mid layui-word-aux">每IP的并发连接数</div>
                         </div>
                         <div class="layui-col-md6">
                             <label for="conn_speed" class="layui-form-label">线程速度</label>
                             <div class="layui-input-inline">
-                                <input type="number" autocomplete="off" name="conn_speed" id="conn_speed" class="layui-input" value="{{.obj.ConnSpeed}}" placeholder="0">
+                                <input type="number" name="conn_speed" id="conn_speed" class="layui-input" value="{{.obj.ConnSpeed}}" placeholder="0">
                             </div>
                             <div class="layui-form-mid layui-word-aux">每个连接线程的速度，单位KB/S</div>
                         </div>

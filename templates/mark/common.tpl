@@ -4,7 +4,7 @@
             <div class="layui-inline">
                 <label for="name" class="layui-form-label">名称:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="text" autocomplete="off" name="name" id="name" value="{{.obj.Name}}" lay-verify="required">
+                    <input class="layui-input" type="text" name="name" id="name" value="{{.obj.Name}}" lay-verify="required">
                 </div>
             </div>
             <div class="layui-inline">
@@ -16,7 +16,7 @@
             <div class="layui-inline">
                 <label for="spec" class="layui-form-label">Spec:</label>
                 <div class="layui-input-inline" lay-tips="双击修改定时任务">
-                    <input type="text" autocomplete="off" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
+                    <input type="text" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
                 </div>
             </div>
         </div>

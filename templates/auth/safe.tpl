@@ -12,14 +12,14 @@
             <div class="layui-form-item">
                 <label for="addr" class="layui-form-label">授权域名:</label>
                 <div class="layui-input-inline">
-                    <input type="text" autocomplete="off" name="addr" id="addr" value="{{.obj.Addr}}" class="layui-input"/>
+                    <input type="text" name="addr" id="addr" value="{{.obj.Addr}}" class="layui-input"/>
                 </div>
                 <div class="layui-form-mid layui-word-aux">设置后只可使用该域名访问后台,不可以包含http://</div>
             </div>
             <div class="layui-form-item">
                 <label for="port" class="layui-form-label">指定端口:</label>
                 <div class="layui-input-inline">
-                    <input type="number" autocomplete="off" name="port" id="port" min="80" value="{{.obj.Port}}" class="layui-input"/>
+                    <input type="number" name="port" id="port" min="80" value="{{.obj.Port}}" class="layui-input"/>
                 </div>
                 <div class="layui-form-mid layui-word-aux">设置后只可使用该端口号访问后台,建议5000-9000</div>
             </div>

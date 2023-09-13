@@ -6,7 +6,7 @@
             </button>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <input type="text" autocomplete="off" name="addr" placeholder="输入目标地址" class="layui-input">
+                    <input type="text" name="addr" placeholder="输入目标地址" class="layui-input">
                 </div>
             </div>
         </div>
@@ -58,19 +58,18 @@
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main'], function () {
-        let main = layui.main,
-            form = layui.form;
+        let main = layui.main;
         main.table([[
             {type: 'checkbox', fixed: 'left'},
             {field: 'id', width: 80, title: 'ID', align: 'center', hide: true},
             {
-                field: 'cron_enabled',
+                field: 'enabled',
                 title: '启用',
                 align: 'center',
                 width: 92,
                 event: 'switch',
                 templet: function (d) {
-                    return '<input type="checkbox" lay-skin="switch" lay-text="是|否"' + (d.cron_enabled ? ' checked' : '') + '>';
+                    return '<input type="checkbox" lay-skin="switch" lay-text="是|否"' + (d.enabled ? ' checked' : '') + '>';
                 }
             },
             {field: 'addr', title: '目标地址', sort: true},

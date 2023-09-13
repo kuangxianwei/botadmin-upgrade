@@ -4,19 +4,19 @@
             <div class="layui-inline">
                 <label class="layui-form-label">IDS</label>
                 <div class="layui-input-inline">
-                    <input type="text" autocomplete="off" name="ids" placeholder="1,2,4,5" class="layui-input">
+                    <input type="text" name="ids" placeholder="1,2,4,5" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">用户名:</label>
                 <div class="layui-input-inline">
-                    <input type="text" autocomplete="off" name="username" placeholder="请输入数据库用户名" class="layui-input">
+                    <input type="text" name="username" placeholder="请输入数据库用户名" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">数据库名:</label>
                 <div class="layui-input-inline">
-                    <input type="text" autocomplete="off" name="dbname" placeholder="请输入数据库名称" class="layui-input">
+                    <input type="text" name="dbname" placeholder="请输入数据库名称" class="layui-input">
                 </div>
             </div>
             <div class="layui-hide">

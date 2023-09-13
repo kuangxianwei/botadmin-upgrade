@@ -322,7 +322,7 @@
                     fieldElem.append(`<div class="layui-form-item">
     <label for="pub_interval" class="layui-form-label">发布间隔:</label>
     <div class="layui-input-inline">
-        <input class="layui-input" min="100" name="pub_interval" id="pub_interval" type="number" autocomplete="off" value="2000">
+        <input class="layui-input" min="100" name="pub_interval" id="pub_interval" type="number" value="2000">
     </div>
     <div class="layui-form-mid layui-word-aux">发布文章间隔时间(毫秒)</div>
 </div>`);
@@ -336,7 +336,7 @@
                     fieldElem.append(`<div class="layui-form-item">
     <label  class="layui-form-label" lay-tips="网站后台登录认证码 15个字母或数字组成">认证码:</label>
     <div class="layui-input-inline">
-        <input type="text" autocomplete="off" name="auth_code"  class="layui-input" value="" placeholder="登录第二验证码">
+        <input type="text" name="auth_code"  class="layui-input" value="" placeholder="登录第二验证码">
     </div>
     <button class="layui-btn" id="auth_code">随机</button>
 </div>`);

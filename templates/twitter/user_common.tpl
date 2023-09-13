@@ -18,13 +18,13 @@
             <div class="layui-col-md6">
                 <label for="username" class="layui-form-label">账号:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="text" autocomplete="off" name="username" id="username" value="{{.obj.Username}}" lay-verify="required"{{if .obj.Id}} disabled{{end}}>
+                    <input class="layui-input" type="text" name="username" id="username" value="{{.obj.Username}}" lay-verify="required"{{if .obj.Id}} disabled{{end}}>
                 </div>
             </div>
             <div class="layui-col-md6">
                 <label for="password" class="layui-form-label">密码:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="text" autocomplete="off" name="password" id="password" value="{{.obj.Password}}" lay-verify="required">
+                    <input class="layui-input" type="text" name="password" id="password" value="{{.obj.Password}}" lay-verify="required">
                 </div>
             </div>
         </div>
@@ -32,13 +32,13 @@
             <div class="layui-col-md6">
                 <label for="email" class="layui-form-label">邮箱:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="email" autocomplete="off" name="email" id="email" value="{{.obj.Email}}">
+                    <input class="layui-input" type="email" name="email" id="email" value="{{.obj.Email}}">
                 </div>
             </div>
             <div class="layui-col-md6">
                 <label for="email_password" class="layui-form-label">邮箱密码:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="text" autocomplete="off" name="email_password" id="email_password" value="{{.obj.EmailPassword}}">
+                    <input class="layui-input" type="text" name="email_password" id="email_password" value="{{.obj.EmailPassword}}">
                 </div>
             </div>
         </div>
@@ -46,13 +46,13 @@
             <div class="layui-col-md6">
                 <label for="verify" class="layui-form-label">双验证:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="text" autocomplete="off" name="verify" id="verify" value="{{.obj.Verify}}">
+                    <input class="layui-input" type="text" name="verify" id="verify" value="{{.obj.Verify}}">
                 </div>
             </div>
             <div class="layui-col-md6">
                 <label for="spare" class="layui-form-label">备用码:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="text" autocomplete="off" name="spare" id="spare" value="{{.obj.Spare}}">
+                    <input class="layui-input" type="text" name="spare" id="spare" value="{{.obj.Spare}}">
                 </div>
             </div>
         </div>
@@ -60,13 +60,13 @@
             <div class="layui-col-md6">
                 <label for="phone" class="layui-form-label">手机号码:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="tel" autocomplete="off" name="phone" id="phone" value="{{.obj.Phone}}">
+                    <input class="layui-input" type="tel" name="phone" id="phone" value="{{.obj.Phone}}">
                 </div>
             </div>
             <div class="layui-col-md6">
                 <label for="token" class="layui-form-label">Token:</label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="text" autocomplete="off" name="token" id="token" value="{{.obj.Token}}">
+                    <input class="layui-input" type="text" name="token" id="token" value="{{.obj.Token}}">
                 </div>
             </div>
         </div>

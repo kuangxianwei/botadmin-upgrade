@@ -6,7 +6,7 @@
                 <label class="layui-form-label" lay-tips="任务名称必须由中文、数字、字母、下划线组成 唯一">任务名称:</label>
                 <div class="layui-input-block">
                     <input type="hidden" name="id" value="{{.obj.Id}}" placeholder="本ID">
-                    <input type="text" autocomplete="off" name="name" value="{{.obj.Name}}" class="layui-input" required lay-verify="name" placeholder="采集名称">
+                    <input type="text" name="name" value="{{.obj.Name}}" class="layui-input" required lay-verify="name" placeholder="采集名称">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -81,7 +81,7 @@
                                     <label for="delay" class="layui-form-label"
                                            lay-tips="采集间隔 单位为秒 10-20 随机最少10秒最多20秒">Delay:</label>
                                     <div class="layui-input-block">
-                                        <input type="text" autocomplete="off" name="delay" id="delay" class="layui-input" value="{{print .obj.Delay}}" placeholder="10-20">
+                                        <input type="text" name="delay" id="delay" class="layui-input" value="{{print .obj.Delay}}" placeholder="10-20">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
@@ -176,10 +176,10 @@
                             <label for="next_dom" class="layui-form-label-col" lay-tips="DOM匹配下一篇文章URL">NextLink:</label>
                         </div>
                         <div class="layui-inline" style="width: 280px">
-                            <input class="layui-input" type="text" autocomplete="off" name="next_dom" id="next_dom" value="{{.obj.NextDom}}" placeholder="div.next > a">
+                            <input class="layui-input" type="text" name="next_dom" id="next_dom" value="{{.obj.NextDom}}" placeholder="div.next > a">
                         </div>
                         <div class="layui-inline" lay-tips="属性名称 默认为 href" style="width: 100px">
-                            <input class="layui-input" type="text" autocomplete="off" name="next_attr_name" id="next_attr_name" value="{{.obj.NextAttrName}}" placeholder="href">
+                            <input class="layui-input" type="text" name="next_attr_name" id="next_attr_name" value="{{.obj.NextAttrName}}" placeholder="href">
                         </div>
                         <div class="layui-inline">
                             <button class="layui-btn layui-btn-radius" data-event="regMethod">转为正则解析</button>
@@ -190,7 +190,7 @@
                             <label for="next_reg" class="layui-form-label-col" lay-tips="正则匹配下一篇文章URL">NextLink:</label>
                         </div>
                         <div class="layui-inline" style="width: 390px">
-                            <input class="layui-input" type="text" autocomplete="off" name="next_reg" id="next_reg" value="{{.obj.NextReg}}" placeholder="<a href='(.*?)'">
+                            <input class="layui-input" type="text" name="next_reg" id="next_reg" value="{{.obj.NextReg}}" placeholder="<a href='(.*?)'">
                         </div>
                         <div class="layui-inline">
                             <button class="layui-btn layui-btn-radius" data-event="domMethod">转为DOM解析</button>
@@ -242,7 +242,7 @@
                 <div class="layui-inline">
                     <label for="spec" class="layui-form-label">Spec:</label>
                     <div class="layui-input-inline" lay-tips="双击修改定时任务">
-                        <input type="text" autocomplete="off" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
+                        <input type="text" name="spec" id="spec" value="{{.obj.Spec}}" class="layui-input">
                     </div>
                 </div>
             </div>

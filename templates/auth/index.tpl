@@ -2,10 +2,10 @@
     <div class="layui-card-header layuiadmin-card-header-auto layui-form">
         <div class="layui-form-item">
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="username" placeholder="输入用户名" class="layui-input">
+                <input type="text" name="username" placeholder="输入用户名" class="layui-input">
             </div>
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off" name="status" placeholder="输入状态" class="layui-input">
+                <input type="text" name="status" placeholder="输入状态" class="layui-input">
             </div>
             <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
                 <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>

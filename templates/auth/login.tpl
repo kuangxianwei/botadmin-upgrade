@@ -8,12 +8,12 @@
         <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="username"></label>
-                <input type="text" autocomplete="off" name="username" id="username" lay-verify="required" placeholder="用户名" class="layui-input" required>
+                <input type="text" name="username" id="username" lay-verify="required" placeholder="用户名" class="layui-input" required>
                 <span></span>
             </div>
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="password"></label>
-                <input type="password" autocomplete="off" name="password" id="password" lay-verify="required" pattern="^\S{6,18}$" placeholder="密码" class="layui-input" required>
+                <input type="password" name="password" id="password" lay-verify="required" pattern="^\S{6,18}$" placeholder="密码" class="layui-input" required>
                 <span></span>
             </div>
             <div class="layui-form-item">
