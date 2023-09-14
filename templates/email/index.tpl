@@ -45,11 +45,11 @@
                     return '<input type="checkbox" name="enabled" lay-skin="switch" lay-text="启用|禁用"' + (d.enabled ? ' checked' : '') + '>';
                 }
             },
-            {field: 'host', title: '服务器'},
-            {field: 'username', title: '用户名'},
-            {field: 'password', title: '密码', hide: true},
-            {field: 'alias', title: '别名', hide: true},
-            {field: 'to', title: '接收者'},
+            {field: 'host', title: '服务器', event: 'copy'},
+            {field: 'username', title: '用户名', event: 'copy'},
+            {field: 'password', title: '密码', event: 'copy', hide: true},
+            {field: 'alias', title: '别名', hide: true, event: 'copy'},
+            {field: 'to', title: '接收者', event: 'copy'},
             {
                 field: 'updated', title: '时间', align: 'center', sort: true, templet: function (d) {
                     return main.timestampFormat(d['updated']);

@@ -1,15 +1,15 @@
 <div class="layui-card">
     <div class="layui-card-body layui-form">
         <div class="layui-form-item">
-            <label class="layui-form-label">目标地址:</label>
+            <label for="data" class="layui-form-label">目标地址:</label>
             <div class="layui-input-block">
-                <input type="text" name="addr" value="{{.obj.Addr}}" lay-verify="required" class="layui-input" placeholder="http://www.botadmin.cn">
+                <textarea id="data" name="data" rows="3" class="layui-textarea" lay-verify="required" placeholder="http://www.botadmin.cn 站掌门" required>{{join .obj.Data "\n"}}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="method" class="layui-form-label">接收者:</label>
+            <label for="to" class="layui-form-label">接收者:</label>
             <div class="layui-input-block">
-                <textarea name="to" class="layui-textarea" rows="3" placeholder="38050123@qq.com&#13;88364809@qq.com">{{join .obj.To "\n"}}</textarea>
+                <textarea id="to" name="to" class="layui-textarea" rows="3" placeholder="38050123@qq.com&#13;88364809@qq.com" lay-verify="required" required>{{join .obj.To "\n"}}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
