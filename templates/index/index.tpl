@@ -603,12 +603,6 @@
     layui.use(['index', 'main'], function () {
         let logDotElem = $('#logDot'),
             latestElem = $('#latest'),
-            getStatus = function () {
-                $.get('/status', function (res) {
-                    res['changed'] ? logDotElem.removeClass('layui-hide') : logDotElem.addClass('layui-hide');
-                    res['latest'] ? latestElem.removeClass('layui-hide') : latestElem.addClass('layui-hide');
-                });
-            },
             active = {
                 webssh: function () {
                     layui.main.webssh();
@@ -617,7 +611,7 @@
                     layui.main.logout();
                 },
                 log: function () {
-                    $(this).find('span.layui-badge-dot').hide();
+                    $(this).find('span.layui-badge-dot').addClass('layui-hide');
                     layui.main.ws.log('record.global');
                 }
             };
@@ -625,7 +619,16 @@
             let $this = $(this), event = $this.data("event");
             active[event] && active[event].call($this);
         });
-        getStatus();
-        setInterval(getStatus, 10000)
+        let statusWs = layui.main.newWS();
+        statusWs.onopen = function () {
+            statusWs.send(JSON.stringify({action: 'status'}));
+        };
+        statusWs.onmessage = function (e) {
+            let data = JSON.parse(e.data);
+            if (data) {
+                data['changed'] ? logDotElem.removeClass('layui-hide') : logDotElem.addClass('layui-hide');
+                data['latest'] ? latestElem.removeClass('layui-hide') : latestElem.addClass('layui-hide');
+            }
+        };
     });
 </script>

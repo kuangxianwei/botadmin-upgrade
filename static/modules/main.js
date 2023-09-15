@@ -1699,12 +1699,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 ws.send(JSON.stringify({action: 'info'}));
             };
             ws.onmessage = function (e) {
-                let obj = JSON.parse(e.data);
-                if (obj.error) {
-                    if (obj.error) main.error(obj.error);
-                    return ws.close();
-                }
-                let field = obj.data;
+                let field = JSON.parse(e.data);
                 if (field) {
                     if (field.data && (localStorage.getItem('log_info') || '1') === '1') {
                         for (let i = 0; i < field.data.length; i++) {

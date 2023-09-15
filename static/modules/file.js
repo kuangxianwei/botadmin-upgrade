@@ -1628,7 +1628,7 @@ layui.define(['main'], function (exports) {
                             main.open({
                                 title: false,
                                 shadeClose: false,
-                                maxmin: false,
+                                maxmin: true,
                                 shade: 0.95,
                                 skin: 'aceEditors',
                                 btn: false,

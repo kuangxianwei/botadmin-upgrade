@@ -1,6 +1,6 @@
 <div class="layui-card">
     <div class="layui-card-body">
-        <div class="layui-form table-search" style="left: 200px">
+        <div class="layui-form table-search" style="left:400px">
             <div class="layui-input-inline">
                 <input type="text" name="search" placeholder="输入搜索" class="layui-input">
             </div>
@@ -20,6 +20,19 @@
             <i class="layui-icon layui-icon-delete"></i>删除
         </button>
     </div>
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出配置列表">
+            <i class="layui-icon iconfont icon-export"></i>
+        </button>
+        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入配置列表">
+            <i class="layui-icon iconfont icon-import"></i>
+        </button>
+    </div>
+    <div class="layui-btn-group">
+        <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="truncate" lay-tips="清空所有的数据，不可恢复！">
+            清空
+        </button>
+    </div>
 </script>
 <script type="text/html" id="table-toolbar">
     <div class="layui-btn-group">
@@ -36,6 +49,7 @@
 <script>
     layui.use(['index', 'main'], function () {
         let main = layui.main;
+        main.upload();
         main.table([[
             {type: 'checkbox', fixed: 'left'},
             {field: 'id', width: 80, title: 'ID', align: 'center', sort: true},

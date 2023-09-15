@@ -380,21 +380,22 @@
             element.progress(name + '-progress', field.percent);
             $('[lay-filter=' + name + '-progress]>.layui-progress-bar').html('<span class="layui-progress-text">' + field.percent + '</span>').parent().parent().find('>span').text(text + ': ' + field.value)
         };
-        let getMemory = function () {
-            $.get(URL + '/memory', function (res) {
-                if (res) {
-                    $('#free').text(res.free.value);
-                    $('#total').text('总内存: ' + res.total.value);
-                    progress(res['free'], 'free', '空闲内存');
-                    progress(res['used'], 'used', '已用内存');
-                    progress(res['active'], 'active', '活动内存');
-                    progress(res['inactive'], 'inactive', '非活动内存');
-                    progress(res['available'], 'available', '可申请内存');
-                    progress(res['wired'], 'wired', '有线内存');
-                }
-            })
+        let memoryWs = layui.main.newWS();
+        memoryWs.onopen = function () {
+            memoryWs.send(JSON.stringify({action: 'memory'}));
         };
-        getMemory();
-        setInterval(getMemory, 10000);
+        memoryWs.onmessage = function (e) {
+            let res = JSON.parse(e.data);
+            if (res) {
+                $('#free').text(res.free.value);
+                $('#total').text('总内存: ' + res.total.value);
+                progress(res['free'], 'free', '空闲内存');
+                progress(res['used'], 'used', '已用内存');
+                progress(res['active'], 'active', '活动内存');
+                progress(res['inactive'], 'inactive', '非活动内存');
+                progress(res['available'], 'available', '可申请内存');
+                progress(res['wired'], 'wired', '有线内存');
+            }
+        };
     });
 </script>
