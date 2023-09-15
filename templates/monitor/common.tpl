@@ -13,21 +13,11 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <label for="method" class="layui-form-label">方法:</label>
-                <div class="layui-input-inline">
-                    <select name="method" id="method">
-                        {{range $i,$v:=.methods -}}
-                            <option value="{{$i}}"{{if eq $.obj.Method $i}} selected{{end}}>{{$v}}</option>
-                        {{end -}}
-                    </select>
-                </div>
+            <label for="content_length" class="layui-form-label">检测空白:</label>
+            <div class="layui-input-inline">
+                <input type="number" id="content_length" class="layui-input" name="content_length" value="{{.obj.ContentLength}}" min="0">
             </div>
-            <div class="layui-inline">
-                <label for="detailed" class="layui-form-label">详情:</label>
-                <input type="checkbox" name="detailed" id="detailed" lay-skin="switch"
-                       lay-text="是|否"{{if .obj.Detailed}} checked{{end}}>
-            </div>
+            <div class="layui-form-mid layui-word-aux">0为不检查内容长度</div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">

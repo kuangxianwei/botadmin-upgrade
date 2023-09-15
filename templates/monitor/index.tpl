@@ -143,7 +143,7 @@
                         url: URL + '/do',
                         data: obj.data,
                         done: function () {
-                            let id = 0;
+                            let id = obj.data.id || 0;
                             if (ids && ids.length === 1) {
                                 id = ids[0]
                             }
