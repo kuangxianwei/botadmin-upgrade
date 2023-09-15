@@ -112,6 +112,13 @@
                         <div class="layui-colla-item">
                             <h2 class="layui-colla-title">限制设置，重启APP后生效</h2>
                             <div class="layui-colla-content layui-show">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label" lay-tips="http同时请求上限">HTTP限制:</label>
+                                    <div class="layui-input-block">
+                                        <div id="request_limit" class="slider-block"></div>
+                                        <input type="hidden" name="request_limit" value="{{.base.RequestLimit}}">
+                                    </div>
+                                </div>
                                 <div class="layui-form-item layui-row">
                                     <div class="layui-col-md6">
                                         <label class="layui-form-label" lay-tips="登录错误次数超过将限制N分钟后登录,0为不限制录">登录限制:</label>
@@ -539,6 +546,7 @@
         });
         main.cron('[name=reboot_spec]', '[name=rank_spec]', '[name=spec]');
         main.slider(
+            {elem: '#request_limit', value: $('input[name=request_limit]').val(), min: 1, max: 1000},
             {elem: '#login_limit', value: $('input[name=login_limit]').val(), min: 0, max: 10},
             {elem: '#browser_limit', value: $('input[name=browser_limit]').val(), min: 1, max: 50},
             {elem: '#spider_limit', value: $('input[name=spider_limit]').val(), min: 1, max: 100},
