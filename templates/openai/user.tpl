@@ -120,10 +120,9 @@
             {field: 'username', title: '用户名', event: 'copy'},
             {field: 'password', title: '密码', event: 'copy'},
             {field: 'key', title: '秘钥', event: 'copy'},
-            {field: 'http_code', width: 90, title: '状态码', align: 'center'},
             {
-                field: 'type', title: '类型', sort: true, event: 'copy', templet: function (d) {
-                    return d.type || 'Success';
+                field: 'http_code', width: 90, title: '状态码', align: 'center', templet: (d) => {
+                    return d['http_code'] || 0
                 }
             },
             {field: 'message', title: '提示', event: 'copy'},
