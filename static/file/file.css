@@ -466,16 +466,15 @@
     border: 1px solid #528bff;
 }
 
-.file-input .icon-ok, .file-input .icon-del {
+.file-input .icon-ok:before, .file-input .icon-del:before {
     display: inline-block;
     color: #20a53a;
-    width: 20px;
     height: 26px;
     line-height: 26px;
     text-align: center;
 }
 
-.file-input .icon-del {
+.file-input .icon-del:before {
     color: #f34a4a;
 }
 

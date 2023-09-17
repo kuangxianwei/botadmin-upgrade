@@ -7,9 +7,7 @@
     </div>
     <div class="layui-card-body">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-small" lay-event="edit-sql"
-                    id="editMyCnf"
-                    data-url="/file/editor?path={{.mycnf_path}}">
+            <button class="layui-btn layui-btn-small" lay-event="edit-sql" data-value="{{.mycnf_path}}">
                 <i class="layui-icon layui-icon-edit"></i>编辑配置文件
             </button>
             <button class="layui-btn layui-btn-small" lay-event="recover-sql">
@@ -23,20 +21,12 @@
 </div>
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.use(['index', 'main'], function () {
+    layui.use(['index', 'main', 'editor'], function () {
         let main = layui.main;
         $('button[lay-event]').off('click').on('click', function () {
             switch ($(this).attr('lay-event')) {
                 case 'edit-sql':
-
-                    main.get('/file/editor?path={{.mycnf_path}}', {hide: true}, function (html) {
-
-                        main.popup({
-                            url: "/file/editor",
-                            title: '编辑文件',
-                            content: html,
-                        });
-                    });
+                    layui.editor($(this).attr('data-value'));
                     break;
                 case 'recover-sql':
                     main.request({url: URL + '/recover'});

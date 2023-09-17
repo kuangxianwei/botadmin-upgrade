@@ -184,7 +184,7 @@
                                 </a>
                             </dd>
                             <dd data-name="modify-hosts">
-                                <a lay-href="/file/editor?path=/etc/hosts" lay-tips="修改Hosts" lay-direction="2">
+                                <a href="javascript:" data-event="hosts" lay-tips="修改Hosts" lay-direction="2">
                                     <i class="iconfont icon-host"></i>
                                     <cite>Hosts</cite>
                                 </a>
@@ -599,8 +599,10 @@
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
+<script src="/static/file/jquery.dragsort-0.5.2.min.js"></script>
+<script src="/static/file/ace/ace.js"></script>
 <script>
-    layui.use(['index', 'main'], function () {
+    layui.use(['index', 'main', 'editor'], function () {
         let logDotElem = $('#logDot'),
             latestElem = $('#latest'),
             active = {
@@ -630,5 +632,8 @@
                 data['latest'] ? latestElem.removeClass('layui-hide') : latestElem.addClass('layui-hide');
             }
         };
+        $('[data-event=hosts]').on('click', function () {
+            layui.editor('/etc/hosts')
+        })
     });
 </script>

@@ -122,9 +122,6 @@
             <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="mysql" lay-tips="备份/还原数据库">
                 <i class="layui-icon iconfont icon-sql"></i>
             </button>
-            <button class="layui-btn layui-btn-sm layui-btn-warm" lay-text="nginx配置" lay-href="/file?path={{.NginxConfPath}}/vhost" lay-tips="查看nginx配置">
-                <i class="layui-icon iconfont icon-nginx"></i>
-            </button>
             <button class="layui-btn layui-btn-sm" lay-event="vhosts" lay-tips="获取全部主机列表">
                 <i class="layui-icon layui-icon-fonts-code"></i>
             </button>
@@ -227,7 +224,7 @@
         <button class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="编辑">
             <i class="layui-icon layui-icon-edit"></i>
         </button>
-        <button class="layui-btn layui-btn-xs" lay-event="rank" lay-tips="获取关键词排名">
+        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="rank" lay-tips="获取关键词排名">
             <i class="layui-icon layui-icon-layim-download"></i></button>
         <button class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
             <i class="layui-icon layui-icon-export"></i>
@@ -237,8 +234,11 @@
         </button>
         <button class="layui-btn layui-btn-xs" lay-event="link" lay-tips="操作内链或者外链">
             <i class="layui-icon layui-icon-link"></i></button>
-        <button class="layui-btn layui-btn-xs" lay-event="mysql" lay-tips="备份/还原数据库">
+        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="mysql" lay-tips="备份/还原数据库">
             <i class="layui-icon iconfont icon-sql"></i>
+        </button>
+        <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="nginxConf" data-value="{{.NginxConfPath}}/vhost/" lay-tips="查看nginx配置">
+            <i class=" iconfont icon-nginx"></i>
         </button>
         <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
             <i class="layui-icon layui-icon-log"></i>
@@ -306,7 +306,7 @@
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
-    layui.use(['index', 'main'], function () {
+    layui.use(['index', 'main', 'editor'], function () {
         let form = layui.form,
             table = layui.table,
             element = layui.element,
@@ -392,9 +392,9 @@
                         return '<i class="layui-icon layui-icon-delete"></i>';
                     }
                 },
-                {title: '操作', width: 240, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
+                {title: '操作', width: 250, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
-            done: function () {
+            done: function (res) {
                 element.render();
             },
         }, {
@@ -612,6 +612,9 @@
                     url: URL + '/reload/nginx',
                     data: {ids: ids.join()},
                 });
+            },
+            nginxConf: function (obj) {
+                layui.editor($(this).attr('data-value') + obj.data.vhost + '.conf')
             },
             reload_website_setup: function (obj, ids) {
                 if (ids.length === 0) {
