@@ -599,6 +599,8 @@
     </div>
 </div>
 <script src="/static/layui/layui.js"></script>
+<script src="/static/file/jquery.dragsort-0.5.2.min.js"></script>
+<script src="/static/file/ace/ace.js"></script>
 <script>
     layui.use(['index', 'main', 'editor'], function () {
         let logDotElem = $('#logDot'),
