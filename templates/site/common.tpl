@@ -806,6 +806,13 @@
                         <div class="layui-form-mid layui-word-aux">默认为0，即不限制 每个连接线程的速度，单位KB/S</div>
                     </div>
                     <div class="layui-form-item">
+                        <label for="try_proxy" class="layui-form-label">文件代理:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="try_proxy" id="try_proxy" class="layui-input" value="{{.obj.TryProxy}}" placeholder="https://www.nfivf.com">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">当访问不存在的文件时转发到代理服务器</div>
+                    </div>
+                    <div class="layui-form-item">
                         <label for="others" class="layui-form-label" lay-tips="需要标准的json格式">其他配置:</label>
                         <div class="layui-input-block">
                             <textarea name="others" id="others" class="layui-textarea" rows="7" placeholder="{&quot;tag_limit&quot;:10,&quot;tag_show&quot;:0}">{{print .obj.Others }}</textarea>
