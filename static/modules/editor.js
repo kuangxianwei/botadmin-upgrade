@@ -1,13 +1,7 @@
 layui.define(['main'], function (exports) {
     let form = layui.form, main = layui.main,
         okIconHTML = '<span class="icon" aria-hidden="true"><i class="iconfont icon-ok"></i></span>',
-        okAndCancelHTML = '<span class="icon" aria-hidden="true"><i class="iconfont icon-ok" data-event="ok"></i><i class="iconfont icon-del" data-event="cancel"></i></span>',
-        dirname = function (path) {
-            if (!path || path === '/') return '/';
-            return path.slice(0, path.lastIndexOf('/')) || '/';
-        }, basename = function (path) {
-            return path.slice(path.lastIndexOf('/') + 1);
-        };
+        okAndCancelHTML = '<span class="icon" aria-hidden="true"><i class="iconfont icon-ok" data-event="ok"></i><i class="iconfont icon-del" data-event="cancel"></i></span>';
 
     class Editor {
         constructor(options) {
@@ -56,7 +50,7 @@ layui.define(['main'], function (exports) {
                 boxElem: type === 1 ? elem.next('ul') : elem.closest('ul'),
                 type: type,
                 level: level,
-                dirname: type === 1 ? menuPath : dirname(menuPath),
+                dirname: type === 1 ? menuPath : main.dirname(menuPath),
                 menuPath: menuPath,
             };
         }
@@ -399,7 +393,7 @@ layui.define(['main'], function (exports) {
             if (this.paths.included(path)) {
                 this.dom.find('.ace-container-menu [title="' + path + '"]').click();
             } else {
-                let othis = this, filename = basename(path), fileType = this.getFileType(filename),
+                let othis = this, filename = main.basename(path), fileType = this.getFileType(filename),
                     type = fileType.name, mode = fileType.mode, id = main.uuid(8);
                 this.getFileContent({path: path}, function (data) {
                     othis.paths.push(path);
@@ -537,7 +531,7 @@ layui.define(['main'], function (exports) {
                     // 返回上层目录
                     upperLevel: function () {
                         othis.dom.find('.folder-down-up').hide();
-                        othis.path = dirname(othis.path);
+                        othis.path = main.dirname(othis.path);
                         othis.renderFiles.call(othis, {isEmpty: true});
                     },
                     // 刷新目录
@@ -1340,7 +1334,7 @@ layui.define(['main'], function (exports) {
                 content: html,
                 success: function (dom, index) {
                     layer.full(index);
-                    this.editor = new Editor({dom: dom, path: dirname(filename), layerIndex: index});
+                    this.editor = new Editor({dom: dom, path: main.dirname(filename), layerIndex: index});
                     this.editor.render(filename);
                 },
                 resizing: function () {

@@ -1085,16 +1085,19 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             tags.render();
         }
 
-        // 获取文件名
-        basename(path) {
-            let paths = decodeURIComponent(path).split('/');
-            return paths[paths.length - 1];
-        }
-
         // 获取目录
         dirname(path) {
-            return path.substr(0, path.lastIndexOf('/'));
+            path = decodeURIComponent(path);
+            return path.substring(0, path.lastIndexOf('/')) || '/';
         }
+
+        // 获取文件名
+        basename(path) {
+            path = decodeURIComponent(path);
+            let index = path.lastIndexOf('/');
+            return path.substring(index === -1 ? 0 : index + 1);
+        }
+
 
         // 获取图片src
         getSrc(s) {

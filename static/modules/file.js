@@ -14,17 +14,7 @@ layui.define(['main', 'editor'], function (exports) {
         }
         return this;
     };
-    let okIconHTML = '<span class="icon"><i class="iconfont icon-ok" aria-hidden="true"></i></span>',
-        main = layui.main, form = layui.form, table = layui.table,
-        getUpper = function (path) {
-            if (!path || path === '/') return '/';
-            let arr = path.split('/');
-            arr.splice(-1, 1);
-            return arr.join('/') || '/';
-        }, basename = function (path) {
-            let paths = path.split('/');
-            return paths[paths.length - 1];
-        };
+    let main = layui.main, form = layui.form, table = layui.table;
 
     class File {
         constructor(options) {
@@ -35,12 +25,14 @@ layui.define(['main', 'editor'], function (exports) {
         }
 
         // 刷新
-        refresh(path) {
+        refresh(path, page) {
+            path = path || '/';
             $('.table-search input[name=search]').val('');
             $('.table-search input[name=recursion]').prop('checked', false);
-            $('.table-search input[name=path]').val(path || '/');
+            $('.table-search input[name=path]').val(path);
             form.render('checkbox');
-            table.reload('table-list', {where: {path: path || '/'}});
+            if (page) return table.reload('table-list', {where: {path: path}, page: {curr: 1}});
+            return table.reload('table-list', {where: {path: path}});
         }
 
         // 渲染路径
@@ -70,7 +62,7 @@ layui.define(['main', 'editor'], function (exports) {
         listen(active) {
             let othis = this;
             othis.pathElem.on('click', '>span[title]', function () {
-                othis.refresh(this.title);
+                othis.refresh(this.title, 1);
             });
             // 渲染
             othis.pathElem.on('click', function () {
@@ -110,7 +102,7 @@ layui.define(['main', 'editor'], function (exports) {
                             data: field,
                             index: index,
                             done: function () {
-                                othis.refresh(othis.config.path);
+                                othis.refresh(othis.config.path, 1);
                             },
                         });
                     });
@@ -119,7 +111,7 @@ layui.define(['main', 'editor'], function (exports) {
                         url: URL + '/' + field.action,
                         data: field,
                         done: function () {
-                            othis.refresh(othis.config.path);
+                            othis.refresh(othis.config.path, 1);
                         },
                     });
                 }
@@ -164,9 +156,12 @@ layui.define(['main', 'editor'], function (exports) {
                     othis.refresh(othis.config.path);
                     layer.msg(res.msg);
                 },
+                error: function () {
+                    layer.closeAll('loading'); //关闭loading
+                }
             });
             let tabled = main.table({
-                where: {path: this.config.path},
+                where: {path: othis.config.path},
                 cols: [[{type: 'checkbox', fixed: 'left'},
                     {field: 'path', title: '目录', hide: true},
                     {
@@ -261,12 +256,17 @@ layui.define(['main', 'editor'], function (exports) {
                 limit: 50,
                 done: function (res) {
                     if (this.where) {
-                        delete this.where.search
+                        delete this.where.search;
                     }
                     $.extend(othis.config, res);
                     window.scrollTo(0, 0);
                     othis.renderPath();
                     layui.main.history('gotoHistories');
+                    let histories = JSON.parse(localStorage.getItem('histories')) || [];
+                    if (histories[histories.length - 1] !== othis.config.path) {
+                        histories.push(othis.config.path);
+                    }
+                    localStorage.setItem('histories', JSON.stringify(histories))
                 }
             }, {
                 terminal: function () {
@@ -278,9 +278,11 @@ layui.define(['main', 'editor'], function (exports) {
                 history: function () {
                     let path = othis.config.path, histories = JSON.parse(localStorage.getItem('histories'));
                     if (Array.isArray(histories) && histories.length > 1) {
-                        path = histories[histories.length - 1];
+                        path = histories[histories.length - 2];
+                        histories.splice(histories.length - 2, 1);
+                        localStorage.setItem('histories', JSON.stringify(histories));
                     }
-                    othis.refresh(path)
+                    othis.refresh(path, 1)
                 },
                 copy: function (obj) {
                     let name = obj.data.path.split('/images/', 2)[1];
@@ -313,7 +315,7 @@ layui.define(['main', 'editor'], function (exports) {
                     let filename = obj.data.path + '/' + obj.data.name;
                     switch (obj.data.type) {
                         case 0:
-                            othis.refresh(filename);
+                            othis.refresh(filename, 1);
                             break;
                         case 7:
                             main.preview(filename);
@@ -353,10 +355,10 @@ layui.define(['main', 'editor'], function (exports) {
                     main.download(obj.data.path + '/' + obj.data.name);
                 },
                 gotoWww: function () {
-                    othis.refresh('/home/wwwroot');
+                    othis.refresh('/home/wwwroot', 1);
                 },
                 gotoRoot: function () {
-                    othis.refresh('/root');
+                    othis.refresh('/root', 1);
                 },
                 newFolder: function () {
                     layer.prompt({
@@ -367,7 +369,7 @@ layui.define(['main', 'editor'], function (exports) {
                             data: {name: value, path: othis.config.path},
                             index: index,
                             done: function () {
-                                othis.refresh(othis.config.path);
+                                othis.refresh(othis.config.path, 1);
                             },
                         });
                     });
@@ -381,7 +383,7 @@ layui.define(['main', 'editor'], function (exports) {
                             data: {name: value, path: othis.config.path},
                             index: index,
                             done: function () {
-                                othis.refresh(othis.config.path);
+                                othis.refresh(othis.config.path, 1);
                             },
                         });
                     });
