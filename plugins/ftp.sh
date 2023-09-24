@@ -95,5 +95,11 @@ Uninstall() {
   Firewall_Disable 20000-30000 20 21
 }
 
+# 验证是否安装
+Installed(){
+  test -f /usr/local/pureftpd/sbin/pure-ftpd
+  exit $?
+}
+
 # 执行安装或卸载
 Execute "$@"

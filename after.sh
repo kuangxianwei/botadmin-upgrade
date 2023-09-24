@@ -8,5 +8,6 @@ protoPath=$(pwd)
 cd "${RootPath}" || exit 1
 # 逻辑代码开始
 rm -rf before.sh after.sh
+
 # 逻辑代码结束
 cd "$protoPath" || exit 1

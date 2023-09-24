@@ -10,7 +10,6 @@
 <script src="/static/webssh/toastr.min.js"></script>
 <script>
     $('body').removeClass('layui-fluid');
-
     // 增加刷新关闭提示属性
     function checkWindow() {
         event.returnValue = false;
@@ -19,12 +18,12 @@
     class WebSSH {
         constructor() {
             // utf-8编码转为base64编码
-            this.utf8ToB64 = (rawString) => {
-                return btoa(unescape(encodeURIComponent(rawString)));
+            this.utf8ToB64 = (s) => {
+                return btoa(unescape(encodeURIComponent(s)));
             };
             // base64编码转为utf-8编码
-            this.b64ToUtf8 = (encodeString) => {
-                return decodeURIComponent(escape(atob(encodeString)));
+            this.b64ToUtf8 = (s) => {
+                return decodeURIComponent(escape(atob(s)));
             };
             // 字节转为人类识别的B/KB/MB/GB
             this.bytesHuman = (bytes, precision) => {

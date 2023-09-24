@@ -1,34 +1,23 @@
 <style>
-    #table-list + div .layui-table-cell {
-        height: auto;
-        white-space: normal;
-    }
+	#table-list + div .layui-table-cell{
+		height: auto;
+		white-space: normal;
+	}
 </style>
 <div class="layui-card">
-    <div class="layui-card-body">
-        <table id="table-list" lay-filter="table-list"></table>
-    </div>
+	<div class="layui-card-body">
+		<table id="table-list" lay-filter="table-list"></table>
+	</div>
 </div>
 <script src="/static/layui/layui.js"></script>
-<script type="text/html" id="args-html">
-    <div class="layui-card" style="padding: 20px 20px 0 20px">
-        <div class="layui-card-header">命令参数,可以为空</div>
-        <div class="layui-card-body layui-form">
-            <input name="args" id="args" value="" class="layui-input" placeholder="参数一 参数二 参数三">
-            <input type="hidden" name="id" value="">
-            <button class="layui-hide" lay-submit></button>
-        </div>
-    </div>
-</script>
 <script>
     layui.use(['index', 'main'], function () {
         let table = layui.table,
             main = layui.main;
         main.table([[
-            {field: 'id', hide: true},
             {
-                title: '名称', width: 150, align: "center", templet: function (d) {
-                    return '<img src="' + d['icon'] + '" title="' + d['alias'] + '" alt="' + d['alias'] + '"' + (d['installed'] ? '' : ' class="grey"') + '><br/>' + d['alias'];
+                field: 'nane', title: '名称', width: 150, align: "center", templet: function (d) {
+                    return '<img width="150" src="' + d['icon'] + '" title="' + d['alias'] + '" alt="' + d['alias'] + '"' + (d['installed'] ? '' : ' class="grey"') + '><br/>' + d['alias'];
                 }
             },
             {field: 'alias', title: '别名', hide: true},
@@ -48,43 +37,40 @@
             }
         ]], {
             install: function (obj) {
-                main.popup({
-                    url: URL + '/install',
-                    title: false,
-                    maxmin: false,
-                    content: $('#args-html').html(),
-                    area: '350px',
-                    done: function () {
-                        main.ws.log('plugin.' + obj.data.id, function () {
-                            table.reload('table-list');
-                        });
-                        return false;
-                    },
-                    success: function (dom) {
-                        if (Array.isArray(obj.data.args) && obj.data.args.length > 0) dom.find('input[name=args]').attr('placeholder', obj.data.args.join(' '));
-                        dom.find('input[name=id]').val(obj.data.id);
-                    }
+                layer.prompt({title: '输入命令参数，多个参数空格隔开'}, function (args, index) {
+                    layer.close(index);
+                    obj.data.args = args;
+                    main.request({
+                        url: URL + "/install",
+                        data: obj.data,
+                        done: function () {
+                            main.ws.log('plugin.' + obj.data.name, function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        },
+                    });
                 });
             },
             uninstall: function (obj) {
-                main.popup({
-                    url: URL + '/uninstall',
-                    title: false,
-                    maxmin: false,
-                    content: $('#args-html').html(),
-                    area: '350px',
-                    done: function () {
-                        main.ws.log('plugin.' + obj.data.id, function () {
-                            table.reload('table-list');
-                        });
-                        return false;
-                    },
-                    success: function (dom) {
-                        if (Array.isArray(obj.data.args) && obj.data.args.length > 0) dom.find('input[name=args]').attr('placeholder', obj.data.args.join(' '));
-                        dom.find('input[name=id]').val(obj.data.id);
-                    }
+                layer.prompt({title: '输入命令参数，多个参数空格隔开'}, function (args, index) {
+                    layer.close(index);
+                    obj.data.args = args;
+                    main.request({
+                        url: URL + "/uninstall",
+                        data: obj.data,
+                        done: function () {
+                            main.ws.log('plugin.' + obj.data.name, function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        },
+                    });
                 });
             },
+            log: function (obj) {
+                main.ws.log('plugin.' + obj.data.name)
+            }
         });
     });
 </script>
