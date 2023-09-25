@@ -152,7 +152,7 @@
 					   lay-tips="开启的前提必须把搜索引擎蜘蛛IP添加到白名单列表">移动端:</label>
 				<div class="layui-input-inline">
 					<input class="layui-input" id="mobile_redirect" type="text" name="mobile_redirect"
-						   value="{{.obj.MobileRedirect}}">
+						   value="{{.obj.MobileRedirect}}" placeholder="https://www.nfivf.com">
 				</div>
 				<div class="layui-form-mid layui-word-aux">移动端跳转到广告页/状态码</div>
 			</div>
@@ -163,7 +163,7 @@
 					   lay-tips="开启的前提必须把搜索引擎蜘蛛IP添加到白名单列表">PC端:</label>
 				<div class="layui-input-inline">
 					<input class="layui-input" id="pc_redirect" type="text" name="pc_redirect"
-						   value="{{.obj.PcRedirect}}">
+						   value="{{.obj.PcRedirect}}" placeholder="https://www.nfivf.com">
 				</div>
 				<div class="layui-form-mid layui-word-aux">PC端跳转到广告页/状态码</div>
 			</div>
