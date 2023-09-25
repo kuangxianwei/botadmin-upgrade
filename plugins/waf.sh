@@ -31,7 +31,7 @@ Install() {
 		tar zxf lnmp2.0.tar.gz
 		cd lnmp2.0 || Error "进入目录lnmp2.0失败"
 		cat "$CUR_DIR/include/install_waf.sh" >>/root/lnmp2.0/include/upgrade_nginx.sh
-		./upgrade.sh
+		./upgrade.sh nginx
 		if ! grep -Eqi 'lua_package_path' /usr/local/nginx/conf/nginx.conf; then
 			Error "安装lua-nginx-module模块失败"
 		fi
