@@ -157,7 +157,7 @@
 				<div class="layui-form-mid layui-word-aux">移动端跳转到广告页/状态码</div>
 			</div>
 		</div>
-		<div class="layui-col-md6" style="margin-bottom:38px">
+		<div class="layui-col-md6">
 			<div class="layui-form-item">
 				<label for="pc_redirect" class="layui-form-label"
 					   lay-tips="开启的前提必须把搜索引擎蜘蛛IP添加到白名单列表">PC端:</label>
@@ -168,29 +168,59 @@
 				<div class="layui-form-mid layui-word-aux">PC端跳转到广告页/状态码</div>
 			</div>
 		</div>
-		<div class="layui-btn-container">
-			<div class="layui-btn-group">
-				<button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit">保存配置
+		<div class="layui-form-item" lay-tips="验证顺序：只要匹配到其中一个，剩余的不再验证">
+			<div class="layui-btn-group" style="margin-top: 5px">
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="allow-ip">白IP</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
 				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="deny-ip">黑IP</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="allow-url">白URl</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary">CC拦截</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="user-agent">黑Useragent</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="url">黑URL</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="args">参数拦截</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="cookie">黑Cookie</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="post">黑POST</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary">白Useragent</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary">跳转广告</button>
+			</div>
+		</div>
+		<div class="layui-btn-container" style="padding-left: 200px">
+			<div class="layui-btn-group">
+				<button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit">保存配置</button>
 				<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="default">初始化配置</button>
 				<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="nginx-restart">重启生效</button>
 				<button class="layui-btn layui-btn-primary layui-btn-sm"
 						lay-href="/file?path=/usr/local/nginx/lib/lua/waf/logs">拦截日志
 				</button>
-			</div>
-			<div class="layui-inline" style="float: right">
-				<label class="layui-form-label">编辑规则:</label>
-				<div class="layui-btn-group">
-					<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="allow-ip">IP白名单</button>
-					<button class="layui-btn layui-btn-sm layui-bg-cyan" data-path="deny-ip">IP黑名单</button>
-					<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="allow-url">URl白名单</button>
-					<button class="layui-btn layui-btn-sm layui-bg-cyan" data-path="url">URL黑名单</button>
-					<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="cookie">Cookie规则</button>
-					<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="post">POST规则</button>
-					<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="user-agent">Useragent规则
-					</button>
-					<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="args">请求参规则</button>
-				</div>
 			</div>
 		</div>
 	</div>
