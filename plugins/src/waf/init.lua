@@ -6,7 +6,31 @@ local unescape = ngx.unescape_uri
 local headers = ngx.req.get_headers
 local gsub = string.gsub
 local ioOpen = io.open
+local mobilePattern = "(?:hpw|i|web)os|alamofire|alcatel|amoi|android|avantgo|blackberry|blazer|cell|cfnetwork|darwin|dolfin|dolphin|fennec|htc|ip(?:hone|od|ad)|ipaq|j2me|kindle|midp|minimo|mobi|motorola|nec-|netfront|nokia|opera m(ob|in)i|palm|phone|pocket|portable|psp|silk-accelerated|skyfire|sony|ucbrowser|up.browser|up.link|windows ce|xda|zte|zune"
 ------------------------------------本地函数开始------------------------------------
+--判断是手机端访问
+local function isMobile()
+	local useragent = ngx.var.http_user_agent
+	if useragent ~= nil and ngxMatch(useragent, mobilePattern, "isjo") then
+		return true
+	end
+	return false
+end
+-- 跳转到网址或者304
+local function redirectExit(redirect)
+	if redirect ~= nil and redirect ~= "" then
+		if match(redirect, "^https?://") then
+			ngx.status = 302
+			ngx.redirect(redirect, 302)
+			return true
+		elseif match(redirect, "^%d+$") then
+			ngx.status = tonumber(redirect)
+			ngx.exit(ngx.status)
+			return true
+		end
+	end
+	return false
+end
 -- 日志写入文件
 local function writeFile(filename, body)
 	local fd = ioOpen(filename, "ab")
@@ -46,7 +70,7 @@ end
 local function log(method, url, data, ruleTag)
 	if config.LogEnabled then
 		local data, _ = gsub(data, '"', '\"')
-		local line = '{"ip":"' .. getIP() .. '", "time":"' .. ngx.localtime() .. '", "method":"' .. method .. '", "url":"' .. url .. '", "data":"' .. data .. '", "useragent":"' .. ngx.var.http_user_agent .. '"}\n'
+		local line = '{"ip":"' .. getIP() .. '", "time":"' .. ngx.localtime() .. '", "method":"' .. method .. '", "rule":"' .. ruleTag .. '", "url":"' .. url .. '", "data":"' .. data .. '", "useragent":"' .. ngx.var.http_user_agent .. '"}\n'
 		local filename = config.LogPath .. '/' .. ngx.var.server_name .. "_" .. ngx.today() .. ".log"
 		writeFile(filename, line)
 	end
@@ -165,7 +189,6 @@ function checkURL()
 end
 --检查useragent
 function checkUseragent()
-	local useragent = ngx.var.http_user_agent
 	if useragent ~= nil then
 		for _, rule in pairs(useragentRules) do
 			if rule ~= "" and ngxMatch(useragent, rule, "isjo") then
@@ -207,8 +230,8 @@ end
 --检查CC攻击
 function checkDenyCC()
 	if config.CCDenyEnabled then
-		local ccCount = tonumber(string.match(config.CCRate, '(.*)/'))
-		local ccSeconds = tonumber(string.match(config.CCRate, '/(.*)'))
+		local ccCount = tonumber(match(config.CCRate, '(.*)/'))
+		local ccSeconds = tonumber(match(config.CCRate, '/(.*)'))
 		local ip = getIP()
 		local token = ip .. ngx.var.host
 		local limiter = ngx.shared.limit
@@ -254,6 +277,25 @@ end
 function checkDenyIP()
 	if denyIP:match(getIP()) then
 		ngx.exit(403)
+		return true
+	end
+	return false
+end
+-- 判断跳转
+function checkRedirect()
+	if config.PcRedirect ~= "" or config.MobileRedirect ~= "" then
+		local isMobile = isMobile()
+		if isMobile and config.MobileRedirect ~= "" then
+			return redirectExit(config.MobileRedirect)
+		elseif isMobile == false and config.PcRedirect ~= "" then
+			return redirectExit(config.PcRedirect)
+		end
+	end
+	return false
+end
+-- 验证useragent白名单
+function checkAllowUseragent()
+	if config.AllowUseragent ~= "" and ngxMatch(ngx.var.http_user_agent, config.AllowUseragent, "isjo") then
 		return true
 	end
 	return false

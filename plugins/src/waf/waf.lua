@@ -1,38 +1,40 @@
-local content_length = tonumber(ngx.req.get_headers()['content-length'])
 local method = ngx.req.get_method()
 local ngxMatch = ngx.re.match
-if checkAllowIP() then
-elseif checkDenyIP() then
-elseif checkAllowURL() then
-elseif checkDenyCC() then
+
+if checkAllowIP() then --验证IP白名单
+elseif checkDenyIP() then --验证IP黑名单
+elseif checkAllowURL() then --验证URL白名单
+elseif checkDenyCC() then --验证CC攻击
 elseif ngx.var.http_Acunetix_Aspect then
 	ngx.exit(444)
 elseif ngx.var.http_X_Scan_Memo then
 	ngx.exit(444)
-elseif checkUseragent() then
-elseif checkURL() then
-elseif checkArgs() then
-elseif checkCookie() then
+elseif checkUseragent() then --验证Useragent
+elseif checkURL() then --验证URL黑名单
+elseif checkArgs() then --验证请求参数
+elseif checkCookie() then --验证cookies
 elseif PostEnabled then
+	--验证POST请求
 	if method == "POST" then
 		local boundary = getBoundary()
 		if boundary then
 			local len = string.len
-			local sock, err = ngx.req.socket()
+			local sock, _ = ngx.req.socket()
 			if not sock then
 				return
 			end
 			ngx.req.init_body(128 * 1024)
 			sock:settimeout(0)
-			local content_length = nil
+			local content_length
 			content_length = tonumber(ngx.req.get_headers()['content-length'])
 			local chunk_size = 4096
 			if content_length < chunk_size then
 				chunk_size = content_length
 			end
 			local size = 0
+			local fileTranslate
 			while size < content_length do
-				local data, err, partial = sock:receive(chunk_size)
+				local data, _, partial = sock:receive(chunk_size)
 				data = data or partial
 				if not data then
 					return
@@ -83,6 +85,8 @@ elseif PostEnabled then
 			end
 		end
 	end
+elseif checkAllowUseragent() then --验证白名单Useragent 主要是放过搜索引擎的蜘蛛
+elseif checkRedirect() then --验证做广告跳转
 else
 	return
 end

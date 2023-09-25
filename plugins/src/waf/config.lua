@@ -18,12 +18,23 @@ _M.AllowUrlEnabled = true
 -- 拒绝上传的文件后缀
 _M.DenyUploadExts = { "php", "jsp" }
 -- 是否开启自动把IP加入永久黑名单（慎用，如果确定开启，请将搜索引擎蜘蛛IP加入到IP白名单列表）
-_M.AddDenyEnabled = false
+_M.AddDenyEnabled = true
 --是否开启拦截cc攻击(需要nginx.conf的http段增加lua_shared_dict limit 10m;)
 _M.CCDenyEnabled = true
---设置cc攻击频率，单位为秒.
---默认1分钟同一个IP只能请求同一个地址100次
+--设置cc攻击频率，单位为秒. 默认1分钟同一个IP只能请求同一个地址100次
 _M.CCRate = "100/60"
+--启用定时验证黑名单IP的DNS
+_M.CheckDns = true
+--检查DNS是定时规则，默认每小时检查一次
+_M.CheckDnsSpec = "0 0 * ? * ?"
+--Useragent白名单（正则匹配）Baiduspider|Googlebot|Sogou|360Spider|bingbot|Bytespider|YisouSpider
+_M.AllowUseragent = "Baiduspider|Googlebot|Sogou|360Spider|bingbot|Bytespider|YisouSpider"
+--DNS白名单列表，在白名单内的DNS对应的IP自动进入白名单ip列表
+_M.AllowDns = { ".baidu.com", ".baidu.jp" }
+--pc端302跳转
+_M.PcRedirect = ""
+--移动端跳转
+_M.MobileRedirect = ""
 --拒绝后的显示HTML
 _M.HTML = [[
 <!DOCTYPE html>
