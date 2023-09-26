@@ -397,6 +397,18 @@
 							<cite>常用工具</cite>
 						</a>
 						<dl class="layui-nav-child">
+							<dd data-name="tools-dns">
+								<a lay-href="/tools/geo" lay-tips="IP归属地" lay-direction="2">
+									<i class="iconfont icon-local"></i>
+									<cite>IP归属地</cite>
+								</a>
+							</dd>
+							<dd data-name="tools-dns">
+								<a lay-href="/tools/dns" lay-tips="DNS查询" lay-direction="2">
+									<i class="iconfont icon-dns"></i>
+									<cite>DNS查询</cite>
+								</a>
+							</dd>
 							<dd data-name="set-plugin">
 								<a lay-href="/plugin" lay-tips="插件管理" lay-direction="2">
 									<i class="iconfont icon-plugin"></i>

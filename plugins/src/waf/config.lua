@@ -28,9 +28,9 @@ _M.CheckDns = true
 --检查DNS是定时规则，默认每小时检查一次
 _M.CheckDnsSpec = "0 0 * ? * ?"
 --Useragent白名单（正则匹配）Baiduspider|Googlebot|Sogou|360Spider|bingbot|Bytespider|YisouSpider
-_M.AllowUseragent = "Baiduspider|Googlebot|Sogou|360Spider|bingbot|Bytespider|YisouSpider"
+_M.AllowUseragent = "Baiduspider|Googlebot|Sogou|360Spider|bingbot|Bytespider|YisouSpider|Yandex"
 --DNS白名单列表，在白名单内的DNS对应的IP自动进入白名单ip列表
-_M.AllowDns = { ".baidu.com", ".baidu.jp" }
+_M.AllowDns = { ".baidu.com", ".baidu.jp", ".googlebot.com", ".google.com", ".googleusercontent.com", ".msn.com", ".sogou.com", ".yandex.com", ".bytedance.com", ".apple.com" }
 --pc端302跳转
 _M.PcRedirect = ""
 --移动端跳转

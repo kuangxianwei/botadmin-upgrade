@@ -85,7 +85,7 @@ local function readFile(filename)
 	for line in file:lines() do
 		if line ~= nil then
 			local line, _ = gsub(line, "^%s*(.-)%s*$", "%1")
-			if line ~= "" then
+			if line ~= "" and string.sub(line, 1, 2) ~= "--" then
 				table.insert(t, line)
 			end
 		end
