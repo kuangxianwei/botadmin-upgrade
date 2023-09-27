@@ -7,6 +7,7 @@ local headers = ngx.req.get_headers
 local gsub = string.gsub
 local ioOpen = io.open
 local mobilePattern = "(?:hpw|i|web)os|alamofire|alcatel|amoi|android|avantgo|blackberry|blazer|cell|cfnetwork|darwin|dolfin|dolphin|fennec|htc|ip(?:hone|od|ad)|ipaq|j2me|kindle|midp|minimo|mobi|motorola|nec-|netfront|nokia|opera m(ob|in)i|palm|phone|pocket|portable|psp|silk-accelerated|skyfire|sony|ucbrowser|up.browser|up.link|windows ce|xda|zte|zune"
+local denyIPFilename = config.RulePath .. "/" .. "deny-ip"
 ------------------------------------本地函数开始------------------------------------
 --判断是手机端访问
 local function isMobile()
@@ -19,15 +20,14 @@ end
 -- 跳转到网址或者304
 local function redirectExit(redirect)
 	if redirect ~= nil and redirect ~= "" then
-		if match(redirect, "^https?://") then
+		if ngxMatch(redirect, "^https?://", "isjo") then
 			ngx.status = 302
 			ngx.redirect(redirect, 302)
 			return true
-		elseif match(redirect, "^%d+$") then
-			ngx.status = tonumber(redirect)
-			ngx.exit(ngx.status)
-			return true
 		end
+		ngx.status = tonumber(redirect)
+		ngx.exit(ngx.status)
+		return true
 	end
 	return false
 end
@@ -68,9 +68,13 @@ local function getIP()
 end
 -- 记录攻击日志
 local function log(method, url, data, ruleTag)
+	local ip = getIP()
+	if config.AddDenyEnabled then
+		writeFile(denyIPFilename, "\n" .. ip .. "\n")
+	end
 	if config.LogEnabled then
 		local data, _ = gsub(data, '"', '\"')
-		local line = '{"ip":"' .. getIP() .. '", "time":"' .. ngx.localtime() .. '", "method":"' .. method .. '", "rule":"' .. ruleTag .. '", "url":"' .. url .. '", "data":"' .. data .. '", "useragent":"' .. ngx.var.http_user_agent .. '"}\n'
+		local line = '{"ip":"' .. ip .. '", "time":"' .. ngx.localtime() .. '", "method":"' .. method .. '", "rule":"' .. ruleTag .. '", "url":"' .. url .. '", "data":"' .. data .. '", "useragent":"' .. ngx.var.http_user_agent .. '"}\n'
 		local filename = config.LogPath .. '/' .. ngx.var.server_name .. "_" .. ngx.today() .. ".log"
 		writeFile(filename, line)
 	end
@@ -110,6 +114,103 @@ local function Set (t)
 	end
 	return set
 end
+
+-- 验证IPV4地址
+local function validIpv4(ip)
+	-- 使用正则表达式匹配IPV4地址的格式
+	local pattern = "^%d+%.%d+%.%d+%.%d+$"
+	if not ip:match(pattern) then
+		return false
+	end
+	-- 拆分IPV4地址成4个部分
+	local parts = {}
+	for part in ip:gmatch("%d+") do
+		table.insert(parts, tonumber(part))
+	end
+	-- 检查每个部分的值是否在有效范围内
+	for _, part in ipairs(parts) do
+		if part < 0 or part > 255 then
+			return false
+		end
+	end
+	return true
+end
+
+-- 验证IPV6地址
+local function validIpv6(ip)
+	-- 使用正则表达式匹配IPV6地址的格式
+	local pattern = "^%[[0-9a-fA-F:]+%]$"
+	if not ip:match(pattern) then
+		return false
+	end
+	-- 检查IPV6地址中的每个段是否有效
+	for part in ip:gmatch("[0-9a-fA-F]+") do
+		if #part > 4 then
+			return false
+		end
+	end
+	return true
+end
+
+--验证IP段有效
+local function validIpRange(ip_range)
+	local ip, mask_bits = string.match(ip_range, "^(%d+%.%d+%.%d+%.%d+)/(%d+)$")
+	if not ip or not mask_bits then
+		return false
+	end
+	local function is_valid_ip(ip)
+		local parts = { ip:match("(%d+)%.(%d+)%.(%d+)%.(%d+)") }
+		for i = 1, 4 do
+			local n = tonumber(parts[i])
+			if not n or n < 0 or n > 255 then
+				return false
+			end
+		end
+		return true
+	end
+	if not is_valid_ip(ip) then
+		return false
+	end
+	local function ip_to_number(ip)
+		local parts = { ip:match("(%d+)%.(%d+)%.(%d+)%.(%d+)") }
+		local number = 0
+		for i = 1, 4 do
+			number = number + tonumber(parts[i]) * 256 ^ (4 - i)
+		end
+		return number
+	end
+	local network_number = ip_to_number(ip)
+	local mask = 2 ^ (32 - tonumber(mask_bits)) - 1
+	local start_number = network_number
+	local end_number = network_number + mask
+	return start_number <= end_number
+end
+--验证所有格式的IP有效
+local function validIP(ip)
+	if type(ip) ~= "string" then
+		return false
+	end
+	if validIpv4(ip) then
+		return true
+	end
+	if validIpRange(ip) then
+		return true
+	end
+	return validIpv6(ip)
+end
+
+--过滤不合法的IP
+local function readIPFile(filename)
+	local rows = readFile(filename)
+	local ips = {}
+	for _, ip in pairs(rows) do
+		if validIP(ip) then
+			table.insert(ips, ip)
+		end
+	end
+	return ipMatcher.new(ips)
+end
+
 ------------------------------------规则读取函数-------------------------------------------------------------------
 local urlRules = readFile("url")
 local argsRules = readFile("args")
@@ -117,9 +218,9 @@ local useragentRules = readFile("user-agent")
 local allowUrlRules = readFile("allow-url")
 local postRules = readFile("post")
 local cookieRules = readFile("cookie")
-local allowIP = ipMatcher.new(readFile("allow-ip"))
-local denyIP = ipMatcher.new(readFile("deny-ip"))
-local denyIPFilename = config.RulePath .. "/" .. "deny-ip"
+local allowIP = readIPFile("allow-ip")
+local denyIP = readIPFile("deny-ip")
+
 
 --检查白名单URL
 function checkAllowURL()
@@ -230,25 +331,30 @@ end
 --检查CC攻击
 function checkDenyCC()
 	if config.CCDenyEnabled then
-		local ccCount = tonumber(match(config.CCRate, '(.*)/'))
-		local ccSeconds = tonumber(match(config.CCRate, '/(.*)'))
+		local limiter = ngx.shared.limiter
 		local ip = getIP()
 		local token = ip .. ngx.var.host
-		local limiter = ngx.shared.limit
+		local banToken = token .. "Ban"
+		local ban, _ = limiter:get(banToken)
+		--如果存在封禁中则直接返回503
+		if ban then
+			ngx.exit(503)
+			return true
+		end
 		local req, _ = limiter:get(token)
 		if req then
-			if req > ccCount then
-				if config.AddDenyEnabled then
-					writeFile(denyIPFilename, ip .. "\n")
-					allowIP = ipMatcher.new(readFile("allow-ip"))
-				end
+			--如果请求次数大于CC限制量则设置为封禁状态并且返回503
+			if req > config.CCRate.limit then
+				limiter:set(banToken, 1, config.CCRate.banInterval)
 				ngx.exit(503)
 				return true
 			else
+				--CC计数加1
 				limiter:incr(token, 1)
 			end
 		else
-			limiter:set(token, 1, ccSeconds)
+			--设置CC
+			limiter:set(token, 1, config.CCRate.interval)
 		end
 	end
 	return false

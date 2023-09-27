@@ -32,7 +32,7 @@
 		<div class="layui-col-md6">
 			<div class="layui-form-item">
 				<label for="cc_rate" class="layui-form-label">CC频率:</label>
-				<div class="layui-input-inline" style="width: 100px">
+				<div class="layui-input-inline" style="width: 100px" lay-tips="限制次/期间秒|封禁时间秒">
 					<input class="layui-input" id="cc_rate" type="text" name="cc_rate" value="{{.obj.CCRate}}">
 				</div>
 				<div class="layui-form-mid layui-word-aux">单位为秒. 默认1分钟同一个IP只能请求100次</div>

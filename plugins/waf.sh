@@ -63,8 +63,8 @@ Install() {
 	if ! grep -Eqi 'init_by_lua_file' /usr/local/nginx/conf/nginx.conf; then
 		sed -i '/lua_package_path/a\        init_by_lua_file  /usr/local/nginx/lib/lua/waf/init.lua;' /usr/local/nginx/conf/nginx.conf
 	fi
-	if ! grep -Eqi 'lua_shared_dict limit' /usr/local/nginx/conf/nginx.conf; then
-		sed -i '/lua_package_path/a\        lua_shared_dict limit 10m;' /usr/local/nginx/conf/nginx.conf
+	if ! grep -Eqi 'lua_shared_dict\s+limiter' /usr/local/nginx/conf/nginx.conf; then
+		sed -i '/lua_package_path/a\        lua_shared_dict limiter 20m;' /usr/local/nginx/conf/nginx.conf
 	fi
 	echo "重启NGINX"
 	nginx -t
@@ -82,8 +82,19 @@ Installed() {
 	if ! /usr/local/nginx/sbin/nginx -V 2>&1 | grep -Eqi 'lua-nginx-module'; then
 		exit 1
 	fi
-	test -d /usr/local/nginx/lib/lua/waf
-	exit $?
+	if ! test -d /usr/local/nginx/lib/lua/waf; then
+		exit 1
+	fi
+	if ! grep -Eqi 'lua_package_path' /usr/local/nginx/conf/nginx.conf; then
+		exit 1
+	fi
+	if ! grep -Eqi 'access_by_lua_file' /usr/local/nginx/conf/nginx.conf; then
+		exit 1
+	fi
+	if ! grep -Eqi 'init_by_lua_file' /usr/local/nginx/conf/nginx.conf; then
+		exit 1
+	fi
+	grep -Eqi 'lua_shared_dict\s+limiter' /usr/local/nginx/conf/nginx.conf
 }
 
 # 执行安装或卸载

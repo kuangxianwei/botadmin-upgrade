@@ -1,4 +1,6 @@
 local _M = {}
+--初始化CC
+_M.CCRate = {}
 --规则列表
 _M.RulePath = "/usr/local/nginx/lib/lua/waf/conf"
 --是否开启攻击日志
@@ -19,10 +21,14 @@ _M.AllowUrlEnabled = true
 _M.DenyUploadExts = { "php", "jsp" }
 -- 是否开启自动把IP加入永久黑名单（慎用，如果确定开启，请将搜索引擎蜘蛛IP加入到IP白名单列表）
 _M.AddDenyEnabled = true
---是否开启拦截cc攻击(需要nginx.conf的http段增加lua_shared_dict limit 10m;)
+--是否开启拦截cc攻击(需要nginx.conf的http段增加lua_shared_dict limiter 20m;)
 _M.CCDenyEnabled = true
 --设置cc攻击频率，单位为秒. 默认1分钟同一个IP只能请求同一个地址100次
-_M.CCRate = "100/60"
+_M.CCRate.limit = 100
+--期间内
+_M.CCRate.interval = 60
+--封禁期间单位为秒 默认封禁1小时
+_M.CCRate.banInterval = 3600
 --启用定时验证黑名单IP的DNS
 _M.CheckDns = true
 --检查DNS是定时规则，默认每小时检查一次
