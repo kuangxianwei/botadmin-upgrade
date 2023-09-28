@@ -269,7 +269,9 @@
 		<div class="layui-card">
 			<div class="layui-card-header">
 				<div class="layui-inline" id="total"></div>
-				<button data-event="clearSysCache" class="layui-btn layui-btn-radius layui-btn-xs">清理缓存</button>
+				<button data-event="clearSysCache" style="margin-left: 20px"
+						class="layui-btn layui-btn-radius layui-btn-xs">清理缓存
+				</button>
 			</div>
 			<div class="layui-card-body">
 				<div class="layuiadmin-card-list">
@@ -358,6 +360,9 @@
             service: function () {
                 main.reboot.service(URL + '/reboot');
             },
+            clearSysCache: function () {
+                main.request({url: URL + '/clear'})
+            }
         };
         $('[data-reboot]').off('click').on('click', function () {
             main.webssh({stdin: $(this).data("reboot")});
