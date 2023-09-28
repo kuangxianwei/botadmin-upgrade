@@ -83,7 +83,7 @@
 				</div>
 				<ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
 					lay-filter="layadmin-system-side-menu">
-					<li data-name="sys" class="layui-nav-item layui-nav-itemed">
+					<li data-name="sys" class="layui-nav-item{{/* layui-nav-itemed*/}}">
 						<a href="javascript:" lay-tips="默认设置" lay-direction="2">
 							<i class="layui-icon layui-icon-set"></i>
 							<cite>默认设置</cite>

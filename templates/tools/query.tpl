@@ -1,5 +1,5 @@
 <div class="layui-card">
-	<div class="layui-card-body layui-form">
+	<div class="layui-card-body layui-form" lay-filter="form">
 		<div class="layui-form-item">
 			<label class="layui-form-label">线程:</label>
 			<div class="layui-input-inline">
@@ -35,7 +35,7 @@
             },
             query: function () {
                 main.request({
-                    data: {content: $('[name=content]').val(), thread: $('[name=thread]').val()},
+                    data: layui.form.val('form'),
                     done: function () {
                         main.ws.log({{.token}});
                         return false

@@ -74,7 +74,7 @@ local function log(method, url, data, ruleTag)
 	end
 	if config.LogEnabled then
 		local data, _ = gsub(data, '"', '\"')
-		local line = '{"ip":"' .. ip .. '", "time":"' .. ngx.localtime() .. '", "method":"' .. method .. '", "rule":"' .. ruleTag .. '", "url":"' .. url .. '", "data":"' .. data .. '", "useragent":"' .. ngx.var.http_user_agent .. '"}\n'
+		local line = '{"ip":"' .. ip .. '", "time":"' .. ngx.localtime() .. '", "method":"' .. method .. '", "reason":"' .. ruleTag .. '", "url":"' .. url .. '", "data":"' .. data .. '", "useragent":"' .. ngx.var.http_user_agent .. '"}\n'
 		local filename = config.LogPath .. '/' .. ngx.var.server_name .. "_" .. ngx.today() .. ".log"
 		writeFile(filename, line)
 	end
@@ -346,6 +346,7 @@ function checkDenyCC()
 			--如果请求次数大于CC限制量则设置为封禁状态并且返回503
 			if req > config.CCRate.limit then
 				limiter:set(banToken, 1, config.CCRate.banInterval)
+				log('CC', ngx.var.host .. ngx.var.request_uri, "-", config.CCRate.interval .. "秒内访问超过" .. config.CCRate.limit .. "次")
 				ngx.exit(503)
 				return true
 			else
