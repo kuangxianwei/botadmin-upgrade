@@ -68,6 +68,14 @@
 									   lay-text="打开|关闭"{{if .base.GzipEnabled}} checked{{end}}>
 							</div>
 						</div>
+						<div class="layui-col-md6">
+							<label class="layui-form-label">文件限制:</label>
+							<div class="layui-input-inline">
+								<input class="layui-input" type="number" name="open_file_limit" min="0"
+									   value="{{.base.OpenFileLimit}}">
+							</div>
+							<div class="layui-form-mid layui-word-aux">设置系统文件打开限制，0为默认</div>
+						</div>
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-inline">
