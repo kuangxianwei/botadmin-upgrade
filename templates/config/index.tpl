@@ -220,26 +220,10 @@
 								   class="layui-input">
 						</div>
 					</div>
-					<div class="layui-form-item">
-						<label for="probe_name" class="layui-form-label">探针名称:</label>
-						<div class="layui-input-block">
-							<input id="probe_name" type="text" name="probe_name" value="{{.server.ProbeName}}"
-								   class="layui-input">
-						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label"></label>
-						<div class="layui-btn-group">
-							<button class="layui-btn" lay-submit lay-filter="submit-server">立即提交</button>
-							<button class="layui-btn" data-event="reset" data-name="server"
-									data-tip="Server 恢复出厂设置?">
-								<i class="layui-icon iconfont icon-reset"></i>默认
-							</button>
-							<button class="layui-btn layui-btn-danger" data-event="reset" data-name="app"
-									data-tip="抹去本程序所有数据?包括所建的网站等...">
-								重置App
-							</button>
-						</div>
+					<div class="layui-form-item" style="padding-left: 20%">
+						<a class="layui-btn" lay-text="PHP info" lay-href="{{.phpinfoUrl}}">PHP info</a>
+						<a class="layui-btn" lay-text="OCP" lay-href="{{.ocpUrl}}">OCP</a>
+						<a class="layui-btn" lay-text="P" lay-href="{{.pUrl}}">P</a>
 					</div>
 				</div>
 				<div class="layui-tab-item layui-form">
