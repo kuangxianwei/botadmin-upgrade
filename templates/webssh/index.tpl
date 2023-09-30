@@ -1,89 +1,92 @@
 <div class="layui-card">
-    <div class="layui-card-body">
-        <div class="layui-form table-search" style="left: 380px">
-            <button class="layui-hide" lay-submit lay-filter="search">
-                <i class="layui-icon layui-icon-search"></i>
-            </button>
-            <div class="layui-inline">
-                <div class="layui-input-inline">
-                    <input type="search" name="search" value="" placeholder="搜索:host/别名" class="layui-input">
-                </div>
-            </div>
-        </div>
-        <table id="table-list" lay-filter="table-list"></table>
-    </div>
+	<div class="layui-card-body">
+		<div class="layui-form table-search" style="left: 450px">
+			<button class="layui-hide" lay-submit lay-filter="search">
+				<i class="layui-icon layui-icon-search"></i>
+			</button>
+			<div class="layui-inline">
+				<div class="layui-input-inline">
+					<input type="search" name="search" value="" placeholder="搜索:host/别名" class="layui-input">
+				</div>
+			</div>
+		</div>
+		<table id="table-list" lay-filter="table-list"></table>
+	</div>
 </div>
 <script type="text/html" id="execute">
-    <div class="layui-card">
-        <div class="layui-card-body layui-form">
-            <button class="layui-hide" lay-submit></button>
-            <div class="layui-form-item">
-                <label for="thread" class="layui-form-label">协程:</label>
-                <div class="layui-input-inline">
-                    <input type="number" name="thread" id="thread" value="10" max="30" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">协程太多容易卡死或出错</div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">快捷:</label>
-                <div class="layui-input-block">
-                    <input type="radio" name="action" value="restart-app" title="重启APP" lay-filter="action" checked>
-                    <input type="radio" name="action" value="reboot" lay-filter="action" title="服务器重启">
-                    <input type="radio" name="action" value="shutdown" lay-filter="action" title="服务器关机">
-                    <input type="radio" name="action" value="restart-lnmp" lay-filter="action" title="LNMP重启">
-                    <input type="radio" name="action" value="scp" lay-filter="action" title="Scp">
-                    <input type="radio" name="action" value="ssh-code" lay-filter="action" title="自定义代码">
-                </div>
-            </div>
-            <div class="layui-form-item" id="stdin"></div>
-        </div>
-    </div>
+	<div class="layui-card">
+		<div class="layui-card-body layui-form">
+			<button class="layui-hide" lay-submit></button>
+			<div class="layui-form-item">
+				<label for="thread" class="layui-form-label">协程:</label>
+				<div class="layui-input-inline">
+					<input type="number" name="thread" id="thread" value="10" max="30" class="layui-input">
+				</div>
+				<div class="layui-form-mid layui-word-aux">协程太多容易卡死或出错</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">快捷:</label>
+				<div class="layui-input-block">
+					<input type="radio" name="action" value="restart-app" title="重启APP" lay-filter="action" checked>
+					<input type="radio" name="action" value="reboot" lay-filter="action" title="服务器重启">
+					<input type="radio" name="action" value="shutdown" lay-filter="action" title="服务器关机">
+					<input type="radio" name="action" value="restart-lnmp" lay-filter="action" title="LNMP重启">
+					<input type="radio" name="action" value="scp" lay-filter="action" title="Scp">
+					<input type="radio" name="action" value="ssh-code" lay-filter="action" title="自定义代码">
+				</div>
+			</div>
+			<div class="layui-form-item" id="stdin"></div>
+		</div>
+	</div>
 </script>
 <script type="text/html" id="toolbar">
-    <div class="layui-btn-container">
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="add">
-                <i class="layui-icon layui-icon-add-circle"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
-                <i class="layui-icon layui-icon-delete"></i>
-            </button>
-        </div>
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
-                <i class="layui-icon iconfont icon-export"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入配置">
-                <i class="layui-icon iconfont icon-import"></i>
-            </button>
-        </div>
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="execute" lay-tips="批量执行shell代码">
-                <i class="iconfont icon-terminal"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-bg-cyan" lay-event="scan" lay-tips="批量检查控制台">
-                <i class="iconfont icon-scan"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="log" lay-tips="查看日志">
-                <i class="layui-icon layui-icon-log"></i>
-            </button>
-        </div>
-    </div>
+	<div class="layui-btn-container">
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm" lay-event="add">
+				<i class="layui-icon layui-icon-add-circle"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">
+				<i class="layui-icon layui-icon-delete"></i>
+			</button>
+		</div>
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
+				<i class="layui-icon iconfont icon-export"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入配置">
+				<i class="layui-icon iconfont icon-import"></i>
+			</button>
+		</div>
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm" lay-event="execute" lay-tips="批量执行shell代码">
+				<i class="iconfont icon-terminal"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-bg-cyan" lay-event="scan" lay-tips="批量检查控制台">
+				<i class="iconfont icon-scan"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm" lay-event="controlVersion" lay-tips="批量更新控制台版本号">
+				更新版本号
+			</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="log" lay-tips="查看日志">
+				<i class="layui-icon layui-icon-log"></i>
+			</button>
+		</div>
+	</div>
 </script>
 <script type="text/html" id="table-toolbar">
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="execute">
-            <i class="iconfont icon-terminal"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs" lay-event="modify">
-            <i class="layui-icon layui-icon-edit"></i></button>
-        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
-            <i class="layui-icon layui-icon-delete"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
-            <i class="layui-icon layui-icon-log"></i>
-        </button>
-    </div>
+	<div class="layui-btn-group">
+		<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="execute">
+			<i class="iconfont icon-terminal"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs" lay-event="modify">
+			<i class="layui-icon layui-icon-edit"></i></button>
+		<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
+			<i class="layui-icon layui-icon-delete"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
+			<i class="layui-icon layui-icon-log"></i>
+		</button>
+	</div>
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
@@ -227,16 +230,16 @@
                     }
                 });
             },
-            controlVersion: function () {
+            controlVersion: function (obj, ids) {
                 main.request({
-                    url: URL + "/version", done: function () {
+                    url: URL + "/version",
+                    data: {ids: ids.join()},
+                    done: function () {
+                        main.ws.log();
                         return false;
                     }
                 });
             }
         });
-        setTimeout(function () {
-            table.active.controlVersion();
-        }, 1000);
     });
 </script>
