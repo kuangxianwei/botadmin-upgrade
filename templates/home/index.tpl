@@ -272,6 +272,12 @@
 				<button data-event="clearSysCache" style="margin-left: 20px"
 						class="layui-btn layui-btn-radius layui-btn-xs">清理缓存
 				</button>
+				<div class="layui-inline" style="margin-left: 20px">
+					<label class="layui-form-label-col">定时清理：</label>
+				</div>
+				<div class="layui-inline" lay-tips="按回车键保存修改">
+					<input class="layui-input" name="clear_spec" value="{{.global.ClearMemorySpec}}">
+				</div>
 			</div>
 			<div class="layui-card-body">
 				<div class="layuiadmin-card-list">
@@ -319,8 +325,9 @@
 	<div class="layui-card" style="text-align:center">
 		<div class="layui-card-body layui-form">
 			<button class="layui-hide" lay-submit></button>
-			<input type="radio" name="mirror" value="0" title="国外源" checked>
-			<input type="radio" name="mirror" value="1" title="国内源">
+			<input type="radio" name="mirror" value="0" title="国外源"{{if eq .global.AppMirror 0}} checked{{end}}>
+			<input type="radio" name="mirror" value="1" title="国内源"{{if eq .global.AppMirror 1}} checked{{end}}>
+			<input type="hidden" name="action" value="upgrade">
 			<input type="checkbox" name="force" id="force" lay-skin="switch" lay-text="启用强制|关闭强制">
 		</div>
 	</div>
@@ -343,7 +350,7 @@
                 main.popup({
                     title: false,
                     maxmin: false,
-                    url: '/home/upgrade',
+                    url: URL,
                     content: $('#upgrade-html').html(),
                     area: '380px',
                     done: function () {
@@ -361,7 +368,7 @@
                 main.reboot.service(URL + '/reboot');
             },
             clearSysCache: function () {
-                main.request({url: URL + '/clear'})
+                main.request({data: {action: 'clear'}})
             }
         };
         $('[data-reboot]').off('click').on('click', function () {
@@ -408,5 +415,12 @@
                 progress(res['wired'], 'wired', '有线内存');
             }
         };
+        let specElem = $("[name=clear_spec]");
+        main.cron(specElem);
+        specElem.on('keydown', function (e) {
+            if (e.keyCode === 13) {
+                main.request({data: {action: 'clear_spec', value: specElem.val()}})
+            }
+        })
     });
 </script>
