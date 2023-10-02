@@ -1,4 +1,5 @@
 layui.define(['main'], function (exports) {
+    let init = layui.init;
     let form = layui.form, main = layui.main,
         okIconHTML = '<span class="icon" aria-hidden="true"><i class="iconfont icon-ok"></i></span>',
         okAndCancelHTML = '<span class="icon" aria-hidden="true"><i class="iconfont icon-ok" data-event="ok"></i><i class="iconfont icon-del" data-event="cancel"></i></span>';
@@ -1316,9 +1317,7 @@ layui.define(['main'], function (exports) {
     exports('editor', function (filename) {
         if (!main.isString(filename)) return main.error("缺少文件路径");
         main.get('/file/editor', function (html) {
-            const isParent = $('#LAY_app_body').length > 0;
-            const appBodyElem = parent.$('#LAY_app_body');
-            isParent || appBodyElem.attr('style', 'z-index:19891026;width:100%;height:100%;position:fixed;top:0;left:0');
+            init.fullScreen();
             main.open({
                 title: false, // 禁用标题栏
                 closeBtn: false, // 禁用默认关闭按钮
@@ -1342,7 +1341,7 @@ layui.define(['main'], function (exports) {
                 },
                 end: function (index) {
                     layer.close(index);
-                    isParent || appBodyElem.attr('style', '');
+                    init.smallScreen();
                     return false;
                 }
             });

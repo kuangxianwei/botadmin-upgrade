@@ -1,70 +1,72 @@
 {{template "theme.share" .}}
 <div class="layui-card">
-    <div class="layui-card-body">
-        <header>
-            <button class="layui-btn layui-btn-sm" data-event="add">
-                <i class="layui-icon layui-icon-add-circle"></i>添加主题
-            </button>
-            <div class="layui-inline">
-                <div class="layui-input-inline">
-                    <input type="search" name="search" placeholder="搜索..." data-type="search" class="layui-input" style="height: 30px">
-                </div>
-                <button class="layui-btn layui-btn-sm" data-event="search">
-                    <i class="layui-icon layui-icon-search"></i>
-                </button>
-            </div>
-            <div class="layui-inline" id="tags"></div>
-            <h4 id="result-count" style="position:fixed;z-index:19821027;left:300px;top:2px;color:#bd2c00">
-                结果: <cite></cite>
-            </h4>
-        </header>
-        <hr/>
-        <div class="layui-row" id="theme-container"></div>
-        <h4 style="position:fixed;z-index:19821027;left:48%;bottom:10px;color: gray" id="down">
-            <i class="layui-icon layui-icon-down"></i><cite>下拉加载更多</cite>
-        </h4>
-    </div>
+	<div class="layui-card-body">
+		<header>
+			<button class="layui-btn layui-btn-sm" data-event="add">
+				<i class="layui-icon layui-icon-add-circle"></i>添加主题
+			</button>
+			<div class="layui-inline">
+				<div class="layui-input-inline">
+					<input type="search" name="search" placeholder="搜索..." data-type="search" class="layui-input"
+						   style="height: 30px">
+				</div>
+				<button class="layui-btn layui-btn-sm" data-event="search">
+					<i class="layui-icon layui-icon-search"></i>
+				</button>
+			</div>
+			<div class="layui-inline" id="tags"></div>
+			<h4 id="result-count" style="position:fixed;z-index:19821027;left:300px;top:2px;color:#bd2c00">
+				结果: <cite></cite>
+			</h4>
+		</header>
+		<hr/>
+		<div class="layui-row" id="theme-container"></div>
+		<h4 style="position:fixed;z-index:19821027;left:48%;bottom:10px;color: gray" id="down">
+			<i class="layui-icon layui-icon-down"></i><cite>下拉加载更多</cite>
+		</h4>
+	</div>
 </div>
 <script type="text/html" id="item">
-    <div class="layui-col-md3">
-        <div class="item">
-            <img src="/static/images/loading.svg" alt="" data-type="img">
-            <h4>
-                <label>名称:</label>
-                <span data-type="alias"></span>
-            </h4>
-            <h4>
-                <label>简介:</label>
-                <span data-type="intro"></span>
-            </h4>
-            <h4>
-                <label>Tags:</label>
-                <span data-type="tags"></span>
-            </h4>
-            <footer>
-                <div class="layui-btn-group" data-type="btn-group">
-                    <button class="layui-btn layui-btn-sm" data-event="download" lay-tips="下载该主题">
-                        <i class="layui-icon layui-icon-download-circle"></i>
-                    </button>
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" data-event="modify" lay-tips="编辑该主题">
-                        <i class="layui-icon layui-icon-edit"></i>
-                    </button>
-                    <a class="layui-btn layui-btn-sm" data-type="open-theme" lay-tips="转到主题目录">
-                        <i class="layui-icon layui-icon-fonts-code"></i>
-                    </a>
-                    <button class="layui-btn layui-btn-sm layui-btn-normal" data-type="face" lay-tips="替换该封面,只允许上传png格式图片">
-                        <i class="layui-icon layui-icon-picture"></i>
-                    </button>
-                    <button class="layui-btn layui-btn-sm layui-btn-danger" data-event="del" lay-tips="删除该主题">
-                        <i class="layui-icon layui-icon-delete"></i>
-                    </button>
-                    <button class="layui-btn layui-btn-sm layui-btn-primary" data-event="log" lay-tips="查看日志">
-                        <i class="layui-icon layui-icon-log"></i>
-                    </button>
-                </div>
-            </footer>
-        </div>
-    </div>
+	<div class="layui-col-md3">
+		<div class="item">
+			<img src="/static/images/loading.svg" alt="" data-type="img">
+			<h4>
+				<label>名称:</label>
+				<span data-type="alias"></span>
+			</h4>
+			<h4>
+				<label>简介:</label>
+				<span data-type="intro"></span>
+			</h4>
+			<h4>
+				<label>Tags:</label>
+				<span data-type="tags"></span>
+			</h4>
+			<footer>
+				<div class="layui-btn-group" data-type="btn-group">
+					<button class="layui-btn layui-btn-sm" data-event="download" lay-tips="下载该主题">
+						<i class="layui-icon layui-icon-download-circle"></i>
+					</button>
+					<button class="layui-btn layui-btn-sm layui-btn-normal" data-event="modify" lay-tips="编辑该主题">
+						<i class="layui-icon layui-icon-edit"></i>
+					</button>
+					<a class="layui-btn layui-btn-sm" data-type="open-theme" lay-tips="转到主题目录">
+						<i class="layui-icon layui-icon-fonts-code"></i>
+					</a>
+					<button class="layui-btn layui-btn-sm layui-btn-normal" data-type="face"
+							lay-tips="替换该封面,只允许上传png格式图片">
+						<i class="layui-icon layui-icon-picture"></i>
+					</button>
+					<button class="layui-btn layui-btn-sm layui-btn-danger" data-event="del" lay-tips="删除该主题">
+						<i class="layui-icon layui-icon-delete"></i>
+					</button>
+					<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="log" lay-tips="查看日志">
+						<i class="layui-icon layui-icon-log"></i>
+					</button>
+				</div>
+			</footer>
+		</div>
+	</div>
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
@@ -165,8 +167,7 @@
                             "lay-src": main.getSrc(d['small_face']),
                             "data-src": d['face'],
                             "alt": d['intro'],
-                            "title": d['alias'],
-                            "data-event": "magnifier"
+                            "title": d['alias']
                         });
                     },
                     alias: function (d) {
@@ -359,9 +360,6 @@
                         } else {
                             location.reload();
                         }
-                    },
-                    "magnifier": function () {
-                        main.preview(this.data("src"), '#theme-container .item>img', 'data-src');
                     },
                     "log": function () {
                         main.ws.log("theme." + driver + "." + this.data("id"));

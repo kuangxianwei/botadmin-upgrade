@@ -656,6 +656,6 @@
         };
         $('[data-event=hosts]').on('click', function () {
             layui.editor('/etc/hosts')
-        })
+        });
     });
 </script>

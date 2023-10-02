@@ -1,54 +1,54 @@
 {{template "theme.share" .}}
 <div class="layui-card">
-    <div class="layui-card-body">
-        <header class="layui-inline">
-            <div class="layui-input-inline">
-                <input name="search" placeholder="搜索..." data-type="search" class="layui-input" style="height: 30px">
-            </div>
-            <button class="layui-btn layui-btn-sm" data-event="search">
-                <i class="layui-icon layui-icon-search"></i>
-            </button>
-            <div class="layui-inline" id="tags"></div>
-        </header>
-        <h4 id="result-count" style="position:fixed;z-index:19821027;left:300px;top:2px;color:#bd2c00">
-            结果: <cite></cite>
-        </h4>
-        <hr/>
-        <div class="layui-row" id="theme-container"></div>
-        <h4 style="position:fixed;z-index:19821027;left:48%;bottom:10px;color: gray" id="down">
-            <i class="layui-icon layui-icon-down"></i><cite>下拉加载更多</cite>
-        </h4>
-    </div>
+	<div class="layui-card-body">
+		<header class="layui-inline">
+			<div class="layui-input-inline">
+				<input name="search" placeholder="搜索..." data-type="search" class="layui-input" style="height: 30px">
+			</div>
+			<button class="layui-btn layui-btn-sm" data-event="search">
+				<i class="layui-icon layui-icon-search"></i>
+			</button>
+			<div class="layui-inline" id="tags"></div>
+		</header>
+		<h4 id="result-count" style="position:fixed;z-index:19821027;left:300px;top:2px;color:#bd2c00">
+			结果: <cite></cite>
+		</h4>
+		<hr/>
+		<div class="layui-row" id="theme-container"></div>
+		<h4 style="position:fixed;z-index:19821027;left:48%;bottom:10px;color: gray" id="down">
+			<i class="layui-icon layui-icon-down"></i><cite>下拉加载更多</cite>
+		</h4>
+	</div>
 </div>
 <script type="text/html" id="item">
-    <div class="layui-col-md3">
-        <div class="item">
-            <img src="/static/images/loading.svg" alt="" data-type="face">
-            <h4>
-                <label>名称:</label>
-                <span data-type="alias"></span>
-            </h4>
-            <h4>
-                <label>简介:</label>
-                <span data-type="intro"></span>
-            </h4>
-            <h4>
-                <label>Tags:</label>
-                <span data-type="tags"></span>
-            </h4>
-            <h4>
-                <label>下载:</label>
-                <span data-type="downloads"></span>
-            </h4>
-            <footer>
-                <button class="layui-btn layui-btn-sm layui-btn-primary" style="color:yellow">
-                    <i class="layui-icon iconfont icon-level-1"></i><cite data-type="level">0</cite>
-                    ￥: <cite data-type="price">0</cite> 元
-                </button>
-                <div class="layui-btn-group" data-type="btn-group"></div>
-            </footer>
-        </div>
-    </div>
+	<div class="layui-col-md3">
+		<div class="item">
+			<img src="/static/images/loading.svg" alt="" data-type="face">
+			<h4>
+				<label>名称:</label>
+				<span data-type="alias"></span>
+			</h4>
+			<h4>
+				<label>简介:</label>
+				<span data-type="intro"></span>
+			</h4>
+			<h4>
+				<label>Tags:</label>
+				<span data-type="tags"></span>
+			</h4>
+			<h4>
+				<label>下载:</label>
+				<span data-type="downloads"></span>
+			</h4>
+			<footer>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" style="color:yellow">
+					<i class="layui-icon iconfont icon-level-1"></i><cite data-type="level">0</cite>
+					￥: <cite data-type="price">0</cite> 元
+				</button>
+				<div class="layui-btn-group" data-type="btn-group"></div>
+			</footer>
+		</div>
+	</div>
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
@@ -154,30 +154,30 @@
                     }
                 };
                 this.active = {
-                    "face": function (d) {
+                    face: function (d) {
                         this.attr({
                             "lay-tips": "售:￥" + d['price'] + "元",
                             "lay-src": authHost + "/theme/" + d.driver + "/small_" + d['package'] + ".png",
                             "data-src": authHost + "/theme/" + d.driver + "/" + d['package'] + ".png",
-                            alt: d['intro'], title: d['alias'], "data-event": "magnifier"
+                            alt: d['intro'], title: d['alias']
                         });
                     },
-                    "alias": function (d) {
+                    alias: function (d) {
                         this.attr("lay-tips", d['alias']).text(d['alias']);
                     },
-                    "intro": function (d) {
+                    intro: function (d) {
                         this.attr("lay-tips", d['intro']).text(d['intro']);
                     },
-                    "tags": function (d) {
+                    tags: function (d) {
                         this.attr("lay-tips", d['tags']).text(d['tags']);
                     },
-                    "downloads": function (d) {
+                    downloads: function (d) {
                         this.text(d['downloads'] + " 次");
                     },
-                    "level": function (d) {
+                    level: function (d) {
                         this.attr("lay-tips", levels[d['level']]).text(d['level']);
                     },
-                    "price": function (d) {
+                    price: function (d) {
                         this.text(d['price']);
                     },
                     "btn-group": function (d) {
@@ -194,10 +194,10 @@
                         this.find("button").attr("data-id", d.id);
                     },
                     // 绑定事件
-                    "upgrade": function () {
+                    upgrade: function () {
                         layer.alert("请联系客服升级");
                     },
-                    "buy": function (othis) {
+                    buy: function (othis) {
                         let id = this.data("id");
                         main.request({
                             url: URL + "/buy",
@@ -210,7 +210,7 @@
                             }
                         });
                     },
-                    "download": function (othis) {
+                    download: function (othis) {
                         let id = this.data("id");
                         main.request({
                             url: URL + "/download",
@@ -225,13 +225,10 @@
                             }
                         });
                     },
-                    "magnifier": function () {
-                        main.preview($(this).data("src"), '#theme-container .item>img', 'data-src');
-                    },
-                    "log": function () {
+                    log: function () {
                         main.ws.log("theme." + driver + "." + this.data("id"));
                     },
-                    "search": function () {
+                    search: function () {
                         let search = $('input[name=search]').val().trim();
                         themeEle.empty();
                         if (search) {

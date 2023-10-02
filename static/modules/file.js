@@ -318,7 +318,7 @@ layui.define(['main', 'editor'], function (exports) {
                             othis.refresh(filename, 1);
                             break;
                         case 7:
-                            main.preview(filename);
+                            layui.preview.render(filename);
                             break;
                         case 2:
                         case 8:

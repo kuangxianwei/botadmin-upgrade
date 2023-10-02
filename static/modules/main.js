@@ -1,5 +1,4 @@
 /* jshint esversion: 6 */
-
 /*导出基本操作*/
 layui.define(function (exports) {
     window.document.loadJS = function (src, fn) {
@@ -14,6 +13,22 @@ layui.define(function (exports) {
             fn && fn();
         };
         document.getElementsByTagName("head")[0].insertAdjacentElement("beforeend", script);
+        Array.prototype.delete = function (v) {
+            for (let i = 0; i < this.length; i++) {
+                if (this[i] === v) {
+                    this.splice(i, 1);
+                    i--
+                }
+            }
+            return this;
+        };
+        String.prototype.unescapeHTML = function () {
+            return this.replace(/&#123;/g, '{')
+                .replace(/&#125;/g, '}')
+                .replace(/&#60;/g, '<')
+                .replace(/&#62;/g, '>')
+                .replace(/&#34;/g, '"')
+        };
     };
     // 判断字符串结尾
     String.prototype.hasSuffix = function (suffix) {
@@ -44,31 +59,327 @@ layui.define(function (exports) {
         let el = $(this).parent().prev('textarea');
         (el.length > 0 ? el : $(this).parent().prev('div').find('textarea')).insertAt($(this).data('write'));
     });
-    exports('init', {});
+    // 全屏
+    const fullScreen = () => {
+            $('#LAY_app_body').length === 0 && parent.$('#LAY_app_body').css({
+                zIndex: '19891026',
+                width: '100%',
+                height: '100%',
+                position: 'fixed',
+                top: '0',
+                left: '0'
+            });
+        },
+        // 退出全屏
+        smallScreen = () => {
+            $('#LAY_app_body').length === 0 && parent.$('#LAY_app_body').css({
+                zIndex: '',
+                width: '',
+                height: '',
+                position: '',
+                top: '',
+                left: ''
+            });
+        },
+        // 获取文件名
+        basename = (path) => {
+            path = decodeURIComponent(path);
+            let index = path.lastIndexOf('/');
+            return path.substring(index === -1 ? 0 : index + 1);
+        },
+        // 加载中
+        loading = (options) => {
+            return {
+                index: layer.load(1, $.extend({shade: [0.7, '#000', true]}, options || {})),
+                close: function () {
+                    layer.close(this.index);
+                }
+            };
+        },
+        // 获取目录
+        dirname = (path) => {
+            path = decodeURIComponent(path);
+            return path.substring(0, path.lastIndexOf('/')) || '/';
+        },
+        // 获取图片src
+        getSrc = (s) => {
+            if (/^(?:\/file\/download\?filename=|https?:\/\/)/.test(s)) {
+                return s;
+            }
+            return '/file/download?filename=' + encodeURIComponent(s);
+        };
+    exports('init', {
+        basename: basename,
+        loading: loading,
+        dirname: dirname,
+        fullScreen: fullScreen,
+        smallScreen: smallScreen,
+        getSrc: getSrc,
+    });
 });
-layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
-    Array.prototype.delete = function (v) {
-        for (let i = 0; i < this.length; i++) {
-            if (this[i] === v) {
-                this.splice(i, 1);
-                i--
+// 图片预览
+layui.define(['init'], function (exports) {
+    let init = layui.init;
+    layui.link('/static/style/preview.css');
+    if (!window.previewList) {
+        window.previewList = [];
+    }
+    const $body = $('body'), imgExtRe = new RegExp(/\.(?:jpg|jpeg|gif|bmp|png)$/),
+        maskHTML = '<div class="preview-images-mask" style="z-index:2147483000"><div class="preview-head"><span class="preview-title">截图</span><span class="preview-small" title="缩小显示" style="display:none;"><span class="iconfont icon-resize-small" aria-hidden="true"></span></span><span class="preview-full" title="最大化显示"><span class="iconfont icon-resize-full" aria-hidden="true"></span></span><span class="preview-close" title="关闭图片预览视图"><span class="iconfont icon-remove" aria-hidden="true"></span></span></div><div class="preview-body"><img id="preview-images" src="" alt=""/></div><div class="preview-toolbar"><a href="javascript:;" title="左旋转"><span class="iconfont icon-rotate-left" aria-hidden="true"></span></a><a href="javascript:;" title="右旋转"><span class="iconfont icon-rotate-right" aria-hidden="true"></span></a><a href="javascript:;" title="放大视图"><span class="iconfont icon-zoom-in" aria-hidden="true"></span></a><a href="javascript:;" title="缩小视图"><span class="iconfont icon-zoom-out" aria-hidden="true"></span></a><a href="javascript:;" title="重置视图"><span class="iconfont icon-refresh" aria-hidden="true"></span></a><a href="javascript:;" title="图片列表"><span class="iconfont icon-list" aria-hidden="true"></span></a></div><div class="preview-cut-view"><a href="javascript:;" title="上一张"><span class="iconfont icon-menu-left" aria-hidden="true"></span></a><a href="javascript:;" title="下一张"><span class="iconfont icon-menu-right" aria-hidden="true"></span></a></div></div>',
+        insertPreviewList = (src) => {
+            if (src) {
+                src = init.getSrc(src);
+                if (!window.previewList.includes(src) && imgExtRe.test(src)) {
+                    window.previewList.push(src);
+                }
+            }
+        },
+        // 获取图片列表
+        setPreviewList = (selector, attrName) => {
+            attrName = attrName || 'title';
+            if (selector) {
+                $(selector).each(function () {
+                    insertPreviewList($(this).attr(attrName));
+                });
+            } else {
+                $('img[data-src]').each(function () {
+                    insertPreviewList($(this).attr('data-src'));
+                });
+                $('[data-field=name] [title]').each(function () {
+                    insertPreviewList($(this).attr('title'));
+                });
+            }
+        };
+
+    // 预览图片类
+    class Preview {
+        constructor() {
+            this.naturalWidth = 0;
+            this.naturalHeight = 0;
+            this.initWidth = 0;
+            this.initHeight = 0;
+            this.currentWidth = 0;
+            this.currentHeight = 0;
+            this.currentLeft = 0;
+            this.currentTop = 0;
+            this.rotate = 0;
+            this.scale = 1;
+            this.previewWidth = 0;
+            this.previewHeight = 0;
+            this.$mask = $(maskHTML);
+            this.loading = null;
+        }
+
+        // 自动大小
+        autoImagesSize() {
+            let rotate = Math.abs(this.rotate / 90),
+                previewW = rotate % 2 === 0 ? this.previewWidth : this.previewHeight,
+                previewH = rotate % 2 === 0 ? this.previewHeight : this.previewWidth;
+            this.initWidth = this.naturalWidth;
+            this.initHeight = this.naturalHeight;
+            if (this.initWidth > previewW) {
+                this.initWidth = previewW;
+                this.initHeight = parseFloat((previewW / this.naturalWidth * this.initHeight).toFixed(2));
+            }
+            if (this.initHeight > previewH) {
+                this.initWidth = parseFloat((previewH / this.naturalHeight * this.initWidth).toFixed(2));
+                this.initHeight = previewH;
+            }
+            this.currentWidth = this.initWidth * this.scale;
+            this.currentHeight = this.initHeight * this.scale;
+            this.currentLeft = parseFloat(((this.previewWidth - this.currentWidth) / 2).toFixed(2));
+            this.currentTop = parseFloat(((this.previewHeight - this.currentHeight) / 2).toFixed(2));
+            $('#preview-images').css({
+                width: this.currentWidth,
+                height: this.currentHeight,
+                top: this.currentTop,
+                left: this.currentLeft,
+                display: 'inline',
+                transform: 'rotate(' + this.rotate + 'deg)',
+                opacity: 1,
+                transition: 'all 400ms'
+            });
+        }
+
+        showPreview(img, src) {
+            this.naturalWidth = img.naturalWidth;
+            this.naturalHeight = img.naturalHeight;
+            this.autoImagesSize();
+            $('.preview-title').text(init.basename(src) + ' W:' + img.naturalWidth + ' H:' + img.naturalHeight);
+            this.loading && this.loading.close()
+        }
+
+        // 渲染
+        render(src, listOrSelector, attrName) {
+            if (!src || $('.preview-images-mask').length > 0) return false;
+            $body.css('overflow', 'hidden').append(this.$mask);
+            this.previewWidth = this.$mask[0].clientWidth;
+            this.previewHeight = this.$mask[0].clientHeight;
+            src = init.getSrc(src);
+            let othis = this;
+            othis.loading = init.loading();
+            $('.preview-body img').attr('src', src).load(function () {
+                othis.showPreview($(this)[0], src);
+            });
+            if (Array.isArray(listOrSelector)) {
+                window.previewList = listOrSelector;
+            } else {
+                setPreviewList(listOrSelector, attrName);
+            }
+            if (window.previewList.length < 2) {
+                $('.preview-images-mask .preview-cut-view').hide();
+            }
+            if (!window.previewLoaded) {
+                window.previewLoaded = true;
+                $(document).on('click', '.preview-close', function (e) {
+                    insertPreviewList($('#preview-images').attr('src'));
+                    init.smallScreen();
+                    othis.loading && othis.loading.close();
+                    $(".preview-images-mask").remove();
+                    $('body').css('overflow', '');
+                    e.stopPropagation();
+                });
+                $(document).on('click', '.preview-full', function () {
+                    init.fullScreen();
+                    $(this).hide().prev().show();
+                    othis.previewWidth = window.innerWidth;
+                    othis.previewHeight = window.innerHeight;
+                    $('.preview-images-mask').css({
+                        width: window.innerWidth,
+                        height: window.innerHeight,
+                        top: 0,
+                        left: 0,
+                        margin: 0,
+                        zIndex: 2147483000
+                    });
+                    othis.autoImagesSize();
+                });
+                $(document).on('click', '.preview-small', function () {
+                    init.smallScreen();
+                    $(this).hide().next().show();
+                    $('.preview-images-mask').removeAttr('style');
+                    othis.previewWidth = 750;
+                    othis.previewHeight = 650;
+                    othis.autoImagesSize();
+                });
+                $(document).on('click', '.preview-toolbar a', function () {
+                    let index = $(this).index();
+                    switch (index) {
+                        case 0:
+                        case 1:
+                            othis.rotate = index ? othis.rotate + 90 : othis.rotate - 90;
+                            othis.autoImagesSize();
+                            break;
+                        case 2:
+                        case 3:
+                            if (othis.scale === 3 && index === 2 || othis.scale === .2 && index === 3) return layer.msg(othis.scale >= 1 ? "图像放大，已达到最大尺寸。" : "图像缩小，已达到最小尺寸。");
+                            othis.scale = (index === 2 ? Math.round(10 * (othis.scale + .4)) : Math.round(10 * (othis.scale - .4))) / 10;
+                            othis.autoImagesSize();
+                            break;
+                        case 4:
+                            let scale_offset = othis.rotate % 360;
+                            scale_offset >= 180 ? othis.rotate += 360 - scale_offset : othis.rotate -= scale_offset;
+                            othis.scale = 1;
+                            othis.autoImagesSize();
+                    }
+                });
+                $(document).on('mousedown', '#preview-images', function (e) {
+                    $(this).onselectstart = $(this).ondrag = function () {
+                        return false;
+                    };
+                    let images = $(this), $mask = $(".preview-images-mask"), preview = $mask.offset(),
+                        diffX = e.clientX - preview.left, diffY = e.clientY - preview.top;
+                    $mask.on('mousemove', (function (e) {
+                        let offsetX = e.clientX - preview.left - diffX, offsetY = e.clientY - preview.top - diffY,
+                            rotate = Math.abs(othis.rotate / 90),
+                            previewW = rotate % 2 === 0 ? othis.previewWidth : othis.previewHeight,
+                            previewH = rotate % 2 === 0 ? othis.previewHeight : othis.previewWidth, left, top;
+                        if (othis.currentWidth > previewW) {
+                            let max_left = previewW - othis.currentWidth;
+                            (left = othis.currentLeft + offsetX) > 0 ? left = 0 : left < max_left && (left = max_left), othis.currentLeft = left
+                        }
+                        if (othis.currentHeight > previewH) {
+                            let max_top = previewH - othis.currentHeight;
+                            (top = othis.currentTop + offsetY) > 0 ? top = 0 : top < max_top && (top = max_top), othis.currentTop = top
+                        }
+                        othis.currentHeight > previewH && othis.currentTop <= 0 && othis.currentHeight - previewH <= othis.currentTop && (othis.currentTop -= offsetY), images.css({
+                            left: othis.currentLeft, top: othis.currentTop
+                        })
+                    })).on('mouseup', (function () {
+                        $(this).off('mousemove mouseup')
+                    })).on('dragstart', (function () {
+                        e.preventDefault()
+                    }))
+                });
+                $(document).on('dragstart', '#preview-images', function () {
+                    return false
+                });
+                $(document).on('mousedown', '.preview-images-mask .preview-head', function (e) {
+                    let drag = $(this).parent();
+                    if ($('body').addClass('select'), $(this).onselectstart = $(this).ondrag = function () {
+                        return false;
+                    }, !$(e.target).hasClass('preview-close')) {
+                        let diffX = e.clientX - drag.offset().left, diffY = e.clientY - drag.offset().top;
+                        $(document).on('mousemove', (function (e) {
+                            let left = e.clientX - diffX, top = e.clientY - diffY;
+                            left < 0 ? left = 0 : left > window.innerWidth - drag.width() && (left = window.innerWidth - drag.width()), top < 0 ? top = 0 : top > window.innerHeight - drag.height() && (top = window.innerHeight - drag.height()), drag.css({
+                                left: left, top: top, margin: 0
+                            })
+                        })).on('mouseup', function () {
+                            $(this).off('mousemove mouseup')
+                        })
+                    }
+                });
+                $(document).on('click', '.preview-cut-view a', function () {
+                    let index = 0;
+                    for (let i = 0; i < window.previewList.length; i++) {
+                        if (src === window.previewList[i]) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    if ($(this).index()) {
+                        index += 1;
+                    } else {
+                        index -= 1;
+                    }
+                    if (index >= window.previewList.length) {
+                        index = 0
+                    } else if (index < 0) {
+                        index = window.previewList.length - 1;
+                    }
+                    src = window.previewList[index];
+                    othis.loading = init.loading();
+                    $('#preview-images').attr('src', src).load(function () {
+                        othis.showPreview($(this)[0], src);
+                    });
+                });
             }
         }
-        return this;
-    };
-    String.prototype.unescapeHTML = function () {
-        return this.replace(/&#123;/g, '{')
-            .replace(/&#125;/g, '}')
-            .replace(/&#60;/g, '<')
-            .replace(/&#62;/g, '>')
-            .replace(/&#34;/g, '"')
-    };
-    const codeHTML = '<pre class="layui-code popup-code layui-code-view layui-box layui-code-dark"><ol class="layui-code-ol"></ol><span class="layui-code-copy"><i class="layui-icon layui-icon-file-b" title="复制"></i></span></pre>',
+    }
+
+    if (!window.previewRendered) {
+        window.previewRendered = true;
+        $(document).on('click', 'img', function (e) {
+            (new Preview()).render($(this).data('src'));
+            e.stopPropagation();
+        });
+    }
+    exports("preview", {
+        getSrc: init.getSrc,
+        render: function (src, previewListElem, attrName) {
+            (new Preview()).render(src, previewListElem, attrName)
+        }
+    })
+});
+
+layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
+    const init = layui.init,
+        codeHTML = '<pre class="layui-code popup-code layui-code-view layui-box layui-code-dark"><ol class="layui-code-ol"></ol><span class="layui-code-copy"><i class="layui-icon layui-icon-file-b" title="复制"></i></span></pre>',
         $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table, slider = layui.slider;
 
     class Cron {
         constructor(selector) {
-
             this.elem = $(selector); // 输入点例如：input[name=spec]
             this.tabs = [
                 {name: 'second', alias: '秒', min: 0, max: 59, value: '*', values: []},
@@ -270,7 +581,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         }
     }
 
-// tags
+    // tags
     class Tags {
         constructor() {
             // 操作input
@@ -339,13 +650,12 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         }
     }
 
-// 主要
+    // 主要
     class Main {
 
         constructor() {
+            this.getSrc = init.getSrc;
             this.searchRendered = false;
-            this.previewLoaded = false;
-            this.previewList = [];
             this.zIndex = function (elem) {
                 let index = 0;
                 (elem ? elem.siblings() : $("*")).each(function () {
@@ -628,14 +938,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 }
             };
             // 加载中
-            this.loading = function (options) {
-                let loadIndex = layer.load(1, $.extend({shade: [0.7, '#000', true]}, options || {}));
-                return {
-                    index: loadIndex, close: function () {
-                        layer.close(this.index);
-                    }
-                };
-            };
+            this.loading = init.loading;
+            this.dirname = init.dirname;
+            this.basename = init.basename;
         }
 
 
@@ -644,10 +949,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             let othis = this;
             $(document).on('click', '[lay-event=crontab]', function (e) {
                 othis.crontab($(this).attr('data-value'));
-                e.stopPropagation();
-            });
-            $(document).on('click', 'img', function (e) {
-                othis.preview($(this).data('src'));
                 e.stopPropagation();
             });
         }
@@ -1083,247 +1384,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             let tags = new Tags();
             $.extend(tags, options);
             tags.render();
-        }
-
-        // 获取目录
-        dirname(path) {
-            path = decodeURIComponent(path);
-            return path.substring(0, path.lastIndexOf('/')) || '/';
-        }
-
-        // 获取文件名
-        basename(path) {
-            path = decodeURIComponent(path);
-            let index = path.lastIndexOf('/');
-            return path.substring(index === -1 ? 0 : index + 1);
-        }
-
-
-        // 获取图片src
-        getSrc(s) {
-            if (/^(?:\/file\/download\?filename=|https?:\/\/)/.test(s)) {
-                return s;
-            }
-            return '/file/download?filename=' + encodeURIComponent(s);
-        }
-
-        // 获取图片列表
-        getPreviewList(elem, attrName) {
-            if (elem === false) return false;
-            let re = new RegExp(/\.(?:jpg|jpeg|gif|bmp|png)$/);
-            attrName = attrName || 'title';
-            let othis = this;
-            (elem ? $(elem) : $('[data-field=name] [title]')).each(function () {
-                let src = $(this).attr(attrName);
-                if (src) {
-                    src = othis.getSrc(src);
-                    if (!othis.previewList.includes(src) && re.test(src)) {
-                        othis.previewList.push(src);
-                    }
-                }
-            });
-            return this.previewList;
-        }
-
-        // 预览图片
-        preview(src, elem, attrName) {
-            if (!src || $('.preview-images-mask').length > 0) return false;
-            src = this.getSrc(src);
-            let othis = this, $body = $('body'),
-                $mask = $('<div class="preview-images-mask" style="z-index:2147483000"><div class="preview-head"><span class="preview-title">截图</span><span class="preview-small" title="缩小显示" style="display:none;"><span class="iconfont icon-resize-small" aria-hidden="true"></span></span><span class="preview-full" title="最大化显示"><span class="iconfont icon-resize-full" aria-hidden="true"></span></span><span class="preview-close" title="关闭图片预览视图"><span class="iconfont icon-remove" aria-hidden="true"></span></span></div><div class="preview-body"><img id="preview-images" src="' + src + '" alt=""/></div><div class="preview-toolbar"><a href="javascript:;" title="左旋转"><span class="iconfont icon-rotate-left" aria-hidden="true"></span></a><a href="javascript:;" title="右旋转"><span class="iconfont icon-rotate-right" aria-hidden="true"></span></a><a href="javascript:;" title="放大视图"><span class="iconfont icon-zoom-in" aria-hidden="true"></span></a><a href="javascript:;" title="缩小视图"><span class="iconfont icon-zoom-out" aria-hidden="true"></span></a><a href="javascript:;" title="重置视图"><span class="iconfont icon-refresh" aria-hidden="true"></span></a><a href="javascript:;" title="图片列表"><span class="iconfont icon-list" aria-hidden="true"></span></a></div><div class="preview-cut-view"><a href="javascript:;" title="上一张"><span class="iconfont icon-menu-left" aria-hidden="true"></span></a><a href="javascript:;" title="下一张"><span class="iconfont icon-menu-right" aria-hidden="true"></span></a></div></div>'),
-                config = {
-                    naturalWidth: 0,
-                    naturalHeight: 0,
-                    initWidth: 0,
-                    initHeight: 0,
-                    previewWidth: 0,
-                    previewHeight: 0,
-                    currentWidth: 0,
-                    currentHeight: 0,
-                    currentLeft: 0,
-                    currentTop: 0,
-                    rotate: 0,
-                    scale: 1,
-                    imagesMouse: false
-                };
-            $body.css('overflow', 'hidden').append($mask);
-            config.previewWidth = $mask[0].clientWidth;
-            config.previewHeight = $mask[0].clientHeight;
-
-            // 自动大小
-            function autoImagesSize() {
-                let rotate = Math.abs(config.rotate / 90),
-                    previewW = rotate % 2 === 0 ? config.previewWidth : config.previewHeight,
-                    previewH = rotate % 2 === 0 ? config.previewHeight : config.previewWidth;
-                config.initWidth = config.naturalWidth;
-                config.initHeight = config.naturalHeight;
-                if (config.initWidth > previewW) {
-                    config.initWidth = previewW;
-                    config.initHeight = parseFloat((previewW / config.naturalWidth * config.initHeight).toFixed(2));
-                }
-                if (config.initHeight > previewH) {
-                    config.initWidth = parseFloat((previewH / config.naturalHeight * config.initWidth).toFixed(2));
-                    config.initHeight = previewH;
-                }
-                config.currentWidth = config.initWidth * config.scale;
-                config.currentHeight = config.initHeight * config.scale;
-                config.currentLeft = parseFloat(((config.previewWidth - config.currentWidth) / 2).toFixed(2));
-                config.currentTop = parseFloat(((config.previewHeight - config.currentHeight) / 2).toFixed(2));
-                $('#preview-images').css({
-                    width: config.currentWidth,
-                    height: config.currentHeight,
-                    top: config.currentTop,
-                    left: config.currentLeft,
-                    display: 'inline',
-                    transform: 'rotate(' + config.rotate + 'deg)',
-                    opacity: 1,
-                    transition: 'all 400ms'
-                });
-            }
-
-            let loading = this.loading();
-            $('.preview-body img').load(function () {
-                let img = $(this)[0];
-                config.naturalWidth = img.naturalWidth;
-                config.naturalHeight = img.naturalHeight;
-                autoImagesSize();
-                $('.preview-title').text(othis.basename(src) + ' W:' + img.naturalWidth + ' H:' + img.naturalHeight);
-                loading.close();
-            });
-            if (Array.isArray(elem)) {
-                this.previewList = elem;
-            } else {
-                this.getPreviewList(elem, attrName);
-            }
-            if (this.previewList.length < 2) {
-                $('.preview-images-mask .preview-cut-view').hide();
-            }
-            if (!this.previewLoaded) {
-                this.previewLoaded = true;
-                $(document).on('click', '.preview-close', function (e) {
-                    $(".preview-images-mask").remove();
-                    $('body').css('overflow', '');
-                    e.stopPropagation();
-                });
-                $(document).on('click', '.preview-full', function () {
-                    $(this).hide().prev().show();
-                    config.previewWidth = window.innerWidth;
-                    config.previewHeight = window.innerHeight;
-                    $('.preview-images-mask').css({
-                        width: window.innerWidth,
-                        height: window.innerHeight,
-                        top: 0,
-                        left: 0,
-                        margin: 0,
-                        zIndex: 2147483000
-                    });
-                    autoImagesSize();
-                });
-                $(document).on('click', '.preview-small', function () {
-                    $(this).hide().next().show();
-                    $('.preview-images-mask').removeAttr('style');
-                    config.previewWidth = 750;
-                    config.previewHeight = 650;
-                    autoImagesSize();
-                });
-                $(document).on('click', '.preview-toolbar a', function () {
-                    let index = $(this).index();
-                    switch (index) {
-                        case 0:
-                        case 1:
-                            config.rotate = index ? config.rotate + 90 : config.rotate - 90;
-                            autoImagesSize();
-                            break;
-                        case 2:
-                        case 3:
-                            if (config.scale === 3 && index === 2 || config.scale === .2 && index === 3) return layer.msg(config.scale >= 1 ? "图像放大，已达到最大尺寸。" : "图像缩小，已达到最小尺寸。");
-                            config.scale = (index === 2 ? Math.round(10 * (config.scale + .4)) : Math.round(10 * (config.scale - .4))) / 10;
-                            autoImagesSize();
-                            break;
-                        case 4:
-                            let scale_offset = config.rotate % 360;
-                            scale_offset >= 180 ? config.rotate += 360 - scale_offset : config.rotate -= scale_offset;
-                            config.scale = 1;
-                            autoImagesSize();
-                    }
-                });
-                $(document).on('mousedown', '#preview-images', function (e) {
-                    $(this).onselectstart = $(this).ondrag = function () {
-                        return false;
-                    };
-                    let images = $(this), $mask = $(".preview-images-mask"), preview = $mask.offset(),
-                        diffX = e.clientX - preview.left, diffY = e.clientY - preview.top;
-                    $mask.on('mousemove', (function (e) {
-                        let offsetX = e.clientX - preview.left - diffX, offsetY = e.clientY - preview.top - diffY,
-                            rotate = Math.abs(config.rotate / 90),
-                            previewW = rotate % 2 === 0 ? config.previewWidth : config.previewHeight,
-                            previewH = rotate % 2 === 0 ? config.previewHeight : config.previewWidth, left, top;
-                        if (config.currentWidth > previewW) {
-                            let max_left = previewW - config.currentWidth;
-                            (left = config.currentLeft + offsetX) > 0 ? left = 0 : left < max_left && (left = max_left), config.currentLeft = left
-                        }
-                        if (config.currentHeight > previewH) {
-                            let max_top = previewH - config.currentHeight;
-                            (top = config.currentTop + offsetY) > 0 ? top = 0 : top < max_top && (top = max_top), config.currentTop = top
-                        }
-                        config.currentHeight > previewH && config.currentTop <= 0 && config.currentHeight - previewH <= config.currentTop && (config.currentTop -= offsetY), images.css({
-                            left: config.currentLeft, top: config.currentTop
-                        })
-                    })).on('mouseup', (function () {
-                        $(this).off('mousemove mouseup')
-                    })).on('dragstart', (function () {
-                        e.preventDefault()
-                    }))
-                });
-                $(document).on('dragstart', '#preview-images', function () {
-                    return false
-                });
-                $(document).on('mousedown', '.preview-images-mask .preview-head', function (e) {
-                    let drag = $(this).parent();
-                    if ($('body').addClass('select'), $(this).onselectstart = $(this).ondrag = function () {
-                        return false;
-                    }, !$(e.target).hasClass('preview-close')) {
-                        let diffX = e.clientX - drag.offset().left, diffY = e.clientY - drag.offset().top;
-                        $(document).on('mousemove', (function (e) {
-                            let left = e.clientX - diffX, top = e.clientY - diffY;
-                            left < 0 ? left = 0 : left > window.innerWidth - drag.width() && (left = window.innerWidth - drag.width()), top < 0 ? top = 0 : top > window.innerHeight - drag.height() && (top = window.innerHeight - drag.height()), drag.css({
-                                left: left, top: top, margin: 0
-                            })
-                        })).on('mouseup', function () {
-                            $(this).off('mousemove mouseup')
-                        })
-                    }
-                });
-                $(document).on('click', '.preview-cut-view a', function () {
-                    let index = 0;
-                    for (let i = 0; i < othis.previewList.length; i++) {
-                        if (src === othis.previewList[i]) {
-                            index = i;
-                            break;
-                        }
-                    }
-                    if ($(this).index()) {
-                        index += 1;
-                    } else {
-                        index -= 1;
-                    }
-                    if (index >= othis.previewList.length) {
-                        index = 0
-                    } else if (index < 0) {
-                        index = othis.previewList.length - 1;
-                    }
-                    src = othis.previewList[index];
-                    let loading = othis.loading();
-                    $('#preview-images').attr('src', src).load(function () {
-                        let img = $(this)[0];
-                        config.naturalWidth = img.naturalWidth;
-                        config.naturalHeight = img.naturalHeight;
-                        autoImagesSize();
-                        $('.preview-title').text(othis.basename(src) + ' W:' + img.naturalWidth + ' H:' + img.naturalHeight);
-                        loading.close();
-                    });
-                });
-            }
         }
 
         displayTheme(tplName) {
