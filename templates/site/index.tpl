@@ -1,308 +1,313 @@
 <div class="layui-card">
-    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-row" lay-event="search">
-            <div class="layui-col-md3">
-                <label class="layui-form-label">网站程序</label>
-                <div class="layui-input-block">
-                    <select name="system" lay-filter="search-select">
-                        <option value="">全部</option>
+	<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+		<div class="layui-row" lay-event="search">
+			<div class="layui-col-md3">
+				<label class="layui-form-label">网站程序</label>
+				<div class="layui-input-block">
+					<select name="system" lay-filter="search-select">
+						<option value="">全部</option>
                         {{range $k,$v:=.drivers -}}
-                            <option value="{{$k}}">{{$v.Alias}}</option>
+							<option value="{{$k}}">{{$v.Alias}}</option>
                         {{end -}}
-                    </select>
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <label class="layui-form-label">IDS</label>
-                <div class="layui-input-block">
-                    <input type="text" name="ids" placeholder="1,2,4,5" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <label class="layui-form-label">域名:</label>
-                <div class="layui-input-block">
-                    <input type="text" name="vhost" placeholder="模糊匹配域名" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-col-md3">
-                <label class="layui-form-label">状态</label>
-                <div class="layui-input-block">
-                    <select name="status" lay-filter="search-select">
-                        <option value="">全部</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-col-md3">
+				<label class="layui-form-label">IDS</label>
+				<div class="layui-input-block">
+					<input type="text" name="ids" placeholder="1,2,4,5" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-col-md3">
+				<label class="layui-form-label">域名:</label>
+				<div class="layui-input-block">
+					<input type="text" name="vhost" placeholder="模糊匹配域名" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-col-md3">
+				<label class="layui-form-label">状态</label>
+				<div class="layui-input-block">
+					<select name="status" lay-filter="search-select">
+						<option value="">全部</option>
                         {{range $i,$v:=.status -}}
-                            <option value="{{$i}}">{{$v.Alias}}</option>
+							<option value="{{$i}}">{{$v.Alias}}</option>
                         {{end -}}
-                    </select>
-                </div>
-            </div>
-            <div class="layui-hide">
-                <button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
-                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="layui-card-body">
-        <table id="table-list" lay-filter="table-list"></table>
-    </div>
+					</select>
+				</div>
+			</div>
+			<div class="layui-hide">
+				<button class="layui-btn" data-type="reload" lay-submit lay-filter="search">
+					<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="layui-card-body">
+		<table id="table-list" lay-filter="table-list"></table>
+	</div>
 </div>
 <script type="text/html" id="toolbar">
-    <div class="layui-btn-container" lay-tips="空白处双击显示删除和清空数据库按钮">
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="add" lay-tips="单个添加网站">
-                <i class="layui-icon layui-icon-add-1"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm" lay-event="batch" lay-tips="批量添加网站">
-                <i class="layui-icon iconfont icon-batchadd"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm" lay-event="configure" lay-tips="批量修改配置">
-                <i class="layui-icon layui-icon-set"></i>
-            </button>
-        </div>
-        <div class="layui-btn-group">
-            <ul class="layui-nav layui-bg-green botadmin-nav">
-                <li class="layui-nav-item">
-                    <a href="javascript:" lay-tips="建站" lay-direction="2">
-                        <i class="layui-icon layui-icon-website"></i>
-                        <cite>建站</cite>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="found">创建</button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="install">安装</button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="setup">配置</button>
-                        </dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-        <div class="layui-btn-group">
-            <ul class="layui-nav layui-bg-green botadmin-nav">
-                <li class="layui-nav-item">
-                    <a href="javascript:" lay-tips="重载" lay-direction="2">
-                        <i class="layui-icon layui-icon-refresh"></i>
-                        <cite>重载</cite>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_nginx">重载Nginx
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_website_setup">
-                                重载配置
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="update_website">更新HTML
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="pull_config">拉取配置
-                            </button>
-                        </dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="publish" lay-tips="选中的网站发布文章">
-                <i class="layui-icon layui-icon-release"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
-                <i class="layui-icon iconfont icon-export"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm" lay-event="import" lay-tips="导入配置">
-                <i class="layui-icon iconfont icon-import"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="mysql" lay-tips="备份/还原数据库">
-                <i class="layui-icon iconfont icon-sql"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm" lay-event="vhosts" lay-tips="获取全部主机列表">
-                <i class="layui-icon layui-icon-fonts-code"></i>
-            </button>
-        </div>
-        <div class="layui-btn-group">
-            <ul class="layui-nav layui-bg-green botadmin-nav">
-                <li class="layui-nav-item">
-                    <a href="javascript:" lay-tips="SEO" lay-direction="2">
-                        <i class="layui-icon layui-icon-service"></i>
-                        <cite>SEO</cite>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="links">
-                                <i class="layui-icon layui-icon-link"></i>
-                                添加友链
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="links_del">
-                                <i class="layui-icon layui-icon-link"></i>
-                                删除友链
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="rank">拉取百度排名
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="rank_del">删除百度排名
-                            </button>
-                        </dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-        <div class="layui-btn-group">
-            <ul class="layui-nav layui-bg-green botadmin-nav">
-                <li class="layui-nav-item">
-                    <a href="javascript:" lay-tips="定时发布文章" lay-direction="2">
-                        <i class="layui-icon iconfont icon-work"></i>
-                        <cite>任务</cite>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-value="site.">
-                                查看任务
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid"
-                                    lay-event="cron_disable">关闭任务
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="cron_enable">
-                                开启任务
-                            </button>
-                        </dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
-                <i class="layui-icon layui-icon-log"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
-                <i class="layui-icon iconfont icon-reset"></i>Log
-            </button>
-        </div>
-        <div id="del" class="layui-btn-group" style="display: none;">
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中的数据，不可恢复！">
-                删除
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate" lay-tips="清空所有的数据，不可恢复！">
-                清空
-            </button>
-        </div>
-    </div>
+	<div class="layui-btn-container" lay-tips="空白处双击显示删除和清空数据库按钮">
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm" lay-event="add" lay-tips="单个添加网站">
+				<i class="layui-icon layui-icon-add-1"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm" lay-event="batch" lay-tips="批量添加网站">
+				<i class="layui-icon iconfont icon-batchadd"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm" lay-event="configure" lay-tips="批量修改配置">
+				<i class="layui-icon layui-icon-set"></i>
+			</button>
+		</div>
+		<div class="layui-btn-group">
+			<ul class="layui-nav layui-bg-green botadmin-nav">
+				<li class="layui-nav-item">
+					<a href="javascript:" lay-tips="建站" lay-direction="2">
+						<i class="layui-icon layui-icon-website"></i>
+						<cite>建站</cite>
+					</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="found">创建</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="install">安装</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="setup">配置</button>
+						</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+		<div class="layui-btn-group">
+			<ul class="layui-nav layui-bg-green botadmin-nav">
+				<li class="layui-nav-item">
+					<a href="javascript:" lay-tips="重载" lay-direction="2">
+						<i class="layui-icon layui-icon-refresh"></i>
+						<cite>重载</cite>
+					</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_nginx">重载Nginx
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="reload_website_setup">
+								重载配置
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="update_website">更新HTML
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="pull_config">拉取配置
+							</button>
+						</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm" lay-event="publish" lay-tips="选中的网站发布文章">
+				<i class="layui-icon layui-icon-release"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="export" lay-tips="导出配置">
+				<i class="layui-icon iconfont icon-export"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm" lay-event="import" lay-tips="导入配置">
+				<i class="layui-icon iconfont icon-import"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="mysql" lay-tips="备份/还原数据库">
+				<i class="layui-icon iconfont icon-sql"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm" lay-event="vhosts" lay-tips="获取全部主机列表">
+				<i class="layui-icon layui-icon-fonts-code"></i>
+			</button>
+		</div>
+		<div class="layui-btn-group">
+			<ul class="layui-nav layui-bg-green botadmin-nav">
+				<li class="layui-nav-item">
+					<a href="javascript:" lay-tips="SEO" lay-direction="2">
+						<i class="layui-icon layui-icon-service"></i>
+						<cite>SEO</cite>
+					</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="links">
+								<i class="layui-icon layui-icon-link"></i>
+								添加友链
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="links_del">
+								<i class="layui-icon layui-icon-link"></i>
+								删除友链
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="rank">拉取百度排名
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="rank_del">删除百度排名
+							</button>
+						</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+		<div class="layui-btn-group">
+			<ul class="layui-nav layui-bg-green botadmin-nav">
+				<li class="layui-nav-item">
+					<a href="javascript:" lay-tips="定时发布文章" lay-direction="2">
+						<i class="layui-icon iconfont icon-work"></i>
+						<cite>任务</cite>
+					</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab"
+									data-value="site.">
+								查看任务
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid"
+									lay-event="cron_disable">关闭任务
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="cron_enable">
+								开启任务
+							</button>
+						</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
+				<i class="layui-icon layui-icon-log"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
+				<i class="layui-icon iconfont icon-reset"></i>Log
+			</button>
+		</div>
+		<div id="del" class="layui-btn-group" style="display: none;">
+			<button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del" lay-tips="删除选中的数据，不可恢复！">
+				删除
+			</button>
+			<button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate"
+					lay-tips="清空所有的数据，不可恢复！">
+				清空
+			</button>
+		</div>
+	</div>
 </script>
 <script type="text/html" id="table-copy">
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-                data-type="web_user" lay-tips="复制管理用户名到粘贴板">
-            <i class="layui-icon layui-icon-username"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-                data-type="web_pwd" lay-tips="复制管理密码到粘贴板">
-            <i class="layui-icon layui-icon-password"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
-                data-type="auth_code" lay-tips="复制管理认证码到粘贴板">
-            <i class="layui-icon layui-icon-auz"></i>
-        </button>
-    </div>
+	<div class="layui-btn-group">
+		<button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
+				data-type="web_user" lay-tips="复制管理用户名到粘贴板">
+			<i class="layui-icon layui-icon-username"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
+				data-type="web_pwd" lay-tips="复制管理密码到粘贴板">
+			<i class="layui-icon layui-icon-password"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs layui-bg-orange" lay-event="clipboard"
+				data-type="auth_code" lay-tips="复制管理认证码到粘贴板">
+			<i class="layui-icon layui-icon-auz"></i>
+		</button>
+	</div>
 </script>
 <script type="text/html" id="table-toolbar">
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="编辑">
-            <i class="layui-icon layui-icon-edit"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="rank" lay-tips="获取关键词排名">
-            <i class="layui-icon layui-icon-layim-download"></i></button>
-        <button class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
-            <i class="layui-icon layui-icon-export"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dirname" lay-tips="设置文章图片">
-            <i class="layui-icon layui-icon-picture"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs" lay-event="link" lay-tips="操作内链或者外链">
-            <i class="layui-icon layui-icon-link"></i></button>
-        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="mysql" lay-tips="备份/还原数据库">
-            <i class="layui-icon iconfont icon-sql"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="nginxConf" data-value="{{.NginxConfPath}}/vhost/" lay-tips="查看nginx配置">
-            <i class=" iconfont icon-nginx"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
-            <i class="layui-icon layui-icon-log"></i>
-        </button>
-    </div>
+	<div class="layui-btn-group">
+		<button class="layui-btn layui-btn-xs" lay-event="modify" lay-tips="编辑">
+			<i class="layui-icon layui-icon-edit"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="rank" lay-tips="获取关键词排名">
+			<i class="layui-icon layui-icon-layim-download"></i></button>
+		<button class="layui-btn layui-btn-xs" lay-event="push" lay-tips="推送链接">
+			<i class="layui-icon layui-icon-export"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs layui-bg-cyan" lay-event="pic_dirname" lay-tips="设置文章图片">
+			<i class="layui-icon layui-icon-picture"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs" lay-event="link" lay-tips="操作内链或者外链">
+			<i class="layui-icon layui-icon-link"></i></button>
+		<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="mysql" lay-tips="备份/还原数据库">
+			<i class="layui-icon iconfont icon-sql"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs layui-btn-warm" lay-event="nginxConf"
+				data-value="{{.NginxConfPath}}/vhost/" lay-tips="查看nginx配置">
+			<i class=" iconfont icon-nginx"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
+			<i class="layui-icon layui-icon-log"></i>
+		</button>
+	</div>
 </script>
 <script type="text/html" id="push">
-    <div class="layui-card">
-        <div class="layui-card-body layui-form">
-            <div class="layui-form-item">
-                <label for="count" class="layui-form-label">数量:</label>
-                <div class="layui-input-inline">
-                    <input name="count" id="count" value="0" class="layui-input">
-                </div>
-                <div class="layui-form-mid layui-word-aux">推送最后发布的N篇文章</div>
-            </div>
-            <div class="layui-form-item">
-                <label for="urls" class="layui-form-label" lay-tips="本网站的完整URL一行一条">Urls:</label>
-                <div class="layui-input-block">
-                    <textarea name="urls" id="urls" class="layui-textarea" rows="10"></textarea>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <input type="hidden" name="id" value="">
-                <button class="layui-hide" lay-filter="submit-push" lay-submit>提交</button>
-            </div>
-        </div>
-    </div>
+	<div class="layui-card">
+		<div class="layui-card-body layui-form">
+			<div class="layui-form-item">
+				<label for="count" class="layui-form-label">数量:</label>
+				<div class="layui-input-inline">
+					<input name="count" id="count" value="0" class="layui-input">
+				</div>
+				<div class="layui-form-mid layui-word-aux">推送最后发布的N篇文章</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="urls" class="layui-form-label" lay-tips="本网站的完整URL一行一条">Urls:</label>
+				<div class="layui-input-block">
+					<textarea name="urls" id="urls" class="layui-textarea" rows="10"></textarea>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<input type="hidden" name="id" value="">
+				<button class="layui-hide" lay-filter="submit-push" lay-submit>提交</button>
+			</div>
+		</div>
+	</div>
 </script>
 <script type="text/html" id="mysql-html">
-    <div class="layui-card">
-        <div class="layui-card-body layui-form">
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <input type="radio" name="action" value="backup" title="备份" lay-filter="mysql-action" checked>
-                    <input type="radio" name="action" value="revert" title="还原" lay-filter="mysql-action">
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="layui-card">
+		<div class="layui-card-body layui-form">
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<input type="radio" name="action" value="backup" title="备份" lay-filter="mysql-action" checked>
+					<input type="radio" name="action" value="revert" title="还原" lay-filter="mysql-action">
+				</div>
+			</div>
+		</div>
+	</div>
 </script>
 <script type="text/html" id="links-add-html">
-    <div class="layui-card">
-        <div class="layui-card-body layui-form">
-            <div class="layui-form-item">
-                <textarea class="layui-textarea" name="links" rows="6" placeholder="SEO=>http://www.botadmin.cn&#13;SEO培训=>http://www.botadmin.cn" lay-verify="required"></textarea>
-            </div>
-            <div class="layui-form-item layui-hide">
-                <input type="hidden" name="ids" value="">
-                <button class="layui-btn" lay-submit lay-filter="submit">提交</button>
-            </div>
-        </div>
-    </div>
+	<div class="layui-card">
+		<div class="layui-card-body layui-form">
+			<div class="layui-form-item">
+				<textarea class="layui-textarea" name="links" rows="6"
+						  placeholder="SEO=>http://www.botadmin.cn&#13;SEO培训=>http://www.botadmin.cn"
+						  lay-verify="required"></textarea>
+			</div>
+			<div class="layui-form-item layui-hide">
+				<input type="hidden" name="ids" value="">
+				<button class="layui-btn" lay-submit lay-filter="submit">提交</button>
+			</div>
+		</div>
+	</div>
 </script>
 <script type="text/html" id="selector-html">
-    <div class="layui-card">
-        <div class="layui-card-body layui-form">
-            <div class="layui-form-item">
-                <select lay-search></select>
-            </div>
-            <input type="hidden" name="id" value="">
-            <button class="layui-hide" lay-submit lay-filter="submit">提交</button>
-        </div>
-    </div>
+	<div class="layui-card">
+		<div class="layui-card-body layui-form">
+			<div class="layui-form-item">
+				<select lay-search></select>
+			</div>
+			<input type="hidden" name="id" value="">
+			<button class="layui-hide" lay-submit lay-filter="submit">提交</button>
+		</div>
+	</div>
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
@@ -313,7 +318,7 @@
             main = layui.main,
             status = {{.status}};
         //渲染上传配置
-        let reupload = main.upload();
+        let reUpload = main.upload();
         status = status || [];
         let tabActive = main.table({
             cols: [[
@@ -394,7 +399,7 @@
                 },
                 {title: '操作', width: 250, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
             ]],
-            done: function (res) {
+            done: function () {
                 element.render();
             },
         }, {
@@ -546,8 +551,17 @@
                     url: URL + '/found',
                     data: {'ids': ids.join()},
                     done: function () {
-                        table.reload('table-list');
-                    },
+                        if (ids.length === 1) {
+                            main.ws.log("site." + ids[0], function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        }
+                        main.ws.log(function () {
+                            table.reload('table-list');
+                        });
+                        return false;
+                    }
                 });
             },
             install: function (obj, ids) {
@@ -559,7 +573,16 @@
                     url: URL + '/install',
                     data: {'ids': ids.join()},
                     done: function () {
-                        table.reload('table-list');
+                        if (ids.length === 1) {
+                            main.ws.log("site." + ids[0], function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        }
+                        main.ws.log(function () {
+                            table.reload('table-list');
+                        });
+                        return false;
                     }
                 });
             },
@@ -611,6 +634,18 @@
                 main.request({
                     url: URL + '/reload/nginx',
                     data: {ids: ids.join()},
+                    done: function () {
+                        if (ids.length === 1) {
+                            main.ws.log("site." + ids[0], function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        }
+                        main.ws.log(function () {
+                            table.reload('table-list');
+                        });
+                        return false;
+                    }
                 });
             },
             nginxConf: function (obj) {
@@ -629,7 +664,15 @@
                         url: URL + '/reload/website/setup',
                         data: {ids: ids.join(), reload_tpl: false},
                         done: function () {
-                            main.ws.log();
+                            if (ids.length === 1) {
+                                main.ws.log("site." + ids[0], function () {
+                                    table.reload('table-list');
+                                });
+                                return false;
+                            }
+                            main.ws.log(function () {
+                                table.reload('table-list');
+                            });
                             return false;
                         }
                     })
@@ -639,7 +682,15 @@
                         url: URL + '/reload/website/setup',
                         data: {ids: ids.join(), reload_tpl: true},
                         done: function () {
-                            main.ws.log();
+                            if (ids.length === 1) {
+                                main.ws.log("site." + ids[0], function () {
+                                    table.reload('table-list');
+                                });
+                                return false;
+                            }
+                            main.ws.log(function () {
+                                table.reload('table-list');
+                            });
                             return false;
                         }
                     })
@@ -650,6 +701,12 @@
                     url: URL + '/update/website',
                     data: {'ids': ids.join()},
                     done: function () {
+                        if (ids.length === 1) {
+                            main.ws.log("site." + ids[0], function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        }
                         main.ws.log(function () {
                             table.reload('table-list');
                         });
@@ -666,7 +723,15 @@
                     url: URL + '/pull/config',
                     data: {ids: ids.join()},
                     done: function () {
-                        main.ws.log();
+                        if (ids.length === 1) {
+                            main.ws.log("site." + ids[0], function () {
+                                table.reload('table-list');
+                            });
+                            return false;
+                        }
+                        main.ws.log(function () {
+                            table.reload('table-list');
+                        });
                         return false;
                     }
                 });
@@ -920,11 +985,11 @@
                     title: false,
                     btn: ['外部站', '本地站'] //按钮
                 }, function (index) {
-                    reupload.config.data = {local: false};
+                    reUpload.config.data = {local: false};
                     $('#upload').click();
                     layer.close(index)
                 }, function (index) {
-                    reupload.config.data = {local: true};
+                    reUpload.config.data = {local: true};
                     $('#upload').click();
                     layer.close(index)
                 });
