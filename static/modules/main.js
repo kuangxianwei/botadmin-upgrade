@@ -1652,17 +1652,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     table.on('tool(table-scanned)', function (obj) {
                         switch (obj.event) {
                             case 'path':
-                                let loading = main.loading();
-                                $.get('/file/editor', {path: obj.data.path, pure: true}).always(function () {
-                                    loading.close();
-                                }).done(function (html) {
-                                    if (typeof html === 'object') {
-                                        return main.error(html.msg + " 病毒文件已经删除，请重新扫描");
-                                    }
-                                    main.popup({
-                                        url: '/file/editor', title: '修改文件', content: html
-                                    });
-                                });
+                                layui.editor(obj.data.path);
                                 break;
                             case 'del':
                                 layer.confirm('删除请慎重！删除后不可恢复,确定删除？', {

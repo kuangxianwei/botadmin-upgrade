@@ -328,7 +328,7 @@ layui.define(['main', 'editor'], function (exports) {
                             });
                             break;
                         default:
-                            //文本在线编辑器
+                            // 文本在线编辑器
                             layui.editor(filename);
 
                     }
