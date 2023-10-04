@@ -1627,27 +1627,34 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             };
             main.open({
                 title: '扫描检测结果',
-                content: `<div class="layui-card"><div class="layui-card-header"><label class="layui-form-label">扫描时间:</label><div class="layui-form-mid layui-word-aux" data-name="updated"></div><label class="layui-form-label">总文件:</label><div class="layui-form-mid layui-word-aux" data-name="total"></div><label class="layui-form-label">已扫描:</label><div class="layui-form-mid layui-word-aux" data-name="scanned"></div><label class="layui-form-label">疑是病毒:</label><div class="layui-form-mid layui-word-aux" data-name="detected"></div></div><div class="layui-card-body"><table class="layui-hide" id="table-scanned" lay-filter="table-scanned"></table></div></div>`,
+                content: `<div class="layui-card"><div class="layui-card-header"><div class="layui-form-mid" data-name="current"></div><label class="layui-form-label">检查时间:</label><div class="layui-form-mid" data-name="updated"></div><label class="layui-form-label">总文件:</label><div class="layui-form-mid" data-name="total"></div><label class="layui-form-label">已扫描:</label><div class="layui-form-mid" data-name="scanned"></div><label class="layui-form-label">异常文件:</label><div class="layui-form-mid" data-name="detected"></div></div><div class="layui-card-body"><table class="layui-hide" id="table-scanned" lay-filter="table-scanned"></table></div></div>`,
                 success: function (dom) {
+                    dom.find('.layui-card-header .layui-form-label').css('width', 'auto');
+                    dom.find('.layui-card-header [data-name]').css('color', '#01aaed');
                     // 已知数据渲染
                     let inst = table.render({
-                        elem: '#table-scanned', cols: [[ //标题栏
+                        elem: '#table-scanned',
+                        cols: [[ //标题栏
                             {
                                 field: 'path',
                                 title: '路径',
                                 event: 'path',
                                 style: 'cursor:pointer;color:#01aaed;font-weight:bold',
                                 sort: true
-                            }, {field: 'descr', title: '扫描结果', width: 200}, {
+                            },
+                            {field: 'descr', title: '扫描结果', width: 200}, {
                                 field: 'lineno', title: '线路', width: 120
-                            }, {
+                            },
+                            {
                                 title: '操作',
                                 width: 120,
                                 align: 'center',
                                 fixed: 'right',
                                 toolbar: '<div class="layui-btn-group"><button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></button></div>'
-                            }]], data: [], page: true, // 是否显示分页
-                        limits: [10, 20, 30], limit: 10, text: {none: '正在扫描中...'},
+                            }]],
+                        data: [],
+                        page: false, // 是否显示分页
+                        text: {none: '<i class="layui-icon layui-icon-loading"></i>扫描中...'},
                     });
                     table.on('tool(table-scanned)', function (obj) {
                         switch (obj.event) {
@@ -1679,14 +1686,21 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                             if (obj.error) main.error(obj.error);
                             return ws.close();
                         }
-                        if (obj.status === 'done') ws.close();
+                        if (obj.status === 'done') {
+                            ws.close();
+                            dom.find('[data-name=current]').remove();
+                            dom.find('.layui-none').html("扫描完成，没有发现可疑文件！")
+                        } else {
+                            dom.find('[data-name=current]').html(obj['path']);
+                        }
                         dom.find('[data-name=updated]').html(main.timestampFormat(obj['updated']));
                         dom.find('[data-name=total]').html(obj['total']);
                         dom.find('[data-name=scanned]').html(obj['scanned']);
                         dom.find('[data-name=detected]').html(obj['detected']);
-                        inst.reloadData({data: obj.data});
-                        if (obj['detected'] === 0 && obj.status === 'done') {
-                            dom.find('.layui-table-main .layui-none').html('扫描完成，没有发现可疑文件');
+                        if (!obj['detected'] && obj.status === 'done') {
+                            inst.reloadData({data: obj.data, text: {none: '扫描完成，没有发现可疑文件'}});
+                        } else {
+                            inst.reloadData({data: obj.data});
                         }
                     };
                 },
