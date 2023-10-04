@@ -389,15 +389,10 @@ layui.define(['main', 'editor'], function (exports) {
                     });
                 },
                 scan: function (obj) {
-                    layer.prompt({title: '扫描排除文件名或路径(不可用绝对路径)', placeholder: '.html, .doc, .csv'},
-                        function (pass, index) {
-                            layer.close(index);
-                            let filename = obj.data.path + '/' + obj.data.name;
-                            main.request({
-                                url: '/file/scan',
-                                data: {path: filename, excludes: pass}
-                            });
-                        });
+                    main.request({
+                        url: '/file/scan',
+                        data: {path: obj.data.path + '/' + obj.data.name}
+                    });
                 },
                 scanned: function (obj) {
                     main.ws.scanned(obj.data.path + '/' + obj.data.name);
