@@ -1628,7 +1628,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             main.open({
                 title: false,
                 btn: false,
-                maxmin:false,
+                maxmin: false,
                 content: `<div class="layui-card"><div class="layui-card-header"><div class="layui-form-mid" data-name="current"></div><label class="layui-form-label">检查时间:</label><div class="layui-form-mid" data-name="updated"></div><label class="layui-form-label">总文件:</label><div class="layui-form-mid" data-name="total"></div><label class="layui-form-label">已扫描:</label><div class="layui-form-mid" data-name="scanned"></div><label class="layui-form-label">异常文件:</label><div class="layui-form-mid" data-name="detected"></div></div><div class="layui-card-body"><table class="layui-hide" id="table-scanned" lay-filter="table-scanned"></table></div></div>`,
                 success: function (dom) {
                     dom.find('.layui-card-header .layui-form-label').css('width', 'auto');
@@ -1690,7 +1690,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                         }
                         if (obj.status === 'done') {
                             ws.close();
-                            dom.find('[data-name=current]').remove();
+                            dom.find('[data-name=current]').html('扫描完成！');
                             dom.find('.layui-none').html("扫描完成，没有发现可疑文件！")
                         } else {
                             dom.find('[data-name=current]').html(obj['path']);
