@@ -1626,7 +1626,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 layer.msg(JSON.stringify(e), {icon: 2});
             };
             main.open({
-                title: '扫描检测结果',
+                title: false,
+                btn: false,
+                maxmin:false,
                 content: `<div class="layui-card"><div class="layui-card-header"><div class="layui-form-mid" data-name="current"></div><label class="layui-form-label">检查时间:</label><div class="layui-form-mid" data-name="updated"></div><label class="layui-form-label">总文件:</label><div class="layui-form-mid" data-name="total"></div><label class="layui-form-label">已扫描:</label><div class="layui-form-mid" data-name="scanned"></div><label class="layui-form-label">异常文件:</label><div class="layui-form-mid" data-name="detected"></div></div><div class="layui-card-body"><table class="layui-hide" id="table-scanned" lay-filter="table-scanned"></table></div></div>`,
                 success: function (dom) {
                     dom.find('.layui-card-header .layui-form-label').css('width', 'auto');
