@@ -54,6 +54,7 @@ Install() {
 		Error "创建文件夹失败"
 	fi
 	chown -R www:www /usr/local/nginx/lib/lua/waf/logs /usr/local/nginx/lib/lua/waf/conf/deny-ip
+	chmod -R 0755 /usr/local/nginx/lib/lua/waf/logs /usr/local/nginx/lib/lua/waf/conf/deny-ip
 	if ! grep -Eqi 'lua_package_path' /usr/local/nginx/conf/nginx.conf; then
 		sed -i '/include vhost\/\*.conf;/i\        lua_package_path "/usr/local/nginx/lib/lua/?.lua;;";' /usr/local/nginx/conf/nginx.conf
 	fi
