@@ -954,14 +954,20 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         }
 
         get(url, data, callback) {
+            if (!url) {
+                return this.error('url不可以为空')
+            }
             if (this.isFunction(data)) {
                 callback = data;
                 data = null;
             }
-            let loading = this.loading();
+            let othis = this, loading = othis.loading();
             return $.get(url, data).always(function () {
                 loading.close()
-            }).done(callback);
+            }).done(function (res) {
+                if (othis.isObject(res) && res.code !== 0) return othis.error(res.msg);
+                return othis.isFunction(callback) && callback(res);
+            });
         };
 
         //  filter=table-list
@@ -1386,28 +1392,6 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             tags.render();
         }
 
-        displayTheme(tplName) {
-            tplName = tplName || $('#site select[name=tpl_name]').val() || $('select[name=tpl_name]').val();
-            let othis = this, system = $('#site select[name=system]').val() || $('select[name=system]').val();
-            // 渲染模板图片
-            if (tplName && system) {
-                let loading = this.loading();
-                $.get('/site/theme', {system: system, tpl_name: tplName}).always(function () {
-                    loading.close();
-                }).done(function (res) {
-                    if (res.code === 0 && res.data.face) {
-                        $('#theme').html($('<img width="100%" height="100%" alt="" src="">').attr({
-                            src: '/file/download?filename=' + res.data['small_face'],
-                            'data-src': res.data['face'],
-                            alt: res.data.alias,
-                            title: res.data['intro'],
-                        }));
-                    } else {
-                        othis.error(res.msg);
-                    }
-                });
-            }
-        }
 
         // 信息提示框
         msg(msg, options) {
@@ -1536,30 +1520,48 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
     main.init();
 // 渲染
     main.render = {
-        fill: function (options) {
-            options = $.extend({selector: "input[data-type=fill]", max: 15, text: "自动填充"}, options || {});
-            $(options.selector).each(function () {
-                let $this = $(this),
-                    elem = $('<button class="layui-btn layui-btn-radius">' + options.text + '</button>').on("click", function () {
-                        $this.val(main.uuid(options.max));
+        theme: () => {
+            // 显示模板主题
+            let displayTheme = () => {
+                let system = $('#site select[name=system]').val() || $('select[name=system]').val(),
+                    tplName = $('#site select[name=tpl_name]').val() || $('select[name=tpl_name]').val();
+                // 渲染模板图片
+                if (tplName && system) {
+                    main.get('/site/theme', {system: system, tpl_name: tplName}, function (res) {
+                        if (res.data.face) {
+                            $('#theme').html($('<img width="100%" height="100%" alt="" src="">').attr({
+                                src: '/file/download?filename=' + res.data['small_face'],
+                                'data-src': res.data['face'],
+                                alt: res.data.alias,
+                                title: res.data['intro'],
+                            }));
+                        }
                     });
-                $this.parent().after(elem);
-            });
-        }, theme: function () {
+                }
+            };
             //改变模板目录列表
             form.on('select(system)', function (obj) {
                 $('#theme-shop').attr("lay-href", "/themes/shop?driver=" + obj.value);
-                $.get('/site/admin', {system: obj.value}, function (html) {
+                main.get('/site/admin', {system: obj.value}, function (html) {
                     $('#site input[name=admin_dir]').val(html);
                 });
-                $.get('/site/tpl', {
-                    system: obj.value, tpl_name: $('#site select[name=tpl_name]').val()
-                }, function (html) {
-                    $('#site div[lay-filter=tpl_name]').html(html);
-                    form.render();
-                    $('#theme').empty();
-                    main.displayTheme();
-                });
+                main.get('/site/tpl', {system: obj.value},
+                    function (res) {
+                        if (res.data) {
+                            let elem = $('#site select[name=tpl_name]'), tplName = elem.val();
+                            elem.html('<option value="">搜索...</option>');
+                            $.each(res.data, function () {
+                                if (this === tplName) {
+                                    elem.append('<option value="' + this + '" selected>' + this + '</option>');
+                                } else {
+                                    elem.append('<option value="' + this + '">' + this + '</option>');
+                                }
+                            });
+                            form.render('select');
+                            $('#theme').empty();
+                            displayTheme();
+                        }
+                    });
                 if (obj.value === 'cms') {
                     $('#site select[name=rewrite]>option').prop('selected', false);
                 } else {
@@ -1570,10 +1572,19 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             // 改变模板
             form.on('select(tpl_name)', function (obj) {
                 $('#theme').empty();
-                main.displayTheme(obj.value);
+                displayTheme(obj.value);
             });
-            main.displayTheme();
         },
+        fill: function (options) {
+            options = $.extend({selector: "input[data-type=fill]", max: 15, text: "自动填充"}, options || {});
+            $(options.selector).each(function () {
+                let $this = $(this),
+                    elem = $('<button class="layui-btn layui-btn-radius">' + options.text + '</button>').on("click", function () {
+                        $this.val(main.uuid(options.max));
+                    });
+                $this.parent().after(elem);
+            });
+        }
     };
     // websocket
     main.ws = {
