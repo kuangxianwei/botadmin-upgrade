@@ -108,6 +108,24 @@ layui.define(function (exports) {
             }
             return '/file/download?filename=' + encodeURIComponent(s);
         };
+    // 帮助信息
+    if ($('#help').length > 0) $('#help-document').show().off('click').on('click', function () {
+        layer.open({
+            type: 1,
+            offset: 'r',
+            anim: 'slideLeft', // 从右往左
+            area: ['320px', '100%'],
+            title: false,
+            closeBtn: false,
+            shade: 0.5,
+            shadeClose: true,
+            id: 'ID-demo-layer-direction-r',
+            content: '<div class="help"><h3><a href="https://www.kancloud.cn/oosyes/botadmin/2162941" target="_blank">BotAdmin文档</a></h3>' + $('#help').html() + '</div>',
+            success: function (dom) {
+                dom.append(`<style>.help{padding:16px;}.help h3{text-align:center;margin:12px}.help a{font-weight:bold;color:#0a5b52}</style>`)
+            }
+        });
+    });
     exports('init', {
         basename: basename,
         loading: loading,

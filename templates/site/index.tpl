@@ -1010,3 +1010,8 @@
         });
     });
 </script>
+<script type="text/html" id="help">
+	<p>添加网站前要先<a lay-href="/themes/shop?driver=empirecms">检查已下载到本地的网站主题</a></p>
+	<p>如果没有本地主题则<a lay-href="/themes/shop?driver=empirecms">下载网站主题</a></p>
+</script>
+
