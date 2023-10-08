@@ -331,6 +331,9 @@ end
 --检查CC攻击
 function checkDenyCC()
 	if config.CCDenyEnabled then
+		if ngxMatch(ngx.var.request_uri, "\\.(?:js|css|jpg|png|gif)[$|?]", "isjo") then
+			return false
+		end
 		local limiter = ngx.shared.limiter
 		local ip = getIP()
 		local token = ip .. ngx.var.host

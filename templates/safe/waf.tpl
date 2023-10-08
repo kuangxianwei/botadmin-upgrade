@@ -249,10 +249,8 @@
                 main.request({
                     url: URL,
                     data: {action: "default"},
-                    done: function (res) {
-                        layer.msg(res.msg, function () {
-                            location.reload();
-                        });
+                    done: function () {
+                        location.reload();
                         return false
                     }
                 })
