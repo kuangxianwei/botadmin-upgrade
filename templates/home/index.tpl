@@ -52,7 +52,7 @@
 					<div carousel-item>
 						<ul class="layui-row layui-col-space10">
 							<li class="layui-col-xs2">
-								<a href="javascript:" data-event="terminal" lay-text="打开终端">
+								<a href="javascript:" data-command="" lay-text="打开终端">
 									<i class="layui-icon iconfont icon-cmd"></i>
 									<cite>终端</cite>
 								</a>
@@ -69,11 +69,9 @@
 									<cite>创建站点</cite>
 								</a>
 							</li>
-							<li class="layui-col-xs2">
-								<a lay-href="/site/php">
-									<i class="layui-icon layui-icon-engine"></i>
-									<cite>PHP版本</cite>
-								</a>
+							<li class="layui-col-xs2" data-command="journalctl -u botadmin" lay-tips="显示全部命令：<br/>journalctl -u botadmin --no-pager">
+								<i class="layui-icon layui-icon-engine"></i>
+								<cite>APP日志</cite>
 							</li>
 							<li class="layui-col-xs2">
 								<a lay-href="/file?path={{.rewritePath}}">
@@ -169,19 +167,19 @@
 					 style="width: 100%; height: 280px;">
 					<div carousel-item="">
 						<ul class="layui-row layui-col-space10 layui-this">
-							<li class="layui-col-xs4" data-reboot="lnmp restart">
+							<li class="layui-col-xs4" data-command="lnmp restart">
 								<i class="layui-icon layui-icon-website"></i>
 								<cite>重启Web</cite>
 							</li>
-							<li class="layui-col-xs4" data-reboot="lnmp mysql restart">
+							<li class="layui-col-xs4" data-command="lnmp mysql restart">
 								<i class="layui-icon iconfont icon-sql"></i>
 								<cite>重启MySQL</cite>
 							</li>
-							<li class="layui-col-xs4" data-reboot="/etc/init.d/pureftpd restart">
+							<li class="layui-col-xs4" data-command="/etc/init.d/pureftpd restart">
 								<i class="layui-icon iconfont icon-ftp"></i>
 								<cite>重启FTP</cite>
 							</li>
-							<li class="layui-col-xs4" data-reboot="systemctl restart sshd">
+							<li class="layui-col-xs4" data-command="systemctl restart sshd">
 								<i class="layui-icon iconfont icon-ssh"></i>
 								<cite>重启SSH</cite>
 							</li>
@@ -358,9 +356,6 @@
                     }
                 });
             },
-            terminal: function () {
-                main.webssh();
-            },
             app: function () {
                 main.reboot.app(URL + '/reboot');
             },
@@ -371,9 +366,6 @@
                 main.request({data: {action: 'clear'}})
             }
         };
-        $('[data-reboot]').off('click').on('click', function () {
-            main.webssh({stdin: $(this).data("reboot")});
-        });
         $('[data-event]').off('click').on('click', function () {
             let $this = $(this), event = $this.data("event");
             active[event] && active[event].call($this);

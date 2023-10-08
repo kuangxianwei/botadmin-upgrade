@@ -471,12 +471,6 @@
 									<cite>SSL配置文件</cite>
 								</a>
 							</dd>
-							<dd data-name="file-logs">
-								<a lay-href="/file?path=logs" lay-tips="本程序日志目录" lay-direction="2">
-									<i class="iconfont icon-log-check"></i>
-									<cite>程序日志</cite>
-								</a>
-							</dd>
 							<dd data-name="file-sys-log">
 								<a lay-href="/file?path=/var/log" lay-tips="系统日志目录" lay-direction="2">
 									<i class="iconfont icon-log"></i>

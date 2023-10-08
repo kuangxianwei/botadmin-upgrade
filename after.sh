@@ -7,7 +7,7 @@ protoPath=$(pwd)
 # shellcheck disable=SC2154
 cd "${RootPath}" || exit 1
 # 逻辑代码开始
-rm -rf before.sh after.sh
+rm -rf before.sh after.sh logs
 
 # 逻辑代码结束
 cd "$protoPath" || exit 1

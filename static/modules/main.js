@@ -969,6 +969,10 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 othis.crontab($(this).attr('data-value'));
                 e.stopPropagation();
             });
+            $(document).on('click', '[data-command]', function (e) {
+                main.webssh({stdin: $(this).data('command')});
+                e.stopPropagation();
+            });
         }
 
         get(url, data, callback) {
@@ -1529,6 +1533,12 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 title: "连接ssh 执行cmd命令行",
                 area: ["800px", "500px"],
                 content: ["/webssh/terminal?id=" + options.id + "&stdin=" + options.stdin, 'no'],
+                success: function () {
+                    init.fullScreen();
+                },
+                end: function () {
+                    init.smallScreen();
+                }
             });
         };
 
