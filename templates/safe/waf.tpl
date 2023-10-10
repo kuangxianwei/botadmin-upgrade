@@ -146,26 +146,28 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux">搜索引擎Useragent正则</div>
 		</div>
-		<div class="layui-col-md6">
+		<div class="layui-col-md3">
 			<div class="layui-form-item">
-				<label for="mobile_redirect" class="layui-form-label"
-					   lay-tips="开启的前提必须把搜索引擎蜘蛛IP添加到白名单列表">移动端:</label>
-				<div class="layui-input-inline">
-					<input class="layui-input" id="mobile_redirect" type="text" name="mobile_redirect"
-						   value="{{.obj.MobileRedirect}}" placeholder="https://www.nfivf.com">
+				<label for="duration" class="layui-form-label" lay-tips="显示广告时间段">开放时间:</label>
+				<div class="layui-input-block" lay-tips="例如：00:00:00 - 23:59:59<br/>00:00:00开始启用广告<br/>23:59:59关闭广告">
+					<input class="layui-input" id="duration" type="text" name="duration" value="{{.obj.Duration}}" placeholder="00:00:00 - 23:59:59">
 				</div>
-				<div class="layui-form-mid layui-word-aux">移动端跳转到广告页/状态码</div>
 			</div>
 		</div>
-		<div class="layui-col-md6">
+		<div class="layui-col-md4">
 			<div class="layui-form-item">
-				<label for="pc_redirect" class="layui-form-label"
-					   lay-tips="开启的前提必须把搜索引擎蜘蛛IP添加到白名单列表">PC端:</label>
-				<div class="layui-input-inline">
-					<input class="layui-input" id="pc_redirect" type="text" name="pc_redirect"
-						   value="{{.obj.PcRedirect}}" placeholder="https://www.nfivf.com">
+				<label for="mobile_redirect" class="layui-form-label" lay-tips="开启：尽量把搜索引擎蜘蛛IP添加到白名单列表">移动跳转:</label>
+				<div class="layui-input-block" lay-tips="移动端跳转到广告页/状态码">
+					<input class="layui-input" id="mobile_redirect" type="text" name="mobile_redirect" value="{{.obj.MobileRedirect}}" placeholder="https://www.nfivf.com">
 				</div>
-				<div class="layui-form-mid layui-word-aux">PC端跳转到广告页/状态码</div>
+			</div>
+		</div>
+		<div class="layui-col-md4">
+			<div class="layui-form-item">
+				<label for="pc_redirect" class="layui-form-label" lay-tips="开启：尽量把搜索引擎蜘蛛IP添加到白名单列表">PC端:</label>
+				<div class="layui-input-block" lay-tips="PC端跳转到广告页/状态码">
+					<input class="layui-input" id="pc_redirect" type="text" name="pc_redirect" value="{{.obj.PcRedirect}}" placeholder="https://www.nfivf.com">
+				</div>
 			</div>
 		</div>
 		<div class="layui-form-item" lay-tips="验证顺序：只要匹配到其中一个，剩余的不再验证">
@@ -216,8 +218,8 @@
 		<div class="layui-btn-container" style="padding-left: 200px">
 			<div class="layui-btn-group">
 				<button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit">保存配置</button>
-				<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="default">初始化配置</button>
-				<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="nginx-restart">重启生效</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="reset">初始化配置</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="nginx-restart">重启nginx</button>
 				<button class="layui-btn layui-btn-primary layui-btn-sm"
 						lay-href="/file?path=/usr/local/nginx/lib/lua/waf/logs">拦截日志
 				</button>
@@ -230,7 +232,7 @@
 <script src="/static/file/ace/ace.js"></script>
 <script>
     layui.use(['index', 'editor'], function () {
-        let $ = layui.$, main = layui.main,
+        let $ = layui.$, main = layui.main, layDate = layui.laydate,
             form = layui.form;
         form.on('submit(submit)', function (obj) {
             main.request({
@@ -241,14 +243,14 @@
         $('[data-path]').on('click', function () {
             layui.editor('/usr/local/nginx/lib/lua/waf/conf/' + $(this).attr('data-path'))
         });
-        $('[data-event=default]').on('click', function () {
+        $('[data-event=reset]').on('click', function () {
             layer.confirm('恢复到默认设置？所有修改过的规矩全部恢复到默认？', {
                 btn: ['确定', '关闭'] //按钮
             }, function (index) {
                 layer.close(index);
                 main.request({
                     url: URL,
-                    data: {action: "default"},
+                    data: {action: "reset"},
                     done: function () {
                         location.reload();
                         return false
@@ -260,5 +262,6 @@
             main.webssh({stdin: "lnmp nginx restart"});
         });
         main.cron('[name=check_dns_spec]');
+        layDate.render({elem: '[name=duration]', type: 'time', range: true});
     });
 </script>

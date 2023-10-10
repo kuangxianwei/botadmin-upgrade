@@ -41,6 +41,8 @@ _M.AllowDns = { ".baidu.com", ".baidu.jp", ".googlebot.com", ".google.com", ".go
 _M.PcRedirect = ""
 --移动端跳转
 _M.MobileRedirect = ""
+--广告跳转开启和关闭的时间段：00:00:00 - 23:59:59
+_M.Duration = ""
 --拒绝后的显示HTML
 _M.HTML = [[
 <!DOCTYPE html>
