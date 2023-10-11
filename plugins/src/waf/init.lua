@@ -9,6 +9,58 @@ local ioOpen = io.open
 local mobilePattern = "(?:hpw|i|web)os|alamofire|alcatel|amoi|android|avantgo|blackberry|blazer|cell|cfnetwork|darwin|dolfin|dolphin|fennec|htc|ip(?:hone|od|ad)|ipaq|j2me|kindle|midp|minimo|mobi|motorola|nec-|netfront|nokia|opera m(ob|in)i|palm|phone|pocket|portable|psp|silk-accelerated|skyfire|sony|ucbrowser|up.browser|up.link|windows ce|xda|zte|zune"
 local denyIPFilename = config.RulePath .. "/" .. "deny-ip"
 ------------------------------------本地函数开始------------------------------------
+--验证是否在广告时间内
+function inInterval()
+	if config.Duration == nil or config.Duration == "" then
+		return false
+	end
+	local begin = {}
+	local done = {}
+	local i = 0
+	for row in string.gmatch(config.Duration, "%d+") do
+		i = i + 1
+		if i == 1 then
+			begin.hour = tonumber(row)
+		elseif i == 2 then
+			begin.min = tonumber(row)
+		elseif i == 3 then
+			begin.sec = tonumber(row)
+		elseif i == 4 then
+			done.hour = tonumber(row)
+		elseif i == 5 then
+			done.min = tonumber(row)
+		elseif i == 6 then
+			done.sec = tonumber(row)
+		end
+	end
+	if done.sec == nil then
+		return false
+	end
+	local now = os.time()
+	i = 0
+	for row in string.gmatch(os.date("%Y-%m-%d", now), "%d+") do
+		i = i + 1
+		if i == 1 then
+			begin.year = tonumber(row)
+			done.year = tonumber(row)
+		elseif i == 2 then
+			begin.month = tonumber(row)
+			done.month = tonumber(row)
+		elseif i == 3 then
+			begin.day = tonumber(row)
+			done.day = tonumber(row)
+		end
+	end
+	if done.day == nil then
+		return false
+	end
+	local t1 = os.time(begin)
+	local t2 = os.time(done)
+	if t1 > t2 then
+		t2 = t2 + 3600 * 24
+	end
+	return now > t1 and now < t2
+end
 --判断是手机端访问
 local function isMobile()
 	local useragent = ngx.var.http_user_agent
@@ -393,11 +445,13 @@ function checkDenyIP()
 end
 -- 判断来源
 function checkReferer()
-	local referer = headers()["Referer"]
-	if referer ~= "" and next(config.Referer) ~= nil then
-		for k, v in pairs(config.Referer) do
-			if k ~= "" and v ~= "" and ngxMatch(referer, k, "isjo") then
-				return redirectExit(v)
+	if config.Duration == "" or inInterval() then
+		local referer = headers()["Referer"]
+		if referer ~= "" and next(config.Referer) ~= nil then
+			for k, v in pairs(config.Referer) do
+				if k ~= "" and v ~= "" and ngxMatch(referer, k, "isjo") then
+					return redirectExit(v)
+				end
 			end
 		end
 	end
@@ -405,12 +459,14 @@ function checkReferer()
 end
 -- 判断跳转
 function checkRedirect()
-	if config.PcRedirect ~= "" or config.MobileRedirect ~= "" then
-		local isMobile = isMobile()
-		if isMobile and config.MobileRedirect ~= "" then
-			return redirectExit(config.MobileRedirect)
-		elseif isMobile == false and config.PcRedirect ~= "" then
-			return redirectExit(config.PcRedirect)
+	if config.Duration == "" or inInterval() then
+		if config.PcRedirect ~= "" or config.MobileRedirect ~= "" then
+			local isMobile = isMobile()
+			if isMobile and config.MobileRedirect ~= "" then
+				return redirectExit(config.MobileRedirect)
+			elseif isMobile == false and config.PcRedirect ~= "" then
+				return redirectExit(config.PcRedirect)
+			end
 		end
 	end
 	return false

@@ -146,6 +146,16 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux">搜索引擎Useragent正则</div>
 		</div>
+
+		<div class="layui-form-item">
+			<label for="duration" class="layui-form-label" lay-tips="显示广告时间段">广告时间:</label>
+			<div class="layui-input-inline">
+				<input class="layui-input" id="duration" type="text" name="duration" value="{{.obj.Duration}}" placeholder="00:00:00 - 23:59:59">
+			</div>
+			<div class="layui-form-mid layui-word-aux">
+				例如：00:00:00 - 23:59:59 00:00:00开始启用广告 23:59:59关闭广告
+			</div>
+		</div>
 		<div class="layui-col-md12" id="referer">
 			<div class="layui-form-item">
 				<label class="layui-form-label">来源跳转:</label>
@@ -162,15 +172,7 @@
 				<i class="layui-icon layui-icon-add-circle" lay-event="add" lay-tips="添加新来源规则"></i>
 			</div>
 		</div>
-		<div class="layui-col-md3">
-			<div class="layui-form-item">
-				<label for="duration" class="layui-form-label" lay-tips="显示广告时间段">开放时间:</label>
-				<div class="layui-input-block" lay-tips="例如：00:00:00 - 23:59:59<br/>00:00:00开始启用广告<br/>23:59:59关闭广告">
-					<input class="layui-input" id="duration" type="text" name="duration" value="{{.obj.Duration}}" placeholder="00:00:00 - 23:59:59">
-				</div>
-			</div>
-		</div>
-		<div class="layui-col-md4">
+		<div class="layui-col-md6">
 			<div class="layui-form-item">
 				<label for="mobile_redirect" class="layui-form-label" lay-tips="开启：尽量把搜索引擎蜘蛛IP添加到白名单列表">移动跳转:</label>
 				<div class="layui-input-block" lay-tips="移动端跳转到广告页/状态码">
@@ -178,7 +180,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="layui-col-md4">
+		<div class="layui-col-md6">
 			<div class="layui-form-item">
 				<label for="pc_redirect" class="layui-form-label" lay-tips="开启：尽量把搜索引擎蜘蛛IP添加到白名单列表">PC端:</label>
 				<div class="layui-input-block" lay-tips="PC端跳转到广告页/状态码">
