@@ -146,6 +146,22 @@
 			</div>
 			<div class="layui-form-mid layui-word-aux">搜索引擎Useragent正则</div>
 		</div>
+		<div class="layui-col-md12" id="referer">
+			<div class="layui-form-item">
+				<label class="layui-form-label">来源跳转:</label>
+				<div class="layui-inline">
+					<input class="layui-input" name="referer.pattern.0" value="" placeholder="baidu\\.com|sogou\\.com" lay-tips="正则匹配来源">
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label-col" style="color:#009688;"><i class="layui-icon layui-icon-spread-left"></i></label>
+				</div>
+				<div class="layui-inline">
+					<input class="layui-input" name="referer.redirect.0" value="" placeholder="https://www.nfivf.com" lay-tips="跳转到网址/状态码">
+				</div>
+				<i class="layui-icon layui-icon-delete" lay-event="del" lay-tips="删除该规则"></i>
+				<i class="layui-icon layui-icon-add-circle" lay-event="add" lay-tips="添加新来源规则"></i>
+			</div>
+		</div>
 		<div class="layui-col-md3">
 			<div class="layui-form-item">
 				<label for="duration" class="layui-form-label" lay-tips="显示广告时间段">开放时间:</label>
@@ -170,8 +186,15 @@
 				</div>
 			</div>
 		</div>
-		<div class="layui-form-item" lay-tips="验证顺序：只要匹配到其中一个，剩余的不再验证">
-			<div class="layui-btn-group" style="margin-top: 5px">
+		<div class="layui-hide">
+			<input type="hidden" name="referer" value="{{json .obj.Referer}}">
+			<button lay-submit lay-filter="submit">保存配置</button>
+			<button data-event="reset">初始化配置</button>
+			<button data-event="nginx-restart">重启nginx</button>
+			<button data-event="logs" lay-href="/file?path=/usr/local/nginx/lib/lua/waf/logs">拦截日志</button>
+		</div>
+		<div style="text-align: center;">
+			<div class="layui-btn-group" lay-tips="验证顺序：只要匹配到其中一个，剩余的不再验证">
 				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="allow-ip">白IP</button>
 				<button class="layui-btn layui-btn-sm layui-bg-cyan">
 					<i class="iconfont icon-arrow-right"></i>
@@ -188,7 +211,7 @@
 				<button class="layui-btn layui-btn-sm layui-bg-cyan">
 					<i class="iconfont icon-arrow-right"></i>
 				</button>
-				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="user-agent">黑Useragent</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary" data-path="user-agent">黑UA</button>
 				<button class="layui-btn layui-btn-sm layui-bg-cyan">
 					<i class="iconfont icon-arrow-right"></i>
 				</button>
@@ -208,32 +231,47 @@
 				<button class="layui-btn layui-btn-sm layui-bg-cyan">
 					<i class="iconfont icon-arrow-right"></i>
 				</button>
-				<button class="layui-btn layui-btn-sm layui-btn-primary">白Useragent</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary">白UA</button>
+				<button class="layui-btn layui-btn-sm layui-bg-cyan">
+					<i class="iconfont icon-arrow-right"></i>
+				</button>
+				<button class="layui-btn layui-btn-sm layui-btn-primary">来源跳转</button>
 				<button class="layui-btn layui-btn-sm layui-bg-cyan">
 					<i class="iconfont icon-arrow-right"></i>
 				</button>
 				<button class="layui-btn layui-btn-sm layui-btn-primary">跳转广告</button>
 			</div>
 		</div>
-		<div class="layui-btn-container" style="padding-left: 200px">
-			<div class="layui-btn-group">
-				<button class="layui-btn layui-btn-sm" lay-submit lay-filter="submit">保存配置</button>
-				<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="reset">初始化配置</button>
-				<button class="layui-btn layui-btn-sm layui-btn-primary" data-event="nginx-restart">重启nginx</button>
-				<button class="layui-btn layui-btn-primary layui-btn-sm"
-						lay-href="/file?path=/usr/local/nginx/lib/lua/waf/logs">拦截日志
-				</button>
-			</div>
-		</div>
 	</div>
 </div>
+<script type="text/html" id="referer-item">
+	<div class="layui-form-item">
+		<label class="layui-form-label">来源跳转:</label>
+		<div class="layui-inline">
+			<input class="layui-input" name="referer.pattern." value="" placeholder="baidu\\.com|sogou\\.com" lay-tips="正则匹配来源">
+		</div>
+		<div class="layui-inline">
+			<label class="layui-form-label-col" style="color:#009688;"><i class="layui-icon layui-icon-spread-left"></i></label>
+		</div>
+		<div class="layui-inline">
+			<input class="layui-input" name="referer.redirect." value="" placeholder="https://www.nfivf.com" lay-tips="跳转到网址/状态码">
+		</div>
+		<i class="layui-icon layui-icon-delete" lay-event="del" lay-tips="删除该规则"></i>
+		<i class="layui-icon layui-icon-add-circle" lay-event="add" lay-tips="添加新来源规则"></i>
+	</div>
+</script>
 <script src="/static/layui/layui.js"></script>
 <script src="/static/file/jquery.dragsort-0.5.2.min.js"></script>
 <script src="/static/file/ace/ace.js"></script>
+<style>
+	#referer .layui-inline > input{width: 320px;}
+	i[lay-event="add"]{color: #009688;}
+	.layui-fixbar li{width: 40px;height: 40px;line-height: 40px;font-size: 20px;}
+</style>
 <script>
     layui.use(['index', 'editor'], function () {
         let $ = layui.$, main = layui.main, layDate = layui.laydate,
-            form = layui.form;
+            form = layui.form, util = layui.util;
         form.on('submit(submit)', function (obj) {
             main.request({
                 url: URL,
@@ -245,7 +283,10 @@
         });
         $('[data-event=reset]').on('click', function () {
             layer.confirm('恢复到默认设置？所有修改过的规矩全部恢复到默认？', {
-                btn: ['确定', '关闭'] //按钮
+                title: false,
+                closeBtn: false,
+                icon: 3,
+                btn: ['确定', '关闭']
             }, function (index) {
                 layer.close(index);
                 main.request({
@@ -263,5 +304,91 @@
         });
         main.cron('[name=check_dns_spec]');
         layDate.render({elem: '[name=duration]', type: 'time', range: true});
+        let refererID = $('#referer'), refererItem = $('#referer-item');
+        util.fixbar({
+            bars: [{
+                type: '保存配置',
+                icon: 'iconfont icon-save',
+                style: 'background-color: #16baaa;'
+            }, {
+                type: '初始化配置',
+                icon: 'iconfont icon-reset',
+                style: 'background-color: #FF5722;'
+            }, {
+                type: '重启服务',
+                icon: 'iconfont icon-reboot',
+            }, {
+                type: '查看拦截日志',
+                icon: 'iconfont icon-log',
+            }],
+            css: {left: '2px', top: '45%', width: '40px'},
+            bgcolor: '#2f4056!important',
+            on: {
+                mouseenter: function (type) {
+                    layer.tips(type, this, {tips: 4, fixed: true});
+                },
+                mouseleave: function () {
+                    layer.closeAll('tips');
+                }
+            },
+            click: function (type) {
+                switch (type) {
+                    case "保存配置":
+                        let m = {};
+                        refererID.find('.layui-form-item').each(function () {
+                            let pattern = $(this).find('input[name^="referer.pattern."]').val();
+                            if (pattern) {
+                                let redirect = $(this).find('input[name^="referer.redirect."]').val();
+                                if (redirect) {
+                                    m[pattern] = redirect
+                                }
+                            }
+                        });
+                        $('input[name=referer]').val(JSON.stringify(m));
+                        $('[lay-filter=submit]').click();
+                        break;
+                    case "初始化配置":
+                        $('[data-event=reset]').click();
+                        break;
+                    case "重启服务":
+                        $('[data-event="nginx-restart"]').click();
+                        break;
+                    case "查看拦截日志":
+                        $('[data-event=logs]').click();
+                        break
+                }
+            }
+        });
+        let insertReferer = function (pattern, redirect) {
+            pattern = pattern || '';
+            redirect = redirect || '';
+            let index = -1;
+            refererID.find('input[name^="referer.pattern."]').each(function () {
+                let _index = parseInt(this.name.split(".").pop());
+                if (_index > index) index = _index;
+            });
+            let item = $(refererItem.html());
+            index++;
+            item.find('input[name="referer.pattern."]').attr('name', 'referer.pattern.' + index).val(pattern);
+            item.find('input[name="referer.redirect."]').attr('name', 'referer.redirect.' + index).val(redirect);
+            refererID.find('[lay-event=add]').remove();
+            refererID.append(item);
+        };
+        $(document).on('click', 'i[lay-event=del]', function () {
+            if (refererID.find('input').length <= 2) return layer.msg('最后一项不允许删除');
+            $(this).closest('.layui-form-item').remove();
+            if (refererID.find('.layui-form-item:last-of-type i[lay-event=add]').length === 0)
+                refererID.find('.layui-form-item:last-of-type i[lay-event=del]').after('<i class="layui-icon layui-icon-add-circle" lay-event="add" lay-tips="添加新来源规则"></i>')
+        });
+        $(document).on('click', 'i[lay-event=add]', function () {
+            insertReferer();
+        });
+        let referer = JSON.parse($('input[name=referer]').val() || '{}');
+        if (Object.keys(referer).length > 0) {
+            refererID.empty();
+            $.each(referer, function (pattern, redirect) {
+                insertReferer(pattern, redirect)
+            })
+        }
     });
 </script>

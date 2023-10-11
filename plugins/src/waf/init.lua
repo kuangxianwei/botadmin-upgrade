@@ -391,6 +391,18 @@ function checkDenyIP()
 	end
 	return false
 end
+-- 判断来源
+function checkReferer()
+	local referer = headers()["Referer"]
+	if referer ~= "" and next(config.Referer) ~= nil then
+		for k, v in pairs(config.Referer) do
+			if k ~= "" and v ~= "" and ngxMatch(referer, k, "isjo") then
+				return redirectExit(v)
+			end
+		end
+	end
+	return false
+end
 -- 判断跳转
 function checkRedirect()
 	if config.PcRedirect ~= "" or config.MobileRedirect ~= "" then

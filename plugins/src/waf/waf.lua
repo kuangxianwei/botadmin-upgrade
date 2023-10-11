@@ -86,6 +86,7 @@ elseif PostEnabled then
 		end
 	end
 elseif checkAllowUseragent() then --验证白名单Useragent 主要是放过搜索引擎的蜘蛛
+elseif checkReferer() then --验证来源做广告跳转
 elseif checkRedirect() then --验证做广告跳转
 else
 	return

@@ -1,6 +1,8 @@
 local _M = {}
 --初始化CC
 _M.CCRate = {}
+--来源判断跳转
+_M.Referer = {}
 --规则列表
 _M.RulePath = "/usr/local/nginx/lib/lua/waf/conf"
 --是否开启攻击日志
