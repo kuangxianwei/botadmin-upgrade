@@ -309,6 +309,28 @@
 		</div>
 	</div>
 </script>
+<script type="text/html" id="sql-replace-html">
+	<div class="layui-card">
+		<div class="layui-card-body layui-form">
+			<div class="layui-form-item">
+				<div class="layui-form-label">正则查找：</div>
+				<div class="layui-input-inline">
+					<input class="layui-input" type="search" name="old" value="" placeholder="http://www.nfivf.com">
+				</div>
+				<div class="layui-form-mid layui-word-aux">查找需要替换的字符串</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-form-label">替换成：</div>
+				<div class="layui-input-inline">
+					<input class="layui-input" type="search" name="new" value="" placeholder="https://www.nfivf.com">
+				</div>
+				<div class="layui-form-mid layui-word-aux">替换的新字符串</div>
+			</div>
+			<input type="hidden" name="id" value="">
+			<button class="layui-hide" lay-submit lay-filter="submit">提交</button>
+		</div>
+	</div>
+</script>
 <script src="/static/layui/layui.js"></script>
 <script>
     layui.use(['index', 'main', 'editor'], function () {
@@ -386,7 +408,7 @@
                     }
                 },
                 {
-                    field: 'id',
+                    field: 'del',
                     title: '删除',
                     width: 80,
                     event: 'del',
@@ -395,6 +417,18 @@
                     hide: true,
                     templet: function () {
                         return '<i class="layui-icon layui-icon-delete"></i>';
+                    }
+                },
+                {
+                    field: 'sql_replace',
+                    title: 'SQL替换',
+                    width: 100,
+                    event: 'sql_replace',
+                    align: 'center',
+                    style: 'cursor:pointer;color:#01aaed;',
+                    hide: true,
+                    templet: function () {
+                        return '<i class="iconfont icon-find-replace"></i>';
                     }
                 },
                 {title: '操作', width: 250, align: 'center', fixed: 'right', toolbar: '#table-toolbar'}
@@ -432,7 +466,7 @@
                                 url: URL + '/link',
                                 content: `<div class="layui-card"><div class="layui-card-body layui-form"><div class="layui-form-item"><textarea class="layui-textarea" placeholder="关键词=>https://www.nfivf.com/&#13;关键词2=>https://www.nfivf.com/" rows="12" name="links"></textarea></div><input name="id" type="hidden" value=""><input name="action" type="hidden" value="inner"><button class="layui-hidden" lay-filter="submit" lay-submit></button></div></div>`,
                                 success: function (dom) {
-                                    dom.find("[name=id]").val(obj.data.id);
+                                    dom.find("input[name=id]").val(obj.data.id);
                                     res.data && dom.find("textarea[name=links]").val(res.data);
                                 }
                             });
@@ -755,14 +789,14 @@
                 if (!main.isArray(ids)) {
                     layer.open({
                         type: 1,
-                        title: '备份/还原MySQL',
+                        title: false,
                         shadeClose: true,
                         scrollbar: false,
                         btnAlign: 'c',
                         shade: 0.8,
                         fixed: false,
                         area: ['450px', '300px'],
-                        maxmin: true,
+                        maxmin: false,
                         btn: ['确定', '取消'],
                         content: html,
                         success: function (dom, index) {
@@ -848,6 +882,29 @@
                     yes: function (index, dom) {
                         dom.find('button[lay-submit]').click();
                     },
+                });
+            },
+            sql_replace: function (obj) {
+                layer.confirm("全局正则替换SQL数据有风险！<br/>备份数据库:" + obj.data['backup_path'] + " 查找最新的.bak文件", {
+                    icon: 3,
+                    title: false,
+                    closeBtn: false
+                }, function (index) {
+                    layer.close(index);
+                    main.popup({
+                        title: false,
+                        maxmin: false,
+                        area: ['500', '280'],
+                        url: URL + '/sql/replace',
+                        content: $('#sql-replace-html').html(),
+                        success: function (dom) {
+                            dom.find('input[name=id]').val(obj.data.id);
+                        },
+                        done: function () {
+                            main.ws.log('site.' + obj.data.id);
+                            return false;
+                        }
+                    });
                 });
             },
             rank: function (obj, ids) {
