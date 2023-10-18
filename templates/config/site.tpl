@@ -390,9 +390,10 @@
 							<label for="pic_mode" class="layui-form-label" lay-tips="自动生成图片的高">图模式:</label>
 							<div class="layui-input-block">
 								<select name="pic_mode" id="pic_mode" class="layui-select">
-									<option value="0"{{if eq .obj.PicMode 0}} selected{{end}}>随机颜色</option>
-									<option value="1"{{if eq .obj.PicMode 1}} selected{{end}}>白底黑字</option>
-									<option value="2"{{if eq .obj.PicMode 2}} selected{{end}}>黑底白字</option>
+									<option value="-1">随机颜色</option>
+                                    {{range $i,$v:= .colorings -}}
+										<option value="{{$i}}"{{if eq $.obj.PicMode $i}} selected{{end}}>{{$v}}</option>
+                                    {{end}}
 								</select>
 							</div>
 						</div>
