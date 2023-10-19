@@ -789,6 +789,7 @@
                 });
             },
             cron_enable: function (obj, ids) {
+                if (ids.length == 0) return layer.msg('没有选项列表');
                 main.request({
                     url: URL + '/cron/switch',
                     data: {ids: ids.join(), cron_enabled: true},
@@ -796,6 +797,7 @@
                 });
             },
             cron_disable: function (obj, ids) {
+                if (ids.length == 0) return layer.msg('没有选项列表');
                 main.request({
                     url: URL + '/cron/switch',
                     data: {ids: ids.join(), cron_enabled: false},
@@ -803,6 +805,7 @@
                 });
             },
             cron_random: function (obj, ids) {
+                if (ids.length == 0) return layer.msg('没有选项列表');
                 main.popup({
                     title: false,
                     maxmin: false,
