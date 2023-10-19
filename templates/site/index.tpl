@@ -167,19 +167,22 @@
 					</a>
 					<dl class="layui-nav-child">
 						<dd>
-							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab"
-									data-value="site.">
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="crontab" data-value="site.">
 								查看任务
 							</button>
 						</dd>
 						<dd>
-							<button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid"
-									lay-event="cron_disable">关闭任务
+							<button class="layui-btn layui-btn-sm layui-bg-red layui-btn-fluid" lay-event="cron_disable">
+								关闭任务
 							</button>
 						</dd>
 						<dd>
-							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="cron_enable">
-								开启任务
+							<button class="layui-btn layui-btn-sm layui-btn-fluid" lay-event="cron_enable">开启任务
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-fluid layui-bg-cyan" lay-event="cron_random">
+								随机定时
 							</button>
 						</dd>
 					</dl>
@@ -328,6 +331,21 @@
 			</div>
 			<input type="hidden" name="id" value="">
 			<button class="layui-hide" lay-submit lay-filter="submit">提交</button>
+		</div>
+	</div>
+</script>
+<script type="text/html" id="cron-random-html">
+	<div class="layui-card">
+		<div class="layui-card-body layui-form">
+			<div class="layui-form-item">
+				<label class="layui-form-label">随机定时:</label>
+				<div class="layui-input-block">
+					<input type="radio" name="action" value="minute" title="分钟" checked>
+					<input type="radio" name="action" value="hour" title="小时">
+				</div>
+			</div>
+			<div class="layui-form-mid layui-word-aux">分钟：每个小时的某分钟，小时：每天的某小时</div>
+			<input type="hidden" name="ids" value="">
 		</div>
 	</div>
 </script>
@@ -782,6 +800,18 @@
                     url: URL + '/cron/switch',
                     data: {ids: ids.join(), cron_enabled: false},
                     done: 'table-list'
+                });
+            },
+            cron_random: function (obj, ids) {
+                main.popup({
+                    title: false,
+                    maxmin: false,
+                    area: ['400px', '160px'],
+                    url: URL + '/cron/random',
+                    content: $('#cron-random-html').html(),
+                    success: function (dom) {
+                        dom.find('input[name=ids]').val(ids.join());
+                    }
                 });
             },
             mysql: function (obj, ids) {

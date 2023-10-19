@@ -1235,6 +1235,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             options.submit = hasSubmit ? options.submit : othis.uuid();
             othis.open($.extend({
                 success: function (dom, index) {
+                    if (dom.find('.layui-form [lay-submit]').length === 0) dom.find('.layui-form').append('<button class="layui-hide" lay-filter="' + options.submit + '" lay-submit></button>');
                     form.render();
                     if (typeof success === 'function' && success(dom, index) === false) {
                         return false
