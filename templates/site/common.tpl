@@ -594,16 +594,22 @@
 									   lay-text="是|否"{{if .obj.PicAutoed}} checked{{end}}>
 							</div>
 						</div>
-						<div class="layui-col-md3">
-							<label for="pic_w" class="layui-form-label" lay-tips="自动生成图片的宽度">自动图宽:</label>
+						<div class="layui-col-md2">
+							<label for="pic_w" class="layui-form-label" lay-tips="自动生成图片的宽度">图宽:</label>
 							<div class="layui-input-block">
 								<input type="number" name="pic_w" id="pic_w" value="{{.obj.PicW}}" class="layui-input"/>
 							</div>
 						</div>
-						<div class="layui-col-md3">
-							<label for="pic_h" class="layui-form-label" lay-tips="自动生成图片的高度">自动图高:</label>
+						<div class="layui-col-md2">
+							<label for="pic_h" class="layui-form-label" lay-tips="自动生成图片的高度">图高:</label>
 							<div class="layui-input-block">
 								<input type="number" name="pic_h" id="pic_h" value="{{.obj.PicH}}" class="layui-input"/>
+							</div>
+						</div>
+						<div class="layui-col-md2">
+							<label for="pic_border" class="layui-form-label" lay-tips="设置为0则不启用边框">边框宽:</label>
+							<div class="layui-input-block">
+								<input type="number" name="pic_border" id="pic_border" value="{{.obj.PicBorder}}" min="0" max="20" class="layui-input"/>
 							</div>
 						</div>
 						<div class="layui-col-md3">
