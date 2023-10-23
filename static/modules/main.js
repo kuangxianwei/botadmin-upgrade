@@ -390,11 +390,10 @@ layui.define(['init'], function (exports) {
         }
     })
 });
-
 layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
     const init = layui.init,
-        codeHTML = '<pre class="layui-code popup-code layui-code-view layui-box layui-code-dark"><ol class="layui-code-ol"></ol><span class="layui-code-copy"><i class="layui-icon layui-icon-file-b" title="复制"></i></span></pre>',
         $ = layui.jquery, layer = layui.layer, form = layui.form, table = layui.table, slider = layui.slider;
+
 
     class Cron {
         constructor(selector) {
@@ -1173,7 +1172,12 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                             return false;
                         }
                         if (res.action === 'code') {
-                            othis.code(res.msg, {area: ['50%', '30%']});
+                            othis.display({
+                                area: ['50%', '30%'],
+                                success: function (dom) {
+                                    othis.code(dom.find('.layui-layer-content'), res.msg);
+                                },
+                            });
                         } else {
                             layer.msg(res.msg, {icon: 1, shade: [0.6, '#000', true]});
                         }
@@ -1370,42 +1374,28 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             }, options || {}));
         }
 
-        // 构造Code HTML
-        __codeBuild(text) {
-            let html = '';
-            $.each(text.split('\n'), function () {
-                html += '<li>' + layui.util.escape(this) + '</li>'
-            });
-            return html
+
+        // code 显示行号
+        code(elem, text, change) {
+            if (this.isFunction(text)) {
+                change = text;
+                text = undefined
+            }
+            let box = $(elem).html('<code><ol contenteditable=true></ol></code>').find('ol'),
+                append = (text) => {
+                    if (!this.isString(text)) return false;
+                    $.each(text.split('\n'), function () {
+                        box.append('<li>' + layui.util.escape(this) + '</li>');
+                    });
+                    box.scrollTop(box[0].scrollHeight);
+                };
+            append(text);
+            if (this.isFunction(change)) {
+                box.on('input', change);
+            }
+            return {append: append}
         }
 
-        __codeInit(dom, text, isLog) {
-            const elem = dom.find('pre.popup-code'), othis = this;
-            if (text) {
-                elem.attr('data-value', text);
-                elem.find('ol.layui-code-ol').html(othis.__codeBuild(text));
-            }
-            elem.parent().css({'overflow': 'hidden', 'padding': '0 10px 10px 10px'});
-            if (isLog) {
-                elem.parent().before('<div class="layer-status"><strong style="color:red" title="false">未运行</strong></div>');
-            }
-            dom.find('pre.popup-code>.layui-code-copy').off('click').on('click', function () {
-                othis.copy(elem.attr('data-value') || '');
-            });
-            return elem;
-        }
-
-        // 弹窗展示 code
-        code(text, options) {
-            if (!this.isString(text)) return;
-            let othis = this;
-            this.display($.extend(true, {
-                content: codeHTML,
-                success: function (dom) {
-                    othis.__codeInit(dom, text);
-                },
-            }, options || {}));
-        }
 
         // tags
         // options {value:"tag1,tag2",inputElem:$('input[name=tags]'),boxElem:$('#tags-box')}
@@ -1625,10 +1615,11 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             let ws = main.newWS();
             main.display({
                 area: ['75%', '75%'],
-                content: codeHTML,
                 success: function (dom) {
-                    let elem = main.__codeInit(dom, '', true),
-                        statusElem = dom.find('.layer-status');
+                    let elem = dom.find('.layui-layer-content').css({'overflow': 'hidden'}),
+                        code = main.code(elem);
+                    elem.before('<div class="layer-status"><strong style="color:red" title="false">未运行</strong></div>');
+                    let statusElem = dom.find('.layer-status');
                     ws.onopen = function () {
                         ws.send(JSON.stringify({action: 'log', token: token}));
                     };
@@ -1643,12 +1634,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                         } else {
                             statusElem.html('<strong style="color:red" title="false">未运行</strong>');
                         }
-                        let data = elem.attr('data-value') || '';
-                        obj.data = data + obj.data;
-                        elem.attr('data-value', obj.data);
-                        let contentElem = elem.find('ol.layui-code-ol');
-                        contentElem.html(main.__codeBuild(obj.data))
-                            .scrollTop(contentElem[0].scrollHeight);
+                        code.append(obj.data);
                     };
                 },
                 end: function () {

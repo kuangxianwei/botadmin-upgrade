@@ -171,12 +171,6 @@ input:valid + span::before{
 	padding: 5px 15px;
 }
 
-pre.popup-code{
-	border-radius: 6px;
-	height: calc(100% - 20px);
-	width: 100%;
-}
-
 .layer-status{
 	_display: none;
 	background-color: #ffffff;
@@ -194,3 +188,41 @@ pre.popup-code{
 	width: 80px;
 	z-index: 29821027;
 }
+code{
+	background-color: black;
+	border-left: 6px #3f3f3f;
+	border-radius: 6px;
+	box-sizing: content-box;
+	color: #c2be9e;
+	display: block;
+	font-family: Courier New, Lucida Console, Consolas, serif;
+	font-size: 13px;
+	height: calc(100% - 20px);
+	line-height: 20px;
+	margin: 10px;
+	padding: 0 !important;
+	position: relative;
+	width: calc(100% - 20px);
+}
+code > ol{
+	background-color: black;
+	border-radius: 6px;
+	margin: 0 !important;
+	max-height: 100%;
+	overflow: auto;padding: 0 !important;position: relative;
+}
+code > ol > li{
+	background-color: #3f3f3f;
+	border-left: none;
+	line-height: 20px;
+	*list-style-type: decimal;
+	list-style-type: decimal-leading-zero;
+	margin-left: 45px !important;
+	margin-top: 0 !important;
+	position: relative;
+}
+code > ol > li[contenteditable=true]:focus{
+	border: 1px solid blue;
+	outline: none;
+}
+
