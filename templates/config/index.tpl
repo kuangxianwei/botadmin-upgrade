@@ -449,6 +449,7 @@
             main = layui.main,
             form = layui.form,
             transfer = layui.transfer;
+        main.render.textarea();
         //显示
         transfer.render({
             id: 'monitorData',

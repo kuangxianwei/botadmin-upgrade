@@ -1390,12 +1390,15 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     box.scrollTop(box[0].scrollHeight);
                 };
             append(text);
-            if (this.isFunction(change)) {
-                box.on('input', change);
-            }
+            const othis = this;
+            box.on('input', function () {
+                othis.isFunction(change) && change.call(this);
+                if ($(this).text() === '') {
+                    $(this).html('<li></li>');
+                }
+            });
             return {append: append}
         }
-
 
         // tags
         // options {value:"tag1,tag2",inputElem:$('input[name=tags]'),boxElem:$('#tags-box')}
@@ -1603,6 +1606,30 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     });
                 $this.parent().after(elem);
             });
+        },
+        textarea(selector) {
+            $(selector || document).find('textarea[name]').each(function () {
+                let $this = $(this).hide();
+                $this.before('<code><ol contenteditable=true id="' + this.name + '"></ol></code>');
+                let box = $('#' + this.name),
+                    data = $this.val().split('\n');
+                $.each(data, function () {
+                    box.append('<li>' + layui.util.escape(this) + '</li>');
+                });
+                if (data.length > 9999) {
+                    box.find('>li').css('cssText', 'margin-left: 60px !important');
+                }
+                box.on('input', function () {
+                    let val = [];
+                    $(this).find('li').each(function (i) {
+                        val[i] = $(this).text();
+                    });
+                    $this.val(val.join('\n'));
+                    if (val.length === 0) {
+                        $(this).html('<li></li>');
+                    }
+                });
+            })
         }
     };
     // websocket

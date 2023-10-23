@@ -651,6 +651,7 @@
     layui.use(['index', 'main'], function () {
         let main = layui.main,
             form = layui.form;
+        main.render.textarea();
 
         form.on('submit(submit)', function (obj) {
             main.request({

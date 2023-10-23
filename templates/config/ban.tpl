@@ -15,3 +15,6 @@
 		</div>
 	</div>
 </div>
+<script>
+    layui.main.render.textarea();
+</script>
