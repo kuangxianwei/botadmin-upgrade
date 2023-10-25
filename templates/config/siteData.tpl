@@ -15,16 +15,20 @@
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show">
 					<div class="layui-form-item">
-						<textarea class="layui-textarea" name="titles" rows="15">{{join .obj.Titles "\n"}}</textarea>
-						<label class="layui-form-label">插入标签:</label>
-						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称
+						<div>
+							<textarea class="layui-textarea" name="titles" rows="15">{{join .obj.Titles "\n"}}</textarea>
+						</div>
+						<div class="insert-var">
+							<label class="layui-form-label">插入标签:</label>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${city}">城市名称
 							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="tag">Tag</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="subtitle">副标题
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${province}">省名称
+							</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${keyword}">关键词
+							</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${domain}">域名</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${tag}">Tag</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${subtitle}">副标题
 							</button>
 						</div>
 					</div>
@@ -33,15 +37,15 @@
 							<h2 class="layui-colla-title">帮助提示</h2>
 							<div class="layui-colla-content">
 								<p>可用标签是:</p>
-								<p>&#123;{city}&#125; 代表城市名称 例如:广州</p>
-								<p>&#123;{province}&#125; 代表省份 例如:广东</p>
-								<p>&#123;{subtitle}&#125; 代表副标题 例如:南方39助孕网</p>
-								<p>&#123;{keyword}&#125; 代表关键词 例如:试管婴儿</p>
-								<p>&#123;{description}&#125; 描述</p>
-								<p>&#123;{domain}&#125; 代表当前域名 例如:www.botadmin.cn</p>
-								<p>&#123;{tag}&#125; 代表tag 例如:广州试管婴儿</p>
-								<p>&#123;{about}&#125; 代表一条关于我们</p>
-								<p>&#123;{link}&#125; 代表链接 例如:试管婴儿=>https://www.botadmin.cn</p>
+								<p>${city} 代表城市名称 例如:广州</p>
+								<p>${province} 代表省份 例如:广东</p>
+								<p>${subtitle} 代表副标题 例如:南方39助孕网</p>
+								<p>${keyword} 代表关键词 例如:试管婴儿</p>
+								<p>${description} 描述</p>
+								<p>${domain} 代表当前域名 例如:www.botadmin.cn</p>
+								<p>${tag} 代表tag 例如:广州试管婴儿</p>
+								<p>${about} 代表一条关于我们</p>
+								<p>${link} 代表链接 例如:试管婴儿=>https://www.botadmin.cn</p>
 								<p>按照这些组成不同的标题</p>
 							</div>
 						</div>
@@ -52,12 +56,14 @@
 						<textarea class="layui-textarea" name="subtitles" rows="15">{{join .obj.Subtitles "\n"}}</textarea>
 						<label class="layui-form-label">插入标签:</label>
 						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${city}">城市名称
 							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="tag">Tag</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${province}">省名称
+							</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${keyword}">关键词
+							</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${domain}">域名</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${tag}">Tag</button>
 						</div>
 					</div>
 					<div class="layui-collapse">
@@ -65,15 +71,15 @@
 							<h2 class="layui-colla-title">帮助提示</h2>
 							<div class="layui-colla-content">
 								<p>可用标签是:</p>
-								<p>&#123;{city}&#125; 代表城市名称 例如:广州</p>
-								<p>&#123;{province}&#125; 代表省份 例如:广东</p>
-								<p>&#123;{title}&#125; 代表标题 例如:南方39试管婴儿助孕生殖网</p>
-								<p>&#123;{keyword}&#125; 代表关键词 例如:试管婴儿</p>
-								<p>&#123;{description}&#125; 描述</p>
-								<p>&#123;{domain}&#125; 代表当前域名 例如:www.botadmin.cn</p>
-								<p>&#123;{tag}&#125; 代表tag 例如:广州试管婴儿</p>
-								<p>&#123;{about}&#125; 代表一条关于我们</p>
-								<p>&#123;{link}&#125; 代表链接 例如:试管婴儿=>http://www.botadmin.cn</p>
+								<p>${city} 代表城市名称 例如:广州</p>
+								<p>${province} 代表省份 例如:广东</p>
+								<p>${title} 代表标题 例如:南方39试管婴儿助孕生殖网</p>
+								<p>${keyword} 代表关键词 例如:试管婴儿</p>
+								<p>${description} 描述</p>
+								<p>${domain} 代表当前域名 例如:www.botadmin.cn</p>
+								<p>${tag} 代表tag 例如:广州试管婴儿</p>
+								<p>${about} 代表一条关于我们</p>
+								<p>${link} 代表链接 例如:试管婴儿=>http://www.botadmin.cn</p>
 								<p>按照这些组成不同的标题后缀</p>
 							</div>
 						</div>
@@ -93,13 +99,15 @@
 						<textarea class="layui-textarea" name="descriptions" rows="15">{{join .obj.Descriptions "\n"}}</textarea>
 						<label class="layui-form-label">插入标签:</label>
 						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="city">城市名称</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="province">省名称
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${city}">城市名称
+							</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${province}">省名称
 							</button>
 							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="title">标题</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="keyword">关键词</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="domain">域名</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="tag">Tag</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${keyword}">关键词
+							</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${domain}">域名</button>
+							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${tag}">Tag</button>
 						</div>
 					</div>
 					<div class="layui-collapse">
@@ -107,15 +115,15 @@
 							<h2 class="layui-colla-title">帮助提示</h2>
 							<div class="layui-colla-content">
 								<p>建站随机选择描述,可用标签是:</p>
-								<p>&#123;{city}&#125; 代表城市名称 例如:广州</p>
-								<p>&#123;{province}&#125; 代表省份 例如:广东</p>
-								<p>&#123;{title}&#125; 代表标题 例如:南方39试管婴儿助孕生殖网</p>
-								<p>&#123;{subtitle}&#125; 代表副标题 例如:南方39助孕网</p>
-								<p>&#123;{keyword}&#125; 代表关键词 例如:试管婴儿</p>
-								<p>&#123;{domain}&#125; 代表当前域名 例如:www.botadmin.cn</p>
-								<p>&#123;{tag}&#125; 代表tag 例如:广州试管婴儿</p>
-								<p>&#123;{about}&#125; 代表一条关于我们</p>
-								<p>&#123;{link}&#125; 代表链接 例如:试管婴儿=>http://www.botadmin.cn</p>
+								<p>${city} 代表城市名称 例如:广州</p>
+								<p>${province} 代表省份 例如:广东</p>
+								<p>${title} 代表标题 例如:南方39试管婴儿助孕生殖网</p>
+								<p>${subtitle} 代表副标题 例如:南方39助孕网</p>
+								<p>${keyword} 代表关键词 例如:试管婴儿</p>
+								<p>${domain} 代表当前域名 例如:www.botadmin.cn</p>
+								<p>${tag} 代表tag 例如:广州试管婴儿</p>
+								<p>${about} 代表一条关于我们</p>
+								<p>${link} 代表链接 例如:试管婴儿=>http://www.botadmin.cn</p>
 								<p>按照这些组成不同的描述</p>
 							</div>
 						</div>
@@ -158,15 +166,15 @@
 							<h2 class="layui-colla-title">帮助提示</h2>
 							<div class="layui-colla-content">
 								<p>建站随机选择描述,可用标签是:</p>
-								<p>&#123;{city}&#125; 代表城市名称 例如:广州</p>
-								<p>&#123;{province}&#125; 代表省份 例如:广东</p>
-								<p>&#123;{title}&#125; 代表标题 例如:南方39试管婴儿助孕生殖网</p>
-								<p>&#123;{subtitle}&#125; 代表副标题 例如:南方39助孕网</p>
-								<p>&#123;{keyword}&#125; 代表关键词 例如:试管婴儿</p>
-								<p>&#123;{domain}&#125; 代表当前域名 例如:www.botadmin.cn</p>
-								<p>&#123;{tag}&#125; 代表tag 例如:广州试管婴儿</p>
-								<p>&#123;{description}&#125; 代表一条描述</p>
-								<p>&#123;{link}&#125; 代表链接 例如:试管婴儿=>http://www.botadmin.cn</p>
+								<p>${city} 代表城市名称 例如:广州</p>
+								<p>${province} 代表省份 例如:广东</p>
+								<p>${title} 代表标题 例如:南方39试管婴儿助孕生殖网</p>
+								<p>${subtitle} 代表副标题 例如:南方39助孕网</p>
+								<p>${keyword} 代表关键词 例如:试管婴儿</p>
+								<p>${domain} 代表当前域名 例如:www.botadmin.cn</p>
+								<p>${tag} 代表tag 例如:广州试管婴儿</p>
+								<p>${description} 代表一条描述</p>
+								<p>${link} 代表链接 例如:试管婴儿=>http://www.botadmin.cn</p>
 								<p>按照这些组成不同的关于我们</p>
 							</div>
 						</div>
@@ -197,7 +205,7 @@
         let main = layui.main,
             form = layui.form,
             transfer = layui.transfer;
-        main.render.textarea();
+        // main.render.textarea();
         //显示搜索框
         transfer.render({
             id: 'cityData',
@@ -234,10 +242,6 @@
                     });
                     break;
             }
-        });
-        $('[data-write]').off("click").on("click", function () {
-            let $this = $(this), write = $this.data("write"), textareaElem = $this.parent().prevAll("textarea");
-            textareaElem.insertAt("{{"{{"}}" + write + "{{"}}"}}");
         });
     });
 </script>

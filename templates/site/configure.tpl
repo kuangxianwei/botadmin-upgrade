@@ -1,53 +1,53 @@
 <style>
-    input[data-field] + .layui-unselect {
-        margin-top: 3px;
-        margin-bottom: 3px;
-    }
+	input[data-field] + .layui-unselect{
+		margin-top: 3px;
+		margin-bottom: 3px;
+	}
 </style>
 <div class="layui-card layui-form">
-    <div class="layui-card-body">
-        <fieldset class="layui-elem-field">
-            <legend>修改目标</legend>
-            <input type="checkbox" data-field="ad" title="广告代码" lay-filter="field">
-            <input type="checkbox" data-field="replaces" title="灰词替换" lay-filter="field">
-            <input type="checkbox" data-field="pic_autoed" title="自动图片" lay-filter="field">
-            <input type="checkbox" data-field="contact" title="联系方式" lay-filter="field">
-            <input type="checkbox" data-field="insert_pic_deg" title="插图阈值" lay-filter="field">
-            <input type="checkbox" data-field="pub_deg" title="发布阈值" lay-filter="field">
-            <input type="checkbox" data-field="content_deg" title="内容阈值" lay-filter="field">
-            <input type="checkbox" data-field="link_deg" title="内链阀值" lay-filter="field">
-            <input type="checkbox" data-field="out_link_deg" title="外链阀值" lay-filter="field">
-            <input type="checkbox" data-field="title_tag_deg" title="标题阀值" lay-filter="field">
-            <input type="checkbox" data-field="pub_self" title="指定发布" lay-filter="field">
-            <input type="checkbox" data-field="cron_enabled" title="定时发布" lay-filter="field">
-            <input type="checkbox" data-field="push_config" title="推送配置" lay-filter="field">
-            <input type="checkbox" data-field="originality_rate" title="原创阀值" lay-filter="field">
-            <input type="checkbox" data-field="pic_save" title="保存远图" lay-filter="field">
-            <input type="checkbox" data-field="pic_mark" title="图片水印" lay-filter="field">
-            <input type="checkbox" data-field="order" title="发布顺序" lay-filter="field">
-            <input type="checkbox" data-field="publish_mode" title="发布模式" lay-filter="field">
-            <input type="checkbox" data-field="pub_interval" title="发布间隔" lay-filter="field">
-            <input type="checkbox" data-field="auth_code" title="认证码" lay-filter="field">
-            <input type="checkbox" data-field="copyright" title="版权信息" lay-filter="field">
-            <input type="checkbox" data-field="scan_enabled" title="启用扫毒" lay-filter="field">
-        </fieldset>
-        <fieldset class="layui-elem-field">
-            <legend>操作</legend>
-            <div id="field"></div>
-        </fieldset>
-        <div class="layui-hide">
-            <input name="ids" id="ids" value="{{.ids}}">
-            <button lay-submit></button>
-        </div>
-    </div>
+	<div class="layui-card-body">
+		<fieldset class="layui-elem-field">
+			<legend>修改目标</legend>
+			<input type="checkbox" data-field="ad" title="广告代码" lay-filter="field">
+			<input type="checkbox" data-field="replaces" title="灰词替换" lay-filter="field">
+			<input type="checkbox" data-field="pic_autoed" title="自动图片" lay-filter="field">
+			<input type="checkbox" data-field="contact" title="联系方式" lay-filter="field">
+			<input type="checkbox" data-field="insert_pic_deg" title="插图阈值" lay-filter="field">
+			<input type="checkbox" data-field="pub_deg" title="发布阈值" lay-filter="field">
+			<input type="checkbox" data-field="content_deg" title="内容阈值" lay-filter="field">
+			<input type="checkbox" data-field="link_deg" title="内链阀值" lay-filter="field">
+			<input type="checkbox" data-field="out_link_deg" title="外链阀值" lay-filter="field">
+			<input type="checkbox" data-field="title_tag_deg" title="标题阀值" lay-filter="field">
+			<input type="checkbox" data-field="pub_self" title="指定发布" lay-filter="field">
+			<input type="checkbox" data-field="cron_enabled" title="定时发布" lay-filter="field">
+			<input type="checkbox" data-field="push_config" title="推送配置" lay-filter="field">
+			<input type="checkbox" data-field="originality_rate" title="原创阀值" lay-filter="field">
+			<input type="checkbox" data-field="pic_save" title="保存远图" lay-filter="field">
+			<input type="checkbox" data-field="pic_mark" title="图片水印" lay-filter="field">
+			<input type="checkbox" data-field="order" title="发布顺序" lay-filter="field">
+			<input type="checkbox" data-field="publish_mode" title="发布模式" lay-filter="field">
+			<input type="checkbox" data-field="pub_interval" title="发布间隔" lay-filter="field">
+			<input type="checkbox" data-field="auth_code" title="认证码" lay-filter="field">
+			<input type="checkbox" data-field="copyright" title="版权信息" lay-filter="field">
+			<input type="checkbox" data-field="scan_enabled" title="启用扫毒" lay-filter="field">
+		</fieldset>
+		<fieldset class="layui-elem-field">
+			<legend>操作</legend>
+			<div id="field"></div>
+		</fieldset>
+		<div class="layui-hide">
+			<input name="ids" id="ids" value="{{.ids}}">
+			<button lay-submit></button>
+		</div>
+	</div>
 </div>
 <script type="text/html" id="contact-html">
-    <div class="layui-form-item">
-        <label for="pic_autoed" class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
-        <div class="layui-input-block">
-            <textarea name="contact" id="pic_autoed" class="layui-textarea" placeholder="李谊:139-2235-2985&#13;韩晶:135-3983-5229"></textarea>
-        </div>
-    </div>
+	<div class="layui-form-item">
+		<label for="pic_autoed" class="layui-form-label" lay-tips="李谊:139-2235-2985 一行一条">联系方式:</label>
+		<div class="layui-input-block">
+			<textarea name="contact" id="pic_autoed" class="layui-textarea" placeholder="李谊:139-2235-2985&#13;韩晶:135-3983-5229"></textarea>
+		</div>
+	</div>
 </script>
 <script>
     layui.use(['main'], function () {
@@ -232,7 +232,7 @@
     <label class="layui-form-label">推送配置:</label>
     <div class="layui-input-block">
 <textarea name="push_config" class="layui-textarea" rows="3"
-          placeholder="http://data.zz.baidu.com/urls?site=&#123;&#123;site&#125;&#125;&token=zjoYZiTU6B1rgblL 百度普通推送 账号=username 密码=password"></textarea>
+          placeholder="http://data.zz.baidu.com/urls?site=${site}&token=zjoYZiTU6B1rgblL 百度普通推送 账号=username 密码=password"></textarea>
     </div>
 </div>`);
                 } else {

@@ -13,22 +13,31 @@ layui.define(function (exports) {
             fn && fn();
         };
         document.getElementsByTagName("head")[0].insertAdjacentElement("beforeend", script);
-        Array.prototype.delete = function (v) {
-            for (let i = 0; i < this.length; i++) {
-                if (this[i] === v) {
-                    this.splice(i, 1);
-                    i--
-                }
+    };
+    Array.prototype.delete = function (v) {
+        for (let i = 0; i < this.length; i++) {
+            if (this[i] === v) {
+                this.splice(i, 1);
+                i--
             }
-            return this;
-        };
-        String.prototype.unescapeHTML = function () {
-            return this.replace(/&#123;/g, '{')
-                .replace(/&#125;/g, '}')
-                .replace(/&#60;/g, '<')
-                .replace(/&#62;/g, '>')
-                .replace(/&#34;/g, '"')
-        };
+        }
+        return this;
+    };
+    // 存在数组中
+    Array.prototype.included = function (item) {
+        for (let i = 0; i < this.length; i++) {
+            if (this.indexOf(item) !== -1) {
+                return true;
+            }
+        }
+        return false;
+    };
+    String.prototype.unescapeHTML = function () {
+        return this.replace(/&#123;/g, '{')
+            .replace(/&#125;/g, '}')
+            .replace(/&#60;/g, '<')
+            .replace(/&#62;/g, '>')
+            .replace(/&#34;/g, '"')
     };
     // 判断字符串结尾
     String.prototype.hasSuffix = function (suffix) {
@@ -45,69 +54,11 @@ layui.define(function (exports) {
         });
         return arr;
     };
-    // 存在数组中
-    Array.prototype.included = function (item) {
-        for (let i = 0; i < this.length; i++) {
-            if (this.indexOf(item) !== -1) {
-                return true;
-            }
-        }
-        return false;
-    };
     // 填充关键词变量
     $(document).on('click', '[data-write]', function () {
         let el = $(this).parent().prev('textarea');
         (el.length > 0 ? el : $(this).parent().prev('div').find('textarea')).insertAt($(this).data('write'));
     });
-    // 全屏
-    const fullScreen = () => {
-            $('#LAY_app_body').length === 0 && parent.$('#LAY_app_body').css({
-                zIndex: '19891026',
-                width: '100%',
-                height: '100%',
-                position: 'fixed',
-                top: '0',
-                left: '0'
-            });
-        },
-        // 退出全屏
-        smallScreen = () => {
-            $('#LAY_app_body').length === 0 && parent.$('#LAY_app_body').css({
-                zIndex: '',
-                width: '',
-                height: '',
-                position: '',
-                top: '',
-                left: ''
-            });
-        },
-        // 获取文件名
-        basename = (path) => {
-            path = decodeURIComponent(path);
-            let index = path.lastIndexOf('/');
-            return path.substring(index === -1 ? 0 : index + 1);
-        },
-        // 加载中
-        loading = (options) => {
-            return {
-                index: layer.load(1, $.extend({shade: [0.7, '#000', true]}, options || {})),
-                close: function () {
-                    layer.close(this.index);
-                }
-            };
-        },
-        // 获取目录
-        dirname = (path) => {
-            path = decodeURIComponent(path);
-            return path.substring(0, path.lastIndexOf('/')) || '/';
-        },
-        // 获取图片src
-        getSrc = (s) => {
-            if (/^(?:\/file\/download\?filename=|https?:\/\/)/.test(s)) {
-                return s;
-            }
-            return '/file/download?filename=' + encodeURIComponent(s);
-        };
     // 帮助信息
     if ($('#help').length > 0) $('#help-document').show().off('click').on('click', function () {
         layer.open({
@@ -127,12 +78,49 @@ layui.define(function (exports) {
         });
     });
     exports('init', {
-        basename: basename,
-        loading: loading,
-        dirname: dirname,
-        fullScreen: fullScreen,
-        smallScreen: smallScreen,
-        getSrc: getSrc,
+        basename: (path) => {
+            path = decodeURIComponent(path);
+            let index = path.lastIndexOf('/');
+            return path.substring(index === -1 ? 0 : index + 1);
+        },
+        loading: (options) => {
+            return {
+                index: layer.load(1, $.extend({shade: [0.7, '#000', true]}, options || {})),
+                close: function () {
+                    layer.close(this.index);
+                }
+            };
+        },
+        dirname: (path) => {
+            path = decodeURIComponent(path);
+            return path.substring(0, path.lastIndexOf('/')) || '/';
+        },
+        fullScreen: () => {
+            $('#LAY_app_body').length === 0 && parent.$('#LAY_app_body').css({
+                zIndex: '19891026',
+                width: '100%',
+                height: '100%',
+                position: 'fixed',
+                top: '0',
+                left: '0'
+            })
+        },
+        smallScreen: () => {
+            $('#LAY_app_body').length === 0 && parent.$('#LAY_app_body').css({
+                zIndex: '',
+                width: '',
+                height: '',
+                position: '',
+                top: '',
+                left: ''
+            });
+        },
+        getSrc: (s) => {
+            if (/^(?:\/file\/download\?filename=|https?:\/\/)/.test(s)) {
+                return s;
+            }
+            return '/file/download?filename=' + encodeURIComponent(s);
+        }
     });
 });
 // 图片预览
@@ -1609,10 +1597,9 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         },
         textarea(selector) {
             $(selector || document).find('textarea[name]').each(function () {
-                let $this = $(this).hide();
-                $this.before('<code><ol contenteditable=true id="' + this.name + '"></ol></code>');
-                let box = $('#' + this.name),
-                    data = $this.val().split('\n');
+                let $this = $(this).hide(), rows = +$this.attr('rows') || 2, id = main.uuid(),data = $this.val().split('\n');
+                $this.before('<code><ol contenteditable=true id="' + id + '" style="height:' + (rows * 20) + 'px"></ol></code>');
+                let box = $('#' + id);
                 $.each(data, function () {
                     box.append('<li>' + layui.util.escape(this) + '</li>');
                 });

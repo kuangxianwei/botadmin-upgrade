@@ -1,121 +1,121 @@
 <div class="layui-card">
-    <div class="layui-card-body">
-        <div class="layui-form table-search" style="left:560px">
-            <div class="layui-inline">
-                <select name="enabled" class="layui-select" lay-filter="search-select">
-                    <option value="">全部</option>
-                    <option value="false">禁用</option>
-                    <option value="true">启用</option>
-                </select>
-            </div>
-            <div class="layui-inline">
-                <input type="search" name="search" class="layui-input" placeholder="输入搜索...">
-            </div>
-            <button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="search">
-                <i class="layui-icon layui-icon-search"></i>
-            </button>
-        </div>
-        <table id="table-list" lay-filter="table-list"></table>
-    </div>
+	<div class="layui-card-body">
+		<div class="layui-form table-search" style="left:560px">
+			<div class="layui-inline">
+				<select name="enabled" class="layui-select" lay-filter="search-select">
+					<option value="">全部</option>
+					<option value="false">禁用</option>
+					<option value="true">启用</option>
+				</select>
+			</div>
+			<div class="layui-inline">
+				<input type="search" name="search" class="layui-input" placeholder="输入搜索...">
+			</div>
+			<button class="layui-btn layui-btn-sm" lay-submit="" lay-filter="search">
+				<i class="layui-icon layui-icon-search"></i>
+			</button>
+		</div>
+		<table id="table-list" lay-filter="table-list"></table>
+	</div>
 </div>
 <script type="text/html" id="toolbar">
-    <div class="layui-btn-container">
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="add" lay-tips="单个添加">
-                <i class="layui-icon layui-icon-add-circle"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="addMany" lay-tips="批量添加">
-                <i class="layui-icon iconfont icon-batchadd"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="config">
-                <i class="layui-icon layui-icon-set"></i>
-            </button>
-        </div>
-        <div class="layui-btn-group">
-            <ul class="layui-nav layui-bg-green botadmin-nav">
-                <li class="layui-nav-item">
-                    <a href="javascript:" lay-tips="操作用户信息" lay-direction="2">
-                        <i class="layui-icon layui-icon-user"></i>
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="setProfile" lay-tips="设置用户信息">
-                                设置信息
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm" lay-event="getProfile" lay-tips="拉取用户信息">
-                                拉取信息
-                            </button>
-                        </dd>
-                        <dd>
-                            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="validProfile" lay-tips="拉取用户信息">
-                                检验账号
-                            </button>
-                        </dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出配置列表">
-                <i class="layui-icon iconfont icon-export"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入配置列表">
-                <i class="layui-icon iconfont icon-import"></i>
-            </button>
-        </div>
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="del">删除</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate" lay-tips="清空所有的数据，不可恢复！">
-                清空
-            </button>
-        </div>
-        <div class="layui-btn-group">
-            <button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
-                <i class="layui-icon layui-icon-log"></i>
-            </button>
-            <button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
-                <i class="layui-icon iconfont icon-reset"></i>Log
-            </button>
-        </div>
-    </div>
+	<div class="layui-btn-container">
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="add" lay-tips="单个添加">
+				<i class="layui-icon layui-icon-add-circle"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="addMany" lay-tips="批量添加">
+				<i class="layui-icon iconfont icon-batchadd"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="config">
+				<i class="layui-icon layui-icon-set"></i>
+			</button>
+		</div>
+		<div class="layui-btn-group">
+			<ul class="layui-nav layui-bg-green botadmin-nav">
+				<li class="layui-nav-item">
+					<a href="javascript:" lay-tips="操作用户信息" lay-direction="2">
+						<i class="layui-icon layui-icon-user"></i>
+					</a>
+					<dl class="layui-nav-child">
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="setProfile" lay-tips="设置用户信息">
+								设置信息
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm" lay-event="getProfile" lay-tips="拉取用户信息">
+								拉取信息
+							</button>
+						</dd>
+						<dd>
+							<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="validProfile" lay-tips="拉取用户信息">
+								检验账号
+							</button>
+						</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm" lay-event="export" lay-tips="导出配置列表">
+				<i class="layui-icon iconfont icon-export"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-btn-primary" lay-event="import" lay-tips="导入配置列表">
+				<i class="layui-icon iconfont icon-import"></i>
+			</button>
+		</div>
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="del">删除</button>
+			<button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="truncate" lay-tips="清空所有的数据，不可恢复！">
+				清空
+			</button>
+		</div>
+		<div class="layui-btn-group">
+			<button class="layui-btn layui-btn-sm" lay-event="log" lay-tips="查看日志">
+				<i class="layui-icon layui-icon-log"></i>
+			</button>
+			<button class="layui-btn layui-btn-sm layui-bg-red" lay-event="resetLog" lay-tips="重置日志">
+				<i class="layui-icon iconfont icon-reset"></i>Log
+			</button>
+		</div>
+	</div>
 </script>
 <script type="text/html" id="table-toolbar">
-    <div class="layui-btn-group">
-        <button class="layui-btn layui-btn-xs" lay-event="open" lay-tips="查看或手动操作">
-            <i class="iconfont icon-view"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs" lay-event="modify">
-            <i class="layui-icon layui-icon-edit"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
-            <i class="layui-icon layui-icon-delete"></i>
-        </button>
-        <button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
-            <i class="layui-icon layui-icon-log"></i>
-        </button>
-    </div>
+	<div class="layui-btn-group">
+		<button class="layui-btn layui-btn-xs" lay-event="open" lay-tips="查看或手动操作">
+			<i class="iconfont icon-view"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs" lay-event="modify">
+			<i class="layui-icon layui-icon-edit"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">
+			<i class="layui-icon layui-icon-delete"></i>
+		</button>
+		<button class="layui-btn layui-btn-xs layui-btn-primary" lay-event="log" lay-tips="查看日志">
+			<i class="layui-icon layui-icon-log"></i>
+		</button>
+	</div>
 </script>
 <script type="text/html" id="config">
-    <div class="layui-card">
-        <div class="layui-card-body">
-            <fieldset class="layui-elem-field layui-form">
-                <legend>修改目标</legend>
-                <input type="checkbox" data-field="enabled" title="启用/禁用" lay-filter="field">
-                <input type="checkbox" data-field="alias" title="修改网名" lay-filter="field">
-                <input type="checkbox" data-field="description" title="修改简介" lay-filter="field">
-            </fieldset>
-            <fieldset class="layui-elem-field layui-form">
-                <legend>操作</legend>
-                <div id="field"></div>
-                <div class="layui-hide">
-                    <input name="ids" id="ids" value="">
-                    <button lay-submit></button>
-                </div>
-            </fieldset>
-        </div>
-    </div>
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<fieldset class="layui-elem-field layui-form">
+				<legend>修改目标</legend>
+				<input type="checkbox" data-field="enabled" title="启用/禁用" lay-filter="field">
+				<input type="checkbox" data-field="alias" title="修改网名" lay-filter="field">
+				<input type="checkbox" data-field="description" title="修改简介" lay-filter="field">
+			</fieldset>
+			<fieldset class="layui-elem-field layui-form">
+				<legend>操作</legend>
+				<div id="field"></div>
+				<div class="layui-hide">
+					<input name="ids" id="ids" value="">
+					<button lay-submit></button>
+				</div>
+			</fieldset>
+		</div>
+	</div>
 </script>
 <script src="/static/layui/layui.js"></script>
 <script>
@@ -258,8 +258,8 @@
                                     fieldElem.append(`<div class="layui-form-item">
                 <label for="alias" class="layui-form-label">网名:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="alias" id="alias" class="layui-input" placeholder="随机字符串变量:&#123;&#123;random&#125;&#125;">
-                <div class="layui-form-mid layui-word-aux">随机字符串变量:&#123;&#123;random&#125;&#125;&#10;</div></div></div>`);
+                    <input type="text" name="alias" id="alias" class="layui-input" placeholder="随机字符串变量:${random}">
+                <div class="layui-form-mid layui-word-aux">随机字符串变量:${random}&#10;</div></div></div>`);
                                     form.render('input');
                                 } else {
                                     fieldElem.find('input[name=alias]').closest('.layui-form-item').remove();
@@ -271,7 +271,7 @@
                 <label for="description" class="layui-form-label">简介:</label>
                 <div class="layui-input-block">
                     <textarea class="layui-textarea" name="description" id="description" rows="3" placeholder="这是我的简介"></textarea>
-<div class="layui-form-mid layui-word-aux">随机字符串变量:&#123;&#123;random&#125;&#125;&#10;网名变量:&#123;&#123;alias&#125;&#125;</div></div></div>`);
+<div class="layui-form-mid layui-word-aux">随机字符串变量:${random}&#10;网名变量:${alias}</div></div></div>`);
                                     form.render('input');
                                 } else {
                                     fieldElem.find('input[name=description]').closest('.layui-form-item').remove();

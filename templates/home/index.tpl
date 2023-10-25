@@ -340,7 +340,7 @@
             content: '<div class="layui-card"><div class="layui-card-body" style="background-color: #0a6e85;color: #F2F2F2;line-height: 2rem"><a lay-href="/resource/disk" style="color: #F2F2F2"><h2>本服务器储存剩余空间不足5%, 请扩充储存空间,详情查看</h2></a></div></div>',
         });
         {{end -}}
-        let active = {
+        const active = {
             record: function () {
                 main.ws.info();
             },
@@ -413,7 +413,8 @@
             if (e.keyCode === 13) {
                 main.request({data: {action: 'clear_spec', value: specElem.val()}})
             }
-        })
+        });
+        main.render.textarea();
     });
 </script>
 

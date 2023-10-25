@@ -542,13 +542,12 @@
 					<div class="layui-form-item">
 						<div class="layui-row">
 							<div class="layui-col-md6">
-								<label for="pic_dir" class="layui-form-label">标题格式:</label>
+								<label for="title_formats" class="layui-form-label">标题格式:</label>
 								<div class="layui-input-inline">
-									<textarea name="title_formats" rows="3"
-											  class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
+									<textarea name="title_formats" id="title_formats" rows="3" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
 								</div>
 								<div class="layui-form-mid layui-word-aux">
-									标签: &#123;&#123;tag&#125;&#125; &#123;&#123;title&#125;&#125; <br/>一行一条
+									标签: ${tag} ${title} <br/>一行一条
 								</div>
 							</div>
 							<div class="layui-col-md6">
@@ -731,7 +730,7 @@
 						<legend>推送</legend>
 						<div class="layui-form-item" style="padding-left: 2%;padding-right: 2%;">
                             <textarea name="push_config" class="layui-textarea" rows="3"
-									  placeholder="http://data.zz.baidu.com/urls?site=&#123;&#123;site&#125;&#125;&token=zjoYZiTU6B1rgblL 百度普通推送 账号=username 密码=password">{{.push_config}}</textarea>
+									  placeholder="http://data.zz.baidu.com/urls?site=${site}&token=zjoYZiTU6B1rgblL 百度普通推送 账号=username 密码=password">{{.push_config}}</textarea>
 						</div>
 					</fieldset>
 					<fieldset class="layui-elem-field">

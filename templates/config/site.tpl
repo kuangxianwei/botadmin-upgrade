@@ -336,7 +336,7 @@
 							</div>
 						</div>
 						<div class="layui-col-md6">
-							<label for="title_formats" class="layui-form-label" lay-tips="标签: &#123;&#123;tag&#125;&#125; &#123;&#123;title&#125;&#125;&#13;一行一条">标题格式:</label>
+							<label class="layui-form-label" lay-tips="标签: ${tag} ${title}&#13;一行一条">标题格式:</label>
 							<div class="layui-input-block">
 								<textarea id="title_formats" name="title_formats" rows="2" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
 							</div>
