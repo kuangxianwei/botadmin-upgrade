@@ -905,6 +905,7 @@
         // 自动填充
         main.render.theme();
         main.render.fill();
+        main.render.textarea();
         // 定时选择器
         main.cron('input[name=spec]', 'input[name=scan_spec]');
         let getVhost = function () {
