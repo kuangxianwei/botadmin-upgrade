@@ -608,7 +608,7 @@ layui.define(['form', 'trans', 'main'], function (exports) {
                             layer.open({
                                 type: 1,
                                 title: '测试详情页结果',
-                                content: res.msg,
+                                content: res.data,
                                 area: ['80%', '80%'],
                                 btn: false,
                                 maxmin: true,
