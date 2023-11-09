@@ -1597,7 +1597,8 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         },
         textarea(selector) {
             $(selector || document).find('textarea[name]').each(function () {
-                let $this = $(this).hide(), rows = +$this.attr('rows') || 2, id = main.uuid(),data = $this.val().split('\n');
+                let $this = $(this).hide(), rows = +$this.attr('rows') || 2, id = main.uuid(),
+                    data = $this.val().split('\n');
                 $this.before('<code><ol contenteditable=true id="' + id + '" style="height:' + (rows * 20) + 'px"></ol></code>');
                 let box = $('#' + id);
                 $.each(data, function () {

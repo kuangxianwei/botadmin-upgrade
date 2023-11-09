@@ -724,6 +724,7 @@ layui.define(['form', 'trans', 'main'], function (exports) {
                     content: html,
                     area: ['95%', '95%'],
                     success: function (dom, index) {
+                        layui.init.fullScreen();
                         othis.init(dom, JSON.parse(dom.find('#config').val() || '{}'));
                         othis.layerIndex = index;
                     },
@@ -741,6 +742,9 @@ layui.define(['form', 'trans', 'main'], function (exports) {
                         othis.dom.find('[lay-filter=stepsSubmit]').click();
                         return false;
                     },
+                    end: function () {
+                        layui.init.smallScreen();
+                    }
                 })
             });
         }
