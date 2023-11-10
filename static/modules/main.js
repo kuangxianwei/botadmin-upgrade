@@ -1369,13 +1369,16 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 change = text;
                 text = undefined
             }
-            let box = $(elem).html('<code><ol contenteditable=true></ol></code>').find('ol'),
-                append = (text) => {
-                    if (!this.isString(text)) return false;
-                    $.each(text.split('\n'), function () {
-                        box.append('<li>' + layui.util.escape(this) + '</li>');
-                    });
-                    box.scrollTop(box[0].scrollHeight);
+            let data = '', box = $(elem).html('<code><ol contenteditable=true></ol></code>').find('ol'),
+                append = (newText) => {
+                    if (this.isString(newText)) {
+                        box.empty();
+                        data += newText;
+                        $.each(data.split('\n'), function () {
+                            box.append('<li>' + layui.util.escape(this) + '</li>');
+                        });
+                        box.scrollTop(box[0].scrollHeight);
+                    }
                 };
             append(text);
             const othis = this;
