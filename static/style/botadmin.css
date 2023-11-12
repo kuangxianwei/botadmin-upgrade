@@ -205,24 +205,46 @@ code{
 	width: calc(100% - 20px);
 }
 code > ol{
-	background-color: black;
+	animation: changeBg 5s infinite;
+	background-image: linear-gradient(to right, black 38px, #3f3f3f 0);
 	border-radius: 6px;
+	height: 100%;
 	margin: 0 !important;
-	max-height: 100%;
-	overflow: auto;padding: 0 !important;position: relative;
+	overflow: auto;
+	padding: 0 !important;
+	position: relative;
+	width: 100%;
+}
+code > ol > li::marker{
+	color: #f8d104;
 }
 code > ol > li{
 	background-color: #3f3f3f;
-	border-left: none;
 	line-height: 20px;
 	*list-style-type: decimal;
 	list-style-type: decimal-leading-zero;
-	margin-left: 45px !important;
+	margin-left: 40px !important;
 	margin-top: 0 !important;
 	position: relative;
 }
-code > ol > li[contenteditable=true]:focus{
-	border: 1px solid blue;
-	outline: none;
+code > i.layui-icon{
+	cursor: pointer;
+	display: inline-block;
+	position: absolute;
+	right: 11px;
+	top: 8px;
+	z-index: 5;
+}
+code > i.layui-icon:hover{
+	color: #02fa98;
+}
+.code-full{
+	background-color: black;
+	height: calc(100% - 20px) !important;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: calc(100% - 20px) !important;
+	z-index: 2147483647;
 }
 

@@ -542,22 +542,20 @@
 					<div class="layui-form-item">
 						<div class="layui-row">
 							<div class="layui-col-md6">
-								<label for="title_formats" class="layui-form-label">标题格式:</label>
-								<div class="layui-input-inline">
+								<label for="title_formats" class="layui-form-label" lay-tips="标签: ${tag} ${title} 一行一条">标题格式:</label>
+								<div class="layui-input-block">
 									<textarea name="title_formats" id="title_formats" rows="3" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
 								</div>
-								<div class="layui-form-mid layui-word-aux">
-									标签: ${tag} ${title} <br/>一行一条
-								</div>
 							</div>
-							<div class="layui-col-md6">
-								<label for="pic_dir" class="layui-form-label">随机词汇:</label>
-								<div class="layui-input-inline">
+							<div class="layui-col-md5">
+								<label for="pic_dir" class="layui-form-label" lay-tips="百科模式所用到的随机词汇<br/>留空则使用资料库的随机词库">随机词汇:</label>
+								<div class="layui-input-block">
 									<textarea name="words" class="layui-textarea">{{join .obj.Words "\n"}}</textarea>
 								</div>
+							</div>
+							<div class="layui-col-md1">
 								<div class="layui-form-mid layui-word-aux">
-									百科模式所用到的随机词汇<br/>留空则使用资料库的<a lay-href="/config/site/data"
-																					  style="color:green">随机词库</a>
+									<a lay-href="/config/site/data" style="color:green">随机词库</a>
 								</div>
 							</div>
 						</div>

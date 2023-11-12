@@ -1341,7 +1341,7 @@ layui.define(['main'], function (exports) {
                 },
                 end: function (index) {
                     layer.close(index);
-                    init.smallScreen();
+                    init.restoreScreen();
                     return false;
                 }
             });

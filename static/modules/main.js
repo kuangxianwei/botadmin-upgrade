@@ -103,17 +103,14 @@ layui.define(function (exports) {
                 position: 'fixed',
                 top: '0',
                 left: '0'
-            })
-        },
-        smallScreen: () => {
-            $('#LAY_app_body').length === 0 && parent.$('#LAY_app_body').css({
-                zIndex: '',
-                width: '',
-                height: '',
-                position: '',
-                top: '',
-                left: ''
             });
+            $('html').addClass('layui-scrollbar-hide');
+            $('body').addClass('layui-scrollbar-hide');
+        },
+        restoreScreen: () => {
+            $('#LAY_app_body').length === 0 && parent.$('#LAY_app_body').removeAttr('style');
+            $('html').removeClass('layui-scrollbar-hide');
+            $('body').removeClass('layui-scrollbar-hide');
         },
         getSrc: (s) => {
             if (/^(?:\/file\/download\?filename=|https?:\/\/)/.test(s)) {
@@ -239,7 +236,7 @@ layui.define(['init'], function (exports) {
                 window.previewLoaded = true;
                 $(document).on('click', '.preview-close', function (e) {
                     insertPreviewList($('#preview-images').attr('src'));
-                    init.smallScreen();
+                    init.restoreScreen();
                     othis.loading && othis.loading.close();
                     $(".preview-images-mask").remove();
                     $('body').css('overflow', '');
@@ -261,7 +258,7 @@ layui.define(['init'], function (exports) {
                     othis.autoImagesSize();
                 });
                 $(document).on('click', '.preview-small', function () {
-                    init.smallScreen();
+                    init.restoreScreen();
                     $(this).hide().next().show();
                     $('.preview-images-mask').removeAttr('style');
                     othis.previewWidth = 750;
@@ -1362,33 +1359,62 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             }, options || {}));
         }
 
-
         // code 显示行号
-        code(elem, text, change) {
-            if (this.isFunction(text)) {
-                change = text;
-                text = undefined
-            }
-            let data = '', box = $(elem).html('<code><ol contenteditable=true></ol></code>').find('ol'),
+        code(options) {
+            options = $.extend({selector: null, text: '', handler: null, maxmin: false}, options || {});
+            let data = '',
+                dom = $('<code><ol contenteditable=true></ol><i class="layui-icon layui-icon-screen-full" data-type="full" title="最大化显示" style="display:none"></i></code>'),
+                editBox = dom.find('ol'), fixbar = dom.find('i.layui-icon'),
+                resize = (number) => {
+                    if (number.length > 2) {
+                        let space = 40 + (number.length - 2) * 8;
+                        editBox.css('cssText', 'background-image: linear-gradient(to right, black ' + (space - 2) + 'px, #3f3f3f 0);');
+                        dom.find('ol>li').css('cssText', 'margin-left:' + space + 'px !important;');
+                    }
+                },
                 append = (newText) => {
                     if (this.isString(newText)) {
-                        box.empty();
+                        editBox.empty();
                         data += newText;
-                        $.each(data.split('\n'), function () {
-                            box.append('<li>' + layui.util.escape(this) + '</li>');
+                        let lines = data.split('\n');
+                        $.each(lines, function () {
+                            editBox.append('<li>' + layui.util.escape(this) + '</li>');
                         });
-                        box.scrollTop(box[0].scrollHeight);
+                        editBox.scrollTop(editBox[0].scrollHeight);
+                        resize(lines.length.toString());
                     }
                 };
-            append(text);
+            append(options.text);
+            if (options.selector) {
+                $(options.selector).html(dom);
+            }
             const othis = this;
-            box.on('input', function () {
-                othis.isFunction(change) && change.call(this);
+            editBox.on('input', function () {
+                othis.isFunction(options.handler) && options.handler.call(this);
                 if ($(this).text() === '') {
                     $(this).html('<li></li>');
                 }
+                resize($(this).find('li').length.toString())
             });
-            return {append: append}
+            if (options.maxmin) {
+                fixbar.on('click', function () {
+                    let $this = $(this);
+                    if ($this.attr('data-type') === 'full') {
+                        init.fullScreen();
+                        $this.removeClass('layui-icon-screen-full').addClass('layui-icon-screen-restore');
+                        $this.attr({'data-type': 'restore', 'title': '恢复初始大小'});
+                        dom.attr('data-style', dom.attr('style'));
+                        dom.addClass('code-full').removeAttr('style');
+                    } else {
+                        init.restoreScreen();
+                        $this.removeClass('layui-icon-screen-restore').addClass('layui-icon-screen-full');
+                        $this.attr({'data-type': 'full', 'title': '最大化显示'});
+                        dom.removeClass('code-full').attr('style', dom.attr('data-style'));
+                    }
+                });
+                dom.hover(() => fixbar.show(), () => fixbar.hide());
+            }
+            return {dom: dom, append: append}
         }
 
         // tags
@@ -1522,7 +1548,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                     init.fullScreen();
                 },
                 end: function () {
-                    init.smallScreen();
+                    init.restoreScreen();
                 }
             });
         };
@@ -1600,26 +1626,18 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
         },
         textarea(selector) {
             $(selector || document).find('textarea[name]').each(function () {
-                let $this = $(this).hide(), rows = +$this.attr('rows') || 2, id = main.uuid(),
-                    data = $this.val().split('\n');
-                $this.before('<code><ol contenteditable=true id="' + id + '" style="height:' + (rows * 20) + 'px"></ol></code>');
-                let box = $('#' + id);
-                $.each(data, function () {
-                    box.append('<li>' + layui.util.escape(this) + '</li>');
-                });
-                if (data.length > 9999) {
-                    box.find('>li').css('cssText', 'margin-left: 60px !important');
-                }
-                box.on('input', function () {
-                    let val = [];
-                    $(this).find('li').each(function (i) {
-                        val[i] = $(this).text();
-                    });
-                    $this.val(val.join('\n'));
-                    if (val.length === 0) {
-                        $(this).html('<li></li>');
+                let $this = $(this).hide(), rows = +$this.attr('rows') || 2;
+                $this.before(main.code({
+                    text: $this.val(),
+                    maxmin: true,
+                    handler: function () {
+                        let val = [];
+                        $(this).find('li').each(function (i) {
+                            val[i] = $(this).text();
+                        });
+                        $this.val(val.join('\n'));
                     }
-                });
+                }).dom.css('height', (rows * 20) + 'px'));
             })
         }
     };
@@ -1635,7 +1653,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 area: ['75%', '75%'],
                 success: function (dom) {
                     let elem = dom.find('.layui-layer-content').css({'overflow': 'hidden'}),
-                        code = main.code(elem);
+                        code = main.code({selector: elem});
                     elem.before('<div class="layer-status"><strong style="color:red" title="false">未运行</strong></div>');
                     let statusElem = dom.find('.layer-status');
                     ws.onopen = function () {

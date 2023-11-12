@@ -743,7 +743,7 @@ layui.define(['form', 'trans', 'main'], function (exports) {
                         return false;
                     },
                     end: function () {
-                        layui.init.smallScreen();
+                        layui.init.restoreScreen();
                     }
                 })
             });
