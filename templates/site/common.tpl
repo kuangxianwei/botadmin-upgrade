@@ -544,13 +544,13 @@
 							<div class="layui-col-md6">
 								<label for="title_formats" class="layui-form-label" lay-tips="标签: ${tag} ${title} 一行一条">标题格式:</label>
 								<div class="layui-input-block">
-									<textarea name="title_formats" id="title_formats" rows="3" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
+									<textarea name="title_formats" id="title_formats" rows="2" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
 								</div>
 							</div>
 							<div class="layui-col-md5">
 								<label for="pic_dir" class="layui-form-label" lay-tips="百科模式所用到的随机词汇<br/>留空则使用资料库的随机词库">随机词汇:</label>
 								<div class="layui-input-block">
-									<textarea name="words" class="layui-textarea">{{join .obj.Words "\n"}}</textarea>
+									<textarea name="words" class="layui-textarea" rows="2">{{join .obj.Words "\n"}}</textarea>
 								</div>
 							</div>
 							<div class="layui-col-md1">

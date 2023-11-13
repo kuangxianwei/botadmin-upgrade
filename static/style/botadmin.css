@@ -188,6 +188,11 @@ input:valid + span::before{
 	width: 80px;
 	z-index: 29821027;
 }
+[contenteditable=true]:empty:before{
+	color: #646464;
+	content: attr(placeholder);
+	margin-left: 45px;
+}
 code{
 	background-color: black;
 	border-left: 6px #3f3f3f;
@@ -247,4 +252,5 @@ code > i.layui-icon:hover{
 	width: calc(100% - 20px) !important;
 	z-index: 2147483647;
 }
+
 
