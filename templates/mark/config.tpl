@@ -99,7 +99,7 @@
         ]], {
             add: function () {
                 main.popup({
-                    title: `添加推送配置 ${random1 - 8}`,
+                    title: `添加推送配置 $&#123;random1-8&#125`,
                     url: URL + '/add',
                     content: '<div class="layui-card layui-form" style="height: 98%">' +
                         '<textarea class="layui-textarea" name="urls" style="height: 100%" placeholder="https://www.chowan.edu/search/${keyword}${random}   备注">https://www.chowan.edu/search/${keyword}.${random}   备注</textarea>' +
