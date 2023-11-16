@@ -1361,14 +1361,21 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
 
         // code 显示行号
         code(options) {
-            options = $.extend({selector: null, text: '', handler: null, maxmin: false}, options || {});
-            let data = '',
-                dom = $('<code><ol contenteditable=true></ol><i class="layui-icon layui-icon-screen-full" data-type="full" title="最大化显示" style="display:none"></i></code>'),
-                editBox = dom.find('ol'), fixbar = dom.find('i.layui-icon'),
+            options = $.extend({
+                selector: null,
+                text: '',
+                handler: null,
+                maxmin: false,
+                variables: null
+            }, options || {});
+            let data = '';
+            const othis = this,
+                dom = $('<code><ol contenteditable=true></ol></code>'),
+                editBox = dom.find('ol'),
                 resize = (number) => {
                     if (number.length > 2) {
-                        let space = 40 + (number.length - 2) * 8;
-                        editBox.css('cssText', 'background-image: linear-gradient(to right, black ' + (space - 2) + 'px, #3f3f3f 0);');
+                        let space = 40 + (number.length - 2) * 7.8;
+                        editBox.css('cssText', 'background-image:linear-gradient(to right, black ' + (space - 2) + 'px, #3f3f3f 0);');
                         dom.find('ol>li').css('cssText', 'margin-left:' + space + 'px !important;');
                     }
                 },
@@ -1388,15 +1395,16 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
             if (options.selector) {
                 $(options.selector).html(dom);
             }
-            const othis = this;
             editBox.on('input', function () {
                 othis.isFunction(options.handler) && options.handler.call(this);
                 if ($(this).text() === '') {
                     $(this).html('<li></li>');
                 }
-                resize($(this).find('li').length.toString())
+                resize($(this).find('li').length.toString());
             });
+            let variable;
             if (options.maxmin) {
+                let fixbar = $('<i class="layui-icon layui-icon-screen-full" data-type="full" title="最大化显示" style="display:none"></i>');
                 fixbar.on('click', function () {
                     let $this = $(this);
                     if ($this.attr('data-type') === 'full') {
@@ -1405,6 +1413,7 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                         $this.attr({'data-type': 'restore', 'title': '恢复初始大小'});
                         dom.attr('data-style', dom.attr('style'));
                         dom.addClass('code-full').removeAttr('style');
+                        if (variable) variable.css({bottom: '100px'});
                     } else {
                         init.restoreScreen();
                         $this.removeClass('layui-icon-screen-restore').addClass('layui-icon-screen-full');
@@ -1412,7 +1421,68 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                         dom.removeClass('code-full').attr('style', dom.attr('data-style'));
                     }
                 });
-                dom.hover(() => fixbar.show(), () => fixbar.hide());
+                dom.append(fixbar);
+                dom.hover(() => fixbar.show(), () => fixbar && fixbar.hide());
+            }
+            if (options.variables) {
+                let selection, range;
+                variable = $('<ul class="variable" style="display:none"><li title="可拖动到任意位置">插入:</li></ul>');
+                $.each(options.variables, function () {
+                    let item = $('<li data-value="' + this.value + '">' + this.name + '</li>');
+                    if (this.clear) {
+                        item.attr('data-clear', this.clear);
+                    }
+                    variable.append(item);
+                });
+                dom.append(variable);
+                editBox.on('focus', () => {
+                    if (editBox.height() < 42) {
+                        variable.css('bottom', '-24px');
+                    }
+                    variable.show()
+                }).on('blur', () => {
+                    selection = window.getSelection();
+                    range = selection.getRangeAt(0);
+                    range.deleteContents();
+                });
+                variable.on('click', 'li', function () {
+                    let text = $(this).data('value');
+                    if (!text) return;
+                    if ($(this).data('clear')) {
+                        selection = null;
+                        range = null;
+                        data = '';
+                        append(text);
+                    } else {
+                        if (window.getSelection) {
+                            if (!selection) {
+                                layer.msg('请指定插入位置', {anim: 6});
+                                return;
+                            }
+                            if (selection.getRangeAt && selection.rangeCount) {
+                                let el = document.createElement('div'),
+                                    frag = document.createDocumentFragment(), node, lastNode;
+                                el.innerText = text;
+                                while ((node = el.firstChild)) {
+                                    lastNode = frag.appendChild(node);
+                                }
+                                range.insertNode(frag);
+                                if (lastNode) {
+                                    range = range.cloneRange();
+                                    range.setStartAfter(lastNode);
+                                    range.collapse(true);
+                                    selection.removeAllRanges();
+                                    selection.addRange(range);
+                                }
+                            }
+                        } else if (document.selection && document.selection.type !== "Control") {
+                            document.selection.createRange().pasteHTML(text);
+                        }
+                    }
+                    othis.isFunction(options.handler) && options.handler.call(editBox);
+                });
+                // 设置可拖拽
+                variable.draggable({opacity: 0.7});
             }
             return {dom: dom, append: append}
         }
@@ -1624,21 +1694,27 @@ layui.define(['init', 'form', 'slider', 'table', 'layer'], function (exports) {
                 $this.parent().after(elem);
             });
         },
-        textarea(selector) {
-            $(selector || document).find('textarea[name]').each(function () {
-                let $this = $(this).hide(), rows = +$this.attr('rows') || 2;
-                $this.before(main.code({
-                    text: $this.val(),
-                    maxmin: true,
-                    handler: function () {
-                        let val = [];
-                        $(this).find('li').each(function (i) {
-                            val[i] = $(this).text();
-                        });
-                        $this.val(val.join('\n'));
-                    }
-                }).dom.css('height', (rows * 20) + 'px'));
-            })
+        textarea(...selectors) {
+            if (selectors.length === 0) {
+                selectors.push('textarea[name]')
+            }
+            for (let i = 0; i < selectors.length; i++) {
+                $(selectors[i]).each(function () {
+                    let $this = $(this).hide(), rows = +$this.attr('rows') || 2;
+                    $this.before(main.code({
+                        text: $this.val(),
+                        maxmin: true,
+                        variables: $this.data('variables'),
+                        handler: function () {
+                            let val = [];
+                            $(this).find('li').each(function (i) {
+                                val[i] = $(this).text();
+                            });
+                            $this.val(val.join('\n'));
+                        },
+                    }).dom.css('height', (rows * 20) + 'px'));
+                });
+            }
         }
     };
     // websocket

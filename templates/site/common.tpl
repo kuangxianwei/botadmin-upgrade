@@ -316,8 +316,7 @@
 								<div class="layui-col-md6">
 									<label for="wap_enabled" class="layui-form-label">版权:</label>
 									<div class="layui-input-block">
-										<textarea name="copyright" class="layui-textarea"
-												  placeholder="©版权所有：站掌门 公安备案:xxxxxx号 网站ICP备案：xxxxxx号 未经授权禁止转载、摘编、复制或建立镜像，如有违发，追究法律责任！">{{.obj.Copyright}}</textarea>
+										<textarea name="copyright" data-variables='[{"name":"主页URL","value":"${hostname}"},{"name":"副标题","value":"${subtitle}"}]' class="layui-textarea" placeholder="©版权所有：站掌门 公安备案:xxxxxx号 网站ICP备案：xxxxxx号 未经授权禁止转载、摘编、复制或建立镜像，如有违发，追究法律责任！">{{.obj.Copyright}}</textarea>
 									</div>
 								</div>
 							</div>
@@ -544,7 +543,7 @@
 							<div class="layui-col-md6">
 								<label for="title_formats" class="layui-form-label" lay-tips="标签: ${tag} ${title} 一行一条">标题格式:</label>
 								<div class="layui-input-block">
-									<textarea name="title_formats" id="title_formats" rows="2" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
+									<textarea name="title_formats" data-variables='[{"name":"Tag","value":"${tag}"},{"name":"标题","value":"${title}"}]' id="title_formats" rows="2" class="layui-textarea">{{join .obj.TitleFormats "\n"}}</textarea>
 								</div>
 							</div>
 							<div class="layui-col-md5">
@@ -775,7 +774,7 @@
 						<div class="layui-col-md6">
 							<div class="layui-form-item">
 								<label for="scan_enabled" class="layui-form-label"
-									   lay-tips="内链列表 关键词=>URL 例如：试管婴儿=>http://www.botadmin.cn/">内链列表:</label>
+									   lay-tips="内链列表 关键词=>URL 例如：<br/>试管婴儿=>http://www.botadmin.cn/">内链列表:</label>
 								<div class="layui-input-block">
                             <textarea name="links" class="layui-textarea" rows="5"
 									  placeholder="试管婴儿=>http://www.nfivf.com/&#13;站掌门=>http://www.botadmin.cn/">{{.obj.Links}}</textarea>
@@ -785,7 +784,7 @@
 						<div class="layui-col-md6">
 							<div class="layui-form-item">
 								<label for="scan_enabled" class="layui-form-label"
-									   lay-tips="外链列表 关键词=>URL 例如：试管婴儿=>http://www.botadmin.cn/">外链列表:</label>
+									   lay-tips="外链列表 关键词=>URL 例如：<br/>试管婴儿=>http://www.botadmin.cn/">外链列表:</label>
 								<div class="layui-input-block">
                                     <textarea name="out_links" class="layui-textarea" rows="5"
 											  placeholder="试管婴儿=>http://www.nfivf.com/&#13;站掌门=>http://www.botadmin.cn/">{{.obj.OutLinks}}</textarea>

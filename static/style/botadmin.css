@@ -252,5 +252,21 @@ code > i.layui-icon:hover{
 	width: calc(100% - 20px) !important;
 	z-index: 2147483647;
 }
-
+code > ul.variable{
+	bottom: 2px;
+	font-size: 12px;
+	left: 45px;
+	position: absolute !important;
+	z-index: 2147483647;
+}
+code > ul.variable > li:first-of-type{
+	color: coral;
+	cursor: all-scroll;
+}
+code > ul.variable > li{
+	color: #02fa98;
+	cursor: pointer;
+	float: left;
+	padding: 3px;
+}
 

@@ -589,6 +589,5 @@
             active && active[event].call($this);
         });
         $('.insert-var').html($('#insert-var').html());
-
     });
 </script>

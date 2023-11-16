@@ -253,7 +253,7 @@
 						<td>{{.obj.SysDate}}</td>
 					</tr>
 					<tr>
-						<td>服务器IP：</td>
+						<td id="insert">服务器IP：</td>
 						<td>
 							<textarea name="address" class="layui-textarea" rows="5">{{join .obj.Ips "\n"}}</textarea>
 						</td>
@@ -414,7 +414,7 @@
                 main.request({data: {action: 'clear_spec', value: specElem.val()}})
             }
         });
-        main.render.textarea();
+        main.render.textarea('[name=address]');
     });
 </script>
 

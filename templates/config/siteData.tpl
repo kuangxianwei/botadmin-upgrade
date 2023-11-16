@@ -15,22 +15,7 @@
 			<div class="layui-tab-content">
 				<div class="layui-tab-item layui-show">
 					<div class="layui-form-item">
-						<div>
-							<textarea class="layui-textarea" name="titles" rows="15">{{join .obj.Titles "\n"}}</textarea>
-						</div>
-						<div class="insert-var">
-							<label class="layui-form-label">插入标签:</label>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${city}">城市名称
-							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${province}">省名称
-							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${keyword}">关键词
-							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${domain}">域名</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${tag}">Tag</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${subtitle}">副标题
-							</button>
-						</div>
+						<textarea class="layui-textarea" data-variables='[{"name":"城市名称","value":"${city}"},{"name":"省名称","value":"${province}"},{"name":"关键词","value":"${keyword}"},{"name":"域名","value":"${domain}"},{"name":"Tag","value":"${tag}"},{"name":"副标题","value":"${subtitle}"}]' name="titles" rows="15">{{join .obj.Titles "\n"}}</textarea>
 					</div>
 					<div class="layui-collapse">
 						<div class="layui-colla-item">
@@ -53,18 +38,7 @@
 				</div>
 				<div class="layui-tab-item">
 					<div class="layui-form-item">
-						<textarea class="layui-textarea" name="subtitles" rows="15">{{join .obj.Subtitles "\n"}}</textarea>
-						<label class="layui-form-label">插入标签:</label>
-						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${city}">城市名称
-							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${province}">省名称
-							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${keyword}">关键词
-							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${domain}">域名</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${tag}">Tag</button>
-						</div>
+						<textarea class="layui-textarea" data-variables='[{"name":"城市名称","value":"${city}"},{"name":"省名称","value":"${province}"},{"name":"关键词","value":"${keyword}"},{"name":"域名","value":"${domain}"},{"name":"Tag","value":"${tag}"}]' name="subtitles" rows="15">{{join .obj.Subtitles "\n"}}</textarea>
 					</div>
 					<div class="layui-collapse">
 						<div class="layui-colla-item">
@@ -87,8 +61,7 @@
 				</div>
 				<div class="layui-tab-item">
 					<div class="layui-form-item">
-                        <textarea class="layui-textarea" name="keywords"
-								  rows="15">{{join .obj.Keywords "\n"}}</textarea>
+						<textarea class="layui-textarea" name="keywords" rows="15">{{join .obj.Keywords "\n"}}</textarea>
 					</div>
 					<blockquote class="layui-elem-quote">
 						一行一条
@@ -96,19 +69,7 @@
 				</div>
 				<div class="layui-tab-item">
 					<div class="layui-form-item">
-						<textarea class="layui-textarea" name="descriptions" rows="15">{{join .obj.Descriptions "\n"}}</textarea>
-						<label class="layui-form-label">插入标签:</label>
-						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${city}">城市名称
-							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${province}">省名称
-							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="title">标题</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${keyword}">关键词
-							</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${domain}">域名</button>
-							<button class="layui-btn layui-btn-sm layui-btn-radius" data-write="${tag}">Tag</button>
-						</div>
+						<textarea class="layui-textarea" data-variables='[{"name":"城市名称","value":"${city}"},{"name":"省名称","value":"${province}"},{"name":"关键词","value":"${keyword}"},{"name":"域名","value":"${domain}"},{"name":"Tag","value":"${tag}"},{"name":"副标题","value":"${subtitle}"}]' name="descriptions" rows="15">{{join .obj.Descriptions "\n"}}</textarea>
 					</div>
 					<div class="layui-collapse">
 						<div class="layui-colla-item">
@@ -147,8 +108,7 @@
 						<textarea class="layui-textarea" name="ips" rows="15">{{join .obj.Ips "\n"}}</textarea>
 					</div>
 					<blockquote class="layui-elem-quote">
-						自定义IP<br/>
-						一行一条
+						自定义IP<br/>一行一条
 					</blockquote>
 				</div>
 				<div class="layui-tab-item">
@@ -205,7 +165,7 @@
         let main = layui.main,
             form = layui.form,
             transfer = layui.transfer;
-        // main.render.textarea();
+        main.render.textarea();
         //显示搜索框
         transfer.render({
             id: 'cityData',
